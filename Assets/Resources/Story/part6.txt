@@ -1,0 +1,651 @@
+//////////////////////
+// INITIALIZE SCENE //
+//////////////////////
+
+SET_SCENE_TYPE TRIAL
+
+CHARACTER_INITIALIZE Arin arin MALE
+CHARACTER_INITIALIZE Dan dan MALE
+CHARACTER_INITIALIZE "Judge Brent" judge MALE
+CHARACTER_INITIALIZE "Tutorial Boy" tutorialboy MALE
+CHARACTER_INITIALIZE Ross ross MALE
+
+
+CHARACTER_LOCATION Arin COURT_DEFENSE
+CHARACTER_LOCATION Dan COURT_ASSISTANT
+CHARACTER_LOCATION "Judge Brent" COURT_JUDGE
+CHARACTER_LOCATION "Tutorial Boy" COURT_PROSECUTION
+CHARACTER_LOCATION Ross COURT_WITNESS
+
+PROFILE_INITIALIZE arin Arin 34 "Half of the Game Grumps Duo. Definitely the same height as Dan." profiles/Arin.png
+COURT_RECORD_ADD PROFILE arin
+PROFILE_INITIALIZE dan Dan 41 "The other half of Game Grumps. Known aliases: 'Danny Sexbang', 'Mr. Business.'" profiles/Dan.png
+COURT_RECORD_ADD PROFILE dan
+PROFILE_INITIALIZE jory Jory "Maybe 30?" "Game Developer for Dream Daddy. Previous job: P.P.I.S.S machine." profiles/Jory.png
+COURT_RECORD_ADD PROFILE jory
+PROFILE_INITIALIZE judge "Judge Brent" "Maybe 30?" "Manages the Grumps business. Also a Judge in the totally real Attitude City." profiles/JudgeBrent.png
+COURT_RECORD_ADD PROFILE judge
+PROFILE_INITIALIZE tutorialboy "Tutorial Boy" 33 "The first prosecutor. Has an extremely predictable name." profiles/TutorialBoy.png
+COURT_RECORD_ADD PROFILE tutorialboy
+PROFILE_INITIALIZE ross Ross 33 "Animator and self-described sadist. Also really loves milk for some reason." profiles/Ross.png
+COURT_RECORD_ADD PROFILE ross
+
+EVIDENCE_INITIALIZE Badge "Attorney's Badge" "My prized possession." sprites/Attorney'sBadge.png
+COURT_RECORD_ADD EVIDENCE Badge "Attorney's Badge"
+EVIDENCE_INITIALIZE Switch "Switch" "A borrowed switch. It has a sticker of some kind of slime-girl on it." sprites/Switch.png
+COURT_RECORD_ADD EVIDENCE Switch
+EVIDENCE_INITIALIZE PlumberInvoice "Plumber Invoice" "The invoice from the plumber for repairing the toilets in the north end of the building, dated '2:30PM' today." sprites/PlumberInvoice.png
+COURT_RECORD_ADD EVIDENCE PlumberInvoice "Plumber Invoice"
+EVIDENCE_INITIALIZE JorySr'sLetter "Jory Sr's Letter" "Letter from the real Jory Sr." sprites/JorySr'sLetter.png
+COURT_RECORD_ADD EVIDENCE JorySr'sLetter "Jory Sr's Letter"
+EVIDENCE_INITIALIZE LivestreamRecording "Livestream Recording" "A record of major events during the livestream on the day of the crime." sprites/LivestreamRecording.png
+COURT_RECORD_ADD EVIDENCE LivestreamRecording
+EVIDENCE_INITIALIZE Jory'sBackpack "Jory's Backpack" "The backpack that Jory keeps his Good Boy coins in. Seems unusually full of...something." evidence/Jory'sBackpack.png
+COURT_RECORD_ADD EVIDENCE Jory'sBackpack
+EVIDENCE_INITIALIZE StolenDinos "Stolen Dinos" "The classic 10 Minute Power Hour dinos. They have a mysterious white stain covering them." sprites/StolenDinos.png
+COURT_RECORD_ADD EVIDENCE StolenDinos
+EVIDENCE_INITIALIZE BentCoins "Bent Coins" "Jory's Good Boy Coins. They're scuffed and bent out of shape." sprites/BentCoins.png
+COURT_RECORD_ADD EVIDENCE BentCoins
+
+DEFINE TRIAL_FAIL
+    JUMPCUT BLACK_SCREEN
+    SPEAK "Judge Brent"
+        "The defense loses."
+END_DEFINE
+
+HIDE_TEXT
+
+//////////////////
+// START SCRIPT //
+//////////////////
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Surprised
+SPEAK_FROM COURT_JUDGE
+    "Something... off?"
+
+JUMPCUT COURT_PROSECUTION
+SFX damage1
+ANIMATION "Tutorial Boy" HeadSlam
+POSE "Tutorial Boy" Angry
+SPEAK "Tutorial Boy"
+    "It's covered in JIZZ, right? Hah hah, very funny. We've heard that joke a million times!
+SPEAK "Tutorial Boy"
+    "That's no reason to interrupt the verdict."
+
+JUMPCUT COURT_WITNESS
+POSE Ross MadMilk
+SPEAK Ross
+    "Y-Yeah..! What does that have to do with anything!?"
+
+JUMPCUT COURT_ASSISTANT
+POSE Dan SideObjection
+SPEAK Dan
+    "It has EVERYTHING to do with this!"
+
+SPEAK Arin
+    "What are you talking about, Dan?"
+
+POSE Dan SideNormalTurned
+SPEAK Dan
+    "Roll with me, Arin, I got this one."
+
+SET_SYNC TRUE
+ANIMATION Dan SideObjectionIntro
+POSE Dan SideObjection
+SPEAK Dan
+    "What I mean is this!"
+
+
+
+POSE Dan CloseUp
+SFX objectionclean
+PLAY_MUSIC NSPTHEME
+SPEAK Dan
+    "I don't think that's jizz AT ALL!"
+
+SFX stab
+JUMPCUT COURT_WITNESS
+ANIMATION Ross DamageNoHelm
+POSE Ross MadMilk
+SPEAK_FROM COURT_WITNESS
+    "Huh?!"
+SFX stab
+JUMPCUT COURT_PROSECUTION
+POSE "Tutorial Boy" Sweaty
+SPEAK "Tutorial Boy"
+    "Not... jizz?"
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Surprised
+SPEAK "Judge Brent"
+    "If it's not jizz, then what is it? And what does that have to do with this case?"
+
+POSE Dan SideLean 
+SPEAK_FROM COURT_ASSISTANT
+    "I think I know what it is, and if I can have those dinosaurs..."
+
+SET_SYNC TRUE
+ANIMATION Dan SideObjectionIntro
+POSE Dan SideObjection
+SPEAK Dan
+    "I think I can prove Jory's innocence!"
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Thinking
+THINK Arin
+    "(Wait... I think I know what Dan's getting at.)"
+
+SCREENSHAKE
+SFX deskslam
+ANIMATION Arin DeskSlam
+POSE Arin Point
+SPEAK Arin
+    "Your Honor! I request for Dan..."
+
+//////////////
+//CHOICE////
+//////////
+DEFINE Taste
+    SPEAK Arin
+        "be allowed to taste those dinosaurs..."
+    POSE Arin Confident
+    SPEAK Arin
+        "...so we can find out what's really covering them!"
+
+    JUMPCUT COURT_WITNESS
+    SFX stab2
+    SCREEN_SHAKE
+    POSE Ross Glaring
+    SPEAK Ross
+        "EW, SICK!"
+
+    JUMPCUT COURT_PROSECUTION
+    POSE "Tutorial Boy" Sweaty
+    SPEAK "Tutorial Boy"
+        "You can't be serious."
+
+    JUMPCUT COURT_DEFENSE
+    POSE Arin DeskSlam
+    SPEAK Arin
+        "I'm deadly serious!"
+
+END_DEFINE
+
+DEFINE Smell
+    SPEAK Arin
+        "be allowed to smell those stain-covered dinosaurs..."
+    POSE Arin Confident
+    SPEAK Arin
+        "...so we can find out what's really covering them!"
+    
+    SFX stab
+    JUMPCUT COURT_WITNESS
+    ANIMATION Ross DamageNoHelm
+    POSE Ross NoHelm
+    SPEAK Ross
+        "Ack!"
+
+    SHOUT "Tutorial Boy" Objection
+
+    JUMPCUT COURT_PROSECUTION
+    SFX damage1
+    ANIMATION "Tutorial Boy" HeadSlam
+    POSE "Tutorial Boy" Angry
+    SPEAK "Tutorial Boy"
+        "That is an absurd request! I object to this!"
+    SPEAK "Tutorial Boy"
+        "No trivial stain is going to change the outcome of this trial!"
+
+    SPEAK "Tutorial Boy"
+        "You fools probably got it covered in some paint or something and you don't remember."
+
+    JUMPCUT COURT_DEFENSE
+    POSE Arin Point
+    SPEAK Arin
+        "Then let's find out for sure!"
+
+END_DEFINE
+
+DEFINE Rub
+  SPEAK Arin
+     "be allowed to rub the dinos all over his beautiful nude body!"
+
+  POSE "Judge Brent" Angry
+  SPEAK_FROM COURT_JUDGE
+     "..."
+
+  POSE Dan Angry
+  SPEAK_FROM COURT_ASSISTANT
+    "Arin! That's not at all what I want with those things. Why did you say that?
+
+  POSE Arin Embarassed
+  SPEAK_FROM COURT_DEFENSE
+    "Oh, oops. Wishful thinking, I guess."
+
+  POSE Arin Point
+  SPEAK Arin
+    "What I mean to say is, Your Honor..."
+END_DEFINE
+
+CHOICE
+    "Taste them." Taste 1
+    "Smell them." Smell 1
+    "Rub them on his nipples." Rub 0
+END_CHOICE
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Thinking
+SPEAK "Judge Brent"
+    "I'm not sure what to think of this... request."
+
+JUMPCUT COURT_DEFENSE
+POSE Arin DeskSlam
+THINK Arin
+    "(Come on, Brent...)"
+
+
+SHOUT "Tutorial Boy" Objection
+JUMPCUT COURT_PROSECUTION
+POSE "Tutorial Boy" Sweaty
+SPEAK "Tutorial Boy"
+    "Your Honor, please think about this. This is a trivial matter!"
+SPEAK "Tutorial Boy"
+    "These... 'stains' have no relation to anything relevant. The defense is stalling!"
+
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Thinking
+SPEAK "Judge Brent"
+    "..."
+POSE "Judge Brent" Normal
+SPEAK "Judge Brent"
+    "The prosecution has a point."
+POSE "Judge Brent" Normal
+SPEAK "Judge Brent"
+    "Defense, can you prove the importance of these stains?"
+
+JUMPCUT COURT_ASSISTANT
+POSE Dan SideLean
+SPEAK Dan
+    "Arin, I think we can."
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Sweaty
+SPEAK Arin
+    "Uh, yeah!"
+POSE Arin Normal
+SPEAK Arin
+    "Yeah, we can prove it. With..."
+
+
+PRESENT EVIDENCE Jory'sBackpack
+
+
+SHOUT Arin takethat
+
+SHOW Jory'sBackpack r
+STOP_MUSIC
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Surprised
+SPEAK_FROM COURT_JUDGE
+    "The... backpack?"
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Point
+SPEAK Arin
+    "Your Honor, take a closer look at it."
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Normal
+SPEAK "Judge Brent"
+    "Okay, but this better be relevant."
+POSE "Judge Brent" Thinking
+SPEAK "Judge Brent"
+    "..."
+WAIT 2
+
+PLAY_MUSIC OBJECTION_DEFENSE_STARLIGHT_BRIGADE
+SFX lightbulb
+POSE "Judge Brent" Surprised
+SPEAK "Judge Brent"
+    "There's a stain here too!"
+
+STOP_SHOWING
+
+SPEAK_FROM COURT_ASSISTANT
+    "Exactly. On one item, a stain may be trivial..."
+
+POSE Arin Confident
+SPEAK_FROM COURT_DEFENSE
+    "But similar stains on two pieces of evidence? That seems relevant to the case."
+
+SHOUT "Tutorial Boy" Objection
+
+JUMPCUT COURT_PROSECUTION
+POSE "Tutorial Boy" Sweaty
+SPEAK "Tutorial Boy"
+    "No! I don't... I... it's..."
+
+JUMPCUT COURT_JUDGE
+
+ANIMATION "Judge Brent" HeadShake
+
+POSE "Judge Brent" Angry
+SPEAK "Judge Brent"
+    "The prosecution will refrain from objecting without purpose."
+
+JUMPCUT COURT_PROSECUTION
+SFX damage1
+ANIMATION "Tutorial Boy" HeadSlam
+POSE "Tutorial Boy" Sweaty
+SPEAK "Tutorial Boy"
+    "I... apologize, Your Honor."
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Normal
+SPEAK "Judge Brent"
+    "The defense has proven its point. Mr. Avidan will be permitted to conduct his, erm, 'test'."
+
+JUMPCUT COURT_DEFENSE
+POSE Arin DeskSlam
+THINK Arin
+    "(Okay, now we're getting somewhere. It's all on you Dan...)"
+
+SET_SYNC TRUE
+SFX slurp
+JUMPCUT COURT_ASSISTANT
+POSE Dan SideLean
+SPEAK Dan
+    "..."
+
+
+WAIT 2
+
+SFX lightbulb
+
+JUMPCUT COURT_ASSISTANT
+SFX stab
+POSE Dan Fist
+SPEAK Dan
+    "I KNEW IT!"
+
+HIDE_TEXT
+JUMPCUT COURT_DEFENSE
+SFX shock2
+ANIMATION Arin Shock
+WAIT 2
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Surprised
+SFX shock2
+WAIT 2
+
+JUMPCUT COURT_WITNESS
+POSE Ross MadMilk
+SFX shock2
+WAIT 2
+
+JUMPCUT COURT_PROSECUTION
+SFX shock2
+POSE "Tutorial Boy" Sweaty
+
+WAIT 1
+JUMPCUT COURT_ASSISTANT
+POSE Dan SideObjection
+SPEAK Dan
+    "The white stain on those dinos... It's still fresh, and it's not what you think it is!"
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Surprised
+SPEAK "Judge Brent"
+    "Then, what exactly is covering the dinosaurs if it's not dick milk?"
+
+JUMPCUT COURT_ASSISTANT
+POSE Dan SideObjection
+SPEAK Dan
+    "Gross."
+SPEAK Dan
+    "But funny you should say that!"
+
+SPEAK Dan
+    "It's actually just regular milk! Whole milk, to be exact!"
+
+JUMPCUT COURT_WITNESS
+SFX stab
+ANIMATION Ross DamageNoHelm
+POSE Ross MadMilk
+SPEAK Ross
+    "OH NO!"
+
+JUMPCUT COURT_PROSECUTION
+POSE "Tutorial Boy" Sweaty
+SPEAK "Tutorial Boy"
+    "You can't be serious! How does that prove anything?"
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Thinking
+THINK Arin
+    "(Yeah, how does that prove anything?)"
+
+WAIT 1
+
+SFX realization
+
+ANIMATION Arin Shock
+POSE Arin Shock
+WAIT 1
+
+SFX deskslam
+SCREEN_SHAKE
+ANIMATION Arin DeskSlam
+POSE Arin DeskSlam
+SPEAK Arin
+    "It proves everything, actually! Not only does this clear our client's name..."
+
+POSE Arin Point
+SPEAK Arin
+    "It also proves that Ross was the real culprit!"
+
+SCREEN_SHAKE
+JUMPCUT COURT_PROSECUTION
+SFX stab
+SPEAK "Tutorial Boy"
+    "No way!"
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Confident
+SPEAK Arin
+    "Yes way, and I can back it up!"
+
+POSE Arin Normal
+SPEAK Arin
+    "See... what you don't know, Mister Tutorial dude--"
+
+SPEAK_FROM COURT_PROSECUTION
+    "It's Tutorial BOY, thank you very much!"
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Annoyed
+SPEAK Arin
+    "..."
+
+WAIT 2
+
+POSE Arin Normal
+SPEAK Arin
+    "What you don't know is that Jory is deathly allergic to milk and dairy products!"
+SPEAK Arin
+    "He wouldn't have gotten near these dinos if they had milk stains on them when he left the stream."
+
+POSE Arin Confident
+SPEAK Arin
+    "There is one person, however, who is obsessed with dairy products, here in this courtroom!"
+
+CLOSEUP Arin
+POSE Arin Point
+SPEAK Arin
+    "Ross!!!"
+
+JUMPCUT COURT_WITNESS
+SFX stab2
+ANIMATION Ross DamageNoHelm
+POSE Ross MadMilk
+SPEAK Ross
+    "OOF!"
+
+WIDESHOT
+
+GAVEL3
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Angry
+SPEAK "Judge Brent"
+    "Order Order ORDER, I say! ORDER!!!"
+
+POSE "Judge Brent" Thinking
+SPEAK "Judge Brent"
+    "... ahem..."
+POSE "Judge Brent" Normal
+SPEAK "Judge Brent"
+    "I sense that you have some kind of idea of what really happened, Arin?"
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Confident
+SPEAK Arin
+    "You bet I do, Your Honor!"
+
+
+
+POSE Arin Normal
+SPEAK Arin
+    "When Jory left to put his backpack in the 10 Minute Power Hour studio, he passed by Ross' office."
+
+//BIGIMAGE PROLOGUE1
+SPEAK Arin
+    "Ross, who noticed Jory walk by, decided he would take him down a peg, and set him up to be framed."
+//BIGIMAGE PROLOGUE 2
+SPEAK Arin
+    "Right after Jory left, Ross snuck into the room and stashed the dinos in Jory's backpack."
+SPEAK Arin
+    "He was obviously jealous of all the positive recognition Jory had gotten."
+SPEAK Arin
+    "In his rush, he clearly spilt milk he always seems to have over the dinos as he was hiding them."
+
+
+
+
+SPEAK Arin
+    "It's clear from the evidence, Your Honor, that Jory could not have possibly stolen the dinos!"
+
+SHOUT "Tutorial Boy" Objection
+
+JUMPCUT COURT_PROSECUTION
+SPEAK "Tutorial Boy"
+    "N-No! That can't be true!"
+
+SFX damage1
+ANIMATION "Tutorial Boy" HeadSlam
+
+POSE "Tutorial Boy" Sweaty //POINTING
+SPEAK "Tutorial Boy"
+    "You must be lying! It's way too convenient for Jory to be allergic to milk!"
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Confident
+SPEAK Arin
+    "As if! I have proof of his condition RIGHT HERE!"
+
+PRESENT EVIDENCE JorySr'sLetter
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Surprised
+SPEAK "Judge Brent"
+    "A... letter?"
+
+JUMPCUT COURT_DEFENSE
+SPEAK Arin
+    "Absolutely!"
+
+POSE Arin Point
+SPEAK Arin
+    "It's a letter from Jory's father, and take a look at the very end!"
+
+JUMPCUT COURT_JUDGE
+ANIMATION "Judge Brent" Nodding
+POSE "Judge Brent" Thinking
+WAIT 1
+
+SFX realization
+POSE "Judge Brent" Surprised
+SPEAK "Judge Brent"
+    "It's as the defense says! %1Deathly allergic to milk!%0"
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Normal
+SPEAK Arin
+    "And since Dan has proven that the stains are in fact milk, that makes it impossible for Jory to go near them!"
+
+SFX deskslam
+ANIMATION Arin DeskSlam
+POSE Arin DeskSlam
+SPEAK Arin
+    "No one else likes milk like Ross does, and that makes him our real culprit!"
+
+STOP_MUSIC
+JUMPCUT COURT_WITNESS
+POSE Ross NoHelm
+SFX stab
+SCREEN_SHAKE
+STX stab
+ANIMATION Ross RossBreakdown
+SFX wham
+SCREEN_SHAKE
+POSE Ross Floor
+WAIT 1
+FADE_TO_BLACK
+POSE "Judge Brent" Normal
+JUMPCUT COURT_JUDGE
+
+FADE_IN 1 COURT_JUDGE
+PLAY_MUSIC SIMPLEPLOT
+SPEAK "Judge Brent"
+    "Well, that certainly was quite the turnaround there."
+SPEAK "Judge Brent"
+    "I've presided over quite a few cases in my day, but I've never seen a case resolved quite like that!"
+
+JUMPCUT COURT_ASSISTANT
+POSE Dan SideLean
+SPEAK Dan
+    "All in a day's work for Danny Sexbang!"
+
+SFX airguitar
+ANIMATION Dan AirGuitar
+POSE Dan SideNormal
+
+JUMPCUT COURT_JUDGE
+SPEAK "Judge Brent"
+"Yes... Well done, Mr. Avidan."
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Sweaty
+SPEAK Arin
+    "Hey, I did a lot too!"
+
+JUMPCUT COURT_JUDGE
+SPEAK "Judge Brent"
+"But with that, I think we can safely say justice is served today."
+
+POSE "Judge Brent" Warning
+SPEAK "Judge Brent"
+"Therefore, I find the defendant, Jory Griffis..."
+
+VERDICT NotGuilty
+
+SFX gallerycheer
+WIDESHOT
+
+FADE_TO_BLACK
+//CONFETTI
+
+END_SCENE

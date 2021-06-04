@@ -1,0 +1,112 @@
+//////////////////////
+// INITIALIZE SCENE //
+//////////////////////
+
+//SET_SCENE_TYPE TRIAL
+
+//////////////////
+// START SCRIPT //
+//////////////////
+
+PLAY_MUSIC(aBoyAndHisTrial)
+FADE_IN_BACKGROUND(courtWitness,1)
+FADE_IN_CHARACTER(Ross,Normal,1) WAIT(1)
+
+JUMPCUT(courtDefense)
+PLAY_SFX(dramaPound)
+SET_CHARACTER_EMOTION(Arin,Shocked_Ani,newActive) WAIT(0.75)
+SET_CHARACTER_EMOTION(Arin,Sweaty)
+Arin "Ross?!{w 0.25} They roped you into this as well?"
+
+JUMPCUT(courtWitness)
+Ross "Yeah.{w 0.25}.{w 0.25}.{w 0.25} It looked important,{w 0.1} you know?{w 0.25} Plus,{w 0.1} I could use the extra money."
+
+SET_CHARACTER_EMOTION(Judge_Brent,Surprised)
+PLAY_SFX(lightbulb)
+JUMPCUT(courtJudge)
+Judge Brent "Mr. O'Donovan,{w 0.1} being a witness isn't a paying job.{w 0.25}.{w 0.25}."
+
+JUMPCUT(courtProsecution)
+Tutorial Boy "Not that anyone here is getting paid anyway.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Ross,SweatyHelmet)
+JUMPCUT(courtWitness)
+Ross "I-{w 0.1}I see.{w 0.25}.{w 0.25}."
+
+JUMPCUT(courtProsecution)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Confident)
+Tutorial Boy "Except if you count being paid in JUSTICE!"
+PLAY_SFX(damage1)
+SET_CHARACTER_EMOTION(Tutorial_Boy,HeadSlam_Ani,newActive) WAIT(0.75)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+Tutorial Boy "Ahem.{w 0.25}.{w 0.25}.{w 0.25} Witness, please state your name and occupation for the court."
+
+SET_CHARACTER_EMOTION(Ross,Normal)
+JUMPCUT(courtWitness)
+Ross "[TEXTSPEED 6,1]<size=12>...Kangaroo court if I ever saw one.{w 0.25}.{w 0.25}.</size>" 
+
+JUMPCUT(courtJudge)
+Judge Brent "[TEXTSPEED 4,1]What was that?"
+
+SET_CHARACTER_EMOTION(Ross,SweatyHelmet)
+JUMPCUT(courtWitness)
+Ross "Nothing,{w 0.1} Your Honor!"
+SET_CHARACTER_EMOTION(Ross,Normal)
+"I am Ross O'Donovan:{w 0.1} local animator,{w 0.1} Mario Maker enthusiast,{w 0.1} apparent sadist,{w 0.1} and <color=red>friend to all here!</color>"
+
+SET_CHARACTER_EMOTION(Dan,Fist)
+JUMPCUT(courtAssistant)
+Dan "Some friend.{w 0.25}.{w 0.25}.{w 0.25} testifying against Jory,{w 0.1} treating him like a criminal.{w 0.25}.{w 0.25}."
+
+Arin(hidden) "What do you mean?{w 0.25} Even WE{w 0.1} don't know if Jory is innocent!"
+SET_CHARACTER_EMOTION(Dan,SideNormal)
+Dan "Arin,{w 0.1} have you learned nothing from the Penix Wright(tm) playthrough?"
+
+Arin(hidden) "That a gavel,{w 0.1} lubed properly,{w 0.1} has many uses?"
+
+SCREEN_SHAKE(0.2)
+SET_CHARACTER_EMOTION(Dan,Fist)
+PLAY_SFX(smack)
+Dan "[TEXTSPEED 2,1]No!"
+
+SET_CHARACTER_EMOTION(Dan,SideLaughing)
+"[TEXTSPEED 4,1]Well,{w 0.1} I mean yeah.{w 0.25}.{w 0.25}.{w 0.25} The “gay-liff” in that game sure was creative."
+
+SET_CHARACTER_EMOTION(Dan,SideNormal)
+"But more importantly,{w 0.1} you should go into every case with confidence that your client is innocent."
+"We don't know if he's guilty,{w 0.1} but if his own attorney doesn't believe him,{w 0.1} why should the rest of the court?"
+
+JUMPCUT(courtDefense)
+PLAY_SFX(deskSlam)
+SCREEN_SHAKE(0.2)
+SET_CHARACTER_EMOTION(Arin,DeskSlam_Ani,newActive) WAIT(0.5)
+SET_CHARACTER_EMOTION(Arin,DeskSlam)
+Arin "You're right!{w 0.25} We're here to defend our friend,{w 0.1} so we should at least assume we're making the right call."
+
+JUMPCUT(courtAssistant)
+Dan "Also,{w 0.1} knowing how these things go,{w 0.1} the defendant is always innocent.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Dan,SideLean)
+Dan "[TEXTSPEED 6,1]...Usually, anyway."
+
+SET_CHARACTER_EMOTION(Judge_Brent,Warning)
+JUMPCUT(courtJudge)
+Judge Brent "[TEXTSPEED 4,1]If the defense is done sucking each other's toes,{w 0.1} may we begin with Mr. O'Donovan's testimony?"
+
+SET_CHARACTER_EMOTION(Arin,Sweaty)
+JUMPCUT(courtDefense)
+Arin(thinking) "<color=lightblue>(Why does he act like he doesn't know anyone here?)</color>"
+
+SET_CHARACTER_EMOTION(Arin,Nodding_Ani) WAIT(0.533)
+SET_CHARACTER_EMOTION(Arin,Normal)
+Arin "We're ready,{w 0.1} Your Honor."
+
+SET_CHARACTER_EMOTION(Judge_Brent,Normal)
+JUMPCUT(courtJudge)
+Judge Brent "Alright.{w 0.25} The witness may begin his testimony."
+
+FADE_TO_BLACK(2)
+FADE_OUT_CHARACTER(2)
+FADE_MUSIC(2) WAIT(3)
+
+//END_SCENE

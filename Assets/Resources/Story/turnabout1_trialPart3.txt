@@ -1,0 +1,527 @@
+//////////////////////
+// INITIALIZE SCENE //
+//////////////////////
+
+//SET_SCENE_TYPE TRIAL
+
+//////////////////
+// START SCRIPT //
+//////////////////
+
+FADE_IN_BACKGROUND(courtWitness,1)
+FADE_IN_CHARACTER(Ross,Normal,1) WAIT(1)
+
+TESTIMONY_START() WAIT(1.666)
+Anon "<align=center><color=green>-- Witness' Account --</color></align>"
+
+PLAY_MUSIC(fyiIWannaXYourExaminationModerato)
+Ross "<color=green>I was animating by myself over in my room at the office.</color>"
+"<color=green>But then... I saw someone taking the dinos!!</color>"
+"<color=green>It was Jory! He was on the 10 Minute Power Hour set taking the dinos!</color>"
+"<color=green>Now that I know they were stolen, that means the culprit must be Jory!</color>"
+
+TESTIMONY_END()
+FADE_TO_BLACK(1)
+FADE_OUT_CHARACTER(1)
+FADE_MUSIC(1) WAIT(1)
+
+FADE_IN_BACKGROUND(courtJudge,1)
+FADE_IN_CHARACTER(Judge_Brent,Thinking,1) WAIT(1)
+
+PLAY_MUSIC(aBoyAndHisTrial)
+Judge Brent "Hm..."
+
+SET_CHARACTER_EMOTION(Judge_Brent,Normal)
+"A remarkably solid testimony here. Great witness, Mr. Boy."
+
+JUMPCUT(courtProsecution)
+Tutorial Boy "Of course, Your Honor. You can only expect the BEST from me."
+
+SET_CHARACTER_EMOTION(Arin,DeskSlam)
+JUMPCUT(courtDefense)
+Arin "Dude, that testimony was incredible! Stupendous! AMAZING!"
+
+SET_CHARACTER_EMOTION(Dan,Fist)
+JUMPCUT(courtAssistant)
+Dan "Alright, already! You can stop jerking him off now, I get it."
+
+Arin(hidden) "<size=12>There's absolutely no way we can get Jory off now.</size>"
+
+SET_CHARACTER_EMOTION(Dan,SideNormal)
+Dan "Phrasing, Arin."
+"But we have to try don't we? I mean, no matter how bulletproof that testimony may seem, we have to take the shot, right?"
+
+Arin(hidden) "You're right, Dan. But what the heck should I do next?"
+
+Dan "I don't know, dude. Just look for things in his testimony that don't add up."
+"He totally has to have messed up in there somewhere!"
+"I'm sure if we keep <color=red>asking questions</color>, we'll get some information out of him."
+
+JUMPCUT(courtDefense)
+PLAY_SFX(deskSlam)
+SET_CHARACTER_EMOTION(Arin,DeskSlam_Ani,newActive) WAIT(0.5)
+SET_CHARACTER_EMOTION(Arin,DeskSlam)
+Arin "Alright, let's do it then."
+
+JUMPCUT(courtJudge)
+Judge Brent "Is the defense ready for the CROSS-EXAMINATION?"
+
+SET_CHARACTER_EMOTION(Arin,Normal)
+JUMPCUT(courtDefense)
+Arin "Yes, Your Honor."
+
+JUMPCUT(courtJudge)
+Judge Brent "Good. Then you may begin."
+
+///////////////////////
+// Cross Examination //
+///////////////////////
+
+DEFINE CrossExamFail
+    JUMPCUT BLACK_SCREEN
+    SPEAK "Judge Brent"
+        "The defense loses."
+END_DEFINE
+
+DEFINE PressA1
+    SHOUT Arin HoldIt
+    PAN COURT_WITNESS COURT_DEFENSE
+    POSE Arin Point
+    POSE Arin Normal
+    SPEAK_FROM COURT_DEFENSE
+        "What were you animating?"
+
+    SHOUT "Tutorial Boy" Objection
+    SPEAK_FROM COURT_PROSECUTION
+        "Your Honor, this is clearly irrelevant to the case."
+    POSE "Judge Brent" Warning
+    SPEAK_FROM COURT_JUDGE
+        "I agree. Arin, try being serious about this."
+
+    SPEAK_FROM COURT_PROSECUTION
+        "Ross, continue your testimony."
+
+    JUMPCUT COURT_WITNESS
+END_DEFINE
+
+DEFINE PressA2
+    SHOUT Arin HoldIt
+    PAN COURT_WITNESS COURT_DEFENSE
+    POSE Arin Point
+    POSE Arin Normal
+    SPEAK_FROM COURT_DEFENSE
+        "Who did you see?"
+
+    SPEAK_FROM COURT_WITNESS
+        "I'm getting to it, just be patient. I'm trying to build suspense for the viewers!"
+    POSE Arin Sweaty
+    SPEAK_FROM COURT_DEFENSE
+        "But this isn't being broadcasted..."
+    POSE "Tutorial Boy" Sweaty
+    SPEAK_FROM COURT_PROSECUTION
+        "Quick! Back to the testimony before we break the fourth wall again!"
+
+    JUMPCUT COURT_JUDGE
+    ANIMATION "Judge Brent" Nodding
+    SPEAK_FROM COURT_JUDGE
+        "Witness, carry on."
+
+    JUMPCUT COURT_WITNESS
+END_DEFINE
+
+DEFINE PressA3
+    STOP_MUSIC
+    SHOUT Arin HoldIt
+    PAN COURT_WITNESS COURT_DEFENSE
+    POSE Arin Point
+    POSE Arin Normal
+    SPEAK_FROM COURT_DEFENSE
+        "You said you saw Jory in the 10 Minute Power Hour room, correct?"
+
+    SPEAK_FROM COURT_WITNESS
+        "Yes, that's correct!"
+
+    JUMPCUT COURT_DEFENSE
+    POSE Arin Thinking
+    SPEAK_FROM COURT_DEFENSE
+        "Yet you also say you were in your office animating."
+
+    PLAY_MUSIC DRAGONOBJECTION
+    SET_SYNC TRUE
+    ANIMATION Arin Objection
+    POSE Arin Point
+    SPEAK Arin
+        "Seems very odd to me! How could you see anyone while you were focused on your work!"
+
+    SHOUT "Tutorial Boy" Objection
+    PAN COURT_DEFENSE COURT_PROSECUTION
+    POSE "Tutorial Boy" Sweaty
+    SPEAK_FROM COURT_PROSECUTION
+        "Are you saying that my witness is a liar?"
+    SPEAK "Tutorial Boy"
+        "I'm sure Ross has a very reasonable explanation for all this."
+
+    POSE Dan SideNormal
+    SPEAK_FROM COURT_ASSISTANT
+        "He oughta have a real good reason for this."
+
+    POSE Ross SweatyHelm
+    SPEAK_FROM COURT_WITNESS
+        "T-That's right! The reason I was able to see Jory was... because I needed to poop!"
+    SPEAK Ross
+        "Yeah!"
+    STOP_MUSIC
+    POSE Arin Annoyed
+    SPEAK_FROM COURT_DEFENSE
+        "Um... excuse me?"
+
+    POSE Dan SideLaugh
+    SPEAK_FROM COURT_ASSISTANT
+        "Hah hah hah hah!!!"
+
+    POSE Arin Annoyed
+    THINK_FROM COURT_DEFENSE
+        "(Goddamnit, Ross.)"
+    SPEAK Arin
+        "What does you needing to poop have to do with seeing Jory?
+
+    SPEAK_FROM COURT_WITNESS
+        "W-Well, you see, I had to go out to use the bathroom, which is how I saw Jory!"
+
+    SPEAK_FROM COURT_DEFENSE
+        "Uh-huh..."
+
+    POSE Arin Normal
+    SPEAK Arin
+        "Your Honor, I believe this needs to be added to the witness's testimony."
+
+    SPEAK_FROM COURT_JUDGE
+        "Agreed. Witness, add your poop story to your testimony."
+
+    SPEAK_FROM COURT_WITNESS
+        "Uh... Yes, why of course, Your Honor. Let me go over it again."
+
+    POSE Dan SideLean
+    SPEAK_FROM COURT_ASSISTANT
+        "Way to go, Big Cat! Let's see how this changes things."
+
+STOP_MUSIC
+FADE_TO_BLACK
+//FADEMUSIC OUT
+POSE Ross Normal
+FADE_IN 1 COURT_WITNESS
+PLAY_MUSIC CROSSEXAMMODERATO
+
+
+END_DEFINE
+
+DEFINE PressA4
+    SHOUT Arin HoldIt
+    POSE Arin Point
+    PAN COURT_WITNESS COURT_DEFENSE
+    POSE Arin Normal
+    SPEAK_FROM COURT_DEFENSE
+        "What makes you so sure that the dinos were stolen, anyways!?"
+    POSE Ross SweatyHelm
+    SPEAK_FROM COURT_WITNESS
+        "..."
+    POSE "Judge Brent" Thinking
+    SPEAK_FROM COURT_JUDGE
+        "..."
+    POSE Dan Angry
+    SPEAK_FROM COURT_ASSISTANT
+        "Arin, that's literally the reason we're all here."
+
+    POSE Arin Sweaty
+    SPEAK_FROM COURT_DEFENSE
+        "..."
+    POSE "Judge Brent" Normal
+    SPEAK_FROM COURT_JUDGE
+        "I'll just pretend that didn't happen."
+    POSE Ross Normal
+    JUMPCUT COURT_WITNESS
+END_DEFINE
+
+
+FADE_TO_BLACK
+
+POSE Ross Normal
+FADE_IN 1 COURT_WITNESS
+PLAY_MUSIC CROSSEXAMMODERATO
+
+WITNESS_EVENT CrossExamination Ross "-- Witness' Account --"
+    "I was animating by myself over in my room at the office." PressA1 0
+    "But then... I saw someone taking the dinos!!" PressA2 0
+    "It was Jory! He was on the 10 Minute Power Hour set taking the dinos!" PressA3 1
+    "Now that I know they were stolen, that means the culprit must be Jory!" PressA4 0
+
+
+///////////////////////
+// Revised Testimony //
+///////////////////////
+
+DEFINE PressB1
+    SHOUT Arin HoldIt
+    PAN COURT_WITNESS COURT_DEFENSE
+    POSE Arin Point
+    SPEAK_FROM COURT_DEFENSE
+        "So you saw Jory while you were busy animating?"
+
+    POSE Ross Normal
+    SPEAK_FROM COURT_WITNESS
+        "Well, I saw someone move past my office door out of the corner of my eye."
+    SPEAK_FROM COURT_WITNESS
+        "It was only after I got up and left my office that I realized it was Jory."
+    SPEAK_FROM COURT_PROSECUTION
+        "Please tell the court the reason you had to get up and leave your office."
+    JUMPCUT COURT_WITNESS
+END_DEFINE
+
+DEFINE PressB2
+    SHOUT Arin HoldIt
+    PAN COURT_WITNESS COURT_DEFENSE
+    POSE Arin Point
+    SPEAK_FROM COURT_DEFENSE
+        "You 'suddenly' had to poop? Seems a little convenient, don't you think?"
+    POSE Ross GlaringHelm
+    SPEAK_FROM COURT_WITNESS
+        "You're one to talk! YOU have to suddenly poop all the time!"
+
+    SPEAK_FROM COURT_ASSISTANT
+        "He's got you there, bro."
+
+    SPEAK_FROM COURT_JUDGE
+        "You have quite a reputation with 'making bears', Arin. I think you should let this one go."
+
+    POSE Arin Sweaty
+    SPEAK_FROM COURT_DEFENSE
+        "Uh... right..."
+
+    JUMPCUT COURT_WITNESS
+    POSE Ross Normal
+END_DEFINE
+
+
+DEFINE PressB3
+    SHOUT Arin HoldIt
+    PAN COURT_WITNESS COURT_DEFENSE
+    POSE Arin Point
+    SPEAK_FROM COURT_DEFENSE
+        "What were you doing by the office toilet, Ross?"
+
+    POSE Ross Normal
+    SPEAK_FROM COURT_WITNESS
+        "Well obviously I'd just finished taking a massive dump. Because that's the reason the toilet is there."
+
+    POSE Arin Embarassed
+    SPEAK_FROM COURT_DEFENSE
+        "Hahah... of course. Stupid question, I guess.
+
+    SPEAK Dan
+        "Hold on, Arin."
+
+    POSE Arin Thinking
+        "What's up, Dan?"
+
+    JUMPCUT COURT_ASSISTANT
+
+    SPEAK Dan
+        "Something about that doesn't seem right, but... I dunno..."
+
+    SPEAK Dan
+        "Maybe we should look at the %1evidence%0, see if there's something about this?"
+
+    JUMPCUT COURT_WITNESS
+END_DEFINE
+
+DEFINE PressB4
+
+    SHOUT Arin HoldIt
+    PAN COURT_WITNESS COURT_DEFENSE
+    POSE Arin Point
+    SPEAK_FROM COURT_DEFENSE
+        "You didn't think pooping was important enough to mention?"
+
+    POSE Ross GlaringHelm
+    SPEAK_FROM COURT_WITNESS
+        "No, of course not! Not everyone has memorable bathroom trips like you, Arin."
+
+    POSE Arin Sweaty
+    SPEAK_FROM COURT_DEFENSE
+        "Yeah, my shits are pretty legendary. Point taken."
+
+    JUMPCUT COURT_WITNESS
+    POSE Ross Normal
+END_DEFINE
+
+WITNESS_EVENT CrossExamination Ross "-- Witness' Account --" CrossExamFail
+    "So, I saw Jory walk by my office." PressB1 0
+    "But I suddenly had to use the bathroom right away!" PressB2 0
+    "I ran to use the nearby bathroom. On my way back, I saw Jory stashing the dinos away." PressB3 PlumberInvoice
+    "I didn't think anything of it, that's why I forgot to mention it earlier!" PressB4 0
+
+/////////////////////////
+// Found Contradiction //
+/////////////////////////
+
+SHOUT Arin Objection
+STOP_MUSIC
+POSE Arin Point
+SPEAK_FROM COURT_DEFENSE
+    "Not so fast, Jafar! I-I mean, Ross!"
+SPEAK Arin
+    "Are you absolutely certain that you had just used the office toilet?"
+
+POSE Ross Normal
+SPEAK_FROM COURT_WITNESS
+    "Of course I am."
+
+JUMPCUT COURT_DEFENSE
+POSE Arin PaperSlap
+SHOW PlumberInvoice r
+SPEAK_FROM COURT_DEFENSE
+    "Then why does this plumbing invoice state very clearly...
+PLAY_MUSIC DRAGONOBJECTION
+SPEAK Arin
+    "..that the toilets were undergoing maintenance at that time?"
+
+STOP_SHOWING
+
+JUMPCUT COURT_WITNESS
+SFX stab
+ANIMATION Ross Damage
+POSE Ross SweatyHelm
+SPEAK Ross
+    "W-What's that now?"
+
+JUMPCUT COURT_DEFENSE
+POSE Arin Point
+SPEAK Arin
+    "I have an invoice from the plumbers who were working on that bathroom earlier today!"
+POSE Arin PaperSlap
+SPEAK Arin
+    "They had just finished working on that very bathroom when we found out about Jory being accused."
+
+SFX deskslam
+ANIMATION Arin DeskSlam
+POSE Arin DeskSlam
+SPEAK Arin
+    "That means you couldn't have possibly been using that bathroom. And you couldn't have seen Jory!"
+
+WIDESHOT
+JUMPCUT BLACK_SCREEN
+GAVEL
+
+POSE "Judge Brent" Warning
+SPEAK_FROM COURT_JUDGE
+    "Order in the court!"
+SPEAK "Judge Brent"
+    "Witness, what do you have to say about this?"
+
+POSE Ross SweatyHelm
+SPEAK_FROM COURT_WITNESS
+    "Uh, I.. er..."
+
+
+SPEAK_FROM COURT_WITNESS
+    "Well, you see... the thing is..."
+
+SHOUT "Tutorial Boy" Objection
+
+STOP_MUSIC
+JUMPCUT COURT_PROSECUTION
+SFX damage1
+ANIMATION "Tutorial Boy" HeadSlam
+POSE "Tutorial Boy" Normal
+SPEAK "Tutorial Boy"
+    "I think it's time to reveal the truth, Ross."
+
+JUMPCUT COURT_JUDGE
+POSE "Judge Brent" Surprised
+SPEAK "Judge Brent"
+    "What's that you say?"
+
+POSE Dan Fist
+SPEAK_FROM COURT_ASSISTANT
+    "Oh, I do not like where this is going."
+
+SPEAK_FROM COURT_WITNESS
+    "The... truth?"
+
+PLAY_MUSIC GGJJROSS
+
+JUMPCUT COURT_PROSECUTION
+SPEAK "Tutorial Boy"
+    "Remember? You told me all about it, how you wanted to keep it a surprise?"
+SPEAK "Tutorial Boy"
+    "The Mario Maker level you were working on? I think you need to come clean!"
+
+SPEAK_FROM COURT_WITNESS
+    "..."
+
+SFX realization
+
+SPEAK_FROM COURT_WITNESS
+    "!"
+
+POSE Ross SweatyHelm
+SPEAK_FROM COURT_WITNESS
+    "I... guess you're right! Guess I can't hide it any longer."
+
+JUMPCUT COURT_DEFENSE
+POSE Arin DeskSlam
+SPEAK Arin
+    "What the hey are you even talking about?"
+POSE Ross Normal
+SPEAK_FROM COURT_WITNESS
+    "Well... the truth is, I wasn't animating anything at all."
+SPEAK Ross
+    "I was actually working on a secret level for you guys."
+
+JUMPCUT COURT_DEFENSE
+SFX stab
+POSE Arin Sweaty
+SPEAK Arin
+    "What...?"
+
+POSE Ross SadHelm
+SPEAK_FROM COURT_WITNESS
+    "I know, I shouldn't have lied about it, but I wanted it to be a surprise!"
+
+
+SPEAK_FROM COURT_JUDGE
+    "This changes things quite a bit, you know."
+POSE "Judge Brent" Normal
+SPEAK "Judge Brent"
+    "Tutorial Boy, I think we need to redo your witness' testimony again in light of this new information."
+
+JUMPCUT COURT_PROSECUTION
+SPEAK "Tutorial Boy"
+    "Yes, of course, Your Honor."
+
+JUMPCUT COURT_DEFENSE
+SFX stab
+ANIMATION Arin Shock
+POSE Arin Sweaty
+SPEAK Arin
+    "What? Again?
+
+SPEAK_FROM COURT_JUDGE
+    "I know it's unprofessional, but Ross tends to have good intentions."
+SPEAK_FROM COURT_JUDGE
+    "Therefore, I'm willing to give him another chance. Besides, how could I say no to that face?"
+
+JUMPCUT COURT_WITNESS
+POSE Ross SadHelm
+SPEAK Ross
+    "*whimper*."
+
+
+THINK_FROM COURT_DEFENSE
+    "(Lord spare me this crap.)"
+
+SPEAK_FROM COURT_JUDGE
+    "This time, Ross, I need the honest truth from you. You may begin your testimony."
+
+FADE_TO_BLACK
+END_SCENE

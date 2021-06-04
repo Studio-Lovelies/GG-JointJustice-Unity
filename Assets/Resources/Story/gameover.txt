@@ -1,0 +1,32 @@
+//////////////////////
+// INITIALIZE SCENE //
+//////////////////////
+
+SET_SCENE_TYPE TRIAL
+
+CHARACTER_INITIALIZE "Judge Brent" judge MALE
+CHARACTER_INITIALIZE Dan dan MALE
+
+CHARACTER_LOCATION "Judge Brent" COURT_JUDGE
+CHARACTER_LOCATION Dan COURT_ASSISTANT
+
+HIDE_TEXT
+
+//////////////////
+//  TRIAL FAIL  //
+//////////////////
+
+JUMPCUT COURT_ASSISTANT
+SPEAK Dan
+    "Bruh, wtf was that Arin?"
+SPEAK_FROM COURT_JUDGE
+    "Regarding the lack of evidence in the favor of the accused, Mr. Jory Griffis, I must find him..."
+
+VERDICT Guilty
+
+FADE_TO_BLACK
+JUMPCUT BLACK_SCREEN
+SPEAK "Judge Brent"
+    "The defense loses."
+
+END_SCENE

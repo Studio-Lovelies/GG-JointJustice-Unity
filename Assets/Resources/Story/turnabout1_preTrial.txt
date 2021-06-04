@@ -1,0 +1,359 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// INITIALIZE SCENE
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//SET_SCENE_TYPE INVESTIGATION
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// START SCRIPT
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+SET_COURT_RECORD(Arin,Dan,Attorney'sBadge)
+JUMPCUT(blackScreen)
+
+Ross(hidden) "[TEXTSPEED 8,1]After all the work I put into those  levels.{w 0.25}.{w 0.25}."
+
+FADE_IN_BACKGROUND(ross10MPHRoom,1) WAIT(1)
+MOVE_BACKGROUND(0,-768,4) WAIT(1)
+
+"...We'll see who the real good boy is now,{w 0.25} won't we,{w 0.25} Jory?"
+
+FADE_TO_BLACK(1) WAIT(1)
+MOVE_BACKGROUND(0,768,0)
+//FADE_IN 1 CourtPan
+//FADE_IN 1 ROSS_WITH_DINOS
+
+"Finally.{w 0.25}.{w 0.25}."
+
+//SET_SYNC TRUE
+//PANIMAGE 0 0 -250 0
+
+"Hehe,{w 0.25} now THIS is a galaxy-brain move right here!"
+
+//FADE_TO_BLACK
+//SFX ROSSLAUGH
+
+WAIT(2)
+
+//CAMERA 0 0
+
+PLAY_MUSIC(turnaboutGrumpsters)
+Arin(hidden) "[TEXTSPEED 6,1](It started out just like every time after our livestream.)"
+"(We had just finished a session playing Penix Wright: Facial Attorney(tm).)"
+"(Dan and I were discussing some very important matters.{w 0.25}.{w 0.25}.{w 0.25})"
+
+FADE_IN_BACKGROUND(lobby,0.5)
+
+FADE_IN_CHARACTER(Dan,Normal,0.5) WAIT(0.5)
+
+Dan "[TEXTSPEED 4,1]So that's when I said,{w 0.1} “that's not mayonnaise!”"
+// later use these quotation marks!!! -------------------------------------------------------------------------------------------------------------------------------------------------------
+"And everyone immediately and violently threw up."
+"It was one hell of a graduation party,{w 0.1} dude."
+
+Arin(hidden) "What.{w 0.25}#Are you talking about,{w 0.1} Dan?"
+
+Dan "Weren't you listening?{w 0.25} I was telling you a very important story about how I graduated from Ninja Party School."
+
+Arin(hidden) "Ninja Party School?{w 0.25}#The infamous NPS?"
+
+SET_CHARACTER_EMOTION(Dan,Angry)
+Dan "Dude!{w 0.25}#You're the one who asked me about it!"
+SET_CHARACTER_EMOTION(Dan,Normal)
+"You said it had something to do with the 10 Minute Power Hour we were doing today."
+
+PLAY_SFX(realization)
+Arin(hidden) "Oh yeah,{w 0.1} that's right,{w 0.1} I remember now!"
+"Do you know what we're doing for the Power Hour today?"
+
+SCREEN_SHAKE(0.2)
+PLAY_SFX(stab)
+SET_CHARACTER_EMOTION(Dan,Angry)
+Dan "[TEXTSPEED 2,1]NO,{w 0.1} goddamnit,{w 0.1} I'm asking you!"
+"You asked me about my graduation party and said it had something to do with today's episode."
+
+SET_CHARACTER_EMOTION(Dan,Lean)
+Dan "[TEXTSPEED 4,1]Now, what the heck is going on here?{w 0.25} You okay,{w 0.1} dude?{w 0.25}#Your memory is worse than usual today."
+
+Arin(hidden) "[TEXTSPEED 8,1]Ooooooooooooooooh m'bad?{w 0.25}[TEXTSPEED 4,1]#Hah,{w 0.1} I guess I got distracted."
+
+SET_CHARACTER_EMOTION(Dan,Normal)
+Dan "By what?"
+Arin(hidden) "Well,{w 0.1} I got the invoice for the bathrooms today."
+"The plumbers just finished fixing the toilets in the north end of the building,{w 0.1} and that got me thinking.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Dan,Hair)
+Dan "You mean you asked me to tell you all about one of the longest nights of my life,{w 0.1} just to get distracted by that?"
+Arin(hidden) "Well,{w 0.1}[TEXTSPEED 6,1] you know how much I like poopin'!"
+
+SET_CHARACTER_EMOTION(Dan,SideLaughing)
+Dan "[TEXTSPEED 4,1]Yeah,{w 0.1} yeah,{w 0.1} you do like poopin'."
+
+PLAY_SFX(evidenceDing)
+ADD_TO_COURT_RECORD(PlumberInvoice)
+SHOW_EVIDENCE_LEFT(PlumberInvoice)
+Anon "[TEXTSPEED 6,1]<align=center><color=green>Plumber Invoice has been added to the Court Record.</color></align>"
+PLAY_SFX(evidenceShoop)
+REMOVE_EVIDENCE_LEFT() WAIT(0.1)
+
+SET_CHARACTER_EMOTION(Dan,Normal)
+PLAY_SFX(realization)
+Dan "So, what ARE we doing for the Power Hour?" 
+Arin(hidden) "[TEXTSPEED 4,1]Well,{w 0.1} remember the dunking pool the second night of your graduation party?"
+Dan "You mean the whipped cream dunking machine I almost drowned in?"
+
+PLAY_SFX(lightbulb)
+SET_CHARACTER_EMOTION(Dan,Surprised)
+Dan "[TEXTSPEED 8,1]You don't mean...?"
+Arin(hidden) "[TEXTSPEED 4,1]Yeah,{w 0.1} dude!{w 0.25} We're going to give people a glimpse into what it means to be a Ninja Sex Party Dude(tm)!"
+Dan "[TEXTSPEED 2,1]You gotta be butt-fuckin' me dude,{w 0.1} really?"
+Arin(hidden) "[TEXTSPEED 6,1]Well,{w 0.1} if I gotta be doin' it,{w 0.1} Dan.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Dan,Happy)
+Dan "[TEXTSPEED 2,1]This is no time for hilarious jokes,{w 0.1} Arin,{w 0.1} we have some tanks to set up!"
+
+Arin(hidden) "[TEXTSPEED 4,1]Hell yeah,{w 0.1} dude.{w 0.25} Let me just grab the <color=red>backup switch</color> we borrowed so we can put it back where Jory got it."
+
+PLAY_SFX(evidenceding)
+ADD_TO_COURT_RECORD(NintendoSwitch)
+SHOW_EVIDENCE_LEFT(NintendoSwitch)
+Anon "[TEXTSPEED 6,1]<align=center><color=green>The Nintendo Switch has been added to the Court Record.</color></align>"
+PLAY_SFX(evidenceShoop)
+REMOVE_EVIDENCE_LEFT() WAIT(0.1)
+
+SET_CHARACTER_EMOTION(Dan,Normal)
+Dan "[TEXTSPEED 4,1]Good thinking.{w 0.25} Let's get going then!"
+
+STOP_MUSIC()
+
+PLAY_SFX(doorOpens)
+??? "[TEXTSPEED 6,1]Actually,{w 0.1} guys,{w 0.1} we've got a problem.{w 0.25}.{w 0.25}."
+Arin(hidden) "[TEXTSPEED 8,1]Huh?{w 0.25}#Jory?"
+
+ADD_TO_COURT_RECORD(Jory)
+
+PLAY_MUSIC(prelude6969)
+FADE_IN_CHARACTER(Jory,Sweaty,2) WAIT(2)
+SET_CHARACTER_EMOTION(Jory,Nervous)
+Jory "[TEXTSPEED 4,1]Apparently,{w 0.1} the dinos were missing when we started to set up for the episode."
+"We've spent the last ten minutes looking for them."
+
+Arin(hidden) "Well,{w 0.1} that's not very long.{w 0.25} They can't have gone far."
+Jory "That's the thing.{w 0.25}.{w 0.25}.{w 0.25} we already found them."
+
+SET_CHARACTER_EMOTION(Jory,Sweaty)
+Arin(hidden) "So then what's the problem?"
+
+SET_CHARACTER_EMOTION(Jory,Nervous)
+Jory "The problem is.{w 0.25}.{w 0.25}.{w 0.25}#apparently they were found in <color=red>MY backpack</color>."
+SET_CHARACTER_EMOTION(Jory,Sweaty)
+
+SCREEN_SHAKE(0.2)
+PLAY_SFX(damage1)
+SET_CHARACTER_EMOTION(Dan,Shocked_Ani,newActive) WAIT(1)
+Dan "[TEXTSPEED 2,1]What?"
+
+SET_CHARACTER_EMOTION(Jory,Sweaty)
+
+Arin(hidden) "[TEXTSPEED 4,1]Did you take them?"
+    
+SCREEN_SHAKE(0.2)
+PLAY_SFX(damage1)
+SET_CHARACTER_EMOTION(Dan,Angry)
+Dan "[TEXTSPEED 2,1]ARIN!"
+Arin(hidden) "[TEXTSPEED 4,1]What?{w 0.25} It's a legitimate question!"
+Dan "[TEXTSPEED 2,1]Obviously he didn't do it,{w 0.1} look at his face!{w 0.25} Is that the face of someone who is guilty?"
+
+SET_CHARACTER_EMOTION(Jory,ThumbsUp,newActive)
+Arin(hidden) "[TEXTSPEED 6,1].{w 0.25}.{w 0.25}."
+
+WAIT(1)
+"Yes.{w 0.25}.{w 0.25}.{w 0.25}?"
+
+PLAY_SFX(stab)
+Dan "[TEXTSPEED 4,1]No!{w 0.25} Why would he come to us then if he's guilty?{w 0.25}#Tell us what happened, Jory."
+
+SET_CHARACTER_EMOTION(Jory,Nervous)
+Jory "I wish I could,{w 0.1} but everyone wants to hold a trial for this,{w 0.1} and it's starting in just a few minutes!"
+"Everyone is calling for my <color=red>Good Boy Coins</color> to be revoked,{w 0.1} even after all the work I put into getting them."
+"And I've got nobody in my corner!"
+
+SET_CHARACTER_EMOTION(Jory,Sweaty)
+Arin(hidden) "That sucks,{w 0.1} dude."
+
+SET_CHARACTER_EMOTION(Dan,Normal)
+Dan "Arin,{w 0.1} don't you get it?"
+Arin(hidden) "Get what?"
+Dan "He wants US to defend him in this trial!#Right, Jory?"
+
+SET_CHARACTER_EMOTION(Jory,ThumbsUp,newActive)
+SCREEN_SHAKE(0.2)
+PLAY_SFX(damage1)
+Arin(hidden) "[TEXTSPEED 8,1]Whaaaat?!"
+
+WAIT(1)
+SET_CHARACTER_EMOTION(Jory,Normal)
+Jory "[TEXTSPEED 4,1]Well,{w 0.1} I guess so."
+"I didn't really know what to do,{w 0.1} and you guys know I'd never do anything like that."
+
+Arin(hidden) "[TEXTSPEED 6,1]I'm not really sure about all this.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Dan,Angry)
+Dan "[TEXTSPEED 4,1]ARIN!"
+
+SET_CHARACTER_EMOTION(Dan,Normal)
+"C'mon bro,{w 0.1} be a bro and bro this one out for our bro.{w 0.25}.{w 0.25}.{w 0.25} Brory."
+
+SET_CHARACTER_EMOTION(Jory,Nervous)
+Arin(hidden) "I'm sorry,{w 0.1} Jory,{w 0.1} but we don't know anything about criminal defense!"
+"[TEXTSPEED 2,1]We're just idiots who play games while saying stupid things for money on the internet.{w 0.25} How are we supposed to help?"
+
+Jory "[TEXTSPEED 4,1]Yeah.{w 0.25}.{w 0.25}.{w 0.25} I don't know,{w 0.1} I didn't really have a plan or anything."
+"The whole thing has just thrown me for a loop and I'm kind of grasping here.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Dan,Sad)
+Dan "Sorry dude,{w 0.1} but Arin's right.{w 0.25}#We'd probably just screw it up."
+"We're not lawyers."
+
+SET_CHARACTER_EMOTION(Dan,Normal)
+Dan "The closest thing we've been to being lawyers is playing that Penix Wright(tm)#game."
+"[TEXTSPEED 2,1]And that's just a stupid game that totally exists and isn't changed for copyright purposes!"
+
+Arin(hidden) "[TEXTSPEED 4,1]Sorry Jory,{w 0.1} but if we were real lawyers,{w 0.1} we would help out."
+
+Jory "Yeah,{w 0.1} I understand guys."
+
+PLAY_SFX(pageTurn) WAIT(1)
+
+PLAY_SFX(realization)
+SET_CHARACTER_EMOTION(Jory,Normal)
+Jory "Hey... someone just slipped a letter under the door."
+Arin(hidden) "A letter? Who's it from?"
+SET_CHARACTER_EMOTION(Jory,Thinking)
+Jory "[TEXTSPEED 6,1]It's from.{w 0.25}.{w 0.25}.{w 0.25}#My dad?"
+
+PLAY_SFX(realization)
+SET_CHARACTER_EMOTION(Dan,Surprised)
+Dan "[TEXTSPEED 4,1]From <color=red>Jory Sr</color>?{w 0.25} Why doesn't he just#text.{w 0.25}.{w 0.25}."
+Arin(hidden) "Open it up, what does it say?"
+
+PLAY_SFX(pageTurn)
+Jory ".{w 0.25}.{w 0.25}.{w 0.25}#It's from my dad alright,{w 0.1} but it's addressed to you two!"
+
+PLAY_SFX(realization)
+Arin(hidden) "Us?{w 0.25} Like.{w 0.25}.{w 0.25}.{w 0.25} Dan and I?"
+
+SET_CHARACTER_EMOTION(Dan,Hair)
+Dan "I thought we made that bit up for our episodes."
+
+Jory "Well,{w 0.1} judging from the handwriting and the little hearts dotting the I's.{w 0.25}.{w 0.25}."
+"It's definitely from my dad."
+Arin(hidden) "[TEXTSPEED 2,1]Let me see that!"
+
+SET_CHARACTER_EMOTION(Jory,Normal)
+PLAY_SFX(pageTurn)
+Arin(hidden) "[TEXTSPEED 4,1].{w 0.25}.{w 0.25}.{w 0.25}#Wow, he's right!{w 0.25} We should hold on to this,{w 0.1} I think it might be important later.{w 0.25}.{w 0.25}."
+
+PLAY_SFX(evidenceding)
+ADD_TO_COURT_RECORD(JorySr'sLetter)
+SHOW_EVIDENCE_LEFT(JorySr'sLetter)
+Anon "[TEXTSPEED 6,1]<align=center><color=green>Jory Sr's Letter has been added to the Court Record.</color></align>"
+PLAY_SFX(evidenceShoop)
+REMOVE_EVIDENCE_LEFT() WAIT(0.1)
+
+SET_CHARACTER_EMOTION(Dan,Normal)
+Dan "[TEXTSPEED 4,1]So?{w 0.25} What does it say?"
+Arin(hidden) "*ahem*"
+"[TEXTSPEED 6,1]<color=green>“Hello Grumps,{w 0.1} first of all I want to thank you for all the hard work you've done taking care of Jory Jr.”</color>"
+
+SET_CHARACTER_EMOTION(Dan,Surprised)
+Dan "[TEXTSPEED 4,1]You've gotta be kidding me."
+Arin(hidden) "[TEXTSPEED 6,1]<color=green>“I've heard what happened to my son with the dinosaurs.”</color>"
+Dan "[TEXTSPEED 4,1]Wha-{w 0.25} How?{w 0.25} Didn't this happen like,{w 0.1} 10 minutes ago?"
+Arin(hidden) "Don't think about it too hard,{w 0.1} Dan.{w 0.25} Anyways.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Dan,Normal)
+Arin(hidden) "[TEXTSPEED 6,1]<color=green>“While I know it looks bad,{w 0.1} I know my son is a good boy who only does good things.”</color>"
+"<color=green>“I know you know that too.{w 0.25}#So please,{w 0.1} defend him in court.”</color>"
+"<color=green>“Show the world he is innocent of such a heinous and despicable crime and find out who the real culprit is.”</color>"
+
+"<color=green>“P.S. Remember,{w 0.1} the second most important thing to winning this case is love and trust!”</color>"
+
+Dan "[TEXTSPEED 4,1]Wow, that was beautiful."
+
+Arin(hidden) "[TEXTSPEED 6,1]<color=green>“And the most important thing is payment!”</color>"
+"<color=green>“I have something for you if you win!”</color>"
+
+SET_CHARACTER_EMOTION(Dan,Surprised)
+Dan "Wow.{w 0.25}.{w 0.25}.{w 0.25} that was.{w 0.25}.{w 0.25}.{w 0.25} beautiful?"
+Arin(hidden) "[TEXTSPEED 4,1]Wait,{w 0.1} there's one more thing."
+
+"[TEXTSPEED 6,1]<color=green>“P.P.S. I hope you two have been continuing to provide my boy with wholesome food as well.”</color>"
+"<color=green>“And I hope you've been avoiding giving him </color><color=red>milk</color><color=green> as he's </color><color=red>deathly allergic</color><color=green> to it.”</color>"
+
+Arin(hidden) "[TEXTSPEED 4,1]Well that was oddly specific."
+"[TEXTSPEED 6,1]<color=green>“P.P.P.S. don't tell Jory this,{w 0.1} but I hope he can be on your show again soon!”</color>"
+Dan "Huh.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Dan,Normal)
+Dan "[TEXTSPEED 4,1]That's a lot of P."
+
+Dan "" WAIT(0)
+// ---------------------------------------------------------------------------------------------------------------------------------------------HIDE_TEXT
+SET_CHARACTER_EMOTION(Jory,Sweaty,newActive)
+WAIT(2)
+Arin(hidden) ".{w 0.25}.{w 0.25}."
+
+Dan ".{w 0.25}.{w 0.25}.{w 0.25}#So.{w 0.25}.{w 0.25}.{w 0.25}?"
+    
+SET_CHARACTER_EMOTION(Jory,Normal)
+Arin(hidden) "Jory,{w 0.1} don't worry.{w 0.25} We're on it buddy,{w 0.1} because we trust you!"
+"We'll be in your corner.{w 0.25} We got you no matter what!"
+
+Jory "[TEXTSPEED 6,1]Oh!{w 0.25} Uh,{w 0.1} ok!"
+
+SET_CHARACTER_EMOTION(Dan,Happy)
+Dan "Really,{w 0.1} Arin?"
+Arin(hidden) "[TEXTSPEED 4,1]Yep!{w 0.25} I have no doubt we'll clear your good name,{w 0.1} Jory!"
+
+Jory "Wow,{w 0.1} thanks guys!{w 0.25}#I guess I'll head to the,{w 0.1} uh,{w 0.1} <color=red>“Courtroom”</color> then."
+SET_CHARACTER_EMOTION(Jory,Thinking)
+"They turned the Power Hour room into a makeshift courtroom just for this."
+SET_CHARACTER_EMOTION(Jory,Normal)
+"[TEXTSPEED 6,1]So uh,{w 0.1} see you there."
+
+Jory "" WAIT(0)
+// ------------------------------------------------------------------------------------------------------------------------- HIDE_TEXT
+FADE_OUT_CHARACTER(2)
+PLAY_SFX(doorOpens) WAIT(2)
+
+SET_CHARACTER_EMOTION(Dan,Surprised)
+Dan "[TEXTSPEED 4,1]Wow,{w 0.1} I didn't expect you to change your mind so quickly like that."
+
+SET_CHARACTER_EMOTION(Dan,Hair)
+Dan "I guess what Jory Sr. said about trust and love made a difference,{w 0.1} huh?"
+Arin(hidden) "[TEXTSPEED 2,1]Yeah,{w 0.1} trust and love and whatever.{w 0.25}#What do you think Jory Sr. is going to give us when we win?"
+
+SCREEN_SHAKE(0.2)
+PLAY_SFX(stab)
+SET_CHARACTER_EMOTION(Dan,Angry)
+Dan "Arin!"
+Arin(hidden) "WHAT?{w 0.25} We're helping him,{w 0.1} aren't we?{w 0.25}#That's the whole point,{w 0.1} right?!"
+
+Dan "[TEXTSPEED 4,1]You are just.{w 0.25}.{w 0.25}.{w 0.25} UN.{w 0.25}.{w 0.25}.{w 0.25}"
+Arin(hidden) "[TEXTSPEED 10,1]...#...#..."
+"[TEXTSPEED 6,1]I'm wha---" WAIT(0)
+
+SCREEN_SHAKE(0.2)
+PLAY_SFX(smack)
+SET_CHARACTER_EMOTION(Dan,Angry)
+Dan "[TEXTSPEED 2,1]BELIEVEABLE!"
+Arin(hidden) "[TEXTSPEED 4,1]Ok,{w 0.1} ok,{w 0.1} no need to yell.{w 0.25}.{w 0.25}.{w 0.25} Let's just get ready.{w 0.25}#I kind of want to look sharp for this."
+"And I just got a new suit that I think will be perfect.{w 0.25}#You're gonna love it."
+
+FADE_TO_BLACK(2)
+FADE_OUT_CHARACTER(2)
+FADE_MUSIC(2) WAIT(3)
+JUMPCUT(blackScreen) WAIT(2)
+
+// -------------------------------------------------------------------------------------------------------------------------- END_SCENE

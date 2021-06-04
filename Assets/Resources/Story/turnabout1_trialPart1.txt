@@ -1,0 +1,497 @@
+//////////////////////
+// INITIALIZE SCENE //
+//////////////////////
+
+SET_LOCATION_CHARACTER(courtDefense,Arin)
+SET_LOCATION_CHARACTER(courtAssistant,Dan)
+SET_LOCATION_CHARACTER(courtProsecution,Tutorial_Boy)
+SET_LOCATION_CHARACTER(courtWitness,Jory)
+SET_LOCATION_CHARACTER(courtJudge,Judge_Brent)
+
+//SET_SCENE_TYPE TRIAL
+
+//////////////////
+// START SCRIPT //
+//////////////////
+
+SET_COURT_RECORD(Arin,Dan,Jory,Attorney'sBadge,NintendoSwitch,PlumberInvoice,JorySr'sLetter)
+
+Anon "[TEXTSPEED 8,1]<color=green><align=center>Some Undisclosed Date, 3:30PM#10 Minute Power Hour Courthouse</align></color>"
+
+WIDESHOT(Dan,Arin,Jory,TutorialBoy)
+GAVEL(1)
+
+PLAY_MUSIC(aBoyAndHisTrial)
+
+SET_CHARACTER_EMOTION(Judge_Brent,Normal)
+Judge Brent "[TEXTSPEED 4,1]Court is now in session for the trial of Jory Griffis."
+
+Arin "The defense is ready,{w 0.1} Your H-"
+
+PLAY_SFX(stab)
+SET_CHARACTER_EMOTION(Arin,Shocked_Ani) WAIT(0.75)
+PLAY_SFX(realization)
+SET_CHARACTER_EMOTION(Arin,Sweaty)
+"Wait,{w 0.1} Brent?{w 0.25} You're the judge here?"
+
+PLAY_SFX(lightbulb)
+Judge Brent "Yes,{w 0.1} being the manager of Game Grumps is just my side hustle."
+"My main job is presiding as judge over the Attitude City Courthouse."
+"After all,{w 0.1} what is a judge if not a manager of the law?"
+"So I will preside over this case for you all today."
+
+ADD_TO_COURT_RECORD(JudgeBrent)
+
+SET_CHARACTER_EMOTION(Dan,SideNormal)
+Dan "Well,{w 0.1} I suppose that's fine.{w 0.25} I mean,{w 0.1} Brent is pretty fair in general."
+
+SCREEN_SHAKE(0.2)
+PLAY_SFX(smack)
+??? "[TEXTSPEED 2,1]AHEM!{w 0.25}[TEXTSPEED 4,1] The prosecution is also ready,{w 0.1} Your Honor."
+
+Judge Brent "Oh,{w 0.1} right!{w 0.25} I have a guest prosecutor to help this go over smoothly."
+"He just happened to be visiting this week."
+
+??? "Mr. Hanson and Mr. Avidan.{w 0.25}.{w 0.25}.{w 0.25} So we meet at last!"
+
+SET_CHARACTER_EMOTION(Arin,Normal)
+Arin(thinking) "<color=lightblue>(Who exactly is this? He seems familiar but I can't put my finger on how...)</color>"
+
+Dan "Wait,{w 0.1} doesn't he kind of look like..."
+
+PLAY_SFX(dramapound)
+SET_CHARACTER_EMOTION(Arin,Shocked_Ani,newActive) WAIT(0.75)
+SET_CHARACTER_EMOTION(Arin,Sweaty)
+Arin "T-{w 0.1}Trivia Boy?!"
+
+SCREEN_SHAKE(0.2)
+PLAY_SFX(damage1)
+SET_CHARACTER_EMOTION(Tutorial_Boy,HeadSlam_Ani,newActive) WAIT(0.75)
+PLAY_SFX(tutorialBoyWrong)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+??? "WRONG!"
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+Tutorial Boy "I am Tutorial Boy!{w 0.25} Trivia Boy is my brother.{w 0.25}.{w 0.25}."
+
+ADD_TO_COURT_RECORD(TutorialBoy)
+
+"And after what you did to him and his reputation for trivia.{w 0.25}.{w 0.25}."
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+Tutorial Boy "I will BRING YOU ALL to JUSTICE,{w 0.1} Grumps!"
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+FADE_MUSIC(1) WAIT(1)
+PLAY_MUSIC(tutorialBoysTragicallyGenericReminiscence)
+"[TEXTSPEED 6,1]But first,{w 0.1} I will regale you a tale about my tragic past.{w 0.25}#One gruesome night in 1984, my d--"
+
+PLAY_SFX(recordScratch)
+STOP_MUSIC()
+SET_CHARACTER_EMOTION(Arin,Annoyed)
+Arin "[TEXTSPEED 2,1]Yeap,{w 0.1} uh-huh,{w 0.1} got it,{w 0.1} tragic backstory tutorial blah blah blah.{w 0.25} Can we get this show on the road?"
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Sweaty)
+Tutorial Boy "[TEXTSPEED 4,1]Don't you dare skip me!{w 0.25} I'm the-"
+
+Arin "Man,{w 0.1} if the artists drew me yawning,{w 0.1} that's what you'd be seeing right now."
+SET_CHARACTER_EMOTION(Arin,Normal)
+Arin "When the heck is this trial going to start?"
+
+PLAY_MUSIC(aBoyAndHisTrial)
+SCREEN_SHAKE(0.2)
+PLAY_SFX(damage2)
+SET_CHARACTER_EMOTION(Judge_Brent,Warning)
+Judge Brent "IT WILL BEGIN NOW!"
+SET_CHARACTER_EMOTION(Judge_Brent,Normal)
+Judge Brent "The prosecution will now give their opening statement!"
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal,newActive)
+FADE_MUSIC(1) WAIT(1)
+Tutorial Boy "Of course,{w 0.1} Your Honor."
+
+Dan "This is easily the stupidest thing I've ever done."
+
+PLAY_MUSIC(logicAndTrains)
+Tutorial Boy "At about 12:00 PM,{w 0.1} the Game Grumps and crew were partaking in a livestream."
+"A recording of the livestream COULD{w 0.1} be added to the court record,{w 0.1} if you riddle m-"
+
+SET_CHARACTER_EMOTION(Arin,Annoyed)
+Arin "Yeah,{w 0.1} yeah,{w 0.1} I know.{w 0.25} Press 'Z' to see the court record.{w 0.25} Could you get to the point,{w 0.1} please?"
+
+PLAY_SFX(stab)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Sweaty)
+Tutorial Boy "W-{w 0.1}Well,{w 0.1} you don't have to be so rude about it!{w 0.25} Fine,{w 0.1} it's been added to the court record."
+
+PLAY_SFX(evidenceDing)
+ADD_TO_COURT_RECORD(LivestreamRecording)
+SHOW_EVIDENCE_LEFT(LivestreamRecording)
+Anon "[TEXTSPEED 6,1]<align=center><color=green>The Livestream Recording has been added to the Court Record.</color></align>"
+PLAY_SFX(evidenceShoop)
+REMOVE_EVIDENCE_LEFT() WAIT(0.1)
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+Tutorial Boy "Now.{w 0.25}.{w 0.25}.{w 0.25} where was I?"
+"[TEXTSPEED 4,1]Oh yes.{w 0.25} The livestream."
+
+"During the livestream,{w 0.1} according to the transcript here,{w 0.1} the Switch they were using suddenly failed."
+"It was at this point that the defendent,{w 0.1} Jory Griffis,{w 0.1} volunteered to go get a replacement one."
+
+"When the livestream was over,{w 0.1} the crew went to prepare for a 10 Minute Power Hour episode."
+"However,{w 0.1} when they arrived and started preparing,{w 0.1} they noticed the Dinos were missing!"
+
+"A quick search and a few minutes later,{w 0.1} they were suspiciously found in THIS{w 0.1} backpack!"
+
+PLAY_SFX(evidenceDing)
+ADD_TO_COURT_RECORD(Jory'sBackpack)
+SHOW_EVIDENCE_LEFT(Jory'sBackpack)
+Anon "[TEXTSPEED 6,1]<align=center><color=green>Jory's Backpack has been added to the Court Record.</color></align>"
+PLAY_SFX(evidenceShoop)
+REMOVE_EVIDENCE_LEFT() WAIT(0.1)
+
+SET_CHARACTER_EMOTION(Arin,Sweaty)
+Arin "[TEXTSPEED 4,1]The heck is that <color=red>white stain</color> there?"
+
+SET_CHARACTER_EMOTION(Dan,SideLaughing)
+Dan "Maybe Jory took the NSP song “Objects of Desire” as inspiration.{w 0.25}#Know what I mean?"
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+Tutorial Boy "Unfortunately,{w 0.1} we ALL{w 0.1} know what you mean,{w 0.1} “Mr. Sexbang”.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Dan,SideNormal)
+Dan "That's “Mr. Business” to you,{w 0.1} sir."
+
+Tutorial Boy "[TEXTSPEED 6,1]Yes.{w 0.25}.{w 0.25}.{w 0.25}#Quite.{w 0.25}.{w 0.25}.{w 0.25}#Indeed."
+
+"As I was saying.{w 0.25}.{w 0.25}."
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+"[TEXTSPEED 4,1]The missing dinos,{w 0.1} while quickly found,{w 0.1} put a big delay on setting up for the Power Hour."
+"I have been informed that recording cannot begin without them.{w 0.25} As such they are critical pieces of evidence!"
+
+PLAY_SFX(evidenceDing)
+ADD_TO_COURT_RECORD(StolenDinos)
+SHOW_EVIDENCE_LEFT(StolenDinos)
+Anon "[TEXTSPEED 6,1]<align=center><color=green>The Stolen Dinos have been added to the Court Record.</color></align>"
+PLAY_SFX(evidenceShoop)
+REMOVE_EVIDENCE_LEFT() WAIT(0.1)
+
+Tutorial Boy "[TEXTSPEED 4,1]While Mr. Griffis' backpack is somewhat unique--"
+"--the prosecution deemed it necessary to prove its owner's identity."
+"In the very same pocket in which the dinos were found,{w 0.1} we discovered some Good Boy Coins!"
+"These were the very same coins Jory was polishing during the livestream."
+"This was confirmed by other members of the Grump team present at the time the dinos were discovered."
+
+"This clearly suggests that the perpetrator is the defendant!"
+"I am here to prove beyond any doubt that Jory Griffis stole the dinosaurs.{w 0.25}.{w 0.25}."
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+"...in order to sabotage the Ten Minute Power Hour!"
+
+FADE_MUSIC(1)
+SET_CHARACTER_EMOTION(Judge_Brent,Thinking)
+Judge Brent "Hm.{w 0.25}.{w 0.25}.{w 0.25} Yes,{w 0.1} that seems to be a very solid opening statement."
+SET_CHARACTER_EMOTION(Judge_Brent,Normal)
+"You may call your first witness,{w 0.1} Mr. Boy."
+PLAY_MUSIC(aBoyAndHisTrial)
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+Tutorial Boy "Yes,{w 0.1} Your Honor.{w 0.25} I would now like to call said defendant,{w 0.1} Jory Griffis,{w 0.1} to the stand!"
+
+SHOUT(Arin,objection)
+SET_CHARACTER_EMOTION(Arin,Point)
+Arin "Wait,{w 0.1} you can't do that!{w 0.25} It violates the Fifth Amendment!"
+
+SET_CHARACTER_EMOTION(Dan,SideNormal)
+Dan "Yeah!{w 0.25} Wait,{w 0.1} is this even a real courthouse?"
+
+Judge Brent "Keep your pants on.{w 0.25} I make up the rules in this courthouse.{w 0.25} I will allow the testifying of the defendant."
+
+FADE_MUSIC(2)
+FADE_OUT_CHARACTER(2)
+FADE_TO_BLACK(2) WAIT(3)
+
+FADE_IN_BACKGROUND(courtWitness,2)
+FADE_IN_CHARACTER(Jory,Sweaty,2) WAIT(2)
+
+PLAY_MUSIC(logicAndTrains)
+
+// ---------------------------------------------------------------------------------------------------------------- PAN COURT_WITNESS COURT_PROSECUTION
+Tutorial Boy "[TEXTSPEED 6,1]Witness,{w 0.1} state y-" WAIT(0)
+
+SCREEN_SHAKE(0.2)
+PLAY_SFX(supershock)
+SET_CHARACTER_EMOTION(Jory,Sweaty)
+Jory "[TEXTSPEED 2,1]I'm sorry!{w 0.25} Please forgive me!!!"
+
+SET_CHARACTER_EMOTION(Arin,Sweaty)
+PLAY_SFX(stab)
+Arin "Jory,{w 0.1} WHAT THE HECK!"
+
+SET_CHARACTER_EMOTION(Jory,Nervous)
+Jory "[TEXTSPEED 6,1]Ah,{w 0.1} jeez.{w 0.25}.{w 0.25}."
+
+Arin "Just take a deep breath and answer the questions."
+
+Jory "O-{w 0.1}Okay.{w 0.25}.{w 0.25}."
+
+Arin(thinking) "[TEXTSPEED 4,1]<color=lightblue>(This is gonna be rough, I can already tell...)</color>"
+
+// ---------------------------------------------------------------------------------------------------------------- PAN COURT_WITNESS COURT_PROSECUTION
+PLAY_SFX(damage1)
+SET_CHARACTER_EMOTION(Tutorial_Boy,HeadSlam_Ani,newActive) WAIT(0.75)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+PLAY_SFX(stab2)
+Tutorial Boy "[TEXTSPEED 2,1]WITNESS!"
+
+SET_CHARACTER_EMOTION(Jory,Sweaty)
+Jory "AHHH!"
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+Tutorial Boy "[TEXTSPEED 4,1]I have questions about the time before the incident,{w 0.1} and you will answer!"
+
+SET_CHARACTER_EMOTION(Jory,Nervous)
+Jory "[TEXTSPEED 6,1]Ah.{w 0.25}.{w 0.25}.{w 0.25} Jeez.{w 0.25}.{w 0.25}.{w 0.25} Okay."
+
+Tutorial Boy "[TEXTSPEED 4,1]When the console broke,{w 0.1} you yourself were the first to volunteer to go get a backup console,{w 0.1} were you not?"
+
+SET_CHARACTER_EMOTION(Jory,Thinking)
+Jory "Well,{w 0.1} it's sort of my job to help with technical issues,{w 0.1} but-"
+
+// ---------------------------------------------------------------------------------------------------------------- PAN COURT_WITNESS COURT_PROSECUTION
+Tutorial Boy "So you ADMIT{w 0.1} that you jumped on the opportunity to be the one to do the grunt work for the Grumps?"
+"How suspicious!{w 0.25} Surely there were other,{w 0.1} less busy people who could have gotten it,{w 0.1} but you didn't hesitate!"
+
+SET_CHARACTER_EMOTION(Jory,Nervous)
+Jory "[TEXTSPEED 6,1]Yeah.{w 0.25}.{w 0.25}.{w 0.25} I guess I didn't.{w 0.25}.{w 0.25}.{w 0.25} but again it's part of my jo-" WAIT(0)
+
+// ----------------------------------------------------------------------------------------------------------------PAN COURT_WITNESS COURT_PROSECUTION
+SCREEN_SHAKE(0.2)
+PLAY_SFX(damage1)
+SET_CHARACTER_EMOTION(Tutorial_Boy,HeadSlam_Ani,newActive) WAIT(0.75)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+Tutorial Boy "[TEXTSPEED 2,1]AH-{w 0.1}HAH!"
+
+SET_CHARACTER_EMOTION(Jory,Sweaty)
+PLAY_SFX(stab)
+Jory "YIKES!!!"
+
+Arin(thinking) "[TEXTSPEED 4,1]<color=lightblue>(Dang! This guy is intense!)</color>"
+
+Tutorial Boy "Suspicious behavior indeed!"
+"Especially since,{w 0.1} according to the livestream recording here,{w 0.1} you were busy cleaning your Good Boy Coins."
+"Is this correct?"
+
+SET_CHARACTER_EMOTION(Dan,Fist)
+Dan "Dude,{w 0.1} what do his coins have to do with this?{w 0.25} And what's with this guilt tripping over being helpful?"
+SET_CHARACTER_EMOTION(Dan,Angry)
+"You should say something,{w 0.1} Arin."
+
+SET_CHARACTER_EMOTION(Arin,Thinking)
+Arin "Hm.{w 0.25}.{w 0.25}."
+
+CHOICE
+{
+"Object!"
+JUMP(playerObjects)
+"Nah, we gucci."
+JUMP(playerDoesntObject)
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+LABEL playerObjects
+// --------------------------------------------------------------------------------------------------------------------
+SHOUT(Arin,objection)
+PLAY_SFX(deskSlam)
+SET_CHARACTER_EMOTION(Arin,DeskSlam_Ani,newActive) WAIT(0.5)
+SET_CHARACTER_EMOTION(Arin,DeskSlam)
+Arin "My client's behavior during the livestream isn't suspicious in the least!"
+"Jory is a great employee who works hard for the team!{w 0.25} The prosecution is twisting the truth here,{w 0.1} Your Honor!"
+
+SET_CHARACTER_EMOTION(Judge_Brent,Thinking)
+Judge Brent "Hm.{w 0.25}.{w 0.25}."
+SET_CHARACTER_EMOTION(Judge_Brent,Normal)
+Judge Brent "Objection sustained.{w 0.25} Mr. Boy,{w 0.1} you will refrain from “flowery language” when questioning your witness."
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Sweaty)
+Tutorial Boy "Er.{w 0.25}.{w 0.25}.{w 0.25} Y-{w 0.1}Yes,{w 0.1} Your Honor.{w 0.25} The spirit of justice took hold of me and I got carried away."
+
+Arin "Also.{w 0.25}.{w 0.25}."
+
+JUMP(endChoice)
+
+// --------------------------------------------------------------------------------------------------------------------
+LABEL playerDoesntObject
+// --------------------------------------------------------------------------------------------------------------------
+Arin "Nah,{w 0.1} it's fine.{w 0.25} Polishing some coins doesn't prove he's guilty."
+"[TEXTSPEED 6,1]However.{w 0.25}.{w 0.25}."
+
+JUMP(endChoice)
+
+// --------------------------------------------------------------------------------------------------------------------
+LABEL endChoice
+// --------------------------------------------------------------------------------------------------------------------
+SET_CHARACTER_EMOTION(Arin,Annoyed)
+Arin "[TEXTSPEED 6,1]Please don't slam your head into the desk again."
+"It's making everyone nervous."
+
+SHOUT(TutorialBoy,objection)
+// -------------------------------------------------------------------------------------------------------------------- PAN COURT_DEFENSE COURT_PROSECUTION
+PLAY_SFX(damage1)
+SET_CHARACTER_EMOTION(Tutorial_Boy,HeadSlam_Ani,newActive) WAIT(0.75)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+Tutorial Boy "[TEXTSPEED 4,1]NEVER!{w 0.25} It's my only way of objecting!"
+
+SET_CHARACTER_EMOTION(Arin,Annoyed)
+Arin "You can't be serious."
+
+SET_CHARACTER_EMOTION(Judge_Brent,Normal)
+Judge Brent "Objection sustained.{w 0.25} I'll allow it."
+
+SET_CHARACTER_EMOTION(Arin,DeskSlam)
+Arin "Your Honor!{w 0.25} That kind of behavior isn't appropriate in this courtroom!"
+
+Judge Brent "Perhaps,{w 0.1} but I get to make the call,{w 0.1} and it's amusing to watch him do it."
+
+PLAY_SFX(damage1)
+SET_CHARACTER_EMOTION(Tutorial_Boy,HeadSlam_Ani,newActive) WAIT(0.75)
+
+Judge Brent ".{w 0.25}.{w 0.25}.{w 0.25}Very amusing."
+"The prosecution may continue with the witness' testimony."
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+Tutorial Boy "Thank you,{w 0.1} Your Honor."
+"So, you were cleaning your coins during the livestream,{w 0.1} which we have on record."
+"When you were asked to go get a replacement Switch,{w 0.1} what did you do with those coins?"
+
+// -------------------------------------------------------------------------------------------------------------------- PAN COURT_PROSECUTION COURT_WITNESS
+SET_CHARACTER_EMOTION(Jory,Thinking)
+Jory "Well,{w 0.1} since I had just finished polishing them,{w 0.1} I decided to put them away in my backpack.{w 0.25}.{w 0.25}."
+".{w 0.25}.{w 0.25}.{w 0.25}and leave it in the 10 Minute Power Hour recording room since I knew I had to do setup for that right after.{w 0.25}.{w 0.25}."
+
+Tutorial Boy "Would those coins happen to be.{w 0.25}.{w 0.25}."
+SCREEN_SHAKE(0.2)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+PLAY_SFX(shock2)
+"[TEXTSPEED 2,1]THESE!?!?"
+
+PLAY_SFX(evidenceDing)
+ADD_TO_COURT_RECORD(BentCoins)
+SHOW_EVIDENCE_LEFT(BentCoins)
+Anon "[TEXTSPEED 6,1]<align=center><color=green>The Bent Coins have been added to the Court Record.</color></align>"
+PLAY_SFX(evidenceShoop)
+REMOVE_EVIDENCE_LEFT() WAIT(0.1)
+
+PLAY_SFX(stab)
+SET_CHARACTER_EMOTION(Jory,Sweaty)
+Jory "Uh.{w 0.25}.{w 0.25}.{w 0.25} Uh.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+Tutorial Boy "[TEXTSPEED 4,1]As stated before,{w 0.1} these coins were found in the same pocket as the dinosaurs.{w 0.25}.{w 0.25}."
+".{w 0.25}.{w 0.25}.{w 0.25}and they fit the description of the coins the witness just gave!{w 0.25} What more proof do you need!?"
+
+SCREEN_SHAKE(0.2)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+PLAY_SFX(supershock)
+"[TEXTSPEED 2,1]CONFESS TO YOUR CRIMES,{w 0.1} JORY!"
+
+Jory "[TEXTSPEED 6,1]I.{w 0.25}.{w 0.25}.{w 0.25} ER.{w 0.25}.{w 0.25}.{w 0.25} UH.{w 0.25}.{w 0.25}.{w 0.25} Oh man,{w 0.1} yeah,{w 0.1} those are.{w 0.25}.{w 0.25}.{w 0.25} My coins.{w 0.25}.{w 0.25}.{w 0.25} B-{w 0.1}but that-"
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Confident)
+Tutorial Boy "[TEXTSPEED 4,1]Is that a confession I hear?{w 0.25} You admit your guilt!?"
+
+SHOUT(Arin,objection)
+// -------------------------------------------------------------------------------------------------------------------- PAN COURT_PROSECUTION COURT_DEFENSE
+SET_CHARACTER_EMOTION(Arin,Point)
+Arin "The prosecution is hectoring the witness!"
+"The coins being in the pocket with the dinos doesn't directly prove he put them both there!"
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+// --------------------------------------------------------------------------------------------------------------------PAN COURT_DEFENSE COURT_PROSECUTION
+Tutorial Boy "What?{w 0.25} Just look at the witness!{w 0.25} His sweatiness and nervous behavior is that of a criminal!"
+
+SET_CHARACTER_EMOTION(Judge_Brent,Thinking)
+Judge Brent "What the defense says holds up.{w 0.25}.{w 0.25}."
+SET_CHARACTER_EMOTION(Judge_Brent,Normal)
+".{w 0.25}.{w 0.25}.{w 0.25}so I will sustain their objection."
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Yeet_Ani,newActive) WAIT(1.416)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+Tutorial Boy "Very well.{w 0.25} But don't think you're out of hot water yet."
+"You said you were doing setup for something right after the livestream."
+"Please tell the court what that <color=red>something</color> was going to be."
+
+SET_CHARACTER_EMOTION(Jory,Thinking)
+Jory "Well.{w 0.25}.{w 0.25}.{w 0.25} You see,{w 0.1} we were planning on doing the 10 Minute Power Hour right after the livestream."
+"And I had to help set up since we were planning on doing something.{w 0.25}.{w 0.25}."
+SET_CHARACTER_EMOTION(Jory,Nervous)
+".{w 0.25}.{w 0.25}.{w 0.25}different."
+
+Tutorial Boy "And what was this something that was so different?"
+
+SET_CHARACTER_EMOTION(Jory,Normal)
+Jory "Well,{w 0.1} to put it simply,{w 0.1} we were going to do a dunk tank contest--"
+"--but instead of water it was going to be Strawberries and Cream."
+SET_CHARACTER_EMOTION(Jory,Thinking)
+"Something about Ninja Party School.{w 0.1}.{w 0.1}.{w 0.1}?{w 0.1} I don't know,{w 0.1} it was Dan and Arin's idea.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Jory,Nervous)
+"But I wasn't really looking forward to being dunked in.{w 0.25}.{w 0.25}.{w 0.25} cream.{w 0.25}.{w 0.25}."
+
+SET_CHARACTER_EMOTION(Arin,Sweaty)
+Arin(thinking) "<color=lightblue>(Don't say that! You're gonna get yourself into more trouble!)</color>"
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Confident)
+Tutorial Boy "And so you decided to sabotage the episode's production.{w 0.25}.{w 0.25}."
+".{w 0.25}.{w 0.25}.{w 0.25}so you wouldn't have to suffer through such a menial and humiliating task."
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+"I see right through you,{w 0.1} Jory Griffis!"
+
+SET_CHARACTER_EMOTION(Jory,Sweaty)
+SCREEN_SHAKE(0.2)
+PLAY_SFX(stab)
+Jory "N-{w 0.1}No!{w 0.25} I would never-"
+
+PLAY_SFX(damage1)
+SCREEN_SHAKE(0.2)
+SET_CHARACTER_EMOTION(Tutorial_Boy,HeadSlam_Ani,newActive) WAIT(0.75)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+Tutorial Boy "Save your lies!{w 0.25} This is a courtroom of truth!"
+
+SHOUT(Arin,objection)
+// -------------------------------------------------------------------------------------------------------------------- PAN COURT_PROSECUTION COURT_DEFENSE
+SET_CHARACTER_EMOTION(Arin,Point)
+Arin "There is no proof that Jory is lying!"
+
+PLAY_SFX(deskSlam)
+SET_CHARACTER_EMOTION(Arin,DeskSlam_Ani,newActive) WAIT(0.5)
+SET_CHARACTER_EMOTION(Arin,DeskSlam)
+Arin "You're simply pushing a false narrative to make my client look bad!"
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Confident)
+// -------------------------------------------------------------------------------------------------------------------- PAN COURT_DEFENSE COURT_PROSECUTION
+Tutorial Boy "Oh{w 0.1} ho,{w 0.1} I assure you,{w 0.1} this is no bravado.{w 0.25} We have true motivation."
+"We have evidence that connects Jory to the crime,{w 0.1} and.{w 0.25}.{w 0.25}."
+
+SCREEN_SHAKE(0.2)
+PLAY_SFX(smack)
+SET_CHARACTER_EMOTION(Tutorial_Boy,Angry)
+"We have a witness to Jory's crime!"
+
+WIDESHOT(Dan,Arin,Jory,TutorialBoy)
+GAVEL(1)
+
+SET_CHARACTER_EMOTION(Judge_Brent,Angry)
+Judge Brent "That will be enough from the jury!"
+SET_CHARACTER_EMOTION(Judge_Brent,Surprised)
+"You say you have a witness to the crime itself?"
+
+SET_CHARACTER_EMOTION(Tutorial_Boy,Normal)
+Tutorial Boy "That is correct,{w 0.1} Your Honor!{w 0.25} I have simply been building my case up to this point."
+"Members of the court,{w 0.1} you see that Jory knows he is guilty,{w 0.1} and his behavior is proof of that!"
+"But now you will see that,{w 0.1} with my next witness,{w 0.1} there can be no doubt of Mr. Griffis' guilt!"
+
+"I call to the stand a witness to the crime:{w 0.1} Ross O'Donovan."
+
+ADD_TO_COURT_RECORD(Ross)
+
+FADE_TO_BLACK(2)
+FADE_OUT_CHARACTER(2)
+FADE_MUSIC(2) WAIT(3)
+
+//END_SCENE
