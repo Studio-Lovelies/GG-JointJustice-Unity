@@ -53,11 +53,11 @@ public class TextArchitect {
 
         tmpro.ForceMeshUpdate();
         inf = tmpro.textInfo;
-        int max = inf.characterCount;
+        int totalCharacterCount = inf.characterCount;
 
         tmpro.maxVisibleCharacters = visibleCharacterIndex;
 
-        while (visibleCharacterIndex < max)
+        while (visibleCharacterIndex < totalCharacterCount)
         {
             //allow skipping by increasing the characters per frame and the speed of occurance.
             /*
