@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 public class TextArchitect {
     /// <summary>
     /// A dictionary keeping tabs on all architects present in a scene. Prevents multiple architects from influencing the same text object simultaneously.
@@ -14,12 +14,15 @@ public class TextArchitect {
     public float speed = 1f;
     public bool skip = false;
 
-    public bool isConstructing { get { return buildProcess != null; } }
+    public bool isConstructing {
+        get {
+            return this.buildProcess != null;
+        }
+    }
     Coroutine buildProcess = null;
     TextMeshProUGUI tmpro;
 
-    public TextArchitect(TextMeshProUGUI tmpro, string targetText, string preText = "", int charactersPerFrame = 1, float speed = 1f)
-    {
+    public TextArchitect(TextMeshProUGUI tmpro, string targetText, string preText = "", int charactersPerFrame = 1, float speed = 1f) {
         this.tmpro = tmpro;
         this.targetText = targetText;
         this.preText = preText;
@@ -29,36 +32,32 @@ public class TextArchitect {
         Initiate();
     }
 
-    public void Stop()
-    {
-        if (isConstructing)
-        {
-            DialogueSystem.instance.StopCoroutine(buildProcess);
+    public void Stop() {
+        if (this.isConstructing) {
+            DialogueSystem.instance.StopCoroutine(this.buildProcess);
         }
-        buildProcess = null;
+        this.buildProcess = null;
     }
 
-    IEnumerator Construction()
-    {
+    IEnumerator Construction() {
         int runsThisFrame = 0;
 
-        tmpro.text = "";
-        tmpro.text += preText;
+        this.tmpro.text = "";
+        this.tmpro.text += this.preText;
 
-        tmpro.ForceMeshUpdate();
-        TMP_TextInfo inf = tmpro.textInfo;
+        this.tmpro.ForceMeshUpdate();
+        TMP_TextInfo inf = this.tmpro.textInfo;
         int visibleCharacterIndex = inf.characterCount;
 
-        tmpro.text += targetText;
+        this.tmpro.text += this.targetText;
 
-        tmpro.ForceMeshUpdate();
-        inf = tmpro.textInfo;
+        this.tmpro.ForceMeshUpdate();
+        inf = this.tmpro.textInfo;
         int totalCharacterCount = inf.characterCount;
 
-        tmpro.maxVisibleCharacters = visibleCharacterIndex;
+        this.tmpro.maxVisibleCharacters = visibleCharacterIndex;
 
-        while (visibleCharacterIndex < totalCharacterCount)
-        {
+        while (visibleCharacterIndex < totalCharacterCount) {
             //allow skipping by increasing the characters per frame and the speed of occurance.
             /*
             if (skip)
@@ -68,57 +67,50 @@ public class TextArchitect {
             }
             */
             //reveal a certain number of characters per frame.
-            while (runsThisFrame < charactersPerFrame)
-            {
+            while (runsThisFrame < this.charactersPerFrame) {
                 visibleCharacterIndex++;
-                tmpro.maxVisibleCharacters = visibleCharacterIndex;
+                this.tmpro.maxVisibleCharacters = visibleCharacterIndex;
                 runsThisFrame++;
                 AudioManager.instance.PlaySFX("maleTalk", 0.125f);
             }
             //wait for the next available revelation time.
             runsThisFrame = 0;
-            yield return new WaitForSecondsRealtime(0.01f * speed);
+            yield return new WaitForSecondsRealtime(0.01f * this.speed);
         }
         //terminate the architect and remove it from the active log of architects.
         Terminate();
     }
 
-    void Initiate()
-    {
+    void Initiate() {
         //check if an architect for this text object is already running. if it is, terminate it. Do not allow more than one architect to affect the same text object at once.
         TextArchitect existingArchitect = null;
-        if (activeArchitects.TryGetValue(tmpro, out existingArchitect))
-        {
+        if (activeArchitects.TryGetValue(this.tmpro, out existingArchitect)) {
             existingArchitect.Terminate();
         }
-        buildProcess = DialogueSystem.instance.StartCoroutine(Construction());
-        activeArchitects.Add(tmpro, this);
+        this.buildProcess = DialogueSystem.instance.StartCoroutine(Construction());
+        activeArchitects.Add(this.tmpro, this);
     }
 
     /// <summary>
     /// Terminate this architect. Stops the text generation process and removes it from the cache of all active architects.
     /// </summary>
-    public void Terminate()
-    {
-        activeArchitects.Remove(tmpro);
-        if (isConstructing)
-        {
-            DialogueSystem.instance.StopCoroutine(buildProcess);
+    public void Terminate() {
+        activeArchitects.Remove(this.tmpro);
+        if (this.isConstructing) {
+            DialogueSystem.instance.StopCoroutine(this.buildProcess);
         }
-        buildProcess = null;
+        this.buildProcess = null;
     }
 
-    public void Renew(string targ, string pre)
-    {
-        targetText = targ;
-        preText = pre;
+    public void Renew(string targ, string pre) {
+        this.targetText = targ;
+        this.preText = pre;
 
-        skip = false;
+        this.skip = false;
 
-        if (isConstructing)
-        {
-            DialogueSystem.instance.StopCoroutine(buildProcess);
+        if (this.isConstructing) {
+            DialogueSystem.instance.StopCoroutine(this.buildProcess);
         }
-        buildProcess = DialogueSystem.instance.StartCoroutine(Construction());
+        this.buildProcess = DialogueSystem.instance.StartCoroutine(Construction());
     }
 }
