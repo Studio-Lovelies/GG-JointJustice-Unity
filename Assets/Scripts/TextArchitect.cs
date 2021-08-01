@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-public class TextArchitect {
+public class TextArchitect
+{
     /// <summary>
     /// A dictionary keeping tabs on all architects present in a scene. Prevents multiple architects from influencing the same text object simultaneously.
     /// </summary>
@@ -14,15 +15,18 @@ public class TextArchitect {
     public float speed = 1f;
     public bool skip = false;
 
-    public bool isConstructing {
-        get {
+    public bool isConstructing
+    {
+        get
+        {
             return this.buildProcess != null;
         }
     }
     Coroutine buildProcess = null;
     TextMeshProUGUI tmpro;
 
-    public TextArchitect(TextMeshProUGUI tmpro, string targetText, string preText = "", int charactersPerFrame = 1, float speed = 1f) {
+    public TextArchitect(TextMeshProUGUI tmpro, string targetText, string preText = "", int charactersPerFrame = 1, float speed = 1f)
+    {
         this.tmpro = tmpro;
         this.targetText = targetText;
         this.preText = preText;
@@ -32,14 +36,17 @@ public class TextArchitect {
         Initiate();
     }
 
-    public void Stop() {
-        if (this.isConstructing) {
+    public void Stop()
+    {
+        if (this.isConstructing)
+        {
             DialogueSystem.instance.StopCoroutine(this.buildProcess);
         }
         this.buildProcess = null;
     }
 
-    IEnumerator Construction() {
+    IEnumerator Construction()
+    {
         int runsThisFrame = 0;
 
         this.tmpro.text = "";
@@ -57,7 +64,8 @@ public class TextArchitect {
 
         this.tmpro.maxVisibleCharacters = visibleCharacterIndex;
 
-        while (visibleCharacterIndex < totalCharacterCount) {
+        while (visibleCharacterIndex < totalCharacterCount)
+        {
             //allow skipping by increasing the characters per frame and the speed of occurance.
             /*
             if (skip)
@@ -67,8 +75,10 @@ public class TextArchitect {
             }
             */
             //reveal a certain number of characters per frame.
-            while (runsThisFrame < this.charactersPerFrame) {
-                if (char.IsLetterOrDigit(this.tmpro.text[visibleCharacterIndex])) {
+            while (runsThisFrame < this.charactersPerFrame)
+            {
+                if (char.IsLetterOrDigit(this.tmpro.text[visibleCharacterIndex]))
+                {
                     AudioManager.instance.PlaySFX("maleTalk", 0.125f);
                 }
                 visibleCharacterIndex++;
@@ -83,10 +93,12 @@ public class TextArchitect {
         Terminate();
     }
 
-    void Initiate() {
+    void Initiate()
+    {
         //check if an architect for this text object is already running. if it is, terminate it. Do not allow more than one architect to affect the same text object at once.
         TextArchitect existingArchitect = null;
-        if (activeArchitects.TryGetValue(this.tmpro, out existingArchitect)) {
+        if (activeArchitects.TryGetValue(this.tmpro, out existingArchitect))
+        {
             existingArchitect.Terminate();
         }
         this.buildProcess = DialogueSystem.instance.StartCoroutine(Construction());
@@ -96,21 +108,25 @@ public class TextArchitect {
     /// <summary>
     /// Terminate this architect. Stops the text generation process and removes it from the cache of all active architects.
     /// </summary>
-    public void Terminate() {
+    public void Terminate()
+    {
         activeArchitects.Remove(this.tmpro);
-        if (this.isConstructing) {
+        if (this.isConstructing)
+        {
             DialogueSystem.instance.StopCoroutine(this.buildProcess);
         }
         this.buildProcess = null;
     }
 
-    public void Renew(string targ, string pre) {
+    public void Renew(string targ, string pre)
+    {
         this.targetText = targ;
         this.preText = pre;
 
         this.skip = false;
 
-        if (this.isConstructing) {
+        if (this.isConstructing)
+        {
             DialogueSystem.instance.StopCoroutine(this.buildProcess);
         }
         this.buildProcess = DialogueSystem.instance.StartCoroutine(Construction());
