@@ -47,7 +47,7 @@ public class TextArchitect {
 
         tmpro.ForceMeshUpdate();
         TMP_TextInfo inf = tmpro.textInfo;
-        int vis = inf.characterCount;
+        int visibleCharacterIndex = inf.characterCount;
 
         tmpro.text += targetText;
 
@@ -55,9 +55,9 @@ public class TextArchitect {
         inf = tmpro.textInfo;
         int max = inf.characterCount;
 
-        tmpro.maxVisibleCharacters = vis;
+        tmpro.maxVisibleCharacters = visibleCharacterIndex;
 
-        while (vis < max)
+        while (visibleCharacterIndex < max)
         {
             //allow skipping by increasing the characters per frame and the speed of occurance.
             /*
@@ -70,8 +70,8 @@ public class TextArchitect {
             //reveal a certain number of characters per frame.
             while (runsThisFrame < charactersPerFrame)
             {
-                vis++;
-                tmpro.maxVisibleCharacters = vis;
+                visibleCharacterIndex++;
+                tmpro.maxVisibleCharacters = visibleCharacterIndex;
                 runsThisFrame++;
                 AudioManager.instance.PlaySFX("maleTalk", 0.125f);
             }
