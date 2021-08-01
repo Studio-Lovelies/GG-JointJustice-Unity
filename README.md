@@ -10,14 +10,14 @@ To contribute to the project, you will need to have the following tools instead 
 - [Git Large File Storage (Git LFS)](https://git-lfs.github.com/)
 - [Unity Hub](https://unity3d.com/get-unity/download)
   - This will prompt you to create a Unity ID and select a Micrograme before it lets you launch Unity. This second step is expected to take some time.
+- [Unity Version 2020 2.6.f1](https://unity3d.com/get-unity/download/archive)
+  - Click on the Unity 2020.x tab, scroll to Unity 2020.2.6 and click on the green "Unity Hub" button to download
 
 Wait for Unity to launch, then install the following:
 
 - [GitHub for Unity](https://assetstore.unity.com/packages/tools/version-control/github-for-unity-118069)
   - Click on "Add to My Assets", then "Open in Unity".
   - Once the Package Manager opens, hit "Download", then "Import"
-- [Unity Version 2020 2.6.f1](https://unity3d.com/get-unity/download/archive)
-  - Click on the Unity 2020.x tab, scroll to Unity 2020.2.6 and click on the green "Unity Hub" button to download
 
 _Optional:_
 
