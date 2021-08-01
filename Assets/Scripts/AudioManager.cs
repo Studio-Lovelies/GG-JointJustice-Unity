@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public event Action<string> SongStarted;
+
     // MY VARIABLES -------------------------------------------------------------------------------------------------------
     private AudioSource activeSong = null;
 
@@ -40,9 +43,15 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySong(string songName, float volume = 1f, bool loop = true)
     {
+        OnSongStarted(songName);
         AudioClip songToPlay = Resources.Load("Audio/Music/" + songName) as AudioClip;
         SetActiveSong(songToPlay, volume, loop);
         Play();
+    }
+
+    private void OnSongStarted(string songName)
+    {
+        SongStarted?.Invoke(songName);
     }
 
     public void SetActiveSong(AudioClip song, float volume = 1f, bool loop = true)
