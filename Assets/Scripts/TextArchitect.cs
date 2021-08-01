@@ -68,7 +68,9 @@ public class TextArchitect {
             */
             //reveal a certain number of characters per frame.
             while (runsThisFrame < this.charactersPerFrame) {
-                AudioManager.instance.PlaySFX("maleTalk", 0.125f);
+                if (char.IsLetterOrDigit(this.tmpro.text[visibleCharacterIndex])) {
+                    AudioManager.instance.PlaySFX("maleTalk", 0.125f);
+                }
                 visibleCharacterIndex++;
                 this.tmpro.maxVisibleCharacters = visibleCharacterIndex;
                 runsThisFrame++;
