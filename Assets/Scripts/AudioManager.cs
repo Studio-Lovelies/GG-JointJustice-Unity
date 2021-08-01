@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -52,45 +52,45 @@ public class AudioManager : MonoBehaviour
         source.volume = volume;
         source.loop = loop;
 
-        activeSong = source;
+        this.activeSong = source;
     }
 
     public void Play()
     {
-        activeSong.Play();
+        this.activeSong.Play();
     }
     public void Stop()
     {
-        activeSong.Stop();
+        this.activeSong.Stop();
     }
     public void Pause()
     {
-        activeSong.Pause();
+        this.activeSong.Pause();
     }
     public void UnPause()
     {
-        activeSong.UnPause();
+        this.activeSong.UnPause();
     }
 
     Coroutine fadingOut = null;
     public void FadeOutActiveSong(float time)
     {
-        fadingOut = StartCoroutine(FadeOut(activeSong, time));
+        this.fadingOut = StartCoroutine(FadeOut(this.activeSong, time));
     }
     private IEnumerator FadeOut(AudioSource audio, float time)
     {
         while (audio.volume > 0)
         {
             audio.volume -= 0.01f;
-            yield return new WaitForSecondsRealtime(time/100);
+            yield return new WaitForSecondsRealtime(time / 100);
         }
 
         stopFadeOut();
     }
     private void stopFadeOut()
     {
-        StopCoroutine(fadingOut);
-        fadingOut = null;
+        StopCoroutine(this.fadingOut);
+        this.fadingOut = null;
     }
 
     public AudioSource CreateNewSource(string _name)
