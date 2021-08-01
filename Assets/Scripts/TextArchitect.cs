@@ -68,10 +68,10 @@ public class TextArchitect {
             */
             //reveal a certain number of characters per frame.
             while (runsThisFrame < this.charactersPerFrame) {
+                AudioManager.instance.PlaySFX("maleTalk", 0.125f);
                 visibleCharacterIndex++;
                 this.tmpro.maxVisibleCharacters = visibleCharacterIndex;
                 runsThisFrame++;
-                AudioManager.instance.PlaySFX("maleTalk", 0.125f);
             }
             //wait for the next available revelation time.
             runsThisFrame = 0;
