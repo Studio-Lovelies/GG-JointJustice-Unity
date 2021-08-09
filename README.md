@@ -14,8 +14,8 @@ Wait for Unity to launch, then install the following:
 * [GitHub for Unity](https://assetstore.unity.com/packages/tools/version-control/github-for-unity-118069)
   * Click on "Add to My Assets", then "Open in Unity".
   * Once the Package Manager opens, hit "Download", then "Import"
-* [Unity Version 2020 2.6.f1](https://assetstore.unity.com/packages/tools/version-control/github-for-unity-118069)
-  * Click on the Unity 2020.x tab, scroll to Unity 2020.2.6 and click on the green "Unity Hub" button to download
+* [Unity Version 2020.3.15f2](https://assetstore.unity.com/packages/tools/version-control/github-for-unity-118069)
+  * Click on the Unity 2020.x tab, scroll to Unity 2020.3.15f2 (LTS) and click on the green "Unity Hub" button to download
 
 
 _Optional:_
