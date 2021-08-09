@@ -13,7 +13,7 @@ To contribute to the project, you will need to have the following tools instead 
 - [Unity Version 2020.3.15f2](https://unity3d.com/get-unity/download/archive)
   - Click on the Unity 2020.x tab, scroll to Unity 2020.3.15f2 (LTS) and click on the green "Unity Hub" button to download
   
-- Wait for Unity to launch, then install the following:
+Wait for Unity to launch, then install the following:
 
 - [GitHub for Unity](https://assetstore.unity.com/packages/tools/version-control/github-for-unity-118069)
   - Click on "Add to My Assets", then "Open in Unity".
