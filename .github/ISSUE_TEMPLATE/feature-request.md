@@ -1,14 +1,15 @@
 ---
 name: Feature Request
 about: Something the player should be able to do in the game
-title: ''
+title: ""
 labels: enhancement
-assignees: ''
-
+assignees: ""
 ---
 
-## Description ##
+## Description
+
 ...
 
-## Acceptance Criteria ##
+## Acceptance Criteria
+
 This story will be finished when ...

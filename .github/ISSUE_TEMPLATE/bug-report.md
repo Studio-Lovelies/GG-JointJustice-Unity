@@ -3,14 +3,14 @@ name: Bug Report
 about: Create a report to help us improve
 title: "[BUG]"
 labels: bug
-assignees: ''
-
+assignees: ""
 ---
 
 **Describe the bug**
 ...
 
 **Steps To Reproduce**
+
 - (do first thing)
 - (do second thing)
 
