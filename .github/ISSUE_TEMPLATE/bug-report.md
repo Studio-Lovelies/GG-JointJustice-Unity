@@ -6,19 +6,23 @@ labels: bug
 assignees: ""
 ---
 
-**Describe the bug**
+## Describe the bug
+
 ...
 
-**Steps To Reproduce**
+## Steps To Reproduce
 
 - (do first thing)
 - (do second thing)
 
-**Expected behavior**
+## Expected behavior
+
 ...
 
-**Screenshots**
+## Screenshots
+
 (if applicable)
 
-**Additional context**
+## Additional context
+
 ...
