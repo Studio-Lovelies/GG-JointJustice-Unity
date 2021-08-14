@@ -4,12 +4,16 @@
 [Bb]uild/
 [Bb]uilds/
 [Ll]ogs/
+/[Uu]ser[Ss]ettings/
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # [Aa]ssets/AssetStoreTools*
 
 # Visual Studio cache directory
 .vs/
+
+# Visual Studio Code cache directory
+.vscode/
 
 # Gradle cache directory
 .gradle/
@@ -46,3 +50,14 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+# Mac-specific files
+.DS_Store*
+._*
+.Spotlight-V100
+
+#Windows-specific files
+.Trashes
+ehthumbs.db
+[Tt]humbs.db
+[Dd]esktop.ini
