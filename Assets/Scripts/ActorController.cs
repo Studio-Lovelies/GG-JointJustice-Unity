@@ -36,8 +36,14 @@ public class ActorController : MonoBehaviour, IActorController
         Debug.LogWarning("SetActiveActor not implemented");
     }
 
-    public void SetAnimation(string animation)
+    public void SetEmotion(string emotion)
     {
-        Debug.LogWarning("SetAnimation not implemented");
+        Debug.LogWarning("SetEmotion not implemented");
     }
+
+    public void SetActiveSpeaker(string actor)
+    {
+        Debug.LogWarning("SetActiveSpeaker not implemented");
+    }
+
 }
