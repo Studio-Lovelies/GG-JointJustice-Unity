@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class DialogueController : MonoBehaviour
 {
+    private const char ACTION_TOKEN = '&';
+
+
     [SerializeField] private TextAsset _narrativeScript;
 
     [Header("Events")]
@@ -50,6 +53,7 @@ public class DialogueController : MonoBehaviour
             else
             {
                 _onNewSpokenLine.Invoke(curLine);
+                Debug.Log(curLine); //Temp to show lines being said
             }
         }
 
@@ -57,7 +61,7 @@ public class DialogueController : MonoBehaviour
 
         if (choiceList.Count > 0)
         {
-            //Not empty
+            //Choices present
         }
         else
         {
@@ -68,7 +72,7 @@ public class DialogueController : MonoBehaviour
 
     private bool IsAction(string line)
     {
-        return true;
+        return line[0] == ACTION_TOKEN;
         //TODO: Check if line is action
     }
 }
