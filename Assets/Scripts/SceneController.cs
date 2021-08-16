@@ -50,4 +50,9 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         Debug.LogWarning("ShakeScreen not implemented");
     }
+
+    public void ShowItem(string item, itemPosition pos)
+    {
+        Debug.LogWarning("ShowItem not implemented");
+    }
 }

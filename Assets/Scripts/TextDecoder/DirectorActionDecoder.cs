@@ -11,6 +11,7 @@ public class DirectorActionDecoder : MonoBehaviour
     private IActorController _actorController;
     private ISceneController _sceneController;
     private IAudioController _audioController;
+    private IEvidenceController _evidenceController;
 
     [Header("Events")]
     [Tooltip("Event that gets called when the system is done processing the action")]
@@ -35,7 +36,7 @@ public class DirectorActionDecoder : MonoBehaviour
         string action = actionAndParam[0];
         string parameters = actionAndParam[1];
 
-        switch(actionAndParam[0])
+        switch(action)
         {
             //Actor controller
             case "ACTOR": SetActor(parameters); break;
@@ -52,6 +53,12 @@ public class DirectorActionDecoder : MonoBehaviour
             case "CAMERA_SET": SetCameraPosition(parameters); break;
             case "SHAKESCREEN": ShakeScreen(parameters); break;
             case "BACKGROUND": SetBackground(parameters); break;
+            case "WAIT": Wait(parameters); break;
+            case "SHOW_ITEM": ShowItem(parameters); break;
+            //Evidence controller
+            case "ADD_EVIDENCE": AddEvidence(parameters); break;
+            case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
+            case "ADD_RECORD": AddToCourtRecord(parameters); break;
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
@@ -266,6 +273,55 @@ public class DirectorActionDecoder : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Shows an item on the middle, left, or right side of the screen.
+    /// </summary>
+    /// <param name="stringParameters">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
+    void ShowItem(string stringParameters)
+    {
+        if (!HasSceneController())
+            return;
+
+        string[] parameters = stringParameters.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length != 2)
+        {
+            Debug.LogError("Invalid amount of parameters for function SHOW_ITEM");
+            return;
+        }
+
+        itemPosition pos;
+        if (System.Enum.TryParse<itemPosition>(parameters[1], out pos))
+        {
+            _sceneController.ShowItem(parameters[0], pos);
+        }
+        else
+        {
+            Debug.LogError("Invalid paramater " + parameters[1] + " for function CAMERA_PAN");
+        }
+    }
+
+    /// <summary>
+    /// Waits seconds before automatically continuing.
+    /// </summary>
+    /// <param name="seconds">Amount of seconds to wait</param>
+    void Wait(string seconds)
+    {
+        if (!HasSceneController())
+            return;
+
+        float secondsFloat;
+
+        if (float.TryParse(seconds, out secondsFloat))
+        {
+            _sceneController.ShakeScreen(secondsFloat);
+        }
+        else
+        {
+            Debug.LogError("Invalid paramater " + seconds + " for function WAIT");
+        }
+    }
+
     #endregion
     
     #region AudioController
@@ -291,6 +347,32 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _audioController.PlayBGSong(music);
+    }
+    #endregion
+
+    #region EvidenceController
+    void AddEvidence(string evidence)
+    {
+        if (!HasEvidenceController())
+            return;
+
+        _evidenceController.AddEvidence(evidence);
+    }
+
+    void RemoveEvidence(string evidence)
+    {
+        if (!HasEvidenceController())
+            return;
+
+        _evidenceController.RemoveEvidence(evidence);
+    }
+
+    void AddToCourtRecord(string actor)
+    {
+        if (!HasEvidenceController())
+            return;
+
+        _evidenceController.AddToCourtRecord(actor);
     }
     #endregion
 
@@ -359,6 +441,29 @@ public class DirectorActionDecoder : MonoBehaviour
         if (_audioController == null)
         {
             Debug.LogError("No audio controller attached to the action decoder");
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Attach a new IEvidenceController to the decoder
+    /// </summary>
+    /// <param name="newController">New evidence controller to be added</param>
+    public void SetEvidenceController(IEvidenceController newController)
+    {
+        _evidenceController = newController;
+    }
+
+    /// <summary>
+    /// Checks if the decoder has an evidence controller attached, and shows an error if it doesn't
+    /// </summary>
+    /// <returns>Whether an evidence controller is connected</returns>
+    private bool HasEvidenceController()
+    {
+        if (_evidenceController == null)
+        {
+            Debug.LogError("No evidence controller attached to the action decoder");
             return false;
         }
         return true;

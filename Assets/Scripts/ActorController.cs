@@ -7,7 +7,6 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (_directorActionDecoder == null)
