@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="OldProjectFiles" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="AudioManager.cs" t="Include" />
+            <e p="BackgroundForegroundController.cs" t="Include" />
+            <e p="CharacterManager.cs" t="Include" />
+            <e p="Characters.cs" t="Include" />
+            <e p="Choice Screen" t="Include">
+              <e p="ChoiceButton.cs" t="Include" />
+              <e p="ChoiceScreen.cs" t="Include" />
+            </e>
+            <e p="CourtRecordManager.cs" t="Include" />
+            <e p="DialogueSystem.cs" t="Include" />
+            <e p="Evidence.cs" t="Include" />
+            <e p="EvidenceManager.cs" t="Include" />
+            <e p="FileManager.cs" t="Include" />
+            <e p="Gavel.cs" t="Include" />
+            <e p="Novel Controller" t="Include">
+              <e p="ChapterLineManager.cs" t="Include" />
+              <e p="DialogueEvents.cs" t="Include" />
+              <e p="NovelController.cs" t="Include" />
+            </e>
+            <e p="TagManager.cs" t="Include" />
+            <e p="Testimony &amp; CrossExam" t="Include">
+              <e p="TestimonyScript.cs" t="Include" />
+            </e>
+            <e p="Testing.cs" t="Include" />
+            <e p="TextArchitect.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Plugins" t="Include">
+          <e p="GitHub" t="Include">
+            <e p="Editor" t="Include">
+              <e p="credits.txt" t="Include" />
+              <e p="eula.txt" t="Include" />
+              <e p="ExtensionLoader.cs" t="Include" />
+              <e p="UnityAPIWrapper.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Resources" t="Include">
+          <e p="Story" t="Include">
+            <e p="gameover.txt" t="Include" />
+            <e p="part4.txt" t="Include" />
+            <e p="part5.txt" t="Include" />
+            <e p="part6.txt" t="Include" />
+            <e p="turnabout1_preTrial.txt" t="Include" />
+            <e p="turnabout1_trialPart1.txt" t="Include" />
+            <e p="turnabout1_trialPart2.txt" t="Include" />
+            <e p="turnabout1_trialPart3.txt" t="Include" />
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="BaseScript.cs" t="Include" />
+        </e>
+        <e p="TextMesh Pro" t="Include">
+          <e p="Fonts" t="Include">
+            <e p="LiberationSans - OFL.txt" t="Include" />
+          </e>
+          <e p="Resources" t="Include">
+            <e p="LineBreaking Following Characters.txt" t="Include" />
+            <e p="LineBreaking Leading Characters.txt" t="Include" />
+            <e p="Shaders" t="Include">
+              <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
+              <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+              <e p="TMP_Bitmap.shader" t="Include" />
+              <e p="TMP_SDF Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface.shader" t="Include" />
+              <e p="TMP_SDF.shader" t="Include" />
+              <e p="TMP_Sprite.shader" t="Include" />
+              <e p="TMPro.cginc" t="Include" />
+              <e p="TMPro_Properties.cginc" t="Include" />
+              <e p="TMPro_Surface.cginc" t="Include" />
+            </e>
+          </e>
+          <e p="Sprites" t="Include">
+            <e p="EmojiOne Attribution.txt" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="GG-JointJustice-Unity.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp/Bin" t="ExcludeRecursive" />
+    </e>
+    <e p="$USER_HOME$/Library/Caches/JetBrains/Rider2020.1/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/JetBrains/Rider2020.1/resharper-host/local/Transient/ReSharperHost/v201/SolutionCaches/_GG-JointJustice-Unity.275499657.00" t="ExcludeRecursive" />
+  </component>
+</project>
