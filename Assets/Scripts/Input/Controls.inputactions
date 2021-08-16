@@ -1,0 +1,39 @@
+{
+    "name": "Controls",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "de1537fe-4eb2-4289-b2fb-a49589bc443e",
+            "actions": [
+                {
+                    "name": "Left Mouse Button",
+                    "type": "Button",
+                    "id": "39ed1286-0cce-4d62-b445-81e4f9eb7e5f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "988ad8b7-96bd-45d0-a79f-b8fd62a8d7a9",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "Left Mouse Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Mouse and Keyboard",
+            "bindingGroup": "Mouse and Keyboard",
+            "devices": []
+        }
+    ]
+}

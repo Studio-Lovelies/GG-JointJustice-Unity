@@ -58,6 +58,10 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="BaseScript.cs" t="Include" />
+          <e p="Input" t="Include">
+            <e p="Controls.cs" t="Include" />
+            <e p="PlayerInput.cs" t="Include" />
+          </e>
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
