@@ -18,7 +18,7 @@ public class DirectorActionDecoder : MonoBehaviour
     [SerializeField] private UnityEvent _onActionDone;
 
     /// <summary>
-    /// Called whenever a new action is performed in the script
+    /// Called whenever a new action is executed (encountered and then forwarded here) in the script
     /// </summary>
     /// <param name="line">The full line in the script containing the action and parameters</param>
     public void OnNewActionLine(string line)
@@ -40,7 +40,7 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             //Actor controller
             case "ACTOR": SetActor(parameters); break;
-            case "SHOWACTOR": ShowActor(parameters); break;
+            case "SHOWACTOR": SetActorVisibility(parameters); break;
             case "SPEAK": SetSpeaker(parameters); break;
             case "EMOTION": SetEmotion(parameters); break;
             //Audio controller
@@ -52,7 +52,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "CAMERA_PAN": PanCamera(parameters); break;
             case "CAMERA_SET": SetCameraPosition(parameters); break;
             case "SHAKESCREEN": ShakeScreen(parameters); break;
-            case "BACKGROUND": SetBackground(parameters); break;
+            case "SCENE": SetScene(parameters); break;
             case "WAIT": Wait(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
             //Evidence controller
@@ -83,7 +83,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Shows or hides the actor based on the string parameter.
     /// </summary>
     /// <param name="showActor">Should contain true or false based on showing or hiding the actor respectively</param>
-    private void ShowActor(string showActor)
+    private void SetActorVisibility(string showActor)
     {
         if (!HasActorController())
             return;
@@ -196,27 +196,27 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the background scene
+    /// Sets the scene (background, character location on screen, any props (probably prefabs))
     /// </summary>
-    /// <param name="background">Background scene to change to</param>
-    void SetBackground(string background)
+    /// <param name="sceneName">Scene to change to</param>
+    void SetScene(string sceneName)
     {
         if (!HasSceneController())
             return;
 
-        _sceneController.SetBackground(background);
+        _sceneController.SetScene(sceneName);
     }
 
     /// <summary>
     /// Sets the camera position
     /// </summary>
-    /// <param name="coordinates">New camera coordinates in the "int x,int y" format</param>
-    void SetCameraPosition(string coordinates)
+    /// <param name="position">New camera coordinates in the "int x,int y" format</param>
+    void SetCameraPosition(string position)
     {
         if (!HasSceneController())
             return;
 
-        string[] parameters = coordinates.Split(ACTION_PARAMETER_SEPARATOR);
+        string[] parameters = position.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 2)
         {
@@ -230,11 +230,11 @@ public class DirectorActionDecoder : MonoBehaviour
         if (int.TryParse(parameters[0], out x) 
             && int.TryParse(parameters[1], out y))
         {
-            _sceneController.SetCameraPos(x, y);
+            _sceneController.SetCameraPos(new Vector2Int(x,y));
         }
         else
         {
-            Debug.LogError("Invalid paramater " + coordinates + " for function CAMERA_SET");
+            Debug.LogError("Invalid paramater " + position + " for function CAMERA_SET");
         }
 
     }
@@ -242,13 +242,13 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <summary>
     /// Pan the camera to a certain x,y position
     /// </summary>
-    /// <param name="stringParameters">Duration the pan should take and the target coordinates in the "float seconds, int x, int y" format</param>
-    void PanCamera(string stringParameters)
+    /// <param name="durationAndPosition">Duration the pan should take and the target coordinates in the "float seconds, int x, int y" format</param>
+    void PanCamera(string durationAndPosition)
     {
         if (!HasSceneController())
             return;
 
-        string[] parameters = stringParameters.Split(ACTION_PARAMETER_SEPARATOR);
+        string[] parameters = durationAndPosition.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 3)
         {
@@ -264,11 +264,11 @@ public class DirectorActionDecoder : MonoBehaviour
             && int.TryParse(parameters[1], out x) 
             && int.TryParse(parameters[2], out y))
         {
-            _sceneController.PanCamera(duration, x, y);
+            _sceneController.PanCamera(duration, new Vector2Int(x, y));
         }
         else
         {
-            Debug.LogError("Invalid paramater " + stringParameters + " for function CAMERA_PAN");
+            Debug.LogError("Invalid paramater " + durationAndPosition + " for function CAMERA_PAN");
         }
 
     }
@@ -276,13 +276,13 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <summary>
     /// Shows an item on the middle, left, or right side of the screen.
     /// </summary>
-    /// <param name="stringParameters">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
-    void ShowItem(string stringParameters)
+    /// <param name="ItemNameAndPosition">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
+    void ShowItem(string ItemNameAndPosition)
     {
         if (!HasSceneController())
             return;
 
-        string[] parameters = stringParameters.Split(ACTION_PARAMETER_SEPARATOR);
+        string[] parameters = ItemNameAndPosition.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 2)
         {
@@ -290,8 +290,8 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
         }
 
-        itemPosition pos;
-        if (System.Enum.TryParse<itemPosition>(parameters[1], out pos))
+        itemDisplayPosition pos;
+        if (System.Enum.TryParse<itemDisplayPosition>(parameters[1], out pos))
         {
             _sceneController.ShowItem(parameters[0], pos);
         }
@@ -340,13 +340,13 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <summary>
     /// Sets the background music
     /// </summary>
-    /// <param name="music">Name of the new song</param>
-    void SetBGMusic(string music)
+    /// <param name="songName">Name of the new song</param>
+    void SetBGMusic(string songName)
     {
         if (!HasAudioController())
             return;
 
-        _audioController.PlayBGSong(music);
+        _audioController.PlaySong(songName);
     }
     #endregion
 

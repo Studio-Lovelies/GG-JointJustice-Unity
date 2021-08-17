@@ -31,17 +31,17 @@ public class SceneController : MonoBehaviour, ISceneController
         Debug.LogWarning("FadeOut not implemented");
     }
 
-    public void PanCamera(float seconds, int xEnd, int yEnd)
+    public void PanCamera(float seconds, Vector2Int position)
     {
         Debug.LogWarning("PanCamera not implemented");
     }
 
-    public void SetBackground(string background)
+    public void SetScene(string background)
     {
         Debug.LogWarning("SetBackground not implemented");
     }
 
-    public void SetCameraPos(int x, int y)
+    public void SetCameraPos(Vector2Int position)
     {
         Debug.LogWarning("SetCameraPos not implemented");
     }
@@ -51,7 +51,7 @@ public class SceneController : MonoBehaviour, ISceneController
         Debug.LogWarning("ShakeScreen not implemented");
     }
 
-    public void ShowItem(string item, itemPosition pos)
+    public void ShowItem(string item, itemDisplayPosition position)
     {
         Debug.LogWarning("ShowItem not implemented");
     }

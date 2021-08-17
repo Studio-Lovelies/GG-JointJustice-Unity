@@ -12,7 +12,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     {
         if (_directorActionDecoder == null)
         {
-            Debug.LogError("Evidence Controller doesn't have a action decoder to attach to");
+            Debug.LogError("Evidence Controller doesn't have an action decoder to attach to");
         }
         else
         {

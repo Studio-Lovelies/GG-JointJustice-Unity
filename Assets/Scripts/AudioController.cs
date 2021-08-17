@@ -12,7 +12,7 @@ public class AudioController : MonoBehaviour, IAudioController
     {
         if (_directorActionDecoder == null)
         {
-            Debug.LogError("Audio Controller doesn't have a action decoder to attach to");
+            Debug.LogError("Audio Controller doesn't have an action decoder to attach to");
         }
         else
         {
@@ -20,7 +20,7 @@ public class AudioController : MonoBehaviour, IAudioController
         }
     }
 
-    public void PlayBGSong(string Song)
+    public void PlaySong(string song)
     {
         Debug.LogWarning("PlayBGSong not implemented");
     }

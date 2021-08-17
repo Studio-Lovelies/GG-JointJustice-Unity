@@ -11,7 +11,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         if (_directorActionDecoder == null)
         {
-            Debug.LogError("Actor Controller doesn't have a action decoder to attach to");
+            Debug.LogError("Actor Controller doesn't have an action decoder to attach to");
         }
         else
         {

@@ -44,16 +44,16 @@ public class DialogueController : MonoBehaviour
     {
         if (_inkStory.canContinue)
         {
-            string curLine = _inkStory.Continue();
+            string currentLine = _inkStory.Continue();
 
-            if (IsAction(curLine))
+            if (IsAction(currentLine))
             {
-                _onNewActionLine.Invoke(curLine);
+                _onNewActionLine.Invoke(currentLine);
             }
             else
             {
-                _onNewSpokenLine.Invoke(curLine);
-                Debug.Log(curLine); //Temp to show lines being said
+                _onNewSpokenLine.Invoke(currentLine);
+                Debug.Log(currentLine); //Temp to show lines being said
             }
         }
 

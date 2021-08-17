@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum itemPosition
+public enum itemDisplayPosition
 {
-    left,
-    right,
-    middle
+    Left,
+    Right,
+    Middle
 }
 
 public interface ISceneController
@@ -14,8 +12,8 @@ public interface ISceneController
     void FadeIn(float seconds);
     void FadeOut(float seconds);
     void ShakeScreen(float intensity);
-    void SetBackground(string background);
-    void SetCameraPos(int x, int y);
-    void PanCamera(float seconds, int xEnd, int yEnd);
-    void ShowItem(string item, itemPosition pos);
+    void SetScene(string background);
+    void SetCameraPos(Vector2Int position);
+    void PanCamera(float seconds, Vector2Int finalPosition);
+    void ShowItem(string item, itemDisplayPosition position);
 }
