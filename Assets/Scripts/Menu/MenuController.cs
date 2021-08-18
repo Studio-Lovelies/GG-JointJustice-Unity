@@ -8,10 +8,10 @@ using UnityEngine;
 public class MenuController : MonoBehaviour
 {
     [SerializeField, Tooltip("Drag all of your menu items here.")]
-    private HightlightableMenuItem[] _highlightableButtons;
+    private HighlightableMenuItem[] _highlightableMenuItems;
     
-    [SerializeField, Tooltip("The first menu item that will appear highlighted. Zero indexed.")] 
-    private int _initiallyHighlightedButtonIndex;
+    [SerializeField, Min(0), Tooltip("The first menu item that will appear highlighted. Zero indexed.")] 
+    private int _initiallyHighlightedMenuItemIndex;
 
     private MenuNavigator _menuNavigator;
 
@@ -20,9 +20,20 @@ public class MenuController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        _menuNavigator = new MenuNavigator(_initiallyHighlightedButtonIndex,_highlightableButtons.ToArray<IHightlightableMenuItem>());
+        for (int i = 0; i < _highlightableMenuItems.Length; i++)
+        {
+            var i1 = i;
+            _highlightableMenuItems[i].OnMenuItemMouseOver.AddListener(() => HighlightMenuItem(i1));
+        }
+        
+        _menuNavigator = new MenuNavigator(_initiallyHighlightedMenuItemIndex,_highlightableMenuItems.ToArray<IHightlightableMenuItem>());
     }
-    
+
+    private void HighlightMenuItem(int i)
+    {
+        _menuNavigator.SetIndex(i);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))

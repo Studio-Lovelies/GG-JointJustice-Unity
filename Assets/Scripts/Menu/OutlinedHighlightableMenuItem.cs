@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// Outline component to indicate that they are highlighted
 /// </summary>
 [RequireComponent(typeof(Outline))]
-public class OutlinedHightlightableMenuItem : HightlightableMenuItem
+public class OutlinedHighlightableMenuItem : HighlightableMenuItem
 {
     private Outline _outline;
 

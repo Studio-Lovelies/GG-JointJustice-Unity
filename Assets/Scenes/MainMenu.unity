@@ -2830,18 +2830,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488b017de5c5948f8a66346e9665ca95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _highlightableButtons:
+  _highlightableMenuItems:
   - {fileID: 1316906783}
   - {fileID: 1127522053}
   - {fileID: 1336736347}
   - {fileID: 1832104994}
   - {fileID: 348271460}
-  - {fileID: 1454032271}
-  - {fileID: 2089162929}
-  - {fileID: 101080463}
-  - {fileID: 37284620}
-  - {fileID: 1244998104}
-  _initiallyHighlightedButtonIndex: 3
+  _initiallyHighlightedMenuItemIndex: 0
 --- !u!1 &1454032269
 GameObject:
   m_ObjectHideFlags: 0

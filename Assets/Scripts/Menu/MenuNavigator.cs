@@ -8,7 +8,7 @@ using UnityEngine;
 public class MenuNavigator
 {
     private readonly IHightlightableMenuItem[] _highlightableMenuItems;
-
+    
     public int IndexCount => _highlightableMenuItems.Length;
     public int CurrentIndex { get; private set; }
     
@@ -29,17 +29,33 @@ public class MenuNavigator
         {
             highlightableButton.SetHighlighted(false);
         }
-        _highlightableMenuItems[CurrentIndex].SetHighlighted(true);
+
+        try
+        {
+            _highlightableMenuItems[CurrentIndex].SetHighlighted(true);
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            Debug.LogError($"{exception.GetType().Name}.\nInitially highlighted menu item index must be within bounds of menu items array. Was {initiallyHighlightedMenuItemIndex}. Expected 0 - {IndexCount - 1}");
+        }
     }
     
+    /// <summary>
+    /// Increments the current index by one.
+    /// Used by MenuController class for navigating using the keyboard. 
+    /// </summary>
     public void IncrementPosition()
     { 
-        IncrementPositionByNumber(1);
+        IncrementIndexByNumber(1);
     }
 
+    /// <summary>
+    /// Increments the current index by one.
+    /// Used by MenuController class for navigating using the keyboard. 
+    /// </summary>
     public void DecrementPosition()
     { 
-        IncrementPositionByNumber(-1);
+        IncrementIndexByNumber(-1);
     }
 
     /// <summary>
@@ -48,11 +64,23 @@ public class MenuNavigator
     /// of _highlightableMenuItems array
     /// </summary>
     /// <param name="number">The number to increment by</param>
-    private void IncrementPositionByNumber(int number)
-    {
+    private void IncrementIndexByNumber(int number)
+    { 
         _highlightableMenuItems[CurrentIndex].SetHighlighted(false);
         CurrentIndex += number;
         CurrentIndex = Mathf.Clamp(CurrentIndex, 0, IndexCount - 1);
+        _highlightableMenuItems[CurrentIndex].SetHighlighted(true);
+    }
+
+    /// <summary>
+    /// Sets the current index to a specific value.
+    /// Used when change of index is not increment e.g. when highlighting using the mouse
+    /// </summary>
+    /// <param name="index">The index to be selected</param>
+    public void SetIndex(int index)
+    {
+        _highlightableMenuItems[CurrentIndex].SetHighlighted(false);
+        CurrentIndex = index;
         _highlightableMenuItems[CurrentIndex].SetHighlighted(true);
     }
 }
