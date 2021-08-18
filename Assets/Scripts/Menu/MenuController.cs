@@ -20,7 +20,7 @@ public class MenuController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        _menuNavigator = new MenuNavigator(_highlightableButtons.Length, _initiallyHighlightedButtonIndex,_highlightableButtons.ToArray<IHightlightableMenuItem>());
+        _menuNavigator = new MenuNavigator(_initiallyHighlightedButtonIndex,_highlightableButtons.ToArray<IHightlightableMenuItem>());
     }
     
     private void Update()

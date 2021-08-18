@@ -7,29 +7,29 @@ using UnityEngine;
 /// </summary>
 public class MenuNavigator
 {
-    private int _currentIndex;
-    private readonly int _indexCount;
     private readonly IHightlightableMenuItem[] _highlightableMenuItems;
 
+    public int IndexCount => _highlightableMenuItems.Length;
+    public int CurrentIndex { get; private set; }
+    
     /// <summary>
     /// Initialises a MenuNavigator object which keeps track of the current highlighted position in the menu.
     /// Sets all menu items to not be highlighted, then highlights the menu item at initiallyHighlightedIndex.
     /// </summary>
     /// <param name="indexCount">The number of menu items in the menu.</param>
-    /// <param name="initiallyHighlightedButtonIndex">The menu item that should be highlighted
+    /// <param name="initiallyHighlightedMenuItemIndex">The menu item that should be highlighted
     /// when the menu is first created.</param>
     /// <param name="highlightableMenuItems">Array of highlightable menu items.</param>
-    public MenuNavigator(int indexCount, int initiallyHighlightedButtonIndex, IHightlightableMenuItem[] highlightableMenuItems)
+    public MenuNavigator(int initiallyHighlightedMenuItemIndex, IHightlightableMenuItem[] highlightableMenuItems)
     {
-        _indexCount = indexCount;
-        _currentIndex = initiallyHighlightedButtonIndex;
+        CurrentIndex = initiallyHighlightedMenuItemIndex;
         _highlightableMenuItems = highlightableMenuItems;
 
         foreach (var highlightableButton in _highlightableMenuItems)
         {
             highlightableButton.SetHighlighted(false);
         }
-        _highlightableMenuItems[_currentIndex].SetHighlighted(true);
+        _highlightableMenuItems[CurrentIndex].SetHighlighted(true);
     }
     
     public void IncrementPosition()
@@ -50,9 +50,9 @@ public class MenuNavigator
     /// <param name="number">The number to increment by</param>
     private void IncrementPositionByNumber(int number)
     {
-        _highlightableMenuItems[_currentIndex].SetHighlighted(false);
-        _currentIndex += number;
-        _currentIndex = Mathf.Clamp(_currentIndex, 0, _indexCount - 1);
-        _highlightableMenuItems[_currentIndex].SetHighlighted(true);
+        _highlightableMenuItems[CurrentIndex].SetHighlighted(false);
+        CurrentIndex += number;
+        CurrentIndex = Mathf.Clamp(CurrentIndex, 0, IndexCount - 1);
+        _highlightableMenuItems[CurrentIndex].SetHighlighted(true);
     }
 }
