@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioController : MonoBehaviour, IAudioController
@@ -11,9 +12,10 @@ public class AudioController : MonoBehaviour, IAudioController
     [Tooltip("Maximum allowed volume by the game")]
     [Range(0f, 1f)]
     [SerializeField] private float _maxVolume;
+    [SerializeField] private bool _isTransitioningMusicTracks;
+    private Dictionary<string, AudioSource> _cachedAudioSources = new Dictionary<string, AudioSource>();
     private AudioSource _audioSource;
     private Coroutine _currentFadeCoroutine;
-    [SerializeField] private bool _isTransitioningMusicTracks;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +48,11 @@ public class AudioController : MonoBehaviour, IAudioController
         {
             PlaySong("investigationJoonyer");
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            PlaySFX("chug");
+        }
         // /DEBUG
 
 
@@ -70,7 +77,17 @@ public class AudioController : MonoBehaviour, IAudioController
 
     public void PlaySFX(string soundEffectName)
     {
-        AudioClip sfxToPlay = Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
+        AudioClip soundEffectClip = Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
+        if (!_cachedAudioSources.ContainsKey(soundEffectName))
+        {
+            var audioSourceGameObject = new GameObject(string.Format("SFX_{0}", soundEffectName));
+            audioSourceGameObject.transform.SetParent(transform);
+            var source = audioSourceGameObject.AddComponent<AudioSource>();
+            _cachedAudioSources.Add(soundEffectName, source);
+            source.clip = soundEffectClip;
+        }
+
+        _cachedAudioSources[soundEffectName].Play();
     }
 
     public IEnumerator FadeToNewSong(string songName)
