@@ -14,6 +14,7 @@ public class AudioController : MonoBehaviour, IAudioController
     [SerializeField] private float _maxVolume;
     [SerializeField] private bool _isTransitioningMusicTracks;
     private Dictionary<string, AudioSource> _cachedAudioSources = new Dictionary<string, AudioSource>();
+    private MusicPlayer _musicPlayer;
     private AudioSource _audioSource;
     private Coroutine _currentFadeCoroutine;
 
@@ -30,6 +31,7 @@ public class AudioController : MonoBehaviour, IAudioController
         }
 
         _audioSource = GetComponent<AudioSource>();
+        _musicPlayer = new MusicPlayer();
 
         // DEBUG
         PlaySong("aBoyAndHisTrial");
@@ -105,6 +107,16 @@ public class AudioController : MonoBehaviour, IAudioController
         yield return null;
     }
 
+    private bool FadeOutCurrentMusicTrack()
+    {
+        return _musicPlayer.FadeOutCurrentMusicTrack(_audioSource, Time.deltaTime, _maxVolume);
+    }
+
+    private bool FadeInCurrentMusicTrack()
+    {
+        return _musicPlayer.FadeInCurrentMusicTrack(_audioSource, Time.deltaTime, _maxVolume);
+    }
+
     private bool IsCurrentlyPlayingSomething()
     {
         return _audioSource.clip != null && _audioSource.volume != 0;
@@ -117,33 +129,5 @@ public class AudioController : MonoBehaviour, IAudioController
         _audioSource.Play();
     }
 
-    private bool FadeInCurrentMusicTrack()
-    {
-        _audioSource.volume += Time.deltaTime * _maxVolume;
 
-        if (_audioSource.volume >= _maxVolume)
-        {
-            _audioSource.volume = _maxVolume;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private bool FadeOutCurrentMusicTrack()
-    {
-        _audioSource.volume -= Time.deltaTime * _maxVolume;
-
-        if (_audioSource.volume <= 0)
-        {
-            _audioSource.volume = 0;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 }
