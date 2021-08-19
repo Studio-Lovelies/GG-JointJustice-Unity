@@ -41,5 +41,10 @@ public class MenuController : MonoBehaviour
         {
             _menuNavigator.IncrementPosition();
         }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            _highlightableMenuItems[_menuNavigator.CurrentIndex].Select();
+        }
     }
 }
