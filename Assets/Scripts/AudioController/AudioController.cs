@@ -16,7 +16,7 @@ public class AudioController : MonoBehaviour, IAudioController
     private Dictionary<string, AudioSource> _cachedAudioSources = new Dictionary<string, AudioSource>();
     private AudioSource _audioSource;
     private Coroutine _currentFadeCoroutine;
-    private float _normalizedVolume;
+    private MusicPlayer _musicPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +29,8 @@ public class AudioController : MonoBehaviour, IAudioController
         {
             _directorActionDecoder.SetAudioController(this);
         }
+
+        _musicPlayer = new MusicPlayer();
 
         _audioSource = GetComponent<AudioSource>();
         Debug.Assert(_audioSource != null, "AudioController is missing missing AudioSource Component");
@@ -57,7 +59,7 @@ public class AudioController : MonoBehaviour, IAudioController
         }
         // /DEBUG
 
-        _audioSource.volume = _normalizedVolume * _settingsMusicVolume;
+        _audioSource.volume = _musicPlayer.NormalizedVolume * _settingsMusicVolume;
     }
 
     public void PlaySong(string songName)
@@ -114,11 +116,11 @@ public class AudioController : MonoBehaviour, IAudioController
 
     private bool FadeInCurrentMusicTrack()
     {
-        _normalizedVolume += Time.deltaTime;
+        _musicPlayer.NormalizedVolume += Time.deltaTime;
 
-        if (_normalizedVolume >= 1f)
+        if (_musicPlayer.NormalizedVolume >= 1f)
         {
-            _normalizedVolume = 1f;
+            _musicPlayer.NormalizedVolume = 1f;
             return true;
         }
         else
@@ -129,11 +131,11 @@ public class AudioController : MonoBehaviour, IAudioController
 
     private bool FadeOutCurrentMusicTrack()
     {
-        _normalizedVolume -= Time.deltaTime;
+        _musicPlayer.NormalizedVolume -= Time.deltaTime;
 
-        if (_normalizedVolume <= 0)
+        if (_musicPlayer.NormalizedVolume <= 0)
         {
-            _normalizedVolume = 0;
+            _musicPlayer.NormalizedVolume = 0;
             return true;
         }
         else
