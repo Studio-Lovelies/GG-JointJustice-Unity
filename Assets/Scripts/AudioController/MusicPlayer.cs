@@ -4,11 +4,11 @@ public class MusicPlayer
 {
     public float NormalizedVolume { get; private set; }
 
-    public WaitUntil FadeInCurrentMusicTrack(float deltaTime)
+    public WaitUntil FadeIn()
     {
         return new WaitUntil(() =>
         {
-            NormalizedVolume += deltaTime;
+            NormalizedVolume += Time.deltaTime;
 
             if (NormalizedVolume >= 1f)
             {
@@ -22,11 +22,11 @@ public class MusicPlayer
         });
     }
 
-    public WaitUntil FadeOutCurrentMusicTrack(float deltaTime)
+    public WaitUntil FadeOut()
     {
         return new WaitUntil(() =>
         {
-            NormalizedVolume -= deltaTime;
+            NormalizedVolume -= Time.deltaTime;
 
             if (NormalizedVolume <= 0)
             {

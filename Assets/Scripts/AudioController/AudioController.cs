@@ -92,11 +92,11 @@ public class AudioController : MonoBehaviour, IAudioController
         _isTransitioningMusicTracks = true;
         if (IsCurrentlyPlayingSomething())
         {
-            yield return _musicPlayer.FadeOutCurrentMusicTrack(Time.deltaTime);
+            yield return _musicPlayer.FadeOut();
         }
 
         SetCurrentTrack(songName);
-        yield return _musicPlayer.FadeInCurrentMusicTrack(Time.deltaTime);
+        yield return _musicPlayer.FadeIn();
 
         _isTransitioningMusicTracks = false;
         yield return null;
