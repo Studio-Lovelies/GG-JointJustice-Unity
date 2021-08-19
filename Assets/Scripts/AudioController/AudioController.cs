@@ -116,31 +116,11 @@ public class AudioController : MonoBehaviour, IAudioController
 
     private bool FadeInCurrentMusicTrack()
     {
-        _musicPlayer.NormalizedVolume += Time.deltaTime;
-
-        if (_musicPlayer.NormalizedVolume >= 1f)
-        {
-            _musicPlayer.NormalizedVolume = 1f;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return _musicPlayer.FadeInCurrentMusicTrack(Time.deltaTime);
     }
 
     private bool FadeOutCurrentMusicTrack()
     {
-        _musicPlayer.NormalizedVolume -= Time.deltaTime;
-
-        if (_musicPlayer.NormalizedVolume <= 0)
-        {
-            _musicPlayer.NormalizedVolume = 0;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return _musicPlayer.FadeOutCurrentMusicTrack(Time.deltaTime);
     }
 }
