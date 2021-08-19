@@ -92,11 +92,11 @@ public class AudioController : MonoBehaviour, IAudioController
         _isTransitioningMusicTracks = true;
         if (IsCurrentlyPlayingSomething())
         {
-            yield return FadeOutCurrentMusicTrack();
+            yield return _musicPlayer.FadeOutCurrentMusicTrack(Time.deltaTime);
         }
 
         SetCurrentTrack(songName);
-        yield return FadeInCurrentMusicTrack();
+        yield return _musicPlayer.FadeInCurrentMusicTrack(Time.deltaTime);
 
         _isTransitioningMusicTracks = false;
         yield return null;
@@ -112,15 +112,5 @@ public class AudioController : MonoBehaviour, IAudioController
         _audioSource.clip = Resources.Load("Audio/Music/" + songName) as AudioClip;
         _audioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
         _audioSource.Play();
-    }
-
-    private WaitUntil FadeInCurrentMusicTrack()
-    {
-        return _musicPlayer.FadeInCurrentMusicTrack(Time.deltaTime);
-    }
-
-    private WaitUntil FadeOutCurrentMusicTrack()
-    {
-        return _musicPlayer.FadeOutCurrentMusicTrack(Time.deltaTime);
     }
 }
