@@ -18,7 +18,6 @@ public class AudioController : MonoBehaviour, IAudioController
     private Coroutine _currentFadeCoroutine;
     private MusicFader _musicFader;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (_directorActionDecoder == null)
@@ -62,6 +61,10 @@ public class AudioController : MonoBehaviour, IAudioController
         _audioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
     }
 
+    /// <summary>
+    /// Fades in the song with the desired name. Cancels out of a current fade if one is in progress.
+    /// </summary>
+    /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     public void PlaySong(string songName)
     {
         if (_currentFadeCoroutine != null)
@@ -72,6 +75,11 @@ public class AudioController : MonoBehaviour, IAudioController
         _currentFadeCoroutine = StartCoroutine(FadeToNewSong(songName));
     }
 
+    /// <summary>
+    /// Plays sound effect of desired name by creating a new gameObject and attaching an AudioSource to it.
+    /// If this sound effect has been played before the source is reused.
+    /// </summary>
+    /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySFX(string soundEffectName)
     {
         AudioClip soundEffectClip = Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
@@ -87,10 +95,15 @@ public class AudioController : MonoBehaviour, IAudioController
         _cachedAudioSources[soundEffectName].Play();
     }
 
+    /// <summary>
+    /// Coroutine to fade to a new song.
+    /// </summary>
+    /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
+    /// <returns></returns>
     public IEnumerator FadeToNewSong(string songName)
     {
         _isTransitioningMusicTracks = true;
-        if (IsCurrentlyPlayingSomething())
+        if (IsCurrentlyPlayingMusic())
         {
             yield return _musicFader.FadeOut();
         }
@@ -102,11 +115,19 @@ public class AudioController : MonoBehaviour, IAudioController
         yield return null;
     }
 
-    private bool IsCurrentlyPlayingSomething()
+    /// <summary>
+    /// Are we playing music?
+    /// </summary>
+    /// <returns>True if we're playing a music track with a volume above zero</returns>
+    private bool IsCurrentlyPlayingMusic()
     {
-        return _audioSource.clip != null && _audioSource.volume != 0;
+        return _audioSource.clip != null && _settingsMusicVolume != 0;
     }
 
+    /// <summary>
+    /// Assigns the music player to a given song with 0 volume, intending to fade it in.
+    /// </summary>
+    /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     private void SetCurrentTrack(string songName)
     {
         _audioSource.clip = Resources.Load("Audio/Music/" + songName) as AudioClip;
