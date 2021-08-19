@@ -16,22 +16,18 @@ public class MenuController : MonoBehaviour
     private MenuNavigator _menuNavigator;
 
     /// <summary>
-    /// Creates a testable menu navigator object
+    /// Subscribes to the OnMenuItemMouseOver event of all menu items, allowing for navigation with the mouse.
+    /// Creates a MenuNavigator object which keeps track of which menu item is currently highlighted.
     /// </summary>
     private void Start()
     {
         for (int i = 0; i < _highlightableMenuItems.Length; i++)
         {
-            var i1 = i;
-            _highlightableMenuItems[i].OnMenuItemMouseOver.AddListener(() => HighlightMenuItem(i1));
+            var index = i; // This prevents the argument of HighlightMenuItem from changing
+            _highlightableMenuItems[i].OnMenuItemMouseOver.AddListener(() => _menuNavigator.SetIndex(index));
         }
         
         _menuNavigator = new MenuNavigator(_initiallyHighlightedMenuItemIndex,_highlightableMenuItems.ToArray<IHightlightableMenuItem>());
-    }
-
-    private void HighlightMenuItem(int i)
-    {
-        _menuNavigator.SetIndex(i);
     }
 
     private void Update()
