@@ -116,11 +116,11 @@ public class AudioController : MonoBehaviour, IAudioController
 
     private WaitUntil FadeInCurrentMusicTrack()
     {
-        return new WaitUntil(() => _musicPlayer.FadeInCurrentMusicTrack(Time.deltaTime));
+        return _musicPlayer.FadeInCurrentMusicTrack(Time.deltaTime);
     }
 
     private WaitUntil FadeOutCurrentMusicTrack()
     {
-        return new WaitUntil(() => _musicPlayer.FadeOutCurrentMusicTrack(Time.deltaTime));
+        return _musicPlayer.FadeOutCurrentMusicTrack(Time.deltaTime);
     }
 }
