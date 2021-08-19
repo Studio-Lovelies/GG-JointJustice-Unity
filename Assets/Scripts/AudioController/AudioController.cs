@@ -11,11 +11,12 @@ public class AudioController : MonoBehaviour, IAudioController
     /// </summary>
     [Tooltip("Maximum allowed volume by the game")]
     [Range(0f, 1f)]
-    [SerializeField] private float _maxVolume;
+    [SerializeField] private float _settingsMusicVolume = 1f;
     [SerializeField] private bool _isTransitioningMusicTracks;
     private Dictionary<string, AudioSource> _cachedAudioSources = new Dictionary<string, AudioSource>();
     private AudioSource _audioSource;
     private Coroutine _currentFadeCoroutine;
+    private float _normalizedVolume;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class AudioController : MonoBehaviour, IAudioController
         }
 
         _audioSource = GetComponent<AudioSource>();
+        Debug.Assert(_audioSource != null, "AudioController is missing missing AudioSource Component");
 
         // DEBUG
         PlaySong("aBoyAndHisTrial");
@@ -55,14 +57,7 @@ public class AudioController : MonoBehaviour, IAudioController
         }
         // /DEBUG
 
-
-        // Kinda clumsy but this way we can ensure the audioSource volume stays in sync with the settings volume.
-        // If you change the volume mid-fade then it will land on the correct volume.
-        // If you change the volume outside of a fade, the volume will jump to that exact value.
-        if (!_isTransitioningMusicTracks)
-        {
-            _audioSource.volume = _maxVolume;
-        }
+        _audioSource.volume = _normalizedVolume * _settingsMusicVolume;
     }
 
     public void PlaySong(string songName)
@@ -113,17 +108,17 @@ public class AudioController : MonoBehaviour, IAudioController
     private void SetCurrentTrack(string songName)
     {
         _audioSource.clip = Resources.Load("Audio/Music/" + songName) as AudioClip;
-        _audioSource.volume = 0f;
+        _audioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
         _audioSource.Play();
     }
 
     private bool FadeInCurrentMusicTrack()
     {
-        _audioSource.volume += Time.deltaTime * _maxVolume;
+        _normalizedVolume += Time.deltaTime;
 
-        if (_audioSource.volume >= _maxVolume)
+        if (_normalizedVolume >= 1f)
         {
-            _audioSource.volume = _maxVolume;
+            _normalizedVolume = 1f;
             return true;
         }
         else
@@ -134,11 +129,11 @@ public class AudioController : MonoBehaviour, IAudioController
 
     private bool FadeOutCurrentMusicTrack()
     {
-        _audioSource.volume -= Time.deltaTime * _maxVolume;
+        _normalizedVolume -= Time.deltaTime;
 
-        if (_audioSource.volume <= 0)
+        if (_normalizedVolume <= 0)
         {
-            _audioSource.volume = 0;
+            _normalizedVolume = 0;
             return true;
         }
         else
