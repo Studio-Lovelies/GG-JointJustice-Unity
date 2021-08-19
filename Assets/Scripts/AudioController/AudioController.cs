@@ -16,7 +16,7 @@ public class AudioController : MonoBehaviour, IAudioController
     private Dictionary<string, AudioSource> _cachedAudioSources = new Dictionary<string, AudioSource>();
     private AudioSource _audioSource;
     private Coroutine _currentFadeCoroutine;
-    private MusicPlayer _musicPlayer;
+    private MusicFader _musicFader;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class AudioController : MonoBehaviour, IAudioController
             _directorActionDecoder.SetAudioController(this);
         }
 
-        _musicPlayer = new MusicPlayer();
+        _musicFader = new MusicFader();
 
         _audioSource = GetComponent<AudioSource>();
         Debug.Assert(_audioSource != null, "AudioController is missing missing AudioSource Component");
@@ -59,7 +59,7 @@ public class AudioController : MonoBehaviour, IAudioController
         }
         // /DEBUG
 
-        _audioSource.volume = _musicPlayer.NormalizedVolume * _settingsMusicVolume;
+        _audioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
     }
 
     public void PlaySong(string songName)
@@ -92,11 +92,11 @@ public class AudioController : MonoBehaviour, IAudioController
         _isTransitioningMusicTracks = true;
         if (IsCurrentlyPlayingSomething())
         {
-            yield return _musicPlayer.FadeOut();
+            yield return _musicFader.FadeOut();
         }
 
         SetCurrentTrack(songName);
-        yield return _musicPlayer.FadeIn();
+        yield return _musicFader.FadeIn();
 
         _isTransitioningMusicTracks = false;
         yield return null;

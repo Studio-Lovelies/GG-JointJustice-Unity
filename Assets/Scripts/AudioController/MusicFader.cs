@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MusicPlayer
+public class MusicFader
 {
     public float NormalizedVolume { get; private set; }
 
