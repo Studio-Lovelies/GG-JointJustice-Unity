@@ -92,11 +92,11 @@ public class AudioController : MonoBehaviour, IAudioController
         _isTransitioningMusicTracks = true;
         if (IsCurrentlyPlayingSomething())
         {
-            yield return new WaitUntil(FadeOutCurrentMusicTrack);
+            yield return FadeOutCurrentMusicTrack();
         }
 
         SetCurrentTrack(songName);
-        yield return new WaitUntil(FadeInCurrentMusicTrack);
+        yield return FadeInCurrentMusicTrack();
 
         _isTransitioningMusicTracks = false;
         yield return null;
@@ -114,13 +114,13 @@ public class AudioController : MonoBehaviour, IAudioController
         _audioSource.Play();
     }
 
-    private bool FadeInCurrentMusicTrack()
+    private WaitUntil FadeInCurrentMusicTrack()
     {
-        return _musicPlayer.FadeInCurrentMusicTrack(Time.deltaTime);
+        return new WaitUntil(() => _musicPlayer.FadeInCurrentMusicTrack(Time.deltaTime));
     }
 
-    private bool FadeOutCurrentMusicTrack()
+    private WaitUntil FadeOutCurrentMusicTrack()
     {
-        return _musicPlayer.FadeOutCurrentMusicTrack(Time.deltaTime);
+        return new WaitUntil(() => _musicPlayer.FadeOutCurrentMusicTrack(Time.deltaTime));
     }
 }
