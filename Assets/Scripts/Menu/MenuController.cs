@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +10,8 @@ using UnityEngine.UI;
 /// </summary>
 public class MenuController : MonoBehaviour
 {
+    [Header("Menu Settings")]
+    
     [SerializeField, Tooltip("Drag all of your menu items here. Menu items will be ordered top left to right from top to bottom.")]
     private HighlightableMenuItem[] _highlightableMenuItems;
     
@@ -17,9 +21,21 @@ public class MenuController : MonoBehaviour
     [SerializeField, Min(1), Tooltip("The number of rows in the menu. Used for two dimensional grid based menus")]
     private int _numberOfRows = 1;
 
+    [Header("Navigation Options")]
+    
     [SerializeField, Tooltip("Enable this if the rows of the menu are vertical. This will swap the functions of the left/right arrows and up/down arrows.")]
     private bool _verticalRows;
+
+    [SerializeField, Tooltip("Enable this to flip the x navigation")]
+    private bool _flipXNavigation;
     
+    [SerializeField, Tooltip("Enable this to flip the y navigation")]
+    private bool _flipYNavigation;
+
+    [SerializeField, Tooltip("Enable this to make the position reset to its default position when the menu is enabled.")]
+    private bool _resetPositionOnEnable;
+
+    private bool _canSelect;
     private MenuNavigator _menuNavigator;
     
     public MenuNavigator ParentMenuNavigator { get; set; }
@@ -38,27 +54,56 @@ public class MenuController : MonoBehaviour
             menuItem.GetComponent<Button>()?.onClick.AddListener(() => menuItem.Select(_menuNavigator));
         }
     }
-
+    
+    /// <summary>
+    /// Method to handle navigation through the menu.
+    /// Uses options to flip x and y navigation or use vertical rows
+    /// depending on the orientation of the menu.
+    /// </summary>
+    /// <param name="vector">The direction in which in navigate.</param>
     public void NagivateByVector(Vector2Int vector)
     {
-        if (_verticalRows)
-        {
-            Vector2Int store = vector;
-            vector.x = -store.y;
-            vector.y = store.x;
-        }
-        
         if (gameObject.activeInHierarchy)
         {
+            if (_flipXNavigation) vector.x *= -1;
+            if (_flipYNavigation) vector.y *= -1;
+            
+            if (_verticalRows)
+            {
+                Vector2Int store = vector;
+                vector.x = store.y;
+                vector.y = store.x;
+            }
+            
             _menuNavigator.IncrementPositionByVector(vector);
         }
     }
 
     public void SelectCurrentlyHighlightedMenuItem()
     {
-        if (gameObject.activeInHierarchy)
+        if (gameObject.activeInHierarchy && _canSelect)
         {
             _menuNavigator.SelectCurrentlyHighlightedMenuItem();
         }
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(CanSelectDelay());
+        
+        if (_resetPositionOnEnable)
+        {
+            _menuNavigator.SetPosition(_initiallyHighlightedPosition);
+        }
+    }
+
+    /// <summary>
+    /// Delays selecting by one frame so the menu cannot select anything on the frame it is opened.
+    /// </summary>
+    private IEnumerator CanSelectDelay()
+    {
+        _canSelect = false;
+        yield return new WaitForEndOfFrame();
+        _canSelect = true;
     }
 }
