@@ -11,6 +11,12 @@ using UnityEngine.UI;
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
+    [SerializeField, Tooltip("The name of the scene to load")]
+    private string _sceneName;
+
+    [SerializeField, Tooltip("The index of the scene to load")]
+    private int _sceneIndex;
+    
     [SerializeField, Tooltip("Assign a transition controller here if a transition is required when changing the scene.")]
     private TransitionController _transitionController;
 
@@ -20,20 +26,22 @@ public class SceneLoader : MonoBehaviour
     /// <summary>
     /// Call this method when wanting to change the scene using a specific scene's index.
     /// </summary>
-    /// <param name="sceneIndex">The index of the target scene.</param>
-    public void ChangeScene(int sceneIndex)
+    /// <param name="menuNavigator">The menu navigator used to call this method. It is passed in case it needs to be disabled</param>
+    public void ChangeSceneBySceneIndex(MenuNavigator menuNavigator)
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+        menuNavigator.Active = false;
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_sceneIndex, LoadSceneMode.Additive);
         StartCoroutine(LoadScene(asyncOperation));
     }
-    
+
     /// <summary>
     /// Call this method when wanting to change the scene using a specific scene's name.
     /// </summary>
-    /// <param name="sceneName">The name of the target scene.</param>
-    public void ChangeScene(string sceneName)
+    /// <param name="menuNavigator">The menu navigator used to call this method. It is passed in case it needs to be disabled</param>
+    public void ChangeSceneBySceneName(MenuNavigator menuNavigator)
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        menuNavigator.Active = false;
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Additive);
         StartCoroutine(LoadScene(asyncOperation));
     }
     

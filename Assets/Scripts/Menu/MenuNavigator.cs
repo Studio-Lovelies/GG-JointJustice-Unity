@@ -38,7 +38,7 @@ public class MenuNavigator
                 _highlightableMenuItems[x, y] = highlightableMenuItems[x + ColumnCount * y];
                 int column = x; // This prevents the arguments passed to OnMenuItemMouseOver event from changing
                 int row = y;
-                _highlightableMenuItems[x, y].OnMenuItemMouseOver.AddListener(() => SetPosition(new Vector2Int(column ,row)));
+                _highlightableMenuItems[x, y].OnMouseOver.AddListener(() => SetPosition(new Vector2Int(column ,row)));
                 _highlightableMenuItems[x, y].SetHighlighted(false);
             }
         }
@@ -86,13 +86,12 @@ public class MenuNavigator
     }
 
     /// <summary>
-    /// Calls the menu items select method.
+    /// Calls the menu item's select method.
     /// </summary>
     public void SelectCurrentlyHighlightedMenuItem()
     {
         if (!Active) return;
         
-        // Active =
-        _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].Select();
+        _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].Select(this);
     }
 }

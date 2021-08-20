@@ -8,14 +8,14 @@ using UnityEngine.Events;
 /// </summary>
 public class MockHighlightableMenuItem : IHightlightableMenuItem
 {
-    public UnityEvent OnMenuItemMouseOver { get; } = new UnityEvent();
+    public UnityEvent OnMouseOver { get; } = new UnityEvent();
 
-    public void Select()
+    public void SetHighlighted(bool highlighted)
     {
         
     }
 
-    public void SetHighlighted(bool highlighted)
+    public void Select(MenuNavigator menuNavigator)
     {
         
     }

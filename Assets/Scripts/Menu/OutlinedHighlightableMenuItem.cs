@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
@@ -20,10 +21,5 @@ public class OutlinedHighlightableMenuItem : HighlightableMenuItem
     public override void SetHighlighted(bool highlighted)
     {
         _outline.enabled = highlighted;
-    }
-
-    public override void Select()
-    {
-        _button.onClick?.Invoke();
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine.Events;
 
 public interface IHightlightableMenuItem
 {
-    public UnityEvent OnMenuItemMouseOver { get; }
+    public UnityEvent OnMouseOver { get; }
     void SetHighlighted(bool highlighted);
-    void Select();
+    void Select(MenuNavigator menuNavigator);
 }

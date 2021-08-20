@@ -13,7 +13,9 @@ using UnityEngine.UI;
 [Serializable]
 public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenuItem, IPointerEnterHandler
 {
-    public UnityEvent OnMenuItemMouseOver { get; } = new UnityEvent();
+    [field: SerializeField] public UnityEvent<MenuNavigator> OnSelected { get; private set; }
+    [field: SerializeField] public UnityEvent<MenuNavigator> OnClick { get; private set; }
+    public UnityEvent OnMouseOver { get; } = new UnityEvent();
 
     /// <summary>
     /// Implement this method to tell your menu item how it should handle highlighting.
@@ -25,7 +27,12 @@ public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenu
     /// Method that is called when a menu is selected.
     /// A menu item might be selected if a user highlights it and presses a specifies key.
     /// </summary>
-    public abstract void Select();
+    /// <param name="menuNavigator"></param>
+    /// <param name="shouldInvokeButtonPress">Used if the menu item has a button component that has an on click event that should be run.</param>
+    public virtual void Select(MenuNavigator menuNavigator)
+    {
+        OnSelected?.Invoke(menuNavigator);
+    }
     
     /// <summary>
     /// Invokes OnMenuItemMouseOver when the mouse is over the menu item.
@@ -34,6 +41,6 @@ public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenu
     /// </summary>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        OnMenuItemMouseOver?.Invoke();
+        OnMouseOver?.Invoke();
     }
 }
