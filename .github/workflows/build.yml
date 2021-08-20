@@ -104,7 +104,8 @@ jobs:
         path: build/${{ matrix.targetPlatform }}
   createRelease:
     needs: [build]
-    if: github.ref == 'refs/heads/master' && github.event_name == 'push'    name: Create GitHub Release
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    name: Create GitHub Release
     runs-on: ubuntu-latest
     steps:
     - name: Download StandaloneOSX
