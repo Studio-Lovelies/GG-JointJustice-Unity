@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - develop
-      - release
+      - master
   pull_request:
     branches:
       - develop
-      - release
+      - master
   workflow_dispatch:
 
 env:
