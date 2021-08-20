@@ -1,4 +1,5 @@
 using System;
+using Codice.CM.Common;
 using UnityEngine;
 
 /// <summary>
@@ -65,8 +66,8 @@ public class MenuNavigator
         _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].SetHighlighted(false);
         CurrentPosition += vector;
         CurrentPosition = new Vector2Int(
-            Mathf.Clamp(CurrentPosition.x, 0, ColumnCount - 1),
-            Mathf.Clamp(CurrentPosition.y, 0, RowCount - 1));
+            (CurrentPosition.x + ColumnCount) % ColumnCount,
+            (CurrentPosition.y + RowCount) % RowCount);
         _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].SetHighlighted(true);
     }
 
