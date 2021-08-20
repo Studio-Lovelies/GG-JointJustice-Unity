@@ -19,9 +19,4 @@ public class MockHighlightableMenuItem : IHightlightableMenuItem
     {
         
     }
-
-    public void Select()
-    {
-        
-    }
 }
