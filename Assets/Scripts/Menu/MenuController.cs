@@ -7,12 +7,16 @@ using UnityEngine;
 /// </summary>
 public class MenuController : MonoBehaviour
 {
-    [SerializeField, Tooltip("Drag all of your menu items here.")]
-    protected HighlightableMenuItem[] _highlightableMenuItems;
+
+    [SerializeField, Tooltip("Drag all of your menu items here. Menu items will be ordered top left to right from top to bottom.")]
+    private HighlightableMenuItem[] _highlightableMenuItems;
     
     [SerializeField, Min(0), Tooltip("The first menu item that will appear highlighted. Zero indexed.")] 
-    protected int _initiallyHighlightedMenuItemIndex;
+    private Vector2Int _initiallyHighlightedPosition;
 
+    [SerializeField, Min(1), Tooltip("The number of rows in the menu. Used for two dimensional grid based menus")]
+    private int _numberOfRows;
+    
     private MenuNavigator _menuNavigator;
 
     /// <summary>
@@ -20,7 +24,35 @@ public class MenuController : MonoBehaviour
     /// Creates a MenuNavigator object which keeps track of which menu item is currently highlighted.
     /// </summary>
     private void Start()
-    { 
-        _menuNavigator = new MenuNavigator(_initiallyHighlightedMenuItemIndex, _highlightableMenuItems.ToArray<IHightlightableMenuItem>());
+    {
+        _menuNavigator = new MenuNavigator(_initiallyHighlightedPosition, _numberOfRows, _highlightableMenuItems.ToArray<IHightlightableMenuItem>());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            _menuNavigator.IncrementPositionByVector(Vector2Int.left);
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            _menuNavigator.IncrementPositionByVector(Vector2Int.right);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            _menuNavigator.IncrementPositionByVector(Vector2Int.down);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            _menuNavigator.IncrementPositionByVector(Vector2Int.up);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            _menuNavigator.SelectCurrentlyHighlightedMenuItem();
+        }
     }
 }
