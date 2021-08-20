@@ -7,12 +7,15 @@ using UnityEngine;
 /// </summary>
 public class MenuController : MonoBehaviour
 {
-    [SerializeField, Tooltip("Drag all of your menu items here.")]
+    [SerializeField, Tooltip("Drag all of your menu items here. Menu items will be ordered top left to right from top to bottom.")]
     private HighlightableMenuItem[] _highlightableMenuItems;
     
     [SerializeField, Min(0), Tooltip("The first menu item that will appear highlighted. Zero indexed.")] 
-    private int _initiallyHighlightedMenuItemIndex;
+    private Vector2Int _initiallyHighlightedPosition;
 
+    [SerializeField, Min(1), Tooltip("The number of rows in the menu. Used for two dimensional grid based menus")]
+    private int _numberOfRows;
+    
     private MenuNavigator _menuNavigator;
 
     /// <summary>
@@ -21,30 +24,34 @@ public class MenuController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        for (int i = 0; i < _highlightableMenuItems.Length; i++)
-        {
-            var index = i; // This prevents the argument of HighlightMenuItem from changing
-            _highlightableMenuItems[i].OnMenuItemMouseOver.AddListener(() => _menuNavigator.SetIndex(index));
-        }
-        
-        _menuNavigator = new MenuNavigator(_initiallyHighlightedMenuItemIndex,_highlightableMenuItems.ToArray<IHightlightableMenuItem>());
+        _menuNavigator = new MenuNavigator(_initiallyHighlightedPosition, _numberOfRows, _highlightableMenuItems.ToArray<IHightlightableMenuItem>());
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            _menuNavigator.DecrementPosition();
+            _menuNavigator.IncrementPositionByVector(Vector2Int.left);
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            _menuNavigator.IncrementPosition();
+            _menuNavigator.IncrementPositionByVector(Vector2Int.right);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            _menuNavigator.IncrementPositionByVector(Vector2Int.down);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            _menuNavigator.IncrementPositionByVector(Vector2Int.up);
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            _highlightableMenuItems[_menuNavigator.CurrentIndex].Select();
+            _menuNavigator.SelectCurrentlyHighlightedMenuItem();
         }
     }
 }
