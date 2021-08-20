@@ -23,15 +23,4 @@ public class MenuOpener : MonoBehaviour
         _menu.ParentMenuNavigator.Active = true;
         _menu.gameObject.SetActive(false);
     }
-
-    /// <summary>
-    /// TODO Remove this
-    /// </summary>
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            CloseMenu();
-        }
-    }
 }

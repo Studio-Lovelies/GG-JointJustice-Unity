@@ -10,12 +10,10 @@ using UnityEngine.UI;
 public class OutlinedHighlightableMenuItem : HighlightableMenuItem
 {
     private Outline _outline;
-    private Button _button;
-    
+
     private void Awake()
     {
         _outline = GetComponent<Outline>();
-        _button = GetComponent<Button>();
     }
 
     public override void SetHighlighted(bool highlighted)

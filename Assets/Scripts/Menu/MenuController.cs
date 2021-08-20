@@ -34,37 +34,4 @@ public class MenuController : MonoBehaviour
             menuItem.GetComponent<Button>()?.onClick.AddListener(() => menuItem.Select(_menuNavigator));
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            _menuNavigator.IncrementPositionByVector(Vector2Int.left);
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            _menuNavigator.IncrementPositionByVector(Vector2Int.right);
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            _menuNavigator.IncrementPositionByVector(Vector2Int.down);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            _menuNavigator.IncrementPositionByVector(Vector2Int.up);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            _menuNavigator.SelectCurrentlyHighlightedMenuItem();
-        }
-    }
-    
-    public void SelectMenuItem()
-    {
-        _menuNavigator.SelectCurrentlyHighlightedMenuItem();
-    }
 }

@@ -31,6 +31,8 @@ public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenu
     /// <param name="shouldInvokeButtonPress">Used if the menu item has a button component that has an on click event that should be run.</param>
     public virtual void Select(MenuNavigator menuNavigator)
     {
+        if (!menuNavigator.Active) return;
+        
         OnSelected?.Invoke(menuNavigator);
     }
     

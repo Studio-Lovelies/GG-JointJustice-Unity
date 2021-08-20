@@ -49,7 +49,6 @@ public class MenuNavigator
         }
         catch (IndexOutOfRangeException exception)
         {
-
             Debug.LogError($"{exception.GetType().Name}.\nInitially highlighted menu item index must be within bounds of menu items array. Was {initiallyHighlightedPosition}. Expected (0 - {ColumnCount - 1})(0 - {RowCount - 1})");
         }
     }
