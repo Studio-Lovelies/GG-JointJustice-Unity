@@ -44,15 +44,11 @@ public class MenuController : MonoBehaviour
     /// <summary>
     /// Subscribes to the OnMenuItemMouseOver event of all menu items, allowing for navigation with the mouse.
     /// Creates a MenuNavigator object which keeps track of which menu item is currently highlighted.
+    /// If there is a button, subscribes the menu items Select method to the button's onClick event.
     /// </summary>
     private void Awake()
     {
         _menuNavigator = new MenuNavigator(_initiallyHighlightedPosition, _numberOfRows, _highlightableMenuItems.ToArray<IHightlightableMenuItem>());
-        
-        foreach (var menuItem in _highlightableMenuItems)
-        {
-            menuItem.GetComponent<Button>()?.onClick.AddListener(() => menuItem.Select(_menuNavigator));
-        }
     }
     
     /// <summary>

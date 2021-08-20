@@ -10,14 +10,30 @@ using UnityEngine.UI;
 public class OutlinedHighlightableMenuItem : HighlightableMenuItem
 {
     private Outline _outline;
+    private Button _button;
+    private bool _wasOutlined;
 
     private void Awake()
     {
         _outline = GetComponent<Outline>();
+        _button = GetComponent<Button>();
     }
 
     public override void SetHighlighted(bool highlighted)
     {
         _outline.enabled = highlighted;
+    }
+
+    public override void SetInteractable(bool interactable)
+    {
+        _button.interactable = interactable;
+        bool enabled = _outline.enabled;
+        _outline.enabled = interactable && _wasOutlined;
+        _wasOutlined = enabled;
+    }
+
+    public override void AddOnClickListener(UnityAction listener)
+    {
+        _button.onClick.AddListener(listener);
     }
 }

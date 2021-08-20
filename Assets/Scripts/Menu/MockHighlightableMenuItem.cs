@@ -19,4 +19,14 @@ public class MockHighlightableMenuItem : IHightlightableMenuItem
     {
         
     }
+
+    public void SetInteractable(bool interactable)
+    {
+        
+    }
+
+    public void AddOnClickListener(UnityAction listener)
+    {
+        
+    }
 }

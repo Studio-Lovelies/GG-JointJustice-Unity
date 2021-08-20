@@ -27,9 +27,8 @@ public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenu
     /// Method that is called when a menu is selected.
     /// A menu item might be selected if a user highlights it and presses a specifies key.
     /// </summary>
-    /// <param name="menuNavigator"></param>
-    /// <param name="shouldInvokeButtonPress">Used if the menu item has a button component that has an on click event that should be run.</param>
-    public virtual void Select(MenuNavigator menuNavigator)
+    /// <param name="menuNavigator">The menu navigator of the menu the button belongs to. Passed so it can be set active or inactive.</param>
+    public void Select(MenuNavigator menuNavigator)
     {
         if (!menuNavigator.Active) return;
         
@@ -45,4 +44,17 @@ public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenu
     {
         OnMouseOver?.Invoke();
     }
+
+    /// <summary>
+    /// Sets the menu item to be intractable.
+    /// Child classes should implement this depending on how they enable/disable intractability.
+    /// </summary>
+    /// <param name="interactable">Whether the menu item should be interactable (true) or not (false)</param>
+    public abstract void SetInteractable(bool interactable);
+
+    /// <summary>
+    /// If the menu item has an on click event this called to add listeners to it.
+    /// </summary>
+    /// <param name="listener">The listener to be called when the on click event is activated.</param>
+    public abstract void AddOnClickListener(UnityAction listener);
 }

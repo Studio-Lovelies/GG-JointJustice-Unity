@@ -1,6 +1,6 @@
 using System;
-using Codice.CM.Common;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Class to keep track of the currently highlighted position in a menu.
@@ -10,19 +10,29 @@ using UnityEngine;
 public class MenuNavigator
 {
     private readonly IHightlightableMenuItem[,] _highlightableMenuItems;
-    
+    private bool _active = true;
+    private UnityEvent<bool> _onActive = new UnityEvent<bool>();
+   
     public int ColumnCount { get; private set; }
     public int RowCount { get; private set; }
     public Vector2Int CurrentPosition { get; set; }
-    public bool Active { get; set; } = true;
+    public bool Active
+    {
+        get => _active;
+        set
+        {
+            _active = value;
+            _onActive?.Invoke(value);
+        }
+    }
 
     /// <summary>
     /// Initialises a MenuNavigator object which keeps track of the current highlighted position in the menu.
     /// Sets all menu items to not be highlighted, then highlights the menu item at initiallyHighlightedIndex.
     /// </summary>
-    /// <param name="indexCount">The number of menu items in the menu.</param>
     /// <param name="initiallyHighlightedPosition">The menu item that should be highlighted
     /// when the menu is first created.</param>
+    /// <param name="numberOfRows">The number of rows in the menu. Used to calculate how the 2D array should be created.</param>
     /// <param name="highlightableMenuItems">Array of highlightable menu items.</param>
     public MenuNavigator(Vector2Int initiallyHighlightedPosition, int numberOfRows, IHightlightableMenuItem[] highlightableMenuItems)
     {
@@ -31,6 +41,30 @@ public class MenuNavigator
         ColumnCount = highlightableMenuItems.Length / numberOfRows;
         _highlightableMenuItems = new IHightlightableMenuItem[ColumnCount, RowCount];
 
+        ConvertTo2DArrayAndAddListeners(highlightableMenuItems);
+        ClampCurrentPosition();
+        
+        _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].SetHighlighted(true);
+    }
+
+    /// <summary>
+    /// Clamps CurrentPosition so it does not lie outside of the bounds of HighlightableMenuItems
+    /// </summary>
+    private void ClampCurrentPosition()
+    {
+        Vector2Int position = CurrentPosition;
+        position = new Vector2Int(Mathf.Clamp(position.x, 0, ColumnCount), Mathf.Clamp(position.y, 0, RowCount));
+        CurrentPosition = position;
+    }
+
+    /// <summary>
+    /// Converts the given 1D array into a 2D array so it can be accessed using a set of coordinates.
+    /// Subscribes SetPosition to each menu item's OnMouseOver event.
+    /// Subscribes SelectCurrentlyHighlightedMenuItem to each menu item's on click event.
+    /// </summary>
+    /// <param name="highlightableMenuItems">The 1D array to convert.</param>
+    private void ConvertTo2DArrayAndAddListeners(IHightlightableMenuItem[] highlightableMenuItems)
+    {
         for (int y = 0; y < RowCount; y++)
         {
             for (int x = 0; x < ColumnCount; x++)
@@ -38,18 +72,11 @@ public class MenuNavigator
                 _highlightableMenuItems[x, y] = highlightableMenuItems[x + ColumnCount * y];
                 int column = x; // This prevents the arguments passed to OnMenuItemMouseOver event from changing
                 int row = y;
-                _highlightableMenuItems[x, y].OnMouseOver.AddListener(() => SetPosition(new Vector2Int(column ,row)));
+                _highlightableMenuItems[x, y].OnMouseOver.AddListener(() => SetPosition(new Vector2Int(column, row)));
                 _highlightableMenuItems[x, y].SetHighlighted(false);
+                _highlightableMenuItems[x, y].AddOnClickListener(SelectCurrentlyHighlightedMenuItem);
+                _onActive.AddListener(value => _highlightableMenuItems[column, row].SetInteractable(value));
             }
-        }
-
-        try
-        {
-            _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].SetHighlighted(true);
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            Debug.LogError($"{exception.GetType().Name}.\nInitially highlighted menu item index must be within bounds of menu items array. Was {initiallyHighlightedPosition}. Expected (0 - {ColumnCount - 1})(0 - {RowCount - 1})");
         }
     }
 

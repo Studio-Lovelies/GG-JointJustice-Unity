@@ -9,8 +9,6 @@ public class MenuOpener : MonoBehaviour
 {
     [SerializeField, Tooltip("Drag the menu controller of the menu to open here.")]
     private MenuController _menu;
-    
-    private MenuNavigator _menuNavigator;
 
     /// <summary>
     /// Opens the menu, and disables and stores the menu navigator of the parent so it can be re-enabled later.
@@ -18,6 +16,12 @@ public class MenuOpener : MonoBehaviour
     /// <param name="menuNavigator">The parent's menu navigator</param>
     public void OpenMenu(MenuNavigator menuNavigator)
     {
+        if (_menu == null)
+        {
+            Debug.LogError($"Menu has not been set on {this}", this);
+            return;
+        }
+
         StartCoroutine(CanCloseDelay());
         _menu.gameObject.SetActive(true);
         _menu.ParentMenuNavigator = menuNavigator;
