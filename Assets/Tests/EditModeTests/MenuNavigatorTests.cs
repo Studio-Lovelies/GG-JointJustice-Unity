@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class MenuNavigatorTests
 {
-    private MockHighlightableMenuItem[] _mockHighlightableMenuItems;
+    private MockMenuItem[] _mockHighlightableMenuItems;
     private MenuNavigator _menuNavigator;
 
     private void Setup()
     {
-        _mockHighlightableMenuItems = new MockHighlightableMenuItem[]
+        _mockHighlightableMenuItems = new MockMenuItem[]
         {
-            new MockHighlightableMenuItem(),
-            new MockHighlightableMenuItem(),
-            new MockHighlightableMenuItem(),
-            new MockHighlightableMenuItem(),
-            new MockHighlightableMenuItem(),
-            new MockHighlightableMenuItem(),
-            new MockHighlightableMenuItem(),
-            new MockHighlightableMenuItem(),
-            new MockHighlightableMenuItem(),
-            new MockHighlightableMenuItem()
+            new MockMenuItem(),
+            new MockMenuItem(),
+            new MockMenuItem(),
+            new MockMenuItem(),
+            new MockMenuItem(),
+            new MockMenuItem(),
+            new MockMenuItem(),
+            new MockMenuItem(),
+            new MockMenuItem(),
+            new MockMenuItem()
         };
-        _menuNavigator = new MenuNavigator(new Vector2Int(3, 0), 2, true, _mockHighlightableMenuItems.ToArray<IHightlightableMenuItem>());
+        _menuNavigator = new MenuNavigator(new Vector2Int(3, 0), 2, true, _mockHighlightableMenuItems.ToArray<IMenuItem>());
     }
     
     [Test, Order(0)]

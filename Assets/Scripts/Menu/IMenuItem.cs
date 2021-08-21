@@ -1,6 +1,6 @@
 using UnityEngine.Events;
 
-public interface IHightlightableMenuItem
+public interface IMenuItem
 {
     public UnityEvent OnMouseOver { get; }
     void SetHighlighted(bool highlighted);

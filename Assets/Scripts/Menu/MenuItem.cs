@@ -1,30 +1,34 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
-/// /// This is an abstract class that buttons can inherit from in order to
-/// implement their own highlighting methods
-/// When a user hovers over or selects a button it will be
-/// highlighted.
+/// Attach this class to every item in a menu.
+/// Used by MenuNavigators to set highlighting of menu items.
+/// Communicates with button component to add listeners to onClick events.
 /// </summary>
-public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenuItem, IPointerEnterHandler
+[RequireComponent(typeof(Button))]
+public class MenuItem : MonoBehaviour, IMenuItem, IPointerEnterHandler
 {
-    [field: SerializeField, Tooltip("This event is called when the menu item is selected or clicked on.")]
-    public UnityEvent<MenuNavigator> OnSelected { get; private set; }
+    [SerializeField, Tooltip("This event is called when the menu item is selected or clicked on.")]
+    private UnityEvent<MenuNavigator> OnSelected;
+
+    [SerializeField, Tooltip("This event is called when the menu item is highlighted.")]
+    private UnityEvent OnHightlighted;
     
     private bool _wasHighlighted;
+    private Button _button;
     private IHighlightEnabler _highlightEnabler;
-
-    protected IHighlightEnabler HighlightEnabler => _highlightEnabler;
 
     public UnityEvent OnMouseOver { get; } = new UnityEvent();
 
     /// <summary>
-    /// Searches for IHighlightEnabler interfaces
+    /// Gets the components required for the menu item to function.
     /// </summary>
-    protected virtual void Awake()
+    protected void Awake()
     {
+        _button = GetComponent<Button>();
         if (!TryGetComponent(out _highlightEnabler))
         {
             Debug.LogError("Unable to find component with HighlightableEnabler interface.");
@@ -37,7 +41,8 @@ public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenu
     /// <param name="highlighted">Whether the menu item should be highlighted (true) or not (false).</param>
     public void SetHighlighted(bool highlighted)
     {
-        HighlightEnabler.SetHighlighted(highlighted);
+        _highlightEnabler?.SetHighlighted(highlighted);
+        OnHightlighted?.Invoke();
     }
 
     /// <summary>
@@ -48,7 +53,6 @@ public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenu
     public void Select(MenuNavigator menuNavigator)
     {
         if (!menuNavigator.Active) return;
-        
         OnSelected?.Invoke(menuNavigator);
     }
     
@@ -70,14 +74,23 @@ public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenu
     /// <param name="interactable">Whether the menu item should be interactable (true) or not (false)</param>
     public virtual void SetInteractable(bool interactable)
     {
-        bool outlineEnabled = HighlightEnabler.HighlightEnabled;
-        HighlightEnabler.SetHighlighted(interactable && _wasHighlighted);
-        _wasHighlighted = outlineEnabled;
+        if (_highlightEnabler != null)
+        {
+            bool outlineEnabled = _highlightEnabler.HighlightEnabled;
+            _highlightEnabler.SetHighlighted(interactable && _wasHighlighted);
+            _wasHighlighted = outlineEnabled;
+        }
+
+        _button.interactable = interactable;
     }
 
     /// <summary>
-    /// If the menu item has an on click event this called to add listeners to it.
+    /// Method called by MenuNavigators to add listeners to the menu item's button.
     /// </summary>
     /// <param name="listener">The listener to be called when the on click event is activated.</param>
-    public abstract void AddOnClickListener(UnityAction listener);
+    public void AddOnClickListener(UnityAction listener)
+    {
+        // if (_button == null) _button = GetComponent<Button>(); // In case this is called before Awake method
+        _button.onClick.AddListener(listener);
+    }
 }

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Mock class of HighlightableMenuItem used for testing
 /// </summary>
-public class MockHighlightableMenuItem : IHightlightableMenuItem
+public class MockMenuItem : IMenuItem
 {
     public UnityEvent OnMouseOver { get; } = new UnityEvent();
 

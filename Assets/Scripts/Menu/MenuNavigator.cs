@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /// </summary>
 public class MenuNavigator
 {
-    private readonly IHightlightableMenuItem[,] _highlightableMenuItems;
+    private readonly IMenuItem[,] _highlightableMenuItems;
     private UnityEvent<bool> _onActive = new UnityEvent<bool>();
     private bool _active = true;
     private bool _canWrap;
@@ -34,18 +34,23 @@ public class MenuNavigator
     /// <param name="initiallyHighlightedPosition">The menu item that should be highlighted
     ///     when the menu is first created.</param>
     /// <param name="numberOfRows">The number of rows in the menu. Used to calculate how the 2D array should be created.</param>
-    /// <param name="highlightableMenuItems">Array of highlightable menu items.</param>
+    /// <param name="menuItem">Array of highlightable menu items.</param>
     /// <param name="canWrap"></param>
     public MenuNavigator(Vector2Int initiallyHighlightedPosition, int numberOfRows, bool canWrap,
-        IHightlightableMenuItem[] highlightableMenuItems)
+        IMenuItem[] menuItem)
     {
+        if (menuItem.Length == 0)
+        {
+            throw new Exception("Cannot create MenuNavigator. HighlightableMenuItems is empty");
+        }
+        
         CurrentPosition = initiallyHighlightedPosition;
         RowCount = numberOfRows;
-        ColumnCount = highlightableMenuItems.Length / numberOfRows;
+        ColumnCount = menuItem.Length / numberOfRows;
         _canWrap = canWrap;
-        _highlightableMenuItems = new IHightlightableMenuItem[ColumnCount, RowCount];
+        _highlightableMenuItems = new IMenuItem[ColumnCount, RowCount];
 
-        ConvertTo2DArrayAndAddListeners(highlightableMenuItems);
+        ConvertTo2DArrayAndAddListeners(menuItem);
         ClampCurrentPosition();
         
         _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].SetHighlighted(true);
@@ -67,7 +72,7 @@ public class MenuNavigator
     /// Subscribes SelectCurrentlyHighlightedMenuItem to each menu item's on click event.
     /// </summary>
     /// <param name="highlightableMenuItems">The 1D array to convert.</param>
-    private void ConvertTo2DArrayAndAddListeners(IHightlightableMenuItem[] highlightableMenuItems)
+    private void ConvertTo2DArrayAndAddListeners(IMenuItem[] highlightableMenuItems)
     {
         for (int y = 0; y < RowCount; y++)
         {
@@ -76,7 +81,8 @@ public class MenuNavigator
                 _highlightableMenuItems[x, y] = highlightableMenuItems[x + ColumnCount * y];
                 int column = x; // This prevents the arguments passed to OnMenuItemMouseOver event from changing
                 int row = y;
-                _highlightableMenuItems[x, y].OnMouseOver.AddListener(() => SetPosition(new Vector2Int(column, row)));
+                _highlightableMenuItems[x, y].OnMouseOver
+                    .AddListener(() => SetPosition(new Vector2Int(column, row)));
                 _highlightableMenuItems[x, y].SetHighlighted(false);
                 _highlightableMenuItems[x, y].AddOnClickListener(() =>
                 {

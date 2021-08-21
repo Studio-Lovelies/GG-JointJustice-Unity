@@ -13,7 +13,7 @@ public class MenuController : MonoBehaviour
     [Header("Menu Settings")]
     
     [SerializeField, Tooltip("Drag all of your menu items here. Menu items will be ordered top left to right from top to bottom.")]
-    private HighlightableMenuItem[] _highlightableMenuItems;
+    private MenuItem[] _menuItems;
     
     [SerializeField, Min(0), Tooltip("The first menu item that will appear highlighted. Zero indexed.")] 
     private Vector2Int _initiallyHighlightedPosition;
@@ -52,7 +52,7 @@ public class MenuController : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        _menuNavigator = new MenuNavigator(_initiallyHighlightedPosition, _numberOfRows, _canWrap,_highlightableMenuItems.ToArray<IHightlightableMenuItem>());
+        _menuNavigator = new MenuNavigator(_initiallyHighlightedPosition, _numberOfRows, _canWrap,_menuItems.ToArray<IMenuItem>());
     }
 
     /// <summary>
