@@ -12,7 +12,7 @@ public class AudioController : MonoBehaviour, IAudioController
     [Tooltip("Maximum allowed volume by the game")]
     [Range(0f, 1f)]
     [SerializeField] private float _settingsMusicVolume = 1f;
-    [SerializeField] private bool _isTransitioningMusicTracks;
+    private bool _isTransitioningMusicTracks;
     private Dictionary<string, AudioSource> _cachedAudioSources = new Dictionary<string, AudioSource>();
     private AudioSource _audioSource;
     private Coroutine _currentFadeCoroutine;
