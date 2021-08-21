@@ -22,7 +22,7 @@ public class MenuNavigatorTests
             new MockHighlightableMenuItem(),
             new MockHighlightableMenuItem()
         };
-        _menuNavigator = new MenuNavigator(new Vector2Int(3, 0), 2, _mockHighlightableMenuItems.ToArray<IHightlightableMenuItem>());
+        _menuNavigator = new MenuNavigator(new Vector2Int(3, 0), 2, true, _mockHighlightableMenuItems.ToArray<IHightlightableMenuItem>());
     }
     
     [Test, Order(0)]

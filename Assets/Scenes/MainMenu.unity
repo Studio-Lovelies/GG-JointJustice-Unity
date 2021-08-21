@@ -2428,9 +2428,10 @@ MonoBehaviour:
   - {fileID: 1560460569}
   _initiallyHighlightedPosition: {x: 0, y: 0}
   _numberOfRows: 2
+  _canWrap: 0
   _verticalRows: 0
   _flipXNavigation: 0
-  _flipYNavigation: 0
+  _flipYNavigation: 1
   _resetPositionOnEnable: 0
 --- !u!1 &767269492
 GameObject:
@@ -6510,6 +6511,7 @@ MonoBehaviour:
   - {fileID: 348271460}
   _initiallyHighlightedPosition: {x: 0, y: 0}
   _numberOfRows: 1
+  _canWrap: 1
   _verticalRows: 0
   _flipXNavigation: 0
   _flipYNavigation: 0
@@ -7805,7 +7807,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1987953456}
   - component: {fileID: 1987953455}
-  - component: {fileID: 1987953457}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -7828,24 +7829,9 @@ MonoBehaviour:
   <OnDirectionPressed>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1987953457}
-        m_TargetAssemblyTypeName: InputRepeater, GG-JointJusticw
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 0
-  <OnLeftPressed>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1987953457}
-        m_TargetAssemblyTypeName: InputRepeater, GG-JointJusticw
-        m_MethodName: GetHorizontal
+      - m_Target: {fileID: 1359121070}
+        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
+        m_MethodName: NagivateByVector
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7855,12 +7841,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  <OnRightPressed>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1987953457}
-        m_TargetAssemblyTypeName: InputRepeater, GG-JointJusticw
-        m_MethodName: GetHorizontal
+      - m_Target: {fileID: 2018234053}
+        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
+        m_MethodName: NagivateByVector
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7870,27 +7853,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  <OnUpPressed>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1987953457}
-        m_TargetAssemblyTypeName: InputRepeater, GG-JointJusticw
-        m_MethodName: GetVertical
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  <OnDownPressed>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1987953457}
-        m_TargetAssemblyTypeName: InputRepeater, GG-JointJusticw
-        m_MethodName: GetVertical
+      - m_Target: {fileID: 742725383}
+        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
+        m_MethodName: NagivateByVector
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7980,59 +7945,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1987953457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1987953454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce71b8c049b444c21bb647dd8ab2e55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <OnDirectionRepeat>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1359121070}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: NagivateByVector
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2018234053}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: NagivateByVector
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 742725383}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: NagivateByVector
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _initialDelay: 0.5
-  _repeatDelay: 0.1
 --- !u!1 &1989902386
 GameObject:
   m_ObjectHideFlags: 0
@@ -8301,6 +8213,7 @@ MonoBehaviour:
   - {fileID: 922587112}
   _initiallyHighlightedPosition: {x: 0, y: 0}
   _numberOfRows: 1
+  _canWrap: 0
   _verticalRows: 1
   _flipXNavigation: 0
   _flipYNavigation: 1

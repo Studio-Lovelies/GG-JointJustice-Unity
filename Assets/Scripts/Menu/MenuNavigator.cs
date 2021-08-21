@@ -10,9 +10,10 @@ using UnityEngine.Events;
 public class MenuNavigator
 {
     private readonly IHightlightableMenuItem[,] _highlightableMenuItems;
-    private bool _active = true;
     private UnityEvent<bool> _onActive = new UnityEvent<bool>();
-   
+    private bool _active = true;
+    private bool _canWrap;
+
     public int ColumnCount { get; private set; }
     public int RowCount { get; private set; }
     public Vector2Int CurrentPosition { get; set; }
@@ -31,14 +32,17 @@ public class MenuNavigator
     /// Sets all menu items to not be highlighted, then highlights the menu item at initiallyHighlightedIndex.
     /// </summary>
     /// <param name="initiallyHighlightedPosition">The menu item that should be highlighted
-    /// when the menu is first created.</param>
+    ///     when the menu is first created.</param>
     /// <param name="numberOfRows">The number of rows in the menu. Used to calculate how the 2D array should be created.</param>
     /// <param name="highlightableMenuItems">Array of highlightable menu items.</param>
-    public MenuNavigator(Vector2Int initiallyHighlightedPosition, int numberOfRows, IHightlightableMenuItem[] highlightableMenuItems)
+    /// <param name="canWrap"></param>
+    public MenuNavigator(Vector2Int initiallyHighlightedPosition, int numberOfRows, bool canWrap,
+        IHightlightableMenuItem[] highlightableMenuItems)
     {
         CurrentPosition = initiallyHighlightedPosition;
         RowCount = numberOfRows;
         ColumnCount = highlightableMenuItems.Length / numberOfRows;
+        _canWrap = canWrap;
         _highlightableMenuItems = new IHightlightableMenuItem[ColumnCount, RowCount];
 
         ConvertTo2DArrayAndAddListeners(highlightableMenuItems);
@@ -95,9 +99,16 @@ public class MenuNavigator
         
         _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].SetHighlighted(false);
         CurrentPosition += vector;
-        CurrentPosition = new Vector2Int(
+        
+        // Either clamp or wrap the position depending on value of _canWrap
+        CurrentPosition =_canWrap ?
+            new Vector2Int(
             (CurrentPosition.x + ColumnCount) % ColumnCount,
-            (CurrentPosition.y + RowCount) % RowCount);
+            (CurrentPosition.y + RowCount) % RowCount) :
+            new Vector2Int(
+                Mathf.Clamp(CurrentPosition.x, 0, ColumnCount - 1), 
+                Mathf.Clamp(CurrentPosition.y, 0, RowCount - 1));
+
         _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].SetHighlighted(true);
     }
 

@@ -22,7 +22,10 @@ public class MenuController : MonoBehaviour
     private int _numberOfRows = 1;
 
     [Header("Navigation Options")]
-    
+
+    [SerializeField, Tooltip("Disabling this will stop the highlighted menu item wrapping around to the beginning after reaching the end of the menu.")]
+    private bool _canWrap;
+
     [SerializeField, Tooltip("Enable this if the rows of the menu are vertical. This will swap the functions of the left/right arrows and up/down arrows.")]
     private bool _verticalRows;
 
@@ -48,7 +51,7 @@ public class MenuController : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        _menuNavigator = new MenuNavigator(_initiallyHighlightedPosition, _numberOfRows, _highlightableMenuItems.ToArray<IHightlightableMenuItem>());
+        _menuNavigator = new MenuNavigator(_initiallyHighlightedPosition, _numberOfRows, _canWrap,_highlightableMenuItems.ToArray<IHightlightableMenuItem>());
     }
 
     /// <summary>
@@ -75,6 +78,9 @@ public class MenuController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Used by PlayerInput so it can select a menu item.
+    /// </summary>
     public void SelectCurrentlyHighlightedMenuItem()
     {
         if (gameObject.activeInHierarchy && _canSelect)
@@ -83,6 +89,11 @@ public class MenuController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Tasks that should be run when the menu controller is enabled.
+    /// Starts a coroutine to create a delay that it cannot be selected on the same frame it is enabled.
+    /// Resets the highlighted position to its original position of _resetPositionOnEnable is true.
+    /// </summary>
     private void OnEnable()
     {
         StartCoroutine(CanSelectDelay());
