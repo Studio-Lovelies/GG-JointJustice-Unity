@@ -52,6 +52,14 @@ public class MenuController : MonoBehaviour
     }
     
     /// <summary>
+    /// Tell the menu navigator to highlight the first position now everything has loaded.
+    /// </summary>
+    private void Start()
+    {
+        _menuNavigator.HighlightCurrentPosition();
+    }
+    
+    /// <summary>
     /// Method to handle navigation through the menu.
     /// Uses options to flip x and y navigation or use vertical rows
     /// depending on the orientation of the menu.

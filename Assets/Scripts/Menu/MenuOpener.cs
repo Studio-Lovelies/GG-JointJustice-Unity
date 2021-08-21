@@ -29,11 +29,11 @@ public class MenuOpener : MonoBehaviour
     }
 
     /// <summary>
-    /// Closes the window and re-enables the parents menu navigator.
+    /// Closes the window and re-enables the parent's menu navigator.
     /// </summary>
     public void CloseMenu()
     {
-        if (!_menu.CanClose) return;
+        if (!gameObject.activeInHierarchy || !_menu.CanClose) return;
         
         _menu.ParentMenuNavigator.Active = true;
         _menu.gameObject.SetActive(false);

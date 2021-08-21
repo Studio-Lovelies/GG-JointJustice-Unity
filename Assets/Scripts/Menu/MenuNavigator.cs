@@ -44,6 +44,14 @@ public class MenuNavigator
         ConvertTo2DArrayAndAddListeners(highlightableMenuItems);
         ClampCurrentPosition();
         
+        HighlightCurrentPosition();
+    }
+
+    /// <summary>
+    /// Call this method after everything in the scene has run their Awake method to prevent null reference exceptions.
+    /// </summary>
+    public void HighlightCurrentPosition()
+    {
         _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].SetHighlighted(true);
     }
 
@@ -74,7 +82,11 @@ public class MenuNavigator
                 int row = y;
                 _highlightableMenuItems[x, y].OnMouseOver.AddListener(() => SetPosition(new Vector2Int(column, row)));
                 _highlightableMenuItems[x, y].SetHighlighted(false);
-                _highlightableMenuItems[x, y].AddOnClickListener(SelectCurrentlyHighlightedMenuItem);
+                _highlightableMenuItems[x, y].AddOnClickListener(() =>
+                {
+                    SetPosition(new Vector2Int(column, row));
+                    SelectCurrentlyHighlightedMenuItem();
+                });
                 _onActive.AddListener(value => _highlightableMenuItems[column, row].SetInteractable(value));
             }
         }

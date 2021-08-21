@@ -1,8 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 /// <summary>
 /// /// This is an abstract class that buttons can inherit from in order to
@@ -10,18 +8,37 @@ using UnityEngine.UI;
 /// When a user hovers over or selects a button it will be
 /// highlighted.
 /// </summary>
-[Serializable]
 public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenuItem, IPointerEnterHandler
 {
-    [field: SerializeField] public UnityEvent<MenuNavigator> OnSelected { get; private set; }
-    [field: SerializeField] public UnityEvent<MenuNavigator> OnClick { get; private set; }
+    [field: SerializeField, Tooltip("This event is called when the menu item is selected or clicked on.")]
+    public UnityEvent<MenuNavigator> OnSelected { get; private set; }
+    
+    private bool _wasHighlighted;
+    private IHighlightEnabler _highlightEnabler;
+
+    protected IHighlightEnabler HighlightEnabler => _highlightEnabler;
+
     public UnityEvent OnMouseOver { get; } = new UnityEvent();
 
     /// <summary>
-    /// Implement this method to tell your menu item how it should handle highlighting.
+    /// Searches for IHighlightEnabler interfaces
+    /// </summary>
+    protected virtual void Awake()
+    {
+        if (!TryGetComponent(out _highlightEnabler))
+        {
+            Debug.LogError("Unable to find component with HighlightableEnabler interface.");
+        }
+    }
+    
+    /// <summary>
+    /// Used to call the SetHighlighted method on the IHighlightEnabler
     /// </summary>
     /// <param name="highlighted">Whether the menu item should be highlighted (true) or not (false).</param>
-    public abstract void SetHighlighted(bool highlighted);
+    public void SetHighlighted(bool highlighted)
+    {
+        HighlightEnabler.SetHighlighted(highlighted);
+    }
 
     /// <summary>
     /// Method that is called when a menu is selected.
@@ -47,10 +64,16 @@ public abstract class HighlightableMenuItem : MonoBehaviour, IHightlightableMenu
 
     /// <summary>
     /// Sets the menu item to be intractable.
+    /// Disables and re-enables the highlight.
     /// Child classes should implement this depending on how they enable/disable intractability.
     /// </summary>
     /// <param name="interactable">Whether the menu item should be interactable (true) or not (false)</param>
-    public abstract void SetInteractable(bool interactable);
+    public virtual void SetInteractable(bool interactable)
+    {
+        bool outlineEnabled = HighlightEnabler.HighlightEnabled;
+        HighlightEnabler.SetHighlighted(interactable && _wasHighlighted);
+        _wasHighlighted = outlineEnabled;
+    }
 
     /// <summary>
     /// If the menu item has an on click event this called to add listeners to it.
