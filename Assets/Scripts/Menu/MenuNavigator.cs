@@ -13,9 +13,9 @@ public class MenuNavigator
     private UnityEvent<bool> _onActive = new UnityEvent<bool>();
     private bool _active = true;
     private bool _canWrap;
-
-    public int ColumnCount { get; private set; }
-    public int RowCount { get; private set; }
+    
+    public int ColumnCount { get; }
+    public int RowCount { get; }
     public Vector2Int CurrentPosition { get; set; }
     public bool Active
     {

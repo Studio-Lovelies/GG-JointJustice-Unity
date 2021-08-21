@@ -42,6 +42,7 @@ public class MenuController : MonoBehaviour
     private MenuNavigator _menuNavigator;
 
     public MenuNavigator ParentMenuNavigator { get; set; }
+    public bool MenuNavigatorActive => _menuNavigator.Active;
     public bool CanClose { get; set; }
 
     /// <summary>

@@ -33,7 +33,7 @@ public class MenuOpener : MonoBehaviour
     /// </summary>
     public void CloseMenu()
     {
-        if (!gameObject.activeInHierarchy || !_menu.CanClose) return;
+        if (!gameObject.activeInHierarchy || !_menu.MenuNavigatorActive) return;
         
         _menu.ParentMenuNavigator.Active = true;
         _menu.gameObject.SetActive(false);
