@@ -9,27 +9,30 @@ on:
       - develop
       - master
   workflow_dispatch:
+    inputs:
+      createRelease:
+        description: 'Upload to GitHub Releases and itch.io?'
+        required: true
+        default: 'false'
 
-env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  
 jobs:
-  checklicense:
-    name: check if UNITY_LICENSE is set in github secrets
+  # Unity build
+  checkLicense:
+    name: Check if UNITY_LICENSE is set in github secrets
     runs-on: ubuntu-latest
     outputs:
-      is_unity_license_set: ${{ steps.checklicense_job.outputs.is_unity_license_set }}
+      is_unity_license_set: ${{ steps.checkLicense_job.outputs.is_unity_license_set }}
     steps:
       - name: Check whether unity activation requests should be done
-        id: checklicense_job
+        id: checkLicense_job
         run: |
-            echo "Skip activation job: ${{ env.UNITY_LICENSE != '' }}"
-            echo "::set-output name=is_unity_license_set::${{ env.UNITY_LICENSE != '' }}"
+            echo "Skip activation job: ${{ secrets.UNITY_LICENSE != '' }}"
+            echo "::set-output name=is_unity_license_set::${{ secrets.UNITY_LICENSE != '' }}"
 
   activation:
-    needs: [checklicense]
-    if: needs.checklicense.outputs.is_unity_license_set == 'false'
     name: Request activation file 🔑
+    needs: [checkLicense]
+    if: needs.checkLicense.outputs.is_unity_license_set == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Request manual activation file
@@ -44,104 +47,152 @@ jobs:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
-  build:
-    needs: [checklicense]
-    if: needs.checklicense.outputs.is_unity_license_set == 'true'
-    name: Build for ${{ matrix.targetPlatform }}
+  unityBuild:
+    name: Build for ${{ matrix.targetPlatform.outputName }}
+    needs: [checkLicense]
+    if: needs.checkLicense.outputs.is_unity_license_set == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         targetPlatform: [ 
-          {unityPlatform: "StandaloneOSX",       outputName: "macOS"}, 
-          {unityPlatform: "StandaloneWindows",   outputName: "Windows"}, 
-          {unityPlatform: "StandaloneWindows64", outputName: "Windows (x64)"}, 
-          {unityPlatform: "StandaloneLinux64",   outputName: "Linux (x64)"} 
+          { unityPlatform: "StandaloneOSX",       outputName: "macOS"       }, 
+          { unityPlatform: "StandaloneWindows",   outputName: "Windows-x68" }, 
+          { unityPlatform: "StandaloneWindows64", outputName: "Windows-x64" }, 
+          { unityPlatform: "StandaloneLinux64",   outputName: "Linux-x64"   } 
         ]
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Create LFS file list
-      run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
-    - name: Restore LFS cache
-      uses: actions/cache@v2
-      id: lfs-cache
-      with:
-        path: .git/lfs
-        key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
 
-    - name: Git LFS Pull
-      run: |
-        git lfs pull
-        git add .
-        git reset --hard
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
 
-    - uses: actions/cache@v2
-      with:
-        path: Library
-        key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-        restore-keys: |
-          Library-
+      - name: Restore Library cache
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
 
-    - name: Build project
-      uses: game-ci/unity-builder@v2
-      env:
-        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-      with:
-        targetPlatform: ${{ matrix.targetPlatform.unityPlatform }}
-        buildName: 'Game Grumps: Joint Justice'
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          targetPlatform: ${{ matrix.targetPlatform.unityPlatform }}
+          buildName: 'Game Grumps - Joint Justice'
 
-    - uses: actions/upload-artifact@v2
-      with:
-        name: ${{ matrix.targetPlatform.displayName }}
-        path: build/${{ matrix.targetPlatform.unityPlatform }}
+      - name: Upload '${{ matrix.targetPlatform.outputName }}' artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.targetPlatform.outputName }}-v${{ github.run_number }}
+          path: build/${{ matrix.targetPlatform.unityPlatform }}
 
-  createRelease:
-    needs: [build]
-    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+  # GitHub Releases
+  createGitHubRelease:
     name: Create GitHub Release
+    needs: [unityBuild]
+    if: (github.event.inputs.createRelease != 'false' || (github.ref == 'refs/heads/master' && github.event_name == 'push'))
     runs-on: ubuntu-latest
     steps:
-    - name: Download StandaloneOSX
-      uses: actions/download-artifact@v2
-      with:
-        name: macOS
-        path: build/StandaloneOSX
-    - name: Download StandaloneWindows
-      uses: actions/download-artifact@v2
-      with:
-        name: Windows
-        path: build/StandaloneWindows
-    - name: Download StandaloneWindows64
-      uses: actions/download-artifact@v2
-      with:
-        name: Windows (x64)
-        path: build/StandaloneWindows64
-    - name: Download StandaloneLinux64
-      uses: actions/download-artifact@v2
-      with:
-        name: Linux (x64)
-        path: build/StandaloneLinux64
-        
-    - name: Zip macOS
-      run: zip -r "macOS.zip"         "build/macOS"
-    - name: Zip Windows
-      run: zip -r "Windows.zip"       "build/Windows"
-    - name: Zip Windows (x64)
-      run: zip -r "Windows (x64).zip" "build/Windows (x64)"
-    - name: Zip Linux (x64)
-      run: zip -r "Linux (x64).zip"   "build/Linux (x64)"
+      - name: Download macOS
+        uses: actions/download-artifact@v2
+        with:
+          name: macOS-v${{ github.run_number }}
+          path: build/macOS-v${{ github.run_number }}
+      - name: Download Windows-x68
+        uses: actions/download-artifact@v2
+        with:
+          name: Windows-x68-v${{ github.run_number }}
+          path: build/Windows-x68-v${{ github.run_number }}
+      - name: Download Windows-x64
+        uses: actions/download-artifact@v2
+        with:
+          name: Windows-x64-v${{ github.run_number }}
+          path: build/Windows-x64-v${{ github.run_number }}
+      - name: Download Linux-x64
+        uses: actions/download-artifact@v2
+        with:
+          name: Linux-x64-v${{ github.run_number }}
+          path: build/Linux-x64-v${{ github.run_number }}
+          
+      - name: Zip macOS
+        run: zip -r "build/macOS-v${{ github.run_number }}.zip"       "build/macOS-v${{ github.run_number }}"
+      - name: Zip Windows-x68
+        run: zip -r "build/Windows-x68-v${{ github.run_number }}.zip" "build/Windows-x68-v${{ github.run_number }}"
+      - name: Zip Windows-x64
+        run: zip -r "build/Windows-x64-v${{ github.run_number }}.zip" "build/Windows-x64-v${{ github.run_number }}"
+      - name: Zip Linux-x64
+        run: zip -r "build/Linux-x64-v${{ github.run_number }}.zip"   "build/Linux-x64-v${{ github.run_number }}"
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1.8.6
+        with:
+          # glob-files need to be escaped
+          artifacts: |
+            build/macOS-v${{ github.run_number }}.zip,
+            build/Windows-x68-v${{ github.run_number }}.zip,
+            build/Windows-x64-v${{ github.run_number }}.zip,
+            build/Linux-x64-v${{ github.run_number }}.zip
+          artifactErrorsFailBuild: true
+          tag: ${{ github.run_number }}.0
+          name: "Development release #${{ github.run_number }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+            
+  # itch.io uploader
+  checkItchIO:
+    name: Check if ITCHIO_APIKEY is set in github secrets
+    runs-on: ubuntu-latest
+    outputs:
+      is_ITCHIO_set: ${{ steps.checkItchIO_job.outputs.is_ITCHIO_set }}
+    steps:
+      - name: Check whether an itch.io build should be pushed
+        id: checkItchIO_job
+        run: |
+            echo "Push itch.io build: ${{ secrets.ITCHIO_APIKEY != '' && secrets.ITCHIO_USERNAME != '' && secrets.ITCHIO_PROJECTNAME != '' }}"
+            echo "::set-output name=is_ITCHIO_set::${{ secrets.ITCHIO_APIKEY != '' && secrets.ITCHIO_USERNAME != '' && secrets.ITCHIO_PROJECTNAME != '' }}"
       
-    - name: Create GitHub Release
-      uses: ncipollo/release-action@v1.8.6
-      with:
-        artifacts: |
-          "macOS [#${{ github.run_number }}].zip",
-          "Windows [#${{ github.run_number }}].zip",
-          "Windows (x64) [#${{ github.run_number }}].zip",
-          "Linux (x64) [#${{ github.run_number }}].zip"
-        tag: "${{ github.run_number }}"
-        name: "Development release #${{ github.run_number }}"
-        token: ${{ secrets.GITHUB_TOKEN }}
+  createItchIORelease:
+    name: Create/update itch.io for ${{ matrix.platforms.outputName }}
+    needs: [unityBuild, checkItchIO]
+    if: (github.event.inputs.createRelease != 'false' || (github.ref == 'refs/heads/master' && github.event_name == 'push')) && needs.checkItchIO.outputs.is_ITCHIO_set == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platforms: [ 
+          { outputName: "macOS",       itchIOChannel: "mac"         },
+          { outputName: "Windows-x68", itchIOChannel: "windows-x68" }, 
+          { outputName: "Windows-x64", itchIOChannel: "windows-x64" }, 
+          { outputName: "Linux-x64",   itchIOChannel: "linux"       }
+        ]
+    steps:
+      - name: Download ${{ matrix.platforms.outputName }}
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ matrix.platforms.outputName }}-v${{ github.run_number }}
+          path: build/${{ matrix.platforms.outputName }}-v${{ github.run_number }}
+      - name: Create itch.io '${{ matrix.platforms.itchIOChannel }}' Release
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCHIO_APIKEY }}
+          CHANNEL: ${{ matrix.platforms.itchIOChannel }}
+          ITCH_GAME: ${{ secrets.ITCHIO_PROJECTNAME }}
+          ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
+          PACKAGE: build/${{ matrix.platforms.outputName }}-v${{ github.run_number }}
+          VERSION: ${{ github.run_number }}
