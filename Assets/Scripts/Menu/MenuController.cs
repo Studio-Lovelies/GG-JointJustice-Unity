@@ -37,7 +37,7 @@ public class MenuController : MonoBehaviour
 
     private bool _canSelect;
     private MenuNavigator _menuNavigator;
-    
+
     public MenuNavigator ParentMenuNavigator { get; set; }
     public bool CanClose { get; set; }
 
@@ -50,15 +50,7 @@ public class MenuController : MonoBehaviour
     {
         _menuNavigator = new MenuNavigator(_initiallyHighlightedPosition, _numberOfRows, _highlightableMenuItems.ToArray<IHightlightableMenuItem>());
     }
-    
-    /// <summary>
-    /// Tell the menu navigator to highlight the first position now everything has loaded.
-    /// </summary>
-    private void Start()
-    {
-        _menuNavigator.HighlightCurrentPosition();
-    }
-    
+
     /// <summary>
     /// Method to handle navigation through the menu.
     /// Uses options to flip x and y navigation or use vertical rows

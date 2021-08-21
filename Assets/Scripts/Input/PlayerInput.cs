@@ -10,19 +10,20 @@ public class PlayerInput : MonoBehaviour
     [field: SerializeField] public UnityEvent OnSelectPressed { get; private set; }
     [field: SerializeField] public UnityEvent OnPausePressed { get; private set; }
     
+    
     private void Awake()
     {
         Controls = new Controls();
         
         // Subscribe to Input System events here
-        Controls.Player.DirectionalButtons.performed += ctx => CallDirectionPressedEvent(ctx.ReadValue<Vector2>());
         Controls.Player.Select.performed += ctx => OnSelectPressed?.Invoke();
         Controls.Player.Pause.performed += ctx => OnPausePressed?.Invoke();
-    }
-
-    private void CallDirectionPressedEvent(Vector2 direction)
-    {
-        OnDirectionPressed?.Invoke(new Vector2Int((int)direction.x, (int)direction.y));
+        
+        // Directional arrows
+        Controls.Player.Left.performed += ctx => OnDirectionPressed?.Invoke(Vector2Int.left);
+        Controls.Player.Right.performed += ctx => OnDirectionPressed?.Invoke(Vector2Int.right);
+        Controls.Player.Up.performed += ctx => OnDirectionPressed?.Invoke(Vector2Int.up);
+        Controls.Player.Down.performed += ctx => OnDirectionPressed?.Invoke(Vector2Int.down);
     }
 
     private void OnEnable()

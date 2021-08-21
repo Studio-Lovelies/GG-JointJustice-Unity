@@ -44,14 +44,6 @@ public class MenuNavigator
         ConvertTo2DArrayAndAddListeners(highlightableMenuItems);
         ClampCurrentPosition();
         
-        HighlightCurrentPosition();
-    }
-
-    /// <summary>
-    /// Call this method after everything in the scene has run their Awake method to prevent null reference exceptions.
-    /// </summary>
-    public void HighlightCurrentPosition()
-    {
         _highlightableMenuItems[CurrentPosition.x, CurrentPosition.y].SetHighlighted(true);
     }
 
