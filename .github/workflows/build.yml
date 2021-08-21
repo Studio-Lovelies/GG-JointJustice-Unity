@@ -25,25 +25,25 @@ jobs:
         run: |
             echo "Skip activation job: ${{ env.UNITY_LICENSE != '' }}"
             echo "::set-output name=is_unity_license_set::${{ env.UNITY_LICENSE != '' }}"
+
   activation:
     needs: [checklicense]
     if: needs.checklicense.outputs.is_unity_license_set == 'false'
     name: Request activation file 🔑
     runs-on: ubuntu-latest
     steps:
-      # Request manual activation file
       - name: Request manual activation file
         id: getManualLicenseFile
-        # https://github.com/game-ci/unity-request-activation-file/releases/
         uses: game-ci/unity-request-activation-file@v2.0-alpha-1
         with:
           unityVersion: 2020.3.15f2
-      # Upload artifact (Unity_v20XX.X.XXXX.alf)
+
       - name: Expose as artifact
         uses: actions/upload-artifact@v1
         with:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+
   build:
     needs: [checklicense]
     if: needs.checklicense.outputs.is_unity_license_set == 'true'
@@ -52,57 +52,52 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        targetPlatform:
-          - StandaloneOSX
-          - StandaloneWindows
-          - StandaloneWindows64
-          - StandaloneLinux64
+        targetPlatform: [ 
+          {unityPlatform: "StandaloneOSX",       outputName: "macOS"}, 
+          {unityPlatform: "StandaloneWindows",   outputName: "Windows"}, 
+          {unityPlatform: "StandaloneWindows64", outputName: "Windows (x64)"}, 
+          {unityPlatform: "StandaloneLinux64",   outputName: "Linux (x64)"} 
+        ]
     steps:
-    # Checkout (without LFS)
     - name: Checkout repository
       uses: actions/checkout@v2
-    # Git LFS
+
     - name: Create LFS file list
       run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
     - name: Restore LFS cache
       uses: actions/cache@v2
       id: lfs-cache
       with:
         path: .git/lfs
         key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
     - name: Git LFS Pull
       run: |
         git lfs pull
         git add .
         git reset --hard
 
-    # Cache
     - uses: actions/cache@v2
       with:
         path: Library
         key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
         restore-keys: |
           Library-
-    # Test
-    #- name: Run tests
-    #  uses: game-ci/unity-test-runner@v2
-    #  env:
-    #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-    #  with:
-    #    githubToken: ${{ secrets.GITHUB_TOKEN }}
-    # Build
+
     - name: Build project
       uses: game-ci/unity-builder@v2
       env:
         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
       with:
-        targetPlatform: ${{ matrix.targetPlatform }}
+        targetPlatform: ${{ matrix.targetPlatform.unityPlatform }}
         buildName: 'Game Grumps: Joint Justice'
-    # Output
+
     - uses: actions/upload-artifact@v2
       with:
-        name: Build-${{ matrix.targetPlatform }}
-        path: build/${{ matrix.targetPlatform }}
+        name: ${{ matrix.targetPlatform.displayName }}
+        path: build/${{ matrix.targetPlatform.unityPlatform }}
+
   createRelease:
     needs: [build]
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
@@ -112,41 +107,41 @@ jobs:
     - name: Download StandaloneOSX
       uses: actions/download-artifact@v2
       with:
-        name: Build-StandaloneOSX
+        name: macOS
         path: build/StandaloneOSX
     - name: Download StandaloneWindows
       uses: actions/download-artifact@v2
       with:
-        name: Build-StandaloneWindows
+        name: Windows
         path: build/StandaloneWindows
     - name: Download StandaloneWindows64
       uses: actions/download-artifact@v2
       with:
-        name: Build-StandaloneWindows64
+        name: Windows (x64)
         path: build/StandaloneWindows64
     - name: Download StandaloneLinux64
       uses: actions/download-artifact@v2
       with:
-        name: Build-StandaloneLinux64
+        name: Linux (x64)
         path: build/StandaloneLinux64
         
-    - name: Zip StandaloneOSX
-      run: zip -r StandaloneOSX.zip build/StandaloneOSX
-    - name: Zip StandaloneWindows
-      run: zip -r StandaloneWindows.zip build/StandaloneWindows
-    - name: Zip StandaloneWindows64
-      run: zip -r StandaloneWindows64.zip build/StandaloneWindows64
-    - name: Zip StandaloneLinux64
-      run: zip -r StandaloneLinux64.zip build/StandaloneLinux64
+    - name: Zip macOS
+      run: zip -r "macOS.zip"         "build/macOS"
+    - name: Zip Windows
+      run: zip -r "Windows.zip"       "build/Windows"
+    - name: Zip Windows (x64)
+      run: zip -r "Windows (x64).zip" "build/Windows (x64)"
+    - name: Zip Linux (x64)
+      run: zip -r "Linux (x64).zip"   "build/Linux (x64)"
       
     - name: Create GitHub Release
       uses: ncipollo/release-action@v1.8.6
       with:
         artifacts: |
-          StandaloneOSX.zip,
-          StandaloneWindows.zip,
-          StandaloneWindows64.zip,
-          StandaloneLinux64.zip
+          "macOS [#${{ github.run_number }}].zip",
+          "Windows [#${{ github.run_number }}].zip",
+          "Windows (x64) [#${{ github.run_number }}].zip",
+          "Linux (x64) [#${{ github.run_number }}].zip"
         tag: "${{ github.run_number }}"
         name: "Development release #${{ github.run_number }}"
         token: ${{ secrets.GITHUB_TOKEN }}
