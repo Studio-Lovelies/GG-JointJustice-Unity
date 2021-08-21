@@ -11,11 +11,17 @@ public class MusicFader
     /// To be used in a coroutine to fade in the track
     /// </summary>
     /// <returns>WaitUntil object that returns control to the coroutine when it's finished</returns>
-    public WaitUntil FadeIn()
+    public WaitUntil FadeIn(float seconds = 1f)
     {
         return new WaitUntil(() =>
         {
-            NormalizedVolume += Time.deltaTime;
+            if (seconds <= 0)
+            {
+                NormalizedVolume = 1f;
+                return true;
+            }
+
+            NormalizedVolume += Time.deltaTime / seconds;
 
             if (NormalizedVolume >= 1f)
             {
@@ -33,11 +39,17 @@ public class MusicFader
     /// To be used in a coroutine to fade out the track
     /// </summary>
     /// <returns>WaitUntil object that returns control to the coroutine when it's finished</returns>
-    public WaitUntil FadeOut()
+    public WaitUntil FadeOut(float seconds = 1f)
     {
         return new WaitUntil(() =>
         {
-            NormalizedVolume -= Time.deltaTime;
+            if (seconds <= 0)
+            {
+                NormalizedVolume = 0f;
+                return true;
+            }
+
+            NormalizedVolume -= Time.deltaTime / seconds;
 
             if (NormalizedVolume <= 0)
             {

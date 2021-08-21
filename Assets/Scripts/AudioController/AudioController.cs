@@ -12,6 +12,9 @@ public class AudioController : MonoBehaviour, IAudioController
     [Tooltip("Maximum allowed volume by the game")]
     [Range(0f, 1f)]
     [SerializeField] private float _settingsMusicVolume = 1f;
+    [Tooltip("Total duration of fade out + fade in")]
+    [Range(0f, 4f)]
+    [SerializeField] private float _transitionDuration = 2f;
     private bool _isTransitioningMusicTracks;
     private Dictionary<string, AudioSource> _cachedAudioSources = new Dictionary<string, AudioSource>();
     private AudioSource _audioSource;
@@ -105,11 +108,11 @@ public class AudioController : MonoBehaviour, IAudioController
         _isTransitioningMusicTracks = true;
         if (IsCurrentlyPlayingMusic())
         {
-            yield return _musicFader.FadeOut();
+            yield return _musicFader.FadeOut(_transitionDuration / 2f);
         }
 
         SetCurrentTrack(songName);
-        yield return _musicFader.FadeIn();
+        yield return _musicFader.FadeIn(_transitionDuration / 2f);
 
         _isTransitioningMusicTracks = false;
     }
