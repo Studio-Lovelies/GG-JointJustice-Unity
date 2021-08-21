@@ -97,6 +97,7 @@ jobs:
         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
       with:
         targetPlatform: ${{ matrix.targetPlatform }}
+        buildName: 'Game Grumps: Joint Justice'
     # Output
     - uses: actions/upload-artifact@v2
       with:
