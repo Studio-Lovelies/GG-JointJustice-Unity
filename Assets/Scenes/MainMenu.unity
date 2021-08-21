@@ -2820,7 +2820,6 @@ MonoBehaviour:
   _flipXNavigation: 0
   _flipYNavigation: 1
   _resetPositionOnEnable: 0
-  Active: 0
 --- !u!1 &761276821
 GameObject:
   m_ObjectHideFlags: 0
@@ -6316,7 +6315,6 @@ MonoBehaviour:
   _flipXNavigation: 0
   _flipYNavigation: 0
   _resetPositionOnEnable: 0
-  Active: 0
 --- !u!1 &1434873741
 GameObject:
   m_ObjectHideFlags: 0
@@ -8405,31 +8403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a791a1928c03049c78bb7a707a30453d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fadeTime: 1
-  _fadeAnimationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  _fadeToImageSettings: {fileID: 11400000, guid: 24785bd9ba2a14df89de403b8a67a10f, type: 2}
 --- !u!1 &1981263942
 GameObject:
   m_ObjectHideFlags: 0
@@ -9182,7 +9156,6 @@ MonoBehaviour:
   _flipXNavigation: 0
   _flipYNavigation: 1
   _resetPositionOnEnable: 1
-  Active: 0
 --- !u!1 &2054351561
 GameObject:
   m_ObjectHideFlags: 0
