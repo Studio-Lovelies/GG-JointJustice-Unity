@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioController : MonoBehaviour, IAudioController
@@ -9,14 +8,13 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <summary>
     /// One day this will come from the "Settings," but for now it lives on a field
     /// </summary>
-    [Tooltip("Maximum allowed volume by the game")]
+    [Tooltip("Volume level set by player")]
     [Range(0f, 1f)]
     [SerializeField] private float _settingsMusicVolume = 1f;
     [Tooltip("Total duration of fade out + fade in")]
     [Range(0f, 4f)]
     [SerializeField] private float _transitionDuration = 2f;
     private bool _isTransitioningMusicTracks;
-    private Dictionary<string, AudioSource> _cachedAudioSources = new Dictionary<string, AudioSource>();
     private AudioSource _audioSource;
     private Coroutine _currentFadeCoroutine;
     private MusicFader _musicFader;
@@ -79,23 +77,13 @@ public class AudioController : MonoBehaviour, IAudioController
     }
 
     /// <summary>
-    /// Plays sound effect of desired name by creating a new gameObject and attaching an AudioSource to it.
-    /// If this sound effect has been played before the source is reused.
+    /// Plays sound effect of desired name.
     /// </summary>
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySFX(string soundEffectName)
     {
         AudioClip soundEffectClip = Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
-        if (!_cachedAudioSources.ContainsKey(soundEffectName))
-        {
-            var audioSourceGameObject = new GameObject(string.Format("SFX_{0}", soundEffectName));
-            audioSourceGameObject.transform.SetParent(transform);
-            var source = audioSourceGameObject.AddComponent<AudioSource>();
-            _cachedAudioSources.Add(soundEffectName, source);
-            source.clip = soundEffectClip;
-        }
-
-        _cachedAudioSources[soundEffectName].Play();
+        _audioSource.PlayOneShot(soundEffectClip);
     }
 
     /// <summary>
