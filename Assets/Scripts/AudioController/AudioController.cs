@@ -32,7 +32,7 @@ public class AudioController : MonoBehaviour, IAudioController
         _musicFader = new MusicFader();
 
         _audioSource = GetComponent<AudioSource>();
-        Debug.Assert(_audioSource != null, "AudioController is missing missing AudioSource Component");
+        Debug.Assert(_audioSource != null, "AudioController is missing AudioSource Component");
 
         // DEBUG
         PlaySong("aBoyAndHisTrial");
