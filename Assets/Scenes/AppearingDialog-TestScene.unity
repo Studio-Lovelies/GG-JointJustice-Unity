@@ -391,6 +391,7 @@ MonoBehaviour:
     suscipit ut. Cras eu nisi
   _controlledText: {fileID: 1384081403}
   _defaultAppearTime: 0.02
+  _speedMultiplierFromPlayerInput: 2
   _dialogDoneEvent:
     m_PersistentCalls:
       m_Calls: []

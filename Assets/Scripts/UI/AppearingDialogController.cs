@@ -12,6 +12,8 @@ public class AppearingDialogController : MonoBehaviour
     private TextMeshProUGUI _controlledText = null;
     [SerializeField, Tooltip("Default waiting time for all letters, if no alterations have been made in dialog."), Min(0f)]
     private float _defaultAppearTime = 0;
+    [SerializeField, Tooltip("When player is giving correct input to the game, how much faster should the game go.")]
+    private float _speedMultiplierFromPlayerInput = 2;
 
     [Header("Events")]
     [SerializeField, Tooltip("Events that should happen after completing a dialog.")]
@@ -29,6 +31,7 @@ public class AppearingDialogController : MonoBehaviour
     private float _timer = 0;
     private bool _writingDialog = false;
     private bool _initialSetupDone = false;
+    private bool _playerIsGivingInput = false;
 
     ///<summary>
     ///Awake is called automatically in the game when object is created, before Start-function.
@@ -127,7 +130,11 @@ public class AppearingDialogController : MonoBehaviour
     ///</summary>
     private void WriteDialog()
     {
-        _timer += Time.unscaledDeltaTime;
+        //Multiply the increasing time if player is giving input to make the text appear faster.
+        if (_playerIsGivingInput)
+            _timer += Time.unscaledDeltaTime * _speedMultiplierFromPlayerInput;
+        else
+            _timer += Time.unscaledDeltaTime;
 
         if (_timer >= _currentAppearTime)
         {
@@ -153,5 +160,14 @@ public class AppearingDialogController : MonoBehaviour
         }
 
         _currentLetterNum++;
+    }
+
+    ///<summary>
+    ///This should be called when player starts and stops giving wanted input to speed up or normalize the dialog appear time.
+    ///</summary>
+    ///<params name = "buttonIsDown">Is the button pressed down or up</params>
+    public void PlayerInput(bool buttonIsDown)
+    {
+        _playerIsGivingInput = buttonIsDown;
     }
 }
