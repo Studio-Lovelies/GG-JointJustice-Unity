@@ -112,7 +112,6 @@ public class AudioController : MonoBehaviour, IAudioController
         yield return _musicFader.FadeIn();
 
         _isTransitioningMusicTracks = false;
-        yield return null;
     }
 
     /// <summary>
