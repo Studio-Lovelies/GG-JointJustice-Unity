@@ -34,6 +34,4 @@ _Optional:_
 - Select GG-JointJustice-Unity to open the project
 - In the "Project" tab, navigate to `Assets/Scenes/SampleScene`
 - Click on the "Game" tab in the main view
-- (First Time Only) If you see the "Free Aspect", click on it
-  - Add a custom resolution via the + button, with the type "Fixed Resolution" and Width/Height of 1280 x 768. Make sure this is selected after creation.
 - Hit the play button on the top!
