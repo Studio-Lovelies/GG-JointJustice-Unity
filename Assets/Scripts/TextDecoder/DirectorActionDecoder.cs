@@ -36,6 +36,7 @@ public class DirectorActionDecoder : MonoBehaviour
         string action = actionAndParam[0];
         string parameters = actionAndParam[1];
 
+        StopAllCoroutines();
         StartCoroutine(PerformActions(action, parameters));
     }
 
