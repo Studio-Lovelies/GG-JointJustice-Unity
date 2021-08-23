@@ -4,6 +4,5 @@ using UnityEngine;
 
 public interface IHighlightEnabler
 {
-    bool HighlightEnabled { get; }
     void SetHighlighted(bool highlighted);
 }

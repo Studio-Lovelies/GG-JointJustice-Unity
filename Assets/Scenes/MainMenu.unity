@@ -300,12 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &197827815
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,12 +449,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &197827821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,12 +511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &230721435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,12 +801,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &269204881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1205,12 +1181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &330356531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1450,8 +1420,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
+    m_Mode: 1
+    m_WrapAround: 1
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1461,7 +1431,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1531,12 +1501,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &348271461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1809,12 +1773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &495485886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2685,7 +2643,6 @@ GameObject:
   - component: {fileID: 742725379}
   - component: {fileID: 742725382}
   - component: {fileID: 742725381}
-  - component: {fileID: 742725383}
   - component: {fileID: 742725380}
   m_Layer: 5
   m_Name: TestEvidenceMenu
@@ -2724,11 +2681,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 742725378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
+  m_Script: {fileID: 11500000, guid: b3b7e99e542e44d73a566690e1cb0c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menus:
-  - {fileID: 742725383}
+  _initiallyHighlightedButton: {fileID: 80002119}
+  <DontResetSelectedOnClose>k__BackingField: 1
 --- !u!114 &742725381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2767,38 +2724,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742725378}
   m_CullTransparentMesh: 1
---- !u!114 &742725383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742725378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 488b017de5c5948f8a66346e9665ca95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _menuItems:
-  - {fileID: 197827820}
-  - {fileID: 269204880}
-  - {fileID: 823852454}
-  - {fileID: 882430794}
-  - {fileID: 1299294564}
-  - {fileID: 860345851}
-  - {fileID: 1783202432}
-  - {fileID: 80002122}
-  - {fileID: 929578759}
-  - {fileID: 939926510}
-  - {fileID: 1291656707}
-  - {fileID: 1560460569}
-  _initiallyHighlightedPosition: {x: 0, y: 0}
-  _numberOfRows: 2
-  _canWrap: 0
-  _verticalRows: 0
-  _flipXNavigation: 0
-  _flipYNavigation: 1
-  _resetPositionOnEnable: 0
 --- !u!1 &767269492
 GameObject:
   m_ObjectHideFlags: 0
@@ -3001,12 +2926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &782713718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3151,24 +3070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 789163792}
-        m_TargetAssemblyTypeName: MenuOpenerCloser, GG-JointJusticw
-        m_MethodName: CloseMenu
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &789163785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3240,18 +3141,30 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1566084123}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
+        m_MethodName: CloseMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1127522055}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
+        m_MethodName: CloseMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &789163788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3322,9 +3235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menus:
-  - {fileID: 1037994236}
-  - {fileID: 2018234053}
+  _menuToOpen: {fileID: 0}
 --- !u!1 &823852449
 GameObject:
   m_ObjectHideFlags: 0
@@ -3474,12 +3385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &823852455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3657,12 +3562,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &860345852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3928,12 +3827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &882430795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4258,8 +4151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menus:
-  - {fileID: 2018234053}
+  _menuToOpen: {fileID: 1037994236}
 --- !u!114 &922587112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4272,24 +4164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 922587111}
-        m_TargetAssemblyTypeName: MenuOpenerCloser, GG-JointJusticw
-        m_MethodName: CloseMenu
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &922587113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4349,18 +4223,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1127522055}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
+        m_MethodName: CloseMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
 --- !u!114 &922587115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4738,12 +4612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &939926503
 GameObject:
   m_ObjectHideFlags: 0
@@ -4921,12 +4789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &973202784
 GameObject:
   m_ObjectHideFlags: 0
@@ -5072,8 +4934,8 @@ GameObject:
   - component: {fileID: 1037994235}
   - component: {fileID: 1037994239}
   - component: {fileID: 1037994238}
-  - component: {fileID: 1037994236}
   - component: {fileID: 1037994237}
+  - component: {fileID: 1037994236}
   m_Layer: 5
   m_Name: TestDoubleSubMenu
   m_TagString: Untagged
@@ -5113,21 +4975,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1037994234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 488b017de5c5948f8a66346e9665ca95, type: 3}
+  m_Script: {fileID: 11500000, guid: b3b7e99e542e44d73a566690e1cb0c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuItems:
-  - {fileID: 789163784}
-  - {fileID: 495485885}
-  - {fileID: 230721434}
-  - {fileID: 1412137866}
-  _initiallyHighlightedPosition: {x: 0, y: 0}
-  _numberOfRows: 1
-  _canWrap: 0
-  _verticalRows: 1
-  _flipXNavigation: 0
-  _flipYNavigation: 1
-  _resetPositionOnEnable: 1
+  _initiallyHighlightedButton: {fileID: 0}
+  <DontResetSelectedOnClose>k__BackingField: 1
 --- !u!114 &1037994237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5939,8 +5791,8 @@ GameObject:
   - component: {fileID: 1127522050}
   - component: {fileID: 1127522054}
   - component: {fileID: 1127522055}
-  - component: {fileID: 1127522056}
   - component: {fileID: 1127522053}
+  - component: {fileID: 1127522056}
   m_Layer: 5
   m_Name: LoadButton
   m_TagString: Untagged
@@ -5981,8 +5833,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
+    m_Mode: 1
+    m_WrapAround: 1
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -5992,7 +5844,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6012,18 +5864,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1127522055}
+        m_TargetAssemblyTypeName: MenuOpenerCloser, GG-JointJusticw
+        m_MethodName: OpenMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
 --- !u!114 &1127522051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6074,24 +5926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1127522055}
-        m_TargetAssemblyTypeName: MenuOpenerCloser, GG-JointJusticw
-        m_MethodName: OpenMenu
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1127522054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6119,8 +5953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menus:
-  - {fileID: 2018234053}
+  _menuToOpen: {fileID: 2018234053}
 --- !u!114 &1127522056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6685,12 +6518,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1299294559
 GameObject:
   m_ObjectHideFlags: 0
@@ -6840,12 +6667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1299294565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6930,8 +6751,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
+    m_Mode: 1
+    m_WrapAround: 1
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -6941,7 +6762,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6962,8 +6783,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1316906784}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: 
+        m_TargetAssemblyTypeName: SceneLoader, GG-JointJusticw
+        m_MethodName: ChangeSceneBySceneName
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6972,7 +6793,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
 --- !u!114 &1316906780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7038,24 +6859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1316906784}
-        m_TargetAssemblyTypeName: SceneLoader, GG-JointJusticw
-        m_MethodName: ChangeSceneBySceneName
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1316906784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7140,8 +6943,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
+    m_Mode: 1
+    m_WrapAround: 1
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -7151,7 +6954,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -7170,7 +6973,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1336736345}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1336736349}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
+        m_MethodName: OpenMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1336736345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7221,24 +7036,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1336736349}
-        m_TargetAssemblyTypeName: MenuOpenerCloser, GG-JointJusticw
-        m_MethodName: OpenMenu
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1336736348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7266,8 +7063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menus:
-  - {fileID: 742725383}
+  _menuToOpen: {fileID: 742725380}
 --- !u!114 &1336736350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7366,22 +7162,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1359121066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 488b017de5c5948f8a66346e9665ca95, type: 3}
+  m_Script: {fileID: 11500000, guid: b3b7e99e542e44d73a566690e1cb0c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuItems:
-  - {fileID: 1316906783}
-  - {fileID: 1127522053}
-  - {fileID: 1336736347}
-  - {fileID: 1832104994}
-  - {fileID: 348271460}
-  _initiallyHighlightedPosition: {x: 0, y: 0}
-  _numberOfRows: 1
-  _canWrap: 1
-  _verticalRows: 0
-  _flipXNavigation: 0
-  _flipYNavigation: 0
-  _resetPositionOnEnable: 0
+  _initiallyHighlightedButton: {fileID: 1316906779}
+  <DontResetSelectedOnClose>k__BackingField: 0
 --- !u!1 &1412137857
 GameObject:
   m_ObjectHideFlags: 0
@@ -7395,7 +7180,6 @@ GameObject:
   - component: {fileID: 1412137864}
   - component: {fileID: 1412137863}
   - component: {fileID: 1412137862}
-  - component: {fileID: 1412137860}
   - component: {fileID: 1412137859}
   - component: {fileID: 1412137866}
   m_Layer: 5
@@ -7437,20 +7221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63981f85a9b94f449441c116636c23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1412137860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412137857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _menus:
-  - {fileID: 1037994236}
 --- !u!114 &1412137862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7510,18 +7280,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1566084123}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
+        m_MethodName: CloseMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
 --- !u!114 &1412137864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7572,24 +7342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1412137860}
-        m_TargetAssemblyTypeName: MenuOpenerCloser, GG-JointJusticw
-        m_MethodName: CloseMenu
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1454283876
 GameObject:
   m_ObjectHideFlags: 0
@@ -7910,12 +7662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1560460570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8073,8 +7819,8 @@ GameObject:
   - component: {fileID: 1566084120}
   - component: {fileID: 1566084119}
   - component: {fileID: 1566084117}
-  - component: {fileID: 1566084123}
   - component: {fileID: 1566084118}
+  - component: {fileID: 1566084123}
   m_Layer: 5
   m_Name: LoadButton (1)
   m_TagString: Untagged
@@ -8126,24 +7872,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1566084123}
-        m_TargetAssemblyTypeName: MenuOpenerCloser, GG-JointJusticw
-        m_MethodName: OpenMenu
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1566084119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8203,18 +7931,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1566084123}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
+        m_MethodName: OpenMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
 --- !u!114 &1566084121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8265,8 +7993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menus:
-  - {fileID: 1037994236}
+  _menuToOpen: {fileID: 1037994236}
 --- !u!1 &1739918330
 GameObject:
   m_ObjectHideFlags: 0
@@ -8519,12 +8246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1811661373
 GameObject:
   m_ObjectHideFlags: 0
@@ -8655,8 +8376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
+    m_Mode: 1
+    m_WrapAround: 1
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -8666,7 +8387,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -8736,12 +8457,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHightlighted:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1832104995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9037,115 +8752,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <OnDirectionPressed>k__BackingField:
+  _onPausePressed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1359121070}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: NagivateByVector
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2018234053}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: NagivateByVector
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 742725383}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: NagivateByVector
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1037994236}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: NagivateByVector
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  <OnSelectPressed>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1359121070}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: SelectCurrentlyHighlightedMenuItem
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2018234053}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: SelectCurrentlyHighlightedMenuItem
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 742725383}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: SelectCurrentlyHighlightedMenuItem
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1037994236}
-        m_TargetAssemblyTypeName: MenuController, GG-JointJusticw
-        m_MethodName: SelectCurrentlyHighlightedMenuItem
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  <OnPausePressed>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 922587111}
-        m_TargetAssemblyTypeName: MenuOpenerCloser, GG-JointJusticw
+      - m_Target: {fileID: 1127522055}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
         m_MethodName: CloseMenu
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9154,10 +8767,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 742725380}
-        m_TargetAssemblyTypeName: MenuOpenerCloser, GG-JointJusticw
+      - m_Target: {fileID: 1336736349}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
         m_MethodName: CloseMenu
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9166,10 +8779,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1412137860}
-        m_TargetAssemblyTypeName: MenuOpenerCloser, GG-JointJusticw
+      - m_Target: {fileID: 1566084123}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
         m_MethodName: CloseMenu
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9249,7 +8862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1316906777}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1989902389
@@ -9345,8 +8958,8 @@ GameObject:
   - component: {fileID: 2018234049}
   - component: {fileID: 2018234051}
   - component: {fileID: 2018234050}
-  - component: {fileID: 2018234053}
   - component: {fileID: 2018234052}
+  - component: {fileID: 2018234053}
   m_Layer: 5
   m_Name: TestSubMenu
   m_TagString: Untagged
@@ -9450,21 +9063,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2018234048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 488b017de5c5948f8a66346e9665ca95, type: 3}
+  m_Script: {fileID: 11500000, guid: b3b7e99e542e44d73a566690e1cb0c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuItems:
-  - {fileID: 1566084118}
-  - {fileID: 782713717}
-  - {fileID: 330356530}
-  - {fileID: 922587112}
-  _initiallyHighlightedPosition: {x: 0, y: 0}
-  _numberOfRows: 1
-  _canWrap: 0
-  _verticalRows: 1
-  _flipXNavigation: 0
-  _flipYNavigation: 1
-  _resetPositionOnEnable: 1
+  _initiallyHighlightedButton: {fileID: 0}
+  <DontResetSelectedOnClose>k__BackingField: 1
 --- !u!1 &2042397337
 GameObject:
   m_ObjectHideFlags: 0

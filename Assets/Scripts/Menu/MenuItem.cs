@@ -1,30 +1,25 @@
-﻿using System.Diagnostics;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Debug = UnityEngine.Debug;
 
 /// <summary>
 /// Attach this class to every item in a menu.
-/// Used by MenuNavigators to set highlighting of menu items.
-/// Communicates with button component to add listeners to onClick events.
+/// Used to set highlighting of each individual menu item
+/// and disable interactivity of the associate selectable.
+/// Using EventSystems to handle highlighting when hovering over and selecting of the selectable.
+/// Communicates with a IHighlightEnabler to set highlighting.
 /// </summary>
-[RequireComponent(typeof(Button))]
 public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler
 {
-    private bool _wasHighlighted;
-    private Button _button;
+    private Selectable _selectable;
     private MenuController _menuController;
     private IHighlightEnabler _highlightEnabler;
-
-    /// <summary>
-    /// Gets the components required for the menu item to function.
-    /// </summary>
-    protected void Awake()
+    
+    private void Awake()
     {
-        _button = GetComponent<Button>();
+        _selectable = GetComponent<Selectable>();
         _menuController = GetComponentInParent<MenuController>();
+        _menuController.OnSetInteractable.AddListener(interactable => _selectable.interactable = interactable);
 
         if (!TryGetComponent(out _highlightEnabler))
         {
@@ -36,37 +31,22 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
         }
     }
 
-    /// <summary>
-    /// Invokes OnMenuItemMouseOver when the mouse is over the menu item.
-    /// This is subscribed to by MenuController so it knows which button to set as highlighted when
-    /// navigating menus using the mouse.
-    /// </summary>
+    private void OnEnable()
+    {
+        _highlightEnabler?.SetHighlighted(false);
+    }
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _button.Select();
+        if (!_selectable.interactable) return;
+        
+        _selectable.Select();
         _highlightEnabler?.SetHighlighted(true);
-    }
-
-    /// <summary>
-    /// Sets the menu item to be intractable.
-    /// Disables and re-enables the highlight.
-    /// Child classes should implement this depending on how they enable/disable intractability.
-    /// </summary>
-    /// <param name="interactable">Whether the menu item should be interactable (true) or not (false)</param>
-    public virtual void SetInteractable(bool interactable)
-    {
-        if (_highlightEnabler != null)
-        {
-            bool outlineEnabled = _highlightEnabler.HighlightEnabled;
-            _highlightEnabler.SetHighlighted(interactable && _wasHighlighted);
-            _wasHighlighted = outlineEnabled;
-        }
-
-        _button.interactable = interactable;
     }
 
     public void OnSelect(BaseEventData eventData)
     {
+        _menuController.SelectedButton = _selectable;
         _highlightEnabler?.SetHighlighted(true);
     }
 

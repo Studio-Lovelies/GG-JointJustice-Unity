@@ -1,10 +1,9 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// Class that handles opening and closing of submenus. Disables navigation
-/// of the parent menu so only items in the submenu can be accessed.
+/// of the parent menu so only items in the child menu can be accessed.
 /// </summary>
 public class MenuOpener : MonoBehaviour
 {
@@ -12,6 +11,7 @@ public class MenuOpener : MonoBehaviour
     private MenuController _menuToOpen;
 
     private Button _button;
+    private Selectable _previouslySelectedButton;
     private MenuController _menuController;
 
     private void Awake()
@@ -20,6 +20,10 @@ public class MenuOpener : MonoBehaviour
         _menuController = GetComponentInParent<MenuController>();
     }
     
+    /// <summary>
+    /// Opens the designated menu. Sets the current menu to be inactive
+    /// and sets the initially selected button.
+    /// </summary>
     public void OpenMenu()
     {
         if (_menuToOpen == null)
@@ -27,24 +31,35 @@ public class MenuOpener : MonoBehaviour
             Debug.LogError($"Menu has not been set on {this}", this);
             return;
         }
-            
+        
         _menuToOpen.gameObject.SetActive(true);
         _menuToOpen.SelectInitialButton();
         _menuController.SetMenuInteractable(false);
+        
+        if (_menuToOpen.DontResetSelectedOnClose && _previouslySelectedButton != null)
+        {
+            _previouslySelectedButton.Select();
+        }
     }
     
+    /// <summary>
+    /// Closes the previously opened menu if it that menu does not currently have any child menus open.
+    /// </summary>
     public void CloseMenu()
     {
+        if (!_menuToOpen.Active) return;
+        
         _menuToOpen.gameObject.SetActive(false);
-        _menuController.SetMenuInteractable(true);
-        _button.Select();
-    }
+        if (_menuController != null)
+        {
+            _menuController.SetMenuInteractable(true);
+        }
 
-    /// <summary>
-    /// Adds a frame delay when opening the menu so that is cannot close on the same frame.
-    /// </summary>
-    private IEnumerator CanCloseDelay()
-    {
-        yield return new WaitForEndOfFrame();
+        if (_menuToOpen.DontResetSelectedOnClose)
+        {
+            _previouslySelectedButton = _menuToOpen.SelectedButton;
+        }
+        
+        _button.Select();
     }
 }
