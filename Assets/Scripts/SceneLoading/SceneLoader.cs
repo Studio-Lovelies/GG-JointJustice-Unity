@@ -27,9 +27,8 @@ public class SceneLoader : MonoBehaviour
     /// Call this method when wanting to change the scene using a specific scene's index.
     /// </summary>
     /// <param name="menuNavigator">The menu navigator used to call this method. It is passed in case it needs to be disabled</param>
-    public void ChangeSceneBySceneIndex(MenuNavigator menuNavigator)
+    public void ChangeSceneBySceneIndex()
     {
-        menuNavigator.Active = false;
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_sceneIndex, LoadSceneMode.Additive);
         StartCoroutine(LoadScene(asyncOperation));
     }
@@ -38,9 +37,8 @@ public class SceneLoader : MonoBehaviour
     /// Call this method when wanting to change the scene using a specific scene's name.
     /// </summary>
     /// <param name="menuNavigator">The menu navigator used to call this method. It is passed in case it needs to be disabled</param>
-    public void ChangeSceneBySceneName(MenuNavigator menuNavigator)
+    public void ChangeSceneBySceneName()
     {
-        menuNavigator.Active = false;
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Additive);
         StartCoroutine(LoadScene(asyncOperation));
     }
