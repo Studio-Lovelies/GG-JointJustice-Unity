@@ -17,6 +17,25 @@ public class DirectorActionDecoder : MonoBehaviour
     [Tooltip("Event that gets called when the system is done processing the action")]
     [SerializeField] private UnityEvent _onActionDone;
 
+    #if UNITY_EDITOR
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SetActor("Dan");
+        }
+        
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            SetEmotion("Normal");
+        }
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            SetEmotion("Lean");
+        }
+    }
+    #endif
+
     /// <summary>
     /// Called whenever a new action is executed (encountered and then forwarded here) in the script
     /// </summary>
