@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Animator))]
 public class ActorController : MonoBehaviour, IActorController
@@ -9,14 +10,11 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
-    [Tooltip("Contains all the possible actors that can appear.")]
-    [SerializeField] private ActorList _actorList;
+    public bool Animating { get; set; }
     
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private ActorData _activeActor;
-    private string _activeEmotion = "Normal";
-    private string _previousEmotion;
 
     private void Awake()
     {
@@ -42,7 +40,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         _spriteRenderer.enabled = false;
     }
-
+    
     public void SetActiveActor(string actor)
     {
         _activeActor = Resources.Load<ActorData>($"Actors/{actor}");
@@ -52,24 +50,30 @@ public class ActorController : MonoBehaviour, IActorController
             return;
         }
 
-        // try
-        // {
-        //     _activeActor = _actorList.Actors[actor];
-        // }
-        // catch (Exception exception)
-        // {
-        //     Debug.LogError($"{exception.GetType().Name}: {actor} could not be found in the dictionary.");
-        //     return;
-        // }
-        
         _animator.runtimeAnimatorController = _activeActor.AnimatorController;
     }
 
     public void SetEmotion(string emotion)
     {
-        _previousEmotion = _activeEmotion;
+        if (_activeActor == null)
+        {
+            Debug.LogError("Actor has not been assigned");
+            return;
+        }
+        
+        if (_animator == null)
+        {
+            Debug.LogError("Current actor has not been assigned an animator controller.");
+            return;
+        }
+
+        if (!_animator.HasState(0, Animator.StringToHash(emotion)))
+        {
+            Debug.LogError($"Could not find emotion {emotion} on animator of actor {_activeActor.name}.");
+            return;
+        }
+        
         _animator.Play(emotion);
-        _activeEmotion = emotion;
     }
 
     public void SetActiveSpeaker(string actor)
@@ -77,8 +81,8 @@ public class ActorController : MonoBehaviour, IActorController
         Debug.LogWarning("SetActiveSpeaker not implemented");
     }
 
-    public void ResumePreviousEmotion()
+    public void FinishedAnimating()
     {
-        SetEmotion(_previousEmotion);
+        Animating = false;
     }
 }
