@@ -18,11 +18,20 @@ public class DirectorActionDecoder : MonoBehaviour
     [SerializeField] private UnityEvent _onActionDone;
 
     #if UNITY_EDITOR
+    // TODO Debug. Remove this
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             SetActor("Dan");
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            SetActor("Jory");
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            SetActor("Test");
         }
         
         if (Input.GetKeyDown(KeyCode.A))
@@ -33,7 +42,13 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             SetEmotion("Lean");
         }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            SetEmotion("AirGuitar");
+        }
     }
+    // End debug
     #endif
 
     /// <summary>

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d774158b436234d8ca3a06c7f176ed19, type: 3}
   m_Name: Actor List
   m_EditorClassIdentifier: 
-  <Actors>k__BackingField:
-  - {fileID: 11400000, guid: e379240832c5045998aca7b0f8255177, type: 2}
+  <ActorsList>k__BackingField:
+  - {fileID: 11400000, guid: 8884e3157635440fe9f5b3e5faad3af1, type: 2}
+  - {fileID: 11400000, guid: 9e61ecb11330443f3a5ff9215ad3d5e4, type: 2}
