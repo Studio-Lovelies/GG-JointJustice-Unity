@@ -13,6 +13,9 @@ public class DirectorActionDecoder : MonoBehaviour
     private IAudioController _audioController;
     private IEvidenceController _evidenceController;
 
+    [Header("Basic Values")]
+    [SerializeField] AppearingDialogController _appearingDialogController = null;
+
     [Header("Events")]
     [Tooltip("Event that gets called when the system is done processing the action")]
     [SerializeField] private UnityEvent _onActionDone;
@@ -24,7 +27,7 @@ public class DirectorActionDecoder : MonoBehaviour
     public void OnNewActionLine(string line)
     {
         //Split into action and parameter
-        string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR); 
+        string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR);
 
         if (actionAndParam.Length != 2)
         {
@@ -36,7 +39,7 @@ public class DirectorActionDecoder : MonoBehaviour
         string action = actionAndParam[0];
         string parameters = actionAndParam[1];
 
-        switch(action)
+        switch (action)
         {
             //Actor controller
             case "ACTOR": SetActor(parameters); break;
@@ -59,6 +62,11 @@ public class DirectorActionDecoder : MonoBehaviour
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
             case "ADD_RECORD": AddToCourtRecord(parameters); break;
+            //Dialog controller
+            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterTypes.dialog, parameters); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterTypes.dialog, parameters); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterTypes.dialog, parameters); break;
+            case "CLEAR_SPEED": ChangeDialogSpeed(WaiterTypes.dialog, parameters); break;
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
@@ -91,7 +99,7 @@ public class DirectorActionDecoder : MonoBehaviour
         bool shouldShow;
         if (bool.TryParse(showActor, out shouldShow))
         {
-            if(shouldShow)
+            if (shouldShow)
             {
                 _actorController.ShowActor();
             }
@@ -143,7 +151,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         float timeInSeconds;
 
-        if(float.TryParse(seconds, out timeInSeconds))
+        if (float.TryParse(seconds, out timeInSeconds))
         {
             _sceneController.FadeIn(timeInSeconds);
         }
@@ -227,10 +235,10 @@ public class DirectorActionDecoder : MonoBehaviour
         int x;
         int y;
 
-        if (int.TryParse(parameters[0], out x) 
+        if (int.TryParse(parameters[0], out x)
             && int.TryParse(parameters[1], out y))
         {
-            _sceneController.SetCameraPos(new Vector2Int(x,y));
+            _sceneController.SetCameraPos(new Vector2Int(x, y));
         }
         else
         {
@@ -260,8 +268,8 @@ public class DirectorActionDecoder : MonoBehaviour
         int x;
         int y;
 
-        if (float.TryParse(parameters[0], out duration) 
-            && int.TryParse(parameters[1], out x) 
+        if (float.TryParse(parameters[0], out duration)
+            && int.TryParse(parameters[1], out x)
             && int.TryParse(parameters[2], out y))
         {
             _sceneController.PanCamera(duration, new Vector2Int(x, y));
@@ -323,7 +331,7 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     #endregion
-    
+
     #region AudioController
     /// <summary>
     /// Plays a sound effect
@@ -467,6 +475,25 @@ public class DirectorActionDecoder : MonoBehaviour
             return false;
         }
         return true;
+    }
+    #endregion
+
+    #region DialogStuff
+
+    ///<summary>
+    ///Changes the dialog speed in appearingDialogController if it has beben set.
+    ///</summary>
+    ///<params name = "currentWaiterType">The current waiters type which appear time should be changed.</params>
+    ///<params name = "parameters">Contains all the parameters needed to change the appearing time.</params>
+    private void ChangeDialogSpeed(WaiterTypes currentWaiterType, string parameters)
+    {
+        if (_appearingDialogController == null)
+        {
+            Debug.LogError("AppearingDialogController not set. Please set it before continuing.", gameObject);
+            return;
+        }
+
+        _appearingDialogController.SetTimerValue(currentWaiterType, parameters);
     }
     #endregion
 }

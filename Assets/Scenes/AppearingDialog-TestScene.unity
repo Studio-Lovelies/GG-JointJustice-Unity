@@ -390,7 +390,7 @@ MonoBehaviour:
     massa vel aliquam. Pellentesque interdum vehicula ligula, sit amet semper dolor
     suscipit ut. Cras eu nisi
   _controlledText: {fileID: 1384081403}
-  _defaultAppearTime: 0.1
+  _defaultAppearTime: 0.02
   _defaultPunctuationAppearTime: 0.1
   _speedMultiplierFromPlayerInput: 2
   _dialogDoneEvent:
