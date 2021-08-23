@@ -1,4 +1,3 @@
-using UnityEditor.Animations;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Actor Data", menuName = "Actors/Actor Data")]
@@ -11,5 +10,5 @@ public class ActorData : ScriptableObject
     public string Bio { get; private set; }
     
     [field: SerializeField, Tooltip("The animator controller that this actor uses.")]
-    public AnimatorController AnimatorController { get; private set; }
+    public RuntimeAnimatorController AnimatorController { get; private set; }
 }
