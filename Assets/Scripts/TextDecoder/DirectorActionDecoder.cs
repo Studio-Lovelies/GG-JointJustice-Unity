@@ -67,6 +67,8 @@ public class DirectorActionDecoder : MonoBehaviour
             case "OVERALL_SPEED": ChangeDialogSpeed(WaiterTypes.overall, parameters); break;
             case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterTypes.punctuation, parameters); break;
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
+            case "ENABLE_SKIPPING": DisableTextSkipping(false); break;
+            case "DISABLE_SKIPPING": DisableTextSkipping(true); break;
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
@@ -508,6 +510,21 @@ public class DirectorActionDecoder : MonoBehaviour
         }
 
         _appearingDialogController.ClearAllWaiters();
+    }
+
+    ///<summary>
+    ///Toggles skipping on or off
+    ///</summary>
+    ///<param name = "disable">Should the text skipping be disabled or not</param>
+    private void DisableTextSkipping(bool disable)
+    {
+        if (_appearingDialogController == null)
+        {
+            Debug.LogError("AppearingDialogController not set. Please set it before continuing.", gameObject);
+            return;
+        }
+
+        _appearingDialogController.ToggleDisableTextSkipping();
     }
     #endregion
 }

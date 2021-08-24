@@ -38,6 +38,7 @@ public class AppearingDialogController : MonoBehaviour
     private Dictionary<WaiterTypes, WaitInformation> _allWaiters = new Dictionary<WaiterTypes, WaitInformation>();
     private Dictionary<int, string> _allDialogCommands = new Dictionary<int, string>();
     private const char _commandCharacter = '@';
+    private bool disableTextSkipping = false;
 
 
     ///<summary>
@@ -89,7 +90,7 @@ public class AppearingDialogController : MonoBehaviour
     ///<summary>
     ///Restart all values to default when starting to write new dialog.
     ///</summary>
-    ///<params name = "dialog">String containing the dialog to write on screen</params>
+    ///<param name = "dialog">String containing the dialog to write on screen</param>
     private void StartDialogSetup(string dialog)
     {
         _currentDialog = dialog;
@@ -153,7 +154,7 @@ public class AppearingDialogController : MonoBehaviour
     private void WriteDialog()
     {
         //Multiply the increasing time if player is giving input to make the text appear faster.
-        if (_playerIsGivingInput)
+        if (_playerIsGivingInput && !disableTextSkipping)
             _timer += Time.unscaledDeltaTime * _speedMultiplierFromPlayerInput;
         else
             _timer += Time.unscaledDeltaTime;
@@ -198,7 +199,7 @@ public class AppearingDialogController : MonoBehaviour
     ///<summary>
     ///This should be called when player starts and stops giving wanted input to speed up or normalize the dialog appear time.
     ///</summary>
-    ///<params name = "buttonIsDown">Is the button pressed down or up</params>
+    ///<param name = "buttonIsDown">Is the button pressed down or up</param>
     public void PlayerInput(bool buttonIsDown)
     {
         _playerIsGivingInput = buttonIsDown;
@@ -207,7 +208,7 @@ public class AppearingDialogController : MonoBehaviour
     ///<summary>
     ///Checks all different conditions to see which timer to use
     ///</summary>
-    ///<params name = "characterToAppwar">What is the next character we are checking the timer for. Mainly used to see if its character or punctuation</params>
+    ///<param name = "characterToAppwar">What is the next character we are checking the timer for. Mainly used to see if its character or punctuation</param>
     ///<returns>Returns which kind of waiter is used for the next character</returns>
     private WaiterTypes GetCurrentWaiter(char characterToAppear)
     {
@@ -233,6 +234,24 @@ public class AppearingDialogController : MonoBehaviour
         {
             wi.inUse = false;
         }
+        disableTextSkipping = false;
+    }
+
+    ///<summary>
+    ///Toggle should the player be able to speed up the text.
+    ///</summary>
+    public void ToggleDisableTextSkipping()
+    {
+        ToggleDisableTextSkipping(!disableTextSkipping);
+    }
+
+    ///<summary>
+    ///Toggle should the player be able to speed up the text.
+    ///</summary>
+    ///<param name = "b">The bool value that is set to disabling the speeding text</param>
+    public void ToggleDisableTextSkipping(bool disabled)
+    {
+        disableTextSkipping = disabled;
     }
 
     ///<summary>
@@ -291,7 +310,7 @@ public class AppearingDialogController : MonoBehaviour
     ///<summary>
     ///Read the commands from dialog and seperates them. Prototype, currently not in use.
     ///</summary>
-    ///<params name = "dialog">Current dialog to check the commands from</params>
+    ///<param name = "dialog">Current dialog to check the commands from</param>
     ///<returns>Dialog where commands have been separated</returns>
     private string ReadCommands(string dialog)
     {
@@ -356,6 +375,11 @@ public class AppearingDialogController : MonoBehaviour
         //Checking what the next letter is to know what action to take.
         switch (currentCommand[currentLetterNum])
         {
+            //S for Speeding
+            case 's':
+            case 'S':
+                disableTextSkipping = true;
+                break;
             //L for letter
             case 'l':
             case 'L':
@@ -396,8 +420,8 @@ public class AppearingDialogController : MonoBehaviour
     ///<summary>
     ///Sets timer value to given float.
     ///</summary>
-    ///<params name = "waiterTypeToChange">What type of waiter should be changed</params>
-    ///<params name = "valueToTurnFloat">string containing the numeric value of new appear time</params>
+    ///<param name = "waiterTypeToChange">What type of waiter should be changed</param>
+    ///<param name = "valueToTurnFloat">string containing the numeric value of new appear time</param>
     public void SetTimerValue(WaiterTypes waiterTypeToChange, string valueToTurnFloat)
     {
         //Check that there was a number after command we could use as new appear time.
@@ -415,8 +439,8 @@ public class AppearingDialogController : MonoBehaviour
     ///<summary>
     ///Sets timer value to given float.
     ///</summary>
-    ///<params name = "waiterTypeToChange">What type of waiter should be changed</params>
-    ///<params name = "newAppearTime">float value that will be set as the waiters ne appear time.</params>
+    ///<param name = "waiterTypeToChange">What type of waiter should be changed</param>
+    ///<param name = "newAppearTime">float value that will be set as the waiters ne appear time.</param>
     public void SetTimerValue(WaiterTypes waiterTypeToChange, float newAppearTime)
     {
         _allWaiters[waiterTypeToChange].inUse = true;
