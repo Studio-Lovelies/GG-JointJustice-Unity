@@ -64,9 +64,9 @@ public class DirectorActionDecoder : MonoBehaviour
             case "ADD_RECORD": AddToCourtRecord(parameters); break;
             //Dialog controller
             case "DIALOG_SPEED": ChangeDialogSpeed(WaiterTypes.dialog, parameters); break;
-            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterTypes.dialog, parameters); break;
-            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterTypes.dialog, parameters); break;
-            case "CLEAR_SPEED": ChangeDialogSpeed(WaiterTypes.dialog, parameters); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterTypes.overall, parameters); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterTypes.punctuation, parameters); break;
+            case "CLEAR_SPEED": ClearDialogSpeeds(); break;
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
@@ -483,8 +483,8 @@ public class DirectorActionDecoder : MonoBehaviour
     ///<summary>
     ///Changes the dialog speed in appearingDialogController if it has beben set.
     ///</summary>
-    ///<params name = "currentWaiterType">The current waiters type which appear time should be changed.</params>
-    ///<params name = "parameters">Contains all the parameters needed to change the appearing time.</params>
+    ///<param name = "currentWaiterType">The current waiters type which appear time should be changed.</param>
+    ///<param name = "parameters">Contains all the parameters needed to change the appearing time.</param>
     private void ChangeDialogSpeed(WaiterTypes currentWaiterType, string parameters)
     {
         if (_appearingDialogController == null)
@@ -494,6 +494,20 @@ public class DirectorActionDecoder : MonoBehaviour
         }
 
         _appearingDialogController.SetTimerValue(currentWaiterType, parameters);
+    }
+
+    ///<summary>
+    ///Clears all custom set dialog speeds
+    ///</summary>
+    private void ClearDialogSpeeds()
+    {
+        if (_appearingDialogController == null)
+        {
+            Debug.LogError("AppearingDialogController not set. Please set it before continuing.", gameObject);
+            return;
+        }
+
+        _appearingDialogController.ClearAllWaiters();
     }
     #endregion
 }
