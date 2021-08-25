@@ -354,8 +354,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 171998801}
         m_TargetAssemblyTypeName: DialogueController, Assembly-CSharp
-        m_MethodName: OnNextLine
-        m_Mode: 1
+        m_MethodName: HandleChoice
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -366,8 +366,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 171998801}
         m_TargetAssemblyTypeName: DialogueController, Assembly-CSharp
-        m_MethodName: ContinueCrossExamination
-        m_Mode: 3
+        m_MethodName: OnNextLine
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -381,7 +381,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 171998801}
         m_TargetAssemblyTypeName: DialogueController, Assembly-CSharp
-        m_MethodName: ContinueCrossExamination
+        m_MethodName: HandleChoice
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -46,7 +46,7 @@ public class DialogueController : MonoBehaviour
 
     private DialogueController _subStory;
 
-    private bool _isAtCrossExaminationChoice = false; //Possibly small state machine to handle all input?
+    private bool _isAtChoice = false; //Possibly small state machine to handle all input?
 
     private Story _inkStory;
 
@@ -96,6 +96,9 @@ public class DialogueController : MonoBehaviour
 
     private void HandleNextLineDialogue()
     {
+        if (_isAtChoice) //Make sure we don't continue unless we're not at a choice
+            return;
+
         if (_inkStory.canContinue)
         {
             string currentLine = _inkStory.Continue();
@@ -116,6 +119,7 @@ public class DialogueController : MonoBehaviour
 
             if (choiceList.Count > 0)
             {
+                _isAtChoice = true;
                 _onChoicePresented.Invoke(choiceList);
             }
             else
@@ -126,37 +130,28 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    public void ContinueCrossExamination(int choice)
+    public void HandleChoice(int choice)
     {
-        if (!_isAtCrossExaminationChoice)
+        if (!_isAtChoice)
             return;
 
         Debug.Log("Choosing: " + choice);
 
-        switch ((CrossExaminationChoice)choice)
+        if (choice > _inkStory.currentChoices.Count)
         {
-            case CrossExaminationChoice.Continue:
-                _inkStory.ChooseChoiceIndex(0);
-                _isAtCrossExaminationChoice = false;
-                OnNextLine();
-                break;
-            case CrossExaminationChoice.Press:
-                _inkStory.ChooseChoiceIndex(1);
-                _isAtCrossExaminationChoice = false;
-                OnNextLine();
-                break;
-            case CrossExaminationChoice.Evidence:
-                Debug.LogError("This choice should not be handled in this message. Please use the present evidence function.");
-                break;
-            default:
-                Debug.LogError("Unhandled cross examination choice");
-                break;
+            Debug.LogError("choice index out of range");
+        }
+        else
+        {
+            _inkStory.ChooseChoiceIndex(choice);
+            _isAtChoice = false;
+            OnNextLine();
         }
     }
 
     private void HandleNextLineCrossExamination()
     {
-        if (_isAtCrossExaminationChoice) //Make sure we don't continue unless we're not at a choice in the cross examination
+        if (_isAtChoice) //Make sure we don't continue unless we're not at a choice in the cross examination
             return;
 
         if (_inkStory.canContinue)
@@ -185,7 +180,7 @@ public class DialogueController : MonoBehaviour
 
             if (choiceList.Count > 0)
             {
-                _isAtCrossExaminationChoice = true;
+                _isAtChoice = true;
             }
         }
     }
@@ -209,14 +204,12 @@ public class DialogueController : MonoBehaviour
             }
             if (evidenceFoundAt != -1)
             {
-                _inkStory.ChooseChoiceIndex(evidenceFoundAt);
-                _isAtCrossExaminationChoice = false;
-                OnNextLine();
-                
+                HandleChoice(evidenceFoundAt);
             }
             else
             {
                 //Deal with bad consequences
+                HandleChoice(0); //0 is continue
             }
         }
     }
