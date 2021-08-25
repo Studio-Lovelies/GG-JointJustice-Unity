@@ -2,7 +2,7 @@
 
 === Line1 ===
 &SPEAK:Ross
-I was animating by myself over in my room at the office. #Textbox accepts markup. Do coloring via action or by adding markup to the spoken line?
+I was animating by myself over in my room at the office. //Textbox accepts markup. Do coloring via action or by adding markup to the spoken line?
 + [Continue]
     -> Line2
 + [Press]
@@ -31,7 +31,7 @@ Now that I know they were stolen, that means the culprit must be Jory!
     -> Line1
 + [Press]
     -> Line4Press
-+ [UnoReverse] #evidence example, not actually used
++ [UnoReverse]  //evidence example, not actually used
     &SPEAK:Ross
     ... Wait, you can't do that here! We're playing bridge!
     

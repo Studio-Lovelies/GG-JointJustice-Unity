@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Ink.Runtime;
 using UnityEngine;
+using UnityEngine.Events;
+
+public enum DialogueControllerMode
+{
+    Dialogue,
+    CrossExamination
+}
 
 public class DialogueController : MonoBehaviour
 {
@@ -10,38 +17,61 @@ public class DialogueController : MonoBehaviour
 
     [SerializeField] private TextAsset _narrativeScript;
 
+    [SerializeField] private DialogueControllerMode _dialogueMode = DialogueControllerMode.Dialogue;
+
+    [SerializeField] private GameObject _dialogueControllerPrefab;
+
     [Header("Events")]
 
     [Tooltip("Attach a dialogue controller to this so it can display spoken lines")]
     [SerializeField] private NewSpokenLineEvent _onNewSpokenLine;
 
-    [Tooltip("Attach a action decoder so it can deal with the actions")]
+    [Tooltip("Attach an action decoder so it can deal with the actions")]
     [SerializeField] private NewActionLineEvent _onNewActionLine;
 
+    [Tooltip("Event fired when the dialogue is over")]
+    [SerializeField] private UnityEvent _onDialogueFinished;
+    
+    [Tooltip("Event fired when the dialogue is over")]
+    [SerializeField] private UnityEvent<List<Choice>> _onChoicePresented;
+
+    private DialogueController _subStory;
+
     private Story _inkStory;
+
+    private bool isFirst = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        SetNarrativeScript(_narrativeScript); //TODO:Disable this, for debug only
+        if (_narrativeScript != null)
+        {
+            SetNarrativeScript(_narrativeScript); //TODO:Disable this, for debug only
+            isFirst = true;
+        }
+            
     }
 
-    private void Update()
+    void SubStoryInit(DialogueController parent)
     {
-        if (Input.GetKeyDown(KeyCode.Space)) //TODO: This is debug, remove
-        {
-            OnNextLine();
-        }
+        _onNewSpokenLine.AddListener(parent.OnSubStorySpokenLine);
+        _onNewActionLine.AddListener(parent.OnSubStoryActionLine);
+        _onDialogueFinished.AddListener(parent.OnSubStoryFinished);
     }
 
     public void SetNarrativeScript(TextAsset narrativeScript)
     {
-        _inkStory = new Story(_narrativeScript.text);
+        _inkStory = new Story(narrativeScript.text);
     }
-
 
     public void OnNextLine()
     {
+        if (_subStory != null)
+        {
+            _subStory.OnNextLine();
+            return;
+        }
+
         if (_inkStory.canContinue)
         {
             string currentLine = _inkStory.Continue();
@@ -56,23 +86,54 @@ public class DialogueController : MonoBehaviour
                 Debug.Log(currentLine); //Temp to show lines being said
             }
         }
-
-        List<Choice> choiceList = _inkStory.currentChoices;
-
-        if (choiceList.Count > 0)
-        {
-            //Choices present
-        }
         else
         {
-            //Empty
+            List<Choice> choiceList = _inkStory.currentChoices;
+
+            if (choiceList.Count > 0)
+            {
+                //Choices present
+            }
+            else
+            {
+                    Debug.Log("Done with story " + gameObject.transform.name);
+                    _onDialogueFinished.Invoke();
+            }
         }
-            
     }
+
+        
 
     private bool IsAction(string line)
     {
         return line[0] == ACTION_TOKEN;
         //TODO: Check if line is action
+    }
+
+    //Sub story stuff
+    public void StartSubStory(TextAsset subStory)
+    {
+        GameObject obj = GameObject.Instantiate(_dialogueControllerPrefab);
+        _subStory = obj.GetComponent<DialogueController>();
+        _subStory.SubStoryInit(this);
+        _subStory.SetNarrativeScript(subStory);
+        _subStory.OnNextLine();
+    }
+
+    public void OnSubStorySpokenLine(string spokenLine)
+    {
+        _onNewSpokenLine.Invoke(spokenLine);
+    }
+
+    public void OnSubStoryActionLine(string actionLine)
+    {
+        _onNewActionLine.Invoke(actionLine);
+    }
+
+    public void OnSubStoryFinished()
+    {
+        Destroy(_subStory.gameObject);
+        _subStory = null;
+        OnNextLine();
     }
 }
