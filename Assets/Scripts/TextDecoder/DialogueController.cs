@@ -4,10 +4,19 @@ using Ink.Runtime;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
 public enum DialogueControllerMode
 {
     Dialogue,
     CrossExamination
+}
+
+[System.Serializable]
+public enum CrossExaminationChoice
+{
+    Continue,
+    Press,
+    Evidence
 }
 
 public class DialogueController : MonoBehaviour
@@ -32,14 +41,14 @@ public class DialogueController : MonoBehaviour
     [Tooltip("Event fired when the dialogue is over")]
     [SerializeField] private UnityEvent _onDialogueFinished;
     
-    [Tooltip("Event fired when the dialogue is over")]
+    [Tooltip("Event fired when a choice is encountered in regular dialogue")]
     [SerializeField] private UnityEvent<List<Choice>> _onChoicePresented;
 
     private DialogueController _subStory;
 
-    private Story _inkStory;
+    private bool _isAtCrossExaminationChoice = false; //Possibly small state machine to handle all input?
 
-    private bool isFirst = false;
+    private Story _inkStory;
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +56,6 @@ public class DialogueController : MonoBehaviour
         if (_narrativeScript != null)
         {
             SetNarrativeScript(_narrativeScript); //TODO:Disable this, for debug only
-            isFirst = true;
         }
             
     }
@@ -72,6 +80,22 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
+        switch (_dialogueMode)
+        {
+            case DialogueControllerMode.Dialogue:
+                HandleNextLineDialogue();
+                break;
+            case DialogueControllerMode.CrossExamination:
+                HandleNextLineCrossExamination();
+                break;
+            default:
+                Debug.LogError("Unhandled dialogue type");
+                break;
+        }
+    }
+
+    private void HandleNextLineDialogue()
+    {
         if (_inkStory.canContinue)
         {
             string currentLine = _inkStory.Continue();
@@ -92,22 +116,115 @@ public class DialogueController : MonoBehaviour
 
             if (choiceList.Count > 0)
             {
-                //Choices present
+                _onChoicePresented.Invoke(choiceList);
             }
             else
             {
-                    Debug.Log("Done with story " + gameObject.transform.name);
-                    _onDialogueFinished.Invoke();
+                Debug.Log("Done with story " + gameObject.transform.name);
+                _onDialogueFinished.Invoke();
             }
         }
     }
 
+    public void ContinueCrossExamination(int choice)
+    {
+        if (!_isAtCrossExaminationChoice)
+            return;
+
+        Debug.Log("Choosing: " + choice);
+
+        switch ((CrossExaminationChoice)choice)
+        {
+            case CrossExaminationChoice.Continue:
+                _inkStory.ChooseChoiceIndex(0);
+                _isAtCrossExaminationChoice = false;
+                OnNextLine();
+                break;
+            case CrossExaminationChoice.Press:
+                _inkStory.ChooseChoiceIndex(1);
+                _isAtCrossExaminationChoice = false;
+                OnNextLine();
+                break;
+            case CrossExaminationChoice.Evidence:
+                Debug.LogError("This choice should not be handled in this message. Please use the present evidence function.");
+                break;
+            default:
+                Debug.LogError("Unhandled cross examination choice");
+                break;
+        }
+    }
+
+    private void HandleNextLineCrossExamination()
+    {
+        if (_isAtCrossExaminationChoice) //Make sure we don't continue unless we're not at a choice in the cross examination
+            return;
+
+        if (_inkStory.canContinue)
+        {
+            string currentLine = _inkStory.Continue();
+
+            if (IsAction(currentLine))
+            {
+                _onNewActionLine.Invoke(currentLine);
+            }
+            else
+            {
+                _onNewSpokenLine.Invoke(currentLine);
+                Debug.Log(currentLine); //Temp to show lines being said
+            }
+        }
+        else
+        {
+            //Story has ended
+            _onDialogueFinished.Invoke();
+        }
+
+        if (!_inkStory.canContinue) //At choice, set up choice sequence (or at end, but we'll deal with that on the next space press)
+        {
+            List<Choice> choiceList = _inkStory.currentChoices;
+
+            if (choiceList.Count > 0)
+            {
+                _isAtCrossExaminationChoice = true;
+            }
+        }
+    }
+
+    private void HandleEvidencePresented(Evidence evidence) //Old evidence for now. Should be replaced with a scriptable object when that story is done.
+    {
+        List<Choice> choiceList = _inkStory.currentChoices;
+
+        if (choiceList.Count <= 2)
+        {
+            //No evidence possible for a good direction, kill off.
+        }
+        else
+        {
+            int evidenceFoundAt = -1;
+            for(int i = 2; i < choiceList.Count; i++)
+            {
+                //if choiceList[i] == evidence
+                //Do the thing
+                //Can't be implemented yet cause evidence isn't implemented yet.
+            }
+            if (evidenceFoundAt != -1)
+            {
+                _inkStory.ChooseChoiceIndex(evidenceFoundAt);
+                _isAtCrossExaminationChoice = false;
+                OnNextLine();
+                
+            }
+            else
+            {
+                //Deal with bad consequences
+            }
+        }
+    }
         
 
     private bool IsAction(string line)
     {
         return line[0] == ACTION_TOKEN;
-        //TODO: Check if line is action
     }
 
     //Sub story stuff
@@ -115,7 +232,7 @@ public class DialogueController : MonoBehaviour
     {
         GameObject obj = GameObject.Instantiate(_dialogueControllerPrefab);
         _subStory = obj.GetComponent<DialogueController>();
-        _subStory.SubStoryInit(this);
+        _subStory.SubStoryInit(this); //RECURSION
         _subStory.SetNarrativeScript(subStory);
         _subStory.OnNextLine();
     }

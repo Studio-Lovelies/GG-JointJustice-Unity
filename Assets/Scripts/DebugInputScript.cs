@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class DebugInputScript : MonoBehaviour
 {
     public UnityEvent _onSpacePressed;
+    public UnityEvent _onCPressed;
 
     // Update is called once per frame
     void Update()
@@ -13,6 +14,11 @@ public class DebugInputScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             _onSpacePressed.Invoke();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            _onCPressed.Invoke();
         }
     }
 }
