@@ -44,7 +44,7 @@ public class DialogueController : MonoBehaviour
     [Tooltip("Event fired when a choice is encountered in regular dialogue")]
     [SerializeField] private UnityEvent<List<Choice>> _onChoicePresented;
 
-    private DialogueController _subStory;
+    private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
 
     private bool _isAtChoice = false; //Possibly small state machine to handle all input?
 
@@ -110,7 +110,6 @@ public class DialogueController : MonoBehaviour
             else
             {
                 _onNewSpokenLine.Invoke(currentLine);
-                Debug.Log(currentLine); //Temp to show lines being said
             }
         }
         else
@@ -134,8 +133,6 @@ public class DialogueController : MonoBehaviour
     {
         if (!_isAtChoice)
             return;
-
-        Debug.Log("Choosing: " + choice);
 
         if (choice > _inkStory.currentChoices.Count)
         {
@@ -165,7 +162,6 @@ public class DialogueController : MonoBehaviour
             else
             {
                 _onNewSpokenLine.Invoke(currentLine);
-                Debug.Log(currentLine); //Temp to show lines being said
             }
         }
         else

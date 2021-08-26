@@ -7,6 +7,8 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
+    private string _activeSpeaker;
+
     void Start()
     {
         if (_directorActionDecoder == null)
@@ -42,7 +44,13 @@ public class ActorController : MonoBehaviour, IActorController
 
     public void SetActiveSpeaker(string actor)
     {
-        Debug.LogWarning("SetActiveSpeaker not implemented");
+        //Debug.LogWarning("SetActiveSpeaker not implemented");
+        _activeSpeaker = actor;
+    }
+
+    public void OnSpokenLine(string line) //Debug function to see who's speaking more easily
+    {
+        Debug.Log(_activeSpeaker + ": " + line);
     }
 
 }
