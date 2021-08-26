@@ -68,8 +68,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "OVERALL_SPEED": ChangeDialogSpeed(WaiterTypes.overall, parameters); break;
             case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterTypes.punctuation, parameters); break;
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
-            case "ENABLE_SKIPPING": DisableTextSkipping(false); break;
-            case "DISABLE_SKIPPING": DisableTextSkipping(true); break;
+            case "DISABLE_SKIPPING": DisableTextSkipping(parameters); break;
             case "FORCE_NEXT_DIALOG": ForceNextDialog(); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
             //Default
@@ -528,12 +527,13 @@ public class DirectorActionDecoder : MonoBehaviour
     ///Toggles skipping on or off
     ///</summary>
     ///<param name = "disable">Should the text skipping be disabled or not</param>
-    private void DisableTextSkipping(bool disable)
+    private void DisableTextSkipping(string disabled)
     {
         if (!HasAppearingDialogController())
             return;
 
-        _appearingDialogController.ToggleDisableTextSkipping();
+        bool value = bool.Parse(disabled);
+        _appearingDialogController.ToggleDisableTextSkipping(value);
     }
 
     ///<summary>
