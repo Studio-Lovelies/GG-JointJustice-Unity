@@ -29,6 +29,9 @@ public class AppearingDialogController : MonoBehaviour
     ///</summary>
     public UnityEvent DialogDoneEvent { get { return _dialogDoneEvent; } }
 
+    [SerializeField, Tooltip("Event is invoked every time letter appears")]
+    private UnityEvent _onLetterAppear = new UnityEvent();
+
     private UnityEvent _temporaryDialogDoneEvent = new UnityEvent();
 
     private float _currentAppearTime = 0;
@@ -199,6 +202,7 @@ public class AppearingDialogController : MonoBehaviour
 
         //Increase the maxVisibleCharacters to show the next letter.
         _controlledText.maxVisibleCharacters = _currentLetterNum;
+        _onLetterAppear?.Invoke();
 
         //If the end of dialog is reached, make appropriate measures
         if (_currentDialog.Length == _currentLetterNum)
