@@ -482,6 +482,21 @@ public class DirectorActionDecoder : MonoBehaviour
 
     #region DialogStuff
 
+
+    /// <summary>
+    /// Checks if the decoder has an appearing dialog controller attached, and shows an error if it doesn't
+    /// </summary>
+    /// <returns>Whether an appearing dialog controller is connected</returns>
+    private bool HasAppearingDialogController()
+    {
+        if (_appearingDialogController == null)
+        {
+            Debug.LogError("No appearing dialog controller attached to the action decoder", gameObject);
+            return false;
+        }
+        return true;
+    }
+
     ///<summary>
     ///Changes the dialog speed in appearingDialogController if it has beben set.
     ///</summary>
@@ -489,11 +504,8 @@ public class DirectorActionDecoder : MonoBehaviour
     ///<param name = "parameters">Contains all the parameters needed to change the appearing time.</param>
     private void ChangeDialogSpeed(WaiterTypes currentWaiterType, string parameters)
     {
-        if (_appearingDialogController == null)
-        {
-            Debug.LogError("AppearingDialogController not set. Please set it before continuing.", gameObject);
+        if (!HasAppearingDialogController())
             return;
-        }
 
         _appearingDialogController.SetTimerValue(currentWaiterType, parameters);
     }
@@ -503,11 +515,8 @@ public class DirectorActionDecoder : MonoBehaviour
     ///</summary>
     private void ClearDialogSpeeds()
     {
-        if (_appearingDialogController == null)
-        {
-            Debug.LogError("AppearingDialogController not set. Please set it before continuing.", gameObject);
+        if (!HasAppearingDialogController())
             return;
-        }
 
         _appearingDialogController.ClearAllWaiters();
     }
@@ -518,11 +527,8 @@ public class DirectorActionDecoder : MonoBehaviour
     ///<param name = "disable">Should the text skipping be disabled or not</param>
     private void DisableTextSkipping(bool disable)
     {
-        if (_appearingDialogController == null)
-        {
-            Debug.LogError("AppearingDialogController not set. Please set it before continuing.", gameObject);
+        if (!HasAppearingDialogController())
             return;
-        }
 
         _appearingDialogController.ToggleDisableTextSkipping();
     }

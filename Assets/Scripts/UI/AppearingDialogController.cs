@@ -50,7 +50,7 @@ public class AppearingDialogController : MonoBehaviour
 
         //If starting the scene in application, will 
         if (Application.isEditor)
-            StartCoroutine(StartDialog(_testString));
+            StartCoroutine(StartDialogCoroutine(_testString));
     }
 
     ///<summary>
@@ -107,14 +107,14 @@ public class AppearingDialogController : MonoBehaviour
     ///</summary>
     /// <param name="dialog">The dialog that should be showed to player.</param>
     /// <param name="dialogDoneActions">All the actions that should be called after the dialog has written everything. These actions happen only once, and will be removed afterwards.</param>
-    public IEnumerator StartDialog(string dialog, params UnityAction[] dialogDoneActions)
+    public IEnumerator StartDialogCoroutine(string dialog, params UnityAction[] dialogDoneActions)
     {
         foreach (UnityAction ua in dialogDoneActions)
         {
             _temporaryDialogDoneEvent.AddListener(ua);
         }
 
-        yield return StartDialog(dialog);
+        yield return StartDialogCoroutine(dialog);
 
         _temporaryDialogDoneEvent?.Invoke();
         _temporaryDialogDoneEvent.RemoveAllListeners();
@@ -124,7 +124,7 @@ public class AppearingDialogController : MonoBehaviour
     /// Displays dialog one letter at a time.
     ///</summary>
     /// <param name="dialog">The dialog that should be showed to player.</param>
-    public IEnumerator StartDialog(string dialog)
+    public IEnumerator StartDialogCoroutine(string dialog)
     {
         StartDialogSetup(dialog);
 
@@ -133,6 +133,15 @@ public class AppearingDialogController : MonoBehaviour
             WriteDialog();
             yield return null;
         }
+    }
+
+    ///<summary>
+    /// Displays dialog one letter at a time.
+    ///</summary>
+    /// <param name="dialog">The dialog that should be showed to player.</param>
+    public void StartDialog(string dialog)
+    {
+        StartCoroutine(StartDialogCoroutine(dialog));
     }
 
 
