@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class AppearingDialogController : MonoBehaviour
 {
     [Header("Basic Values")]
-    [SerializeField, Tooltip("Test string. Only for testing the tool in editor.")]
-    private string _testString = "";
     [SerializeField, Tooltip("TextMeshPro-component all the dialog should appear in.")]
     private TextMeshProUGUI _controlledText = null;
+    [SerializeField, Tooltip("TextMeshPro-component the name of the speaker should appear in.")]
+    private TextMeshProUGUI _nameText = null;
+    [SerializeField, Tooltip("Image containing text background color")]
+    private Image _nameBackgroundImage = null;
     [SerializeField, Tooltip("Default waiting time for all letters, if no alterations have been made in dialog."), Min(0f)]
     private float _defaultAppearTime = 0;
     [SerializeField, Tooltip("Default waiting time for punctuation, if no alterations have been made in dialog."), Min(0f)]
@@ -48,10 +51,6 @@ public class AppearingDialogController : MonoBehaviour
     private void Awake()
     {
         InitialSetup();
-
-        //If starting the scene in application, will 
-        if (Application.isEditor)
-            StartCoroutine(StartDialogCoroutine(_testString));
     }
 
     ///<summary>
@@ -85,7 +84,8 @@ public class AppearingDialogController : MonoBehaviour
         _allWaiters[WaiterTypes.defaultPunctuation].waitTime = _defaultPunctuationAppearTime;
 
         //If the textbox is using autosize, lets take if off or else the text will keep changing size when more dialog appears. 
-        _controlledText.autoSizeTextContainer = false;
+        _controlledText.enableAutoSizing = false;
+        _nameText.enableAutoSizing = false;
         _currentAppearTime = _defaultAppearTime;
     }
 
