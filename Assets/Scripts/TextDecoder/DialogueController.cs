@@ -17,6 +17,7 @@ public class DialogueController : MonoBehaviour
 
     [Tooltip("Attach a action decoder so it can deal with the actions")]
     [SerializeField] private NewActionLineEvent _onNewActionLine;
+    bool _writingDialog = false;
 
     private Story _inkStory;
 
@@ -28,9 +29,10 @@ public class DialogueController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) //TODO: This is debug, remove
+        if (!_writingDialog && Input.GetKeyDown(KeyCode.Space)) //TODO: This is debug, remove
         {
             OnNextLine();
+            _writingDialog = true;
         }
     }
 
@@ -67,12 +69,20 @@ public class DialogueController : MonoBehaviour
         {
             //Empty
         }
-            
+
     }
 
     private bool IsAction(string line)
     {
         return line[0] == ACTION_TOKEN;
         //TODO: Check if line is action
+    }
+
+    ///<summary>
+    ///When the dialog has been written, makes the code be able to continue to next dialog
+    ///</summary>
+    public void StopWritingDialog()
+    {
+        _writingDialog = false;
     }
 }
