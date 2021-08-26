@@ -8,16 +8,16 @@ using UnityEngine.UI;
 public class MenuOpener : MonoBehaviour
 {
     [SerializeField, Tooltip("Drag the menu controller of the menus to open or close here.")]
-    private MenuController _menuToOpen;
+    private Menu _menuToOpen;
 
     private Button _button;
-    private Selectable _previouslySelectedButton;
-    private MenuController _menuController;
+    private Selectable _cachedSelectedButtonAfterClose;
+    private Menu _parentMenu;
 
     private void Awake()
     {
         _button = GetComponent<Button>();
-        _menuController = GetComponentInParent<MenuController>();
+        _parentMenu = GetComponentInParent<Menu>();
     }
     
     /// <summary>
@@ -34,11 +34,15 @@ public class MenuOpener : MonoBehaviour
         
         _menuToOpen.gameObject.SetActive(true);
         _menuToOpen.SelectInitialButton();
-        _menuController.SetMenuInteractable(false);
-        
-        if (_menuToOpen.DontResetSelectedOnClose && _previouslySelectedButton != null)
+
+        if (_parentMenu != null)
         {
-            _previouslySelectedButton.Select();
+            _parentMenu.SetMenuInteractable(false);
+        }
+
+        if (_menuToOpen.DontResetSelectedOnClose && _cachedSelectedButtonAfterClose != null)
+        {
+            _cachedSelectedButtonAfterClose.Select();
         }
     }
     
@@ -50,14 +54,14 @@ public class MenuOpener : MonoBehaviour
         if (!_menuToOpen.Active) return;
         
         _menuToOpen.gameObject.SetActive(false);
-        if (_menuController != null)
+        if (_parentMenu != null)
         {
-            _menuController.SetMenuInteractable(true);
+            _parentMenu.SetMenuInteractable(true);
         }
 
         if (_menuToOpen.DontResetSelectedOnClose)
         {
-            _previouslySelectedButton = _menuToOpen.SelectedButton;
+            _cachedSelectedButtonAfterClose = _menuToOpen.SelectedButton;
         }
         
         _button.Select();

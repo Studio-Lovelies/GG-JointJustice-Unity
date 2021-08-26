@@ -4,10 +4,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// Keeps track of the buttons in this menu.
-/// In charge of setting them to be active or inactive, and choosing the initial button to be selected.
+/// Defines a menu. Used by MenuOpener to enable and disable the menu.
+/// Keeps track of which menu item in the menu should be highlighted.
+/// Chooses the initial menu item to be selected.
 /// </summary>
-public class MenuController : MonoBehaviour
+public class Menu : MonoBehaviour
 {
     [SerializeField, Tooltip("The first button that will be selected")]
     private Button _initiallyHighlightedButton;
@@ -15,9 +16,9 @@ public class MenuController : MonoBehaviour
     [field: SerializeField, Tooltip("Enable this if you want the selected button to be the same as when you closed the menu")]
     public bool DontResetSelectedOnClose { get; private set; }
 
-    public UnityEvent<bool> OnSetInteractable { get; private set; } = new UnityEvent<bool>();
+    public UnityEvent<bool> OnSetInteractable { get; } = new UnityEvent<bool>();
     public Selectable SelectedButton { get; set; } // Set by child buttons when they are selected
-    public bool Active => gameObject.activeInHierarchy && SelectedButton.interactable; // Gets whether a child menu is enabled
+    public bool Active => gameObject.activeInHierarchy && SelectedButton.interactable; // Returns true when no child menus are active ONLY if this menu is enabled
 
     private void Update()
     {

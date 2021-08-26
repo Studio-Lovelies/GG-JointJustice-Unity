@@ -3,37 +3,37 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// Attach this class to every item in a menu.
+/// Attach this class to every item in a menu that can be selectable (has a Selectable component e.g. a Button).
 /// Used to set highlighting of each individual menu item
-/// and disable interactivity of the associate selectable.
+/// and disable interactivity of the associate Selectable.
 /// Using EventSystems to handle highlighting when hovering over and selecting of the selectable.
 /// Communicates with a IHighlightEnabler to set highlighting.
 /// </summary>
 public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler
 {
     private Selectable _selectable;
-    private MenuController _menuController;
-    private IHighlightEnabler _highlightEnabler;
+    private Menu _menu;
+    private IHighlight _highlight;
     
     private void Awake()
     {
         _selectable = GetComponent<Selectable>();
-        _menuController = GetComponentInParent<MenuController>();
-        _menuController.OnSetInteractable.AddListener(interactable => _selectable.interactable = interactable);
+        _menu = GetComponentInParent<Menu>();
+        _menu.OnSetInteractable.AddListener(interactable => _selectable.interactable = interactable);
 
-        if (!TryGetComponent(out _highlightEnabler))
+        if (!TryGetComponent(out _highlight))
         {
             Debug.LogError("Unable to find component with HighlightableEnabler interface.");
         }
         else
         {
-            _highlightEnabler.SetHighlighted(false);
+            _highlight.SetHighlighted(false);
         }
     }
 
     private void OnEnable()
     {
-        _highlightEnabler?.SetHighlighted(false);
+        _highlight?.SetHighlighted(false);
     }
     
     public void OnPointerEnter(PointerEventData eventData)
@@ -41,17 +41,17 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
         if (!_selectable.interactable) return;
         
         _selectable.Select();
-        _highlightEnabler?.SetHighlighted(true);
+        _highlight?.SetHighlighted(true);
     }
 
     public void OnSelect(BaseEventData eventData)
     {
-        _menuController.SelectedButton = _selectable;
-        _highlightEnabler?.SetHighlighted(true);
+        _menu.SelectedButton = _selectable;
+        _highlight?.SetHighlighted(true);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        _highlightEnabler?.SetHighlighted(false);
+        _highlight?.SetHighlighted(false);
     }
 }

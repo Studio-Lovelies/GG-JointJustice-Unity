@@ -4,9 +4,9 @@ using UnityEngine.Events;
 /// <summary>
 /// Handles input. Add events to this class use them to communicate with the Controls instance.
 /// </summary>
-public class InputManager : MonoBehaviour
+public class UnityInputSystemInterface : MonoBehaviour
 {
-    private Controls Controls;
+    private Controls _controls;
 
     // Add key press events here
     [SerializeField] private UnityEvent _onPausePressed;
@@ -14,19 +14,19 @@ public class InputManager : MonoBehaviour
     
     private void Awake()
     {
-        Controls = new Controls();
+        _controls = new Controls();
         
         // Subscribe to Input System events here
-        Controls.Player.Pause.performed += ctx => _onPausePressed?.Invoke();
+        _controls.Player.Pause.performed += ctx => _onPausePressed?.Invoke();
     }
 
     private void OnEnable()
     {
-        Controls.Enable();
+        _controls.Enable();
     }
 
     private void OnDisable()
     {
-        Controls.Disable();
+        _controls.Disable();
     }
 }

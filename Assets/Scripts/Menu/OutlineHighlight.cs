@@ -2,20 +2,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Used by HighlightableMenuItems to enable and disable outline components.
+/// Used by highlightable menu items to enable and disable outline components.
 /// </summary>
-public class OutlineHighlightEnabler : MonoBehaviour, IHighlightEnabler
+public class OutlineHighlight : MonoBehaviour, IHighlight
 {
     private Outline _outline;
-
-    public bool HighlightEnabled => _outline.enabled;
 
     private void Awake()
     {
         _outline = GetComponent<Outline>();
     }
 
-    public void SetHighlighted(bool highlighted)
+    public void SetHighlighted(bool isHighlighted)
     {
         // Prevent null reference exception if this method is called before Awake
         if (_outline == null)
@@ -23,6 +21,6 @@ public class OutlineHighlightEnabler : MonoBehaviour, IHighlightEnabler
             _outline = GetComponent<Outline>();
         }
         
-        _outline.enabled = highlighted;
+        _outline.enabled = isHighlighted;
     }
 }
