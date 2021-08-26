@@ -14,6 +14,7 @@ public class DirectorActionDecoder : MonoBehaviour
     private IEvidenceController _evidenceController;
 
     [Header("Basic Values")]
+    [SerializeField] DialogueController _dialogueController = null;
     [SerializeField] AppearingDialogController _appearingDialogController = null;
 
     [Header("Events")]
@@ -69,6 +70,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
             case "ENABLE_SKIPPING": DisableTextSkipping(false); break;
             case "DISABLE_SKIPPING": DisableTextSkipping(true); break;
+            case "FORCE_NEXT_DIALOG": ForceNextDialog(); break;
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
@@ -531,6 +533,20 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _appearingDialogController.ToggleDisableTextSkipping();
+    }
+
+    ///<summary>
+    ///Forces the next line of dialog happen right after current one.
+    ///</summary>
+    private void ForceNextDialog()
+    {
+        if (_dialogueController == null)
+        {
+            Debug.LogError("No dialogue controller set.");
+            return;
+        }
+
+        _dialogueController.ForceNextDialog();
     }
     #endregion
 }

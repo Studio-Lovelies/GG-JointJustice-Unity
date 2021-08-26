@@ -123,6 +123,72 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &10227117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 10227119}
+  - component: {fileID: 10227118}
+  m_Layer: 0
+  m_Name: AppearingDialogController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &10227118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10227117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b31ee0231f45e143a89b3235cac7439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _testString: Lorem.... ipsum dolor sit amet, @P2@consectetur adipiscing elit. Integer
+    luctus leo nec mi pulvinar, eget molestie purus gravida. Aliquam imperdiet pharetra
+    massa vel aliquam. Pellentesque interdum vehicula ligula, sit amet semper dolor
+    suscipit ut. Cras eu nisi
+  _controlledText: {fileID: 1384081403}
+  _defaultAppearTime: 0.02
+  _defaultPunctuationAppearTime: 0.1
+  _speedMultiplierFromPlayerInput: 2
+  _dialogDoneEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 171998801}
+        m_TargetAssemblyTypeName: DialogueController, Assembly-CSharp
+        m_MethodName: StopWritingDialog
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &10227119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10227117}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 991456339}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &101699291
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +280,7 @@ MonoBehaviour:
   _onNewSpokenLine:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 434094227}
+      - m_Target: {fileID: 10227118}
         m_TargetAssemblyTypeName: AppearingDialogController, Assembly-CSharp
         m_MethodName: StartDialog
         m_Mode: 0
@@ -296,7 +362,6 @@ GameObject:
   - component: {fileID: 434094225}
   - component: {fileID: 434094224}
   - component: {fileID: 434094223}
-  - component: {fileID: 434094227}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -385,29 +450,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &434094227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 434094222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b31ee0231f45e143a89b3235cac7439, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _testString: Lorem.... ipsum dolor sit amet, @P2@consectetur adipiscing elit. Integer
-    luctus leo nec mi pulvinar, eget molestie purus gravida. Aliquam imperdiet pharetra
-    massa vel aliquam. Pellentesque interdum vehicula ligula, sit amet semper dolor
-    suscipit ut. Cras eu nisi
-  _controlledText: {fileID: 1384081403}
-  _defaultAppearTime: 0.02
-  _defaultPunctuationAppearTime: 0.1
-  _speedMultiplierFromPlayerInput: 2
-  _dialogDoneEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &507898464
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,6 +694,7 @@ Transform:
   - {fileID: 171998800}
   - {fileID: 1056622114}
   - {fileID: 188204427}
+  - {fileID: 10227119}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -698,7 +741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0236637ba39c2e54dbe80bb16a48408d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _appearingDialogController: {fileID: 0}
+  _dialogueController: {fileID: 171998801}
+  _appearingDialogController: {fileID: 10227118}
   _onActionDone:
     m_PersistentCalls:
       m_Calls:
