@@ -216,13 +216,21 @@ public class AppearingDialogController : MonoBehaviour
 
         _currentLetterNum++;
 
-        WaiterTypes newWaiter = GetCurrentWaiter(_currentDialog[_currentLetterNum - 1]);
+        //Make sure the _currentLetterNum isn't going to be too small.
+        if (_currentLetterNum >= 2)
+        {
+            //_currentLetterNum-2 is to make the text wait longer AFTER the punctuation has been written, rather it taking long time for the punctuation itself to appear.
+            WaiterTypes newWaiter = GetCurrentWaiter(_currentDialog[_currentLetterNum - 2]);
 
-        if (newWaiter == WaiterTypes.letter)
-            _allWaiters[WaiterTypes.letter].inUse = false;
+            if (newWaiter == WaiterTypes.letter)
+                _allWaiters[WaiterTypes.letter].inUse = false;
 
-        _currentAppearTime = _allWaiters[newWaiter].waitTime;
-
+            _currentAppearTime = _allWaiters[newWaiter].waitTime;
+        }
+        else
+        {
+            _currentAppearTime = 0;
+        }
     }
 
     ///<summary>
