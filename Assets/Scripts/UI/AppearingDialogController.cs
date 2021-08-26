@@ -38,7 +38,8 @@ public class AppearingDialogController : MonoBehaviour
     private Dictionary<WaiterTypes, WaitInformation> _allWaiters = new Dictionary<WaiterTypes, WaitInformation>();
     private Dictionary<int, string> _allDialogCommands = new Dictionary<int, string>();
     private const char _commandCharacter = '@';
-    private bool disableTextSkipping = false;
+    private bool _disableTextSkipping = false;
+    private bool _continueDialog = false;
 
 
     ///<summary>
@@ -69,6 +70,7 @@ public class AppearingDialogController : MonoBehaviour
             return;
         }
 
+        //Setting up basic values for different waiters
         foreach (WaiterTypes wt in (WaiterTypes[])System.Enum.GetValues(typeof(WaiterTypes)))
         {
             bool useWithPunctuations = wt == WaiterTypes.punctuation ||
@@ -93,13 +95,27 @@ public class AppearingDialogController : MonoBehaviour
     ///<param name = "dialog">String containing the dialog to write on screen</param>
     private void StartDialogSetup(string dialog)
     {
-        _currentDialog = dialog;
         //Diabled prototype. Take out from comment to enable.
         //_currentDialog = ReadCommands(dialog);
-        _currentLetterNum = 0;
+
+        //If we continue dialog, all values should already be correct. 
+        if (_continueDialog)
+        {
+            _currentDialog += dialog;
+            _continueDialog = false;
+        }
+        else
+        {
+            _currentDialog = dialog;
+            _currentLetterNum = 0;
+            _controlledText.maxVisibleCharacters = 0;
+        }
+
+        //Take out new lines
+        _currentDialog = _currentDialog.Replace("\n", " ");
+
         _writingDialog = true;
         _controlledText.text = _currentDialog;
-        _controlledText.maxVisibleCharacters = 0;
     }
 
     ///<summary>
@@ -163,7 +179,7 @@ public class AppearingDialogController : MonoBehaviour
     private void WriteDialog()
     {
         //Multiply the increasing time if player is giving input to make the text appear faster.
-        if (_playerIsGivingInput && !disableTextSkipping)
+        if (_playerIsGivingInput && !_disableTextSkipping)
             _timer += Time.unscaledDeltaTime * _speedMultiplierFromPlayerInput;
         else
             _timer += Time.unscaledDeltaTime;
@@ -243,7 +259,7 @@ public class AppearingDialogController : MonoBehaviour
         {
             wi.inUse = false;
         }
-        disableTextSkipping = false;
+        _disableTextSkipping = false;
     }
 
     ///<summary>
@@ -251,7 +267,7 @@ public class AppearingDialogController : MonoBehaviour
     ///</summary>
     public void ToggleDisableTextSkipping()
     {
-        ToggleDisableTextSkipping(!disableTextSkipping);
+        ToggleDisableTextSkipping(!_disableTextSkipping);
     }
 
     ///<summary>
@@ -260,7 +276,7 @@ public class AppearingDialogController : MonoBehaviour
     ///<param name = "b">The bool value that is set to disabling the speeding text</param>
     public void ToggleDisableTextSkipping(bool disabled)
     {
-        disableTextSkipping = disabled;
+        _disableTextSkipping = disabled;
     }
 
     ///<summary>
@@ -387,7 +403,7 @@ public class AppearingDialogController : MonoBehaviour
             //S for Speeding
             case 's':
             case 'S':
-                disableTextSkipping = true;
+                _disableTextSkipping = true;
                 break;
             //L for letter
             case 'l':
@@ -455,6 +471,15 @@ public class AppearingDialogController : MonoBehaviour
         _allWaiters[waiterTypeToChange].inUse = true;
         _allWaiters[waiterTypeToChange].waitTime = newAppearTime;
     }
+
+    ///<summary>
+    ///Should the next speaken dialog continue after this
+    ///</summary>
+    public void ContinueDialog()
+    {
+        _continueDialog = true;
+    }
+
 
     ///<summary>
     ///Small class containing if the current WaitTimer is in use, and how long to wait if it is.

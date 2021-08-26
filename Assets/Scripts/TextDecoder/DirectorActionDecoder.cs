@@ -71,6 +71,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "ENABLE_SKIPPING": DisableTextSkipping(false); break;
             case "DISABLE_SKIPPING": DisableTextSkipping(true); break;
             case "FORCE_NEXT_DIALOG": ForceNextDialog(); break;
+            case "CONTINUE_DIALOG": ContinueDialog(); break;
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
@@ -533,6 +534,17 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _appearingDialogController.ToggleDisableTextSkipping();
+    }
+
+    ///<summary>
+    ///Makes the new dialog appear after current one.
+    ///</summary>
+    private void ContinueDialog()
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.ContinueDialog();
     }
 
     ///<summary>
