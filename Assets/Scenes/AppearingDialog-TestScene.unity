@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edea055d8c3131428c88f22698e8a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScript: {fileID: 4900000, guid: 0c32d6e773ed15e46a4196127cc3585c, type: 3}
+  _narrativeScript: {fileID: 4900000, guid: 18c4a9fc6db265f42b8d438b4171dbb2, type: 3}
   _onNewSpokenLine:
     m_PersistentCalls:
       m_Calls:
@@ -691,7 +691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogueController: {fileID: 171998801}
-  _appearingDialogController: {fileID: 0}
+  _appearingDialogController: {fileID: 663824248}
   _onActionDone:
     m_PersistentCalls:
       m_Calls:
