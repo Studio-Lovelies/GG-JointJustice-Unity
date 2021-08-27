@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ActorController : MonoBehaviour, IActorController
 {
@@ -12,20 +11,13 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
     [SerializeField] private ActorDictionary _actorDictionary;
 
-    [Tooltip("The event is called when an actors animation completes.")]
-    [SerializeField] private UnityEvent _onAnimationComplete;
+    //TODO serialized for debug purposes. Should be set by scene controller.
+    [field: SerializeField] public Actor ActiveActor { get; set; }
 
     public bool Animating { get; set; }
-    
-    private ActorData _activeActor;
-    private bool _shouldCallOnAnimationComplete;
 
-    private Animator _animator;
-    
-    private void Awake()
+    private void Start()
     {
-        _animator = GetComponent<Animator>();
-        
         if (_directorActionDecoder == null)
         {
             Debug.LogError("Actor Controller doesn't have an action decoder to attach to");
@@ -45,9 +37,8 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetActiveActor(string actor)
     {
         try
-        {
-            _activeActor = _actorDictionary.Actors[actor];
-            _animator.runtimeAnimatorController = _activeActor.AnimatorController;
+        { 
+            ActiveActor.SetActor(_actorDictionary.Actors[actor]);
         }
         catch (KeyNotFoundException exception)
         {
@@ -61,37 +52,17 @@ public class ActorController : MonoBehaviour, IActorController
     /// <param name="emotion">The emotion to play.</param>
     public void SetEmotion(string emotion)
     {
-        if (_activeActor == null)
+        if (ActiveActor == null)
         {
             Debug.LogError("Actor has not been assigned");
             return;
         }
-        
-        if (_animator == null)
-        {
-            Debug.LogError("Current actor has not been assigned an animator controller.");
-            return;
-        }
 
-        if (!_animator.HasState(0, Animator.StringToHash(emotion)))
-        {
-            Debug.LogError($"Could not find emotion {emotion} on animator of actor {_activeActor.name}.");
-            return;
-        }
-        
-        _animator.Play(emotion);
+        ActiveActor.PlayAnimation(emotion);
     }
 
     public void SetActiveSpeaker(string actor)
     {
         Debug.LogWarning("SetActiveSpeaker not implemented");
-    }
-
-    /// <summary>
-    /// This method is called by animations when they are completed and required the next line to be to be read.
-    /// </summary>
-    public void OnAnimationComplete()
-    {
-        _onAnimationComplete?.Invoke();
     }
 }
