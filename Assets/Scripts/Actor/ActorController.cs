@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Animator))]
 public class ActorController : MonoBehaviour, IActorController
 {
     [Tooltip("Attach the action decoder object here")]
@@ -34,16 +33,12 @@ public class ActorController : MonoBehaviour, IActorController
         }
     }
 
-    public void ShowActor()
-    {
-        _spriteRenderer.enabled = true;
-    }
-
-    public void HideActor()
-    {
-        _spriteRenderer.enabled = false;
-    }
-    
+    /// <summary>
+    /// Retrieves actor data from the actor dictionary and uses it set the active actor.
+    /// Gives an exception if the actor is not found.
+    /// </summary>
+    /// <param name="actor">The name of the actor as it appears in the dictionary.
+    /// Actors use the same name as their ActorData object.</param>
     public void SetActiveActor(string actor)
     {
         try
@@ -57,6 +52,10 @@ public class ActorController : MonoBehaviour, IActorController
         }
     }
 
+    /// <summary>
+    /// Sets the emotion of an actor by playing the specified emotion on the actor's animator.
+    /// </summary>
+    /// <param name="emotion">The emotion to play.</param>
     public void SetEmotion(string emotion)
     {
         if (_activeActor == null)
@@ -83,10 +82,5 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetActiveSpeaker(string actor)
     {
         Debug.LogWarning("SetActiveSpeaker not implemented");
-    }
-
-    public void FinishedAnimating()
-    {
-        Animating = false;
     }
 }

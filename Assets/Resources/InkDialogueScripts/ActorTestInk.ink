@@ -19,5 +19,6 @@ Watch this!
 Uh... um... Dan I...
 
 &ACTOR:Dan
+&SPEAK:Dan
 &EMOTION:Lean
 Go on :)

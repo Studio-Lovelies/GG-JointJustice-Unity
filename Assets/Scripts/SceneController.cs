@@ -55,4 +55,14 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         Debug.LogWarning("ShowItem not implemented");
     }
+    
+    public void ShowActor()
+    {
+        Debug.LogWarning("ShowActor not implemented");
+    }
+    
+    public void HideActor()
+    {
+        Debug.LogWarning("HideActor not implemented");
+    }
 }
