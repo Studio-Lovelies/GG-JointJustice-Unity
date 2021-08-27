@@ -16,6 +16,7 @@ Watch this!
 
 &ACTOR:Jory
 &SPEAK:Jory
+&EMOTION:Sweaty
 Wow that was very impressive Dan!
 
 &ACTOR:Dan

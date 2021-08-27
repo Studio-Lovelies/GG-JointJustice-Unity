@@ -6,12 +6,14 @@ public class Actor : MonoBehaviour
 {
     [Tooltip("The event is called when an actor's animation is complete.")]
     [SerializeField] private UnityEvent _onAnimationComplete;
-    
+
+    private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private ActorData _actorData;
 
     private void Awake()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
 
@@ -22,6 +24,7 @@ public class Actor : MonoBehaviour
     public void SetActor(ActorData actorData)
     {
         _actorData = actorData;
+        _spriteRenderer.sprite = actorData.DefaultSprite;
         _animator.runtimeAnimatorController = actorData.AnimatorController;
     }
 

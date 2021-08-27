@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Jory
   m_EditorClassIdentifier: 
   <Profile>k__BackingField: {fileID: 0}
+  <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: 26a9c8485eebf984398ac2094b0fcdc7, type: 3}
   <Bio>k__BackingField: 
-  <AnimatorController>k__BackingField: {fileID: 9100000, guid: dd142cbd765f2439a95bc28b6d14fd90, type: 2}
+  <AnimatorController>k__BackingField: {fileID: 22100000, guid: 9a200e956258f4616806835a45d90fec, type: 2}
