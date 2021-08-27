@@ -36,12 +36,6 @@ public class DirectorActionDecoder : MonoBehaviour
         string action = actionAndParam[0];
         string parameters = actionAndParam[1];
 
-        StopAllCoroutines();
-        StartCoroutine(PerformActions(action, parameters));
-    }
-
-    private IEnumerator PerformActions(string action, string parameters)
-    {
         switch(action)
         {
             //Actor controller
@@ -59,8 +53,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "CAMERA_SET": SetCameraPosition(parameters); break;
             case "SHAKESCREEN": ShakeScreen(parameters); break;
             case "SCENE": SetScene(parameters); break;
-            case "WAIT_FOR_ANIMATION": yield return StartCoroutine(WaitForAnimation()); break;
-            case "WAIT": yield return StartCoroutine(Wait(parameters)); break;
+            case "WAIT": Wait(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
@@ -95,7 +88,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasActorController())
             return;
 
-        if (bool.TryParse(showActor, out var shouldShow))
+        bool shouldShow;
+        if (bool.TryParse(showActor, out shouldShow))
         {
             if(shouldShow)
             {
@@ -108,7 +102,7 @@ public class DirectorActionDecoder : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Invalid parameter " + showActor + " for function SHOWACTOR");
+            Debug.LogError("Invalid paramater " + showActor + " for function SHOWACTOR");
         }
     }
 
@@ -142,18 +136,20 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Fades the scene in from black
     /// </summary>
     /// <param name="seconds">Amount of seconds the fade-in should take as a float</param>
-    private void FadeInScene(string seconds)
+    void FadeInScene(string seconds)
     {
         if (!HasSceneController())
             return;
 
-        if(float.TryParse(seconds, out var timeInSeconds))
+        float timeInSeconds;
+
+        if(float.TryParse(seconds, out timeInSeconds))
         {
             _sceneController.FadeIn(timeInSeconds);
         }
         else
         {
-            Debug.LogError("Invalid parameter " + seconds + " for function FADE_IN");
+            Debug.LogError("Invalid paramater " + seconds + " for function FADE_IN");
         }
     }
 
@@ -161,18 +157,20 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Fades the scene to black
     /// </summary>
     /// <param name="seconds">Amount of seconds the fade-out should take as a float</param>
-    private void FadeOutScene(string seconds)
+    void FadeOutScene(string seconds)
     {
         if (!HasSceneController())
             return;
 
-        if (float.TryParse(seconds, out var timeInSeconds))
+        float timeInSeconds;
+
+        if (float.TryParse(seconds, out timeInSeconds))
         {
             _sceneController.FadeOut(timeInSeconds);
         }
         else
         {
-            Debug.LogError("Invalid parameter " + seconds + " for function FADE_OUT");
+            Debug.LogError("Invalid paramater " + seconds + " for function FADE_OUT");
         }
     }
 
@@ -180,18 +178,20 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Shakes the screen
     /// </summary>
     /// <param name="intensity">Max displacement of the screen as a float</param>
-    private void ShakeScreen(string intensity)
+    void ShakeScreen(string intensity)
     {
         if (!HasSceneController())
             return;
 
-        if (float.TryParse(intensity, out var intensityNumerical))
+        float intensityNumerical;
+
+        if (float.TryParse(intensity, out intensityNumerical))
         {
             _sceneController.ShakeScreen(intensityNumerical);
         }
         else
         {
-            Debug.LogError("Invalid parameter " + intensity + " for function SHAKESCREEN");
+            Debug.LogError("Invalid paramater " + intensity + " for function SHAKESCREEN");
         }
     }
 
@@ -199,7 +199,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Sets the scene (background, character location on screen, any props (probably prefabs))
     /// </summary>
     /// <param name="sceneName">Scene to change to</param>
-    private void SetScene(string sceneName)
+    void SetScene(string sceneName)
     {
         if (!HasSceneController())
             return;
@@ -211,7 +211,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Sets the camera position
     /// </summary>
     /// <param name="position">New camera coordinates in the "int x,int y" format</param>
-    private void SetCameraPosition(string position)
+    void SetCameraPosition(string position)
     {
         if (!HasSceneController())
             return;
@@ -224,8 +224,11 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
         }
 
-        if (int.TryParse(parameters[0], out var x) 
-            && int.TryParse(parameters[1], out var y))
+        int x;
+        int y;
+
+        if (int.TryParse(parameters[0], out x) 
+            && int.TryParse(parameters[1], out y))
         {
             _sceneController.SetCameraPos(new Vector2Int(x,y));
         }
@@ -240,7 +243,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Pan the camera to a certain x,y position
     /// </summary>
     /// <param name="durationAndPosition">Duration the pan should take and the target coordinates in the "float seconds, int x, int y" format</param>
-    private void PanCamera(string durationAndPosition)
+    void PanCamera(string durationAndPosition)
     {
         if (!HasSceneController())
             return;
@@ -253,9 +256,13 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
         }
 
-        if (float.TryParse(parameters[0], out var duration) 
-            && int.TryParse(parameters[1], out var x) 
-            && int.TryParse(parameters[2], out var y))
+        float duration;
+        int x;
+        int y;
+
+        if (float.TryParse(parameters[0], out duration) 
+            && int.TryParse(parameters[1], out x) 
+            && int.TryParse(parameters[2], out y))
         {
             _sceneController.PanCamera(duration, new Vector2Int(x, y));
         }
@@ -269,17 +276,17 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <summary>
     /// Shows an item on the middle, left, or right side of the screen.
     /// </summary>
-    /// <param name="itemNameAndPosition">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
-    private void ShowItem(string itemNameAndPosition)
+    /// <param name="ItemNameAndPosition">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
+    void ShowItem(string ItemNameAndPosition)
     {
         if (!HasSceneController())
             return;
 
-        string[] parameters = itemNameAndPosition.Split(ACTION_PARAMETER_SEPARATOR);
+        string[] parameters = ItemNameAndPosition.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 2)
         {
-            Debug.LogError("Invalid number of parameters for function SHOW_ITEM");
+            Debug.LogError("Invalid amount of parameters for function SHOW_ITEM");
             return;
         }
 
@@ -290,16 +297,7 @@ public class DirectorActionDecoder : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Invalid parameter " + parameters[1] + " for function CAMERA_PAN");
-        }
-    }
-
-    private IEnumerator WaitForAnimation()
-    {
-        _actorController.Animating = true;
-        while (_actorController.Animating)
-        {
-            yield return null;
+            Debug.LogError("Invalid paramater " + parameters[1] + " for function CAMERA_PAN");
         }
     }
 
@@ -307,18 +305,20 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Waits seconds before automatically continuing.
     /// </summary>
     /// <param name="seconds">Amount of seconds to wait</param>
-    private IEnumerator Wait(string seconds)
+    void Wait(string seconds)
     {
         if (!HasSceneController())
-            yield break;
+            return;
 
-        if (float.TryParse(seconds, out var secondsFloat))
+        float secondsFloat;
+
+        if (float.TryParse(seconds, out secondsFloat))
         {
-            yield return new WaitForSeconds(secondsFloat);
+            _sceneController.ShakeScreen(secondsFloat);
         }
         else
         {
-            Debug.LogError("Invalid parameter " + seconds + " for function WAIT");
+            Debug.LogError("Invalid paramater " + seconds + " for function WAIT");
         }
     }
 
@@ -341,7 +341,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Sets the background music
     /// </summary>
     /// <param name="songName">Name of the new song</param>
-    private void SetBGMusic(string songName)
+    void SetBGMusic(string songName)
     {
         if (!HasAudioController())
             return;
@@ -359,7 +359,7 @@ public class DirectorActionDecoder : MonoBehaviour
         _evidenceController.AddEvidence(evidence);
     }
 
-    private void RemoveEvidence(string evidence)
+    void RemoveEvidence(string evidence)
     {
         if (!HasEvidenceController())
             return;
@@ -367,7 +367,7 @@ public class DirectorActionDecoder : MonoBehaviour
         _evidenceController.RemoveEvidence(evidence);
     }
 
-    private void AddToCourtRecord(string actor)
+    void AddToCourtRecord(string actor)
     {
         if (!HasEvidenceController())
             return;
