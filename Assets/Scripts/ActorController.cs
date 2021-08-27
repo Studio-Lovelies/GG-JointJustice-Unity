@@ -10,6 +10,9 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
+    [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
+    [SerializeField] private ActorDictionary _actorDictionary;
+
     public bool Animating { get; set; }
     
     private SpriteRenderer _spriteRenderer;
@@ -43,14 +46,15 @@ public class ActorController : MonoBehaviour, IActorController
     
     public void SetActiveActor(string actor)
     {
-        _activeActor = Resources.Load<ActorData>($"Actors/{actor}");
-        if (_activeActor == null)
+        try
         {
-            Debug.LogError($"Actor \"{actor}\" could not be found.");
-            return;
+            _activeActor = _actorDictionary.Actors[actor];
+            _animator.runtimeAnimatorController = _activeActor.AnimatorController;
         }
-
-        _animator.runtimeAnimatorController = _activeActor.AnimatorController;
+        catch (KeyNotFoundException exception)
+        {
+            Debug.Log($"{exception.GetType().Name}: Actor was not found in actor dictionary");
+        }
     }
 
     public void SetEmotion(string emotion)
