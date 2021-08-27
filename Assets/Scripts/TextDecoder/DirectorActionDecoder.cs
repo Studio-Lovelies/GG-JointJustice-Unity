@@ -26,7 +26,7 @@ public class DirectorActionDecoder : MonoBehaviour
         //Split into action and parameter
         string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR); 
 
-        if (actionAndParam.Length != 2)
+        if (actionAndParam.Length > 2)
         {
             Debug.LogError("Invalid action with line: " + line);
             _onActionDone.Invoke();
@@ -34,7 +34,7 @@ public class DirectorActionDecoder : MonoBehaviour
         }
 
         string action = actionAndParam[0];
-        string parameters = actionAndParam[1];
+        string parameters = (actionAndParam.Length == 2) ? actionAndParam[1] : "";
 
         switch(action)
         {
@@ -54,6 +54,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SHAKESCREEN": ShakeScreen(parameters); break;
             case "SCENE": SetScene(parameters); break;
             case "WAIT": Wait(parameters); break;
+            case "WAIT_FOR_ANIMATION": /*TODO implement this */ break;
             case "SHOW_ITEM": ShowItem(parameters); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
@@ -85,7 +86,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="showActor">Should contain true or false based on showing or hiding the actor respectively</param>
     private void SetActorVisibility(string showActor)
     {
-        if (!HasActorController())
+        if (!HasSceneController())
             return;
 
         bool shouldShow;
@@ -93,11 +94,11 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             if(shouldShow)
             {
-                _actorController.ShowActor();
+                _sceneController.ShowActor();
             }
             else
             {
-                _actorController.HideActor();
+                _sceneController.HideActor();
             }
         }
         else

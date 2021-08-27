@@ -2,23 +2,23 @@
 &SHOWACTOR:True
 
 &SPEAK:Dan
-Hey good lookin'.
+Hello Jory!
 
 &EMOTION:Lean
 &SPEAK:Dan
 Watch this!
 
 &EMOTION:AirGuitar
-&WAIT_FOR_ANIMATION:
+&WAIT_FOR_ANIMATION
 
 &EMOTION:Normal
 &WAIT:1
 
 &ACTOR:Jory
 &SPEAK:Jory
-Uh... um... Dan I...
+Wow that was very impressive Dan!
 
 &ACTOR:Dan
 &SPEAK:Dan
 &EMOTION:Lean
-Go on :)
+Thank you 

@@ -1,10 +1,8 @@
 public interface IActorController
 {
-    bool Animating { get; set; }
+    bool Animating { get; }
     
     void SetActiveActor(string actor);
     void SetActiveSpeaker(string actor);
-    void ShowActor();
-    void HideActor();
     void SetEmotion(string emotion);
 }

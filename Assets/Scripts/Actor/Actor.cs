@@ -6,6 +6,7 @@ using UnityEngine;
 public class Actor : MonoBehaviour
 {
     private Animator _animator;
+    private ActorData _actorData;
 
     private void Awake()
     {
@@ -14,6 +15,7 @@ public class Actor : MonoBehaviour
 
     private void SetUpActor(ActorData actorData)
     {
+        _actorData = actorData;
         _animator.runtimeAnimatorController = actorData.AnimatorController;
     }
 }

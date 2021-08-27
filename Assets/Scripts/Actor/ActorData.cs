@@ -10,5 +10,5 @@ public class ActorData : ScriptableObject
     public string Bio { get; private set; }
     
     [field: SerializeField, Tooltip("The animator controller that this actor uses.")]
-    public RuntimeAnimatorController AnimatorController { get; private set; }
+    public AnimatorOverrideController AnimatorController { get; private set; }
 }
