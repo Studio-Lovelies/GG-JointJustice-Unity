@@ -54,7 +54,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SHAKESCREEN": ShakeScreen(parameters); break;
             case "SCENE": SetScene(parameters); break;
             case "WAIT": Wait(parameters); break;
-            case "WAIT_FOR_ANIMATION": /*TODO implement this */ break;
+            case "WAIT_FOR_ANIMATION": WaitForAnimation(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
@@ -63,8 +63,6 @@ public class DirectorActionDecoder : MonoBehaviour
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
-
-        _onActionDone.Invoke(); //Called at the end when done
     }
 
     #region ActorController
@@ -78,6 +76,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _actorController.SetActiveActor(actor);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -105,6 +104,7 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Debug.LogError("Invalid paramater " + showActor + " for function SHOWACTOR");
         }
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -117,6 +117,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _actorController.SetActiveSpeaker(actor);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -129,6 +130,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _actorController.SetEmotion(emotion);
+        _onActionDone.Invoke();
     }
     #endregion
 
@@ -206,6 +208,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _sceneController.SetScene(sceneName);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -237,7 +240,7 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Debug.LogError("Invalid paramater " + position + " for function CAMERA_SET");
         }
-
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -323,6 +326,11 @@ public class DirectorActionDecoder : MonoBehaviour
         }
     }
 
+    void WaitForAnimation(string animation)
+    {
+        // TODO logic for handling skipping of animation
+    }
+
     #endregion
     
     #region AudioController
@@ -336,6 +344,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _audioController.PlaySFX(sfx);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -348,6 +357,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _audioController.PlaySong(songName);
+        _onActionDone.Invoke();
     }
     #endregion
 
@@ -358,6 +368,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _evidenceController.AddEvidence(evidence);
+        _onActionDone.Invoke();
     }
 
     void RemoveEvidence(string evidence)
@@ -366,6 +377,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _evidenceController.RemoveEvidence(evidence);
+        _onActionDone.Invoke();
     }
 
     void AddToCourtRecord(string actor)
@@ -374,6 +386,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _evidenceController.AddToCourtRecord(actor);
+        _onActionDone.Invoke();
     }
     #endregion
 

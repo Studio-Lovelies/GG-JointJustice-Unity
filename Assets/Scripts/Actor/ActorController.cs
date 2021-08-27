@@ -12,17 +12,20 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
     [SerializeField] private ActorDictionary _actorDictionary;
 
+    [Tooltip("The event is called when an actors animation completes.")]
+    [SerializeField] private UnityEvent _onAnimationComplete;
+
     public bool Animating { get; set; }
     
-    private SpriteRenderer _spriteRenderer;
-    private Animator _animator;
     private ActorData _activeActor;
+    private bool _shouldCallOnAnimationComplete;
 
+    private Animator _animator;
+    
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-
+        
         if (_directorActionDecoder == null)
         {
             Debug.LogError("Actor Controller doesn't have an action decoder to attach to");
@@ -82,5 +85,13 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetActiveSpeaker(string actor)
     {
         Debug.LogWarning("SetActiveSpeaker not implemented");
+    }
+
+    /// <summary>
+    /// This method is called by animations when they are completed and required the next line to be to be read.
+    /// </summary>
+    public void OnAnimationComplete()
+    {
+        _onAnimationComplete?.Invoke();
     }
 }
