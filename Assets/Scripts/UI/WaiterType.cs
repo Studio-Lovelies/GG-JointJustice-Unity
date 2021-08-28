@@ -5,12 +5,12 @@ using UnityEngine;
 ///<summary>
 ///Contains all different special actions used in code. Order matters, as topmost value is most important, and lowest least important.
 ///</summary>
-public enum WaiterTypes
+public enum WaiterType
 {
-    letter,
-    punctuation,
-    defaultPunctuation,
-    dialog,
-    overall,
-    defaultValue,
+    Letter,
+    Punctuation,
+    DefaultPunctuation,
+    Dialog,
+    Overall,
+    DefaultValue,
 }

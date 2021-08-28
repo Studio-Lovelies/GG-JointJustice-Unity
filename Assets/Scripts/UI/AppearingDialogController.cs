@@ -5,9 +5,11 @@ using TMPro;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class AppearingDialogController : MonoBehaviour
+public class AppearingDialogController : MonoBehaviour, IAppearingDialogController
 {
     [Header("Basic Values")]
+    [SerializeField, Tooltip("DirectionActionDecoder this script is connected to.")]
+    DirectorActionDecoder _directorActionDecorder = null;
     [SerializeField, Tooltip("TextMeshPro-component all the dialog should appear in.")]
     private TextMeshProUGUI _controlledText = null;
     [SerializeField, Tooltip("TextMeshPro-component the name of the speaker should appear in.")]
@@ -24,15 +26,12 @@ public class AppearingDialogController : MonoBehaviour
     [Header("Events")]
     [SerializeField, Tooltip("Events that should happen after completing a dialog.")]
     private UnityEvent _dialogDoneEvent = new UnityEvent();
-    ///<summary>
-    ///Events that should happen after completing a dialog. You have to manually add and remove listeners, and they will happen every time dialog is complete.
-    ///</summary>
-    public UnityEvent DialogDoneEvent { get { return _dialogDoneEvent; } }
 
     [SerializeField, Tooltip("Event is invoked every time letter appears")]
     private UnityEvent _onLetterAppear = new UnityEvent();
 
-    private UnityEvent _temporaryDialogDoneEvent = new UnityEvent();
+    [SerializeField, Tooltip("Event is invoked when dialog ends while autoskip is still true. Should be made to start the next dialog immediatly")]
+    private UnityEvent _onAutoSkip = new UnityEvent();
 
     private float _currentAppearTime = 0;
     private string _currentDialog = "";
@@ -41,11 +40,12 @@ public class AppearingDialogController : MonoBehaviour
     private bool _writingDialog = false;
     private bool _initialSetupDone = false;
     private bool _playerIsGivingInput = false;
-    private Dictionary<WaiterTypes, WaitInformation> _allWaiters = new Dictionary<WaiterTypes, WaitInformation>();
+    private Dictionary<WaiterType, WaitInformation> _allWaiters = new Dictionary<WaiterType, WaitInformation>();
     private Dictionary<int, string> _allDialogCommands = new Dictionary<int, string>();
     private const char _commandCharacter = '@';
     private bool _disableTextSkipping = false;
     private bool _continueDialog = false;
+    private bool _autoSkipDialog = false;
 
 
     ///<summary>
@@ -57,45 +57,68 @@ public class AppearingDialogController : MonoBehaviour
     }
 
     ///<summary>
+    ///Start is called automatically in the game when object is created, after Awake but before the first Update.
+    ///</summary>
+    private IEnumerator Start()
+    {
+        yield return null;
+        _controlledText.enableAutoSizing = false;
+        _nameText.enableAutoSizing = false;
+    }
+
+    ///<summary>
     ///Initial setup of the class that should happen only once.
     ///</summary>
     private void InitialSetup()
     {
         if (_initialSetupDone)
+        {
             return;
+        }
 
         _initialSetupDone = true;
 
+        if (_directorActionDecorder == null)
+        {
+            Debug.LogError("DirectorActionDecoder has not been set. Please set it before continuing.");
+            return;
+        }
+
+        _directorActionDecorder.SetAppearingDialogController(this);
+
         if (_controlledText == null)
         {
-            Debug.LogError("Controlled text shouldn't be null. Please asssign it before continuing.");
+            Debug.LogError("Controlled text shouldn't be null. Please assign it before continuing.");
             return;
         }
 
         //Setting up basic values for different waiters
-        foreach (WaiterTypes wt in (WaiterTypes[])System.Enum.GetValues(typeof(WaiterTypes)))
+        foreach (WaiterType wt in (WaiterType[])System.Enum.GetValues(typeof(WaiterType)))
         {
-            bool useWithPunctuations = wt == WaiterTypes.punctuation ||
-            wt == WaiterTypes.defaultPunctuation ||
-            wt == WaiterTypes.letter;
+            WaitInformation.UseCase useCase = WaitInformation.UseCase.OnlyWithLetters;
 
-            _allWaiters.Add(wt, new WaitInformation(_defaultAppearTime));
+            if (wt == WaiterType.Letter)
+            {
+                useCase = WaitInformation.UseCase.WithEverything;
+            }
+            else if (wt == WaiterType.DefaultPunctuation || wt == WaiterType.Punctuation)
+            {
+                useCase = WaitInformation.UseCase.OnlyWithPunctuations;
+            }
+
+            _allWaiters.Add(wt, new WaitInformation(_defaultAppearTime, useCase));
         }
 
-        _allWaiters[WaiterTypes.letter].useWithEverything = true;
-        _allWaiters[WaiterTypes.punctuation].useOnlyWithPunctuations = true;
-        _allWaiters[WaiterTypes.defaultPunctuation].waitTime = _defaultPunctuationAppearTime;
+        _allWaiters[WaiterType.DefaultPunctuation].waitTime = _defaultPunctuationAppearTime;
 
         //If the textbox is using autosize, lets take if off or else the text will keep changing size when more dialog appears. 
-        _controlledText.enableAutoSizing = false;
-        _nameText.enableAutoSizing = false;
         _currentAppearTime = _defaultAppearTime;
     }
 
     ///<summary>
     ///Restart all values to default when starting to write new dialog.
     ///</summary>
-    ///<param name = "dialog">String containing the dialog to write on screen</param>
+    ///<param name = "dialog">String containing the dialog to write on screen.</param>
     private void StartDialogSetup(string dialog)
     {
         //Diabled prototype. Take out from comment to enable.
@@ -130,13 +153,12 @@ public class AppearingDialogController : MonoBehaviour
     {
         foreach (UnityAction ua in dialogDoneActions)
         {
-            _temporaryDialogDoneEvent.AddListener(ua);
+            _dialogDoneEvent.AddListener(ua);
         }
 
         yield return StartDialogCoroutine(dialog);
 
-        _temporaryDialogDoneEvent?.Invoke();
-        _temporaryDialogDoneEvent.RemoveAllListeners();
+        _dialogDoneEvent.RemoveAllListeners();
     }
 
     ///<summary>
@@ -173,7 +195,12 @@ public class AppearingDialogController : MonoBehaviour
         _writingDialog = false;
 
         //Invoke all functions set to _dialogDoneEvent set either in editor or by code.
-        _dialogDoneEvent?.Invoke();
+        _dialogDoneEvent.Invoke();
+
+        if (_autoSkipDialog)
+        {
+            _onAutoSkip.Invoke();
+        }
     }
 
     ///<summary>
@@ -183,9 +210,13 @@ public class AppearingDialogController : MonoBehaviour
     {
         //Multiply the increasing time if player is giving input to make the text appear faster.
         if (_playerIsGivingInput && !_disableTextSkipping)
-            _timer += Time.unscaledDeltaTime * _speedMultiplierFromPlayerInput;
+        {
+            _timer += Time.deltaTime * _speedMultiplierFromPlayerInput;
+        }
         else
-            _timer += Time.unscaledDeltaTime;
+        {
+            _timer += Time.deltaTime;
+        }
 
         if (_timer >= _currentAppearTime)
         {
@@ -202,9 +233,9 @@ public class AppearingDialogController : MonoBehaviour
 
         //Increase the maxVisibleCharacters to show the next letter.
         _controlledText.maxVisibleCharacters = _currentLetterNum;
-        _onLetterAppear?.Invoke();
+        _onLetterAppear.Invoke();
 
-        //If the end of dialog is reached, make appropriate measures
+        //If the end of dialog is reached, make appropriate measures.
         if (_currentDialog.Length == _currentLetterNum)
         {
             EndDialog();
@@ -220,10 +251,12 @@ public class AppearingDialogController : MonoBehaviour
         if (_currentLetterNum >= 2)
         {
             //_currentLetterNum-2 is to make the text wait longer AFTER the punctuation has been written, rather it taking long time for the punctuation itself to appear.
-            WaiterTypes newWaiter = GetCurrentWaiter(_currentDialog[_currentLetterNum - 2]);
+            WaiterType newWaiter = GetCurrentWaiter(_currentDialog[_currentLetterNum - 2]);
 
-            if (newWaiter == WaiterTypes.letter)
-                _allWaiters[WaiterTypes.letter].inUse = false;
+            if (newWaiter == WaiterType.Letter)
+            {
+                _allWaiters[WaiterType.Letter].inUse = false;
+            }
 
             _currentAppearTime = _allWaiters[newWaiter].waitTime;
         }
@@ -236,30 +269,34 @@ public class AppearingDialogController : MonoBehaviour
     ///<summary>
     ///This should be called when player starts and stops giving wanted input to speed up or normalize the dialog appear time.
     ///</summary>
-    ///<param name = "buttonIsDown">Is the button pressed down or up</param>
+    ///<param name = "buttonIsDown">Is the button pressed down or up.</param>
     public void PlayerInput(bool buttonIsDown)
     {
         _playerIsGivingInput = buttonIsDown;
     }
 
     ///<summary>
-    ///Checks all different conditions to see which timer to use
+    ///Checks all different conditions to see which timer to use.
     ///</summary>
-    ///<param name = "characterToAppwar">What is the next character we are checking the timer for. Mainly used to see if its character or punctuation</param>
-    ///<returns>Returns which kind of waiter is used for the next character</returns>
-    private WaiterTypes GetCurrentWaiter(char characterToAppear)
+    ///<param name = "characterToAppear">What is the next character we are checking the timer for. Mainly used to see if its character or punctuation.</param>
+    ///<returns>Returns which kind of waiter is used for the next character.</returns>
+    private WaiterType GetCurrentWaiter(char characterToAppear)
     {
-        bool isPunctuation = !char.IsLetterOrDigit(characterToAppear) && characterToAppear != ' ';
-
-        foreach (WaiterTypes wt in _allWaiters.Keys)
+        bool isPunctuation = characterToAppear == '.' || characterToAppear == '?' || characterToAppear == '!';
+        foreach (WaiterType wt in _allWaiters.Keys)
         {
-            if ((_allWaiters[wt].useWithEverything ||
-            _allWaiters[wt].useOnlyWithPunctuations == isPunctuation) &&
-            _allWaiters[wt].inUse)
-                return wt;
+            if (_allWaiters[wt].inUse)
+            {
+                if ((isPunctuation && _allWaiters[wt].useCase == WaitInformation.UseCase.OnlyWithPunctuations) ||
+                (!isPunctuation && _allWaiters[wt].useCase == WaitInformation.UseCase.OnlyWithLetters) ||
+                _allWaiters[wt].useCase == WaitInformation.UseCase.WithEverything)
+                {
+                    return wt;
+                }
+            }
         }
 
-        return isPunctuation ? WaiterTypes.defaultPunctuation : WaiterTypes.defaultValue;
+        return isPunctuation ? WaiterType.DefaultPunctuation : WaiterType.DefaultValue;
     }
 
     ///<summary>
@@ -277,15 +314,7 @@ public class AppearingDialogController : MonoBehaviour
     ///<summary>
     ///Toggle should the player be able to speed up the text.
     ///</summary>
-    public void ToggleDisableTextSkipping()
-    {
-        ToggleDisableTextSkipping(!_disableTextSkipping);
-    }
-
-    ///<summary>
-    ///Toggle should the player be able to speed up the text.
-    ///</summary>
-    ///<param name = "b">The bool value that is set to disabling the speeding text</param>
+    ///<param name = "b">The bool value that is set to disabling the speeding text.</param>
     public void ToggleDisableTextSkipping(bool disabled)
     {
         _disableTextSkipping = disabled;
@@ -301,10 +330,6 @@ public class AppearingDialogController : MonoBehaviour
     static private bool GetFloatFromString(string dialogText, float previousTime, out float newAppearTime)
     {
         newAppearTime = 0;
-        //String gathering the information converted to float.
-        string toFloat = "";
-        //The current letters position being examined.
-        int currentLetter = 0;
         //If the string starts with either + or -, this value gotten from it will be used to increase or decreaset he current speed.
         bool increase = dialogText[0] == '+';
         bool decrease = dialogText[0] == '-';
@@ -313,42 +338,26 @@ public class AppearingDialogController : MonoBehaviour
         if (increase || decrease)
             dialogText = dialogText.Substring(1);
 
-        //The code will check letter by letter if the number continues, or has decimal point/comma.
-        while (currentLetter < dialogText.Length)
-        {
-            char currentCharacter = dialogText[currentLetter];
-
-            if (char.IsDigit(currentCharacter) || currentCharacter == '.' || currentCharacter == ',')
-                toFloat += currentCharacter;
-            else
-                break;
-
-            currentLetter++;
-        }
-
-        //If the string containing all checked letters length is 0, then conversion to number is impossible and rest of the code is ignored.
-        if (toFloat.Length == 0)
+        if (!float.TryParse(dialogText, out float numericValue))
         {
             Debug.LogWarning("After given command a number was expected, but was not found. Please fix.");
             return false;
         }
 
-        float f = float.Parse(toFloat);
-
         if (increase)
-            f += previousTime;
+            numericValue += previousTime;
         else if (decrease)
-            f = previousTime - f;
+            numericValue = previousTime - numericValue;
 
-        newAppearTime = f;
+        newAppearTime = numericValue;
         return true;
     }
 
     ///<summary>
-    ///Read the commands from dialog and seperates them. Prototype, currently not in use.
+    ///Read the commands from dialog and separates them. Prototype, currently not in use.
     ///</summary>
-    ///<param name = "dialog">Current dialog to check the commands from</param>
-    ///<returns>Dialog where commands have been separated</returns>
+    ///<param name = "dialog">Current dialog to check the commands from.</param>
+    ///<returns>Dialog where commands have been separated.</returns>
     private string ReadCommands(string dialog)
     {
         //Clear past commands
@@ -360,7 +369,7 @@ public class AppearingDialogController : MonoBehaviour
 
         for (int i = 0; i < dialog.Length; i++)
         {
-            //Check if the command character is found
+            //Check if the command character is found.
             if (dialog[i] == _commandCharacter)
             {
                 insideCommand = !insideCommand;
@@ -369,7 +378,7 @@ public class AppearingDialogController : MonoBehaviour
                 {
                     startCommand = i;
                 }
-                else if (!insideCommand)
+                else
                 {
                     _allDialogCommands.Add(textWithoutCommands.Length, currentCommand);
                     currentCommand = "";
@@ -377,12 +386,12 @@ public class AppearingDialogController : MonoBehaviour
             }
             else if (insideCommand)
             {
-                //While inside a command, add characters to command string
+                //While inside a command, add characters to command string.
                 currentCommand += dialog[i];
             }
             else
             {
-                //While outside of a command, add characters to actual dialog string
+                //While outside of a command, add characters to actual dialog string.
                 textWithoutCommands += dialog[i];
             }
         }
@@ -403,11 +412,13 @@ public class AppearingDialogController : MonoBehaviour
     private void CheckCommands()
     {
         if (!_allDialogCommands.ContainsKey(_currentLetterNum))
+        {
             return;
+        }
 
         string currentCommand = _allDialogCommands[_currentLetterNum];
         int currentLetterNum = 0;
-        WaiterTypes newType = WaiterTypes.defaultValue;
+        WaiterType newType = WaiterType.DefaultValue;
 
         //Checking what the next letter is to know what action to take.
         switch (currentCommand[currentLetterNum])
@@ -420,22 +431,22 @@ public class AppearingDialogController : MonoBehaviour
             //L for letter
             case 'l':
             case 'L':
-                newType = WaiterTypes.letter;
+                newType = WaiterType.Letter;
                 break;
             //P for punctuation
             case 'p':
             case 'P':
-                newType = WaiterTypes.punctuation;
+                newType = WaiterType.Punctuation;
                 break;
             //D for dialog
             case 'd':
             case 'D':
-                newType = WaiterTypes.dialog;
+                newType = WaiterType.Dialog;
                 break;
             //A for all
             case 'a':
             case 'A':
-                newType = WaiterTypes.overall;
+                newType = WaiterType.Overall;
                 break;
             //C for clear
             case 'c':
@@ -447,8 +458,7 @@ public class AppearingDialogController : MonoBehaviour
                 return;
         }
 
-
-        if (newType != WaiterTypes.defaultValue)
+        if (newType != WaiterType.DefaultValue)
         {
             SetTimerValue(newType, currentCommand.Substring(1));
         }
@@ -457,9 +467,9 @@ public class AppearingDialogController : MonoBehaviour
     ///<summary>
     ///Sets timer value to given float.
     ///</summary>
-    ///<param name = "waiterTypeToChange">What type of waiter should be changed</param>
-    ///<param name = "valueToTurnFloat">string containing the numeric value of new appear time</param>
-    public void SetTimerValue(WaiterTypes waiterTypeToChange, string valueToTurnFloat)
+    ///<param name = "waiterTypeToChange">What type of waiter should be changed.</param>
+    ///<param name = "valueToTurnFloat">string containing the numeric value of new appear time.</param>
+    public void SetTimerValue(WaiterType waiterTypeToChange, string valueToTurnFloat)
     {
         //Check that there was a number after command we could use as new appear time.
         if (GetFloatFromString(valueToTurnFloat, _allWaiters[waiterTypeToChange].waitTime, out float newAppearTime))
@@ -476,21 +486,31 @@ public class AppearingDialogController : MonoBehaviour
     ///<summary>
     ///Sets timer value to given float.
     ///</summary>
-    ///<param name = "waiterTypeToChange">What type of waiter should be changed</param>
+    ///<param name = "waiterTypeToChange">What type of waiter should be changed.</param>
     ///<param name = "newAppearTime">float value that will be set as the waiters ne appear time.</param>
-    public void SetTimerValue(WaiterTypes waiterTypeToChange, float newAppearTime)
+    public void SetTimerValue(WaiterType waiterTypeToChange, float newAppearTime)
     {
         _allWaiters[waiterTypeToChange].inUse = true;
         _allWaiters[waiterTypeToChange].waitTime = newAppearTime;
     }
 
     ///<summary>
-    ///Should the next speaken dialog continue after this
+    ///Should the next speaken dialog continue after this.
     ///</summary>
     public void ContinueDialog()
     {
         _continueDialog = true;
     }
+
+    ///<summary>
+    ///Should the next speaken dialog continue after this.
+    ///</summary>
+    ///<param name = "skip">Boolean telling if autoskip is on or off.</param>
+    public void AutoSkipDialog(bool skip)
+    {
+        _autoSkipDialog = skip;
+    }
+
 
 
     ///<summary>
@@ -498,20 +518,23 @@ public class AppearingDialogController : MonoBehaviour
     ///</summary>
     private class WaitInformation
     {
-        public WaitInformation() { }
+        public enum UseCase
+        {
+            OnlyWithLetters,
+            OnlyWithPunctuations,
+            WithEverything
+        }
 
-        public WaitInformation(float waitTime)
+        public WaitInformation(float waitTime, UseCase useCase)
         {
             this.waitTime = waitTime;
+            this.useCase = useCase;
         }
 
         //Is this WaitInformation in use now.
         public bool inUse = false;
         //What is the current wait time of this information.
         public float waitTime = 0;
-        //Is this information used only with punctuations.
-        public bool useOnlyWithPunctuations = false;
-        //Is this information used with everything.
-        public bool useWithEverything = false;
+        public UseCase useCase { get; private set; }
     }
 }

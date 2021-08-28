@@ -12,10 +12,7 @@ public class DirectorActionDecoder : MonoBehaviour
     private ISceneController _sceneController;
     private IAudioController _audioController;
     private IEvidenceController _evidenceController;
-
-    [Header("Basic Values")]
-    [SerializeField] DialogueController _dialogueController = null;
-    [SerializeField] AppearingDialogController _appearingDialogController = null;
+    private IAppearingDialogController _appearingDialogController = null;
 
     [Header("Events")]
     [Tooltip("Event that gets called when the system is done processing the action")]
@@ -28,7 +25,7 @@ public class DirectorActionDecoder : MonoBehaviour
     public void OnNewActionLine(string line)
     {
         //Split into action and parameter
-        string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR);
+        string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR); 
 
         if (actionAndParam.Length != 2)
         {
@@ -40,7 +37,7 @@ public class DirectorActionDecoder : MonoBehaviour
         string action = actionAndParam[0];
         string parameters = actionAndParam[1];
 
-        switch (action)
+        switch(action)
         {
             //Actor controller
             case "ACTOR": SetActor(parameters); break;
@@ -64,12 +61,12 @@ public class DirectorActionDecoder : MonoBehaviour
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
             case "ADD_RECORD": AddToCourtRecord(parameters); break;
             //Dialog controller
-            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterTypes.dialog, parameters); break;
-            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterTypes.overall, parameters); break;
-            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterTypes.punctuation, parameters); break;
+            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, parameters); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, parameters); break;
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
             case "DISABLE_SKIPPING": DisableTextSkipping(parameters); break;
-            case "FORCE_NEXT_DIALOG": ForceNextDialog(); break;
+            case "AUTOSKIP": AutoSkip(parameters); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
@@ -103,7 +100,7 @@ public class DirectorActionDecoder : MonoBehaviour
         bool shouldShow;
         if (bool.TryParse(showActor, out shouldShow))
         {
-            if (shouldShow)
+            if(shouldShow)
             {
                 _actorController.ShowActor();
             }
@@ -155,7 +152,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         float timeInSeconds;
 
-        if (float.TryParse(seconds, out timeInSeconds))
+        if(float.TryParse(seconds, out timeInSeconds))
         {
             _sceneController.FadeIn(timeInSeconds);
         }
@@ -239,10 +236,10 @@ public class DirectorActionDecoder : MonoBehaviour
         int x;
         int y;
 
-        if (int.TryParse(parameters[0], out x)
+        if (int.TryParse(parameters[0], out x) 
             && int.TryParse(parameters[1], out y))
         {
-            _sceneController.SetCameraPos(new Vector2Int(x, y));
+            _sceneController.SetCameraPos(new Vector2Int(x,y));
         }
         else
         {
@@ -272,8 +269,8 @@ public class DirectorActionDecoder : MonoBehaviour
         int x;
         int y;
 
-        if (float.TryParse(parameters[0], out duration)
-            && int.TryParse(parameters[1], out x)
+        if (float.TryParse(parameters[0], out duration) 
+            && int.TryParse(parameters[1], out x) 
             && int.TryParse(parameters[2], out y))
         {
             _sceneController.PanCamera(duration, new Vector2Int(x, y));
@@ -335,7 +332,7 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     #endregion
-
+    
     #region AudioController
     /// <summary>
     /// Plays a sound effect
@@ -480,10 +477,15 @@ public class DirectorActionDecoder : MonoBehaviour
         }
         return true;
     }
-    #endregion
 
-    #region DialogStuff
-
+    /// <summary>
+    /// Attach a new IAppearingDialogController to the decoder
+    /// </summary>
+    /// <param name="newController">New appearing dialog controller to be added</param>
+    public void SetAppearingDialogController(IAppearingDialogController newController)
+    {
+        _appearingDialogController = newController;
+    }
 
     /// <summary>
     /// Checks if the decoder has an appearing dialog controller attached, and shows an error if it doesn't
@@ -498,13 +500,16 @@ public class DirectorActionDecoder : MonoBehaviour
         }
         return true;
     }
+    #endregion
+
+    #region DialogStuff
 
     ///<summary>
     ///Changes the dialog speed in appearingDialogController if it has beben set.
     ///</summary>
     ///<param name = "currentWaiterType">The current waiters type which appear time should be changed.</param>
     ///<param name = "parameters">Contains all the parameters needed to change the appearing time.</param>
-    private void ChangeDialogSpeed(WaiterTypes currentWaiterType, string parameters)
+    private void ChangeDialogSpeed(WaiterType currentWaiterType, string parameters)
     {
         if (!HasAppearingDialogController())
             return;
@@ -532,7 +537,9 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAppearingDialogController())
             return;
 
-        bool value = bool.Parse(disabled);
+        if (!ParseBool(disabled, out bool value))
+            return;
+
         _appearingDialogController.ToggleDisableTextSkipping(value);
     }
 
@@ -550,15 +557,32 @@ public class DirectorActionDecoder : MonoBehaviour
     ///<summary>
     ///Forces the next line of dialog happen right after current one.
     ///</summary>
-    private void ForceNextDialog()
+    private void AutoSkip(string on)
     {
-        if (_dialogueController == null)
-        {
-            Debug.LogError("No dialogue controller set.");
+        if (!HasAppearingDialogController())
             return;
+
+        if (!ParseBool(on, out bool value))
+            return;
+
+        _appearingDialogController.AutoSkipDialog(value);
+    }
+
+    ///<summary>
+    ///Checks if the command contains needed bool value, and if not, gives error message.
+    ///</summary>
+    ///<param name = "parameter">The string that is suppose to contain the bool value.</param>
+    ///<param name = "value">The read bool value given out.</param>
+    ///<returns>True if the string contained bool value, and false if it didn't.</returns>
+    private bool ParseBool(string parameter, out bool value)
+    {
+        if (bool.TryParse(parameter, out value))
+        {
+            return true;
         }
 
-        _dialogueController.ForceNextDialog();
+        Debug.LogError("Bool value wasn't found from command. Please fix.");
+        return false;
     }
     #endregion
 }
