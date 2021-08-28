@@ -64,3 +64,6 @@ crashlytics-build.properties
 ehthumbs.db
 [Tt]humbs.db
 [Dd]esktop.ini
+
+#Unit Test Scenes
+Assets/InitTestScene*

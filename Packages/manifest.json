@@ -56,5 +56,6 @@
         "com.inklestudios.ink-unity-integration"
       ]
     }
-  ]
+  ],
+  "testables": [ "com.unity.inputsystem" ] 
 }
