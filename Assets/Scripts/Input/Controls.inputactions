@@ -27,6 +27,22 @@
                     "id": "03060c75-97bb-4857-aa4b-29d29a4a5468",
                     "expectedControlType": "Button",
                     "processors": "",
+                    "interactions": "Hold,Press"
+                },
+                {
+                    "name": "Press",
+                    "type": "Button",
+                    "id": "a619f33d-34d5-4ff0-aafc-7b44b079fd16",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "4604dfdc-1231-4c48-90e6-179e07ce8c7b",
+                    "expectedControlType": "Button",
+                    "processors": "",
                     "interactions": ""
                 },
                 {
@@ -150,6 +166,17 @@
                 },
                 {
                     "name": "",
+                    "id": "819a2b97-7a68-4238-8d9b-bb02fc643a7d",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "382095a2-7ea4-47a7-a25e-ea4c11e8d094",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -200,6 +227,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "44001c2e-578d-4cb7-86e3-1c3cbf02425a",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51a609f0-cb16-4e5d-a1c4-9669bc16d700",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

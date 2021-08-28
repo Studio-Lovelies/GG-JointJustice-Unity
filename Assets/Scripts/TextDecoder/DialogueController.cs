@@ -28,10 +28,7 @@ public class DialogueController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) //TODO: This is debug, remove
-        {
-            OnNextLine();
-        }
+
     }
 
     public void SetNarrativeScript(TextAsset narrativeScript)

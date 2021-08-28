@@ -40,6 +40,22 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""id"": ""03060c75-97bb-4857-aa4b-29d29a4a5468"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
+                    ""interactions"": ""Hold,Press""
+                },
+                {
+                    ""name"": ""Press"",
+                    ""type"": ""Button"",
+                    ""id"": ""a619f33d-34d5-4ff0-aafc-7b44b079fd16"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""4604dfdc-1231-4c48-90e6-179e07ce8c7b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
                     ""interactions"": """"
                 },
                 {
@@ -163,6 +179,17 @@ public class @Controls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""819a2b97-7a68-4238-8d9b-bb02fc643a7d"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""382095a2-7ea4-47a7-a25e-ea4c11e8d094"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -215,6 +242,28 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Down"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44001c2e-578d-4cb7-86e3-1c3cbf02425a"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and Keyboard"",
+                    ""action"": ""Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51a609f0-cb16-4e5d-a1c4-9669bc16d700"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -232,6 +281,8 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Player_LeftMouseButton = m_Player.FindAction("Left Mouse Button", throwIfNotFound: true);
         m_Player_DirectionalButtons = m_Player.FindAction("DirectionalButtons", throwIfNotFound: true);
         m_Player_Select = m_Player.FindAction("Select", throwIfNotFound: true);
+        m_Player_Press = m_Player.FindAction("Press", throwIfNotFound: true);
+        m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Left = m_Player.FindAction("Left", throwIfNotFound: true);
         m_Player_Right = m_Player.FindAction("Right", throwIfNotFound: true);
@@ -289,6 +340,8 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_LeftMouseButton;
     private readonly InputAction m_Player_DirectionalButtons;
     private readonly InputAction m_Player_Select;
+    private readonly InputAction m_Player_Press;
+    private readonly InputAction m_Player_Menu;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Left;
     private readonly InputAction m_Player_Right;
@@ -301,6 +354,8 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @LeftMouseButton => m_Wrapper.m_Player_LeftMouseButton;
         public InputAction @DirectionalButtons => m_Wrapper.m_Player_DirectionalButtons;
         public InputAction @Select => m_Wrapper.m_Player_Select;
+        public InputAction @Press => m_Wrapper.m_Player_Press;
+        public InputAction @Menu => m_Wrapper.m_Player_Menu;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Left => m_Wrapper.m_Player_Left;
         public InputAction @Right => m_Wrapper.m_Player_Right;
@@ -324,6 +379,12 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Select.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
                 @Select.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
                 @Select.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
+                @Press.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPress;
+                @Press.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPress;
+                @Press.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPress;
+                @Menu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
                 @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
@@ -352,6 +413,12 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Select.started += instance.OnSelect;
                 @Select.performed += instance.OnSelect;
                 @Select.canceled += instance.OnSelect;
+                @Press.started += instance.OnPress;
+                @Press.performed += instance.OnPress;
+                @Press.canceled += instance.OnPress;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -385,6 +452,8 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnLeftMouseButton(InputAction.CallbackContext context);
         void OnDirectionalButtons(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
+        void OnPress(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
