@@ -3,7 +3,10 @@ guid: ee61125277f12cc4984a391ebfa39680
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _directorActionDecoder: {instanceID: 0}
+  - _actorDictionary: {fileID: 11400000, guid: 8a614ed376c0c4ab889d18152bd51c7e, type: 2}
+  - <ActiveActor>k__BackingField: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

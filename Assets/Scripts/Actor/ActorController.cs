@@ -47,10 +47,11 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
-    /// Sets the emotion of an actor by playing the specified emotion on the actor's animator.
+    /// Sets the animation of an actor by playing the specified animation on the actor's animator.
+    /// Used to set poses, emotions, and play animations.
     /// </summary>
     /// <param name="emotion">The emotion to play.</param>
-    public void SetEmotion(string emotion)
+    public void PlayAnimation(string emotion)
     {
         if (ActiveActor == null)
         {

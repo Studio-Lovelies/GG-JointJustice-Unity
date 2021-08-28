@@ -52,7 +52,7 @@ public class Actor : MonoBehaviour
     }
     
     /// <summary>
-    /// This method is called by animations when they are completed and required the next line to be to be read.
+    /// This method is called by animations when they are completed and require the next line to be to be read.
     /// </summary>
     public void OnAnimationComplete()
     {

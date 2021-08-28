@@ -43,6 +43,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SHOWACTOR": SetActorVisibility(parameters); break;
             case "SPEAK": SetSpeaker(parameters); break;
             case "EMOTION": SetEmotion(parameters); break;
+            case "PLAY_ANIMATION": PlayAnimation(parameters); break;
             //Audio controller
             case "PLAYSFX": PlaySFX(parameters); break;
             case "PLAYSONG": SetBGMusic(parameters); break;
@@ -54,7 +55,6 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SHAKESCREEN": ShakeScreen(parameters); break;
             case "SCENE": SetScene(parameters); break;
             case "WAIT": Wait(parameters); break;
-            case "WAIT_FOR_ANIMATION": WaitForAnimation(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
@@ -129,8 +129,16 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasActorController())
             return;
 
-        _actorController.SetEmotion(emotion);
+        _actorController.PlayAnimation(emotion);
         _onActionDone.Invoke();
+    }
+
+    private void PlayAnimation(string animation)
+    {
+        if (!HasActorController())
+            return;
+
+        _actorController.PlayAnimation(animation);
     }
     #endregion
 
@@ -318,17 +326,12 @@ public class DirectorActionDecoder : MonoBehaviour
 
         if (float.TryParse(seconds, out secondsFloat))
         {
-            _sceneController.ShakeScreen(secondsFloat);
+            _sceneController.Wait(secondsFloat);
         }
         else
         {
             Debug.LogError("Invalid paramater " + seconds + " for function WAIT");
         }
-    }
-
-    void WaitForAnimation(string animation)
-    {
-        // TODO logic for handling skipping of animation
     }
 
     #endregion

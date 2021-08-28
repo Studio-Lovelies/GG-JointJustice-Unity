@@ -18,4 +18,5 @@ public interface ISceneController
     void ShowItem(string item, itemDisplayPosition position);
     void ShowActor();
     void HideActor();
+    void Wait(float seconds);
 }

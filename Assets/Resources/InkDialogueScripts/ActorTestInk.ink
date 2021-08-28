@@ -8,8 +8,7 @@ Hello Jory!
 &SPEAK:Dan
 Watch this!
 
-&EMOTION:AirGuitar
-&WAIT_FOR_ANIMATION
+&PLAY_ANIMATION:AirGuitar
 
 &EMOTION:Normal
 &WAIT:1

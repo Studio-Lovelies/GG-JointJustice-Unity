@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Ink.Runtime;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogueController : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class DialogueController : MonoBehaviour
 
     [Header("Events")]
 
+    [Tooltip("Attach a scene controller to this so it can cancel 'wait' actions on new lines.")]
+    [SerializeField] private UnityEvent _onNewLine; // TODO make this into a custom event
+    
     [Tooltip("Attach a dialogue controller to this so it can display spoken lines")]
     [SerializeField] private NewSpokenLineEvent _onNewSpokenLine;
 
@@ -46,6 +50,8 @@ public class DialogueController : MonoBehaviour
         {
             string currentLine = _inkStory.Continue();
 
+            _onNewLine.Invoke();
+            
             if (IsAction(currentLine))
             {
                 _onNewActionLine.Invoke(currentLine);
