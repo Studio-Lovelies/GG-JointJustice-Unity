@@ -24,8 +24,8 @@ public class Actor : MonoBehaviour
     public void SetActor(ActorData actorData)
     {
         _actorData = actorData;
-        _spriteRenderer.sprite = actorData.DefaultSprite;
         _animator.runtimeAnimatorController = actorData.AnimatorController;
+        _animator.Play("Normal");
     }
 
     /// <summary>
