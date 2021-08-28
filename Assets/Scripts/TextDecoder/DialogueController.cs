@@ -181,7 +181,7 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    private void HandleEvidencePresented(Evidence evidence) //Old evidence for now. Should be replaced with a scriptable object when that story is done.
+    private void HandleEvidencePresented(string evidence)
     {
         List<Choice> choiceList = _inkStory.currentChoices;
 
