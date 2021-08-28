@@ -63,7 +63,7 @@ namespace UnityEngine.UI
         }
 
         ///<summary>
-        ///LateUpdate is called every frame after every update has beben called
+        ///LateUpdate is called every frame after every update has been called
         ///</summary>
         void LateUpdate()
         {
