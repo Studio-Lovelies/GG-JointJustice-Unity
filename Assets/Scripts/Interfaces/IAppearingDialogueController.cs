@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IAppearingDialogController
+public interface IAppearingDialogueController
 {
     void ContinueDialog();
     void SetTimerValue(WaiterType waiterTypeToChange, string valueToTurnFloat);

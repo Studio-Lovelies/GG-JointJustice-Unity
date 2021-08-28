@@ -147,7 +147,6 @@ GameObject:
   m_Component:
   - component: {fileID: 341159793510650957}
   - component: {fileID: 341159793510650956}
-  - component: {fileID: 7396745227015333024}
   m_Layer: 5
   m_Name: GeneralSpeechPanel
   m_TagString: Untagged
@@ -183,34 +182,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341159793510650958}
   m_CullTransparentMesh: 0
---- !u!114 &7396745227015333024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 341159793510650958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b31ee0231f45e143a89b3235cac7439, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _directorActionDecorder: {fileID: 0}
-  _controlledText: {fileID: 341159792951127872}
-  _nameText: {fileID: 341159793788924082}
-  _nameBackgroundImage: {fileID: 7315010651748275322}
-  _defaultAppearTime: 0.02
-  _defaultPunctuationAppearTime: 0.1
-  _speedMultiplierFromPlayerInput: 2
-  _dialogCanStartEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  _dialogDoneEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  _onLetterAppear:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &341159793788924092
 GameObject:
   m_ObjectHideFlags: 0

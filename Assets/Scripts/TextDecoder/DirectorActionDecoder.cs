@@ -12,7 +12,7 @@ public class DirectorActionDecoder : MonoBehaviour
     private ISceneController _sceneController;
     private IAudioController _audioController;
     private IEvidenceController _evidenceController;
-    private IAppearingDialogController _appearingDialogController = null;
+    private IAppearingDialogueController _appearingDialogController = null;
 
     [Header("Events")]
     [Tooltip("Event that gets called when the system is done processing the action")]
@@ -482,7 +482,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Attach a new IAppearingDialogController to the decoder
     /// </summary>
     /// <param name="newController">New appearing dialog controller to be added</param>
-    public void SetAppearingDialogController(IAppearingDialogController newController)
+    public void SetAppearingDialogController(IAppearingDialogueController newController)
     {
         _appearingDialogController = newController;
     }

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class AppearingDialogController : MonoBehaviour, IAppearingDialogController
+public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueController
 {
     [Header("Basic Values")]
     [SerializeField, Tooltip("DirectionActionDecoder this script is connected to.")]
@@ -17,15 +17,15 @@ public class AppearingDialogController : MonoBehaviour, IAppearingDialogControll
     [SerializeField, Tooltip("Image containing text background color")]
     private Image _nameBackgroundImage = null;
     [SerializeField, Tooltip("Default waiting time for all letters, if no alterations have been made in dialog."), Min(0f)]
-    private float _defaultAppearTime = 0;
+    private float _defaultAppearTime = 0.01f;
     [SerializeField, Tooltip("Default waiting time for punctuation, if no alterations have been made in dialog."), Min(0f)]
-    private float _defaultPunctuationAppearTime = 0;
+    private float _defaultPunctuationAppearTime = 0.02f;
     [SerializeField, Tooltip("When player is giving correct input to the game, how much faster should the game go.")]
     private float _speedMultiplierFromPlayerInput = 2;
 
     [Header("Events")]
     [SerializeField, Tooltip("Events that should happen after completing a dialog.")]
-    private UnityEvent _dialogDoneEvent = new UnityEvent();
+    private UnityEvent _dialogueDoneEvent = new UnityEvent();
 
     [SerializeField, Tooltip("Event is invoked every time letter appears")]
     private UnityEvent _onLetterAppear = new UnityEvent();
@@ -148,23 +148,6 @@ public class AppearingDialogController : MonoBehaviour, IAppearingDialogControll
     /// Displays dialog one letter at a time.
     ///</summary>
     /// <param name="dialog">The dialog that should be showed to player.</param>
-    /// <param name="dialogDoneActions">All the actions that should be called after the dialog has written everything. These actions happen only once, and will be removed afterwards.</param>
-    public IEnumerator StartDialogCoroutine(string dialog, params UnityAction[] dialogDoneActions)
-    {
-        foreach (UnityAction ua in dialogDoneActions)
-        {
-            _dialogDoneEvent.AddListener(ua);
-        }
-
-        yield return StartDialogCoroutine(dialog);
-
-        _dialogDoneEvent.RemoveAllListeners();
-    }
-
-    ///<summary>
-    /// Displays dialog one letter at a time.
-    ///</summary>
-    /// <param name="dialog">The dialog that should be showed to player.</param>
     public IEnumerator StartDialogCoroutine(string dialog)
     {
         StartDialogSetup(dialog);
@@ -195,7 +178,7 @@ public class AppearingDialogController : MonoBehaviour, IAppearingDialogControll
         _writingDialog = false;
 
         //Invoke all functions set to _dialogDoneEvent set either in editor or by code.
-        _dialogDoneEvent.Invoke();
+        _dialogueDoneEvent.Invoke();
 
         if (_autoSkipDialog)
         {
