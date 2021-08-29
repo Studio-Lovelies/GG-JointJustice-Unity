@@ -15,7 +15,7 @@ public class AudioController : MonoBehaviour, IAudioController
     [Range(0f, 4f)]
     [SerializeField] private float _transitionDuration = 2f;
     private bool _isTransitioningMusicTracks;
-    private AudioSource _audioSource;
+    private AudioSource _musicAudioSource;
     private Coroutine _currentFadeCoroutine;
     private MusicFader _musicFader;
 
@@ -32,8 +32,8 @@ public class AudioController : MonoBehaviour, IAudioController
 
         _musicFader = new MusicFader();
 
-        _audioSource = GetComponent<AudioSource>();
-        Debug.Assert(_audioSource != null, "AudioController is missing AudioSource Component");
+        _musicAudioSource = GetComponent<AudioSource>();
+        Debug.Assert(_musicAudioSource != null, "AudioController is missing AudioSource Component");
 
         // DEBUG
         PlaySong("aBoyAndHisTrial");
@@ -59,7 +59,7 @@ public class AudioController : MonoBehaviour, IAudioController
         }
         // /DEBUG
 
-        _audioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
+        _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public class AudioController : MonoBehaviour, IAudioController
     public void PlaySFX(string soundEffectName)
     {
         AudioClip soundEffectClip = Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
-        _audioSource.PlayOneShot(soundEffectClip);
+        _musicAudioSource.PlayOneShot(soundEffectClip);
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <returns>True if we're playing a music track with a volume above zero</returns>
     private bool IsCurrentlyPlayingMusic()
     {
-        return _audioSource.clip != null && _settingsMusicVolume != 0;
+        return _musicAudioSource.clip != null && _settingsMusicVolume != 0;
     }
 
     /// <summary>
@@ -120,8 +120,8 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     private void SetCurrentTrack(string songName)
     {
-        _audioSource.clip = Resources.Load("Audio/Music/" + songName) as AudioClip;
-        _audioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
-        _audioSource.Play();
+        _musicAudioSource.clip = Resources.Load("Audio/Music/" + songName) as AudioClip;
+        _musicAudioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
+        _musicAudioSource.Play();
     }
 }
