@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ActorController : MonoBehaviour, IActorController
 {
@@ -12,7 +13,9 @@ public class ActorController : MonoBehaviour, IActorController
     [SerializeField] private ActorDictionary _actorDictionary;
 
     //TODO serialized for debug purposes. Should be set by scene controller.
-    [field: SerializeField] public Actor ActiveActor { get; set; }
+    [SerializeField] private Actor _activeActor;
+
+    [SerializeField] private UnityEvent _onAnimationComplete;
 
     public bool Animating { get; set; }
 
@@ -26,6 +29,14 @@ public class ActorController : MonoBehaviour, IActorController
         {
             _directorActionDecoder.SetActorController(this);
         }
+
+        SetActiveActorObject(_activeActor); //Debug thing, should be called by the scene controller
+    }
+
+    public void SetActiveActorObject(Actor actor)
+    {
+        _activeActor = actor;
+        actor.AttachController(this);
     }
 
     /// <summary>
@@ -38,7 +49,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         { 
-            ActiveActor.SetActor(_actorDictionary.Actors[actor]);
+            _activeActor.SetActor(_actorDictionary.Actors[actor]);
         }
         catch (KeyNotFoundException exception)
         {
@@ -53,17 +64,43 @@ public class ActorController : MonoBehaviour, IActorController
     /// <param name="emotion">The emotion to play.</param>
     public void PlayAnimation(string emotion)
     {
-        if (ActiveActor == null)
+        if (_activeActor == null)
         {
             Debug.LogError("Actor has not been assigned");
             return;
         }
 
-        ActiveActor.PlayAnimation(emotion);
+        _activeActor.PlayAnimation(emotion);
     }
 
     public void SetActiveSpeaker(string actor)
     {
         Debug.LogWarning("SetActiveSpeaker not implemented");
+    }
+
+    public void StartTalking()
+    {
+        if (_activeActor == null)
+        {
+            Debug.LogError("Actor has not been assigned");
+            return;
+        }
+
+        _activeActor.SetTalking(true);
+    }
+
+    public void StopTalking()
+    {
+        if (_activeActor == null)
+        {
+            Debug.LogError("Actor has not been assigned");
+            return;
+        }
+        _activeActor.SetTalking(false);
+    }
+
+    public void OnAnimationDone()
+    {
+        _onAnimationComplete.Invoke();
     }
 }

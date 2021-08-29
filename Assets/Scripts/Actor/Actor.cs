@@ -4,12 +4,10 @@ using UnityEngine.Events;
 [RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Animator))]
 public class Actor : MonoBehaviour
 {
-    [Tooltip("The event is called when an actor's animation is complete.")]
-    [SerializeField] private UnityEvent _onAnimationComplete;
-
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private ActorData _actorData;
+    private IActorController _attachedController;
 
     private void Awake()
     {
@@ -56,6 +54,19 @@ public class Actor : MonoBehaviour
     /// </summary>
     public void OnAnimationComplete()
     {
-        _onAnimationComplete?.Invoke();
+        if (_attachedController != null)
+        {
+            _attachedController.OnAnimationDone();
+        }
+    }
+
+    public void AttachController(IActorController controller)
+    {
+        _attachedController = controller;
+    }
+
+    public void SetTalking(bool isTalking)
+    {
+        _animator.SetBool("Talking", isTalking);
     }
 }

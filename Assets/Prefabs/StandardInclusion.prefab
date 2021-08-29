@@ -486,7 +486,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _directorActionDecoder: {fileID: 5228303783986964379}
   _actorDictionary: {fileID: 11400000, guid: 8a614ed376c0c4ab889d18152bd51c7e, type: 2}
-  <ActiveActor>k__BackingField: {fileID: 5228303784028554615}
+  _activeActor: {fileID: 5228303784028554615}
+  _onAnimationComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5228303783123296233}
+        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
+        m_MethodName: OnContinueStory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5228303783942753770
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +675,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 2862917018616856736, guid: c40c1842ea1bf9147bb09d30ec7652a6, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -668,7 +683,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 1.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &5228303784028554600
@@ -702,21 +717,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2795071c930944b1a9ab3d0705b34600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onAnimationComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5228303783123296233}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: OnContinueStory
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &5228303784376185821
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,6 +827,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 5228303783822522784}
+        m_TargetAssemblyTypeName: ActorController, GG-JointJustice
+        m_MethodName: StartTalking
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _dialogueEndEvent:
     m_PersistentCalls:
       m_Calls:
@@ -834,6 +846,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
         m_MethodName: SetBusy
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5228303783822522784}
+        m_TargetAssemblyTypeName: ActorController, GG-JointJustice
+        m_MethodName: StopTalking
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
