@@ -27,7 +27,7 @@ public class DirectorActionDecoder : MonoBehaviour
         //Split into action and parameter
         string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR); 
 
-        if (actionAndParam.Length != 2)
+        if (actionAndParam.Length > 2)
         {
             Debug.LogError("Invalid action with line: " + line);
             _onActionDone.Invoke();
@@ -35,7 +35,7 @@ public class DirectorActionDecoder : MonoBehaviour
         }
 
         string action = actionAndParam[0];
-        string parameters = actionAndParam[1];
+        string parameters = (actionAndParam.Length == 2) ? actionAndParam[1] : "";
 
         switch(action)
         {
@@ -44,6 +44,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SHOWACTOR": SetActorVisibility(parameters); break;
             case "SPEAK": SetSpeaker(parameters); break;
             case "EMOTION": SetEmotion(parameters); break;
+            case "PLAY_ANIMATION": PlayAnimation(parameters); break;
             //Audio controller
             case "PLAYSFX": PlaySFX(parameters); break;
             case "PLAYSONG": SetBGMusic(parameters); break;
@@ -71,8 +72,6 @@ public class DirectorActionDecoder : MonoBehaviour
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
-
-        _onActionDone.Invoke(); //Called at the end when done
     }
 
     #region ActorController
@@ -86,6 +85,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _actorController.SetActiveActor(actor);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="showActor">Should contain true or false based on showing or hiding the actor respectively</param>
     private void SetActorVisibility(string showActor)
     {
-        if (!HasActorController())
+        if (!HasSceneController())
             return;
 
         bool shouldShow;
@@ -102,17 +102,18 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             if(shouldShow)
             {
-                _actorController.ShowActor();
+                _sceneController.ShowActor();
             }
             else
             {
-                _actorController.HideActor();
+                _sceneController.HideActor();
             }
         }
         else
         {
             Debug.LogError("Invalid paramater " + showActor + " for function SHOWACTOR");
         }
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -125,6 +126,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _actorController.SetActiveSpeaker(actor);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -136,7 +138,16 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasActorController())
             return;
 
-        _actorController.SetEmotion(emotion);
+        _actorController.PlayAnimation(emotion);
+        _onActionDone.Invoke();
+    }
+
+    private void PlayAnimation(string animation)
+    {
+        if (!HasActorController())
+            return;
+
+        _actorController.PlayAnimation(animation);
     }
     #endregion
 
@@ -214,6 +225,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _sceneController.SetScene(sceneName);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -245,7 +257,7 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Debug.LogError("Invalid paramater " + position + " for function CAMERA_SET");
         }
-
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -323,7 +335,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         if (float.TryParse(seconds, out secondsFloat))
         {
-            _sceneController.ShakeScreen(secondsFloat);
+            _sceneController.Wait(secondsFloat);
         }
         else
         {
@@ -344,6 +356,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _audioController.PlaySFX(sfx);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -356,6 +369,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _audioController.PlaySong(songName);
+        _onActionDone.Invoke();
     }
     #endregion
 
@@ -366,6 +380,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _evidenceController.AddEvidence(evidence);
+        _onActionDone.Invoke();
     }
 
     void RemoveEvidence(string evidence)
@@ -374,6 +389,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _evidenceController.RemoveEvidence(evidence);
+        _onActionDone.Invoke();
     }
 
     void AddToCourtRecord(string actor)
@@ -382,6 +398,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _evidenceController.AddToCourtRecord(actor);
+        _onActionDone.Invoke();
     }
     #endregion
 
