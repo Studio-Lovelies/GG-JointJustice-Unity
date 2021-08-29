@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueController
 {
     [Header("Basic Values")]
+
+    [SerializeField, ReadOnly]
+    private float _currentAppearTime = 0;
     [SerializeField, Tooltip("DirectionActionDecoder this script is connected to.")]
     DirectorActionDecoder _directorActionDecorder = null;
     [SerializeField, Tooltip("TextMeshPro-component all the dialog should appear in.")]
@@ -24,16 +27,16 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private float _speedMultiplierFromPlayerInput = 2;
 
     [Header("Events")]
+    [SerializeField, Tooltip("Events that should happen before the dialog start.")]
+    private UnityEvent _dialogueStartEvent = new UnityEvent();
     [SerializeField, Tooltip("Events that should happen after completing a dialog.")]
-    private UnityEvent _dialogueDoneEvent = new UnityEvent();
+    private UnityEvent _dialogueEndEvent = new UnityEvent();
 
     [SerializeField, Tooltip("Event is invoked every time letter appears")]
     private UnityEvent _onLetterAppear = new UnityEvent();
 
     [SerializeField, Tooltip("Event is invoked when dialog ends while autoskip is still true. Should be made to start the next dialog immediatly")]
     private UnityEvent _onAutoSkip = new UnityEvent();
-
-    private float _currentAppearTime = 0;
     private string _currentDialog = "";
     private int _currentLetterNum = 0;
     private float _timer = 0;
@@ -142,6 +145,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
         _writingDialog = true;
         _controlledText.text = _currentDialog;
+
+        _dialogueStartEvent.Invoke();
     }
 
     ///<summary>
@@ -178,7 +183,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         _writingDialog = false;
 
         //Invoke all functions set to _dialogDoneEvent set either in editor or by code.
-        _dialogueDoneEvent.Invoke();
+        _dialogueEndEvent.Invoke();
 
         if (_autoSkipDialog)
         {
@@ -492,6 +497,24 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     public void AutoSkipDialog(bool skip)
     {
         _autoSkipDialog = skip;
+    }
+
+    ///<summary>
+    ///Changes the name of the speaker.
+    ///</summary>
+    ///<param name = "newName">The name of the new speaker.</param>
+    public void ChangeSpeakerName(string newName)
+    {
+        _nameText.text = newName;
+    }
+
+    ///<summary>
+    ///Changes the names background color to wanted.
+    ///</summary>
+    ///<param name = "newColor">The new color of the background image.</param>
+    public void ChangeNameBGColor(Color newColor)
+    {
+        _nameBackgroundImage.color = newColor;
     }
 
 

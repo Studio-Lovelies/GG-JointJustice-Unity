@@ -284,17 +284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae56a18858b8b474fb20992291f416c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &328568430 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 341159793788924082, guid: 37849bb488a16344e8888662757571aa, type: 3}
-  m_PrefabInstance: {fileID: 286435836750466306}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &507898464
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,16 +599,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b31ee0231f45e143a89b3235cac7439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentAppearTime: 0
   _directorActionDecorder: {fileID: 1056622115}
   _controlledText: {fileID: 2088250338}
-  _nameText: {fileID: 328568430}
+  _nameText: {fileID: 286435836750466307}
   _nameBackgroundImage: {fileID: 1484172943}
   _defaultAppearTime: 0.01
   _defaultPunctuationAppearTime: 0.02
   _speedMultiplierFromPlayerInput: 2
-  _dialogueDoneEvent:
+  _dialogueStartEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 171998801}
+        m_TargetAssemblyTypeName: DialogueController, Assembly-CSharp
+        m_MethodName: SetDialogueIsWriting
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _dialogueEndEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 171998801}
+        m_TargetAssemblyTypeName: DialogueController, Assembly-CSharp
+        m_MethodName: SetDialogueIsWriting
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onLetterAppear:
     m_PersistentCalls:
       m_Calls: []
@@ -977,55 +994,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 341159793510650958, guid: 37849bb488a16344e8888662757571aa, type: 3}
       propertyPath: m_Name
-      value: GerenralSpeechPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _directorActionDecorder
-      value: 
-      objectReference: {fileID: 1056622115}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _onAutoSkip.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _dialogCanStartEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _onAutoSkip.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _onAutoSkip.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 171998801}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _onAutoSkip.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _onAutoSkip.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnNextLine
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _dialogCanStartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _dialogCanStartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 171998799}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _dialogCanStartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _onAutoSkip.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: DialogueController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396745227015333024, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: _onAutoSkip.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: GeneralSpeechPanel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37849bb488a16344e8888662757571aa, type: 3}
+--- !u!114 &286435836750466307 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7511797654307280288, guid: 37849bb488a16344e8888662757571aa, type: 3}
+  m_PrefabInstance: {fileID: 286435836750466306}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

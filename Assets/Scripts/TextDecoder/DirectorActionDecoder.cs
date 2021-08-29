@@ -537,8 +537,11 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAppearingDialogController())
             return;
 
-        if (!ParseBool(disabled, out bool value))
+        if (!bool.TryParse(disabled, out bool value))
+        {
+            Debug.LogError("Bool value wasn't found from DisableTextSkipping command. Please fix.");
             return;
+        }
 
         _appearingDialogController.ToggleDisableTextSkipping(value);
     }
@@ -562,27 +565,13 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAppearingDialogController())
             return;
 
-        if (!ParseBool(on, out bool value))
-            return;
-
-        _appearingDialogController.AutoSkipDialog(value);
-    }
-
-    ///<summary>
-    ///Checks if the command contains needed bool value, and if not, gives error message.
-    ///</summary>
-    ///<param name = "parameter">The string that is suppose to contain the bool value.</param>
-    ///<param name = "value">The read bool value given out.</param>
-    ///<returns>True if the string contained bool value, and false if it didn't.</returns>
-    private bool ParseBool(string parameter, out bool value)
-    {
-        if (bool.TryParse(parameter, out value))
+        if (!bool.TryParse(on, out bool value))
         {
-            return true;
+            Debug.LogError("Bool value wasn't found from autoskip command. Please fix.");
+            return;
         }
 
-        Debug.LogError("Bool value wasn't found from command. Please fix.");
-        return false;
+        _appearingDialogController.AutoSkipDialog(value);
     }
     #endregion
 }
