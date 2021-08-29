@@ -32,6 +32,9 @@ public class DialogueController : MonoBehaviour
 
     [Header("Events")]
 
+    [Tooltip("Attach a scene controller to this so it can cancel 'wait' actions on new lines.")]
+    [SerializeField] private UnityEvent _onNewLine; // TODO make this into a custom event
+    
     [Tooltip("Attach a dialogue controller to this so it can display spoken lines")]
     [SerializeField] private NewSpokenLineEvent _onNewSpokenLine;
 
@@ -49,6 +52,7 @@ public class DialogueController : MonoBehaviour
     private bool _isAtChoice = false; //Possibly small state machine to handle all input?
 
     private Story _inkStory;
+    bool _dialgoueIsWriting = false;
 
     // Start is called before the first frame update
     void Start()
@@ -151,10 +155,17 @@ public class DialogueController : MonoBehaviour
         if (_isAtChoice) //Make sure we don't continue unless we're not at a choice in the cross examination
             return;
 
+        if(_dialgoueIsWriting)
+        {
+            return;
+        }
+
         if (_inkStory.canContinue)
         {
             string currentLine = _inkStory.Continue();
 
+            _onNewLine.Invoke();
+            
             if (IsAction(currentLine))
             {
                 _onNewActionLine.Invoke(currentLine);
@@ -214,6 +225,11 @@ public class DialogueController : MonoBehaviour
     private bool IsAction(string line)
     {
         return line[0] == ACTION_TOKEN;
+    }
+
+    public void SetDialogueIsWriting(bool writing)
+    {
+        _dialgoueIsWriting = writing;
     }
 
     //Sub story stuff
