@@ -7,6 +7,11 @@ public class MusicFader
     /// </summary>
     public float NormalizedVolume { get; private set; }
 
+    public MusicFader()
+    {
+        NormalizedVolume = 1f;
+    }
+
     /// <summary>
     /// To be used in a coroutine to fade in the track
     /// </summary>

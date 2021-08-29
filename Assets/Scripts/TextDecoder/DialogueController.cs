@@ -23,7 +23,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private NewActionLineEvent _onNewActionLine;
 
     private Story _inkStory;
-    bool _dialgoueIsWriting = false;
+    bool _isBusy = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,24 +31,28 @@ public class DialogueController : MonoBehaviour
         SetNarrativeScript(_narrativeScript); //TODO:Disable this, for debug only
     }
 
-    private void Update()
-    {
-
-    }
-
     public void SetNarrativeScript(TextAsset narrativeScript)
     {
         _inkStory = new Story(_narrativeScript.text);
     }
 
-
-    public void OnNextLine()
+    public void OnContinueStory()
     {
-        if(_dialgoueIsWriting)
+        if (_isBusy)
         {
             return;
         }
 
+        OnNextLine();
+    }
+
+    public void SetBusy(bool busy)
+    {
+        _isBusy = busy;
+    }
+
+    private void OnNextLine()
+    {
         if (_inkStory.canContinue)
         {
             string currentLine = _inkStory.Continue();
@@ -65,18 +69,19 @@ public class DialogueController : MonoBehaviour
                 Debug.Log(currentLine); //Temp to show lines being said
             }
         }
-
-        List<Choice> choiceList = _inkStory.currentChoices;
-
-        if (choiceList.Count > 0)
-        {
-            //Choices present
-        }
         else
         {
-            //Empty
+            List<Choice> choiceList = _inkStory.currentChoices;
+
+            if (choiceList.Count > 0)
+            {
+                //Choices present
+            }
+            else
+            {
+                Debug.Log("End");
+            }
         }
-            
     }
 
     private bool IsAction(string line)
@@ -85,8 +90,5 @@ public class DialogueController : MonoBehaviour
         //TODO: Check if line is action
     }
 
-    public void SetDialogueIsWriting(bool writing)
-    {
-        _dialgoueIsWriting = writing;
-    }
+    
 }
