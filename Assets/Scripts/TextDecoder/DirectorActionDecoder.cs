@@ -12,6 +12,7 @@ public class DirectorActionDecoder : MonoBehaviour
     private ISceneController _sceneController;
     private IAudioController _audioController;
     private IEvidenceController _evidenceController;
+    private IAppearingDialogueController _appearingDialogController = null;
 
     [Header("Events")]
     [Tooltip("Event that gets called when the system is done processing the action")]
@@ -60,6 +61,14 @@ public class DirectorActionDecoder : MonoBehaviour
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
             case "ADD_RECORD": AddToCourtRecord(parameters); break;
+            //Dialog controller
+            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, parameters); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, parameters); break;
+            case "CLEAR_SPEED": ClearDialogSpeeds(); break;
+            case "DISABLE_SKIPPING": DisableTextSkipping(parameters); break;
+            case "AUTOSKIP": AutoSkip(parameters); break;
+            case "CONTINUE_DIALOG": ContinueDialog(); break;
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
@@ -484,6 +493,102 @@ public class DirectorActionDecoder : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    /// <summary>
+    /// Attach a new IAppearingDialogController to the decoder
+    /// </summary>
+    /// <param name="newController">New appearing dialog controller to be added</param>
+    public void SetAppearingDialogController(IAppearingDialogueController newController)
+    {
+        _appearingDialogController = newController;
+    }
+
+    /// <summary>
+    /// Checks if the decoder has an appearing dialog controller attached, and shows an error if it doesn't
+    /// </summary>
+    /// <returns>Whether an appearing dialog controller is connected</returns>
+    private bool HasAppearingDialogController()
+    {
+        if (_appearingDialogController == null)
+        {
+            Debug.LogError("No appearing dialog controller attached to the action decoder", gameObject);
+            return false;
+        }
+        return true;
+    }
+    #endregion
+
+    #region DialogStuff
+
+    ///<summary>
+    ///Changes the dialog speed in appearingDialogController if it has beben set.
+    ///</summary>
+    ///<param name = "currentWaiterType">The current waiters type which appear time should be changed.</param>
+    ///<param name = "parameters">Contains all the parameters needed to change the appearing time.</param>
+    private void ChangeDialogSpeed(WaiterType currentWaiterType, string parameters)
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.SetTimerValue(currentWaiterType, parameters);
+    }
+
+    ///<summary>
+    ///Clears all custom set dialog speeds
+    ///</summary>
+    private void ClearDialogSpeeds()
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.ClearAllWaiters();
+    }
+
+    ///<summary>
+    ///Toggles skipping on or off
+    ///</summary>
+    ///<param name = "disable">Should the text skipping be disabled or not</param>
+    private void DisableTextSkipping(string disabled)
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        if (!bool.TryParse(disabled, out bool value))
+        {
+            Debug.LogError("Bool value wasn't found from DisableTextSkipping command. Please fix.");
+            return;
+        }
+
+        _appearingDialogController.ToggleDisableTextSkipping(value);
+    }
+
+    ///<summary>
+    ///Makes the new dialog appear after current one.
+    ///</summary>
+    private void ContinueDialog()
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.ContinueDialog();
+    }
+
+    ///<summary>
+    ///Forces the next line of dialog happen right after current one.
+    ///</summary>
+    private void AutoSkip(string on)
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        if (!bool.TryParse(on, out bool value))
+        {
+            Debug.LogError("Bool value wasn't found from autoskip command. Please fix.");
+            return;
+        }
+
+        _appearingDialogController.AutoSkipDialog(value);
     }
     #endregion
 }

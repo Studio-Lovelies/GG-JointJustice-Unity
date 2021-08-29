@@ -23,6 +23,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private NewActionLineEvent _onNewActionLine;
 
     private Story _inkStory;
+    bool _dialgoueIsWriting = false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,11 @@ public class DialogueController : MonoBehaviour
 
     public void OnNextLine()
     {
+        if(_dialgoueIsWriting)
+        {
+            return;
+        }
+
         if (_inkStory.canContinue)
         {
             string currentLine = _inkStory.Continue();
@@ -80,5 +86,10 @@ public class DialogueController : MonoBehaviour
     {
         return line[0] == ACTION_TOKEN;
         //TODO: Check if line is action
+    }
+
+    public void SetDialogueIsWriting(bool writing)
+    {
+        _dialgoueIsWriting = writing;
     }
 }
