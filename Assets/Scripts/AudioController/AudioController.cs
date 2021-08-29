@@ -16,6 +16,7 @@ public class AudioController : MonoBehaviour, IAudioController
     [SerializeField] private float _transitionDuration = 2f;
     private bool _isTransitioningMusicTracks;
     private AudioSource _musicAudioSource;
+    private AudioSource _sfxAudioSource;
     private Coroutine _currentFadeCoroutine;
     private MusicFader _musicFader;
 
@@ -35,6 +36,10 @@ public class AudioController : MonoBehaviour, IAudioController
         _musicAudioSource = GetComponent<AudioSource>();
         Debug.Assert(_musicAudioSource != null, "AudioController is missing AudioSource Component");
         _musicAudioSource.loop = true;
+
+        var sfxGameObject = new GameObject("SFX Player");
+        sfxGameObject.transform.parent = this.transform;
+        _sfxAudioSource = sfxGameObject.AddComponent<AudioSource>();
 
         // DEBUG
         PlaySong("aBoyAndHisTrial");
@@ -84,7 +89,7 @@ public class AudioController : MonoBehaviour, IAudioController
     public void PlaySFX(string soundEffectName)
     {
         AudioClip soundEffectClip = Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
-        _musicAudioSource.PlayOneShot(soundEffectClip);
+        _sfxAudioSource.PlayOneShot(soundEffectClip);
     }
 
     /// <summary>
