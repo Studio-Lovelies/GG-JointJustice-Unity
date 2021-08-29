@@ -5,12 +5,21 @@ public class AudioController : MonoBehaviour, IAudioController
 {
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
+
     /// <summary>
     /// One day this will come from the "Settings," but for now it lives on a field
     /// </summary>
-    [Tooltip("Volume level set by player")]
+    [Tooltip("Music Volume level set by player")]
     [Range(0f, 1f)]
     [SerializeField] private float _settingsMusicVolume = 1f;
+
+    /// <summary>
+    /// One day this will come from the "Settings," but for now it lives on a field
+    /// </summary>
+    [Tooltip("SFX Volume level set by player")]
+    [Range(0f, 1f)]
+    [SerializeField] private float _settingsSFXVolume = 1f;
+
     [Tooltip("Total duration of fade out + fade in")]
     [Range(0f, 4f)]
     [SerializeField] private float _transitionDuration = 2f;
@@ -66,6 +75,7 @@ public class AudioController : MonoBehaviour, IAudioController
         // /DEBUG
 
         _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
+        _sfxAudioSource.volume = _settingsSFXVolume;
     }
 
     /// <summary>
