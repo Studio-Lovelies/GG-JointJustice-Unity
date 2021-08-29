@@ -166,7 +166,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edea055d8c3131428c88f22698e8a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScript: {fileID: 4900000, guid: a7b39c9605e2f43c4b52f1631f5135c9, type: 3}
+  _narrativeScript: {fileID: 4900000, guid: 1da9152d912c048dfa9dafa81ea5dcfd, type: 3}
+  _onNewLine:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2044061589}
+        m_TargetAssemblyTypeName: SceneController, GG-JointJustice
+        m_MethodName: CancelWaitCoroutine
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onNewSpokenLine:
     m_PersistentCalls:
       m_Calls: []
@@ -673,6 +688,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _directorActionDecoder: {fileID: 1056622115}
+  _onWaitComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 171998801}
+        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
+        m_MethodName: OnNextLine
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &2044061590
 Transform:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
-    [Tooltip("This event is called when a wait actions is finished. Subscribe OnNextLine method to this.")]
+    [Tooltip("This event is called when a wait action is finished. Subscribe OnNextLine method to this.")]
     [SerializeField] private UnityEvent _onWaitComplete;
     
     private Coroutine _waitCoroutine;
