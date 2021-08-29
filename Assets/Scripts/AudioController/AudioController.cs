@@ -34,6 +34,7 @@ public class AudioController : MonoBehaviour, IAudioController
 
         _musicAudioSource = GetComponent<AudioSource>();
         Debug.Assert(_musicAudioSource != null, "AudioController is missing AudioSource Component");
+        _musicAudioSource.loop = true;
 
         // DEBUG
         PlaySong("aBoyAndHisTrial");
