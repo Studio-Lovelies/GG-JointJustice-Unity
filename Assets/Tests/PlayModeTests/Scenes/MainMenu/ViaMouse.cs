@@ -122,9 +122,9 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             var startGameButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
 
             Set(mouse.position, startGameButton.position + startGameButton.localScale * 0.5f);
-            Assert.False(sceneManagerAPIStub.loadedScenes.Contains("SampleScene"));
+            Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
             yield return PressForFrame(mouse.leftButton);
-            Assert.True(sceneManagerAPIStub.loadedScenes.Contains("SampleScene"));
+            Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
 
             SceneManagerAPI.overrideAPI = null;
         }

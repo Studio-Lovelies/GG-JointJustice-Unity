@@ -88,24 +88,32 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     private IEnumerator LoadSceneCoroutine()
     {
-        _sceneLoadOperation.allowSceneActivation = true;
-        yield return null; // Don't show loading bar if it loads in one frame
-        
-        while (!_sceneLoadOperation.isDone)
+        if (_sceneLoadOperation != null)
         {
-            Debug.Log(_sceneLoadOperation.isDone);
-            if (_loadingBar != null)
-            {
-                if (!_loadingBar.gameObject.activeInHierarchy)
-                {
-                    _loadingBar.gameObject.SetActive(true);
-                }
-
-                _loadingBar.value = _sceneLoadOperation.progress;
-            }
-            yield return null;
+            _sceneLoadOperation.allowSceneActivation = true;
         }
 
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        yield return null; // Don't show loading bar if it loads in one frame
+
+        if (_sceneLoadOperation != null)
+        {
+            while (!_sceneLoadOperation.isDone)
+            {
+                Debug.Log(_sceneLoadOperation.isDone);
+                if (_loadingBar != null)
+                {
+                    if (!_loadingBar.gameObject.activeInHierarchy)
+                    {
+                        _loadingBar.gameObject.SetActive(true);
+                    }
+
+                    _loadingBar.value = _sceneLoadOperation.progress;
+                }
+
+                yield return null;
+            }
+
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        }
     }
 }

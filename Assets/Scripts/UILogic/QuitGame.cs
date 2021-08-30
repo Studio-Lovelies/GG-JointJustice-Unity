@@ -11,12 +11,7 @@ public class QuitGame : MonoBehaviour
     /// </summary>
     public void QueueTransitionAndQuit()
     {
-        StartCoroutine(TransitionAndQuit());
-    }
-    
-    private IEnumerator TransitionAndQuit()
-    {
-        yield return StartCoroutine(_transitionController.Transition());
+        _transitionController.Transition();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
