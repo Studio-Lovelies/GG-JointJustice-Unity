@@ -13,10 +13,13 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
     {
         private IEnumerator PressForFrame(ButtonControl control)
         {
+            currentTime += 1;
             yield return new WaitForEndOfFrame();
             Press(control);
+            currentTime += 1;
             yield return new WaitForEndOfFrame();
             Release(control);
+            currentTime += 1;
             yield return new WaitForEndOfFrame();
         }
 
@@ -111,9 +114,9 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 
             var keyboard = InputSystem.AddDevice<Keyboard>();
 
-            Assert.False(sceneManagerAPIStub.loadedScenes.Contains("SampleScene"));
+            Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
             yield return PressForFrame(keyboard.enterKey);
-            Assert.True(sceneManagerAPIStub.loadedScenes.Contains("SampleScene"));
+            Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
             
             SceneManagerAPI.overrideAPI = null;
         }

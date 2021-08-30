@@ -5,9 +5,10 @@ using System.Reflection;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.TestTools;
 
-namespace Tests.PlayModeTests.AudioController
+namespace Tests.PlayModeTests.DialogueController
 {
     public class DialogueController
     {
@@ -40,11 +41,14 @@ namespace Tests.PlayModeTests.AudioController
             FieldInfo onNewActionLineFieldInfo = dialogueController.GetType().GetField("_onNewActionLine", BindingFlags.NonPublic | BindingFlags.Instance);
             onNewActionLineFieldInfo.SetValue(dialogueController, actionLinesEvent);
 
+            FieldInfo onNewLineFieldInfo = dialogueController.GetType().GetField("_onNewLine", BindingFlags.NonPublic | BindingFlags.Instance);
+            onNewLineFieldInfo.SetValue(dialogueController, new UnityEvent());
+
             dialogueController.SetNarrativeScript(new TextAsset(ActionFollowedByScriptSerializedInk));
 
             // Run both lines
-            dialogueController.OnNextLine();
-            dialogueController.OnNextLine();
+            dialogueController.OnContinueStory();
+            dialogueController.OnContinueStory();
             
             // Assert their existence due to the events being called
             Assert.Contains("&SPEAK:Ross\n", actionLines);
