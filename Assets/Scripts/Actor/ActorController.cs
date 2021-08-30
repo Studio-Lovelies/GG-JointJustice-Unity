@@ -66,6 +66,4 @@ public class ActorController : MonoBehaviour, IActorController
     {
         Debug.LogWarning("SetActiveSpeaker not implemented");
     }
-    
-    
 }
