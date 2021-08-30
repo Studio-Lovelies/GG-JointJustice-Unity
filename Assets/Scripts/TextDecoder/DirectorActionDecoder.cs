@@ -12,6 +12,7 @@ public class DirectorActionDecoder : MonoBehaviour
     private ISceneController _sceneController;
     private IAudioController _audioController;
     private IEvidenceController _evidenceController;
+    private IAppearingDialogueController _appearingDialogController = null;
 
     [Header("Events")]
     [Tooltip("Event that gets called when the system is done processing the action")]
@@ -26,7 +27,7 @@ public class DirectorActionDecoder : MonoBehaviour
         //Split into action and parameter
         string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR); 
 
-        if (actionAndParam.Length != 2)
+        if (actionAndParam.Length > 2)
         {
             Debug.LogError("Invalid action with line: " + line);
             _onActionDone.Invoke();
@@ -34,7 +35,7 @@ public class DirectorActionDecoder : MonoBehaviour
         }
 
         string action = actionAndParam[0];
-        string parameters = actionAndParam[1];
+        string parameters = (actionAndParam.Length == 2) ? actionAndParam[1] : "";
 
         switch(action)
         {
@@ -43,6 +44,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SHOWACTOR": SetActorVisibility(parameters); break;
             case "SPEAK": SetSpeaker(parameters); break;
             case "EMOTION": SetEmotion(parameters); break;
+            case "PLAY_ANIMATION": PlayAnimation(parameters); break;
             //Audio controller
             case "PLAYSFX": PlaySFX(parameters); break;
             case "PLAYSONG": SetBGMusic(parameters); break;
@@ -59,11 +61,17 @@ public class DirectorActionDecoder : MonoBehaviour
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
             case "ADD_RECORD": AddToCourtRecord(parameters); break;
+            //Dialog controller
+            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, parameters); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, parameters); break;
+            case "CLEAR_SPEED": ClearDialogSpeeds(); break;
+            case "DISABLE_SKIPPING": DisableTextSkipping(parameters); break;
+            case "AUTOSKIP": AutoSkip(parameters); break;
+            case "CONTINUE_DIALOG": ContinueDialog(); break;
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
-
-        _onActionDone.Invoke(); //Called at the end when done
     }
 
     #region ActorController
@@ -77,6 +85,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _actorController.SetActiveActor(actor);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -85,7 +94,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="showActor">Should contain true or false based on showing or hiding the actor respectively</param>
     private void SetActorVisibility(string showActor)
     {
-        if (!HasActorController())
+        if (!HasSceneController())
             return;
 
         bool shouldShow;
@@ -93,17 +102,18 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             if(shouldShow)
             {
-                _actorController.ShowActor();
+                _sceneController.ShowActor();
             }
             else
             {
-                _actorController.HideActor();
+                _sceneController.HideActor();
             }
         }
         else
         {
             Debug.LogError("Invalid paramater " + showActor + " for function SHOWACTOR");
         }
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -116,6 +126,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _actorController.SetActiveSpeaker(actor);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -127,7 +138,16 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasActorController())
             return;
 
-        _actorController.SetEmotion(emotion);
+        _actorController.PlayAnimation(emotion);
+        _onActionDone.Invoke();
+    }
+
+    private void PlayAnimation(string animation)
+    {
+        if (!HasActorController())
+            return;
+
+        _actorController.PlayAnimation(animation);
     }
     #endregion
 
@@ -205,6 +225,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _sceneController.SetScene(sceneName);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -236,7 +257,7 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Debug.LogError("Invalid paramater " + position + " for function CAMERA_SET");
         }
-
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -314,7 +335,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         if (float.TryParse(seconds, out secondsFloat))
         {
-            _sceneController.ShakeScreen(secondsFloat);
+            _sceneController.Wait(secondsFloat);
         }
         else
         {
@@ -335,6 +356,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _audioController.PlaySFX(sfx);
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -347,6 +369,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _audioController.PlaySong(songName);
+        _onActionDone.Invoke();
     }
     #endregion
 
@@ -357,6 +380,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _evidenceController.AddEvidence(evidence);
+        _onActionDone.Invoke();
     }
 
     void RemoveEvidence(string evidence)
@@ -365,6 +389,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _evidenceController.RemoveEvidence(evidence);
+        _onActionDone.Invoke();
     }
 
     void AddToCourtRecord(string actor)
@@ -373,6 +398,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _evidenceController.AddToCourtRecord(actor);
+        _onActionDone.Invoke();
     }
     #endregion
 
@@ -467,6 +493,102 @@ public class DirectorActionDecoder : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    /// <summary>
+    /// Attach a new IAppearingDialogController to the decoder
+    /// </summary>
+    /// <param name="newController">New appearing dialog controller to be added</param>
+    public void SetAppearingDialogController(IAppearingDialogueController newController)
+    {
+        _appearingDialogController = newController;
+    }
+
+    /// <summary>
+    /// Checks if the decoder has an appearing dialog controller attached, and shows an error if it doesn't
+    /// </summary>
+    /// <returns>Whether an appearing dialog controller is connected</returns>
+    private bool HasAppearingDialogController()
+    {
+        if (_appearingDialogController == null)
+        {
+            Debug.LogError("No appearing dialog controller attached to the action decoder", gameObject);
+            return false;
+        }
+        return true;
+    }
+    #endregion
+
+    #region DialogStuff
+
+    ///<summary>
+    ///Changes the dialog speed in appearingDialogController if it has beben set.
+    ///</summary>
+    ///<param name = "currentWaiterType">The current waiters type which appear time should be changed.</param>
+    ///<param name = "parameters">Contains all the parameters needed to change the appearing time.</param>
+    private void ChangeDialogSpeed(WaiterType currentWaiterType, string parameters)
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.SetTimerValue(currentWaiterType, parameters);
+    }
+
+    ///<summary>
+    ///Clears all custom set dialog speeds
+    ///</summary>
+    private void ClearDialogSpeeds()
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.ClearAllWaiters();
+    }
+
+    ///<summary>
+    ///Toggles skipping on or off
+    ///</summary>
+    ///<param name = "disable">Should the text skipping be disabled or not</param>
+    private void DisableTextSkipping(string disabled)
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        if (!bool.TryParse(disabled, out bool value))
+        {
+            Debug.LogError("Bool value wasn't found from DisableTextSkipping command. Please fix.");
+            return;
+        }
+
+        _appearingDialogController.ToggleDisableTextSkipping(value);
+    }
+
+    ///<summary>
+    ///Makes the new dialog appear after current one.
+    ///</summary>
+    private void ContinueDialog()
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.ContinueDialog();
+    }
+
+    ///<summary>
+    ///Forces the next line of dialog happen right after current one.
+    ///</summary>
+    private void AutoSkip(string on)
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        if (!bool.TryParse(on, out bool value))
+        {
+            Debug.LogError("Bool value wasn't found from autoskip command. Please fix.");
+            return;
+        }
+
+        _appearingDialogController.AutoSkipDialog(value);
     }
     #endregion
 }
