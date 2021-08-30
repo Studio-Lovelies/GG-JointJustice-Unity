@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Globalization;
 using UnityEngine.Events;
 using UnityEngine;
 
@@ -43,8 +45,8 @@ public class DirectorActionDecoder : MonoBehaviour
             case "ACTOR": SetActor(parameters); break;
             case "SHOWACTOR": SetActorVisibility(parameters); break;
             case "SPEAK": SetSpeaker(parameters); break;
-            case "EMOTION": SetEmotion(parameters); break;
-            case "PLAY_ANIMATION": PlayAnimation(parameters); break;
+            case "SET_POSE": SetPose(parameters); break;
+            case "PLAY_EMOTION": PlayEmotion(parameters); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
             case "PLAYSFX": PlaySFX(parameters); break;
             case "PLAYSONG": SetBGMusic(parameters); break;
@@ -133,21 +135,21 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Set the emotion of the current actor
     /// </summary>
     /// <param name="emotion">Emotion to display for the current actor</param>
-    private void SetEmotion(string emotion)
+    private void SetPose(string emotion)
     {
         if (!HasActorController())
             return;
 
-        _actorController.PlayAnimation(emotion);
+        _actorController.SetPose(emotion);
         _onActionDone.Invoke();
     }
 
-    private void PlayAnimation(string animation)
+    private void PlayEmotion(string animation)
     {
         if (!HasActorController())
             return;
 
-        _actorController.PlayAnimation(animation);
+        _actorController.PlayEmotion(animation);
     }
     #endregion
 
@@ -163,7 +165,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         float timeInSeconds;
 
-        if(float.TryParse(seconds, out timeInSeconds))
+        if(float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out timeInSeconds))
         {
             _sceneController.FadeIn(timeInSeconds);
         }
@@ -184,7 +186,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         float timeInSeconds;
 
-        if (float.TryParse(seconds, out timeInSeconds))
+        if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out timeInSeconds))
         {
             _sceneController.FadeOut(timeInSeconds);
         }
@@ -205,7 +207,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         float intensityNumerical;
 
-        if (float.TryParse(intensity, out intensityNumerical))
+        if (float.TryParse(intensity, NumberStyles.Any, CultureInfo.InvariantCulture, out intensityNumerical))
         {
             _sceneController.ShakeScreen(intensityNumerical);
         }
@@ -281,7 +283,7 @@ public class DirectorActionDecoder : MonoBehaviour
         int x;
         int y;
 
-        if (float.TryParse(parameters[0], out duration) 
+        if (float.TryParse(parameters[0], NumberStyles.Any, CultureInfo.InvariantCulture, out duration) 
             && int.TryParse(parameters[1], out x) 
             && int.TryParse(parameters[2], out y))
         {
@@ -333,7 +335,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         float secondsFloat;
 
-        if (float.TryParse(seconds, out secondsFloat))
+        if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out secondsFloat))
         {
             _sceneController.Wait(secondsFloat);
         }

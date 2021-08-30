@@ -40,6 +40,7 @@ public class DialogueController : MonoBehaviour
     {
         if (_isBusy)
         {
+            Debug.LogWarning("Tried to continue while busy");
             return;
         }
 

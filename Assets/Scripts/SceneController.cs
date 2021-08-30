@@ -8,9 +8,14 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
-    [Tooltip("This event is called when a wait action is finished. Subscribe OnNextLine method to this.")]
+    [Tooltip("This event is called when a wait action is started.")]
+    [SerializeField] private UnityEvent _onWaitStart;
+
+    [Tooltip("This event is called when a wait action is finished.")]
     [SerializeField] private UnityEvent _onWaitComplete;
+
     
+
     private Coroutine _waitCoroutine;
     
     // Start is called before the first frame update
@@ -79,6 +84,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds"></param>
     public void Wait(float seconds)
     {
+        Debug.Log("Waiting for " + seconds + " seconds");
         _waitCoroutine = StartCoroutine(WaitCoroutine(seconds));
     }
 
@@ -88,6 +94,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The time to wait in seconds.</param>
     private IEnumerator WaitCoroutine(float seconds)
     {
+        _onWaitStart.Invoke();
         yield return new WaitForSeconds(seconds);
         _onWaitComplete?.Invoke();
     }

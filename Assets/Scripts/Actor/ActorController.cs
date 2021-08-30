@@ -15,6 +15,7 @@ public class ActorController : MonoBehaviour, IActorController
     //TODO serialized for debug purposes. Should be set by scene controller.
     [SerializeField] private Actor _activeActor;
 
+    [SerializeField] private UnityEvent _onAnimationStarted;
     [SerializeField] private UnityEvent _onAnimationComplete;
 
     public bool Animating { get; set; }
@@ -57,19 +58,30 @@ public class ActorController : MonoBehaviour, IActorController
         }
     }
 
-    /// <summary>
-    /// Sets the animation of an actor by playing the specified animation on the actor's animator.
-    /// Used to set poses, emotions, and play animations.
-    /// </summary>
-    /// <param name="emotion">The emotion to play.</param>
-    public void PlayAnimation(string emotion)
+    public void SetPose(string pose)
     {
         if (_activeActor == null)
         {
             Debug.LogError("Actor has not been assigned");
             return;
         }
+        _activeActor.PlayAnimation(pose);
+    }
 
+    /// <summary>
+    /// Sets the animation of an actor by playing the specified animation on the actor's animator.
+    /// Used to set poses, emotions, and play animations.
+    /// </summary>
+    /// <param name="emotion">The emotion to play.</param>
+    public void PlayEmotion(string emotion)
+    {
+        if (_activeActor == null)
+        {
+            Debug.LogError("Actor has not been assigned");
+            _onAnimationComplete.Invoke();
+            return;
+        }
+        _onAnimationStarted.Invoke();
         _activeActor.PlayAnimation(emotion);
     }
 

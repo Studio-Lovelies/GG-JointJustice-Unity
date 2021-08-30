@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayBeforeSpeedup: 0.5
+  _delayBeforeSpeedup: 0.05
   OnContinueStory:
     m_PersistentCalls:
       m_Calls:
@@ -431,10 +431,34 @@ MonoBehaviour:
       m_Calls: []
   OnSpeedupTextStart:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5228303784783594414}
+        m_TargetAssemblyTypeName: AppearingDialogueController, GG-JointJustice
+        m_MethodName: SpeedupText
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   OnSpeedupTextEnd:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5228303784783594414}
+        m_TargetAssemblyTypeName: AppearingDialogueController, GG-JointJustice
+        m_MethodName: SpeedupText
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnCaseMenuOpened:
     m_PersistentCalls:
       m_Calls: []
@@ -487,9 +511,36 @@ MonoBehaviour:
   _directorActionDecoder: {fileID: 5228303783986964379}
   _actorDictionary: {fileID: 11400000, guid: 8a614ed376c0c4ab889d18152bd51c7e, type: 2}
   _activeActor: {fileID: 5228303784028554615}
+  _onAnimationStarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5228303783123296233}
+        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
+        m_MethodName: SetBusy
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _onAnimationComplete:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 5228303783123296233}
+        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
+        m_MethodName: SetBusy
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 5228303783123296233}
         m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
         m_MethodName: OnContinueStory
@@ -811,7 +862,7 @@ MonoBehaviour:
   _nameBackgroundImage: {fileID: 3245558184056835669}
   _defaultAppearTime: 0.02
   _defaultPunctuationAppearTime: 0.05
-  _speedMultiplierFromPlayerInput: 2
+  _speedMultiplierFromPlayerInput: 4
   _dialogueStartEvent:
     m_PersistentCalls:
       m_Calls:
@@ -916,9 +967,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _directorActionDecoder: {fileID: 5228303783986964379}
+  _onWaitStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5228303783123296233}
+        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
+        m_MethodName: SetBusy
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _onWaitComplete:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 5228303783123296233}
+        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
+        m_MethodName: SetBusy
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 5228303783123296233}
         m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
         m_MethodName: OnContinueStory
