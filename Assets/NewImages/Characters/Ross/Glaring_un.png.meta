@@ -1,37 +1,37 @@
 fileFormatVersion: 2
-guid: 9dd2ca66f43ed491a9f9cd03c80e71f3
+guid: 5492d46b8592c48d3beabed1beec4537
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5140126894146419053
-    second: ThumbsUpTalking (1)_0
+      213: -7744211936977591855
+    second: Glaring_un_0
   - first:
-      213: 4927004860724215222
-    second: ThumbsUpTalking (1)_1
+      213: -560229843705699334
+    second: Glaring_un_1
   - first:
-      213: 1386944107761499855
-    second: ThumbsUpTalking (1)_2
+      213: 7319665844320817437
+    second: Glaring_un_2
   - first:
-      213: 635268760023396219
-    second: ThumbsUpTalking (1)_3
+      213: 5210099347877297223
+    second: Glaring_un_3
   - first:
-      213: 3479815712182434560
-    second: ThumbsUpTalking (1)_4
+      213: 5793879933232464390
+    second: Glaring_un_4
   - first:
-      213: 7160514734015401643
-    second: ThumbsUpTalking (1)_5
+      213: -4309134182489772823
+    second: Glaring_un_5
   - first:
-      213: 4471347525730113791
-    second: ThumbsUpTalking (1)_6
+      213: -5343732332416341159
+    second: Glaring_un_6
   - first:
-      213: 1624170005686566964
-    second: ThumbsUpTalking (1)_7
+      213: -7643216708271272422
+    second: Glaring_un_7
   - first:
-      213: 2707285714588932775
-    second: ThumbsUpTalking (1)_8
+      213: 1765298818083544557
+    second: Glaring_un_8
   - first:
-      213: -8228421707953247547
-    second: ThumbsUpTalking (1)_9
+      213: -9003563534730108677
+    second: Glaring_un_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -62,7 +62,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -121,7 +121,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ThumbsUpTalking (1)_0
+      name: Glaring_un_0
       rect:
         serializedVersion: 2
         x: 0
@@ -135,14 +135,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d69770a3d26655740800000000000000
-      internalID: 5140126894146419053
+      spriteID: 1d16c1f1648078490800000000000000
+      internalID: -7744211936977591855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking (1)_1
+      name: Glaring_un_1
       rect:
         serializedVersion: 2
         x: 320
@@ -156,14 +156,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bdf61201dc306440800000000000000
-      internalID: 4927004860724215222
+      spriteID: af36955ece9a938f0800000000000000
+      internalID: -560229843705699334
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking (1)_2
+      name: Glaring_un_2
       rect:
         serializedVersion: 2
         x: 640
@@ -177,14 +177,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcef172515a6f3310800000000000000
-      internalID: 1386944107761499855
+      spriteID: d115d4ddd4da49560800000000000000
+      internalID: 7319665844320817437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking (1)_3
+      name: Glaring_un_3
       rect:
         serializedVersion: 2
         x: 960
@@ -198,14 +198,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7fe81a429de0d800800000000000000
-      internalID: 635268760023396219
+      spriteID: 74c78baa0cdfd4840800000000000000
+      internalID: 5210099347877297223
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking (1)_4
+      name: Glaring_un_4
       rect:
         serializedVersion: 2
         x: 1280
@@ -219,14 +219,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00bf47014f9ca4030800000000000000
-      internalID: 3479815712182434560
+      spriteID: 602c59b1a1ff76050800000000000000
+      internalID: 5793879933232464390
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking (1)_5
+      name: Glaring_un_5
       rect:
         serializedVersion: 2
         x: 1600
@@ -240,14 +240,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bae40f966324f5360800000000000000
-      internalID: 7160514734015401643
+      spriteID: 9ec2433ba41e234c0800000000000000
+      internalID: -4309134182489772823
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking (1)_6
+      name: Glaring_un_6
       rect:
         serializedVersion: 2
         x: 1920
@@ -261,14 +261,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff8177a62ea6d0e30800000000000000
-      internalID: 4471347525730113791
+      spriteID: 95bed8781cf37d5b0800000000000000
+      internalID: -5343732332416341159
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking (1)_7
+      name: Glaring_un_7
       rect:
         serializedVersion: 2
         x: 2240
@@ -282,14 +282,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 430cac3d3063a8610800000000000000
-      internalID: 1624170005686566964
+      spriteID: a1e092a36e6dde590800000000000000
+      internalID: -7643216708271272422
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking (1)_8
+      name: Glaring_un_8
       rect:
         serializedVersion: 2
         x: 2560
@@ -303,14 +303,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7aa109b7306329520800000000000000
-      internalID: 2707285714588932775
+      spriteID: ded594e0ce99f7810800000000000000
+      internalID: 1765298818083544557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking (1)_9
+      name: Glaring_un_9
       rect:
         serializedVersion: 2
         x: 2880
@@ -324,8 +324,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ca655b7d06cecd80800000000000000
-      internalID: -8228421707953247547
+      spriteID: bf060c70baaec0380800000000000000
+      internalID: -9003563534730108677
       vertices: []
       indices: 
       edges: []
