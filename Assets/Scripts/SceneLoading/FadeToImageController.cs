@@ -48,7 +48,7 @@ public class FadeToImageController : TransitionController
     }
     
     /// <summary>
-    /// Start this coroutine to begin the transition at the end of a scene.
+    /// Call this method to begin the transition at the end of a scene.
     /// </summary>
     public override void Transition()
     {
