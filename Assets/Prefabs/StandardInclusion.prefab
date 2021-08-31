@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delayBeforeSpeedup: 0.05
-  OnContinueStory:
+  _onContinueStory:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5228303783123296233}
@@ -426,10 +426,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnPressWitness:
+  _onPressWitness:
     m_PersistentCalls:
       m_Calls: []
-  OnSpeedupTextStart:
+  _onSpeedupTextStart:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5228303784783594414}
@@ -444,7 +444,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  OnSpeedupTextEnd:
+  _onSpeedupTextEnd:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5228303784783594414}
@@ -459,10 +459,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnCaseMenuOpened:
+  _onCaseMenuOpened:
     m_PersistentCalls:
       m_Calls: []
-  OnPauseMenuOpened:
+  _onPauseMenuOpened:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &5228303783822522799

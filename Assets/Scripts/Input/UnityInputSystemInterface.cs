@@ -54,7 +54,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
 
         if (_selectPressed)
         {
-            OnSpeedupTextStart.Invoke();
+            _onSpeedupTextStart.Invoke();
         }
     }
 
@@ -84,7 +84,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     {
         if (context.performed)
         {
-            OnContinueStory.Invoke();
+            _onContinueStory.Invoke();
             _selectPressed = true;
             _lastSpeedupCoroutine = WaitAndSpeedUp();
             StartCoroutine(_lastSpeedupCoroutine);
@@ -95,7 +95,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
             if (_lastSpeedupCoroutine != null)
             {
                 StopCoroutine(_lastSpeedupCoroutine);
-                OnSpeedupTextEnd.Invoke();
+                _onSpeedupTextEnd.Invoke();
                 _lastSpeedupCoroutine = null;
             }
 
@@ -109,7 +109,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     void Controls.IPlayerActions.OnPress(InputAction.CallbackContext context)
     {
         if (context.performed)
-            OnPressWitness.Invoke();
+            _onPressWitness.Invoke();
     }
 
     /// <summary>
@@ -119,7 +119,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     void Controls.IPlayerActions.OnMenu(InputAction.CallbackContext context)
     {
         if (context.performed)
-            OnCaseMenuOpened.Invoke();
+            _onCaseMenuOpened.Invoke();
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     void Controls.IPlayerActions.OnPause(InputAction.CallbackContext context)
     {
         if (context.performed)
-            OnPauseMenuOpened.Invoke();
+            _onPauseMenuOpened.Invoke();
     }
 
     /// <summary>
