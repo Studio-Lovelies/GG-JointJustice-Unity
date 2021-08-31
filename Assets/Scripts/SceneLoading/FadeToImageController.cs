@@ -42,7 +42,8 @@ public class FadeToImageController : TransitionController
 
         if (_shouldFadeInOnAwake)
         {
-            StartCoroutine(FadeImage(_image, 1, 0, _fadeTime, _onTransitionInComplete));
+            _image.enabled = true;
+            StartCoroutine(FadeImage(1, 0, _fadeTime, _onTransitionInComplete));
         }
     }
     
@@ -52,27 +53,27 @@ public class FadeToImageController : TransitionController
     public override void Transition()
     {
         gameObject.SetActive(true);
-        StartCoroutine(FadeImage(_image, 0, 1, _fadeTime, _onTransitionOutComplete));
+        _image.enabled = true;
+        StartCoroutine(FadeImage(0, 1, _fadeTime, _onTransitionOutComplete));
     }
 
     /// <summary>
     /// Coroutine that fades an Image component from one level of transparency to another, over a specified time.
     /// </summary>
-    /// <param name="image">The image to fade.</param>
     /// <param name="startAlpha">The alpha value to fade from</param>
     /// <param name="targetAlpha">The alpha value to fade to</param>
     /// <param name="time">The time in seconds to complete the animation</param>
     /// <param name="onComplete">The event to call once fading is complete</param>
-    private IEnumerator FadeImage(Image image, float startAlpha, float targetAlpha, float time, UnityEvent onComplete)
+    private IEnumerator FadeImage(float startAlpha, float targetAlpha, float time, UnityEvent onComplete)
     {
         float startTime = Time.time;
-        Color color = image.color;
+        Color color = _image.color;
 
         while (Time.time < startTime + time)
         {
             float completion = (Time.time - startTime) / time;
             color.a = Mathf.Lerp(startAlpha, targetAlpha, _fadeAnimationCurve.Evaluate(completion));
-            image.color = color;
+            _image.color = color;
             yield return null;
         }
 
