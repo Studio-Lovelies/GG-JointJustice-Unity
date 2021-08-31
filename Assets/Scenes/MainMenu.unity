@@ -6871,7 +6871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33de4f31ae9f94bf6a3ef7e8c1b64085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneName: SampleScene
+  _sceneName: Transition - Test Scene
   _sceneIndex: 0
   _transitionController: {fileID: 1961069503}
   _loadingBar: {fileID: 865147027}
@@ -8647,6 +8647,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a791a1928c03049c78bb7a707a30453d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onTransitionOutComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onTransitionInComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _shouldFadeInOnAwake: 0
   _fadeToImageSettings: {fileID: 11400000, guid: 24785bd9ba2a14df89de403b8a67a10f, type: 2}
 --- !u!1 &1970614773
 GameObject:
