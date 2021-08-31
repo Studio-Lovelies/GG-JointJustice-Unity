@@ -77,16 +77,18 @@ public class SceneLoader : MonoBehaviour
     private IEnumerator LoadSceneCoroutine()
     {
         _sceneLoadOperation.allowSceneActivation = true;
-
-        if (_loadingBar != null)
-        {
-            _loadingBar.gameObject.SetActive(true);
-        }
-
+        yield return null; // Don't show loading bar if it loads in one frame
+        
         while (!_sceneLoadOperation.isDone)
         {
+            Debug.Log(_sceneLoadOperation.isDone);
             if (_loadingBar != null)
             {
+                if (!_loadingBar.gameObject.activeInHierarchy)
+                {
+                    _loadingBar.gameObject.SetActive(true);
+                }
+
                 _loadingBar.value = _sceneLoadOperation.progress;
             }
             yield return null;
