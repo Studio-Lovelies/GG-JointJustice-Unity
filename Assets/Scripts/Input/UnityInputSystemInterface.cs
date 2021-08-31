@@ -10,8 +10,7 @@ public class UnityInputSystemInterface : MonoBehaviour
 
     // Add key press events here
     [SerializeField] private UnityEvent _onPausePressed;
-    
-    
+
     private void Awake()
     {
         _controls = new Controls();
