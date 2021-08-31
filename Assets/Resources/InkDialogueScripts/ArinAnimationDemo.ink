@@ -1,4 +1,4 @@
-﻿&ACTOR:Arin
+&ACTOR:Arin
 &EMOTION:Normal
 Hello
 

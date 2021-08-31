@@ -18,7 +18,9 @@ public class SceneController : MonoBehaviour, ISceneController
 
     private Coroutine _waitCoroutine;
     
-    // Start is called before the first frame update
+    /// <summary>
+    /// Called when the object is initialized
+    /// </summary>
     void Start()
     {
         if (_directorActionDecoder == null)

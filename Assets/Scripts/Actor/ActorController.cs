@@ -20,6 +20,9 @@ public class ActorController : MonoBehaviour, IActorController
 
     public bool Animating { get; set; }
 
+    /// <summary>
+    /// Called when the object is initialized
+    /// </summary>
     private void Start()
     {
         if (_directorActionDecoder == null)
@@ -34,6 +37,10 @@ public class ActorController : MonoBehaviour, IActorController
         SetActiveActorObject(_activeActor); //Debug thing, should be called by the scene controller
     }
 
+    /// <summary>
+    /// Set the target gameobject to be considered the active actor to manipulate when actions are triggered in  the dialogue script
+    /// </summary>
+    /// <param name="actor">Actor MonoBehaviour attached to the gameobject to be set as the active actor</param>
     public void SetActiveActorObject(Actor actor)
     {
         _activeActor = actor;
@@ -58,6 +65,11 @@ public class ActorController : MonoBehaviour, IActorController
         }
     }
 
+    /// <summary>
+    /// Sets the pose of the active actor.
+    /// In working this is mostly the same as PlayEmotion without calling OnAnimationStarted so the system can continue without waiting for the animation to end.
+    /// </summary>
+    /// <param name="pose"></param>
     public void SetPose(string pose)
     {
         if (_activeActor == null)
@@ -69,8 +81,8 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
-    /// Sets the animation of an actor by playing the specified animation on the actor's animator.
-    /// Used to set poses, emotions, and play animations.
+    /// Plays the animation of an actor by playing the specified animation on the actor's animator.
+    /// Flags the system as busy so it waits for the animation to end.
     /// </summary>
     /// <param name="emotion">The emotion to play.</param>
     public void PlayEmotion(string emotion)
@@ -82,14 +94,22 @@ public class ActorController : MonoBehaviour, IActorController
             return;
         }
         _onAnimationStarted.Invoke();
+        Animating = true;
         _activeActor.PlayAnimation(emotion);
     }
 
+    /// <summary>
+    /// Sets the active speaker in the scene, changing the name shown.
+    /// </summary>
+    /// <param name="actor">Target actor. This gets the correct name and colour from the list of existing actors.</param>
     public void SetActiveSpeaker(string actor)
     {
         Debug.LogWarning("SetActiveSpeaker not implemented");
     }
 
+    /// <summary>
+    /// Makes the active actor speak animation run.
+    /// </summary>
     public void StartTalking()
     {
         if (_activeActor == null)
@@ -101,6 +121,9 @@ public class ActorController : MonoBehaviour, IActorController
         _activeActor.SetTalking(true);
     }
 
+    /// <summary>
+    /// Makes the active actor speak animation stop.
+    /// </summary>
     public void StopTalking()
     {
         if (_activeActor == null)
@@ -111,8 +134,16 @@ public class ActorController : MonoBehaviour, IActorController
         _activeActor.SetTalking(false);
     }
 
+    /// <summary>
+    /// Called by attached animations when the animation is done
+    /// </summary>
     public void OnAnimationDone()
     {
-        _onAnimationComplete.Invoke();
+        if (Animating)
+        {
+            Animating = false;
+            _onAnimationComplete.Invoke();
+        }
+        
     }
 }

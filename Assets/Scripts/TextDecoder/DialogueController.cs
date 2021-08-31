@@ -25,17 +25,26 @@ public class DialogueController : MonoBehaviour
     private Story _inkStory;
     bool _isBusy = false;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Called when the object is initialized
+    /// </summary>
     void Start()
     {
         SetNarrativeScript(_narrativeScript); //TODO:Disable this, for debug only
     }
 
+    /// <summary>
+    /// Used to start a new narrative script
+    /// </summary>
+    /// <param name="narrativeScript">JSON file to switch to</param>
     public void SetNarrativeScript(TextAsset narrativeScript)
     {
         _inkStory = new Story(_narrativeScript.text);
     }
 
+    /// <summary>
+    /// Call externally on internally to continue the story.
+    /// </summary>
     public void OnContinueStory()
     {
         if (_isBusy)
@@ -47,11 +56,18 @@ public class DialogueController : MonoBehaviour
         OnNextLine();
     }
 
+    /// <summary>
+    /// Makes sure the system can't continue to the next line
+    /// </summary>
+    /// <param name="busy">Sets the busy flag</param>
     public void SetBusy(bool busy)
     {
         _isBusy = busy;
     }
 
+    /// <summary>
+    /// Reads the next line and sets up everything relevant to it, including handling actions and setting up choices
+    /// </summary>
     private void OnNextLine()
     {
         if (_inkStory.canContinue)
@@ -85,6 +101,11 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks whether a certain line is an action line or not
+    /// </summary>
+    /// <param name="line">Line to check</param>
+    /// <returns>Whether the line is an action or not</returns>
     private bool IsAction(string line)
     {
         return line[0] == ACTION_TOKEN;

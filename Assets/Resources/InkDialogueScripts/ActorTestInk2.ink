@@ -16,6 +16,7 @@ That's really cool dan!
 &PLAYSFX:objectionArin
 &SET_POSE:Objection
 &WAIT:1.5
+&WAIT_FOR_INPUT
 
 &ACTOR:Dan
 &SPEAK:Dan
@@ -38,5 +39,11 @@ Oh, in that case I want to show my air guitar animation.
 &ACTOR:Arin
 &SPEAK:Arin
 Wow that was really amazing!
+
+&SET_POSE:DeskSlamAnimation
+&WAIT:1.0
+&WAIT_FOR_INPUT
+&SPEAK:Arin
+Fuck you Dan!
 
 -> END

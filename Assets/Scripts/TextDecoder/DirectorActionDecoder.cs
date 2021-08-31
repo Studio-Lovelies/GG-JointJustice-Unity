@@ -71,6 +71,8 @@ public class DirectorActionDecoder : MonoBehaviour
             case "DISABLE_SKIPPING": DisableTextSkipping(parameters); break;
             case "AUTOSKIP": AutoSkip(parameters); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
+            //Do nothing
+            case "WAIT_FOR_INPUT": break;
             //Default
             default: Debug.LogError("Unknown action: " + action); break;
         }
@@ -132,18 +134,22 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     /// <summary>
-    /// Set the emotion of the current actor
+    /// Set the pose of the current actor
     /// </summary>
-    /// <param name="emotion">Emotion to display for the current actor</param>
-    private void SetPose(string emotion)
+    /// <param name="pose">Pose to display for the current actor</param>
+    private void SetPose(string pose)
     {
         if (!HasActorController())
             return;
 
-        _actorController.SetPose(emotion);
+        _actorController.SetPose(pose);
         _onActionDone.Invoke();
     }
 
+    /// <summary>
+    /// Plays an emotion for the current actor. Emotion is a fancy term for animation on an actor.
+    /// </summary>
+    /// <param name="animation">Animation to play</param>
     private void PlayEmotion(string animation)
     {
         if (!HasActorController())

@@ -9,6 +9,9 @@ public class Actor : MonoBehaviour
     private ActorData _actorData;
     private IActorController _attachedController;
 
+    /// <summary>
+    /// Called on awake, before Start
+    /// </summary>
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -60,11 +63,19 @@ public class Actor : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Used to attach an actor controller for callbacks
+    /// </summary>
+    /// <param name="controller">Actor controller to attach to this object</param>
     public void AttachController(IActorController controller)
     {
         _attachedController = controller;
     }
 
+    /// <summary>
+    /// Makes the actor talk while set to true
+    /// </summary>
+    /// <param name="isTalking">Move mouth or not</param>
     public void SetTalking(bool isTalking)
     {
         _animator.SetBool("Talking", isTalking);
