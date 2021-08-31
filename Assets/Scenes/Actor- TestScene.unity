@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edea055d8c3131428c88f22698e8a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScript: {fileID: 4900000, guid: 1da9152d912c048dfa9dafa81ea5dcfd, type: 3}
+  _narrativeScript: {fileID: 4900000, guid: 3d0748e3f849842b6ba8a1176c436fe4, type: 3}
   _onNewLine:
     m_PersistentCalls:
       m_Calls:
@@ -638,7 +638,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.2, y: 1.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
