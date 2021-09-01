@@ -34,7 +34,7 @@ public class DialogueController : MonoBehaviour
 
     [Tooltip("Attach a scene controller to this so it can cancel 'wait' actions on new lines.")]
     [SerializeField] private UnityEvent _onNewLine; // TODO make this into a custom event
-    
+
     [Tooltip("Attach a dialogue controller to this so it can display spoken lines")]
     [SerializeField] private NewSpokenLineEvent _onNewSpokenLine;
 
@@ -43,7 +43,7 @@ public class DialogueController : MonoBehaviour
 
     [Tooltip("Event fired when the dialogue is over")]
     [SerializeField] private UnityEvent _onDialogueFinished;
-    
+
     [Tooltip("Event fired when a choice is encountered in regular dialogue")]
     [SerializeField] private UnityEvent<List<Choice>> _onChoicePresented;
 
@@ -52,16 +52,17 @@ public class DialogueController : MonoBehaviour
     private bool _isAtChoice = false; //Possibly small state machine to handle all input?
 
     private Story _inkStory;
-    bool _dialgoueIsWriting = false;
+    bool _isBusy = false;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Called when the object is initialized
+    /// </summary>
     void Start()
     {
         if (_narrativeScript != null)
         {
             SetNarrativeScript(_narrativeScript); //TODO:Disable this, for debug only
         }
-            
     }
 
     void SubStoryInit(DialogueController parent)
@@ -71,16 +72,29 @@ public class DialogueController : MonoBehaviour
         _onDialogueFinished.AddListener(parent.OnSubStoryFinished);
     }
 
+    /// <summary>
+    /// Used to start a new narrative script
+    /// </summary>
+    /// <param name="narrativeScript">JSON file to switch to</param>
     public void SetNarrativeScript(TextAsset narrativeScript)
     {
         _inkStory = new Story(narrativeScript.text);
     }
 
-    public void OnNextLine()
+    /// <summary>
+    /// Call externally on internally to continue the story.
+    /// </summary>
+    public void OnContinueStory()
     {
+        if (_isBusy)
+        {
+            Debug.LogWarning("Tried to continue while busy");
+            return;
+        }
+
         if (_subStory != null)
         {
-            _subStory.OnNextLine();
+            _subStory.OnContinueStory();
             return;
         }
 
@@ -95,6 +109,52 @@ public class DialogueController : MonoBehaviour
             default:
                 Debug.LogError("Unhandled dialogue type");
                 break;
+        }
+    }
+
+    public void HandleChoice(int choice)
+    {
+        if (!_isAtChoice)
+            return;
+
+        if (choice > _inkStory.currentChoices.Count)
+        {
+            Debug.LogError("choice index out of range");
+        }
+        else
+        {
+            _inkStory.ChooseChoiceIndex(choice);
+            _isAtChoice = false;
+            OnContinueStory();
+        }
+    }
+
+    public void HandleEvidencePresented(string evidence)
+    {
+        List<Choice> choiceList = _inkStory.currentChoices;
+
+        if (choiceList.Count <= 2)
+        {
+            //No evidence possible for a good direction, kill off.
+        }
+        else
+        {
+            int evidenceFoundAt = -1;
+            for (int i = 2; i < choiceList.Count; i++)
+            {
+                //if choiceList[i] == evidence
+                //Do the thing
+                //Can't be implemented yet cause evidence isn't implemented yet.
+            }
+            if (evidenceFoundAt != -1)
+            {
+                HandleChoice(evidenceFoundAt);
+            }
+            else
+            {
+                //Deal with bad consequences, spawn sub story and continue that
+                HandleChoice(0); //0 is continue, for debug purposes
+            }
         }
     }
 
@@ -133,30 +193,11 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    public void HandleChoice(int choice)
-    {
-        if (!_isAtChoice)
-            return;
-
-        if (choice > _inkStory.currentChoices.Count)
-        {
-            Debug.LogError("choice index out of range");
-        }
-        else
-        {
-            _inkStory.ChooseChoiceIndex(choice);
-            _isAtChoice = false;
-            OnNextLine();
-        }
-    }
-
     private void HandleNextLineCrossExamination()
     {
-        if (_isAtChoice) //Make sure we don't continue unless we're not at a choice in the cross examination
-            return;
-
-        if(_dialgoueIsWriting)
+        if (_isAtChoice)
         {
+            HandleChoice(0); //Handle regular continue
             return;
         }
 
@@ -165,7 +206,7 @@ public class DialogueController : MonoBehaviour
             string currentLine = _inkStory.Continue();
 
             _onNewLine.Invoke();
-            
+
             if (IsAction(currentLine))
             {
                 _onNewActionLine.Invoke(currentLine);
@@ -192,45 +233,27 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    private void HandleEvidencePresented(string evidence)
+    /// <summary>
+    /// Makes sure the system can't continue to the next line
+    /// </summary>
+    /// <param name="busy">Sets the busy flag</param>
+    public void SetBusy(bool busy)
     {
-        List<Choice> choiceList = _inkStory.currentChoices;
-
-        if (choiceList.Count <= 2)
-        {
-            //No evidence possible for a good direction, kill off.
-        }
-        else
-        {
-            int evidenceFoundAt = -1;
-            for(int i = 2; i < choiceList.Count; i++)
-            {
-                //if choiceList[i] == evidence
-                //Do the thing
-                //Can't be implemented yet cause evidence isn't implemented yet.
-            }
-            if (evidenceFoundAt != -1)
-            {
-                HandleChoice(evidenceFoundAt);
-            }
-            else
-            {
-                //Deal with bad consequences
-                HandleChoice(0); //0 is continue
-            }
-        }
+        _isBusy = busy;
     }
-        
 
+    /// <summary>
+    /// Checks whether a certain line is an action line or not
+    /// </summary>
+    /// <param name="line">Line to check</param>
+    /// <returns>Whether the line is an action or not</returns>
     private bool IsAction(string line)
     {
         return line[0] == ACTION_TOKEN;
     }
 
-    public void SetDialogueIsWriting(bool writing)
-    {
-        _dialgoueIsWriting = writing;
-    }
+
+
 
     //Sub story stuff
     public void StartSubStory(TextAsset subStory)
@@ -239,7 +262,7 @@ public class DialogueController : MonoBehaviour
         _subStory = obj.GetComponent<DialogueController>();
         _subStory.SubStoryInit(this); //RECURSION
         _subStory.SetNarrativeScript(subStory);
-        _subStory.OnNextLine();
+        _subStory.OnContinueStory();
     }
 
     public void OnSubStorySpokenLine(string spokenLine)
@@ -256,6 +279,6 @@ public class DialogueController : MonoBehaviour
     {
         Destroy(_subStory.gameObject);
         _subStory = null;
-        OnNextLine();
+        OnContinueStory();
     }
 }

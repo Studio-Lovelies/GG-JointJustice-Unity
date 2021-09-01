@@ -4,13 +4,14 @@ using UnityEngine.Events;
 [RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Animator))]
 public class Actor : MonoBehaviour
 {
-    [Tooltip("The event is called when an actor's animation is complete.")]
-    [SerializeField] private UnityEvent _onAnimationComplete;
-
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private ActorData _actorData;
+    private IActorController _attachedController;
 
+    /// <summary>
+    /// Called on awake, before Start
+    /// </summary>
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -56,6 +57,27 @@ public class Actor : MonoBehaviour
     /// </summary>
     public void OnAnimationComplete()
     {
-        _onAnimationComplete?.Invoke();
+        if (_attachedController != null)
+        {
+            _attachedController.OnAnimationDone();
+        }
+    }
+
+    /// <summary>
+    /// Used to attach an actor controller for callbacks
+    /// </summary>
+    /// <param name="controller">Actor controller to attach to this object</param>
+    public void AttachController(IActorController controller)
+    {
+        _attachedController = controller;
+    }
+
+    /// <summary>
+    /// Makes the actor talk while set to true
+    /// </summary>
+    /// <param name="isTalking">Move mouth or not</param>
+    public void SetTalking(bool isTalking)
+    {
+        _animator.SetBool("Talking", isTalking);
     }
 }

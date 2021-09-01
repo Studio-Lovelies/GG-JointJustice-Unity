@@ -19,6 +19,9 @@ public class AudioController : MonoBehaviour, IAudioController
     private Coroutine _currentFadeCoroutine;
     private MusicFader _musicFader;
 
+    /// <summary>
+    /// Called when the object is initialized
+    /// </summary>
     void Start()
     {
         if (_directorActionDecoder == null)
@@ -34,31 +37,13 @@ public class AudioController : MonoBehaviour, IAudioController
 
         _audioSource = GetComponent<AudioSource>();
         Debug.Assert(_audioSource != null, "AudioController is missing AudioSource Component");
-
-        // DEBUG
-        PlaySong("aBoyAndHisTrial");
-        // /DEBUG
     }
 
+    /// <summary>
+    /// Called every rendered frame
+    /// </summary>
     void Update()
     {
-        // DEBUG
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            PlaySong("aKissFromARose");
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            PlaySong("investigationJoonyer");
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PlaySFX("chug");
-        }
-        // /DEBUG
-
         _audioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
     }
 
