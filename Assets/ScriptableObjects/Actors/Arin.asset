@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc981f29381844a991ebe930492451f, type: 3}
   m_Name: Arin
   m_EditorClassIdentifier: 
-  <Profile>k__BackingField: {fileID: 0}
+  <Profile>k__BackingField: {fileID: 21300000, guid: 04b0eedfbca19d84cb4db63538ba6241, type: 3}
   <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: cbba2ad53e09d3349a685ddc35e8067b, type: 3}
   <Bio>k__BackingField: 
-  <AnimatorController>k__BackingField: {fileID: 22100000, guid: a4be087cfa68145ebaf6575a54525974, type: 2}
+  <AnimatorController>k__BackingField: {fileID: 9100000, guid: 0c3d8f1233f3a49e9a3f32fab7e316af, type: 2}

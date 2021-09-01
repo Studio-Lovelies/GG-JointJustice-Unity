@@ -29,6 +29,9 @@ public class AudioController : MonoBehaviour, IAudioController
     private Coroutine _currentFadeCoroutine;
     private MusicFader _musicFader;
 
+    /// <summary>
+    /// Called when the object is initialized
+    /// </summary>
     void Start()
     {
         if (_directorActionDecoder == null)
@@ -49,31 +52,13 @@ public class AudioController : MonoBehaviour, IAudioController
         var sfxGameObject = new GameObject("SFX Player");
         sfxGameObject.transform.parent = this.transform;
         _sfxAudioSource = sfxGameObject.AddComponent<AudioSource>();
-
-        // DEBUG
-        PlaySong("aBoyAndHisTrial");
-        // /DEBUG
     }
 
+    /// <summary>
+    /// Called every rendered frame
+    /// </summary>
     void Update()
     {
-        // DEBUG
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            PlaySong("aKissFromARose");
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            PlaySong("investigationJoonyer");
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PlaySFX("chug");
-        }
-        // /DEBUG
-
         _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
         _sfxAudioSource.volume = _settingsSFXVolume;
     }

@@ -1,4 +1,4 @@
-﻿&ACTOR:Dan
+&ACTOR:Dan
 &SHOWACTOR:True
 
 &SPEAK:Dan
@@ -8,6 +8,7 @@ Hello Jory!
 &SPEAK:Dan
 Watch this!
 
+&PLAYSFX:airGuitar
 &PLAY_ANIMATION:AirGuitar
 
 &EMOTION:Normal
@@ -22,3 +23,5 @@ Wow that was very impressive Dan!
 &SPEAK:Dan
 &EMOTION:Lean
 Thank you 
+
+-> END
