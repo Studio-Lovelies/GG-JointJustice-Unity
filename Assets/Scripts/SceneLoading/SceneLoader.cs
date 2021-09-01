@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -23,14 +24,16 @@ public class SceneLoader : MonoBehaviour
     [SerializeField, Tooltip("Assign a loading bar here if required")]
     private Slider _loadingBar;
 
+    private AsyncOperation _sceneLoadOperation;
+
     /// <summary>
     /// Call this method when wanting to change the scene using a specific scene's index.
     /// </summary>
     /// <param name="menuNavigator">The menu navigator used to call this method. It is passed in case it needs to be disabled</param>
     public void ChangeSceneBySceneIndex()
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_sceneIndex, LoadSceneMode.Additive);
-        StartCoroutine(LoadScene(asyncOperation));
+        _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneIndex, LoadSceneMode.Additive);
+        Transition();
     }
 
     /// <summary>
@@ -39,35 +42,54 @@ public class SceneLoader : MonoBehaviour
     /// <param name="menuNavigator">The menu navigator used to call this method. It is passed in case it needs to be disabled</param>
     public void ChangeSceneBySceneName()
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Additive);
-        StartCoroutine(LoadScene(asyncOperation));
+        _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Additive);
+        Transition();
+    }
+
+    /// <summary>
+    /// Check if there is a _transitionController and call its transition method.
+    /// Otherwise load the next scene.
+    /// </summary>
+    private void Transition()
+    {
+        if (_transitionController != null)
+        {
+            _sceneLoadOperation.allowSceneActivation = false;
+            _transitionController.Transition();
+            return;
+        }
+        
+        LoadSceneCallback();
+    }
+
+    /// <summary>
+    /// Called by a transition controller to load the next scene after a transition.
+    /// </summary>
+    public void LoadSceneCallback()
+    {
+        StartCoroutine(LoadSceneCoroutine());
     }
     
     /// <summary>
     /// Loads the next scene.
-    /// If a transition controller is assign it will run the transition.
     /// If a loading bar is assigned it will update it with the current progress of the async operation.
     /// </summary>
-    /// <param name="asyncOperation">The async operation tasked with loading the scene</param>
-    private IEnumerator LoadScene(AsyncOperation asyncOperation)
+    private IEnumerator LoadSceneCoroutine()
     {
-        if (_transitionController != null)
+        _sceneLoadOperation.allowSceneActivation = true;
+        yield return null; // Don't show loading bar if it loads in one frame
+        
+        while (!_sceneLoadOperation.isDone)
         {
-            asyncOperation.allowSceneActivation = false;
-            yield return StartCoroutine(_transitionController.Transition());
-            asyncOperation.allowSceneActivation = true;
-        }
-
-        if (_loadingBar != null)
-        {
-            _loadingBar.gameObject.SetActive(true);
-        }
-
-        while (!asyncOperation.isDone)
-        {
+            Debug.Log(_sceneLoadOperation.isDone);
             if (_loadingBar != null)
             {
-                _loadingBar.value = asyncOperation.progress;
+                if (!_loadingBar.gameObject.activeInHierarchy)
+                {
+                    _loadingBar.gameObject.SetActive(true);
+                }
+
+                _loadingBar.value = _sceneLoadOperation.progress;
             }
             yield return null;
         }
