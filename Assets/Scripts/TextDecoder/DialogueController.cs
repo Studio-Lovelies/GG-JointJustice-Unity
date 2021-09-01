@@ -114,7 +114,7 @@ public class DialogueController : MonoBehaviour
 
     public void HandleChoice(int choice)
     {
-        if (!_isAtChoice)
+        if (!_isAtChoice || _isBusy)
             return;
 
         if (choice > _inkStory.currentChoices.Count)
