@@ -1,37 +1,37 @@
 fileFormatVersion: 2
-guid: 95267d9a11eb69746925ee1ff4f8faa5
+guid: 9dd2ca66f43ed491a9f9cd03c80e71f3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1344420308443639184
-    second: ThumbsUpTalking_0
+      213: 5140126894146419053
+    second: ThumbsUpTalking (1)_0
   - first:
-      213: -4002827904768185156
-    second: ThumbsUpTalking_1
+      213: 4927004860724215222
+    second: ThumbsUpTalking (1)_1
   - first:
-      213: -2965104883318946356
-    second: ThumbsUpTalking_2
+      213: 1386944107761499855
+    second: ThumbsUpTalking (1)_2
   - first:
-      213: -3384208790768068445
-    second: ThumbsUpTalking_3
+      213: 635268760023396219
+    second: ThumbsUpTalking (1)_3
   - first:
-      213: -2564139464198103562
-    second: ThumbsUpTalking_4
+      213: 3479815712182434560
+    second: ThumbsUpTalking (1)_4
   - first:
-      213: -1690093719095427969
-    second: ThumbsUpTalking_5
+      213: 7160514734015401643
+    second: ThumbsUpTalking (1)_5
   - first:
-      213: -63997847726812486
-    second: ThumbsUpTalking_6
+      213: 4471347525730113791
+    second: ThumbsUpTalking (1)_6
   - first:
-      213: -5051385695509984710
-    second: ThumbsUpTalking_7
+      213: 1624170005686566964
+    second: ThumbsUpTalking (1)_7
   - first:
-      213: 104870011878181062
-    second: ThumbsUpTalking_8
+      213: 2707285714588932775
+    second: ThumbsUpTalking (1)_8
   - first:
-      213: -2974253190988232034
-    second: ThumbsUpTalking_9
+      213: -8228421707953247547
+    second: ThumbsUpTalking (1)_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -62,7 +62,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,7 +110,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,13 +121,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ThumbsUpTalking_0
+      name: ThumbsUpTalking (1)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,20 +135,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 072556e3ad8a75de0800000000000000
-      internalID: -1344420308443639184
+      spriteID: d69770a3d26655740800000000000000
+      internalID: 5140126894146419053
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking_1
+      name: ThumbsUpTalking (1)_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 320
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,20 +156,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbc654f7a391378c0800000000000000
-      internalID: -4002827904768185156
+      spriteID: 6bdf61201dc306440800000000000000
+      internalID: 4927004860724215222
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking_2
+      name: ThumbsUpTalking (1)_2
       rect:
         serializedVersion: 2
-        x: 512
+        x: 640
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -177,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc58ff381d4d9d6d0800000000000000
-      internalID: -2965104883318946356
+      spriteID: fcef172515a6f3310800000000000000
+      internalID: 1386944107761499855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking_3
+      name: ThumbsUpTalking (1)_3
       rect:
         serializedVersion: 2
-        x: 768
+        x: 960
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -198,41 +198,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a8d38cf800e801d0800000000000000
-      internalID: -3384208790768068445
+      spriteID: b7fe81a429de0d800800000000000000
+      internalID: 635268760023396219
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking_4
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 256
-        height: 192
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6fd59e12eb85a6cd0800000000000000
-      internalID: -2564139464198103562
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ThumbsUpTalking_5
+      name: ThumbsUpTalking (1)_4
       rect:
         serializedVersion: 2
         x: 1280
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -240,20 +219,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7cb23c87b49b88e0800000000000000
-      internalID: -1690093719095427969
+      spriteID: 00bf47014f9ca4030800000000000000
+      internalID: 3479815712182434560
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking_6
+      name: ThumbsUpTalking (1)_5
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 1600
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -261,20 +240,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab29adbeb42ac1ff0800000000000000
-      internalID: -63997847726812486
+      spriteID: bae40f966324f5360800000000000000
+      internalID: 7160514734015401643
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking_7
+      name: ThumbsUpTalking (1)_6
       rect:
         serializedVersion: 2
-        x: 1792
+        x: 1920
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -282,20 +261,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3a43ab297fd5e9b0800000000000000
-      internalID: -5051385695509984710
+      spriteID: ff8177a62ea6d0e30800000000000000
+      internalID: 4471347525730113791
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking_8
+      name: ThumbsUpTalking (1)_7
       rect:
         serializedVersion: 2
-        x: 2048
+        x: 2240
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -303,20 +282,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c8079d58b2947100800000000000000
-      internalID: 104870011878181062
+      spriteID: 430cac3d3063a8610800000000000000
+      internalID: 1624170005686566964
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ThumbsUpTalking_9
+      name: ThumbsUpTalking (1)_8
       rect:
         serializedVersion: 2
-        x: 2304
+        x: 2560
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -324,8 +303,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9a03172b7459b6d0800000000000000
-      internalID: -2974253190988232034
+      spriteID: 7aa109b7306329520800000000000000
+      internalID: 2707285714588932775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ThumbsUpTalking (1)_9
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 0
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ca655b7d06cecd80800000000000000
+      internalID: -8228421707953247547
       vertices: []
       indices: 
       edges: []
