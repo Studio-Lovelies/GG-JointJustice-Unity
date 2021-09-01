@@ -25,18 +25,32 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag an EvidenceDictionary here if the menu should have menu items on Awake")]
     private EvidenceDictionary _evidenceDictionary;
     
-    private List<EvidenceMenuItem> _menuItems;
+    private List<EvidenceMenuItem> _menuItems = new List<EvidenceMenuItem>();
+
+    private void Awake()
+    {
+        if (_evidenceDictionary != null)
+        {
+            UpdateEvidence(_evidenceDictionary);
+        }
+    }
     
     public void UpdateEvidenceInfo(Evidence evidence)
     {
-        _evidenceName.text = evidence.name;
+        _evidenceName.text = evidence.DisplayName;
         _evidenceDescription.text = evidence.Description;
         _evidenceIcon.sprite = evidence.Icon;
     }
 
-    private void UpdateEvidence(List<Evidence> evidenceList)
+    private void UpdateEvidence(EvidenceDictionary evidenceDictionary)
     {
-        foreach (var evidence in evidenceList)
+        foreach (var menuItem in _menuItems)
+        {
+            Destroy(menuItem.gameObject);
+        }
+        _menuItems = new List<EvidenceMenuItem>();
+        
+        foreach (var evidence in evidenceDictionary.List)
         {
             EvidenceMenuItem evidenceMenuItem = Instantiate(_menuItemPrefab, _evidenceContainer);
             evidenceMenuItem.EvidenceMenu = this;

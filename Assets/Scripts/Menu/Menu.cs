@@ -56,6 +56,9 @@ public class Menu : MonoBehaviour
 
     private void OnDisable()
     {
-        EventSystem.current.SetSelectedGameObject(null);
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 }

@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Evidence", menuName = "Evidence")]
+[CreateAssetMenu(fileName = "New Evidence", menuName = "Evidence/Evidence")]
 public class Evidence : ScriptableObject
 {
+    [field: SerializeField, Tooltip("The name of the evidence, display in the evidence menu.")]
+    public string DisplayName { get; private set; }
+    
     [field: SerializeField, Tooltip("Icon used to represent the evidence.")]
     public Sprite Icon { get; private set; }
     
