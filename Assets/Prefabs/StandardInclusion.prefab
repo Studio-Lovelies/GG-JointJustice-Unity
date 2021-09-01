@@ -511,6 +511,21 @@ MonoBehaviour:
   _directorActionDecoder: {fileID: 5228303783986964379}
   _actorDictionary: {fileID: 11400000, guid: 8a614ed376c0c4ab889d18152bd51c7e, type: 2}
   _activeActor: {fileID: 5228303784028554615}
+  _onNewSpeakingActor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5228303784783594414}
+        m_TargetAssemblyTypeName: AppearingDialogueController, GG-JointJustice
+        m_MethodName: SetActiveSpeaker
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onAnimationStarted:
     m_PersistentCalls:
       m_Calls:
