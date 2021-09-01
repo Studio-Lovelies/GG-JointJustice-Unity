@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2062974321150016435}
   - component: {fileID: 2062974321150016432}
   - component: {fileID: 2062974321150016434}
+  - component: {fileID: 7467009520762512749}
   m_Layer: 5
   m_Name: EvidenceMenuItem
   m_TagString: Untagged
@@ -148,6 +149,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 2062974321186341390}
+--- !u!114 &7467009520762512749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062974321150016428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aefc29aae8a4f46898e32f0e0732a56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 0}
 --- !u!1 &2062974321186341388
 GameObject:
   m_ObjectHideFlags: 0
