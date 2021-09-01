@@ -23,7 +23,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
 
         if (!TryGetComponent(out _highlight))
         {
-            Debug.LogError("Unable to find component with HighlightableEnabler interface.");
+            Debug.LogError("Unable to find component with IHighlight interface.");
         }
         else
         {

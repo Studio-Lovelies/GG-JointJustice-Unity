@@ -18,6 +18,12 @@ public class MenuOpener : MonoBehaviour
     {
         _button = GetComponent<Button>();
         _parentMenu = GetComponentInParent<Menu>();
+        
+        // Don't disable self on line 44 if opening self
+        if (_parentMenu == _menuToOpen)
+        {
+            _parentMenu = null;
+        }
     }
     
     /// <summary>
@@ -33,7 +39,6 @@ public class MenuOpener : MonoBehaviour
         }
         
         _menuToOpen.gameObject.SetActive(true);
-        _menuToOpen.SelectInitialButton();
 
         if (_parentMenu != null)
         {
@@ -43,6 +48,10 @@ public class MenuOpener : MonoBehaviour
         if (_menuToOpen.DontResetSelectedOnClose && _cachedSelectedButtonAfterClose != null)
         {
             _cachedSelectedButtonAfterClose.Select();
+        }
+        else
+        {
+            _menuToOpen.SelectInitialButton();
         }
     }
     
@@ -54,16 +63,31 @@ public class MenuOpener : MonoBehaviour
         if (!_menuToOpen.Active) return;
         
         _menuToOpen.gameObject.SetActive(false);
+        
         if (_parentMenu != null)
         {
             _parentMenu.SetMenuInteractable(true);
+            _button.Select();
         }
 
         if (_menuToOpen.DontResetSelectedOnClose)
         {
             _cachedSelectedButtonAfterClose = _menuToOpen.SelectedButton;
         }
-        
-        _button.Select();
+    }
+
+    /// <summary>
+    /// Toggles a menu between open and closed
+    /// </summary>
+    public void ToggleMenu()
+    {
+        if (_menuToOpen.Active)
+        {
+            CloseMenu();
+        }
+        else
+        {
+            OpenMenu();
+        }
     }
 }

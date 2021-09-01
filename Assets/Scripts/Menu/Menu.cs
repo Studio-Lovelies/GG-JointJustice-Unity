@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -23,7 +24,7 @@ public class Menu : MonoBehaviour
     private void Update()
     {
         // Stop button being deselected when clicking somewhere other than a button
-        if (!EventSystem.current.alreadySelecting && SelectedButton != null)
+        if (EventSystem.current.currentSelectedGameObject == null && SelectedButton != null)
         {
             SelectedButton.Select();
         }
@@ -51,5 +52,10 @@ public class Menu : MonoBehaviour
         }
         
         _initiallyHighlightedButton.Select();
+    }
+
+    private void OnDisable()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }
