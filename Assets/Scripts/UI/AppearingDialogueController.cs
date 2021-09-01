@@ -500,6 +500,12 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         _autoSkipDialog = skip;
     }
 
+    public void SetActiveSpeaker(ActorData actor)
+    {
+        ChangeSpeakerName(actor.DisplayName);
+        ChangeNameBGColor(actor.DisplayColor);
+    }
+
     ///<summary>
     ///Changes the name of the speaker.
     ///</summary>

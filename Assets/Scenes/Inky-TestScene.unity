@@ -294,6 +294,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3245558184056835669, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245558184056835669, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245558184056835669, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onNewSpeakingActor.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onNewSpeakingActor.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onNewSpeakingActor.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5228303782951346617}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onNewSpeakingActor.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onNewSpeakingActor.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActiveSpeaker
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onNewSpeakingActor.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AppearingDialogueController, GG-JointJustice
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onNewSpeakingActor.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: StandardInclusion
@@ -344,3 +384,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+--- !u!114 &5228303782951346617 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+  m_PrefabInstance: {fileID: 5228303782951346616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b31ee0231f45e143a89b3235cac7439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
