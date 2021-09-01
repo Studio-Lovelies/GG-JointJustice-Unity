@@ -22,6 +22,9 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("The transform used to instantiate menu items in.")]
     private Transform _evidenceContainer;
 
+    [SerializeField, Tooltip("Drag an EvidenceDictionary here if the menu should have menu items on Awake")]
+    private EvidenceDictionary _evidenceDictionary;
+    
     private List<EvidenceMenuItem> _menuItems;
     
     public void UpdateEvidenceInfo(Evidence evidence)

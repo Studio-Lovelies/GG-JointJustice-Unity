@@ -8,4 +8,17 @@ public class EvidenceDictionary : MonoBehaviour
     public List<Evidence> EvidenceList { get; private set; }
     
     public Dictionary<string, Evidence> Dictionary { get; private set; }
+
+    private void OnEnable()
+    {
+        if (Dictionary == null || Dictionary.Count != EvidenceList.Count)
+        {
+            Dictionary = new Dictionary<string, Evidence>();
+
+            foreach (var evidence in EvidenceList)
+            {
+                Dictionary.Add(evidence.name, evidence);
+            }
+        }
+    }
 }
