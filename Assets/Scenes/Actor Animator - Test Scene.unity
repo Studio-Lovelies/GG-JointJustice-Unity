@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 469194885}
   - component: {fileID: 469194884}
   - component: {fileID: 469194883}
+  - component: {fileID: 469194886}
   m_Layer: 5
   m_Name: EvidenceContainer
   m_TagString: Untagged
@@ -174,12 +175,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 24
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 0
+  m_Spacing: 24
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -225,6 +226,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 469194881}
   m_CullTransparentMesh: 1
+--- !u!114 &469194886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469194881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &734583885
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &734583886
 RectTransform:
   m_ObjectHideFlags: 0
@@ -353,6 +368,21 @@ MonoBehaviour:
   _menuItemPrefab: {fileID: 7467009520762512749, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
   _evidenceContainer: {fileID: 469194882}
   _evidenceDictionary: {fileID: 11400000, guid: b17249a73a0f74b9ca3f6eb22a2b4de7, type: 2}
+  _onEvidenceClicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 734583891}
+        m_TargetAssemblyTypeName: EvidenceMenu, GG-JointJustice
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &818147504
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +417,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -237, y: -68}
+  m_AnchoredPosition: {x: -240, y: -68}
   m_SizeDelta: {x: 195.5, y: 225}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &818147506
@@ -446,7 +476,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 1024
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -805,8 +835,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -487.5, y: 100}
+  m_SizeDelta: {x: 256, y: 256}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2071784474
 MonoBehaviour:

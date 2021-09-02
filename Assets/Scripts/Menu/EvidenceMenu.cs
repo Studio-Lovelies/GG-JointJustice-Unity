@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Menu))]
@@ -24,14 +25,20 @@ public class EvidenceMenu : MonoBehaviour
 
     [SerializeField, Tooltip("Drag an EvidenceDictionary here if the menu should have menu items on Awake")]
     private EvidenceDictionary _evidenceDictionary;
-    
-    private List<EvidenceMenuItem> _menuItems = new List<EvidenceMenuItem>();
 
+    [field: SerializeField, Tooltip("The scroll rect containing the evidence container. Used by menu items to set its position.")]
+    public ScrollRect ScrollRect { get; private set; } //TODO maybe remove this
+    
+    [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
+    private UnityEvent<Evidence> _onEvidenceClicked;
+
+    private List<EvidenceMenuItem> _menuItems = new List<EvidenceMenuItem>();
+    
     private void Awake()
     {
         if (_evidenceDictionary != null)
         {
-            UpdateEvidence(_evidenceDictionary);
+            InitialiseEvidenceMenu(_evidenceDictionary);
         }
     }
     
@@ -42,7 +49,7 @@ public class EvidenceMenu : MonoBehaviour
         _evidenceIcon.sprite = evidence.Icon;
     }
 
-    private void UpdateEvidence(EvidenceDictionary evidenceDictionary)
+    private void InitialiseEvidenceMenu(EvidenceDictionary evidenceDictionary)
     {
         foreach (var menuItem in _menuItems)
         {
@@ -52,10 +59,21 @@ public class EvidenceMenu : MonoBehaviour
         
         foreach (var evidence in evidenceDictionary.List)
         {
-            EvidenceMenuItem evidenceMenuItem = Instantiate(_menuItemPrefab, _evidenceContainer);
-            evidenceMenuItem.EvidenceMenu = this;
-            evidenceMenuItem.Evidence = evidence;
-            _menuItems.Add(evidenceMenuItem);
+            AppendEvidence(evidence);
         }
+    }
+
+    public void AppendEvidence(Evidence evidence)
+    {
+        EvidenceMenuItem evidenceMenuItem = Instantiate(_menuItemPrefab, _evidenceContainer);
+        evidenceMenuItem.EvidenceMenu = this;
+        evidenceMenuItem.Evidence = evidence;
+        _menuItems.Add(evidenceMenuItem);
+    }
+
+    public void OnEvidenceClicked(Evidence evidence)
+    {
+        Debug.Log(evidence);
+        _onEvidenceClicked.Invoke(evidence);
     }
 }

@@ -18,7 +18,8 @@ public class EvidenceDictionary : ScriptableObject
 
             foreach (var evidence in List)
             {
-                Dictionary.Add(evidence.name, evidence);
+                // TODO fix this
+                Dictionary.Add(evidence.name + Random.RandomRange(0, 1111111), evidence);
             }
         }
     }

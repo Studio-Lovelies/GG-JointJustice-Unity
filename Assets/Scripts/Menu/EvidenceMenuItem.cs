@@ -23,10 +23,16 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
         }
     }
     
-    public EvidenceMenu EvidenceMenu { get; set; } // Set by evidence menu on instantiation
+    // These properties are set by evidence menu on instantiation
+    public EvidenceMenu EvidenceMenu { get; set; }
 
     public void OnSelect(BaseEventData eventData)
     {
         EvidenceMenu.UpdateEvidenceInfo(_evidence);
+    }
+
+    public void OnEvidenceClicked()
+    {
+        EvidenceMenu.OnEvidenceClicked(_evidence);
     }
 }
