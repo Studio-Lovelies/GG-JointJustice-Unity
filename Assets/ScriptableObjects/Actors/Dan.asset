@@ -15,6 +15,6 @@ MonoBehaviour:
   <Profile>k__BackingField: {fileID: 21300000, guid: ed609b8fe4846d14bad6bb5f2b3677e4, type: 3}
   <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: 44a8b7dc9ea23e947a628cc07bb63832, type: 3}
   <DisplayName>k__BackingField: Dan
-  <DisplayColor>k__BackingField: {r: 0, g: 0.253304, b: 1, a: 1}
+  <DisplayColor>k__BackingField: {r: 0.15686275, g: 0.18823531, b: 0.47058827, a: 1}
   <Bio>k__BackingField: 
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: 61d75a6dad4224b6f8e9591f88230da3, type: 2}

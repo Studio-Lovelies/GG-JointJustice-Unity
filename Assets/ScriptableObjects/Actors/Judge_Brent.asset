@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Profile>k__BackingField: {fileID: 0}
   <DefaultSprite>k__BackingField: {fileID: 0}
+  <DisplayName>k__BackingField: Judge Brent
+  <DisplayColor>k__BackingField: {r: 0.5137255, g: 0.3372549, b: 0.21960786, a: 0}
   <Bio>k__BackingField: 
   <AnimatorController>k__BackingField: {fileID: 0}
