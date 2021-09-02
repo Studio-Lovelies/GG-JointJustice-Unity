@@ -12,11 +12,15 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
     [SerializeField] private ActorDictionary _actorDictionary;
 
+    
+
     //TODO serialized for debug purposes. Should be set by scene controller.
     [SerializeField] private Actor _activeActor;
 
+    [SerializeField] private UnityEvent<ActorData> _onNewSpeakingActor;
     [SerializeField] private UnityEvent _onAnimationStarted;
     [SerializeField] private UnityEvent _onAnimationComplete;
+
 
     public bool Animating { get; set; }
 
@@ -104,7 +108,14 @@ public class ActorController : MonoBehaviour, IActorController
     /// <param name="actor">Target actor. This gets the correct name and colour from the list of existing actors.</param>
     public void SetActiveSpeaker(string actor)
     {
-        Debug.LogWarning("SetActiveSpeaker not implemented");
+        try
+        {
+            _onNewSpeakingActor.Invoke(_actorDictionary.Actors[actor]);
+        }
+        catch (KeyNotFoundException exception)
+        {
+            Debug.Log($"{exception.GetType().Name}: Actor was not found in actor dictionary");
+        }
     }
 
     /// <summary>
