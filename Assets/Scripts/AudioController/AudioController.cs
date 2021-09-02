@@ -11,14 +11,14 @@ public class AudioController : MonoBehaviour, IAudioController
     /// </summary>
     [Tooltip("Music Volume level set by player")]
     [Range(0f, 1f)]
-    [SerializeField] private float _settingsMusicVolume = 1f;
+    [SerializeField] private float _settingsMusicVolume = 0.5f;
 
     /// <summary>
     /// One day this will come from the "Settings," but for now it lives on a field
     /// </summary>
     [Tooltip("SFX Volume level set by player")]
     [Range(0f, 1f)]
-    [SerializeField] private float _settingsSFXVolume = 1f;
+    [SerializeField] private float _settingsSFXVolume = 0.5f;
 
     [Tooltip("Total duration of fade out + fade in")]
     [Range(0f, 4f)]
@@ -44,14 +44,9 @@ public class AudioController : MonoBehaviour, IAudioController
         }
 
         _musicFader = new MusicFader();
-
-        _musicAudioSource = GetComponent<AudioSource>();
-        Debug.Assert(_musicAudioSource != null, "AudioController is missing AudioSource Component");
+        _musicAudioSource = CreateAudioSource("Music Player");
+        _sfxAudioSource = CreateAudioSource("SFX Player");
         _musicAudioSource.loop = true;
-
-        var sfxGameObject = new GameObject("SFX Player");
-        sfxGameObject.transform.parent = this.transform;
-        _sfxAudioSource = sfxGameObject.AddComponent<AudioSource>();
     }
 
     /// <summary>
@@ -75,6 +70,17 @@ public class AudioController : MonoBehaviour, IAudioController
         }
 
         _currentFadeCoroutine = StartCoroutine(FadeToNewSong(songName));
+    }
+
+    /// <summary>
+    /// Creates a child object that has an AudioSource component
+    /// </summary>
+    /// <returns>The AudioSource of the new child object</returns>
+    private AudioSource CreateAudioSource(string gameObjectName)
+    {
+        var gameObject = new GameObject(gameObjectName);
+        gameObject.transform.parent = this.transform;
+        return gameObject.AddComponent<AudioSource>();
     }
 
     /// <summary>
