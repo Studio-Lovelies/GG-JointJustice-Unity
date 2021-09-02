@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Profile>k__BackingField: {fileID: 21300000, guid: 04b0eedfbca19d84cb4db63538ba6241, type: 3}
   <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: cbba2ad53e09d3349a685ddc35e8067b, type: 3}
+  <DisplayName>k__BackingField: Arin
+  <DisplayColor>k__BackingField: {r: 0.567169, g: 0, b: 0.8301887, a: 1}
   <Bio>k__BackingField: 
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: 0c3d8f1233f3a49e9a3f32fab7e316af, type: 2}
