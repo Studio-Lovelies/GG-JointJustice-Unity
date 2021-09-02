@@ -1,42 +1,51 @@
 &ACTOR:Arin
-&EMOTION:Normal
-Hello
+&SPEAK:Arin
+&SET_POSE:Normal
+This is Arin's Normal Pose.
 
-&EMOTION:Annoyed
-Hello
+&SET_POSE:Annoyed
+This is Arin's Annoyed Pose.
 
-&EMOTION:CloseUp
-Hello
+&SET_POSE:CloseUp
+This is Arin's CloseUp Pose.
 
-&EMOTION:Confident
-Hello
+&SET_POSE:Confident
+This is Arin's Confident Pose.
 
-&EMOTION:DeskSlamAnimation
-Hello
+&PLAY_EMOTION:DeskSlamAnimation
+That was Arin's DeskSlamAnimation emotion.<br>This is Arin's DeskSlam pose.
 
-&EMOTION:Embarrassed
-Hello
+&SET_POSE:Embarrassed
+This is Arin's Embarrassed Pose.
 
-&PLAY_ANIMATION:HelmHit
-&PLAY_ANIMATION:Nodding
-&EMOTION:Objection
-Hello
+&PLAY_EMOTION:HelmetHit
+That was Arin's HelmetHit emotion.
 
-&EMOTION:PaperSlap
-Hello
+&PLAY_EMOTION:Nodding
+That was Arin's Nodding emotion.
 
-&PLAY_ANIMATION:ShakingHead
-&EMOTION:ShockAnimation
-Hello
+&PLAY_EMOTION:Objection
+That was Arin's Objection emotion.<br>This is Arin's Point pose.
 
-&EMOTION:Sweaty
-Hello
+&SET_POSE:PaperSlap
+This is Arin's PaperSlap Pose.
 
-&EMOTION:SweatyBlinking
-Hello
+&PLAY_EMOTION:ShakingHead
+That was Arin's ShakingHead emotion.
 
-&EMOTION:Thinking
-Hello
+&PLAY_EMOTION:ShockAnimation
+That was Arin's ShockAnimation emotion.<br>This is Arin's Shock pose.
 
-&EMOTION:ThinkingBlinking
-Hello
+&SET_POSE:Sweaty
+This is Arin's Sweaty Pose.
+
+&SET_POSE:SweatyBlinking
+This is Arin's SweatyBlinking Pose.
+
+&SET_POSE:Thinking
+This is Arin's Thinking Pose.
+
+&SET_POSE:ThinkingBlinking
+This is Arin's ThinkingBlinking Pose.
+
+-> END
