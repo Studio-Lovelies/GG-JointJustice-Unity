@@ -26,9 +26,6 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag an EvidenceDictionary here if the menu should have menu items on Awake")]
     private EvidenceDictionary _evidenceDictionary;
 
-    [field: SerializeField, Tooltip("The scroll rect containing the evidence container. Used by menu items to set its position.")]
-    public ScrollRect ScrollRect { get; private set; } //TODO maybe remove this
-    
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent<Evidence> _onEvidenceClicked;
 
@@ -73,7 +70,7 @@ public class EvidenceMenu : MonoBehaviour
 
     public void OnEvidenceClicked(Evidence evidence)
     {
-        Debug.Log(evidence);
+        Debug.Log(evidence); // TODO Remove
         _onEvidenceClicked.Invoke(evidence);
     }
 }

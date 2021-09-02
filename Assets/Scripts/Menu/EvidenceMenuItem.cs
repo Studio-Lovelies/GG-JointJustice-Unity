@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -23,8 +24,7 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
         }
     }
     
-    // These properties are set by evidence menu on instantiation
-    public EvidenceMenu EvidenceMenu { get; set; }
+    public EvidenceMenu EvidenceMenu { get; set; } // Set by evidence menu on instantiation
 
     public void OnSelect(BaseEventData eventData)
     {

@@ -23,6 +23,7 @@ public class MenuOpener : MonoBehaviour
     private Button _button;
     private Selectable _cachedSelectedButtonAfterClose;
     private Menu _parentMenu;
+    private bool _menuCannotBeOpened;
 
     private void Awake()
     {
@@ -47,9 +48,8 @@ public class MenuOpener : MonoBehaviour
     /// </summary>
     public void OpenMenu()
     {
-        if (_dialogueController != null && _dialogueController.IsBusy)
+        if (_menuCannotBeOpened)
         {
-            Debug.LogWarning("Cannot open menu, DialogueController is busy.");
             return;
         }
         
@@ -83,12 +83,20 @@ public class MenuOpener : MonoBehaviour
     /// </summary>
     public void CloseMenu()
     {
-        if (_dialogueController != null && _dialogueController.IsBusy)
+        if (_menuCannotBeOpened)
         {
             Debug.LogWarning("Cannot close menu, DialogueController is busy.");
             return;
         }
         
+        ForceCloseMenu();
+    }
+
+    /// <summary>
+    /// Closes the menu but ignores the _menuCannotBeOpened bool
+    /// </summary>
+    public void ForceCloseMenu()
+    {
         if (!_menuToOpen.Active) return;
         
         _menuToOpen.gameObject.SetActive(false);
@@ -105,6 +113,8 @@ public class MenuOpener : MonoBehaviour
         }
 
         _onMenuClosed.Invoke();
+
+        _menuCannotBeOpened = false;
     }
 
     /// <summary>
@@ -120,5 +130,16 @@ public class MenuOpener : MonoBehaviour
         {
             OpenMenu();
         }
+    }
+
+    /// <summary>
+    /// Sets whether the menu can be opened.
+    /// Should be subscribed to events that will disable opening of menus.
+    /// Specifically states CANNOT be opened so it can be set by _isBusy in DialogueController
+    /// </summary>
+    /// <param name="menuCannotBeOpened">Whether the menu can be opened (false) or or not (true)</param>
+    public void SetMenuCannotBeOpened(bool menuCannotBeOpened)
+    {
+        _menuCannotBeOpened = menuCannotBeOpened;
     }
 }

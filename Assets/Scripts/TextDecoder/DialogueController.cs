@@ -22,11 +22,13 @@ public class DialogueController : MonoBehaviour
     [Tooltip("Attach a action decoder so it can deal with the actions")]
     [SerializeField] private NewActionLineEvent _onNewActionLine;
 
+    [Tooltip("This event is called when the _isBusy field is set.")]
+    [SerializeField] private UnityEvent<bool> _onBusySet;
+
     private Story _inkStory;
+    bool _isBusy = false;
     private bool _isMenuOpen;
 
-    public bool IsBusy { get; private set; } = false;
-    
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
@@ -49,9 +51,9 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     public void OnContinueStory()
     {
-        if (IsBusy || _isMenuOpen)
+        if (_isBusy || _isMenuOpen)
         {
-            Debug.LogWarning($"Tried to continue while {(IsBusy ? "busy" : "menu is open")}");
+            Debug.LogWarning($"Tried to continue while {(_isBusy ? "busy" : "menu is open")}");
             return;
         }
 
@@ -64,7 +66,8 @@ public class DialogueController : MonoBehaviour
     /// <param name="busy">Sets the busy flag</param>
     public void SetBusy(bool busy)
     {
-        IsBusy = busy;
+        _isBusy = busy;
+        _onBusySet.Invoke(_isBusy);
     }
 
     public void SetMenuOpen(bool isMenuOpen)
