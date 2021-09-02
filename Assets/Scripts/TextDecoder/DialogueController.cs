@@ -23,8 +23,10 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private NewActionLineEvent _onNewActionLine;
 
     private Story _inkStory;
-    bool _isBusy = false;
+    private bool _isMenuOpen;
 
+    public bool IsBusy { get; private set; } = false;
+    
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
@@ -47,9 +49,9 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     public void OnContinueStory()
     {
-        if (_isBusy)
+        if (IsBusy || _isMenuOpen)
         {
-            Debug.LogWarning("Tried to continue while busy");
+            Debug.LogWarning($"Tried to continue while {(IsBusy ? "busy" : "menu is open")}");
             return;
         }
 
@@ -62,7 +64,12 @@ public class DialogueController : MonoBehaviour
     /// <param name="busy">Sets the busy flag</param>
     public void SetBusy(bool busy)
     {
-        _isBusy = busy;
+        IsBusy = busy;
+    }
+
+    public void SetMenuOpen(bool isMenuOpen)
+    {
+        _isMenuOpen = isMenuOpen;
     }
 
     /// <summary>

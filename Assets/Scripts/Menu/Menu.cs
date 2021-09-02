@@ -54,6 +54,9 @@ public class Menu : MonoBehaviour
         _initiallyHighlightedButton.Select();
     }
 
+    /// <summary>
+    /// Called when the menu is disabled. Should be used to set DialogueController to not busy.
+    /// </summary>
     private void OnDisable()
     {
         if (EventSystem.current != null)
