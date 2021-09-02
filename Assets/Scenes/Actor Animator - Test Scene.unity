@@ -153,6 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _directorActionDecoder: {fileID: 1056622115}
+  _settingsMusicVolume: 1
+  _settingsSFXVolume: 0.5
+  _transitionDuration: 2
 --- !u!4 &101699293
 Transform:
   m_ObjectHideFlags: 0
@@ -211,6 +214,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _narrativeScript: {fileID: 4900000, guid: 0c32d6e773ed15e46a4196127cc3585c, type: 3}
+  _onNewLine:
+    m_PersistentCalls:
+      m_Calls: []
   _onNewSpokenLine:
     m_PersistentCalls:
       m_Calls: []
@@ -406,6 +412,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _directorActionDecoder: {fileID: 1056622115}
+  _actorDictionary: {fileID: 0}
+  _activeActor: {fileID: 0}
+  _onNewSpeakingActor:
+    m_PersistentCalls:
+      m_Calls: []
+  _onAnimationStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  _onAnimationComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &876025881
 Transform:
   m_ObjectHideFlags: 0
@@ -585,6 +602,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _directorActionDecoder: {fileID: 1056622115}
+  _onWaitStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _onWaitComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2044061590
 Transform:
   m_ObjectHideFlags: 0

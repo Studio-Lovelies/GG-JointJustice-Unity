@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 978ab45d8475a3c43948d6b38cde090b
+guid: 621824821d0ad4d0a9d9e5c9f4e4d077
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: -6015814195511700705
     second: Nodding_ani_3
+  - first:
+      213: -3705476671985207222
+    second: Nodding_ani_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -80,7 +83,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -92,7 +95,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -108,8 +111,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,10 +130,10 @@ TextureImporter:
       name: Nodding_ani_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 320
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,10 +151,10 @@ TextureImporter:
       name: Nodding_ani_2
       rect:
         serializedVersion: 2
-        x: 512
+        x: 640
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,10 +172,10 @@ TextureImporter:
       name: Nodding_ani_3
       rect:
         serializedVersion: 2
-        x: 768
+        x: 960
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,6 +185,27 @@ TextureImporter:
       bones: []
       spriteID: f13d5c1ccd8838ca0800000000000000
       internalID: -6015814195511700705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nodding_ani_4
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4833da6990839cc0800000000000000
+      internalID: -3705476671985207222
       vertices: []
       indices: 
       edges: []
