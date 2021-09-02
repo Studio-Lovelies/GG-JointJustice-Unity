@@ -5,20 +5,33 @@ public class AudioController : MonoBehaviour, IAudioController
 {
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
+
     /// <summary>
     /// One day this will come from the "Settings," but for now it lives on a field
     /// </summary>
-    [Tooltip("Volume level set by player")]
+    [Tooltip("Music Volume level set by player")]
     [Range(0f, 1f)]
-    [SerializeField] private float _settingsMusicVolume = 1f;
+    [SerializeField] private float _settingsMusicVolume = 0.5f;
+
+    /// <summary>
+    /// One day this will come from the "Settings," but for now it lives on a field
+    /// </summary>
+    [Tooltip("SFX Volume level set by player")]
+    [Range(0f, 1f)]
+    [SerializeField] private float _settingsSFXVolume = 0.5f;
+
     [Tooltip("Total duration of fade out + fade in")]
     [Range(0f, 4f)]
     [SerializeField] private float _transitionDuration = 2f;
     private bool _isTransitioningMusicTracks;
-    private AudioSource _audioSource;
+    private AudioSource _musicAudioSource;
+    private AudioSource _sfxAudioSource;
     private Coroutine _currentFadeCoroutine;
     private MusicFader _musicFader;
 
+    /// <summary>
+    /// Called when the object is initialized
+    /// </summary>
     void Start()
     {
         if (_directorActionDecoder == null)
@@ -31,35 +44,18 @@ public class AudioController : MonoBehaviour, IAudioController
         }
 
         _musicFader = new MusicFader();
-
-        _audioSource = GetComponent<AudioSource>();
-        Debug.Assert(_audioSource != null, "AudioController is missing AudioSource Component");
-
-        // DEBUG
-        PlaySong("aBoyAndHisTrial");
-        // /DEBUG
+        _musicAudioSource = CreateAudioSource("Music Player");
+        _sfxAudioSource = CreateAudioSource("SFX Player");
+        _musicAudioSource.loop = true;
     }
 
+    /// <summary>
+    /// Called every rendered frame
+    /// </summary>
     void Update()
     {
-        // DEBUG
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            PlaySong("aKissFromARose");
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            PlaySong("investigationJoonyer");
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PlaySFX("chug");
-        }
-        // /DEBUG
-
-        _audioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
+        _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
+        _sfxAudioSource.volume = _settingsSFXVolume;
     }
 
     /// <summary>
@@ -77,13 +73,24 @@ public class AudioController : MonoBehaviour, IAudioController
     }
 
     /// <summary>
+    /// Creates a child object that has an AudioSource component
+    /// </summary>
+    /// <returns>The AudioSource of the new child object</returns>
+    private AudioSource CreateAudioSource(string gameObjectName)
+    {
+        var gameObject = new GameObject(gameObjectName);
+        gameObject.transform.parent = this.transform;
+        return gameObject.AddComponent<AudioSource>();
+    }
+
+    /// <summary>
     /// Plays sound effect of desired name.
     /// </summary>
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySFX(string soundEffectName)
     {
         AudioClip soundEffectClip = Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
-        _audioSource.PlayOneShot(soundEffectClip);
+        _sfxAudioSource.PlayOneShot(soundEffectClip);
     }
 
     /// <summary>
@@ -111,7 +118,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <returns>True if we're playing a music track with a volume above zero</returns>
     private bool IsCurrentlyPlayingMusic()
     {
-        return _audioSource.clip != null && _settingsMusicVolume != 0;
+        return _musicAudioSource.clip != null && _settingsMusicVolume != 0;
     }
 
     /// <summary>
@@ -120,8 +127,8 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     private void SetCurrentTrack(string songName)
     {
-        _audioSource.clip = Resources.Load("Audio/Music/" + songName) as AudioClip;
-        _audioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
-        _audioSource.Play();
+        _musicAudioSource.clip = Resources.Load("Audio/Music/" + songName) as AudioClip;
+        _musicAudioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
+        _musicAudioSource.Play();
     }
 }

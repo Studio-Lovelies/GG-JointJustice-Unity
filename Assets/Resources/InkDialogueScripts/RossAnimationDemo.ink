@@ -1,4 +1,4 @@
-﻿&ACTOR:Ross
+&ACTOR:Ross
 &EMOTION:Normal
 Hello
 

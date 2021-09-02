@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
@@ -42,7 +43,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private float _timer = 0;
     private bool _writingDialog = false;
     private bool _initialSetupDone = false;
-    private bool _playerIsGivingInput = false;
+    private bool _speedupText = false;
     private Dictionary<WaiterType, WaitInformation> _allWaiters = new Dictionary<WaiterType, WaitInformation>();
     private Dictionary<int, string> _allDialogCommands = new Dictionary<int, string>();
     private const char _commandCharacter = '@';
@@ -197,7 +198,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private void WriteDialog()
     {
         //Multiply the increasing time if player is giving input to make the text appear faster.
-        if (_playerIsGivingInput && !_disableTextSkipping)
+        if (_speedupText && !_disableTextSkipping)
         {
             _timer += Time.deltaTime * _speedMultiplierFromPlayerInput;
         }
@@ -258,9 +259,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     ///This should be called when player starts and stops giving wanted input to speed up or normalize the dialog appear time.
     ///</summary>
     ///<param name = "buttonIsDown">Is the button pressed down or up.</param>
-    public void PlayerInput(bool buttonIsDown)
+    public void SpeedupText(bool speedUp)
     {
-        _playerIsGivingInput = buttonIsDown;
+        _speedupText = speedUp;
     }
 
     ///<summary>
@@ -326,7 +327,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         if (increase || decrease)
             dialogText = dialogText.Substring(1);
 
-        if (!float.TryParse(dialogText, out float numericValue))
+        if (!float.TryParse(dialogText, NumberStyles.Any, CultureInfo.InvariantCulture, out float numericValue))
         {
             Debug.LogWarning("After given command a number was expected, but was not found. Please fix.");
             return false;
@@ -497,6 +498,16 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     public void AutoSkipDialog(bool skip)
     {
         _autoSkipDialog = skip;
+    }
+
+    /// <summary>
+    /// Sets the speaker name and bg color based on provided actor data.
+    /// </summary>
+    /// <param name="actor">Actor data to base the changes on.</param>
+    public void SetActiveSpeaker(ActorData actor)
+    {
+        ChangeSpeakerName(actor.DisplayName);
+        ChangeNameBGColor(actor.DisplayColor);
     }
 
     ///<summary>

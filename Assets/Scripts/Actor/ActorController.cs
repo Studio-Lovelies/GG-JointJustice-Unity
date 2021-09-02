@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ActorController : MonoBehaviour, IActorController
 {
@@ -11,11 +12,21 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
     [SerializeField] private ActorDictionary _actorDictionary;
 
+    
+
     //TODO serialized for debug purposes. Should be set by scene controller.
-    [field: SerializeField] public Actor ActiveActor { get; set; }
+    [SerializeField] private Actor _activeActor;
+
+    [SerializeField] private UnityEvent<ActorData> _onNewSpeakingActor;
+    [SerializeField] private UnityEvent _onAnimationStarted;
+    [SerializeField] private UnityEvent _onAnimationComplete;
+
 
     public bool Animating { get; set; }
 
+    /// <summary>
+    /// Called when the object is initialized
+    /// </summary>
     private void Start()
     {
         if (_directorActionDecoder == null)
@@ -26,6 +37,18 @@ public class ActorController : MonoBehaviour, IActorController
         {
             _directorActionDecoder.SetActorController(this);
         }
+
+        SetActiveActorObject(_activeActor); //Debug thing, should be called by the scene controller
+    }
+
+    /// <summary>
+    /// Set the target gameobject to be considered the active actor to manipulate when actions are triggered in  the dialogue script
+    /// </summary>
+    /// <param name="actor">Actor MonoBehaviour attached to the gameobject to be set as the active actor</param>
+    public void SetActiveActorObject(Actor actor)
+    {
+        _activeActor = actor;
+        actor.AttachController(this);
     }
 
     /// <summary>
@@ -38,7 +61,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         { 
-            ActiveActor.SetActor(_actorDictionary.Actors[actor]);
+            _activeActor.SetActor(_actorDictionary.Actors[actor]);
         }
         catch (KeyNotFoundException exception)
         {
@@ -47,23 +70,91 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
-    /// Sets the animation of an actor by playing the specified animation on the actor's animator.
-    /// Used to set poses, emotions, and play animations.
+    /// Sets the pose of the active actor.
+    /// In working this is mostly the same as PlayEmotion without calling OnAnimationStarted so the system can continue without waiting for the animation to end.
+    /// </summary>
+    /// <param name="pose"></param>
+    public void SetPose(string pose)
+    {
+        if (_activeActor == null)
+        {
+            Debug.LogError("Actor has not been assigned");
+            return;
+        }
+        _activeActor.PlayAnimation(pose);
+    }
+
+    /// <summary>
+    /// Plays the animation of an actor by playing the specified animation on the actor's animator.
+    /// Flags the system as busy so it waits for the animation to end.
     /// </summary>
     /// <param name="emotion">The emotion to play.</param>
-    public void PlayAnimation(string emotion)
+    public void PlayEmotion(string emotion)
     {
-        if (ActiveActor == null)
+        if (_activeActor == null)
+        {
+            Debug.LogError("Actor has not been assigned");
+            _onAnimationComplete.Invoke();
+            return;
+        }
+        _onAnimationStarted.Invoke();
+        Animating = true;
+        _activeActor.PlayAnimation(emotion);
+    }
+
+    /// <summary>
+    /// Sets the active speaker in the scene, changing the name shown.
+    /// </summary>
+    /// <param name="actor">Target actor. This gets the correct name and colour from the list of existing actors.</param>
+    public void SetActiveSpeaker(string actor)
+    {
+        try
+        {
+            _onNewSpeakingActor.Invoke(_actorDictionary.Actors[actor]);
+        }
+        catch (KeyNotFoundException exception)
+        {
+            Debug.Log($"{exception.GetType().Name}: Actor was not found in actor dictionary");
+        }
+    }
+
+    /// <summary>
+    /// Makes the active actor speak animation run.
+    /// </summary>
+    public void StartTalking()
+    {
+        if (_activeActor == null)
         {
             Debug.LogError("Actor has not been assigned");
             return;
         }
 
-        ActiveActor.PlayAnimation(emotion);
+        _activeActor.SetTalking(true);
     }
 
-    public void SetActiveSpeaker(string actor)
+    /// <summary>
+    /// Makes the active actor speak animation stop.
+    /// </summary>
+    public void StopTalking()
     {
-        Debug.LogWarning("SetActiveSpeaker not implemented");
+        if (_activeActor == null)
+        {
+            Debug.LogError("Actor has not been assigned");
+            return;
+        }
+        _activeActor.SetTalking(false);
+    }
+
+    /// <summary>
+    /// Called by attached animations when the animation is done
+    /// </summary>
+    public void OnAnimationDone()
+    {
+        if (Animating)
+        {
+            Animating = false;
+            _onAnimationComplete.Invoke();
+        }
+        
     }
 }

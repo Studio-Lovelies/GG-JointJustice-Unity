@@ -1,4 +1,4 @@
-﻿&ACTOR:Arin
+&ACTOR:Arin
 &SPEAK:Arin
 Hello my name is Arin Hanson.
 
@@ -6,14 +6,17 @@ Hello my name is Arin Hanson.
 &SPEAK:Dan
 Hello my name is Dan Avidan.
 
-&EMOTION:Lean
+&SET_POSE:Lean
 This is my leaning in pose.
 
 &ACTOR:Arin
 &SPEAK:Arin
 That's really cool dan!
 
-&PLAY_ANIMATION:Objection
+&PLAYSFX:objectionArin
+&SET_POSE:Objection
+&WAIT:1.5
+&WAIT_FOR_INPUT
 
 &ACTOR:Dan
 &SPEAK:Dan
@@ -27,11 +30,20 @@ Nothing, I just wanted to show off my objection animation.
 &SPEAK:Dan
 Oh, in that case I want to show my air guitar animation.
 
-&PLAY_ANIMATION:AirGuitar
+&PLAYSFX:airGuitar
+&PLAY_EMOTION:AirGuitar
 
-&EMOTION:Normal
-&WAIT:1
+&SET_POSE:Normal
+&WAIT:3
 
 &ACTOR:Arin
 &SPEAK:Arin
 Wow that was really amazing!
+
+&SET_POSE:DeskSlamAnimation
+&WAIT:1.0
+&WAIT_FOR_INPUT
+&SPEAK:Arin
+Fuck you Dan!
+
+-> END
