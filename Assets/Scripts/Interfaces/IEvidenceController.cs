@@ -8,4 +8,5 @@ public interface IEvidenceController
     void RemoveEvidence(string evidence);
     void AddToCourtRecord(string actor);
     void OpenEvidenceMenu();
+    void SubstituteEvidence(string evidence);
 }

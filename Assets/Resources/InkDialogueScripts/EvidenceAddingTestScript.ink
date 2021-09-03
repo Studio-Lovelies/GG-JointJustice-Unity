@@ -17,7 +17,7 @@ Have a look.
 
 &OPEN_EVIDENCE_MENU
 
-Now I'm going to remove something
+Now I'm going to remove the coins.
 
 &REMOVE_EVIDENCE:Bent_Coins
 
@@ -26,7 +26,7 @@ See?
 
 &OPEN_EVIDENCE_MENU
 
-Now I'm going to add a lot of stuff so showcase the page functionality.
+Now I'm going to add a lot of stuff to showcase the page functionality.
 
 &ADD_EVIDENCE:Bent_Coins
 &ADD_EVIDENCE:Attorney's_Badge
@@ -48,5 +48,19 @@ Take a look now.
 &OPEN_EVIDENCE_MENU
 
 So much stuff.
+
+Now I'm going to turn things into other things.
+
+&SUBSTITUTE_EVIDENCE:Bent_Coins
+&SUBSTITUTE_EVIDENCE:Attorney's_Badge
+&SUBSTITUTE_EVIDENCE:Jory's_Backpack
+&SUBSTITUTE_EVIDENCE:Jory_Sr's_Letter
+&SUBSTITUTE_EVIDENCE:Livestream_Recording
+&SUBSTITUTE_EVIDENCE:Plumber_Invoice
+&SUBSTITUTE_EVIDENCE:Stolen_Dinos
+
+Ta-da!
+
+&OPEN_EVIDENCE_MENU
 
 -> END

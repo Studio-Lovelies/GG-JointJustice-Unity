@@ -63,4 +63,14 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     {
         _onEvidenceMenuOpened.Invoke();
     }
+
+    /// <summary>
+    /// Substitutes a piece of evidence with its assigned alternate evidence.
+    /// </summary>
+    /// <param name="evidence"></param>
+    public void SubstituteEvidence(string evidence)
+    {
+        _currentEvidenceDictionary.SubstituteEvidenceWithAlt(evidence);
+        _onEvidenceModified.Invoke(_currentEvidenceDictionary);
+    }
 }

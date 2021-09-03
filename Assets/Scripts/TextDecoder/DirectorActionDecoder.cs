@@ -64,6 +64,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
             case "ADD_RECORD": AddToCourtRecord(parameters); break;
             case "OPEN_EVIDENCE_MENU": OpenEvidenceMenu(); break;
+            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(parameters); break;
             //Dialog controller
             case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
             case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, parameters); break;
@@ -416,6 +417,15 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
         
         _evidenceController.OpenEvidenceMenu();
+    }
+
+    void SubstituteEvidence(string evidence)
+    {
+        if (!HasEvidenceController())
+            return;
+        
+        _evidenceController.SubstituteEvidence(evidence);
+        _onActionDone.Invoke();
     }
 
     #endregion
