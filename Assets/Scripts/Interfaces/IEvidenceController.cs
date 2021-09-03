@@ -7,4 +7,5 @@ public interface IEvidenceController
     void AddEvidence(string evidence);
     void RemoveEvidence(string evidence);
     void AddToCourtRecord(string actor);
+    void OpenEvidenceMenu();
 }

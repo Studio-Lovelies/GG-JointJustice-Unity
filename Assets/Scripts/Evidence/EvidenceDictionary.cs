@@ -12,7 +12,7 @@ public class EvidenceDictionary : ScriptableObject
 
     private void OnEnable()
     {
-        if (Dictionary == null || Dictionary.Count != List.Count)
+        if (List != null && (Dictionary == null || Dictionary.Count != List.Count))
         {
             Dictionary = new Dictionary<string, Evidence>();
 

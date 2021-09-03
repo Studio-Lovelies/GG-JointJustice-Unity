@@ -20,8 +20,8 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag the prefab to use for each menu item here.")]
     private EvidenceMenuItem _menuItemPrefab;
 
-    [SerializeField, Tooltip("The transform used to instantiate menu items in.")]
-    private Transform _evidenceContainer;
+    [SerializeField, Tooltip("The boxes used to represent menu items.")]
+    private EvidenceMenuItem[] _evidenceMenuItems;
 
     [SerializeField, Tooltip("Drag an EvidenceDictionary here if the menu should have menu items on Awake")]
     private EvidenceDictionary _evidenceDictionary;
@@ -30,12 +30,14 @@ public class EvidenceMenu : MonoBehaviour
     private UnityEvent<Evidence> _onEvidenceClicked;
 
     private List<EvidenceMenuItem> _menuItems = new List<EvidenceMenuItem>();
+    private int currentPage;
+    private int numberOfPages;
     
     private void Awake()
     {
         if (_evidenceDictionary != null)
         {
-            InitialiseEvidenceMenu(_evidenceDictionary);
+            UpdateEvidenceMenu(_evidenceDictionary, 0);
         }
     }
     
@@ -46,26 +48,36 @@ public class EvidenceMenu : MonoBehaviour
         _evidenceIcon.sprite = evidence.Icon;
     }
 
-    private void InitialiseEvidenceMenu(EvidenceDictionary evidenceDictionary)
+    private void UpdateEvidenceMenu(EvidenceDictionary evidenceDictionary, int startIndex)
     {
-        foreach (var menuItem in _menuItems)
-        {
-            Destroy(menuItem.gameObject);
-        }
-        _menuItems = new List<EvidenceMenuItem>();
+        numberOfPages = Mathf.CeilToInt((float)evidenceDictionary.List.Count / _evidenceMenuItems.Length);
         
-        foreach (var evidence in evidenceDictionary.List)
+        for (int i = 0; i < _evidenceMenuItems.Length; i++)
         {
-            AppendEvidence(evidence);
+            if (i + startIndex > evidenceDictionary.List.Count - 1)
+            {
+                _evidenceMenuItems[i].gameObject.SetActive(false);
+            }
+            else
+            {
+                _evidenceMenuItems[i].gameObject.SetActive(true);
+                _evidenceMenuItems[i].Evidence = evidenceDictionary.List[i + startIndex];
+            }
         }
     }
 
-    public void AppendEvidence(Evidence evidence)
+    public void IncrementPage()
     {
-        EvidenceMenuItem evidenceMenuItem = Instantiate(_menuItemPrefab, _evidenceContainer);
-        evidenceMenuItem.EvidenceMenu = this;
-        evidenceMenuItem.Evidence = evidence;
-        _menuItems.Add(evidenceMenuItem);
+        currentPage++;
+        currentPage %= numberOfPages;
+        UpdateEvidenceMenu(_evidenceDictionary, currentPage * _evidenceMenuItems.Length);
+    }
+
+    public void DecrementPage()
+    {
+        currentPage += numberOfPages - 1;
+        currentPage %= numberOfPages;
+        UpdateEvidenceMenu(_evidenceDictionary, currentPage * _evidenceMenuItems.Length);
     }
 
     public void OnEvidenceClicked(Evidence evidence)

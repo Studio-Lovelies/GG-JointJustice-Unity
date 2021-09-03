@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -12,6 +8,8 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
     [SerializeField, Tooltip("Drag the Image component used to display the evidence's icon here")]
     private Image _image;
 
+    [SerializeField, Tooltip("The evidence menu this evidence menu item is a child of")]
+    private EvidenceMenu _evidenceMenu;
     private Evidence _evidence;
 
     public Evidence Evidence
@@ -23,16 +21,14 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
             _image.sprite = value.Icon;
         }
     }
-    
-    public EvidenceMenu EvidenceMenu { get; set; } // Set by evidence menu on instantiation
 
     public void OnSelect(BaseEventData eventData)
     {
-        EvidenceMenu.UpdateEvidenceInfo(_evidence);
+        _evidenceMenu.UpdateEvidenceInfo(_evidence);
     }
 
     public void OnEvidenceClicked()
     {
-        EvidenceMenu.OnEvidenceClicked(_evidence);
+        _evidenceMenu.OnEvidenceClicked(_evidence);
     }
 }

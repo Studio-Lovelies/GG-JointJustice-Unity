@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -24,6 +26,7 @@ public class MenuOpener : MonoBehaviour
     private Selectable _cachedSelectedButtonAfterClose;
     private Menu _parentMenu;
     private bool _menuCannotBeOpened;
+    private bool _menuOpenedThisFrame;
 
     private void Awake()
     {
@@ -79,13 +82,12 @@ public class MenuOpener : MonoBehaviour
     }
     
     /// <summary>
-    /// Closes the previously opened menu if it that menu does not currently have any child menus open.
+    /// Closes the previously opened menu if that menu does not currently have any child menus open.
     /// </summary>
     public void CloseMenu()
     {
         if (_menuCannotBeOpened)
         {
-            Debug.LogWarning("Cannot close menu, DialogueController is busy.");
             return;
         }
         
@@ -97,7 +99,7 @@ public class MenuOpener : MonoBehaviour
     /// </summary>
     public void ForceCloseMenu()
     {
-        if (!_menuToOpen.Active) return;
+        if (!_menuToOpen.Active || _menuOpenedThisFrame) return;
         
         _menuToOpen.gameObject.SetActive(false);
         
@@ -135,11 +137,29 @@ public class MenuOpener : MonoBehaviour
     /// <summary>
     /// Sets whether the menu can be opened.
     /// Should be subscribed to events that will disable opening of menus.
-    /// Specifically states CANNOT be opened so it can be set by _isBusy in DialogueController
+    /// Specifically states CANNOT be opened so it can be set by value of _isBusy in DialogueController
     /// </summary>
     /// <param name="menuCannotBeOpened">Whether the menu can be opened (false) or or not (true)</param>
     public void SetMenuCannotBeOpened(bool menuCannotBeOpened)
     {
         _menuCannotBeOpened = menuCannotBeOpened;
+    }
+
+    /// <summary>
+    /// Starts CanCloseDelay on enable so the menu cannot close on the same frame
+    /// </summary>
+    private void OnEnable()
+    {
+        StartCoroutine(CanCloseDelay());
+    }
+
+    /// <summary>
+    /// Waits one frame then enables closing of the menu so the menu cannot close on the same frame.
+    /// </summary>
+    private IEnumerator CanCloseDelay()
+    {
+        _menuOpenedThisFrame = true;
+        yield return null;
+        _menuOpenedThisFrame = false;
     }
 }
