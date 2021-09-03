@@ -81,6 +81,11 @@ public class Actor : MonoBehaviour
         _animator.SetBool("Talking", isTalking);
     }
     
+    /// <summary>
+    /// Checks if this actor is the actor passed
+    /// </summary>
+    /// <param name="actor">Actor to compare to</param>
+    /// <returns>If the actor is the actor given</returns>
     public bool isActor(ActorData actor)
     {
         return _actorData == actor;
