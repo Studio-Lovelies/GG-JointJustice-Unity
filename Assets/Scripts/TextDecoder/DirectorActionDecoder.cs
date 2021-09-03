@@ -44,7 +44,8 @@ public class DirectorActionDecoder : MonoBehaviour
             //Actor controller
             case "ACTOR": SetActor(parameters); break;
             case "SHOWACTOR": SetActorVisibility(parameters); break;
-            case "SPEAK": SetSpeaker(parameters); break;
+            case "SPEAK": SetSpeaker(parameters, SpeakingType.Speaking); break;
+            case "THINK": SetSpeaker(parameters, SpeakingType.Thinking); break;
             case "SET_POSE": SetPose(parameters); break;
             case "PLAY_EMOTION": PlayEmotion(parameters); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
@@ -124,12 +125,14 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Set the speaker for the current and following lines, until a new speaker is set
     /// </summary>
     /// <param name="actor">Actor to make the speaker</param>
-    private void SetSpeaker(string actor)
+    /// <param name="speakingType">Type of speaking to speak the text with</param>
+    private void SetSpeaker(string actor, SpeakingType speakingType)
     {
         if (!HasActorController())
             return;
 
         _actorController.SetActiveSpeaker(actor);
+        _actorController.SetSpeakingType(speakingType);
         _onActionDone.Invoke();
     }
 

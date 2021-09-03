@@ -80,4 +80,9 @@ public class Actor : MonoBehaviour
     {
         _animator.SetBool("Talking", isTalking);
     }
+    
+    public bool isActor(ActorData actor)
+    {
+        return _actorData == actor;
+    }
 }

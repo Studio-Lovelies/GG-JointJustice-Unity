@@ -27,6 +27,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [SerializeField, Tooltip("When player is giving correct input to the game, how much faster should the game go.")]
     private float _speedMultiplierFromPlayerInput = 2;
 
+    [SerializeField, Tooltip("ActorData that is used to hide the spoken actor.")]
+    private ActorData _actorDataHiddenActor;
+
     [Header("Events")]
     [SerializeField, Tooltip("Events that should happen before the dialog start.")]
     private UnityEvent _dialogueStartEvent = new UnityEvent();
@@ -506,6 +509,13 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <param name="actor">Actor data to base the changes on.</param>
     public void SetActiveSpeaker(ActorData actor)
     {
+        if (actor == _actorDataHiddenActor)
+        {
+            _nameBackgroundImage.gameObject.SetActive(false);
+            return;
+        }
+
+        _nameBackgroundImage.gameObject.SetActive(true);
         ChangeSpeakerName(actor.DisplayName);
         ChangeNameBGColor(actor.DisplayColor);
     }
@@ -514,7 +524,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     ///Changes the name of the speaker.
     ///</summary>
     ///<param name = "newName">The name of the new speaker.</param>
-    public void ChangeSpeakerName(string newName)
+    private void ChangeSpeakerName(string newName)
     {
         _nameText.text = newName;
     }
@@ -523,7 +533,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     ///Changes the names background color to wanted.
     ///</summary>
     ///<param name = "newColor">The new color of the background image.</param>
-    public void ChangeNameBGColor(Color newColor)
+    private void ChangeNameBGColor(Color newColor)
     {
         _nameBackgroundImage.color = newColor;
     }
