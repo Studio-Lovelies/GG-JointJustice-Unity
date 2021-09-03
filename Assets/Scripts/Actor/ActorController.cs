@@ -21,8 +21,10 @@ public class ActorController : MonoBehaviour, IActorController
     [SerializeField] private UnityEvent _onAnimationStarted;
     [SerializeField] private UnityEvent _onAnimationComplete;
 
-
     public bool Animating { get; set; }
+
+    private ActorData _currentSpeakingActor;
+    private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
 
     /// <summary>
     /// Called when the object is initialized
@@ -110,16 +112,18 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _onNewSpeakingActor.Invoke(_actorDictionary.Actors[actor]);
+            _currentSpeakingActor = _actorDictionary.Actors[actor];
+            _onNewSpeakingActor.Invoke(_currentSpeakingActor);
         }
         catch (KeyNotFoundException exception)
         {
+            _currentSpeakingActor = null;
             Debug.Log($"{exception.GetType().Name}: Actor was not found in actor dictionary");
         }
     }
 
     /// <summary>
-    /// Makes the active actor speak animation run.
+    /// Makes the active actor speak animation run if the active actor is the speaking actor.
     /// </summary>
     public void StartTalking()
     {
@@ -129,7 +133,16 @@ public class ActorController : MonoBehaviour, IActorController
             return;
         }
 
-        _activeActor.SetTalking(true);
+        if (_currentSpeakingType == SpeakingType.Thinking)
+        {
+            return;
+        }
+
+        if ( _activeActor.MatchesActorData(_currentSpeakingActor))
+        {
+            _activeActor.SetTalking(true);
+        }
+            
     }
 
     /// <summary>
@@ -156,5 +169,14 @@ public class ActorController : MonoBehaviour, IActorController
             _onAnimationComplete.Invoke();
         }
         
+    }
+
+    /// <summary>
+    /// Sets the speaking type of the sentences shown, so the actor can react appropiately.
+    /// </summary>
+    /// <param name="speakingType">Type of speaking the next sentence is gonna be.</param>
+    public void SetSpeakingType(SpeakingType speakingType)
+    {
+        _currentSpeakingType = speakingType;
     }
 }

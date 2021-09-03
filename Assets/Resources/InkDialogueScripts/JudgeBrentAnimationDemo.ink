@@ -1,4 +1,4 @@
-﻿&ACTOR:Judge_Brent
+&ACTOR:Judge_Brent
 &SPEAK:Judge_Brent
 &SET_POSE:Normal
 This is Judge Brent's Normal pose.

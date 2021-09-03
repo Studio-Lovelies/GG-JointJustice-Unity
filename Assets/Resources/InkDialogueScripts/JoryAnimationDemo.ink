@@ -1,4 +1,4 @@
-﻿&ACTOR:Jory
+&ACTOR:Jory
 &SPEAK:Jory
 &SET_POSE:Normal
 This is Jory's Normal pose.

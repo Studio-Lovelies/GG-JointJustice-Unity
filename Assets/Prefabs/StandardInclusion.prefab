@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _directorActionDecoder: {fileID: 5228303783986964379}
   _settingsMusicVolume: 1
+  _settingsSFXVolume: 0.5
   _transitionDuration: 2
 --- !u!82 &5228303783052357478
 AudioSource:
@@ -290,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edea055d8c3131428c88f22698e8a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScript: {fileID: 4900000, guid: 1da9152d912c048dfa9dafa81ea5dcfd, type: 3}
+  _narrativeScript: {fileID: 4900000, guid: 09eac5f4d6087ee499245da004031dfc, type: 3}
   _onNewLine:
     m_PersistentCalls:
       m_Calls: []
@@ -879,6 +880,7 @@ MonoBehaviour:
   _defaultAppearTime: 0.02
   _defaultPunctuationAppearTime: 0.05
   _speedMultiplierFromPlayerInput: 4
+  _actorDataHiddenActor: {fileID: 11400000, guid: 33024f3c9ff5dcc4d87d845e35e537ee, type: 2}
   _dialogueStartEvent:
     m_PersistentCalls:
       m_Calls:

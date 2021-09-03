@@ -1,4 +1,4 @@
-﻿&ACTOR:Tutorial_Boy
+&ACTOR:Tutorial_Boy
 &SPEAK:Tutorial_Boy
 &SET_POSE:Normal
 This is Tutorial Boy's Normal pose.
