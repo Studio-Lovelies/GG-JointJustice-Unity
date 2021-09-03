@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,6 +7,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Menu))]
 public class EvidenceMenu : MonoBehaviour
 {
+    [SerializeField, Tooltip("Drag the evidence controller here")]
+    private EvidenceController _evidenceController;
+    
     [SerializeField, Tooltip("Drag the TextMeshProUGUI component used for displaying the evidence's name here")]
     private TextMeshProUGUI _evidenceName;
     
@@ -17,11 +21,14 @@ public class EvidenceMenu : MonoBehaviour
 
     [SerializeField, Tooltip("The boxes used to represent menu items.")]
     private EvidenceMenuItem[] _evidenceMenuItems;
+    
+    [SerializeField, Tooltip("Drag all buttons used to navigate the menu here so they can be disabled when necessary.")]
+    private Button[] _navigationButtons;
 
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent<Evidence> _onEvidenceClicked;
-    
-    private EvidenceDictionary _evidenceDictionary;
+
+    private EvidenceDictionary EvidenceDictionary => _evidenceController.CurrentEvidenceDictionary;
     private int _currentPage;
     private int _numberOfPages;
     private int _startIndex;
@@ -40,26 +47,38 @@ public class EvidenceMenu : MonoBehaviour
     }
 
     /// <summary>
+    /// When this menu is enabled it should update be updated with any new evidence added.
+    /// </summary>
+    private void OnEnable()
+    {
+        UpdateEvidenceMenu();
+    }
+
+    /// <summary>
     /// Updates the currently displayed evidence by looping through the menu item boxes
     /// and assigning the corresponding Evidence object in the dictionary to them.
     /// </summary>
     /// <param name="evidenceDictionary">The evidence menu used to update this menu.</param>
     /// <param name="startIndex">The index of the evidence list that will appear first.</param>
-    public void UpdateEvidenceMenu(EvidenceDictionary evidenceDictionary)
+    public void UpdateEvidenceMenu()
     {
-        _evidenceDictionary = evidenceDictionary;
-        _numberOfPages = Mathf.CeilToInt((float)evidenceDictionary.Count / _evidenceMenuItems.Length);
+        _numberOfPages = Mathf.CeilToInt((float)EvidenceDictionary.Count / _evidenceMenuItems.Length);
         
+        foreach (var button in _navigationButtons)
+        {
+            button.interactable = !(_numberOfPages < 2); // Navigation buttons not needed if less than 2 pages
+        }
+
         for (int i = 0; i < _evidenceMenuItems.Length; i++)
         {
-            if (i + _startIndex > _evidenceDictionary.Count - 1)
+            if (i + _startIndex > EvidenceDictionary.Count - 1)
             {
                 _evidenceMenuItems[i].gameObject.SetActive(false);
             }
             else
             {
                 _evidenceMenuItems[i].gameObject.SetActive(true);
-                _evidenceMenuItems[i].Evidence = _evidenceDictionary.GetEvidenceAtIndex(i + _startIndex);
+                _evidenceMenuItems[i].Evidence = EvidenceDictionary.GetEvidenceAtIndex(i + _startIndex);
             }
         }
     }
@@ -73,7 +92,7 @@ public class EvidenceMenu : MonoBehaviour
         _currentPage++;
         _currentPage %= _numberOfPages;
         _startIndex = _currentPage * _evidenceMenuItems.Length;
-        UpdateEvidenceMenu(_evidenceDictionary);
+        UpdateEvidenceMenu();
     }
 
     /// <summary>
@@ -85,7 +104,7 @@ public class EvidenceMenu : MonoBehaviour
         _currentPage += _numberOfPages - 1;
         _currentPage %= _numberOfPages;
         _startIndex = _currentPage * _evidenceMenuItems.Length;
-        UpdateEvidenceMenu(_evidenceDictionary);
+        UpdateEvidenceMenu();
     }
 
     /// <summary>

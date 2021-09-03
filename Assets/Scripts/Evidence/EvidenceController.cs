@@ -9,14 +9,13 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [Tooltip("This event is called when the evidence menu is opened.")]
     [SerializeField] private UnityEvent _onEvidenceMenuOpened;
 
-    [Tooltip("This event will be called when a menu item is added, removed, or modified")]
-    [SerializeField] private UnityEvent<EvidenceDictionary> _onEvidenceModified;
-
     [Tooltip("This EvidenceDictionary should contain all the evidence available in this scene.")]
     [SerializeField] private EvidenceDictionary _masterEvidenceDictionary;
 
     [Tooltip("EvidenceDictionary here that contains evidence that the player should have access to at the start of the scene")]
     [SerializeField] private EvidenceDictionary _currentEvidenceDictionary;
+
+    public EvidenceDictionary CurrentEvidenceDictionary => _currentEvidenceDictionary;
     
     // Start is called before the first frame update
     void Start()
@@ -34,20 +33,16 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
         {
             _currentEvidenceDictionary = ScriptableObject.CreateInstance<EvidenceDictionary>();
         }
-        
-        _onEvidenceModified.Invoke(_currentEvidenceDictionary);
     }
 
     public void AddEvidence(string evidence)
     {
         _currentEvidenceDictionary.AddEvidence(_masterEvidenceDictionary.GetEvidence(evidence));
-        _onEvidenceModified.Invoke(_currentEvidenceDictionary);
     }
 
     public void RemoveEvidence(string evidence)
     {
         _currentEvidenceDictionary.RemoveEvidence(evidence);
-        _onEvidenceModified.Invoke(_currentEvidenceDictionary);
     }
 
     public void AddToCourtRecord(string actor)
@@ -71,6 +66,5 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     public void SubstituteEvidence(string evidence)
     {
         _currentEvidenceDictionary.SubstituteEvidenceWithAlt(evidence);
-        _onEvidenceModified.Invoke(_currentEvidenceDictionary);
     }
 }
