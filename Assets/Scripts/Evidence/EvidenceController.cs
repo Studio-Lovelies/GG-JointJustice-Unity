@@ -37,11 +37,21 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
 
     public void AddEvidence(string evidence)
     {
+        if (_masterEvidenceDictionary == null)
+        {
+            Debug.LogError("Cannot add evidence. Evidence dictionary has not been assigned.");
+        }
+        
         _currentEvidenceDictionary.AddEvidence(_masterEvidenceDictionary.GetEvidence(evidence));
     }
 
     public void RemoveEvidence(string evidence)
     {
+        if (_masterEvidenceDictionary == null)
+        {
+            Debug.LogError("Cannot remove evidence. Evidence dictionary has not been assigned.");
+        }
+        
         _currentEvidenceDictionary.RemoveEvidence(evidence);
     }
 
