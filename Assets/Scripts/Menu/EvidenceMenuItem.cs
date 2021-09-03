@@ -12,6 +12,9 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
     private EvidenceMenu _evidenceMenu;
     private Evidence _evidence;
 
+    /// <summary>
+    /// When evidence is assigned to this menu item its Image component will be automatically updated.
+    /// </summary>
     public Evidence Evidence
     {
         get => _evidence;
@@ -22,11 +25,20 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
         }
     }
 
+    /// <summary>
+    /// When this menu item is selected it should tell the attached
+    /// EvidenceMenu to update its evidence name, description, and icon
+    /// </summary>
+    /// <param name="eventData">Event data required by ISelectHandler</param>
     public void OnSelect(BaseEventData eventData)
     {
         _evidenceMenu.UpdateEvidenceInfo(_evidence);
     }
 
+    /// <summary>
+    /// When this menu item is clicked it should tell the attached EvidenceMenu to call its _onEvidenceClicked event.
+    /// To be subscribed to the attached button component's OnClick event.
+    /// </summary>
     public void OnEvidenceClicked()
     {
         _evidenceMenu.OnEvidenceClicked(_evidence);

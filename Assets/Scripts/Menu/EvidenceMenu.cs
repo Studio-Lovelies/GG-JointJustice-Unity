@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using System.Linq;
 
 [RequireComponent(typeof(Menu))]
 public class EvidenceMenu : MonoBehaviour
@@ -16,11 +15,11 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag the Image component used for displaying the evidence's icon here.")]
     private Image _evidenceIcon;
 
-    [SerializeField, Tooltip("The boxes used to represent menu items.")]
-    private EvidenceMenuItem[] _evidenceMenuItems;
-
     [SerializeField, Tooltip("Drag an EvidenceDictionary here if the menu should have menu items on Awake")]
     private EvidenceDictionary _evidenceDictionary;
+    
+    [SerializeField, Tooltip("The boxes used to represent menu items.")]
+    private EvidenceMenuItem[] _evidenceMenuItems;
 
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent<Evidence> _onEvidenceClicked;
@@ -47,7 +46,7 @@ public class EvidenceMenu : MonoBehaviour
     {
         if (_evidenceDictionary != null)
         {
-            _numberOfPages = Mathf.CeilToInt((float)_evidenceDictionary.Dictionary.Count / _evidenceMenuItems.Length);
+            _numberOfPages = Mathf.CeilToInt((float)_evidenceDictionary.Count / _evidenceMenuItems.Length);
             UpdateEvidenceDictionary(_evidenceDictionary);
             UpdateEvidenceMenu(0);
         }
@@ -73,25 +72,26 @@ public class EvidenceMenu : MonoBehaviour
     public void UpdateEvidenceDictionary(EvidenceDictionary evidenceDictionary)
     {
         _evidenceDictionary = evidenceDictionary;
-        _numberOfPages = Mathf.CeilToInt((float)evidenceDictionary.Dictionary.Count / _evidenceMenuItems.Length);
+        _numberOfPages = Mathf.CeilToInt((float)evidenceDictionary.Count / _evidenceMenuItems.Length);
     }
     
     /// <summary>
-    /// Updates the currently displayed evidence.
+    /// Updates the currently displayed evidence by looping through the menu item boxes
+    /// and assigning the corresponding Evidence object in the dictionary to them.
     /// </summary>
     /// <param name="startIndex">The index of the evidence list that will appear first.</param>
     private void UpdateEvidenceMenu(int startIndex)
     {
         for (int i = 0; i < _evidenceMenuItems.Length; i++)
         {
-            if (i + startIndex > _evidenceDictionary.Dictionary.Count - 1)
+            if (i + startIndex > _evidenceDictionary.Count - 1)
             {
                 _evidenceMenuItems[i].gameObject.SetActive(false);
             }
             else
             {
                 _evidenceMenuItems[i].gameObject.SetActive(true);
-                _evidenceMenuItems[i].Evidence = _evidenceDictionary.Dictionary.Values.ElementAt(i + startIndex);
+                _evidenceMenuItems[i].Evidence = _evidenceDictionary.GetEvidenceAtIndex(i + startIndex);
             }
         }
     }
