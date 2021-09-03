@@ -138,7 +138,7 @@ public class ActorController : MonoBehaviour, IActorController
             return;
         }
 
-        if ( _activeActor.isActor(_currentSpeakingActor))
+        if ( _activeActor.MatchesActorData(_currentSpeakingActor))
         {
             _activeActor.SetTalking(true);
         }
