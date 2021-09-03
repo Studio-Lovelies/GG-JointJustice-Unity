@@ -86,7 +86,7 @@ public class Actor : MonoBehaviour
     /// </summary>
     /// <param name="actor">Actor to compare to</param>
     /// <returns>If the actor is the actor given</returns>
-    public bool isActor(ActorData actor)
+    public bool MatchesActorData(ActorData actor)
     {
         return _actorData == actor;
     }
