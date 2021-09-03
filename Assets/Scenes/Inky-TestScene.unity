@@ -399,14 +399,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5490628541157029231, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_text
-      value: <color="yellow">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Integer luctus leo nec mi pulvinar, eget molestie purus gravida. Aliquam
-        imperdiet pharetra massa vel aliquam. Pellentesque interdum vehicula ligula,
-        sit amet semper dolor suscipit ut. Cras eu nisiLorem ipsum dolor sit
+      value: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus
+        leo nec mi pulvinar, eget molestie purus gravida. Aliquam imperdiet pharetra
+        massa vel aliquam. Pellentesque interdum vehicula ligula, sit amet semper
+        dolor suscipit ut. Cras eu nisiLorem ipsum dolor sit
       objectReference: {fileID: 0}
     - target: {fileID: 5490628541157029231, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_fontSize
-      value: 70.1
+      value: 71.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}

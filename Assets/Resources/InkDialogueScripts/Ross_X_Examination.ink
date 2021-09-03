@@ -58,7 +58,7 @@ Your Honor, this is clearly irrelevant to the case.
 I agree. Arin, try being serious about this.
 
 &ACTOR:Tutorial_Boy
-&SPEAK:TB
+&SPEAK:Tutorial_Boy
 Ross, continue your testimony.
 
 -> Line2
@@ -174,8 +174,8 @@ Your Honor, I believe this needs to be added to the witness's testimony.
 &SPEAK:Brent_Judge
 Agreed. Witness, add your poop story to your testimony.
 
-&ACTOR:Arin
-&SPEAK:Arin
+&ACTOR:Ross
+&SPEAK:Ross
 Uh... Yes, why of course, Your Honor. Let me go over it again.
 
 &ACTOR:Dan
