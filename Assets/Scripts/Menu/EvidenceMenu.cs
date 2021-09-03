@@ -58,8 +58,6 @@ public class EvidenceMenu : MonoBehaviour
     /// Updates the currently displayed evidence by looping through the menu item boxes
     /// and assigning the corresponding Evidence object in the dictionary to them.
     /// </summary>
-    /// <param name="evidenceDictionary">The evidence menu used to update this menu.</param>
-    /// <param name="startIndex">The index of the evidence list that will appear first.</param>
     public void UpdateEvidenceMenu()
     {
         _numberOfPages = Mathf.CeilToInt((float)EvidenceDictionary.Count / _evidenceMenuItems.Length);
