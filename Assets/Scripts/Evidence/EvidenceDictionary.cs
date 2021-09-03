@@ -24,7 +24,7 @@ public class EvidenceDictionary : ScriptableObject
 
             foreach (var evidence in _evidenceList)
             {
-                _evidenceDictionary.Add(evidence.name, evidence);
+                AddEvidence(evidence);
             }
         }
     }
@@ -35,12 +35,11 @@ public class EvidenceDictionary : ScriptableObject
     /// <param name="evidence">The name of the evidence to substitute.</param>
     public void SubstituteEvidenceWithAlt(string evidence)
     {
-        if (!_evidenceDictionary.ContainsKey(evidence))
+        if (!CheckIfEvidenceInDictionary(evidence))
         {
-            Debug.LogError($"Evidence {evidence} was not found in the dictionary.");
             return;
         }
-        
+
         if (_evidenceDictionary[evidence].AltEvidence != null)
         {
             _evidenceDictionary[evidence] = _evidenceDictionary[evidence].AltEvidence;
@@ -54,6 +53,11 @@ public class EvidenceDictionary : ScriptableObject
     /// <param name="evidence">The evidence object to add.</param>
     public void AddEvidence(Evidence evidence)
     {
+        if (evidence == null)
+        {
+            Debug.LogError($"Attempted to add a null evidence objection to evidence dictionary {name}");
+        }
+        
         if (_evidenceDictionary.ContainsValue(evidence))
         {
             Debug.LogError($"Evidence {evidence.name} has already been added to the dictionary.");
@@ -64,19 +68,49 @@ public class EvidenceDictionary : ScriptableObject
     }
 
     /// <summary>
+    /// Method to retrieve evidence from the evidence dictionary.
+    /// </summary>
+    /// <param name="evidence">Name of the evidence to get.</param>
+    /// <returns>The Evidence object retrieved.</returns>
+    public Evidence GetEvidence(string evidence)
+    {
+        if (!CheckIfEvidenceInDictionary(evidence))
+        {
+            return null;
+        }
+
+        return _evidenceDictionary[evidence];
+    }
+
+    /// <summary>
     /// Method to remove evidence from the evidence dictionary
     /// Does not remove from evidence list so that evidence dictionary can be reset on restart.
     /// </summary>
     /// <param name="evidence">The name of the evidence to remove.</param>
     public void RemoveEvidence(string evidence)
     {
-        if (!_evidenceDictionary.ContainsKey(evidence))
+        if (!CheckIfEvidenceInDictionary(evidence))
         {
-            Debug.LogError($"Evidence {evidence} was not found in the dictionary.");
             return;
         }
         
         _evidenceDictionary.Remove(evidence);
+    }
+    
+    /// <summary>
+    /// Method used to check if a specified Evidence object is in _evidenceDictionary.
+    /// </summary>
+    /// <param name="evidence">Name of the evidence to check.</param>
+    /// <returns>Whether the evidence was in the dictionary (true) or not (false)</returns>
+    private bool CheckIfEvidenceInDictionary(string evidence)
+    {
+        if (_evidenceDictionary.ContainsKey(evidence))
+        {
+            return true;
+        }
+
+        Debug.LogError($"Evidence {evidence} could not be found in the dictionary.");
+        return false;
     }
 
     /// <summary>
@@ -87,5 +121,21 @@ public class EvidenceDictionary : ScriptableObject
     public Evidence GetEvidenceAtIndex(int index)
     {
         return _evidenceDictionary.Values.ElementAt(index);
+    }
+
+    /// <summary>
+    /// Create a new list and dictionary when an instance is created
+    /// </summary>
+    private void Awake()
+    {
+        if (_evidenceList == null)
+        {
+            _evidenceList = new List<Evidence>();
+        }
+
+        if (_evidenceDictionary == null)
+        {
+            _evidenceDictionary = new Dictionary<string, Evidence>();
+        }
     }
 }
