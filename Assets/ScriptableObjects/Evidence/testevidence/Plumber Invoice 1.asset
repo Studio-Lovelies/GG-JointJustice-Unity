@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01c953ab3999141bd9d06e427dbad13d, type: 3}
-  m_Name: Bent Coins
+  m_Name: Plumber Invoice 1
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: Bent Coins
-  <Icon>k__BackingField: {fileID: 21300000, guid: c521c95c537b0624390eec51538d27df, type: 3}
-  <Description>k__BackingField: Jory's Good Boy Coins. They're scuffed and bent out
-    of shape.
-  <AltEvidence>k__BackingField: {fileID: 11400000, guid: 9cf69dff2a28d4453a5f8ef417cb1daa, type: 2}
+  <DisplayName>k__BackingField: Plumber Invoice
+  <Icon>k__BackingField: {fileID: 21300000, guid: 28737c175ee33a74daeacbfad2408c63, type: 3}
+  <Description>k__BackingField: The invoice from the plumber for repairing the toilets
+    in the north end of the building, dated '2:30PM' today.
+  <AltEvidence>k__BackingField: {fileID: 0}

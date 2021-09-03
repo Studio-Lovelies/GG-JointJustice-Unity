@@ -134,6 +134,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aefc29aae8a4f46898e32f0e0732a56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &41838356 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2062974321150016435, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+  m_PrefabInstance: {fileID: 2104176032}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &128740147 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
@@ -414,7 +425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &734583886
 RectTransform:
   m_ObjectHideFlags: 0
@@ -491,7 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b7e99e542e44d73a566690e1cb0c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initiallyHighlightedButton: {fileID: 0}
+  _initiallyHighlightedButton: {fileID: 41838356}
   <DontResetSelectedOnClose>k__BackingField: 0
 --- !u!114 &734583890
 MonoBehaviour:
@@ -552,7 +563,6 @@ MonoBehaviour:
   _evidenceName: {fileID: 1591836351}
   _evidenceDescription: {fileID: 818147506}
   _evidenceIcon: {fileID: 2071784474}
-  _menuItemPrefab: {fileID: 7467009520762512749, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
   _evidenceMenuItems:
   - {fileID: 41838353}
   - {fileID: 1815968759}
@@ -604,6 +614,8 @@ GameObject:
   - component: {fileID: 749670133}
   - component: {fileID: 749670132}
   - component: {fileID: 749670131}
+  - component: {fileID: 749670136}
+  - component: {fileID: 749670135}
   m_Layer: 5
   m_Name: DecrementButton
   m_TagString: Untagged
@@ -685,7 +697,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 749670133}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 734583891}
+        m_TargetAssemblyTypeName: EvidenceMenu, GG-JointJustice
+        m_MethodName: DecrementPage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &749670133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,6 +748,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 749670129}
   m_CullTransparentMesh: 1
+--- !u!114 &749670135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749670129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+--- !u!114 &749670136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749670129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c63981f85a9b94f449441c116636c23f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &818147504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1719,6 +1770,8 @@ GameObject:
   - component: {fileID: 1688599221}
   - component: {fileID: 1688599220}
   - component: {fileID: 1688599219}
+  - component: {fileID: 1688599223}
+  - component: {fileID: 1688599224}
   m_Layer: 5
   m_Name: IncrementButton
   m_TagString: Untagged
@@ -1800,7 +1853,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1688599221}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 734583891}
+        m_TargetAssemblyTypeName: EvidenceMenu, GG-JointJustice
+        m_MethodName: IncrementPage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1688599221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1839,6 +1904,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688599217}
   m_CullTransparentMesh: 1
+--- !u!114 &1688599223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688599217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c63981f85a9b94f449441c116636c23f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1688599224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688599217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!224 &1708400561 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
@@ -2253,6 +2345,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5228303784376185822, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _masterEvidenceDictionary
+      value: 
+      objectReference: {fileID: 11400000, guid: b17249a73a0f74b9ca3f6eb22a2b4de7, type: 2}
     - target: {fileID: 5228303784376185822, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _onEvidenceMenuOpened.m_PersistentCalls.m_Calls.Array.size
       value: 2

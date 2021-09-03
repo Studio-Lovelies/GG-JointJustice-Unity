@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a63ee1f62a944469346f2d053baa9e, type: 3}
   m_Name: Evidence Dictionary
   m_EditorClassIdentifier: 
-  <List>k__BackingField:
+  _evidenceList:
   - {fileID: 11400000, guid: 8e1c11b76c9554d91970538b25659af3, type: 2}
   - {fileID: 11400000, guid: a71773aeec2794eec814262ef7533467, type: 2}
   - {fileID: 11400000, guid: c6dbf7330f80b4130b1ad9c748e3d238, type: 2}
@@ -21,11 +21,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3a717f69603674d5baddc28937664305, type: 2}
   - {fileID: 11400000, guid: 9cf69dff2a28d4453a5f8ef417cb1daa, type: 2}
   - {fileID: 11400000, guid: 7c2af3bd5281946388dc095f8ef2dc15, type: 2}
-  - {fileID: 11400000, guid: 8e1c11b76c9554d91970538b25659af3, type: 2}
-  - {fileID: 11400000, guid: a71773aeec2794eec814262ef7533467, type: 2}
-  - {fileID: 11400000, guid: c6dbf7330f80b4130b1ad9c748e3d238, type: 2}
-  - {fileID: 11400000, guid: 6e7dc4583dca24f29a488cafe72fcc80, type: 2}
-  - {fileID: 11400000, guid: 37593dcec38964bb887cc3dad20177a0, type: 2}
-  - {fileID: 11400000, guid: 3a717f69603674d5baddc28937664305, type: 2}
-  - {fileID: 11400000, guid: 9cf69dff2a28d4453a5f8ef417cb1daa, type: 2}
-  - {fileID: 11400000, guid: 7c2af3bd5281946388dc095f8ef2dc15, type: 2}
+  - {fileID: 11400000, guid: d060c761d5e914eb280a5350cf343c32, type: 2}
+  - {fileID: 11400000, guid: b790a376d0d664720ab0f0a7a11f8f4d, type: 2}
+  - {fileID: 11400000, guid: 37d2cfccd743042c2b51602a610b767d, type: 2}
+  - {fileID: 11400000, guid: f8f63c22326f046d68f37154abb2b84e, type: 2}
+  - {fileID: 11400000, guid: eadb75008256149f19445196bd54192f, type: 2}
+  - {fileID: 11400000, guid: 2bf3c4ab34d314e65aa2b58f20acea6b, type: 2}
+  - {fileID: 11400000, guid: 7981fd5b32483473ab2c4dbd598bf14b, type: 2}
+  - {fileID: 11400000, guid: a5dc439cf89c048c9a3e6c20b81ae3cc, type: 2}

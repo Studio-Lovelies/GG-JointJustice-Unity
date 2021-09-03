@@ -10,7 +10,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
 
     [Tooltip("This event is called when the evidence menu is opened.")]
     [SerializeField] private UnityEvent _onEvidenceMenuOpened;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,6 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
         {
             _directorActionDecoder.SetEvidenceController(this);
         }
-
     }
 
     public void AddEvidence(string evidence)
