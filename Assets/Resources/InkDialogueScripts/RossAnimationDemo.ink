@@ -1,31 +1,42 @@
 &ACTOR:Ross
-&EMOTION:Normal
-Hello
+&SPEAK:Ross
+&SET_POSE:Normal
+This is Ross's Normal pose.
 
-&PLAY_ANIMATION:Breakdown
-&PLAY_ANIMATION:Damage
-&EMOTION:Glaring
-Hello
+&PLAY_EMOTION:Breakdown
+That was Ross's Breakdown emotion.
 
-&PLAY_ANIMATION:HelmetThrow
-&EMOTION:MadMilk
-Hello
+&PLAY_EMOTION:Damage
+That was Ross's Damage emotion.
 
-&EMOTION:Sad
-Hello
+&SET_POSE:Glaring
+This is Ross's Glaring pose.
 
-&EMOTION:Sweaty
-Hello
+&PLAY_EMOTION:HelmetThrow
+That was Ross's HelmetThrow emotion.
 
-&EMOTION:NormalNoHelmet
-Hello
+&SET_POSE:MadMilk
+This is Ross's MadMilk pose.
 
-&PLAY_ANIMATION:DamageNoHelmet
+&SET_POSE:Sad
+This is Ross's Sad pose.
 
-&EMOTION:GlaringNoHelmet
-Hello
+&SET_POSE:Sweaty
+This is Ross's Sweaty pose.
 
-&EMOTION:SadNoHelmet
-Hello
+&SET_POSE:NormalNoHelmet
+This is Ross's NormalNoHelmet pose.
 
-&EMOTION:SweatyNoHelmet
+&PLAY_EMOTION:DamageNoHelmet
+That was Ross's DamageNoHelmet emotion.
+
+&SET_POSE:GlaringNoHelmet
+This is Ross's GlaringNoHelmet pose.
+
+&SET_POSE:SadNoHelmet
+This is Ross's SadNoHelmet pose.
+
+&SET_POSE:SweatyNoHelmet
+This is Ross's SweatyNoHelmet pose.
+
+-> END

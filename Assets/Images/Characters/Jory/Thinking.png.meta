@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 79ba81d9a3d28b84eae2c8ddfab3d17e
+guid: 8243d4c15e26c4c14820eb20651aab3b
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -83,7 +83,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -95,7 +95,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -111,8 +111,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,10 +130,10 @@ TextureImporter:
       name: Thinking_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 320
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,10 +151,10 @@ TextureImporter:
       name: Thinking_2
       rect:
         serializedVersion: 2
-        x: 512
+        x: 640
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +172,10 @@ TextureImporter:
       name: Thinking_3
       rect:
         serializedVersion: 2
-        x: 768
+        x: 960
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,10 +193,10 @@ TextureImporter:
       name: Thinking_4
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 1280
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c40c1842ea1bf9147bb09d30ec7652a6
+guid: f5f6bd4d62e1148c3a4afb9fc2bb2bec
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -74,7 +74,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -86,7 +86,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -102,8 +102,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,10 +121,10 @@ TextureImporter:
       name: Annoyed_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 320
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0e9f0b73eb694e04a8243b4b186e5e0e
+guid: ac9d936f8cd7a439195a446d2718ab47
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -89,7 +89,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,7 +101,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -117,8 +117,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,10 +136,10 @@ TextureImporter:
       name: Objection_ani_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 320
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,10 +157,10 @@ TextureImporter:
       name: Objection_ani_2
       rect:
         serializedVersion: 2
-        x: 512
+        x: 640
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,10 +178,10 @@ TextureImporter:
       name: Objection_ani_3
       rect:
         serializedVersion: 2
-        x: 768
+        x: 960
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,10 +199,10 @@ TextureImporter:
       name: Objection_ani_4
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 1280
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -220,10 +220,10 @@ TextureImporter:
       name: Objection_ani_5
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 1600
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -241,10 +241,10 @@ TextureImporter:
       name: Objection_ani_6
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 1920
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
