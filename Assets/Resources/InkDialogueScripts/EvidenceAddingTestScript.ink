@@ -2,7 +2,7 @@
 &SPEAK:Arin
 I'm going to add evidence to the menu.
 
-&ADD_EVIDENCE:Bent_Coins
+// &ADD_EVIDENCE:Bent_Coins
 
 There, I added coins.
 

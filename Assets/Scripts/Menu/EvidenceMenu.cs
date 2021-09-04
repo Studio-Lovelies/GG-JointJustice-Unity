@@ -61,7 +61,7 @@ public class EvidenceMenu : MonoBehaviour
     public void UpdateEvidenceMenu()
     {
         _numberOfPages = Mathf.CeilToInt((float)EvidenceDictionary.Count / _evidenceMenuItems.Length);
-        _currentPage = Mathf.Clamp(_currentPage, 0, _numberOfPages - 1);
+        _currentPage = Mathf.Clamp(_currentPage, 0, _numberOfPages == 0 ? 0 : _numberOfPages - 1); // Max value must always be positive 
         _startIndex = _currentPage * _evidenceMenuItems.Length;
         
         foreach (var button in _navigationButtons)
