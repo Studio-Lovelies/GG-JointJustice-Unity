@@ -2,11 +2,11 @@
 &SPEAK:Arin
 I'm going to add evidence to the menu.
 
-// &ADD_EVIDENCE:Bent_Coins
+&ADD_EVIDENCE:Bent_Coins
 
 There, I added coins.
 
-&OPEN_EVIDENCE_MENU
+&PRESENT_EVIDENCE
 
 I'm going to add some more.
 
@@ -15,7 +15,7 @@ I'm going to add some more.
 There we go.
 Have a look.
 
-&OPEN_EVIDENCE_MENU
+&PRESENT_EVIDENCE
 
 Now I'm going to remove the coins.
 
@@ -24,7 +24,7 @@ Now I'm going to remove the coins.
 Now they are gone.
 See?
 
-&OPEN_EVIDENCE_MENU
+&PRESENT_EVIDENCE
 
 Now I'm going to add a lot of stuff to showcase the page functionality.
 
@@ -45,7 +45,7 @@ Now I'm going to add a lot of stuff to showcase the page functionality.
 
 Take a look now.
 
-&OPEN_EVIDENCE_MENU
+&PRESENT_EVIDENCE
 
 So much stuff.
 
@@ -61,7 +61,7 @@ Now I'm going to turn things into other things.
 
 Ta-da!
 
-&OPEN_EVIDENCE_MENU
+&PRESENT_EVIDENCE
 
 Now let's remove it all.
 
@@ -75,6 +75,6 @@ Now let's remove it all.
 
 It is done.
 
-&OPEN_EVIDENCE_MENU
+&PRESENT_EVIDENCE
 
 -> END

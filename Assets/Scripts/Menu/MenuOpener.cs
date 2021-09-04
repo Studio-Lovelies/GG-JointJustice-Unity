@@ -10,9 +10,6 @@ using UnityEngine.UI;
 /// </summary>
 public class MenuOpener : MonoBehaviour
 {
-    [SerializeField, Tooltip("Drag the scene's dialogue controller here")]
-    private DialogueController _dialogueController;    
-
     [SerializeField, Tooltip("Drag the menu controller of the menus to open or close here.")]
     private Menu _menuToOpen;
     
@@ -30,11 +27,6 @@ public class MenuOpener : MonoBehaviour
 
     private void Awake()
     {
-        if (_dialogueController == null)
-        {
-            Debug.LogWarning($"DialogController has not been assigned to MenuOpener on {gameObject.name}. Menu will be accessible when scene's DialogueController is busy.");
-        }
-        
         _button = GetComponent<Button>();
         _parentMenu = GetComponentInParent<Menu>();
         
