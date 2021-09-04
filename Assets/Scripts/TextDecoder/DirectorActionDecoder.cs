@@ -411,6 +411,10 @@ public class DirectorActionDecoder : MonoBehaviour
         _onActionDone.Invoke();
     }
 
+    /// <summary>
+    /// Calls the onPresentEvidence event on evidence controller which
+    /// opens the evidence menu so evidence can be presented.
+    /// </summary>
     void PresentEvidence()
     {
         if (!HasEvidenceController())
@@ -419,6 +423,10 @@ public class DirectorActionDecoder : MonoBehaviour
         _evidenceController.PresentEvidence();
     }
 
+    /// <summary>
+    /// Used to substitute a specified Evidence object with its assigned alternate Evidence object.
+    /// </summary>
+    /// <param name="evidence">The name of the evidence to substitute.</param>
     void SubstituteEvidence(string evidence)
     {
         if (!HasEvidenceController())
