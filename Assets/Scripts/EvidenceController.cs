@@ -8,8 +8,8 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
-    [Tooltip("This event is called when the evidence menu is opened.")]
-    [SerializeField] private UnityEvent _onEvidenceMenuOpened;
+    [Tooltip("This event is called when the PRESENT_EVIDENCE action is called.")]
+    [SerializeField] private UnityEvent _onPresentEvidence;
 
     [Tooltip("This EvidenceDictionary should contain all the evidence available in this scene.")]
     [SerializeField] private EvidenceDictionary _masterEvidenceDictionary;
@@ -72,12 +72,12 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     }
 
     /// <summary>
-    /// Method called by DirectorActionDecoder to open the evidence menu.
+    /// Method called by DirectorActionDecoder to open the evidence menu to allow presenting of evidence.
     /// Calls an event which should open (and disable closing of) the evidence menu.
     /// </summary>
-    public void OpenEvidenceMenu()
+    public void PresentEvidence()
     {
-        _onEvidenceMenuOpened.Invoke();
+        _onPresentEvidence.Invoke();
     }
 
     /// <summary>
