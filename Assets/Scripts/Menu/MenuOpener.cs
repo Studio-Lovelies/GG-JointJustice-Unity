@@ -69,7 +69,7 @@ public class MenuOpener : MonoBehaviour
             _parentMenu.SetMenuInteractable(false);
         }
 
-        if (_menuToOpen.DontResetSelectedOnClose && _cachedSelectedButtonAfterClose != null)
+        if (_menuToOpen.DontResetSelectedOnClose && _cachedSelectedButtonAfterClose != null && _cachedSelectedButtonAfterClose.isActiveAndEnabled)
         {
             _cachedSelectedButtonAfterClose.Select();
         }

@@ -63,4 +63,18 @@ Ta-da!
 
 &OPEN_EVIDENCE_MENU
 
+Now let's remove it all.
+
+&REMOVE_EVIDENCE:Bent_Coins_1
+&REMOVE_EVIDENCE:Attorney's_Badge_1
+&REMOVE_EVIDENCE:Jory's_Backpack_1
+&REMOVE_EVIDENCE:Jory_Sr's_Letter_1
+&REMOVE_EVIDENCE:Livestream_Recording_1
+&REMOVE_EVIDENCE:Plumber_Invoice_1
+&REMOVE_EVIDENCE:Stolen_Dinos_1
+
+It is done.
+
+&OPEN_EVIDENCE_MENU
+
 -> END

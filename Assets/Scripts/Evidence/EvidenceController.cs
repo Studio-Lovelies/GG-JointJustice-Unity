@@ -35,6 +35,11 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
         }
     }
 
+    /// <summary>
+    /// Adds a piece of evidence to the evidence menu. Gets an Evidence object
+    /// from _masterEvidenceDictionary and adds it to _currentEvidenceDictionary
+    /// </summary>
+    /// <param name="evidence">The name of the evidence to add.</param>
     public void AddEvidence(string evidence)
     {
         if (_masterEvidenceDictionary == null)
@@ -45,6 +50,10 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
         _currentEvidenceDictionary.AddEvidence(_masterEvidenceDictionary.GetEvidence(evidence));
     }
 
+    /// <summary>
+    /// Removes a piece of evidence from the evidence menu.
+    /// </summary>
+    /// <param name="evidence">The name of the evidence to remove.</param>
     public void RemoveEvidence(string evidence)
     {
         if (_masterEvidenceDictionary == null)
