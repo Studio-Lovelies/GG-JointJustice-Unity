@@ -24,7 +24,7 @@ public class Menu : MonoBehaviour
     private void Update()
     {
         // Stop button being deselected when clicking somewhere other than a button
-        if (EventSystem.current.currentSelectedGameObject == null && SelectedButton != null)
+        if (EventSystem.current.currentSelectedGameObject == null && SelectedButton != null && Active)
         {
             SelectedButton.Select();
         }
