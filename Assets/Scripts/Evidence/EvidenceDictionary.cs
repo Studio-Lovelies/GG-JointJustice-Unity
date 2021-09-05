@@ -1,118 +1,137 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Evidence Dictionary", menuName = "Evidence/Evidence Dictionary")]
-public class EvidenceDictionary : ScriptableObject
+public class EvidenceDictionary : MonoBehaviour, IEvidenceDictionary
 {
-    [SerializeField, Tooltip("Add all the evidence required for evidence dictionary here.")]
-    private List<Evidence> _evidenceList;
+    [SerializeField, Tooltip("Drag an EvidenceList here containing all the evidence available in the scene")]
+    private EvidenceList _masterEvidenceList;
 
-    private Dictionary<string, Evidence> _evidenceDictionary;
+    [SerializeField, Tooltip("Add any evidence that the player should have at the start of the scene here.")]
+    private Evidence[] _currentEvidenceList;
 
-    public int Count => _evidenceDictionary.Count;
+    private Dictionary<string, Evidence> _masterEvidenceDictionary;
+    private Dictionary<string, Evidence> _currentEvidenceDictionary;
 
+    public int Count => _currentEvidenceDictionary.Count;
+    
     /// <summary>
-    /// Converts the list of evidence objects into a dictionary so they can be accessed by name.
+    /// Converts the evidence list into a dictionary on awake
     /// </summary>
-    private void OnEnable()
+    private void Awake()
     {
-        if (_evidenceList != null && (_evidenceDictionary == null || _evidenceDictionary.Count != _evidenceList.Count))
+        if (_masterEvidenceList != null)
         {
-            _evidenceDictionary = new Dictionary<string, Evidence>();
-
-            foreach (var evidence in _evidenceList)
-            {
-                AddEvidence(evidence);
-            }
+            _masterEvidenceDictionary = ArrayToEvidenceDictionary(_masterEvidenceList.EvidenceArray);
         }
+        else
+        {
+            Debug.LogError("Master evidence list has not been assigned to EvidenceDictionary.");
+        }
+        
+        _currentEvidenceDictionary = ArrayToEvidenceDictionary(_currentEvidenceList);
     }
 
     /// <summary>
-    /// Replaces an Evidence object with its designated alternate evidence.
+    /// Converts a list of evidence into a dictionary of evidence
+    /// so evidence an be accessed by name
     /// </summary>
-    /// <param name="evidence">The name of the evidence to substitute.</param>
-    public void SubstituteEvidenceWithAlt(string evidence)
+    /// <param name="evidenceList">The list to convert to a dictionary.</param>
+    /// <returns>The dictionary that the list has been converted to.</returns>
+    private Dictionary<string, Evidence> ArrayToEvidenceDictionary(Evidence[] evidenceList)
     {
-        if (!CheckIfEvidenceInDictionary(evidence))
+        var evidenceDictionary = new Dictionary<string, Evidence>();
+        foreach (var evidence in evidenceList)
+        {
+            Debug.Log(evidence.name);
+            evidenceDictionary.Add(evidence.name, evidence);
+        }
+        return evidenceDictionary;
+    }
+
+    /// <summary>
+    /// Call this when method you want to add evidence to the dictionary.
+    /// </summary>
+    /// <param name="evidenceName">The evidence to add.</param>
+    public void AddEvidence(string evidenceName)
+    {
+        if (!IsEvidenceInDictionary(evidenceName, _masterEvidenceDictionary))
         {
             return;
         }
 
-        if (_evidenceDictionary[evidence].AltEvidence != null)
-        {
-            _evidenceDictionary[evidence] = _evidenceDictionary[evidence].AltEvidence;
-        }
+        Evidence evidence = _masterEvidenceDictionary[evidenceName];
+        _currentEvidenceDictionary.Add(evidence.name, evidence);
     }
 
     /// <summary>
-    /// Method to add evidence to the evidence dictionary.
-    /// Does not add to evidence list so that evidence dictionary can be reset on restart.
+    /// Call this method when you want to remove evidence from the dictionary.
     /// </summary>
-    /// <param name="evidence">The evidence object to add.</param>
-    public void AddEvidence(Evidence evidence)
+    /// <param name="evidenceName">The name of the evidence to remove.</param>
+    public void RemoveEvidence(string evidenceName)
     {
-        if (evidence == null)
+        if (!IsEvidenceInDictionary(evidenceName, _currentEvidenceDictionary))
         {
-            Debug.LogError($"Attempted to add a null evidence objection to evidence dictionary {name}");
-        }
-        
-        if (_evidenceDictionary.ContainsValue(evidence))
-        {
-            Debug.LogError($"Evidence {evidence.name} has already been added to the dictionary.");
             return;
         }
-        
-        _evidenceDictionary.Add(evidence.name, evidence);
+
+        _currentEvidenceDictionary.Remove(evidenceName);
     }
 
     /// <summary>
-    /// Method to retrieve evidence from the evidence dictionary.
+    /// Call this method when you want to get evidence from the dictionary using the evidence's name.
     /// </summary>
-    /// <param name="evidence">Name of the evidence to get.</param>
-    /// <returns>The Evidence object retrieved.</returns>
-    public Evidence GetEvidence(string evidence)
+    /// <param name="evidenceName">The name of the evidence to get.</param>
+    /// <returns></returns>
+    public Evidence GetEvidence(string evidenceName)
     {
-        if (!CheckIfEvidenceInDictionary(evidence))
+        if (!IsEvidenceInDictionary(evidenceName, _currentEvidenceDictionary))
         {
             return null;
         }
 
-        return _evidenceDictionary[evidence];
-    }
-
-    /// <summary>
-    /// Method to remove evidence from the evidence dictionary
-    /// Does not remove from evidence list so that evidence dictionary can be reset on restart.
-    /// </summary>
-    /// <param name="evidence">The name of the evidence to remove.</param>
-    public void RemoveEvidence(string evidence)
-    {
-        if (!CheckIfEvidenceInDictionary(evidence))
-        {
-            return;
-        }
-        
-        _evidenceDictionary.Remove(evidence);
+        return _currentEvidenceDictionary[evidenceName];
     }
     
     /// <summary>
-    /// Method used to check if a specified Evidence object is in _evidenceDictionary.
+    /// Replaces an Evidence object with its designated alternate evidence.
     /// </summary>
-    /// <param name="evidence">Name of the evidence to check.</param>
-    /// <returns>Whether the evidence was in the dictionary (true) or not (false)</returns>
-    private bool CheckIfEvidenceInDictionary(string evidence)
+    /// <param name="evidenceName">The name of the evidence to substitute.</param>
+    public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-        if (_evidenceDictionary.ContainsKey(evidence))
+        if (!IsEvidenceInDictionary(evidenceName, _currentEvidenceDictionary))
         {
-            return true;
+            return;
         }
 
-        Debug.LogError($"Evidence {evidence} could not be found in the dictionary.");
-        return false;
+        if (_currentEvidenceDictionary[evidenceName].AltEvidence == null)
+        {
+            Debug.LogError($"Evidence {evidenceName} does not have an alternate Evidence object assigned");
+            return;
+        }
+        
+        _currentEvidenceDictionary[evidenceName] = _currentEvidenceDictionary[evidenceName].AltEvidence;
     }
 
+    /// <summary>
+    /// Method used by GetEvidence and AddEvidence methods to check
+    /// if evidence is in the dictionary before attempting to access.
+    /// </summary>
+    /// <param name="evidenceName">The name of the evidence to look for in the dictionary.</param>
+    /// <param name="dictionaryToCheck">The dictionary to look for the evidence object in.</param>
+    /// <returns>True if the evidence is in the dictionary, and false if it is not.</returns>
+    private bool IsEvidenceInDictionary(string evidenceName, Dictionary<string, Evidence> dictionaryToCheck)
+    {
+        if (!dictionaryToCheck.ContainsKey(evidenceName))
+        {
+            Debug.LogError($"Evidence {evidenceName} could not be found in the evidence dictionary.");
+            return false;
+        }
+
+        return true;
+    }
+    
     /// <summary>
     /// Allows the dictionary to be accessed by index instead of evidence name.
     /// </summary>
@@ -120,22 +139,14 @@ public class EvidenceDictionary : ScriptableObject
     /// <returns>The evidence at the specified index.</returns>
     public Evidence GetEvidenceAtIndex(int index)
     {
-        return _evidenceDictionary.Values.ElementAt(index);
-    }
-
-    /// <summary>
-    /// Create a new list and dictionary when an instance is created
-    /// </summary>
-    private void Awake()
-    {
-        if (_evidenceList == null)
+        try
         {
-            _evidenceList = new List<Evidence>();
+            return _currentEvidenceDictionary.Values.ElementAt(index);
         }
-
-        if (_evidenceDictionary == null)
+        catch (IndexOutOfRangeException exception)
         {
-            _evidenceDictionary = new Dictionary<string, Evidence>();
+            Debug.LogError($"{exception.GetType().Name}: Index {index} out of range of evidence dictionary.");
+            return null;
         }
     }
 }

@@ -7,9 +7,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Menu))]
 public class EvidenceMenu : MonoBehaviour
 {
-    [SerializeField, Tooltip("Drag the evidence controller here")]
-    private EvidenceController _evidenceController;
-    
     [SerializeField, Tooltip("Drag the TextMeshProUGUI component used for displaying the evidence's name here")]
     private TextMeshProUGUI _evidenceName;
     
@@ -27,11 +24,12 @@ public class EvidenceMenu : MonoBehaviour
 
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent<Evidence> _onEvidenceClicked;
-
-    private EvidenceDictionary EvidenceDictionary => _evidenceController.CurrentEvidenceDictionary;
+    
     private int _currentPage;
     private int _numberOfPages;
     private int _startIndex;
+
+    public IEvidenceDictionary EvidenceDictionary { get; set; }
 
     /// <summary>
     /// Updates the evidence menu with the name, icon, and description

@@ -11,13 +11,11 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [Tooltip("This event is called when the PRESENT_EVIDENCE action is called.")]
     [SerializeField] private UnityEvent _onPresentEvidence;
 
-    [Tooltip("This EvidenceDictionary should contain all the evidence available in this scene.")]
-    [SerializeField] private EvidenceDictionary _masterEvidenceDictionary;
+    [Tooltip("Drag an EvidenceDictionary component here.")]
+    [SerializeField] private EvidenceDictionary _evidenceDictionary;
 
-    [Tooltip("EvidenceDictionary here that contains evidence that the player should have access to at the start of the scene")]
-    [SerializeField] private EvidenceDictionary _currentEvidenceDictionary;
-
-    public EvidenceDictionary CurrentEvidenceDictionary => _currentEvidenceDictionary;
+    [Tooltip("Drag en EvidenceMenu component here.")]
+    [SerializeField] private EvidenceMenu _evidenceMenu;
     
     // Start is called before the first frame update
     void Start()
@@ -31,9 +29,19 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
             _directorActionDecoder.SetEvidenceController(this);
         }
 
-        if (_currentEvidenceDictionary == null)
+        if (_evidenceDictionary == null)
         {
-            _currentEvidenceDictionary = ScriptableObject.CreateInstance<EvidenceDictionary>();
+            Debug.LogError("EvidenceDictionary has not been assigned to evidence controller.");
+        }
+
+        if (_evidenceMenu == null)
+        {
+            Debug.LogError("EvidenceMenu has not been assigned to evidence controller.");
+        }
+
+        if (_evidenceDictionary != null && _evidenceMenu != null)
+        {
+            _evidenceMenu.EvidenceDictionary = _evidenceDictionary;
         }
     }
 
@@ -44,12 +52,12 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidence">The name of the evidence to add.</param>
     public void AddEvidence(string evidence)
     {
-        if (_masterEvidenceDictionary == null)
+        if (!HasEvidenceDictionary())
         {
-            Debug.LogError("Cannot add evidence. Evidence dictionary has not been assigned.");
+            return;
         }
         
-        _currentEvidenceDictionary.AddEvidence(_masterEvidenceDictionary.GetEvidence(evidence));
+        _evidenceDictionary.AddEvidence(evidence);
     }
 
     /// <summary>
@@ -58,12 +66,12 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidence">The name of the evidence to remove.</param>
     public void RemoveEvidence(string evidence)
     {
-        if (_masterEvidenceDictionary == null)
+        if (!HasEvidenceDictionary())
         {
-            Debug.LogError("Cannot remove evidence. Evidence dictionary has not been assigned.");
+            return;
         }
-        
-        _currentEvidenceDictionary.RemoveEvidence(evidence);
+            
+        _evidenceDictionary.RemoveEvidence(evidence);
     }
 
     public void AddToCourtRecord(string actor)
@@ -86,6 +94,27 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidence"></param>
     public void SubstituteEvidence(string evidence)
     {
-        _currentEvidenceDictionary.SubstituteEvidenceWithAlt(evidence);
+        if (!HasEvidenceDictionary())
+        {
+            return;
+        }
+        
+        _evidenceDictionary.SubstituteEvidenceWithAlt(evidence);
+    }
+
+    /// <summary>
+    /// Checks if an evidence dictionary has been assigned.
+    /// Should be called before accessing the evidence dictionary.
+    /// </summary>
+    /// <returns></returns>
+    public bool HasEvidenceDictionary()
+    {
+        if (_evidenceDictionary == null)
+        {
+            Debug.LogError("EvidenceDictionary has not been assigned to evidence controller.");
+            return false;
+        }
+
+        return true;
     }
 }
