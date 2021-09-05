@@ -21,7 +21,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
         _menu = GetComponentInParent<Menu>();
         _menu.OnSetInteractable.AddListener(interactable => _selectable.interactable = interactable);
 
-        if (!TryGetComponent(out _highlight))
+        if (!TryGetComponent<IHighlight>(out _highlight))
         {
             Debug.LogError("Unable to find component with IHighlight interface.");
         }

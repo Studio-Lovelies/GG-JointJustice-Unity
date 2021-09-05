@@ -30,7 +30,7 @@ public class MenuOpener : MonoBehaviour
         _button = GetComponent<Button>();
         _parentMenu = GetComponentInParent<Menu>();
         
-        // Don't disable self on line 44 if opening self
+        // Don't disable self when opening menu if opening menu this is part of
         if (_parentMenu == _menuToOpen)
         {
             _parentMenu = null;

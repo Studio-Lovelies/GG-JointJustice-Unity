@@ -70,6 +70,11 @@ public class DialogueController : MonoBehaviour
         _onBusySet.Invoke(_isBusy);
     }
 
+    /// <summary>
+    /// Makes sure the system can't continue when a menu is open.
+    /// Should be set by a menu's opening and closing events.
+    /// </summary>
+    /// <param name="isMenuOpen">Whether is open (true) or not (false).</param>
     public void SetMenuOpen(bool isMenuOpen)
     {
         _isMenuOpen = isMenuOpen;

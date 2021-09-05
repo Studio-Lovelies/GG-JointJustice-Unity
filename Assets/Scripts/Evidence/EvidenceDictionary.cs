@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EvidenceDictionary : MonoBehaviour, IEvidenceDictionary
+public class EvidenceDictionary : MonoBehaviour
 {
     [SerializeField, Tooltip("Drag an EvidenceList here containing all the evidence available in the scene")]
     private EvidenceList _masterEvidenceList;
@@ -15,7 +15,7 @@ public class EvidenceDictionary : MonoBehaviour, IEvidenceDictionary
     private Dictionary<string, Evidence> _currentEvidenceDictionary;
 
     public int Count => _currentEvidenceDictionary.Count;
-    
+
     /// <summary>
     /// Converts the evidence list into a dictionary on awake
     /// </summary>
@@ -44,7 +44,6 @@ public class EvidenceDictionary : MonoBehaviour, IEvidenceDictionary
         var evidenceDictionary = new Dictionary<string, Evidence>();
         foreach (var evidence in evidenceList)
         {
-            Debug.Log(evidence.name);
             evidenceDictionary.Add(evidence.name, evidence);
         }
         return evidenceDictionary;
@@ -61,6 +60,12 @@ public class EvidenceDictionary : MonoBehaviour, IEvidenceDictionary
             return;
         }
 
+        if (_currentEvidenceDictionary.ContainsKey(evidenceName))
+        {
+            Debug.LogError($"Evidence with name {evidenceName} has already been added to the dictionary.");
+            return;
+        }
+        
         Evidence evidence = _masterEvidenceDictionary[evidenceName];
         _currentEvidenceDictionary.Add(evidence.name, evidence);
     }
@@ -107,7 +112,7 @@ public class EvidenceDictionary : MonoBehaviour, IEvidenceDictionary
 
         if (_currentEvidenceDictionary[evidenceName].AltEvidence == null)
         {
-            Debug.LogError($"Evidence {evidenceName} does not have an alternate Evidence object assigned");
+            Debug.LogError($"Evidence {evidenceName} does not have an alternate Evidence object assigned.");
             return;
         }
         

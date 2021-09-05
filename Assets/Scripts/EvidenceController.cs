@@ -9,14 +9,14 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
     [Tooltip("This event is called when the PRESENT_EVIDENCE action is called.")]
-    [SerializeField] private UnityEvent _onPresentEvidence;
+    [SerializeField] private UnityEvent _onOpenEvidenceMenu;
+
+    [Tooltip("This event is called when a piece of evidence is clicked")]
+    [SerializeField] private UnityEvent<Evidence> _onPresentEvidence;
 
     [Tooltip("Drag an EvidenceDictionary component here.")]
-    [SerializeField] private EvidenceDictionary _evidenceDictionary;
+    [SerializeField] public EvidenceDictionary _evidenceDictionary;
 
-    [Tooltip("Drag en EvidenceMenu component here.")]
-    [SerializeField] private EvidenceMenu _evidenceMenu;
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,16 +32,6 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
         if (_evidenceDictionary == null)
         {
             Debug.LogError("EvidenceDictionary has not been assigned to evidence controller.");
-        }
-
-        if (_evidenceMenu == null)
-        {
-            Debug.LogError("EvidenceMenu has not been assigned to evidence controller.");
-        }
-
-        if (_evidenceDictionary != null && _evidenceMenu != null)
-        {
-            _evidenceMenu.EvidenceDictionary = _evidenceDictionary;
         }
     }
 
@@ -83,16 +73,16 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// Method called by DirectorActionDecoder to open the evidence menu to allow presenting of evidence.
     /// Calls an event which should open (and disable closing of) the evidence menu.
     /// </summary>
-    public void PresentEvidence()
+    public void OpenEvidenceMenu()
     {
-        _onPresentEvidence.Invoke();
+        _onOpenEvidenceMenu.Invoke();
     }
 
     /// <summary>
     /// Substitutes a piece of evidence with its assigned alternate evidence.
     /// </summary>
     /// <param name="evidence"></param>
-    public void SubstituteEvidence(string evidence)
+    public void SubstituteEvidenceWithAlt(string evidence)
     {
         if (!HasEvidenceDictionary())
         {
@@ -116,5 +106,15 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// This method is called by the EvidenceMenu when evidence has been
+    /// clicked and needs to be presented.
+    /// </summary>
+    /// <param name="evidence">The evidence to present.</param>
+    public void OnPresentEvidence(Evidence evidence)
+    {
+        _onPresentEvidence.Invoke(evidence);
     }
 }

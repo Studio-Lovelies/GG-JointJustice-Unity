@@ -63,7 +63,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
             case "ADD_RECORD": AddToCourtRecord(parameters); break;
-            case "PRESENT_EVIDENCE": PresentEvidence(); break;
+            case "PRESENT_EVIDENCE": OpenEvidenceMenu(); break;
             case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(parameters); break;
             //Dialog controller
             case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
@@ -415,12 +415,12 @@ public class DirectorActionDecoder : MonoBehaviour
     /// Calls the onPresentEvidence event on evidence controller which
     /// opens the evidence menu so evidence can be presented.
     /// </summary>
-    void PresentEvidence()
+    void OpenEvidenceMenu()
     {
         if (!HasEvidenceController())
             return;
         
-        _evidenceController.PresentEvidence();
+        _evidenceController.OpenEvidenceMenu();
     }
 
     /// <summary>
@@ -432,7 +432,7 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasEvidenceController())
             return;
         
-        _evidenceController.SubstituteEvidence(evidence);
+        _evidenceController.SubstituteEvidenceWithAlt(evidence);
         _onActionDone.Invoke();
     }
 

@@ -7,6 +7,7 @@ public interface IEvidenceController
     void AddEvidence(string evidence);
     void RemoveEvidence(string evidence);
     void AddToCourtRecord(string actor);
-    void PresentEvidence();
-    void SubstituteEvidence(string evidence);
+    void OpenEvidenceMenu();
+    void SubstituteEvidenceWithAlt(string evidence);
+    void OnPresentEvidence(Evidence evidence);
 }

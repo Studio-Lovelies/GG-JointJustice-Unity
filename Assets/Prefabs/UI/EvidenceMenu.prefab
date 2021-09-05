@@ -878,7 +878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueController: {fileID: 0}
   _menuToOpen: {fileID: 7084934527531664147}
   _onMenuOpened:
     m_PersistentCalls:
@@ -923,6 +922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _evidenceController: {fileID: 0}
+  _evidenceDictionary: {fileID: 0}
   _evidenceName: {fileID: 718440828617980491}
   _evidenceDescription: {fileID: 5482929427871141826}
   _evidenceIcon: {fileID: 9162846178544409735}
@@ -943,18 +943,6 @@ MonoBehaviour:
       - m_Target: {fileID: 6233210149760700004}
         m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
         m_MethodName: ForceCloseMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: OnContinueStory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1086,6 +1074,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EvidenceMenuItem (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1203,6 +1195,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EvidenceMenuItem (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1319,6 +1315,10 @@ PrefabInstance:
     - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Name
       value: EvidenceMenuItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Pivot.x
@@ -1448,6 +1448,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EvidenceMenuItem (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1564,6 +1568,10 @@ PrefabInstance:
     - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Name
       value: EvidenceMenuItem (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Pivot.x
@@ -1682,6 +1690,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EvidenceMenuItem (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1798,6 +1810,10 @@ PrefabInstance:
     - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Name
       value: EvidenceMenuItem (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Pivot.x
@@ -1916,6 +1932,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EvidenceMenuItem (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2032,6 +2052,10 @@ PrefabInstance:
     - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Name
       value: EvidenceMenuItem (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016428, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_Pivot.x
