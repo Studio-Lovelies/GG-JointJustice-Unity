@@ -118,6 +118,15 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    public void OnPressWitness()
+    {
+        if (_dialogueMode != DialogueControllerMode.CrossExamination)
+        {
+            return;
+        }
+        HandleChoice(1);
+    }
+
     public void HandleChoice(int choice)
     {
         if (!_isAtChoice || _isBusy || _isMenuOpen)
