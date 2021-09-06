@@ -26,17 +26,17 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            var menus = Resources.FindObjectsOfTypeAll<Menu>();
-            var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
-            var subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
-            var secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
+            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
+            Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
-            var mouse = InputSystem.AddDevice<Mouse>();
+            Mouse mouse = InputSystem.AddDevice<Mouse>();
 
-            var openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton");
-            var openSecondSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
-            var closeSecondSubMenuButton = secondSubMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (4)");
-            var closeFirstSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (4)");
+            RectTransform openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton");
+            RectTransform openSecondSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
+            RectTransform closeSecondSubMenuButton = secondSubMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (4)");
+            RectTransform closeFirstSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (4)");
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
@@ -72,16 +72,16 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            var menus = Resources.FindObjectsOfTypeAll<Menu>();
-            var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
-            var subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
-            var secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
+            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
+            Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
-            var mouse = InputSystem.AddDevice<Mouse>();
+            Mouse mouse = InputSystem.AddDevice<Mouse>();
 
-            var openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton");
-            var openSecondSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
-            var closeAllSubMenusButton = secondSubMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
+            RectTransform openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton");
+            RectTransform openSecondSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
+            RectTransform closeAllSubMenusButton = secondSubMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
@@ -109,17 +109,17 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         [ReloadScene]
         public IEnumerator CanStartGame()
         { 
-            var sceneManagerAPIStub = new SceneManagerAPIStub();
+            SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
             SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
 
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            var menus = Resources.FindObjectsOfTypeAll<Menu>();
-            var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
 
-            var mouse = InputSystem.AddDevice<Mouse>();
+            Mouse mouse = InputSystem.AddDevice<Mouse>();
 
-            var startGameButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
+            RectTransform startGameButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
 
             Set(mouse.position, startGameButton.position + startGameButton.localScale * 0.5f);
             Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));

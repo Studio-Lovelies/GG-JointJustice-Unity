@@ -1,14 +1,10 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.TestTools;
 
-namespace Tests.PlayModeTests.DialogueController
+namespace Tests.PlayModeTests.Scripts.DialogueController
 {
     public class DialogueController
     {
@@ -19,30 +15,30 @@ namespace Tests.PlayModeTests.DialogueController
         public void DialogueController_OnNextLine_CallsCorrectEvents()
         {
             // Setup component
-            var dialogueControllerGameObject = new GameObject("DialogueController");
-            var dialogueController = dialogueControllerGameObject.AddComponent<global::DialogueController>();
+            GameObject dialogueControllerGameObject = new GameObject("DialogueController");
+            global::DialogueController dialogueController = dialogueControllerGameObject.AddComponent<global::DialogueController>();
 
             // Setup event listener for action and spoken lines
             List<string> spokenLines = new List<string>();
-            var spokenLinesEvent = new NewSpokenLineEvent();
+            NewSpokenLineEvent spokenLinesEvent = new NewSpokenLineEvent();
             spokenLinesEvent.AddListener(spokenLine => {
                 spokenLines.Add(spokenLine);
             });
 
             List<string> actionLines = new List<string>();
-            var actionLinesEvent = new NewActionLineEvent();
+            NewActionLineEvent actionLinesEvent = new NewActionLineEvent();
             actionLinesEvent.AddListener(actionLine => {
                 actionLines.Add(actionLine);
             });
 
             FieldInfo onNewSpokenLineFieldInfo = dialogueController.GetType().GetField("_onNewSpokenLine", BindingFlags.NonPublic | BindingFlags.Instance);
-            onNewSpokenLineFieldInfo.SetValue(dialogueController, spokenLinesEvent);
+            onNewSpokenLineFieldInfo?.SetValue(dialogueController, spokenLinesEvent);
 
             FieldInfo onNewActionLineFieldInfo = dialogueController.GetType().GetField("_onNewActionLine", BindingFlags.NonPublic | BindingFlags.Instance);
-            onNewActionLineFieldInfo.SetValue(dialogueController, actionLinesEvent);
+            onNewActionLineFieldInfo?.SetValue(dialogueController, actionLinesEvent);
 
             FieldInfo onNewLineFieldInfo = dialogueController.GetType().GetField("_onNewLine", BindingFlags.NonPublic | BindingFlags.Instance);
-            onNewLineFieldInfo.SetValue(dialogueController, new UnityEvent());
+            onNewLineFieldInfo?.SetValue(dialogueController, new UnityEvent());
 
             dialogueController.SetNarrativeScript(new TextAsset(ActionFollowedByScriptSerializedInk));
 
