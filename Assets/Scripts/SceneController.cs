@@ -86,7 +86,6 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds"></param>
     public void Wait(float seconds)
     {
-        Debug.Log("Waiting for " + seconds + " seconds");
         _waitCoroutine = StartCoroutine(WaitCoroutine(seconds));
     }
 

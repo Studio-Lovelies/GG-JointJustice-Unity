@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ink.Runtime;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public enum DialogueControllerMode
@@ -27,6 +28,8 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private TextAsset _narrativeScript;
 
     [SerializeField] private DialogueControllerMode _dialogueMode = DialogueControllerMode.Dialogue;
+
+    [SerializeField] private FailureStoryList _failureList;
 
     [SerializeField] private GameObject _dialogueControllerPrefab;
 
@@ -89,9 +92,9 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     public void OnContinueStory()
     {
-        if (_isBusy || _isMenuOpen)
+        if (_isBusy || _isMenuOpen) //Doesn't need to be handled in the sub story
         {
-            Debug.LogWarning($"Tried to continue while {(_isBusy ? "busy" : "menu is open")}");
+            Debug.Log($"Tried to continue while {(_isBusy ? "busy" : "menu is open")}");
             return;
         }
 
@@ -139,25 +142,35 @@ public class DialogueController : MonoBehaviour
     /// <param name="isMenuOpen">Whether is open (true) or not (false).</param>
     public void SetMenuOpen(bool isMenuOpen)
     {
-        Debug.Log(isMenuOpen);
         _isMenuOpen = isMenuOpen;
     }
 
     public void HandleEvidencePresented(Evidence evidence)
+    {
+        HandlePresenting(evidence.name);
+    }
+
+    public void HandleActorPresented(Actor actor)
+    {
+        HandlePresenting(actor.name);
+    }
+
+    private void HandlePresenting(string presentedObject)
     {
         List<Choice> choiceList = _inkStory.currentChoices;
 
         if (choiceList.Count <= 2)
         {
             //Deal with bad consequences, spawn sub story and continue that
-            HandleChoice(0); //0 is continue, for debug purposes
+            StartSubStory(_failureList.GetRandomFailurestate());
+            return;
         }
         else
         {
             int evidenceFoundAt = -1;
             for (int i = 2; i < choiceList.Count; i++)
             {
-                if (choiceList[i].text == evidence.name)
+                if (choiceList[i].text == presentedObject)
                 {
                     evidenceFoundAt = i;
                     break;
@@ -170,7 +183,8 @@ public class DialogueController : MonoBehaviour
             else
             {
                 //Deal with bad consequences, spawn sub story and continue that
-                HandleChoice(0); //0 is continue, for debug purposes
+                StartSubStory(_failureList.GetRandomFailurestate());
+                return;
             }
         }
     }
@@ -219,7 +233,6 @@ public class DialogueController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Done with story " + gameObject.transform.name);
                 _onDialogueFinished.Invoke();
             }
         }
@@ -295,9 +308,6 @@ public class DialogueController : MonoBehaviour
         return line[0] == ACTION_TOKEN;
     }
 
-
-
-
     //Sub story stuff
     public void StartSubStory(TextAsset subStory)
     {
@@ -316,6 +326,11 @@ public class DialogueController : MonoBehaviour
     public void OnSubStoryActionLine(string actionLine)
     {
         _onNewActionLine.Invoke(actionLine);
+    }
+
+    public void OnSubStoryChoicesPresented(List<Choice> choices)
+    {
+        _onChoicePresented.Invoke(choices);
     }
 
     public void OnSubStoryFinished()

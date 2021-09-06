@@ -35,8 +35,8 @@
     -> Line1
 + [Press]
     -> Line4Press
-+ [Attorneys_Badge] 
-    &ACTOR:Ross //This shouldn't be read
++ [Attorneys_Badge] //Shouldn't be here, just for testing purposes
+    &ACTOR:Ross
     &SPEAK:Ross
     Oi m8, that's a noice bit of stuff roit thare!
     
