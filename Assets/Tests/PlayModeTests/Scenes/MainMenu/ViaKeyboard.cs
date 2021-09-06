@@ -29,16 +29,16 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            var menus = Resources.FindObjectsOfTypeAll<Menu>();
-            var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
-            var subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
-            var secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
+            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
+            Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
-            var keyboard = InputSystem.AddDevice<Keyboard>();
+            Keyboard keyboard = InputSystem.AddDevice<Keyboard>();
 
-            var selectedButton = mainMenu.SelectedButton.name;
+            string selectedButton = mainMenu.SelectedButton.name;
             yield return PressForFrame(keyboard.rightArrowKey);
-            var newSelectedButton = mainMenu.SelectedButton.name;
+            string newSelectedButton = mainMenu.SelectedButton.name;
             Assert.AreNotEqual(selectedButton, newSelectedButton);
 
             Assert.True(mainMenu.Active);
@@ -75,16 +75,16 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            var menus = Resources.FindObjectsOfTypeAll<Menu>();
-            var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
-            var subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
-            var secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
+            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
+            Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
-            var keyboard = InputSystem.AddDevice<Keyboard>();
+            Keyboard keyboard = InputSystem.AddDevice<Keyboard>();
 
-            var selectedButton = mainMenu.SelectedButton.name;
+            string selectedButton = mainMenu.SelectedButton.name;
             yield return PressForFrame(keyboard.rightArrowKey);
-            var newSelectedButton = mainMenu.SelectedButton.name;
+            string newSelectedButton = mainMenu.SelectedButton.name;
             Assert.AreNotEqual(selectedButton, newSelectedButton);
 
             Assert.True(mainMenu.Active);
@@ -109,10 +109,10 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         [ReloadScene]
         public IEnumerator CanStartGame()
         { 
-            var sceneManagerAPIStub = new SceneManagerAPIStub();
+            SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
             SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
 
-            var keyboard = InputSystem.AddDevice<Keyboard>();
+            Keyboard keyboard = InputSystem.AddDevice<Keyboard>();
 
             Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
             yield return PressForFrame(keyboard.enterKey);

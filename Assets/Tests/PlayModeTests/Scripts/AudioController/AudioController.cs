@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Tests.PlayModeTests.AudioController
+namespace Tests.PlayModeTests.Scripts.AudioController
 {
     // NOTE: As there's no audio hardware present when running headless (i.e. inside automated build processes),
     //       things like ".isPlaying" or ".time"  of AudioSources cannot be asserted, as they will remain
@@ -15,30 +15,28 @@ namespace Tests.PlayModeTests.AudioController
         [UnityTest]
         public IEnumerator AudioController_PlaySong_FadesBetweenSongs()
         {
-            var audioControllerGameObject = new GameObject("AudioController");
+            GameObject audioControllerGameObject = new GameObject("AudioController");
             audioControllerGameObject.AddComponent<AudioListener>(); // required to prevent excessive warnings
-            var audioController = audioControllerGameObject.AddComponent<global::AudioController>();
+            global::AudioController audioController = audioControllerGameObject.AddComponent<global::AudioController>();
 
             // expect error due to missing DirectorActionDecoder
             LogAssert.Expect(LogType.Error, "Audio Controller doesn't have an action decoder to attach to");
             yield return new WaitForEndOfFrame();
-            var audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
+            AudioSource audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
 
             FieldInfo type = audioController.GetType().GetField("_transitionDuration", BindingFlags.NonPublic | BindingFlags.Instance);
             if (type is null) // needed to satisfy Intellisense's "possible NullReferenceException" in line below conditional
             {
                 Assert.IsNotNull(type);
-                yield break;
             }
-            var transitionDuration = (float)type.GetValue(audioController);
+            float transitionDuration = (float)type.GetValue(audioController);
 
             FieldInfo settingsMusicVolumeType = audioController.GetType().GetField("_settingsMusicVolume", BindingFlags.NonPublic | BindingFlags.Instance);
             if (settingsMusicVolumeType is null) // needed to satisfy Intellisense's "possible NullReferenceException" in line below conditional
             {
                 Assert.IsNotNull(settingsMusicVolumeType);
-                yield break;
             }
-            var settingsMusicVolume = (float)settingsMusicVolumeType.GetValue(audioController);
+            float settingsMusicVolume = (float)settingsMusicVolumeType.GetValue(audioController);
 
             // setup and verify steady state of music playing for a while
             const string firstSong = "aBoyAndHisTrial";
