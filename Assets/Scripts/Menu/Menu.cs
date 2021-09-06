@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -18,12 +19,12 @@ public class Menu : MonoBehaviour
 
     public UnityEvent<bool> OnSetInteractable { get; } = new UnityEvent<bool>();
     public Selectable SelectedButton { get; set; } // Set by child buttons when they are selected
-    public bool Active => gameObject.activeInHierarchy && SelectedButton.interactable; // Returns true when no child menus are active ONLY if this menu is enabled
+    public bool Active => gameObject.activeInHierarchy && (SelectedButton == null || SelectedButton.interactable); // Returns true when no child menus are active ONLY if this menu is enabled
 
     private void Update()
     {
         // Stop button being deselected when clicking somewhere other than a button
-        if (!EventSystem.current.alreadySelecting && SelectedButton != null)
+        if (EventSystem.current.currentSelectedGameObject == null && SelectedButton != null && Active)
         {
             SelectedButton.Select();
         }
@@ -51,5 +52,16 @@ public class Menu : MonoBehaviour
         }
         
         _initiallyHighlightedButton.Select();
+    }
+
+    /// <summary>
+    /// Called when the menu is disabled. Should be used to set DialogueController to not busy.
+    /// </summary>
+    private void OnDisable()
+    {
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 }
