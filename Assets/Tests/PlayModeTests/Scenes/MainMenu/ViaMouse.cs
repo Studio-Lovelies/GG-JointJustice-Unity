@@ -13,11 +13,11 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
     {
         private IEnumerator PressForFrame(ButtonControl control)
         {
-            yield return new WaitForEndOfFrame();
+            yield return null;
             Press(control);
-            yield return new WaitForEndOfFrame();
+            yield return null;
             Release(control);
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
         [UnityTest]

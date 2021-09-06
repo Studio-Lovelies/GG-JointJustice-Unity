@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Linq;
 using NUnit.Framework;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.SceneManagement;
@@ -13,14 +15,11 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
     {
         private IEnumerator PressForFrame(ButtonControl control)
         {
-            currentTime += 1;
-            yield return new WaitForEndOfFrame();
+            yield return null;
             Press(control);
-            currentTime += 1;
-            yield return new WaitForEndOfFrame();
+            yield return null;
             Release(control);
-            currentTime += 1;
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
         [UnityTest]
@@ -35,7 +34,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
             Keyboard keyboard = InputSystem.AddDevice<Keyboard>();
-
+            
             string selectedButton = mainMenu.SelectedButton.name;
             yield return PressForFrame(keyboard.rightArrowKey);
             string newSelectedButton = mainMenu.SelectedButton.name;
