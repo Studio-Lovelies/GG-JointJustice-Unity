@@ -46,13 +46,16 @@ public class DialogueController : MonoBehaviour
 
     [Tooltip("Event fired when a choice is encountered in regular dialogue")]
     [SerializeField] private UnityEvent<List<Choice>> _onChoicePresented;
-
-    private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
-
-    private bool _isAtChoice = false; //Possibly small state machine to handle all input?
+    
+    [Tooltip("This event is called when the _isBusy field is set.")]
+    [SerializeField] private UnityEvent<bool> _onBusySet;
 
     private Story _inkStory;
     bool _isBusy = false;
+    private bool _isMenuOpen;
+    private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
+
+    private bool _isAtChoice = false; //Possibly small state machine to handle all input?
 
     /// <summary>
     /// Called when the object is initialized
@@ -86,9 +89,9 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     public void OnContinueStory()
     {
-        if (_isBusy)
+        if (_isBusy || _isMenuOpen)
         {
-            Debug.LogWarning("Tried to continue while busy");
+            Debug.LogWarning($"Tried to continue while {(_isBusy ? "busy" : "menu is open")}");
             return;
         }
 
@@ -126,7 +129,17 @@ public class DialogueController : MonoBehaviour
             _inkStory.ChooseChoiceIndex(choice);
             _isAtChoice = false;
             OnContinueStory();
-        }
+        }        
+    }
+
+    /// <summary>
+    /// Makes sure the system can't continue when a menu is open.
+    /// Should be set by a menu's opening and closing events.
+    /// </summary>
+    /// <param name="isMenuOpen">Whether is open (true) or not (false).</param>
+    public void SetMenuOpen(bool isMenuOpen)
+    {
+        _isMenuOpen = isMenuOpen;
     }
 
     public void HandleEvidencePresented(string evidence)
@@ -240,6 +253,7 @@ public class DialogueController : MonoBehaviour
     public void SetBusy(bool busy)
     {
         _isBusy = busy;
+        _onBusySet.Invoke(_isBusy);
     }
 
     /// <summary>
