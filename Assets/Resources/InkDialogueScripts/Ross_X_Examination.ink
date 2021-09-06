@@ -35,12 +35,14 @@
     -> Line1
 + [Press]
     -> Line4Press
-+ [UnoReverse]  //evidence example, not actually used
++ [Attorneys_Badge] 
+    &ACTOR:Ross //This shouldn't be read
     &SPEAK:Ross
-    ... Wait, you can't do that here! We're playing bridge!
+    Oi m8, that's a noice bit of stuff roit thare!
     
+    &ACTOR:Arin
     &SPEAK:Arin
-    Oh yeah, my b.
+    Thanks bud!
     -> Line1
 
 

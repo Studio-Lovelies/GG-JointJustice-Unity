@@ -117,7 +117,7 @@ public class DialogueController : MonoBehaviour
 
     public void HandleChoice(int choice)
     {
-        if (!_isAtChoice || _isBusy)
+        if (!_isAtChoice || _isBusy || _isMenuOpen)
             return;
 
         if (choice > _inkStory.currentChoices.Count)
@@ -139,25 +139,29 @@ public class DialogueController : MonoBehaviour
     /// <param name="isMenuOpen">Whether is open (true) or not (false).</param>
     public void SetMenuOpen(bool isMenuOpen)
     {
+        Debug.Log(isMenuOpen);
         _isMenuOpen = isMenuOpen;
     }
 
-    public void HandleEvidencePresented(string evidence)
+    public void HandleEvidencePresented(Evidence evidence)
     {
         List<Choice> choiceList = _inkStory.currentChoices;
 
         if (choiceList.Count <= 2)
         {
-            //No evidence possible for a good direction, kill off.
+            //Deal with bad consequences, spawn sub story and continue that
+            HandleChoice(0); //0 is continue, for debug purposes
         }
         else
         {
             int evidenceFoundAt = -1;
             for (int i = 2; i < choiceList.Count; i++)
             {
-                //if choiceList[i] == evidence
-                //Do the thing
-                //Can't be implemented yet cause evidence isn't implemented yet.
+                if (choiceList[i].text == evidence.name)
+                {
+                    evidenceFoundAt = i;
+                    break;
+                }
             }
             if (evidenceFoundAt != -1)
             {
@@ -179,6 +183,16 @@ public class DialogueController : MonoBehaviour
         if (_inkStory.canContinue)
         {
             string currentLine = _inkStory.Continue();
+            if (currentLine.Length == 0) //0 should never happen
+            {
+                Debug.LogError("Linelength was 0, should never happen");
+                return;
+            }
+            else if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
+            {
+                HandleNextLineDialogue();
+                return;
+            }
 
             if (IsAction(currentLine))
             {
@@ -186,6 +200,11 @@ public class DialogueController : MonoBehaviour
             }
             else
             {
+                if (currentLine == "\n")
+                {
+                    HandleNextLineDialogue();
+                    return;
+                }
                 _onNewSpokenLine.Invoke(currentLine);
             }
         }
@@ -217,6 +236,16 @@ public class DialogueController : MonoBehaviour
         if (_inkStory.canContinue)
         {
             string currentLine = _inkStory.Continue();
+            if (currentLine.Length == 0) //0 should never happen
+            {
+                Debug.LogError("Linelength was 0, should never happen");
+                return;
+            }
+            else if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
+            {
+                HandleNextLineCrossExamination();
+                return;
+            }
 
             _onNewLine.Invoke();
 
