@@ -39,10 +39,10 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private UnityEvent _onNewLine; // TODO make this into a custom event
 
     [Tooltip("Attach a dialogue controller to this so it can display spoken lines")]
-    [SerializeField] private NewSpokenLineEvent _onNewSpokenLine;
+    [SerializeField] private UnityEvent<string> _onNewSpokenLine;
 
     [Tooltip("Attach an action decoder so it can deal with the actions")]
-    [SerializeField] private NewActionLineEvent _onNewActionLine;
+    [SerializeField] private UnityEvent<string> _onNewActionLine;
 
     [Tooltip("Event fired when the dialogue is over")]
     [SerializeField] private UnityEvent _onDialogueFinished;
@@ -71,11 +71,16 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initialzed a sub story by hooking the events to the parent dialogue so everything propagated down correctly
+    /// </summary>
+    /// <param name="parent">Parent of this dialogue to hook everything in to</param>
     void SubStoryInit(DialogueController parent)
     {
         _onNewSpokenLine.AddListener(parent.OnSubStorySpokenLine);
         _onNewActionLine.AddListener(parent.OnSubStoryActionLine);
         _onDialogueFinished.AddListener(parent.OnSubStoryFinished);
+        _onChoicePresented.AddListener(parent.OnSubStoryChoicesPresented);
     }
 
     /// <summary>
@@ -118,6 +123,9 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called externally to press the witness. Makes sure we're in cross examination mode before calling handle choice.
+    /// </summary>
     public void OnPressWitness()
     {
         if (_dialogueMode != DialogueControllerMode.CrossExamination)
@@ -127,6 +135,10 @@ public class DialogueController : MonoBehaviour
         HandleChoice(1);
     }
 
+    /// <summary>
+    /// If the system is at a choice, this picks the choice and continues the story
+    /// </summary>
+    /// <param name="choice">The index of the choice to be picked (0 based)</param>
     public void HandleChoice(int choice)
     {
         if (!_isAtChoice || _isBusy || _isMenuOpen)
@@ -154,18 +166,36 @@ public class DialogueController : MonoBehaviour
         _isMenuOpen = isMenuOpen;
     }
 
+    /// <summary>
+    /// Handles presenting evidence through an evidence object
+    /// </summary>
+    /// <param name="evidence">Evidence presented</param>
     public void HandleEvidencePresented(Evidence evidence)
     {
         HandlePresenting(evidence.name);
     }
 
+    /// <summary>
+    /// Handles presenting evidence through an actor object
+    /// </summary>
+    /// <param name="actor">Actor presented</param>
     public void HandleActorPresented(Actor actor)
     {
         HandlePresenting(actor.name);
     }
 
+    /// <summary>
+    /// Actually handles the evidence being presented by seeing if it is one of the current choices and then progressing the story appriopriately. Makes sure we're in cross examination mode before continuing.
+    /// May spawn a random failure sub story.
+    /// </summary>
+    /// <param name="presentedObject">Name of the object you want to present to the court</param>
     private void HandlePresenting(string presentedObject)
     {
+        if (_dialogueMode != DialogueControllerMode.CrossExamination)
+        {
+            return;
+        }
+
         List<Choice> choiceList = _inkStory.currentChoices;
 
         if (choiceList.Count <= 2)
@@ -198,6 +228,9 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the next line of dialogue in regular dialogue mode.
+    /// </summary>
     private void HandleNextLineDialogue()
     {
         if (_isAtChoice) //Make sure we don't continue unless we're not at a choice
@@ -247,6 +280,9 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the next line of dialogue in cross examination mode.
+    /// </summary>
     private void HandleNextLineCrossExamination()
     {
         if (_isAtChoice)
@@ -318,6 +354,11 @@ public class DialogueController : MonoBehaviour
     }
 
     //Sub story stuff
+
+    /// <summary>
+    /// Starts a new sub story based on the provided inky dialogue script. The sub story always goes before the main story. When the sub story is finished, the main story continues on the line after the one it left off on.
+    /// </summary>
+    /// <param name="subStory">Inky dialogue script to be set as the sub story</param>
     public void StartSubStory(TextAsset subStory)
     {
         GameObject obj = GameObject.Instantiate(_dialogueControllerPrefab);
@@ -327,21 +368,36 @@ public class DialogueController : MonoBehaviour
         _subStory.OnContinueStory();
     }
 
+    /// <summary>
+    /// Callback for a sub story so it can propagate downwards
+    /// </summary>
+    /// <param name="spokenLine">Spoken line to be shown</param>
     public void OnSubStorySpokenLine(string spokenLine)
     {
         _onNewSpokenLine.Invoke(spokenLine);
     }
 
+    /// <summary>
+    /// Callback for a sub story so it can propagate downwards
+    /// </summary>
+    /// <param name="actionLine">Action line to be handled</param>
     public void OnSubStoryActionLine(string actionLine)
     {
         _onNewActionLine.Invoke(actionLine);
     }
 
+    /// <summary>
+    /// Callback for a sub story so it can propagate downwards
+    /// </summary>
+    /// <param name="choices">Choices to be presented</param>
     public void OnSubStoryChoicesPresented(List<Choice> choices)
     {
         _onChoicePresented.Invoke(choices);
     }
 
+    /// <summary>
+    /// Callback for when the sub story is finished to we can destroy the gameobject it is contained in and continue this story.
+    /// </summary>
     public void OnSubStoryFinished()
     {
         Destroy(_subStory.gameObject);

@@ -7,6 +7,10 @@ public class FailureStoryList : ScriptableObject
 {
     [SerializeField] private List<TextAsset> _failureStates;
 
+    /// <summary>
+    /// Gets a random failure state from the list.
+    /// </summary>
+    /// <returns>Inky dialogue script containing a failure sub-story.</returns>
     public TextAsset GetRandomFailurestate()
     {
         if (_failureStates == null || _failureStates.Count == 0)
