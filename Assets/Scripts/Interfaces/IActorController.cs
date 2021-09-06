@@ -1,3 +1,9 @@
+public enum SpeakingType
+{
+    Speaking,
+    Thinking
+}
+
 public interface IActorController
 { 
     void SetActiveActor(string actor);
@@ -8,4 +14,5 @@ public interface IActorController
     void StartTalking();
     void StopTalking();
     void OnAnimationDone();
+    void SetSpeakingType(SpeakingType speakingType);
 }

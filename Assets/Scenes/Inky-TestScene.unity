@@ -307,12 +307,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _narrativeScript
       value: 
-      objectReference: {fileID: 4900000, guid: 4e358af8a547cf749b1bf60efb1926c3, type: 3}
+      objectReference: {fileID: 4900000, guid: 3bbbc8ea4e3979648a13c4d73b62b60f, type: 3}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueControllerPrefab
       value: 
@@ -399,14 +399,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5490628541157029231, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_text
-      value: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus
-        leo nec mi pulvinar, eget molestie purus gravida. Aliquam imperdiet pharetra
-        massa vel aliquam. Pellentesque interdum vehicula ligula, sit amet semper
-        dolor suscipit ut. Cras eu nisiLorem ipsum dolor sit
+      value: <color=#2222FF>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Integer luctus leo nec mi pulvinar, eget molestie purus gravida. Aliquam
+        imperdiet pharetra massa vel aliquam. Pellentesque interdum vehicula ligula,
+        sit amet semper dolor suscipit ut. Cras eu nisiLorem ipsum dolor sit
       objectReference: {fileID: 0}
     - target: {fileID: 5490628541157029231, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_fontSize
-      value: 71.2
+      value: 70.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
