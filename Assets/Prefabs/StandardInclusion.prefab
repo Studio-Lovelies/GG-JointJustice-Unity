@@ -293,6 +293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _narrativeScript: {fileID: 4900000, guid: 4e358af8a547cf749b1bf60efb1926c3, type: 3}
   _dialogueMode: 1
+  _failureList: {fileID: 11400000, guid: 5bc1f8e947a0c174097bbf8169c7299d, type: 2}
   _dialogueControllerPrefab: {fileID: 5570224489643181960, guid: 455e7eb71973e5c4fa9b886d5f8a5a63, type: 3}
   _onNewLine:
     m_PersistentCalls:
@@ -455,8 +456,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5228303783123296233}
         m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: HandleChoice
-        m_Mode: 3
+        m_MethodName: OnPressWitness
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -897,8 +898,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5228303783123296233}
         m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: OnContinueStory
-        m_Mode: 1
+        m_MethodName: HandleEvidencePresented
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
