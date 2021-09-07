@@ -47,7 +47,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
             return;
         }
         
-        _evidenceDictionary.AddValue(evidence);
+        _evidenceDictionary.AddObject(evidence);
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
             return;
         }
             
-        _evidenceDictionary.RemoveValue(evidence);
+        _evidenceDictionary.RemoveObject(evidence);
     }
 
     public void AddToCourtRecord(string actor)

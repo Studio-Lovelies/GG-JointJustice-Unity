@@ -63,7 +63,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         { 
-            _activeActor.SetActor(_actorDictionary.Actors[actor]);
+            _activeActor.SetActor(_actorDictionary[actor]);
         }
         catch (KeyNotFoundException exception)
         {
@@ -112,7 +112,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _actorDictionary.Actors[actor];
+            _currentSpeakingActor = _actorDictionary[actor];
             _onNewSpeakingActor.Invoke(_currentSpeakingActor);
         }
         catch (KeyNotFoundException exception)

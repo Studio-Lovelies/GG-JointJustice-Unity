@@ -13,8 +13,8 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag the evidence dictionary here")]
     private EvidenceDictionary _evidenceDictionary;
 
-    [SerializeField, Tooltip("")]
-    private ActorDictionaryBehaviour _actorDictionary;
+    [SerializeField, Tooltip("Drag the actor dictionary here")]
+    private ActorDictionary _actorDictionary;
     
     [SerializeField, Tooltip("Drag the TextMeshProUGUI component used for displaying the evidence's name here")]
     private TextMeshProUGUI _evidenceName;
@@ -42,6 +42,15 @@ public class EvidenceMenu : MonoBehaviour
     private int _startIndex;
     private Menu _menu;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            _isProfileMenuActive = !_isProfileMenuActive;
+            UpdateEvidenceMenu();
+        }
+    }
+    
     /// <summary>
     /// Get the menu on awake to access its DontResetSelectedOnClose property
     /// </summary>
@@ -69,6 +78,11 @@ public class EvidenceMenu : MonoBehaviour
     private void OnEnable()
     {
         UpdateEvidenceMenu();
+        
+        if (!_menu.DontResetSelectedOnClose)
+        {
+            _currentPage = 0;
+        }
     }
 
     /// <summary>
@@ -82,40 +96,53 @@ public class EvidenceMenu : MonoBehaviour
             return;
         }
         
-        _numberOfPages = Mathf.CeilToInt((float)_evidenceDictionary.Count / _evidenceMenuItems.Length);
-        _currentPage = Mathf.Clamp(_currentPage, 0, _numberOfPages == 0 ? 0 : _numberOfPages - 1); // Max value must always be positive 
-        _startIndex = _currentPage * _evidenceMenuItems.Length;
+        CalculatePages();
+        SetNavigationButtonsActive();
+        DrawMenuItems();
+    }
 
-        if (!_menu.DontResetSelectedOnClose)
-        {
-            _currentPage = 0;
-        }
-        
+    /// <summary>
+    /// Calculates the number of pages, the current pages, and the starting index
+    /// to start getting objects from the object dictionary.
+    /// </summary>
+    private void CalculatePages()
+    {
+        _numberOfPages = Mathf.CeilToInt((float)_evidenceDictionary.Count / _evidenceMenuItems.Length);
+        _currentPage = Mathf.Clamp(_currentPage, 0,_numberOfPages == 0 ? 0 : _numberOfPages - 1); // Max value must always be positive 
+        _startIndex = _currentPage * _evidenceMenuItems.Length;
+    }
+    
+    /// <summary>
+    /// Loops through the navigation buttons and disables them if
+    /// there is less than one page.
+    /// </summary>
+    private void SetNavigationButtonsActive()
+    {
         foreach (var button in _navigationButtons)
         {
             button.interactable = _numberOfPages > 1; // Navigation buttons not needed if less than 2 pages
         }
-
-        int dictionaryCount = _isProfileMenuActive ? _actorDictionary.Count : _evidenceDictionary.Count;
+    }
+    
+    /// <summary>
+    /// Loops through each menu item and gives it an ICourtRecordObject
+    /// or disables it if there is no ICourtRecordObject to assign.
+    /// </summary>
+    private void DrawMenuItems()
+    {
+        ICourtRecordObjectDictionary courtRecordObjectDictionary =
+            _isProfileMenuActive ? (ICourtRecordObjectDictionary)_actorDictionary : _evidenceDictionary;
 
         for (int i = 0; i < _evidenceMenuItems.Length; i++)
         {
-            if (i + _startIndex > dictionaryCount - 1)
+            if (i + _startIndex > courtRecordObjectDictionary.Count - 1)
             {
                 _evidenceMenuItems[i].gameObject.SetActive(false);
             }
             else
             {
                 _evidenceMenuItems[i].gameObject.SetActive(true);
-
-                if (_isProfileMenuActive)
-                {
-                    _evidenceMenuItems[i].Evidence = _actorDictionary.GetValueAtIndex(i + _startIndex);
-                }
-                else
-                {
-                    _evidenceMenuItems[i].Evidence = _evidenceDictionary.GetValueAtIndex(i + _startIndex);
-                }
+                _evidenceMenuItems[i].Evidence = courtRecordObjectDictionary.GetObjectAtIndex(i + _startIndex);
             }
         }
     }
