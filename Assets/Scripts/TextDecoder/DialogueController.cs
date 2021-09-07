@@ -31,12 +31,12 @@ public class DialogueController : MonoBehaviour
 
     [SerializeField] private FailureStoryList _failureList;
 
-    [SerializeField] private GameObject _dialogueControllerPrefab;
+    [SerializeField] private DialogueController _dialogueControllerPrefab;
 
     [Header("Events")]
 
     [Tooltip("Attach a scene controller to this so it can cancel 'wait' actions on new lines.")]
-    [SerializeField] private UnityEvent _onNewLine; // TODO make this into a custom event
+    [SerializeField] private UnityEvent _onNewLine;
 
     [Tooltip("Attach a dialogue controller to this so it can display spoken lines")]
     [SerializeField] private UnityEvent<string> _onNewSpokenLine;
@@ -361,7 +361,7 @@ public class DialogueController : MonoBehaviour
     /// <param name="subStory">Inky dialogue script to be set as the sub story</param>
     public void StartSubStory(TextAsset subStory)
     {
-        GameObject obj = GameObject.Instantiate(_dialogueControllerPrefab);
+        GameObject obj = GameObject.Instantiate(_dialogueControllerPrefab.gameObject);
         _subStory = obj.GetComponent<DialogueController>();
         _subStory.SubStoryInit(this); //RECURSION
         _subStory.SetNarrativeScript(subStory);
