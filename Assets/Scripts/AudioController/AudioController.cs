@@ -54,8 +54,11 @@ public class AudioController : MonoBehaviour, IAudioController
     /// </summary>
     void Update()
     {
-        _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
-        _sfxAudioSource.volume = _settingsSFXVolume;
+        if (_musicAudioSource != null && _musicFader != null)
+            _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
+
+        if (_sfxAudioSource != null)
+            _sfxAudioSource.volume = _settingsSFXVolume;
     }
 
     /// <summary>
