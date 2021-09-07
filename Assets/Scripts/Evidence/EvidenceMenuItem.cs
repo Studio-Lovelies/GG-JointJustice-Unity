@@ -10,12 +10,12 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
 
     [SerializeField, Tooltip("The evidence menu this evidence menu item is a child of")]
     private EvidenceMenu _evidenceMenu;
-    private Evidence _evidence;
+    private ICourtRecordObject _evidence;
 
     /// <summary>
     /// When evidence is assigned to this menu item its Image component will be automatically updated.
     /// </summary>
-    public Evidence Evidence
+    public ICourtRecordObject Evidence
     {
         get => _evidence;
         set

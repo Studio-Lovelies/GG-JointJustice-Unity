@@ -12,6 +12,9 @@ public class EvidenceMenu : MonoBehaviour
 
     [SerializeField, Tooltip("Drag the evidence dictionary here")]
     private EvidenceDictionary _evidenceDictionary;
+
+    [SerializeField, Tooltip("")]
+    private ActorDictionaryBehaviour _actorDictionary;
     
     [SerializeField, Tooltip("Drag the TextMeshProUGUI component used for displaying the evidence's name here")]
     private TextMeshProUGUI _evidenceName;
@@ -28,6 +31,9 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag all buttons used to navigate the menu here so they can be disabled when necessary.")]
     private Button[] _navigationButtons;
 
+    [SerializeField, Tooltip("")]
+    private bool _isProfileMenuActive;
+    
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent _onEvidenceClicked;
     
@@ -50,7 +56,7 @@ public class EvidenceMenu : MonoBehaviour
     /// Called by EvidenceMenuItems when they are selected.
     /// </summary>
     /// <param name="evidence"></param>
-    public void UpdateEvidenceInfo(Evidence evidence)
+    public void UpdateEvidenceInfo(ICourtRecordObject evidence)
     {
         _evidenceName.text = evidence.DisplayName;
         _evidenceDescription.text = evidence.Description;
@@ -90,16 +96,26 @@ public class EvidenceMenu : MonoBehaviour
             button.interactable = _numberOfPages > 1; // Navigation buttons not needed if less than 2 pages
         }
 
+        int dictionaryCount = _isProfileMenuActive ? _actorDictionary.Count : _evidenceDictionary.Count;
+
         for (int i = 0; i < _evidenceMenuItems.Length; i++)
         {
-            if (i + _startIndex > _evidenceDictionary.Count - 1)
+            if (i + _startIndex > dictionaryCount - 1)
             {
                 _evidenceMenuItems[i].gameObject.SetActive(false);
             }
             else
             {
                 _evidenceMenuItems[i].gameObject.SetActive(true);
-                _evidenceMenuItems[i].Evidence = _evidenceDictionary.GetEvidenceAtIndex(i + _startIndex);
+
+                if (_isProfileMenuActive)
+                {
+                    _evidenceMenuItems[i].Evidence = _actorDictionary.GetValueAtIndex(i + _startIndex);
+                }
+                else
+                {
+                    _evidenceMenuItems[i].Evidence = _evidenceDictionary.GetValueAtIndex(i + _startIndex);
+                }
             }
         }
     }
@@ -158,7 +174,7 @@ public class EvidenceMenu : MonoBehaviour
     /// Also used to call en event to close this menu.
     /// </summary>
     /// <param name="evidence">The Evidence object that has been clicked.</param>
-    public void OnEvidenceClicked(Evidence evidence)
+    public void OnEvidenceClicked(ICourtRecordObject evidence)
     {
         _onEvidenceClicked.Invoke();
         _evidenceController.OnPresentEvidence(evidence);

@@ -12,7 +12,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [SerializeField] private UnityEvent _onOpenEvidenceMenu;
 
     [Tooltip("This event is called when a piece of evidence is clicked")]
-    [SerializeField] private UnityEvent<Evidence> _onPresentEvidence;
+    [SerializeField] private UnityEvent<ICourtRecordObject> _onPresentEvidence;
 
     [Tooltip("Drag an EvidenceDictionary component here.")]
     [SerializeField] public EvidenceDictionary _evidenceDictionary;
@@ -47,7 +47,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
             return;
         }
         
-        _evidenceDictionary.AddEvidence(evidence);
+        _evidenceDictionary.AddValue(evidence);
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
             return;
         }
             
-        _evidenceDictionary.RemoveEvidence(evidence);
+        _evidenceDictionary.RemoveValue(evidence);
     }
 
     public void AddToCourtRecord(string actor)
@@ -113,7 +113,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// clicked and needs to be presented.
     /// </summary>
     /// <param name="evidence">The evidence to present.</param>
-    public void OnPresentEvidence(Evidence evidence)
+    public void OnPresentEvidence(ICourtRecordObject evidence)
     {
         _onPresentEvidence.Invoke(evidence);
     }

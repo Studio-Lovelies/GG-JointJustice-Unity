@@ -8,6 +8,8 @@ public class ActorDictionary : ScriptableObject
     [SerializeField] private List<ActorData> _actorDataObjects = new List<ActorData>(); // Initialise to default value to prevent null reference exception on asset creation
     public Dictionary<string, ActorData> Actors { get; } = new Dictionary<string, ActorData>();
 
+    public ActorData[] ActorList => _actorDataObjects.ToArray();
+    
     /// <summary>
     /// Translate the _actorDatas list into a dictionary so
     /// an actor's data can be retrieved using its name.

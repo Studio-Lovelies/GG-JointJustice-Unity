@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Actor Data", menuName = "Actors/Actor Data")]
-public class ActorData : ScriptableObject
+public class ActorData : ScriptableObject, ICourtRecordObject
 {
     [field: SerializeField, Tooltip("The actor's sprite that will appear in the profiles menu.")]
     public Sprite Profile { get; private set; }
@@ -21,4 +21,7 @@ public class ActorData : ScriptableObject
 
     [field: SerializeField, Tooltip("The animator controllers that this actor uses.")]
     public RuntimeAnimatorController AnimatorController { get; private set; }
+
+    public Sprite Icon => Profile;
+    public string Description => Bio;
 }

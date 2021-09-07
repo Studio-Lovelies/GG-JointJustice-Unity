@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Evidence", menuName = "Evidence/Evidence")]
-public class Evidence : ScriptableObject
+public class Evidence : ScriptableObject, ICourtRecordObject
 {
     [field: SerializeField, Tooltip("The name of the evidence, display in the evidence menu.")]
     public string DisplayName { get; private set; }
