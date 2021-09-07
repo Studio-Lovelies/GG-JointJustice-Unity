@@ -21,7 +21,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
 
             // expect error due to missing DirectorActionDecoder
             LogAssert.Expect(LogType.Error, "Audio Controller doesn't have an action decoder to attach to");
-            yield return new WaitForEndOfFrame();
+            yield return null;
             AudioSource audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
 
             FieldInfo type = audioController.GetType().GetField("_transitionDuration", BindingFlags.NonPublic | BindingFlags.Instance);
