@@ -20,13 +20,13 @@ namespace Tests.PlayModeTests.Scripts.DialogueController
 
             // Setup event listener for action and spoken lines
             List<string> spokenLines = new List<string>();
-            NewSpokenLineEvent spokenLinesEvent = new NewSpokenLineEvent();
+            UnityEvent<string> spokenLinesEvent = new UnityEvent<string>();
             spokenLinesEvent.AddListener(spokenLine => {
                 spokenLines.Add(spokenLine);
             });
 
             List<string> actionLines = new List<string>();
-            NewActionLineEvent actionLinesEvent = new NewActionLineEvent();
+            UnityEvent<string> actionLinesEvent = new UnityEvent<string>();
             actionLinesEvent.AddListener(actionLine => {
                 actionLines.Add(actionLine);
             });
