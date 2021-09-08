@@ -12,8 +12,8 @@ public abstract class ObjectDictionaryInterface<T, S> : MonoBehaviour where T : 
     [SerializeReference, Tooltip("Drag an Actor Dictionary here containing all the actors available in the scene.")]
     private S _masterObjectList;
     
-    [SerializeField, Tooltip("Add any evidence that the player should have at the start of the scene here.")]
-    protected T[] CurrentEvidenceList;
+    [field: SerializeField, Tooltip("Add any evidence that the player should have at the start of the scene here.")]
+    protected T[] CurrentObjectList { get; private set; }
     
     protected ObjectDictionary<T> ObjectsDictionary;
     
@@ -30,10 +30,11 @@ public abstract class ObjectDictionaryInterface<T, S> : MonoBehaviour where T : 
         if (_masterObjectList == null)
         {
             Debug.LogError($"Master Object List has not been assigned to {name} on {gameObject.name}.");
+            return;
         }
         
         ObjectsDictionary =
-            new ObjectDictionary<T>(_masterObjectList.ObjectList, CurrentEvidenceList);
+            new ObjectDictionary<T>(_masterObjectList.ObjectList, CurrentObjectList);
     }
 
     /// <summary>

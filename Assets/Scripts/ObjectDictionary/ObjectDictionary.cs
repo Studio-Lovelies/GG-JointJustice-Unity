@@ -47,7 +47,19 @@ public class ObjectDictionary<T> where T : Object
     /// <returns>The dictionary that the list has been converted to.</returns>
     private Dictionary<string, T> ArrayToDictionary(IEnumerable<T> array)
     {
-        return array.ToDictionary(obj => obj.name);
+        Dictionary<string, T> dictionary = new Dictionary<string, T>();
+        foreach (T obj in array)
+        {
+            if (dictionary.ContainsKey(obj.name))
+            {
+                Debug.LogError($"Could not add object to dictionary, object with name {obj.name} already exists in the dictionary.");
+                continue;
+            }
+            
+            dictionary.Add(obj.name, obj);
+        }
+
+        return dictionary;
     }
 
     /// <summary>
@@ -157,3 +169,5 @@ public class ObjectDictionary<T> where T : Object
         }
     }
 }
+
+

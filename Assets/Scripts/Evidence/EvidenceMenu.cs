@@ -15,7 +15,7 @@ public class EvidenceMenu : MonoBehaviour
 
     [SerializeField, Tooltip("Drag the actor dictionary here")]
     private ActorDictionary _actorDictionary;
-    
+
     [SerializeField, Tooltip("Drag the TextMeshProUGUI component used for displaying the evidence's name here")]
     private TextMeshProUGUI _evidenceName;
     
@@ -31,32 +31,22 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag all buttons used to navigate the menu here so they can be disabled when necessary.")]
     private Button[] _navigationButtons;
 
-    [SerializeField, Tooltip("")]
-    private bool _isProfileMenuActive;
-    
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent _onEvidenceClicked;
-    
+
+    private ICourtRecordObjectDictionary _activeDictionary;
     private int _currentPage;
     private int _numberOfPages;
     private int _startIndex;
     private Menu _menu;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            _isProfileMenuActive = !_isProfileMenuActive;
-            UpdateEvidenceMenu();
-        }
-    }
-    
     /// <summary>
     /// Get the menu on awake to access its DontResetSelectedOnClose property
     /// </summary>
     private void Awake()
     {
         _menu = GetComponent<Menu>();
+        _activeDictionary = _evidenceDictionary;
     }
     
     /// <summary>
@@ -77,12 +67,14 @@ public class EvidenceMenu : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        UpdateEvidenceMenu();
+        _activeDictionary = _evidenceDictionary;
         
         if (!_menu.DontResetSelectedOnClose)
         {
             _currentPage = 0;
         }
+        
+        UpdateEvidenceMenu();
     }
 
     /// <summary>
@@ -107,7 +99,7 @@ public class EvidenceMenu : MonoBehaviour
     /// </summary>
     private void CalculatePages()
     {
-        _numberOfPages = Mathf.CeilToInt((float)_evidenceDictionary.Count / _evidenceMenuItems.Length);
+        _numberOfPages = Mathf.CeilToInt((float)_activeDictionary.Count / _evidenceMenuItems.Length);
         _currentPage = Mathf.Clamp(_currentPage, 0,_numberOfPages == 0 ? 0 : _numberOfPages - 1); // Max value must always be positive 
         _startIndex = _currentPage * _evidenceMenuItems.Length;
     }
@@ -130,19 +122,16 @@ public class EvidenceMenu : MonoBehaviour
     /// </summary>
     private void DrawMenuItems()
     {
-        ICourtRecordObjectDictionary courtRecordObjectDictionary =
-            _isProfileMenuActive ? (ICourtRecordObjectDictionary)_actorDictionary : _evidenceDictionary;
-
         for (int i = 0; i < _evidenceMenuItems.Length; i++)
         {
-            if (i + _startIndex > courtRecordObjectDictionary.Count - 1)
+            if (i + _startIndex > _activeDictionary.Count - 1)
             {
                 _evidenceMenuItems[i].gameObject.SetActive(false);
             }
             else
             {
                 _evidenceMenuItems[i].gameObject.SetActive(true);
-                _evidenceMenuItems[i].Evidence = courtRecordObjectDictionary.GetObjectAtIndex(i + _startIndex);
+                _evidenceMenuItems[i].Evidence = _activeDictionary.GetObjectAtIndex(i + _startIndex);
             }
         }
     }
@@ -221,5 +210,28 @@ public class EvidenceMenu : MonoBehaviour
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Switches between the evidence menu and the profiles menu.
+    /// Subscribe this to an input event to toggle the menus in game.
+    /// </summary>
+    public void ToggleProfileMenu()
+    {
+        if (!isActiveAndEnabled) return;
+        
+        _activeDictionary = _activeDictionary.GetType() == _evidenceDictionary.GetType()
+            ? (ICourtRecordObjectDictionary)_actorDictionary
+            : _evidenceDictionary;
+        
+        UpdateEvidenceMenu();
+        _menu.SelectInitialButton();
+    }
+    
+    
+    private struct View
+    {
+        public int NumberOfPages;
+        public ICourtRecordObjectDictionary CourtRecordObjectDictionary;
     }
 }

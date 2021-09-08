@@ -167,29 +167,11 @@ public class DialogueController : MonoBehaviour
     }
 
     /// <summary>
-    /// Handles presenting evidence through an evidence object
-    /// </summary>
-    /// <param name="evidence">Evidence presented</param>
-    public void HandleEvidencePresented(Evidence evidence)
-    {
-        HandlePresenting(evidence.name);
-    }
-
-    /// <summary>
-    /// Handles presenting evidence through an actor object
-    /// </summary>
-    /// <param name="actor">Actor presented</param>
-    public void HandleActorPresented(Actor actor)
-    {
-        HandlePresenting(actor.name);
-    }
-
-    /// <summary>
     /// Actually handles the evidence being presented by seeing if it is one of the current choices and then progressing the story appriopriately. Makes sure we're in cross examination mode before continuing.
     /// May spawn a random failure sub story.
     /// </summary>
     /// <param name="presentedObject">Name of the object you want to present to the court</param>
-    private void HandlePresenting(string presentedObject)
+    public void HandlePresenting(ICourtRecordObject presentedObject)
     {
         if (_dialogueMode != DialogueControllerMode.CrossExamination)
         {
@@ -209,7 +191,7 @@ public class DialogueController : MonoBehaviour
             int evidenceFoundAt = -1;
             for (int i = 2; i < choiceList.Count; i++)
             {
-                if (choiceList[i].text == presentedObject)
+                if (choiceList[i].text == presentedObject.name)
                 {
                     evidenceFoundAt = i;
                     break;
