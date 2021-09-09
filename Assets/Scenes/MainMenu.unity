@@ -1380,6 +1380,7 @@ GameObject:
   - component: {fileID: 348271461}
   - component: {fileID: 348271462}
   - component: {fileID: 348271460}
+  - component: {fileID: 348271463}
   m_Layer: 5
   m_Name: QuitGameButton
   m_TagString: Untagged
@@ -1450,7 +1451,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 348271458}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 348271463}
+        m_TargetAssemblyTypeName: QuitGame, GG-JointJustice
+        m_MethodName: QueueTransition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &348271458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,6 +1541,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63981f85a9b94f449441c116636c23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &348271463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348271455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 726119f51932947418dca3abce6ce8bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transitionController: {fileID: 1014506950}
 --- !u!1 &379131655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,7 +2691,7 @@ RectTransform:
   - {fileID: 2120264172}
   - {fileID: 2007141595}
   m_Father: {fileID: 919536739}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3236,6 +3262,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuToOpen: {fileID: 0}
+  _onMenuOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMenuClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &823852449
 GameObject:
   m_ObjectHideFlags: 0
@@ -3620,7 +3652,7 @@ RectTransform:
   m_Children:
   - {fileID: 2054351562}
   m_Father: {fileID: 919536739}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4084,6 +4116,7 @@ RectTransform:
   - {fileID: 1454283877}
   - {fileID: 1359121067}
   - {fileID: 1961069500}
+  - {fileID: 1014506947}
   - {fileID: 865147026}
   - {fileID: 2018234049}
   - {fileID: 742725379}
@@ -4152,6 +4185,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuToOpen: {fileID: 1037994236}
+  _onMenuOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMenuClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &922587112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4923,6 +4962,114 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973202784}
   m_CullTransparentMesh: 1
+--- !u!1 &1014506946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1014506947}
+  - component: {fileID: 1014506950}
+  - component: {fileID: 1014506949}
+  - component: {fileID: 1014506948}
+  m_Layer: 5
+  m_Name: FadeoutQuitGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1014506947
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014506946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 919536739}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1014506948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014506946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1014506949
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014506946}
+  m_CullTransparentMesh: 1
+--- !u!114 &1014506950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014506946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a791a1928c03049c78bb7a707a30453d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onTransitionOutComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 348271463}
+        m_TargetAssemblyTypeName: QuitGame, GG-JointJustice
+        m_MethodName: ExecuteQuit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onTransitionInComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _shouldFadeInOnAwake: 0
+  _fadeToImageSettings: {fileID: 11400000, guid: 24785bd9ba2a14df89de403b8a67a10f, type: 2}
 --- !u!1 &1037994234
 GameObject:
   m_ObjectHideFlags: 0
@@ -4959,7 +5106,7 @@ RectTransform:
   - {fileID: 230721440}
   - {fileID: 1412137858}
   m_Father: {fileID: 919536739}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5954,6 +6101,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuToOpen: {fileID: 2018234053}
+  _onMenuOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMenuClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1127522056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7064,6 +7217,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuToOpen: {fileID: 742725380}
+  _onMenuOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMenuClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1336736350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7165,7 +7324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b7e99e542e44d73a566690e1cb0c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initiallyHighlightedButton: {fileID: 1316906779}
+  _initiallyHighlightedButton: {fileID: 0}
   <DontResetSelectedOnClose>k__BackingField: 0
 --- !u!1 &1412137857
 GameObject:
@@ -7994,6 +8153,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuToOpen: {fileID: 1037994236}
+  _onMenuOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMenuClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1739918330
 GameObject:
   m_ObjectHideFlags: 0
@@ -8572,7 +8737,7 @@ GameObject:
   - component: {fileID: 1961069502}
   - component: {fileID: 1961069501}
   m_Layer: 5
-  m_Name: Fadeout
+  m_Name: FadeoutNewGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8771,45 +8936,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onPausePressed:
+  _delayBeforeSpeedup: 0.5
+  _onContinueStory:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1127522055}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
-        m_MethodName: CloseMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1336736349}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
-        m_MethodName: CloseMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1566084123}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJusticw
-        m_MethodName: CloseMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  _onPressWitness:
+    m_PersistentCalls:
+      m_Calls: []
+  _onSpeedupTextStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _onSpeedupTextEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCaseMenuOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  _onPauseMenuOpened:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1987953456
 Transform:
   m_ObjectHideFlags: 0
@@ -9002,7 +9147,7 @@ RectTransform:
   - {fileID: 330356528}
   - {fileID: 922587110}
   m_Father: {fileID: 919536739}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

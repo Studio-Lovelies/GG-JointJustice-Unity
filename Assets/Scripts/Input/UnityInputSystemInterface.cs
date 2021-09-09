@@ -41,6 +41,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     /// </summary>
     private void OnDisable()
     {
+        _controls.Player.SetCallbacks(null);
         _controls.Disable();
     }
 
@@ -87,7 +88,10 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
             _onContinueStory.Invoke();
             _selectPressed = true;
             _lastSpeedupCoroutine = WaitAndSpeedUp();
-            StartCoroutine(_lastSpeedupCoroutine);
+            if (_lastSpeedupCoroutine != null)
+            {
+                StartCoroutine(_lastSpeedupCoroutine);
+            }
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
