@@ -32,9 +32,7 @@ public abstract class ObjectDictionaryInterface<T, S> : MonoBehaviour where T : 
             Debug.LogError($"Master Object List has not been assigned to {name} on {gameObject.name}.");
             return;
         }
-        
-        ObjectsDictionary =
-            new ObjectDictionary<T>(_masterObjectList.ObjectArray, CurrentObjectList);
+        ObjectsDictionary = new ObjectDictionary<T>(_masterObjectList.ObjectArray, CurrentObjectList);
     }
 
     /// <summary>

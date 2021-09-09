@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b9fc2f1de4848f4b316edf3f8df738, type: 3}
   m_Name: Actor Dictionary
   m_EditorClassIdentifier: 
-  <ObjectList>k__BackingField:
+  <ObjectArray>k__BackingField:
   - {fileID: 11400000, guid: 2cf259801b39643bdbc9a15b5b9720f7, type: 2}
   - {fileID: 11400000, guid: 96f800d5846e6447988c39aa3bd2022e, type: 2}
   - {fileID: 11400000, guid: 8884e3157635440fe9f5b3e5faad3af1, type: 2}

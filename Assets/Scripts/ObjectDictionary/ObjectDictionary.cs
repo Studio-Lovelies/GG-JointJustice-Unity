@@ -126,7 +126,7 @@ public class ObjectDictionary<T> where T : Object
         
         if (altValue == null)
         {
-            Debug.LogError($"Tried to substitute value {altValue} with a null value.");
+            Debug.LogWarning($"Tried to substitute value {altValue} with a null value.");
             return;
         }
         
