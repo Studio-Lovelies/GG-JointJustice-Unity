@@ -5,5 +5,5 @@ using UnityEngine;
 public class ActorList : ScriptableObject, IObjectList<ActorData>
 {
     [field: SerializeField]
-    public ActorData[] ObjectList { get; private set; } = Array.Empty<ActorData>();
+    public ActorData[] ObjectArray { get; private set; } = Array.Empty<ActorData>();
 }
