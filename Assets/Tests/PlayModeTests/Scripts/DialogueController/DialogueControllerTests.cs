@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Tests.PlayModeTests.Scripts.DialogueController
 {
-    public class DialogueController
+    public class DialogueControllerTests
     {
         // This constant contains exactly one action and one spoken line
         private const string ActionFollowedByScriptSerializedInk = "{\"inkVersion\":20,\"root\":[[\"^&SPEAK:Ross\",\"\\n\",\"^After all the work I put into those levels...\",\"\\n\",\"end\",[\"done\",{\"#f\":5,\"#n\":\"g-0\"}],null],\"done\",{\"#f\":1}],\"listDefs\":{}}";

@@ -10,7 +10,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
     //       things like ".isPlaying" or ".time"  of AudioSources cannot be asserted, as they will remain
     //       `false` / `0.0f` respectively.
     //       To test this locally, activate `Edit` -> `Project Settings` -> `Audio` -> `Disable Unity Audio`.
-    public class AudioController
+    public class AudioControllerTests
     {
         [UnityTest]
         public IEnumerator AudioController_PlaySong_FadesBetweenSongs()
