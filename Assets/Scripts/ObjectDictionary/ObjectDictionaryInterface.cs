@@ -34,7 +34,7 @@ public abstract class ObjectDictionaryInterface<T, S> : MonoBehaviour where T : 
         }
         
         ObjectsDictionary =
-            new ObjectDictionary<T>(_masterObjectList.ObjectList, CurrentObjectList);
+            new ObjectDictionary<T>(_masterObjectList.ObjectArray, CurrentObjectList);
     }
 
     /// <summary>
