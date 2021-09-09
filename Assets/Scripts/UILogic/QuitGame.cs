@@ -7,11 +7,21 @@ public class QuitGame : MonoBehaviour
     private TransitionController _transitionController;
 
     /// <summary>
+    /// Called "on select" to run the transition which, in turn, will call the `ExecuteQuit()` method when ending the transition
+    /// </summary>
+    public void QueueTransition()
+    {
+        if (_transitionController != null)
+        {
+            _transitionController.Transition();
+        }
+    }
+
+    /// <summary>
     /// Call this method to quit the game after a transition
     /// </summary>
-    public void QueueTransitionAndQuit()
+    public void ExecuteQuit()
     {
-        _transitionController.Transition();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
