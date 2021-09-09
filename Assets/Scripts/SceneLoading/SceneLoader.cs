@@ -59,16 +59,7 @@ public class SceneLoader : MonoBehaviour
                 _sceneLoadOperation.allowSceneActivation = false;
             }
             _transitionController.Transition();
-
-            if (_sceneLoadOperation != null)
-            {
-                _sceneLoadOperation.allowSceneActivation = true;
-            }
-        }
-
-        if (_loadingBar != null)
-        {
-            _loadingBar.gameObject.SetActive(true);
+            return;
         }
         
         LoadSceneCallback();
