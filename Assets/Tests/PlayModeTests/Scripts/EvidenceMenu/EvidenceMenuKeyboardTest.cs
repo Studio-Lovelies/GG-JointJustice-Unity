@@ -82,7 +82,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return _inputTestTools.RepeatPressForFrames(_inputTestTools.Keyboard.rightArrowKey, 5);
             Assert.AreEqual("Ross", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
-            Assert.AreEqual("Bent Coins", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
+            Assert.AreEqual("Attorney's Badge", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
         }
 
         [UnityTest, Order(5)]
@@ -94,7 +94,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             {
                 yield return _inputTestTools.PressForSeconds(_inputTestTools.Keyboard.xKey, 0.5f);
             }
-            
+
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.rightArrowKey);
             Assert.AreEqual("Jory's Backpack", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
         }
     }

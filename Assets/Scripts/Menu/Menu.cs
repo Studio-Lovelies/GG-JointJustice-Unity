@@ -54,7 +54,8 @@ public class Menu : MonoBehaviour
             }
             return;
         }
-        
+
+        EventSystem.current.SetSelectedGameObject(null); // Select event is not called if selecting the game object already selected
         _initiallyHighlightedButton.Select();
     }
 

@@ -52,7 +52,7 @@ public class ObjectDictionary<T> where T : Object
         {
             if (dictionary.ContainsKey(obj.name))
             {
-                Debug.LogError($"Could not add object to dictionary, object with name {obj.name} already exists in the dictionary.");
+                Debug.LogWarning($"Could not add object to dictionary, object with name {obj.name} already exists in the dictionary.");
                 continue;
             }
             
@@ -75,7 +75,7 @@ public class ObjectDictionary<T> where T : Object
 
         if (_currentObjectDictionary.ContainsKey(objectName))
         {
-            Debug.LogError($"Evidence with name {objectName} has already been added to the dictionary.");
+            Debug.LogWarning($"Evidence with name {objectName} has already been added to the dictionary.");
             return;
         }
         
