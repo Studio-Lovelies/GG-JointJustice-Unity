@@ -46,13 +46,6 @@ jobs:
         with:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
-
-  unityTest:
-    name: Run PlayMode and EditorMode tests for Unity project
-    needs: [checkLicense]
-    if: needs.checkLicense.outputs.is_unity_license_set == 'true'
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -96,7 +89,7 @@ jobs:
 
   unityBuild:
     name: Build for ${{ matrix.targetPlatform.outputName }}
-    needs: [checkLicense, unityTest]
+    needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_license_set == 'true'
     runs-on: ubuntu-latest
     strategy:
