@@ -165,7 +165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5228303783052357477}
-  - component: {fileID: 5228303783052357476}
+  - component: {fileID: 5766951243316258182}
   - component: {fileID: 5228303783052357478}
   m_Layer: 0
   m_Name: AudioController
@@ -188,7 +188,7 @@ Transform:
   m_Father: {fileID: 5228303783942753771}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5228303783052357476
+--- !u!114 &5766951243316258182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,11 +197,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5228303783052357475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68655ee358354cf468334f36947472ec, type: 3}
+  m_Script: {fileID: 11500000, guid: c7c1588c060bf994aa9f9fed3449e1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _directorActionDecoder: {fileID: 5228303783986964379}
-  _settingsMusicVolume: 1
+  _settingsMusicVolume: 0.5
   _settingsSFXVolume: 0.5
   _transitionDuration: 2
 --- !u!82 &5228303783052357478
@@ -622,7 +622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _directorActionDecoder: {fileID: 5228303783986964379}
-  _actorDictionary: {fileID: 0}
+  _actorDictionary: {fileID: 844180367432201528}
   _activeActor: {fileID: 5228303784028554615}
   _onNewSpeakingActor:
     m_PersistentCalls:
@@ -1228,7 +1228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _masterObjectList: {fileID: 11400000, guid: b17249a73a0f74b9ca3f6eb22a2b4de7, type: 2}
-  <CurrentObjectList>k__BackingField: []
+  <CurrentObjectList>k__BackingField:
+  - {fileID: 11400000, guid: 8e1c11b76c9554d91970538b25659af3, type: 2}
 --- !u!1 &7228055915782335262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,6 +1327,10 @@ PrefabInstance:
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5228303783123296233}
+    - target: {fileID: 5233150709086226729, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _actorDictionary
+      value: 
+      objectReference: {fileID: 844180367432201528}
     - target: {fileID: 5233150709086226729, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _evidenceController
       value: 
@@ -1504,13 +1509,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1963507969312400552}
     m_Modifications:
-    - target: {fileID: 341159792951127872, guid: 37849bb488a16344e8888662757571aa, type: 3}
-      propertyPath: m_text
-      value: <color=#2222FF>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Integer luctus leo nec mi pulvinar, eget molestie purus gravida. Aliquam
-        imperdiet pharetra massa vel aliquam. Pellentesque interdum vehicula ligula,
-        sit amet semper dolor suscipit ut. Cras eu nisiLorem ipsum dolor sit
-      objectReference: {fileID: 0}
     - target: {fileID: 341159793510650957, guid: 37849bb488a16344e8888662757571aa, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

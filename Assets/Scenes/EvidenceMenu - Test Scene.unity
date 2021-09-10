@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &198489452 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 844180367432201528, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-  m_PrefabInstance: {fileID: 2090021864}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 582d1fb9aea44b83a3c0acfe6f939cbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2090021864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142,10 +131,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _actorDictionary
-      value: 
-      objectReference: {fileID: 198489452}
-    - target: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _isProfileMenuActive
       value: 0
       objectReference: {fileID: 0}
@@ -153,10 +138,6 @@ PrefabInstance:
       propertyPath: _narrativeScript
       value: 
       objectReference: {fileID: 4900000, guid: 943a3a8861ee14fcb8a1070439f52a41, type: 3}
-    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _actorDictionary
-      value: 
-      objectReference: {fileID: 198489452}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: StandardInclusion
@@ -205,5 +186,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5228303783052357476, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
