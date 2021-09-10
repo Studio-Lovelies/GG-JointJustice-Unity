@@ -1,24 +1,23 @@
 using System.Collections;
 using NUnit.Framework;
-using NUnit.Framework.Interfaces;
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace Tests.PlayModeTests.Scripts
+namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
-    public class EvidenceMenuTest
+    public class EvidenceMenuKeyboardTest
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
-        private EvidenceMenu _evidenceMenu;
+        private global::EvidenceMenu _evidenceMenu;
 
         [UnityTest, Order(0)]
         public IEnumerator EvidenceMenuOpensAndCloses()
         {
-            SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Additive);
+            SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
             yield return null;
-            _evidenceMenu = Resources.FindObjectsOfTypeAll<EvidenceMenu>()[0];
+            _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
@@ -29,10 +28,7 @@ namespace Tests.PlayModeTests.Scripts
         [UnityTest, Order(1)]
         public IEnumerator EvidenceMenuCannotBeClosedWhenPresentingEvidence()
         {
-            while (!_evidenceMenu.isActiveAndEnabled)
-            {
-                yield return _inputTestTools.PressForSeconds(_inputTestTools.Keyboard.xKey, 0.5f);
-            }
+            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(_evidenceMenu, _inputTestTools.Keyboard.xKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
@@ -48,10 +44,7 @@ namespace Tests.PlayModeTests.Scripts
         [UnityTest, Order(3)]
         public IEnumerator CanNavigateWithLeftAndRightArrows()
         {
-            while (!_evidenceMenu.isActiveAndEnabled)
-            {
-                yield return _inputTestTools.PressForSeconds(_inputTestTools.Keyboard.xKey, 0.5f);
-            }           
+            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(_evidenceMenu, _inputTestTools.Keyboard.xKey);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.leftArrowKey);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.leftArrowKey);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.rightArrowKey);
@@ -66,18 +59,9 @@ namespace Tests.PlayModeTests.Scripts
         public IEnumerator CanNavigateToMultiplePages()
         {
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
-
-            while (!_evidenceMenu.isActiveAndEnabled)
-            {
-                yield return _inputTestTools.PressForSeconds(_inputTestTools.Keyboard.xKey, 0.5f);
-            }
-            
+            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(_evidenceMenu, _inputTestTools.Keyboard.xKey);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
-
-            while (!_evidenceMenu.isActiveAndEnabled)
-            {
-                yield return _inputTestTools.PressForSeconds(_inputTestTools.Keyboard.xKey, 0.5f);
-            }
+            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(_evidenceMenu, _inputTestTools.Keyboard.xKey);
 
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.leftArrowKey);
             yield return _inputTestTools.RepeatPressForFrames(_inputTestTools.Keyboard.enterKey, 50);
