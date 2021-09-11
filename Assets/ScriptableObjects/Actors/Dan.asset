@@ -16,5 +16,6 @@ MonoBehaviour:
   <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: 44a8b7dc9ea23e947a628cc07bb63832, type: 3}
   <DisplayName>k__BackingField: Dan
   <DisplayColor>k__BackingField: {r: 0.15686275, g: 0.18823531, b: 0.47058827, a: 1}
-  <Bio>k__BackingField: 
+  <Bio>k__BackingField: 'The other half of the Game Grumps. Known aliases: ''Danny
+    Sexbang'', ''Mr. Business.'''
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: 61d75a6dad4224b6f8e9591f88230da3, type: 2}

@@ -16,5 +16,6 @@ MonoBehaviour:
   <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: cbba2ad53e09d3349a685ddc35e8067b, type: 3}
   <DisplayName>k__BackingField: Arin
   <DisplayColor>k__BackingField: {r: 0.43921572, g: 0.1764706, b: 0.4784314, a: 1}
-  <Bio>k__BackingField: 
+  <Bio>k__BackingField: Half of the Game Grumps duo. Definitely the same height as
+    Dan.
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: 0c3d8f1233f3a49e9a3f32fab7e316af, type: 2}

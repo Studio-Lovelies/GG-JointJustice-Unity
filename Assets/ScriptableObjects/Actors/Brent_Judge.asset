@@ -16,5 +16,6 @@ MonoBehaviour:
   <DefaultSprite>k__BackingField: {fileID: 0}
   <DisplayName>k__BackingField: Judge Brent
   <DisplayColor>k__BackingField: {r: 0.5137255, g: 0.3372549, b: 0.21960786, a: 1}
-  <Bio>k__BackingField: 
+  <Bio>k__BackingField: Manages the Grumps business. Also a Judge in the totally
+    real Attitute City.
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: 5febbd6695a8c4b27ad13e0acb2f00cf, type: 2}

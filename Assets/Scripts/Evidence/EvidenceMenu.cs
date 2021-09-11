@@ -25,6 +25,12 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag the Image component used for displaying the evidence's icon here.")]
     private Image _evidenceIcon;
 
+    [SerializeField, Tooltip("Drag the Image component for the menu label here.")]
+    private Image _menuLabel;
+    
+    [SerializeField, Tooltip("Drag the sprite used for the profiles menu label.")]
+    private Sprite _profilesMenuLabel;
+
     [SerializeField, Tooltip("The boxes used to represent menu items.")]
     private EvidenceMenuItem[] _evidenceMenuItems;
     
@@ -34,6 +40,8 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent _onEvidenceClicked;
 
+    private bool _profileMenuActive;
+    private Sprite _evidenceMenuLabel;
     private ICourtRecordObjectDictionary _activeDictionary;
     private int _currentPage;
     private int _numberOfPages;
@@ -47,6 +55,7 @@ public class EvidenceMenu : MonoBehaviour
     {
         _menu = GetComponent<Menu>();
         _activeDictionary = _evidenceDictionary;
+        _evidenceMenuLabel = _menuLabel.sprite;
     }
     
     /// <summary>
@@ -219,10 +228,19 @@ public class EvidenceMenu : MonoBehaviour
     public void ToggleProfileMenu()
     {
         if (!isActiveAndEnabled) return;
-        
-        _activeDictionary = _activeDictionary.GetType() == _evidenceDictionary.GetType()
-            ? (ICourtRecordObjectDictionary)_actorDictionary
-            : _evidenceDictionary;
+
+        if (_profileMenuActive)
+        {
+            _profileMenuActive = false;
+            _activeDictionary = _evidenceDictionary;
+            _menuLabel.sprite = _evidenceMenuLabel;
+        }
+        else
+        {
+            _profileMenuActive = true;
+            _activeDictionary = _actorDictionary;
+            _menuLabel.sprite = _profilesMenuLabel;
+        }
         
         UpdateEvidenceMenu();
         _menu.SelectInitialButton();
