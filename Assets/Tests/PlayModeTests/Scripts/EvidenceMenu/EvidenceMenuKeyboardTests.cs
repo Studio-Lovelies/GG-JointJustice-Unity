@@ -136,23 +136,20 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
             // Check displayed menu information updates properly.
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
-            ICourtRecordObject evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
-            Assert.AreEqual("Arin", evidence.DisplayName);
-            Assert.AreEqual(evidenceName.text, evidence.DisplayName);
-            Assert.AreEqual(evidenceDescription.text, evidence.Description);
-            Assert.AreEqual(evidenceIcon.sprite, evidence.Icon);
+            ICourtRecordObject actor = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
+            Assert.AreEqual(evidenceName.text, actor.CourtRecordName);
+            Assert.AreEqual(evidenceDescription.text, actor.Description);
+            Assert.AreEqual(evidenceIcon.sprite, actor.Icon);
             yield return _inputTestTools.RepeatPressForFrames(_inputTestTools.Keyboard.rightArrowKey, 5);
-            evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
-            Assert.AreEqual("Ross", evidence.DisplayName);
-            Assert.AreEqual(evidenceName.text, evidence.DisplayName);
-            Assert.AreEqual(evidenceDescription.text, evidence.Description);
-            Assert.AreEqual(evidenceIcon.sprite, evidence.Icon);
+            actor = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
+            Assert.AreEqual(evidenceName.text, actor.CourtRecordName);
+            Assert.AreEqual(evidenceDescription.text, actor.Description);
+            Assert.AreEqual(evidenceIcon.sprite, actor.Icon);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
-            evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
-            Assert.AreEqual("Attorney's Badge", evidence.DisplayName);
-            Assert.AreEqual(evidenceName.text, evidence.DisplayName);
-            Assert.AreEqual(evidenceDescription.text, evidence.Description);
-            Assert.AreEqual(evidenceIcon.sprite, evidence.Icon);
+            actor = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
+            Assert.AreEqual(evidenceName.text, actor.CourtRecordName);
+            Assert.AreEqual(evidenceDescription.text, actor.Description);
+            Assert.AreEqual(evidenceIcon.sprite, actor.Icon);
         }
 
         /// <summary>
