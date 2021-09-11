@@ -43,15 +43,15 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             EvidenceMenuItem firstMenuItem = menuItems.First(menuItem => menuItem.gameObject.name == "EvidenceMenuItem").GetComponent<EvidenceMenuItem>();
             yield return _inputTestTools.SetMousePosition(firstMenuItem.transform.position);
             Menu menu = _evidenceMenu.GetComponent<Menu>();
-            Assert.AreEqual(firstMenuItem.Evidence.DisplayName, menu.SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
+            Assert.AreEqual(firstMenuItem.CourtRecordObject.DisplayName, menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
             
             // Loop through the menu items and check if they highlight correctly
             for (int i = 1; i < menuItems.Length; i++)
             {
                 MenuItem menuItem = menuItems.First(menuItem => menuItem.gameObject.name == $"EvidenceMenuItem ({i})");
                 yield return _inputTestTools.SetMousePosition(menuItem.transform.position);
-                ICourtRecordObject evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().Evidence;
-                Assert.AreEqual(menuItem.GetComponent<EvidenceMenuItem>().Evidence.DisplayName, evidence.DisplayName);
+                ICourtRecordObject evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
+                Assert.AreEqual(menuItem.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName, evidence.DisplayName);
             }
         }
         
@@ -74,8 +74,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             Transform menuItem = GameObject.Find("EvidenceMenuItem").transform;
             yield return _inputTestTools.SetMousePosition(menuItem.position);
         
-            Assert.AreEqual(menuItem.GetComponent<EvidenceMenuItem>().Evidence.DisplayName,
-                menu.SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
+            Assert.AreEqual(menuItem.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName,
+                menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
         }
         
         /// <summary>

@@ -68,7 +68,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.rightArrowKey);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.leftArrowKey);
 
-            Assert.AreEqual("Bent Coins", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
+            Assert.AreEqual("Bent Coins", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
         }
         
         /// <summary>
@@ -102,7 +102,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             for (int i = 0; i < 9; i++)
             {
                 yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.rightArrowKey);
-                ICourtRecordObject evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().Evidence;
+                ICourtRecordObject evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
                 Assert.AreEqual(evidenceName.text, evidence.DisplayName);
                 Assert.AreEqual(evidenceDescription.text, evidence.Description);
                 Assert.AreEqual(evidenceIcon.sprite, evidence.Icon);
@@ -114,7 +114,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return _inputTestTools.RepeatPressForFrames(_inputTestTools.Keyboard.leftArrowKey, 4);
 
             // After all this Jory Sr's Letter should be selected
-            Assert.AreEqual("Jory Sr's Letter",_evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
+            Assert.AreEqual("Jory Sr's Letter",_evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
         }
 
         /// <summary>
@@ -136,19 +136,19 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
             // Check displayed menu information updates properly.
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
-            ICourtRecordObject evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().Evidence;
+            ICourtRecordObject evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
             Assert.AreEqual("Arin", evidence.DisplayName);
             Assert.AreEqual(evidenceName.text, evidence.DisplayName);
             Assert.AreEqual(evidenceDescription.text, evidence.Description);
             Assert.AreEqual(evidenceIcon.sprite, evidence.Icon);
             yield return _inputTestTools.RepeatPressForFrames(_inputTestTools.Keyboard.rightArrowKey, 5);
-            evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().Evidence;
+            evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
             Assert.AreEqual("Ross", evidence.DisplayName);
             Assert.AreEqual(evidenceName.text, evidence.DisplayName);
             Assert.AreEqual(evidenceDescription.text, evidence.Description);
             Assert.AreEqual(evidenceIcon.sprite, evidence.Icon);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
-            evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().Evidence;
+            evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
             Assert.AreEqual("Attorney's Badge", evidence.DisplayName);
             Assert.AreEqual(evidenceName.text, evidence.DisplayName);
             Assert.AreEqual(evidenceDescription.text, evidence.Description);
@@ -169,7 +169,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             }
 
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.rightArrowKey);
-            Assert.AreEqual("Attorney's Badge", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
+            Assert.AreEqual("Attorney's Badge", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
         }
     }
 }

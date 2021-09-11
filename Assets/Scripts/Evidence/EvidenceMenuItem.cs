@@ -10,17 +10,17 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
 
     [SerializeField, Tooltip("The evidence menu this evidence menu item is a child of")]
     private EvidenceMenu _evidenceMenu;
-    private ICourtRecordObject _evidence;
+    private ICourtRecordObject _courtRecordObject;
 
     /// <summary>
     /// When evidence is assigned to this menu item its Image component will be automatically updated.
     /// </summary>
-    public ICourtRecordObject Evidence
+    public ICourtRecordObject CourtRecordObject
     {
-        get => _evidence;
+        get => _courtRecordObject;
         set
         {
-            _evidence = value;
+            _courtRecordObject = value;
             _image.sprite = value.Icon;
         }
     }
@@ -32,15 +32,15 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
     /// <param name="eventData">Event data required by ISelectHandler</param>
     public void OnSelect(BaseEventData eventData)
     {
-        _evidenceMenu.UpdateEvidenceInfo(_evidence);
+        _evidenceMenu.UpdateEvidenceInfo(_courtRecordObject);
     }
 
     /// <summary>
     /// When this menu item is clicked it should tell the attached EvidenceMenu to call its _onEvidenceClicked event.
     /// To be subscribed to the attached button component's OnClick event.
     /// </summary>
-    public void OnEvidenceClicked()
+    public void OnMenuItemClicked()
     {
-        _evidenceMenu.OnEvidenceClicked(_evidence);
+        _evidenceMenu.OnEvidenceClicked(_courtRecordObject);
     }
 }

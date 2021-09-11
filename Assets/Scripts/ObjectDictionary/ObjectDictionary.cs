@@ -18,6 +18,7 @@ public class ObjectDictionary<T> where T : Object
     private readonly List<string> _currentObjectList = new List<string>(); // Objects are stored in a list to guarantee order
     
     public T this[string objectName] => GetObject(objectName);
+    public T this[int objectIndex] => GetObjectAtIndex(objectIndex);
     public int Count => _currentObjectDictionary.Count;
     
     /// <summary>
@@ -167,7 +168,7 @@ public class ObjectDictionary<T> where T : Object
     /// </summary>
     /// <param name="index">The index of the object to get.</param>
     /// <returns>The object at the specified index.</returns>
-    public T GetObjectAtIndex(int index)
+    private T GetObjectAtIndex(int index)
     {
         try
         {

@@ -60,6 +60,6 @@ public abstract class ObjectDictionaryInterface<T, S> : MonoBehaviour where T : 
     /// <returns>The object at the specified index.</returns>
     public T GetObjectAtIndex(int index)
     {
-        return ObjectsDictionary.GetObjectAtIndex(index);
+        return ObjectsDictionary[index];
     }
 }

@@ -131,7 +131,7 @@ public class EvidenceMenu : MonoBehaviour
             else
             {
                 _evidenceMenuItems[i].gameObject.SetActive(true);
-                _evidenceMenuItems[i].Evidence = _activeDictionary.GetObjectAtIndex(i + _startIndex);
+                _evidenceMenuItems[i].CourtRecordObject = _activeDictionary.GetObjectAtIndex(i + _startIndex);
             }
         }
     }
@@ -226,12 +226,5 @@ public class EvidenceMenu : MonoBehaviour
         
         UpdateEvidenceMenu();
         _menu.SelectInitialButton();
-    }
-    
-    
-    private struct View
-    {
-        public int NumberOfPages;
-        public ICourtRecordObjectDictionary CourtRecordObjectDictionary;
     }
 }

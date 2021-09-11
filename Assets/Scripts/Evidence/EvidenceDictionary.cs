@@ -17,6 +17,6 @@ public class EvidenceDictionary : ObjectDictionaryInterface<Evidence, EvidenceLi
     /// <returns>The evidence as an ICourtRecordObject</returns>
     public new ICourtRecordObject GetObjectAtIndex(int index)
     {
-        return ObjectsDictionary.GetObjectAtIndex(index);
+        return ObjectsDictionary[index];
     }
 }
