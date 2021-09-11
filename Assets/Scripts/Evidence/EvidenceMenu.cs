@@ -66,7 +66,7 @@ public class EvidenceMenu : MonoBehaviour
     /// <param name="evidence"></param>
     public void UpdateEvidenceInfo(ICourtRecordObject evidence)
     {
-        _evidenceName.text = evidence.DisplayName;
+        _evidenceName.text = evidence.CourtRecordName;
         _evidenceDescription.text = evidence.Description;
         _evidenceIcon.sprite = evidence.Icon;
     }

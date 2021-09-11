@@ -15,6 +15,8 @@ MonoBehaviour:
   <Profile>k__BackingField: {fileID: 21300000, guid: 04b0eedfbca19d84cb4db63538ba6241, type: 3}
   <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: cbba2ad53e09d3349a685ddc35e8067b, type: 3}
   <DisplayName>k__BackingField: Arin
+  <Age>k__BackingField: 34
+  _ageCertainty: 0
   <DisplayColor>k__BackingField: {r: 0.43921572, g: 0.1764706, b: 0.4784314, a: 1}
   <Bio>k__BackingField: Half of the Game Grumps duo. Definitely the same height as
     Dan.

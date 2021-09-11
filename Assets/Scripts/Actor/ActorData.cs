@@ -4,6 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Actor Data", menuName = "Actors/Actor Data")]
 public class ActorData : ScriptableObject, ICourtRecordObject
 {
+    private enum AgeCertainty {
+        Known,
+        Guess,
+        Unknown
+    }
+    
     [field: SerializeField, Tooltip("The actor's sprite that will appear in the profiles menu.")]
     public Sprite Profile { get; private set; }
     
@@ -13,6 +19,12 @@ public class ActorData : ScriptableObject, ICourtRecordObject
     [field: SerializeField, Tooltip("Name displayed when referring to this actor or when they are speaking.")]
     public string DisplayName { get; private set; }
 
+    [field: SerializeField, Tooltip("The age of the actor displayed in the profiles menu.")]
+    public int Age { get; private set; }
+
+    [SerializeField, Tooltip("Whether this age is accurate (Known), maybe accurate (Guess), or not accurate (Unknown)")]
+    private AgeCertainty _ageCertainty;
+    
     [field: SerializeField, Tooltip("Color for the background of the name when speaking.")]
     public Color DisplayColor { get; private set; }
     
@@ -22,6 +34,23 @@ public class ActorData : ScriptableObject, ICourtRecordObject
     [field: SerializeField, Tooltip("The animator controllers that this actor uses.")]
     public RuntimeAnimatorController AnimatorController { get; private set; }
 
+    public string CourtRecordName => GenerateNameWithAge();
     public Sprite Icon => Profile;
     public string Description => Bio;
+
+    private string GenerateNameWithAge()
+    {
+        string age = "???";
+        switch (_ageCertainty)
+        {
+            case AgeCertainty.Known:
+                age = Age.ToString();
+                break;
+            case AgeCertainty.Guess:
+                age = $"Maybe {Age}?";
+                break;
+        }
+
+        return $"{DisplayName} (Age: {age})";
+    }
 }

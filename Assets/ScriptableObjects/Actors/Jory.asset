@@ -15,6 +15,8 @@ MonoBehaviour:
   <Profile>k__BackingField: {fileID: 0}
   <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: 26a9c8485eebf984398ac2094b0fcdc7, type: 3}
   <DisplayName>k__BackingField: Jory
+  <Age>k__BackingField: 30
+  _ageCertainty: 1
   <DisplayColor>k__BackingField: {r: 0.29411766, g: 0.5137255, b: 0.21960786, a: 1}
   <Bio>k__BackingField: 'Game developer for Dream Daddy. Previous job: P.P.I.S.S
     machine.'

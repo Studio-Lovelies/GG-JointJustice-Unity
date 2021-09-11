@@ -7,7 +7,7 @@ public class Evidence : ScriptableObject, ICourtRecordObject
 {
     [field: SerializeField, Tooltip("The name of the evidence, display in the evidence menu.")]
     public string DisplayName { get; private set; }
-    
+
     [field: SerializeField, Tooltip("Icon used to represent the evidence.")]
     public Sprite Icon { get; private set; }
     
@@ -16,4 +16,6 @@ public class Evidence : ScriptableObject, ICourtRecordObject
 
     [field: SerializeField, Tooltip("Contains an alternate version of the evidence that this evidence can be replaced with.")]
     public Evidence AltEvidence { get; private set; }
+    
+    public string CourtRecordName => DisplayName;
 }
