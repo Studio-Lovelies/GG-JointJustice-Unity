@@ -1,4 +1,4 @@
-&ACTOR:Arin
+﻿&ACTOR:Arin
 &SPEAK:Arin
 I'm going to add evidence to the menu.
 
@@ -52,6 +52,7 @@ So much stuff.
 Now I'm going to turn things into other things.
 
 &SUBSTITUTE_EVIDENCE:Bent_Coins
+&SUBSTITUTE_EVIDENCE:Switch
 &SUBSTITUTE_EVIDENCE:Attorneys_Badge
 &SUBSTITUTE_EVIDENCE:Jorys_Backpack
 &SUBSTITUTE_EVIDENCE:Jory_Srs_Letter

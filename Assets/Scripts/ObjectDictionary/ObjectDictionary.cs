@@ -14,8 +14,9 @@ using Object = UnityEngine.Object;
 public class ObjectDictionary<T> where T : Object
 {
     private readonly Dictionary<string, T> _masterObjectDictionary;
-    private readonly Dictionary<string, T> _currentObjectDictionary;
-
+    private readonly Dictionary<string, T> _currentObjectDictionary = new Dictionary<string, T>();
+    private readonly List<string> _currentObjectList = new List<string>(); // Objects are stored in a list to guarantee order
+    
     public T this[string objectName] => GetObject(objectName);
     public int Count => _currentObjectDictionary.Count;
     
@@ -35,8 +36,16 @@ public class ObjectDictionary<T> where T : Object
             Debug.LogError("Master object list has not been assigned to CourtRecordObjectDictionary.");
             return;
         }
-        
-        _currentObjectDictionary = ArrayToDictionary(currentObjectList);
+
+        if (currentObjectList != null)
+        {
+            var objectList = currentObjectList.ToList();
+            _currentObjectDictionary = ArrayToDictionary(objectList);
+            foreach (var obj in objectList)
+            {
+                _currentObjectList.Add(obj.name);
+            }
+        }
     }
 
     /// <summary>
@@ -75,12 +84,13 @@ public class ObjectDictionary<T> where T : Object
 
         if (_currentObjectDictionary.ContainsKey(objectName))
         {
-            Debug.LogWarning($"Evidence with name {objectName} has already been added to the dictionary.");
+            Debug.LogWarning($"Object with name {objectName} has already been added to the dictionary.");
             return;
         }
         
-        T evidence = _masterObjectDictionary[objectName];
-        _currentObjectDictionary.Add(evidence.name, evidence);
+        T obj = _masterObjectDictionary[objectName];
+        _currentObjectDictionary.Add(obj.name, obj);
+        _currentObjectList.Add(obj.name);
     }
 
     /// <summary>
@@ -94,22 +104,23 @@ public class ObjectDictionary<T> where T : Object
             return;
         }
 
+        _currentObjectList.Remove(objectName);
         _currentObjectDictionary.Remove(objectName);
     }
 
     /// <summary>
-    /// Call this method when you want to get evidence from the dictionary using the evidence's name.
+    /// Call this method when you want to get object from the dictionary using the object's name.
     /// </summary>
-    /// <param name="evidenceName">The name of the evidence to get.</param>
+    /// <param name="objectName">The name of the object to get.</param>
     /// <returns></returns>
-    private T GetObject(string evidenceName)
+    private T GetObject(string objectName)
     {
-        if (!IsObjectInDictionary(evidenceName, _currentObjectDictionary))
+        if (!IsObjectInDictionary(objectName, _currentObjectDictionary))
         {
             return null;
         }
 
-        return _currentObjectDictionary[evidenceName];
+        return _currentObjectDictionary[objectName];
     }
 
     /// <summary>
@@ -152,7 +163,7 @@ public class ObjectDictionary<T> where T : Object
     }
     
     /// <summary>
-    /// Allows the dictionary to be accessed by index instead of object name.
+    /// Accesses the object list. Allows accessing the dictionary by index.
     /// </summary>
     /// <param name="index">The index of the object to get.</param>
     /// <returns>The object at the specified index.</returns>
@@ -160,7 +171,7 @@ public class ObjectDictionary<T> where T : Object
     {
         try
         {
-            return _currentObjectDictionary.Values.ElementAt(index);
+            return _currentObjectDictionary[_currentObjectList[index]];
         }
         catch (IndexOutOfRangeException exception)
         {

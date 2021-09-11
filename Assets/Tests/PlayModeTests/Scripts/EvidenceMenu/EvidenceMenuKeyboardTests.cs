@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
-    public class EvidenceMenuKeyboardTest
+    public class EvidenceMenuKeyboardTests
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
         private global::EvidenceMenu _evidenceMenu;
@@ -169,7 +169,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             }
 
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.rightArrowKey);
-            Assert.AreEqual("Jory's Backpack", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
+            Assert.AreEqual("Attorney's Badge", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().Evidence.DisplayName);
         }
     }
 }
