@@ -46,7 +46,7 @@ When updating code, it is mandatory to create a pull request to make sure
 It is also recommended to run all [PlayMode and EditMode tests](https://docs.unity3d.com/Packages/com.unity.test-framework@1.0/manual/edit-mode-vs-play-mode-tests.html) locally **before creating a pull request**.  
 
 ## Running tests locally
-Running tests ensures no existing functionallity is broken by a change or - if the behavior change is intended - all existing test suits are updated accordingly.
+Running tests ensures no existing functionality is broken by a change or - if the behavior change is intended - all existing test suites are updated accordingly.
 
 Alternatively these steps can also be used to better analyse a failed test case. While our automated deployment workflow generates callstacks of offending test cases, it sometimes may be easier to attach a debugger to the running process.
 
