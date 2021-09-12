@@ -81,7 +81,7 @@ jobs:
 
   unityBuild:
     name: Build for ${{ matrix.targetPlatform.outputName }}
-    needs: [checkLicense, unityTest]
+    needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_license_set == 'true'
     runs-on: ubuntu-latest
     strategy:
@@ -138,7 +138,7 @@ jobs:
   # GitHub Releases
   createGitHubRelease:
     name: Create GitHub Release
-    needs: [unityBuild]
+    needs: [unityBuild, unityTest]
     if: (github.event.inputs.createRelease != 'false' || (github.ref == 'refs/heads/master' && github.event_name == 'push'))
     runs-on: ubuntu-latest
     steps:
@@ -201,7 +201,7 @@ jobs:
       
   createItchIORelease:
     name: Create/update itch.io for ${{ matrix.platforms.outputName }}
-    needs: [unityBuild, checkItchIO]
+    needs: [unityBuild, unityTest, checkItchIO]
     if: (github.event.inputs.createRelease != 'false' || (github.ref == 'refs/heads/master' && github.event_name == 'push')) && needs.checkItchIO.outputs.is_ITCHIO_set == 'true'
     runs-on: ubuntu-latest
     strategy:
