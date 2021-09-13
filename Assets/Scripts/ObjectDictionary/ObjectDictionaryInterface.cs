@@ -1,51 +1,50 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 /// <summary>
-/// Class to convert two lists into two dictionaries, a master dictionary and a current dictionary.
-/// The current dictionary contains objects that are currently accessible.
-/// The master dictionary contains objects that can be added to the current dictionary.
-/// Also contains error reporting for when objects cannot be found in the dictionaries.
+/// This class allows interaction between unity objects and ObjectDictionary objects.
+/// Allows assigning of an object with an IObjectList interface to convert to a dictionary.
 /// </summary>
-/// <typeparam name="T">The type of object to contain in the dictionaries.</typeparam>
-public class ObjectDictionary<T> where T : Object
+/// <typeparam name="T">The type of values in the dictionary.</typeparam>
+/// <typeparam name="S">The type that the assignable IObjectList should use.</typeparam>
+public abstract class ObjectDictionaryInterface<T, S> : MonoBehaviour where T : Object where S : IObjectList<T>
 {
-    private readonly Dictionary<string, T> _masterObjectDictionary;
-    private readonly Dictionary<string, T> _currentObjectDictionary = new Dictionary<string, T>();
-    private readonly List<string> _currentObjectList = new List<string>(); // Objects are stored in a list to guarantee order
+    [SerializeReference, Tooltip("Drag an IObjectList here containing a list of all available objects.")]
+    private S _availableObjectList;
+
+    [field: SerializeField, Tooltip("Add any object that the player should have at the start of the scene here.")]
+    private T[] _initialObjectArray;
+
+    private readonly List<string> _currentObjectList = new List<string>();
+    private Dictionary<string, T> _availableObjectDictionary;
     
-    public T this[string objectName] => GetObject(objectName);
+    protected Dictionary<string, T> CurrentObjectDictionary = new Dictionary<string, T>();
+    
+    public T this[string objectName] => GetObject(objectName); // Use square brackets to get objects from the dictionary
+    public int Count => CurrentObjectDictionary.Count;
     public T this[int objectIndex] => GetObjectAtIndex(objectIndex);
-    public int Count => _currentObjectDictionary.Count;
     
     /// <summary>
-    /// Takes two lists or arrays and converts them to dictionaries using ArrayToDictionary method.
+    /// Converts the list into a dictionary on awake
     /// </summary>
-    /// <param name="masterObjectList">The list of every possible object that can be added to the current list.</param>
-    /// <param name="currentObjectList">The list of all objects that should be available at the start of a scene.</param>
-    public ObjectDictionary(IEnumerable<T> masterObjectList, IEnumerable<T> currentObjectList)
+    private void Awake()
     {
-        if (masterObjectList != null)
+        if (_availableObjectList != null)
         {
-            _masterObjectDictionary = ArrayToDictionary(masterObjectList);
+            _availableObjectDictionary = ArrayToDictionary(_availableObjectList.ObjectArray);
         }
         else
         {
             Debug.LogError("Master object list has not been assigned to CourtRecordObjectDictionary.");
             return;
         }
-
-        if (currentObjectList != null)
+        
+        CurrentObjectDictionary = ArrayToDictionary(_initialObjectArray);
+        foreach (var obj in _initialObjectArray)
         {
-            var objectList = currentObjectList.ToList();
-            _currentObjectDictionary = ArrayToDictionary(objectList);
-            foreach (var obj in objectList)
-            {
-                _currentObjectList.Add(obj.name);
-            }
+            _currentObjectList.Add(obj.name);
         }
     }
 
@@ -78,19 +77,19 @@ public class ObjectDictionary<T> where T : Object
     /// <param name="objectName">The name of the object to add.</param>
     public void AddObject(string objectName)
     {
-        if (!IsObjectInDictionary(objectName, _masterObjectDictionary))
+        if (!IsObjectInDictionary(objectName, _availableObjectDictionary))
         {
             return;
         }
 
-        if (_currentObjectDictionary.ContainsKey(objectName))
+        if (CurrentObjectDictionary.ContainsKey(objectName))
         {
             Debug.LogWarning($"Object with name {objectName} has already been added to the dictionary.");
             return;
         }
         
-        T obj = _masterObjectDictionary[objectName];
-        _currentObjectDictionary.Add(obj.name, obj);
+        T obj = _availableObjectDictionary[objectName];
+        CurrentObjectDictionary.Add(obj.name, obj);
         _currentObjectList.Add(obj.name);
     }
 
@@ -100,13 +99,13 @@ public class ObjectDictionary<T> where T : Object
     /// <param name="objectName">The name of the object to remove.</param>
     public void RemoveObject(string objectName)
     {
-        if (!IsObjectInDictionary(objectName, _currentObjectDictionary))
+        if (!IsObjectInDictionary(objectName, CurrentObjectDictionary))
         {
             return;
         }
 
         _currentObjectList.Remove(objectName);
-        _currentObjectDictionary.Remove(objectName);
+        CurrentObjectDictionary.Remove(objectName);
     }
 
     /// <summary>
@@ -116,12 +115,12 @@ public class ObjectDictionary<T> where T : Object
     /// <returns></returns>
     private T GetObject(string objectName)
     {
-        if (!IsObjectInDictionary(objectName, _currentObjectDictionary))
+        if (!IsObjectInDictionary(objectName, CurrentObjectDictionary))
         {
             return null;
         }
 
-        return _currentObjectDictionary[objectName];
+        return CurrentObjectDictionary[objectName];
     }
 
     /// <summary>
@@ -131,7 +130,7 @@ public class ObjectDictionary<T> where T : Object
     /// <param name="altValue">The object to replace the original object with.</param>
     public void SubstituteValueWithAlt(string valueName, T altValue)
     {
-        if (!IsObjectInDictionary(valueName, _currentObjectDictionary))
+        if (!IsObjectInDictionary(valueName, CurrentObjectDictionary))
         {
             return;
         }
@@ -142,7 +141,7 @@ public class ObjectDictionary<T> where T : Object
             return;
         }
         
-        _currentObjectDictionary[valueName] = altValue;
+        CurrentObjectDictionary[valueName] = altValue;
     }
     
     /// <summary>
@@ -172,7 +171,7 @@ public class ObjectDictionary<T> where T : Object
     {
         try
         {
-            return _currentObjectDictionary[_currentObjectList[index]];
+            return CurrentObjectDictionary[_currentObjectList[index]];
         }
         catch (IndexOutOfRangeException exception)
         {
@@ -181,5 +180,3 @@ public class ObjectDictionary<T> where T : Object
         }
     }
 }
-
-
