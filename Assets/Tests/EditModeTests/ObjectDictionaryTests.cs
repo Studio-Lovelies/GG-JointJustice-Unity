@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -38,7 +39,7 @@ namespace Tests.EditModeTests
         [Test]
         public void AddToObjectDictionary()
         {
-            int objectDictionaryCount = 5;
+            const int objectDictionaryCount = 5;
             var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(objectDictionaryCount), CreateGameObjectList(0));
             for (int i = 0; i < objectDictionaryCount; i++)
             {
@@ -54,8 +55,8 @@ namespace Tests.EditModeTests
         [Test]
         public void RemoveFromObjectDictionary()
         {
-            int objectDictionaryCount = 150;
-            int numberOfObjectsToRemove = 30;
+            const int objectDictionaryCount = 150;
+            const int numberOfObjectsToRemove = 30;
             var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(objectDictionaryCount), CreateGameObjectList(objectDictionaryCount));
             for (int i = 0; i < numberOfObjectsToRemove; i++)
             {
@@ -72,7 +73,7 @@ namespace Tests.EditModeTests
         [Test]
         public void GetObjectFromDictionary()
         {
-            int objectDictionaryCount = 100;
+            const int objectDictionaryCount = 100;
             var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(objectDictionaryCount), CreateGameObjectList(objectDictionaryCount));
             for (int i = 0; i < objectDictionaryCount; i++)
             {
@@ -88,7 +89,7 @@ namespace Tests.EditModeTests
         [Test]
         public void SubstituteValueInDictionaryWithAlt()
         {
-            int objectDictionaryCount = 100;
+            const int objectDictionaryCount = 100;
             var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(objectDictionaryCount), CreateGameObjectList(objectDictionaryCount));
             for (int i = 0; i < objectDictionaryCount; i++)
             {
@@ -113,7 +114,7 @@ namespace Tests.EditModeTests
         [Test]
         public void GetObjectFromDictionaryAtIndex()
         {
-            int objectDictionaryCount = 1000;
+            const int objectDictionaryCount = 1000;
             var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(objectDictionaryCount), CreateGameObjectList(objectDictionaryCount));
             for (int i = 0; i < objectDictionaryCount; i++)
             {
@@ -127,7 +128,7 @@ namespace Tests.EditModeTests
         /// <param name="count">The number of objects in the list.</param>
         /// <typeparam name="T">The type of object to create a list of.</typeparam>
         /// <returns>The list of objects created.</returns>
-        private List<T> CreateObjectList<T>(int count) where T : new()
+        private static IEnumerable<T> CreateObjectList<T>(int count) where T : new()
         {
             var list = new List<T>();
             for (int i = 0; i < count; i++)
@@ -143,7 +144,7 @@ namespace Tests.EditModeTests
         /// <param name="count">The number of scriptable objects in the list.</param>
         /// <typeparam name="T">The type of scriptable object to create a list of.</typeparam>
         /// <returns>The list of scriptable objects created.</returns>
-        private List<T> CreateScriptableObjectList<T>(int count) where T : ScriptableObject
+        private static List<T> CreateScriptableObjectList<T>(int count) where T : ScriptableObject
         {
             var list = new List<T>();
             for (int i = 0; i < count; i++)
@@ -160,14 +161,15 @@ namespace Tests.EditModeTests
         /// </summary>
         /// <param name="count">The number of game objects to create.</param>
         /// <returns>The list of game objects created.</returns>
-        private List<GameObject> CreateGameObjectList(int count)
+        private IEnumerable<GameObject> CreateGameObjectList(int count)
         {
             var gameObjectList = CreateObjectList<GameObject>(count);
-            for (int i = 0; i < gameObjectList.Count; i++)
+            var gameObjects = gameObjectList as GameObject[] ?? gameObjectList.ToArray();
+            for (int i = 0; i < gameObjects.Length; i++)
             {
-                gameObjectList[i].name = i.ToString();
+                gameObjects[i].name = i.ToString();
             }
-            return gameObjectList;
+            return gameObjects;
         }
     }
 }

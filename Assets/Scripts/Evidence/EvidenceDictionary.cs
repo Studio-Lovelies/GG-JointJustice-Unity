@@ -6,8 +6,8 @@ public class EvidenceDictionary : ObjectDictionaryInterface<Evidence, EvidenceLi
     /// <param name="evidenceName">The name of the evidence to substitute.</param>
     public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-        Evidence altEvidence = ObjectsDictionary[evidenceName].AltEvidence;
-        ObjectsDictionary.SubstituteValueWithAlt(evidenceName, altEvidence);
+        Evidence altEvidence = ObjectDictionary[evidenceName].AltEvidence;
+        ObjectDictionary.SubstituteValueWithAlt(evidenceName, altEvidence);
     }
     
     /// <summary>
@@ -17,6 +17,6 @@ public class EvidenceDictionary : ObjectDictionaryInterface<Evidence, EvidenceLi
     /// <returns>The evidence as an ICourtRecordObject</returns>
     public new ICourtRecordObject GetObjectAtIndex(int index)
     {
-        return ObjectsDictionary[index];
+        return ObjectDictionary[index];
     }
 }

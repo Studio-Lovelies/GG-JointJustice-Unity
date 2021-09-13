@@ -55,7 +55,7 @@ public class ObjectDictionary<T> where T : Object
     /// </summary>
     /// <param name="array">The list to convert to a dictionary.</param>
     /// <returns>The dictionary that the list has been converted to.</returns>
-    private Dictionary<string, T> ArrayToDictionary(IEnumerable<T> array)
+    private static Dictionary<string, T> ArrayToDictionary(IEnumerable<T> array)
     {
         Dictionary<string, T> dictionary = new Dictionary<string, T>();
         foreach (T obj in array)

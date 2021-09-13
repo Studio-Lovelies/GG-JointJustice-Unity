@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IObjectList<T> where T : Object
+public interface IObjectList<out T> where T : Object
 {
     T[] ObjectArray { get; }
 }

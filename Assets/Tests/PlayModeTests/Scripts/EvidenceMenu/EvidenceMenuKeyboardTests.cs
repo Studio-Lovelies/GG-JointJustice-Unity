@@ -86,13 +86,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
             // Spam navigation button
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.leftArrowKey);
-            yield return _inputTestTools.RepeatPressForFrames(_inputTestTools.Keyboard.enterKey, 50);
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey, 50);
 
             // Get the evidence menu text boxes to check if they are updated correctly
             Menu menu = _evidenceMenu.GetComponent<Menu>();
             TextMeshProUGUI[] evidenceTextBoxes = _evidenceMenu.GetComponentsInChildren<TextMeshProUGUI>();
             TextMeshProUGUI evidenceName =
-                evidenceTextBoxes.First(evidenceTextBoxe => evidenceTextBoxe.gameObject.name == "EvidenceName");
+                evidenceTextBoxes.First(evidenceTextBox => evidenceTextBox.gameObject.name == "EvidenceName");
             TextMeshProUGUI evidenceDescription = evidenceTextBoxes.First(evidenceTextBox =>
                 evidenceTextBox.gameObject.name == "EvidenceDescription");
             Image[] images = _evidenceMenu.GetComponentsInChildren<Image>();
@@ -110,8 +110,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
             // Spam navigation button
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.rightArrowKey);
-            yield return _inputTestTools.RepeatPressForFrames(_inputTestTools.Keyboard.enterKey, 101);
-            yield return _inputTestTools.RepeatPressForFrames(_inputTestTools.Keyboard.leftArrowKey, 4);
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey, 101);
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.leftArrowKey, 4);
 
             // After all this Jory Sr's Letter should be selected
             Assert.AreEqual("Jory Sr's Letter",_evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
@@ -140,7 +140,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             Assert.AreEqual(evidenceName.text, actor.CourtRecordName);
             Assert.AreEqual(evidenceDescription.text, actor.Description);
             Assert.AreEqual(evidenceIcon.sprite, actor.Icon);
-            yield return _inputTestTools.RepeatPressForFrames(_inputTestTools.Keyboard.rightArrowKey, 5);
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.rightArrowKey, 5);
             actor = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
             Assert.AreEqual(evidenceName.text, actor.CourtRecordName);
             Assert.AreEqual(evidenceDescription.text, actor.Description);

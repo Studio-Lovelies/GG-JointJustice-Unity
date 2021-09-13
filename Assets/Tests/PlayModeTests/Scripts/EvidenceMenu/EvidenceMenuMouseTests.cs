@@ -2,7 +2,6 @@ using System.Collections;
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -48,7 +47,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             // Loop through the menu items and check if they highlight correctly
             for (int i = 1; i < menuItems.Length; i++)
             {
-                MenuItem menuItem = menuItems.First(menuItem => menuItem.gameObject.name == $"EvidenceMenuItem ({i})");
+                MenuItem menuItem = menuItems.First(item => item.gameObject.name == $"EvidenceMenuItem ({i})");
                 yield return _inputTestTools.SetMousePosition(menuItem.transform.position);
                 ICourtRecordObject evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
                 Assert.AreEqual(menuItem.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName, evidence.DisplayName);
@@ -59,7 +58,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// Presses the navigation buttons multiple times then checks if
         /// the first menu item is the same as the one that the menu thinks is selected.
         /// </summary>
-        // [UnityTest, Order(1)]
+        [UnityTest, Order(1)]
         public IEnumerator NavigationButtonsCanBeClicked()
         {
             MenuItem decrementButton = GameObject.Find("DecrementButton").GetComponent<MenuItem>();
@@ -67,9 +66,9 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             Menu menu = _evidenceMenu.GetComponent<Menu>();
             
             yield return _inputTestTools.SetMousePosition(decrementButton.transform.position);
-            yield return _inputTestTools.RepeatPressForFrames(Mouse.leftButton, 100);
+            yield return _inputTestTools.PressForFrame(Mouse.leftButton, 100);
             yield return _inputTestTools.SetMousePosition(incrementButton.transform.position);
-            yield return _inputTestTools.RepeatPressForFrames(Mouse.leftButton, 123);
+            yield return _inputTestTools.PressForFrame(Mouse.leftButton, 123);
         
             Transform menuItem = GameObject.Find("EvidenceMenuItem").transform;
             yield return _inputTestTools.SetMousePosition(menuItem.position);

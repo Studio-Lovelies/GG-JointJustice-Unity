@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,16 +41,12 @@ public class ActorData : ScriptableObject, ICourtRecordObject
 
     private string GenerateNameWithAge()
     {
-        string age = "???";
-        switch (_ageCertainty)
-        {
-            case AgeCertainty.Known:
-                age = Age.ToString();
-                break;
-            case AgeCertainty.Guess:
-                age = $"Maybe {Age}?";
-                break;
-        }
+        string age = _ageCertainty switch {
+            AgeCertainty.Known => Age.ToString(),
+            AgeCertainty.Guess => $"Maybe {Age}?",
+            AgeCertainty.Unknown => "???",
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
         return $"{DisplayName} (Age: {age})";
     }
