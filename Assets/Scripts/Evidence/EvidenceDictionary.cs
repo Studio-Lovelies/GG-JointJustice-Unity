@@ -1,4 +1,6 @@
-public class EvidenceDictionary : ObjectDictionaryInterface<Evidence, EvidenceList>, ICourtRecordObjectDictionary
+using UnityEngine;
+
+public class EvidenceDictionary : ObjectDictionary<Evidence, EvidenceList>, ICourtRecordObjectDictionary
 {
     /// <summary>
     /// Replaces an Evidence object with its designated alternate evidence.

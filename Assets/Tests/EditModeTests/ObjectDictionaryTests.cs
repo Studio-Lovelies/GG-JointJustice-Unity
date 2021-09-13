@@ -7,29 +7,28 @@ namespace Tests.EditModeTests
 {
     public class ObjectDictionaryTests
     {
-        /// <summary>
-        /// Test to check if ObjectDictionary objects are created properly.
-        /// They should not be null and have a count equal to the number of objects
-        /// to the list passed to the currentObjectList parameter.
-        /// </summary>
-        [Test]
-        public void CreateDictionary()
+        private EvidenceDictionary _evidenceDictionary;
+
+        private string[] _evidenceNames =
         {
-            var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(500), CreateGameObjectList(0));
-            Assert.NotNull(objectDictionary);
-            Assert.AreEqual(0, objectDictionary.Count);
-           
-            objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(500), CreateGameObjectList(150));
-            Assert.NotNull(objectDictionary);
-            Assert.AreEqual(150, objectDictionary.Count);
-            
-            var evidenceDictionary = new ObjectDictionary<Evidence>(CreateScriptableObjectList<Evidence>(500), CreateScriptableObjectList<Evidence>(20));
-            Assert.NotNull(evidenceDictionary);
-            Assert.AreEqual(20, evidenceDictionary.Count);
-            
-            var actorDictionary = new ObjectDictionary<ActorData>(CreateScriptableObjectList<ActorData>(500), CreateScriptableObjectList<ActorData>(49));
-            Assert.NotNull(evidenceDictionary);
-            Assert.AreEqual(49, actorDictionary.Count);
+            "Attorneys_Badge",
+            "Bent_Coins",
+            "Jory_Srs_Letter",
+            "Jorys_Backpack",
+            "Livestream_Recording",
+            "Stolen_Dinos",
+            "Switch"
+        };
+
+        [SetUp]
+        public void Setup()
+        {
+            _evidenceDictionary = new GameObject("EvidenceDictionary").AddComponent<EvidenceDictionary>();
+            _evidenceDictionary.InitialiseDictionaries();
+            foreach (var name in _evidenceNames)
+            {
+                _evidenceDictionary.AddObject(name);
+            }
         }
 
         /// <summary>
@@ -39,13 +38,7 @@ namespace Tests.EditModeTests
         [Test]
         public void AddToObjectDictionary()
         {
-            const int objectDictionaryCount = 5;
-            var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(objectDictionaryCount), CreateGameObjectList(0));
-            for (int i = 0; i < objectDictionaryCount; i++)
-            {
-                objectDictionary.AddObject(i.ToString());
-            }
-            Assert.AreEqual(objectDictionaryCount, objectDictionary.Count);
+            Assert.AreEqual(7, _evidenceDictionary.Count);
         }
 
         /// <summary>
@@ -55,15 +48,11 @@ namespace Tests.EditModeTests
         [Test]
         public void RemoveFromObjectDictionary()
         {
-            const int objectDictionaryCount = 150;
-            const int numberOfObjectsToRemove = 30;
-            var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(objectDictionaryCount), CreateGameObjectList(objectDictionaryCount));
-            for (int i = 0; i < numberOfObjectsToRemove; i++)
+            foreach (var name in _evidenceNames)
             {
-                objectDictionary.RemoveObject(i.ToString());
+                _evidenceDictionary.RemoveObject(name);
             }
-            Assert.AreEqual(objectDictionaryCount - numberOfObjectsToRemove, objectDictionary.Count);
-            Assert.AreEqual("50", objectDictionary["50"].name);
+            Assert.AreEqual(0, _evidenceDictionary.Count);
         }
 
         /// <summary>
@@ -73,11 +62,10 @@ namespace Tests.EditModeTests
         [Test]
         public void GetObjectFromDictionary()
         {
-            const int objectDictionaryCount = 100;
-            var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(objectDictionaryCount), CreateGameObjectList(objectDictionaryCount));
-            for (int i = 0; i < objectDictionaryCount; i++)
+            foreach (var name in _evidenceNames)
             {
-                Assert.AreEqual(i.ToString(), objectDictionary[i.ToString()].name);
+                Evidence evidence = _evidenceDictionary[name];
+                Assert.AreEqual(name, evidence.name);
             }
         }
 
@@ -89,21 +77,12 @@ namespace Tests.EditModeTests
         [Test]
         public void SubstituteValueInDictionaryWithAlt()
         {
-            const int objectDictionaryCount = 100;
-            var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(objectDictionaryCount), CreateGameObjectList(objectDictionaryCount));
-            for (int i = 0; i < objectDictionaryCount; i++)
+            foreach (var name in _evidenceNames)
             {
-                objectDictionary.SubstituteValueWithAlt(i.ToString(), objectDictionary[(objectDictionary.Count - (i + 1)).ToString()]);
-            }
-
-            for (int i = 0; i < objectDictionaryCount / 2; i++)
-            { 
-                Assert.AreEqual((objectDictionaryCount - (i + 1)).ToString(), objectDictionary[i.ToString()].name);
-            }
-
-            for (int i = 50; i < objectDictionaryCount; i++)
-            {
-                Assert.AreEqual(i.ToString(), objectDictionary[i.ToString()].name);
+                Evidence evidence = ScriptableObject.CreateInstance<Evidence>();
+                evidence.name = "newObject";
+                _evidenceDictionary.SubstituteValueWithAlt(name, evidence);
+                Assert.AreEqual("newObject", _evidenceDictionary[name].name);
             }
         }
 
@@ -114,62 +93,10 @@ namespace Tests.EditModeTests
         [Test]
         public void GetObjectFromDictionaryAtIndex()
         {
-            const int objectDictionaryCount = 1000;
-            var objectDictionary = new ObjectDictionary<GameObject>(CreateGameObjectList(objectDictionaryCount), CreateGameObjectList(objectDictionaryCount));
-            for (int i = 0; i < objectDictionaryCount; i++)
+            for (int i = 0; i < _evidenceNames.Length; i++)
             {
-                Assert.AreEqual(i.ToString(), objectDictionary[i].name);
+                Assert.AreEqual(_evidenceDictionary[i].name, _evidenceNames[i]);
             }
-        }
-
-        /// <summary>
-        /// Creates a list of objects to use in above tests.
-        /// </summary>
-        /// <param name="count">The number of objects in the list.</param>
-        /// <typeparam name="T">The type of object to create a list of.</typeparam>
-        /// <returns>The list of objects created.</returns>
-        private static IEnumerable<T> CreateObjectList<T>(int count) where T : new()
-        {
-            var list = new List<T>();
-            for (int i = 0; i < count; i++)
-            {
-                list.Add(new T());
-            }
-            return list;
-        }
-        
-        /// <summary>
-        /// Creates a list of scriptable objects to use in above tests.
-        /// </summary>
-        /// <param name="count">The number of scriptable objects in the list.</param>
-        /// <typeparam name="T">The type of scriptable object to create a list of.</typeparam>
-        /// <returns>The list of scriptable objects created.</returns>
-        private static List<T> CreateScriptableObjectList<T>(int count) where T : ScriptableObject
-        {
-            var list = new List<T>();
-            for (int i = 0; i < count; i++)
-            {
-                T scriptableObject = ScriptableObject.CreateInstance<T>();
-                scriptableObject.name = i.ToString();
-                list.Add(scriptableObject);
-            }
-            return list;
-        }
-
-        /// <summary>
-        /// Create a list of game objects and give them corresponding to the order they were created in.
-        /// </summary>
-        /// <param name="count">The number of game objects to create.</param>
-        /// <returns>The list of game objects created.</returns>
-        private IEnumerable<GameObject> CreateGameObjectList(int count)
-        {
-            var gameObjectList = CreateObjectList<GameObject>(count);
-            var gameObjects = gameObjectList as GameObject[] ?? gameObjectList.ToArray();
-            for (int i = 0; i < gameObjects.Length; i++)
-            {
-                gameObjects[i].name = i.ToString();
-            }
-            return gameObjects;
         }
     }
 }
