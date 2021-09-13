@@ -148,13 +148,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _availableObjectList: {fileID: 11400000, guid: 8a614ed376c0c4ab889d18152bd51c7e, type: 2}
-  <CurrentObjectList>k__BackingField:
+  _initialObjectArray:
   - {fileID: 11400000, guid: 2cf259801b39643bdbc9a15b5b9720f7, type: 2}
+  - {fileID: 11400000, guid: 96f800d5846e6447988c39aa3bd2022e, type: 2}
   - {fileID: 11400000, guid: 8884e3157635440fe9f5b3e5faad3af1, type: 2}
   - {fileID: 11400000, guid: 9e61ecb11330443f3a5ff9215ad3d5e4, type: 2}
-  - {fileID: 11400000, guid: 96f800d5846e6447988c39aa3bd2022e, type: 2}
-  - {fileID: 11400000, guid: 4682191bcfce7432fb9166472f7416d0, type: 2}
+  - {fileID: 11400000, guid: 33024f3c9ff5dcc4d87d845e35e537ee, type: 2}
   - {fileID: 11400000, guid: 30fc19a38ce8e48f3a82e42187ffbc1d, type: 2}
+  - {fileID: 11400000, guid: 4682191bcfce7432fb9166472f7416d0, type: 2}
 --- !u!1 &5228303783052357475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,7 +1228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _availableObjectList: {fileID: 11400000, guid: b17249a73a0f74b9ca3f6eb22a2b4de7, type: 2}
-  <CurrentObjectList>k__BackingField:
+  _initialObjectArray:
   - {fileID: 11400000, guid: 8e1c11b76c9554d91970538b25659af3, type: 2}
 --- !u!1 &7228055915782335262
 GameObject:

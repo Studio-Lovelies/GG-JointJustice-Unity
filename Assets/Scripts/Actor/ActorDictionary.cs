@@ -5,8 +5,8 @@ public class ActorDictionary : ObjectDictionaryInterface<ActorData, ActorList>, 
     /// </summary>
     /// <param name="index">The index of the actor data to get.</param>
     /// <returns>The actor data as an ICourtRecordObject</returns>
-    public new ICourtRecordObject GetObjectAtIndex(int index)
+    public ICourtRecordObject GetObjectAtIndex(int index)
     {
-        return ObjectDictionary[index];
+        return this[index];
     }
 }
