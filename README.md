@@ -35,3 +35,31 @@ _Optional:_
 - In the "Project" tab, navigate to `Assets/Scenes/SampleScene`
 - Click on the "Game" tab in the main view
 - Hit the play button on the top!
+
+## Contributing
+When updating code, it is mandatory to create a pull request to make sure
+- the game still builds properly on all platforms **on a clean setup**
+- tests are run successfully **on a clean setup**
+- code adheres to [this project's style guide](https://docs.google.com/document/d/1zN4Yx62PpyXhu1g_AhtTZSC8k9e4zqWbzQPt1Hlw9Ag/edit)
+- changed code is reviewed by at least two other developers
+
+It is also recommended to run all [PlayMode and EditMode tests](https://docs.unity3d.com/Packages/com.unity.test-framework@1.0/manual/edit-mode-vs-play-mode-tests.html) locally **before creating a pull request**.  
+
+## Running tests locally
+Running tests ensures no existing functionality is broken by a change or - if the behavior change is intended - all existing test suites are updated accordingly.
+
+Alternatively these steps can also be used to better analyse a failed test case. While our automated deployment workflow generates callstacks of offending test cases, it sometimes may be easier to attach a debugger to the running process.
+
+To run tests locally:
+1. Open the project in Unity
+2. Select `Window` -> `General` -> `Test Runner` from the top menu
+3. Inside the `Test Runner`-tab/-window...
+   1. Select `PlayMode`
+   2. Click on `Run All` and ensure every test is prepended with a green checkmark (✅)
+   3. Select `EditMode`
+   4. Click on `Run All` and ensure every test is prepended with a green checkmark (✅)
+4. If any tests were unable to complete successfully...
+   1. Click on the row containing the red cross (❌)
+   2. Inspect the log at the bottom of the `Test Runner` window and understand which assertion can no longer be made. Either...
+      1. Change the game code to match the assertion **or**
+      2. **(if the test case is outdated or invalid due to the change)** update the test suite to reflect the new intended behavior
