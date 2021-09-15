@@ -1,4 +1,4 @@
-public class EvidenceDictionary : ObjectDictionaryInterface<Evidence, EvidenceList>, ICourtRecordObjectDictionary
+public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourtRecordObjectInventory
 {
     /// <summary>
     /// Replaces an Evidence object with its designated alternate evidence.
@@ -6,8 +6,8 @@ public class EvidenceDictionary : ObjectDictionaryInterface<Evidence, EvidenceLi
     /// <param name="evidenceName">The name of the evidence to substitute.</param>
     public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-        Evidence altEvidence = ObjectDictionary[evidenceName].AltEvidence;
-        ObjectDictionary.SubstituteValueWithAlt(evidenceName, altEvidence);
+        Evidence altEvidence = OrderedObjectStorage[evidenceName].AltEvidence;
+        OrderedObjectStorage.SubstituteObject(evidenceName, altEvidence);
     }
     
     /// <summary>
@@ -15,8 +15,8 @@ public class EvidenceDictionary : ObjectDictionaryInterface<Evidence, EvidenceLi
     /// </summary>
     /// <param name="index">The index of the evidence to get.</param>
     /// <returns>The evidence as an ICourtRecordObject</returns>
-    public new ICourtRecordObject GetObjectAtIndex(int index)
+    public ICourtRecordObject GetObjectAtIndex(int index)
     {
-        return ObjectDictionary[index];
+        return OrderedObjectStorage[index];
     }
 }

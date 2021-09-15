@@ -16,6 +16,7 @@ public class Evidence : ScriptableObject, ICourtRecordObject
 
     [field: SerializeField, Tooltip("Contains an alternate version of the evidence that this evidence can be replaced with.")]
     public Evidence AltEvidence { get; private set; }
-    
+
+    public string InstanceName => name;
     public string CourtRecordName => DisplayName;
 }

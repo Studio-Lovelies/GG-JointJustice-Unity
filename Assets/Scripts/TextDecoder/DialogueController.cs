@@ -191,7 +191,7 @@ public class DialogueController : MonoBehaviour
             int evidenceFoundAt = -1;
             for (int i = 2; i < choiceList.Count; i++)
             {
-                if (choiceList[i].text == presentedObject.name)
+                if (choiceList[i].text == presentedObject.InstanceName)
                 {
                     evidenceFoundAt = i;
                     break;

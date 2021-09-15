@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Menu))]
@@ -9,11 +10,11 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag the evidence controller here")]
     private EvidenceController _evidenceController;
 
-    [SerializeField, Tooltip("Drag the evidence dictionary here")]
-    private EvidenceDictionary _evidenceDictionary;
+    [FormerlySerializedAs("_evidenceDictionary")] [SerializeField, Tooltip("Drag the evidence dictionary here")]
+    private EvidenceInventory _evidenceInventory;
 
-    [SerializeField, Tooltip("Drag the actor dictionary here")]
-    private ActorDictionary _actorDictionary;
+    [FormerlySerializedAs("_actorDictionary")] [SerializeField, Tooltip("Drag the actor dictionary here")]
+    private ActorInventory _actorInventory;
 
     [SerializeField, Tooltip("Drag the TextMeshProUGUI component used for displaying the evidence's name here")]
     private TextMeshProUGUI _evidenceName;
@@ -41,7 +42,7 @@ public class EvidenceMenu : MonoBehaviour
 
     private bool _profileMenuActive;
     private Sprite _evidenceMenuLabel;
-    private ICourtRecordObjectDictionary _activeDictionary;
+    private ICourtRecordObjectInventory _activeDictionary;
     private int _currentPage;
     private int _numberOfPages;
     private int _startIndex;
@@ -53,7 +54,7 @@ public class EvidenceMenu : MonoBehaviour
     private void Awake()
     {
         _menu = GetComponent<Menu>();
-        _activeDictionary = _evidenceDictionary;
+        _activeDictionary = _evidenceInventory;
         _evidenceMenuLabel = _menuLabel.sprite;
     }
     
@@ -75,7 +76,7 @@ public class EvidenceMenu : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        _activeDictionary = _evidenceDictionary;
+        _activeDictionary = _evidenceInventory;
         
         if (!_menu.DontResetSelectedOnClose)
         {
@@ -211,7 +212,7 @@ public class EvidenceMenu : MonoBehaviour
     /// <returns>Whether an EvidenceDictionary has been assigned (true) or not (false).</returns>
     private bool HasEvidenceDictionary()
     {
-        if (_evidenceDictionary == null)
+        if (_evidenceInventory == null)
         {
             Debug.LogError("EvidenceDictionary component has not been assigned.");
             return false;
@@ -231,13 +232,13 @@ public class EvidenceMenu : MonoBehaviour
         if (_profileMenuActive)
         {
             _profileMenuActive = false;
-            _activeDictionary = _evidenceDictionary;
+            _activeDictionary = _evidenceInventory;
             _menuLabel.sprite = _evidenceMenuLabel;
         }
         else
         {
             _profileMenuActive = true;
-            _activeDictionary = _actorDictionary;
+            _activeDictionary = _actorInventory;
             _menuLabel.sprite = _profilesMenuLabel;
         }
         
