@@ -55,6 +55,10 @@ public class SceneController : MonoBehaviour, ISceneController
         Debug.LogWarning("PanCamera not implemented");
     }
 
+    /// <summary>
+    /// Sets the new bg-scene based on the provided name and changes the active actor using an event.
+    /// </summary>
+    /// <param name="background">Target bg-scene</param>
     public void SetScene(string background)
     {
         BGScene newScene = _sceneList.SetScene(background);
