@@ -5,6 +5,9 @@ using UnityEngine.Events;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
+    [SerializeField] private BGSceneList _sceneList;
+
+    [Header("Events")]
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
@@ -14,7 +17,10 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("This event is called when a wait action is finished.")]
     [SerializeField] private UnityEvent _onWaitComplete;
 
-    
+    [Tooltip("Event that gets called when the actor displayed on screen changes")]
+    [SerializeField] private UnityEvent<Actor> _onActorChanged;
+
+
 
     private Coroutine _waitCoroutine;
     
@@ -51,7 +57,12 @@ public class SceneController : MonoBehaviour, ISceneController
 
     public void SetScene(string background)
     {
-        Debug.LogWarning("SetBackground not implemented");
+        BGScene newScene = _sceneList.SetScene(background);
+
+        if (newScene != null)
+        {
+            _onActorChanged.Invoke(newScene.ActiveActor);
+        }
     }
 
     public void SetCameraPos(Vector2Int position)
