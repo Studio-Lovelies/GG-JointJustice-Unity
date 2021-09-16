@@ -1,132 +1,132 @@
-﻿//using System.Collections;
-//using System.Linq;
-//using NUnit.Framework;
-//using UnityEngine;
-//using UnityEngine.InputSystem;
-//using UnityEngine.InputSystem.Controls;
-//using UnityEngine.SceneManagement;
-//using UnityEngine.TestTools;
+﻿using System.Collections;
+using System.Linq;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 
-//namespace Tests.PlayModeTests.Scenes.MainMenu
-//{
-//    public class ViaMouse : InputTestFixture
-//    {
-//        private IEnumerator PressForFrame(ButtonControl control)
-//        {
-//            yield return null;
-//            Press(control);
-//            yield return null;
-//            Release(control);
-//            yield return null;
-//        }
+namespace Tests.PlayModeTests.Scenes.MainMenu
+{
+    public class ViaMouse : InputTestFixture
+    {
+        private IEnumerator PressForFrame(ButtonControl control)
+        {
+            yield return null;
+            Press(control);
+            yield return null;
+            Release(control);
+            yield return null;
+        }
 
-//        [UnityTest]
-//        [ReloadScene]
-//        public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
-//        {
-//            // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
-//            // and we query all existing menus instead
-//            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
-//            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
-//            Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
-//            Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
+        [UnityTest]
+        [ReloadScene]
+        public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
+        {
+            // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
+            // and we query all existing menus instead
+            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
+            Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
-//            Mouse mouse = InputSystem.AddDevice<Mouse>();
+            Mouse mouse = InputSystem.AddDevice<Mouse>();
 
-//            RectTransform openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton");
-//            RectTransform openSecondSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
-//            RectTransform closeSecondSubMenuButton = secondSubMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (4)");
-//            RectTransform closeFirstSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (4)");
+            RectTransform openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton");
+            RectTransform openSecondSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
+            RectTransform closeSecondSubMenuButton = secondSubMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (4)");
+            RectTransform closeFirstSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (4)");
 
-//            Assert.True(mainMenu.Active);
-//            Assert.False(subMenu.Active);
+            Assert.True(mainMenu.Active);
+            Assert.False(subMenu.Active);
 
-//            Set(mouse.position, openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
-//            yield return PressForFrame(mouse.leftButton);
-            
-//            Assert.True(subMenu.Active);
-//            Assert.False(mainMenu.Active);
+            Set(mouse.position, openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(mouse.leftButton);
 
-//            Set(mouse.position, openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
-//            yield return PressForFrame(mouse.leftButton);
+            Assert.True(subMenu.Active);
+            Assert.False(mainMenu.Active);
 
-//            Assert.True(secondSubMenu.Active);
-//            Assert.False(subMenu.Active);
+            Set(mouse.position, openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(mouse.leftButton);
 
-//            Set(mouse.position, closeSecondSubMenuButton.position + closeSecondSubMenuButton.localScale * 0.5f);
-//            yield return PressForFrame(mouse.leftButton);
+            Assert.True(secondSubMenu.Active);
+            Assert.False(subMenu.Active);
 
-//            Assert.True(subMenu.Active);
-//            Assert.False(mainMenu.Active);
+            Set(mouse.position, closeSecondSubMenuButton.position + closeSecondSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(mouse.leftButton);
 
-//            Set(mouse.position, closeFirstSubMenuButton.position + closeFirstSubMenuButton.localScale * 0.5f);
-//            yield return PressForFrame(mouse.leftButton);
+            Assert.True(subMenu.Active);
+            Assert.False(mainMenu.Active);
 
-//            Assert.True(mainMenu.Active);
-//            Assert.False(subMenu.Active);
-//        }
+            Set(mouse.position, closeFirstSubMenuButton.position + closeFirstSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(mouse.leftButton);
 
-//        [UnityTest]
-//        [ReloadScene]
-//        public IEnumerator CanEnterAndCloseTwoSubMenusWithCloseAllButton()
-//        {
-//            // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
-//            // and we query all existing menus instead
-//            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
-//            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
-//            Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
-//            Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
+            Assert.True(mainMenu.Active);
+            Assert.False(subMenu.Active);
+        }
 
-//            Mouse mouse = InputSystem.AddDevice<Mouse>();
+        [UnityTest]
+        [ReloadScene]
+        public IEnumerator CanEnterAndCloseTwoSubMenusWithCloseAllButton()
+        {
+            // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
+            // and we query all existing menus instead
+            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
+            Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
-//            RectTransform openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton");
-//            RectTransform openSecondSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
-//            RectTransform closeAllSubMenusButton = secondSubMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
+            Mouse mouse = InputSystem.AddDevice<Mouse>();
 
-//            Assert.True(mainMenu.Active);
-//            Assert.False(subMenu.Active);
+            RectTransform openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton");
+            RectTransform openSecondSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
+            RectTransform closeAllSubMenusButton = secondSubMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
 
-//            Set(mouse.position, openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
-//            yield return PressForFrame(mouse.leftButton);
+            Assert.True(mainMenu.Active);
+            Assert.False(subMenu.Active);
 
-//            Assert.True(subMenu.Active);
-//            Assert.False(mainMenu.Active);
+            Set(mouse.position, openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(mouse.leftButton);
 
-//            Set(mouse.position, openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
-//            yield return PressForFrame(mouse.leftButton);
+            Assert.True(subMenu.Active);
+            Assert.False(mainMenu.Active);
 
-//            Assert.True(secondSubMenu.Active);
-//            Assert.False(subMenu.Active);
+            Set(mouse.position, openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(mouse.leftButton);
 
-//            Set(mouse.position, closeAllSubMenusButton.position + closeAllSubMenusButton.localScale * 0.5f);
-//            yield return PressForFrame(mouse.leftButton);
+            Assert.True(secondSubMenu.Active);
+            Assert.False(subMenu.Active);
 
-//            Assert.True(mainMenu.Active);
-//            Assert.False(secondSubMenu.Active);
-//        }
+            Set(mouse.position, closeAllSubMenusButton.position + closeAllSubMenusButton.localScale * 0.5f);
+            yield return PressForFrame(mouse.leftButton);
 
-//        [UnityTest]
-//        [ReloadScene]
-//        public IEnumerator CanStartGame()
-//        { 
-//            SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
-//            SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
+            Assert.True(mainMenu.Active);
+            Assert.False(secondSubMenu.Active);
+        }
 
-//            // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
-//            // and we query all existing menus instead
-//            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
-//            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+        [UnityTest]
+        [ReloadScene]
+        public IEnumerator CanStartGame()
+        {
+            SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
+            SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
 
-//            Mouse mouse = InputSystem.AddDevice<Mouse>();
+            // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
+            // and we query all existing menus instead
+            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
 
-//            RectTransform startGameButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
+            Mouse mouse = InputSystem.AddDevice<Mouse>();
 
-//            Set(mouse.position, startGameButton.position + startGameButton.localScale * 0.5f);
-//            Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-//            yield return PressForFrame(mouse.leftButton);
-//            Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
+            RectTransform startGameButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
 
-//            SceneManagerAPI.overrideAPI = null;
-//        }
-//    }
-//}
+            Set(mouse.position, startGameButton.position + startGameButton.localScale * 0.5f);
+            Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
+            yield return PressForFrame(mouse.leftButton);
+            Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
+
+            SceneManagerAPI.overrideAPI = null;
+        }
+    }
+}
