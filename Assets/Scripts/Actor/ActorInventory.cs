@@ -7,6 +7,6 @@ public class ActorInventory : ObjectInventory<ActorData, ActorList>, ICourtRecor
     /// <returns>The actor data as an ICourtRecordObject</returns>
     public ICourtRecordObject GetObjectAtIndex(int index)
     {
-        return OrderedObjectStorage[index];
+        return ObjectStorage[index];
     }
 }

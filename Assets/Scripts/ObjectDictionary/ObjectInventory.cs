@@ -19,12 +19,12 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     
     private Dictionary<string, T> _availableObjectDictionary;
     
-    protected OrderedObjectStorage<T> OrderedObjectStorage { get; private set; }
+    protected OrderedObjectStorage<T> ObjectStorage { get; private set; }
 
     // Use square brackets to get objects from the inventory
-    public T this[string objectName] => OrderedObjectStorage[objectName];
-    public T this[int objectIndex] => OrderedObjectStorage[objectIndex];
-    public int Count => OrderedObjectStorage.Count;
+    public T this[string objectName] => ObjectStorage[objectName];
+    public T this[int objectIndex] => ObjectStorage[objectIndex];
+    public int Count => ObjectStorage.Count;
     
     /// <summary>
     /// Converts the available objects list into a dictionary
@@ -38,8 +38,8 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
             return;
         }
 
-        OrderedObjectStorage = new OrderedObjectStorage<T>(_currentObjectList);
-        _availableObjectDictionary = OrderedObjectStorage.EnumerableToDictionary<Dictionary<string, T>>(_availableObjectList.ObjectArray);
+        ObjectStorage = new OrderedObjectStorage<T>(_currentObjectList);
+        _availableObjectDictionary = OrderedObjectStorage<T>.EnumerableToDictionary<Dictionary<string, T>>(_availableObjectList.ObjectArray);
     }
 
     /// <summary>
@@ -48,12 +48,12 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     /// <param name="objectName">The name of the object to add.</param>
     public void AddObject(string objectName)
     {
-        if (!OrderedObjectStorage.IsObjectInDictionary(objectName, _availableObjectDictionary))
+        if (!OrderedObjectStorage<T>.IsObjectInDictionary(objectName, _availableObjectDictionary))
         {
             return;
         }
         
-        OrderedObjectStorage.Add(objectName, _availableObjectDictionary[objectName]);
+        ObjectStorage.Add(objectName, _availableObjectDictionary[objectName]);
     }
 
     /// <summary>
@@ -62,6 +62,6 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     /// <param name="objectName">The name of the object to remove.</param>
     public void RemoveObject(string objectName)
     {
-        OrderedObjectStorage.Remove(objectName);
+        ObjectStorage.Remove(objectName);
     }
 }
