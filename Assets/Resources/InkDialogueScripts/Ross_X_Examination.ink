@@ -1,7 +1,24 @@
+//Do these before fading in, sets up the scene
+
+&SCENE:TMPH_Witness
+&ACTOR:Ross
+
+&SCENE:TMPH_Defense
+&ACTOR:Arin
+
+&SCENE:TMPH_Prosecution
+&ACTOR:Tutorial_Boy
+
+&SCENE:TMPH_Judge
+&ACTOR:Brent_Judge
+
+&SCENE:TMPH_Assistant
+&ACTOR:Dan
+
 -> Line1
 
 === Line1 ===
-&ACTOR:Ross
+&SCENE:TMPH_Witness
 &SPEAK:Ross
 <color="green">I was animating by myself over in my room at the office.
 + [Continue]
@@ -10,7 +27,7 @@
     -> Line1Press
 
 === Line2 ===
-&ACTOR:Ross
+&SCENE:TMPH_Witness
 &SPEAK:Ross
 <color="green">But then... I saw someone taking the dinos!!
 + [Continue]
@@ -19,7 +36,7 @@
     -> Line2Press
 
 === Line3 ===
-&ACTOR:Ross
+&SCENE:TMPH_Witness
 &SPEAK:Ross
 <color="green">It was Jory! He was on the 10 Minute Power Hour set taking the dinos!
 + [Continue]
@@ -28,7 +45,7 @@
     -> Finale
 
 === Line4 ===
-&ACTOR:Ross
+&SCENE:TMPH_Witness
 &SPEAK:Ross
 <color="green">Now that I know they were stolen, that means the culprit must be Jory!
 + [Continue]
@@ -36,30 +53,30 @@
 + [Press]
     -> Line4Press
 + [Attorneys_Badge] //Shouldn't be here, just for testing purposes
-    &ACTOR:Ross
+    &SCENE:TMPH_Witness
     &SPEAK:Ross
     Oi m8, that's a noice bit of stuff roit thare!
     
-    &ACTOR:Arin
+    &SCENE:TMPH_Defense
     &SPEAK:Arin
     Thanks bud!
     -> Line1
 
 
 === Line1Press ===
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 What were you animating?
 
-&ACTOR:Tutorial_Boy
+&SCENE:TMPH_Prosecution
 &SPEAK:Tutorial_Boy
 Your Honor, this is clearly irrelevant to the case.
 
-&ACTOR:Brent_Judge
+&SCENE:TMPH_Judge
 &SPEAK:Brent_Judge
 I agree. Arin, try being serious about this.
 
-&ACTOR:Tutorial_Boy
+&SCENE:TMPH_Prosecution
 &SPEAK:Tutorial_Boy
 Ross, continue your testimony.
 
@@ -67,49 +84,49 @@ Ross, continue your testimony.
 
 
 === Line2Press ===
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 Who did you see?
 
-&ACTOR:Ross
+&SCENE:TMPH_Witness
 &SPEAK:Ross
 I'm getting to it, just be patient. I'm trying to build suspense for the viewers!
 
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 But this isn't being broadcasted...
 
-&ACTOR:Tutorial_Boy
+&SCENE:TMPH_Prosecution
 &SPEAK:Tutorial_Boy
 Quick! Back to the testimony before we break the fourth wall again!
 
-&ACTOR:Brent_Judge
+&SCENE:TMPH_Judge
 &SPEAK:Brent_Judge
 Witness, carry on.
 -> Line3
 
 === Line4Press ===
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 What makes you so sure that the dinos were stolen, anyways!?
 
-&ACTOR:Ross
+&SCENE:TMPH_Witness
 &SPEAK:Ross
 ...
 
-&ACTOR:Brent_Judge
+&SCENE:TMPH_Judge
 &SPEAK:Brent_Judge
 ...
 
-&ACTOR:Dan
+&SCENE:TMPH_Assistant
 &SPEAK:Dan
 Arin, that's literally the reason we're all here.
 
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 ...
 
-&ACTOR:Brent_Judge
+&SCENE:TMPH_Judge
 &SPEAK:Brent_Judge
 I'll just pretend that didn't happen.
 -> Line1
@@ -117,70 +134,70 @@ I'll just pretend that didn't happen.
 
 
 === Finale ===
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 You said you saw Jory in the 10 Minute Power Hour room, correct?
 
-&ACTOR:Ross
+&SCENE:TMPH_Witness
 &SPEAK:Ross
 Yes, that's correct!
 
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 Yet you also say you were in your office animating
 
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 Seems very odd to me! How could you see anyone while you were focused on your work!
 
-&ACTOR:Tutorial_Boy
+&SCENE:TMPH_Prosecution
 &SPEAK:Tutorial_Boy
 Are you saying that my witness is a liar?
 I'm sure Ross has a very reasonable explanation for all this.
 
-&ACTOR:Dan
+&SCENE:TMPH_Assistant
 &SPEAK:Dan
 He oughta have a real good reason for this.
 
-&ACTOR:Ross
+&SCENE:TMPH_Witness
 &SPEAK:Ross
 T-That's right! The reason I was able to see Jory was... because I needed to poop!
 Yeah!
 
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 Um... excuse me?
 
-&ACTOR:Dan
+&SCENE:TMPH_Assistant
 &SPEAK:Dan
 Hah hah hah hah!!!
 
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &THINK:Arin
 (Goddamnit, Ross.)
 
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 What does you needing to poop have to do with seeing Jory?
 
-&ACTOR:Ross
+&SCENE:TMPH_Witness
 &SPEAK:Ross
 W-Well, you see, I had to go out to use the bathroom, which is how I saw Jory!
 
-&ACTOR:Arin
+&SCENE:TMPH_Defense
 &SPEAK:Arin
 Uh-huh...
 Your Honor, I believe this needs to be added to the witness's testimony.
 
-&ACTOR:Brent_Judge
+&SCENE:TMPH_Judge
 &SPEAK:Brent_Judge
 Agreed. Witness, add your poop story to your testimony.
 
-&ACTOR:Ross
+&SCENE:TMPH_Witness
 &SPEAK:Ross
 Uh... Yes, why of course, Your Honor. Let me go over it again.
 
-&ACTOR:Dan
+&SCENE:TMPH_Assistant
 &SPEAK:Dan
 Way to go, Big Cat! Let's see how this changes things.
 ->END

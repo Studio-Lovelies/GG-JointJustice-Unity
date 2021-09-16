@@ -34,7 +34,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
             Keyboard keyboard = InputSystem.AddDevice<Keyboard>();
-            
+
             string selectedButton = mainMenu.SelectedButton.name;
             yield return PressForFrame(keyboard.rightArrowKey);
             string newSelectedButton = mainMenu.SelectedButton.name;
@@ -80,7 +80,6 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
             Keyboard keyboard = InputSystem.AddDevice<Keyboard>();
-
             string selectedButton = mainMenu.SelectedButton.name;
             yield return PressForFrame(keyboard.rightArrowKey);
             string newSelectedButton = mainMenu.SelectedButton.name;
@@ -107,7 +106,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         [UnityTest]
         [ReloadScene]
         public IEnumerator CanStartGame()
-        { 
+        {
             SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
             SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
 
@@ -116,7 +115,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
             yield return PressForFrame(keyboard.enterKey);
             Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-            
+
             SceneManagerAPI.overrideAPI = null;
         }
     }

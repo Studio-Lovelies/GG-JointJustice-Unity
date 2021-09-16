@@ -5,6 +5,10 @@ using UnityEngine.Events;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
+    [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
+    [SerializeField] private BGSceneList _sceneList;
+
+    [Header("Events")]
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
@@ -14,7 +18,10 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("This event is called when a wait action is finished.")]
     [SerializeField] private UnityEvent _onWaitComplete;
 
-    
+    [Tooltip("Event that gets called when the actor displayed on screen changes")]
+    [SerializeField] private UnityEvent<Actor> _onActorChanged;
+
+
 
     private Coroutine _waitCoroutine;
     
@@ -49,9 +56,18 @@ public class SceneController : MonoBehaviour, ISceneController
         Debug.LogWarning("PanCamera not implemented");
     }
 
+    /// <summary>
+    /// Sets the new bg-scene based on the provided name and changes the active actor using an event.
+    /// </summary>
+    /// <param name="background">Target bg-scene</param>
     public void SetScene(string background)
     {
-        Debug.LogWarning("SetBackground not implemented");
+        BGScene newScene = _sceneList.SetScene(background);
+
+        if (newScene != null)
+        {
+            _onActorChanged.Invoke(newScene.ActiveActor);
+        }
     }
 
     public void SetCameraPos(Vector2Int position)
