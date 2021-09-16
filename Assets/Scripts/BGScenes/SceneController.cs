@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
+    [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
     [SerializeField] private BGSceneList _sceneList;
 
     [Header("Events")]

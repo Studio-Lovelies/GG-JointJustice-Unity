@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class BGSceneList : MonoBehaviour
 {
 
-    [ReadOnly] private Dictionary<string, BGScene> _scenesInChildren;
+    private Dictionary<string, BGScene> _scenesInChildren;
 
     private BGScene _activeScene;
 
