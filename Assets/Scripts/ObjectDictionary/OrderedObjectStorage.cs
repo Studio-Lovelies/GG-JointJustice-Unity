@@ -114,7 +114,7 @@ public class OrderedObjectStorage<T> where T : Object
     /// <param name="key">The key used to represent the object in the dictionary.</param>
     /// <param name="dictionary"></param>
     /// <returns></returns>
-    public bool IsObjectInDictionary(string key, IDictionary dictionary)
+    public static bool IsObjectInDictionary(string key, IDictionary dictionary)
     {
         if (!dictionary.Contains(key))
         {
@@ -131,7 +131,7 @@ public class OrderedObjectStorage<T> where T : Object
     /// <param name="enumerable">The object to convert.</param>
     /// <typeparam name="S">The type of dictionary to return.</typeparam>
     /// <returns>The resulting dictionary.</returns>
-    public S EnumerableToDictionary<S>(IEnumerable<T> enumerable) where S : IDictionary, new()
+    public static S EnumerableToDictionary<S>(IEnumerable<T> enumerable) where S : IDictionary, new()
     {
         S dictionary = new S();
         foreach (T obj in enumerable)
