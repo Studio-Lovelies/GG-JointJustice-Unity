@@ -36,6 +36,11 @@ public class ActorData : ScriptableObject, ICourtRecordObject
     public Sprite Icon => Profile;
     public string Description => Bio;
 
+    /// <summary>
+    /// Generates a string with the actor's age and age, used in the evidence menu.
+    /// Handles what should be written when an actors name is unknown, or uncertain.
+    /// </summary>
+    /// <returns>The name and age of the actor as a string.</returns>
     private string GenerateNameWithAge()
     {
         string age = _ageCertainty switch {
