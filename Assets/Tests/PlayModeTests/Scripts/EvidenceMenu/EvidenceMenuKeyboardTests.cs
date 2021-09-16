@@ -128,7 +128,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             Menu menu = _evidenceMenu.GetComponent<Menu>();
             TextMeshProUGUI[] evidenceTextBoxes = _evidenceMenu.GetComponentsInChildren<TextMeshProUGUI>();
             TextMeshProUGUI evidenceName =
-                evidenceTextBoxes.First(evidenceTextBoxe => evidenceTextBoxe.gameObject.name == "EvidenceName");
+                evidenceTextBoxes.First(evidenceTextBox => evidenceTextBox.gameObject.name == "EvidenceName");
             TextMeshProUGUI evidenceDescription = evidenceTextBoxes.First(evidenceTextBox =>
                 evidenceTextBox.gameObject.name == "EvidenceDescription");
             Image[] images = _evidenceMenu.GetComponentsInChildren<Image>();
