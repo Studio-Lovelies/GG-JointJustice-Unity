@@ -14,10 +14,7 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
     [SerializeField] private ActorInventory _actorInventory;
 
-    
-
-    //TODO serialized for debug purposes. Should be set by scene controller.
-    [SerializeField] private Actor _activeActor;
+    private Actor _activeActor;
 
     [SerializeField] private UnityEvent<ActorData> _onNewSpeakingActor;
     [SerializeField] private UnityEvent _onAnimationStarted;
@@ -42,7 +39,6 @@ public class ActorController : MonoBehaviour, IActorController
             _directorActionDecoder.SetActorController(this);
         }
 
-        SetActiveActorObject(_activeActor); //Debug thing, should be called by the scene controller
     }
 
     /// <summary>

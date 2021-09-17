@@ -1,7 +1,9 @@
+&SCENE:TMPH_Prosecution
 &ACTOR:Tutorial_Boy
 &SPEAK:Tutorial_Boy
 Wow you're terrible at this.
 
+&SCENE:TMPH_Defense
 &ACTOR:Arin
 &PLAY_EMOTION:ShockAnimation
 &WAIT:0.5
