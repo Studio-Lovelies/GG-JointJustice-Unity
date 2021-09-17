@@ -43,7 +43,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 
             Set(mouse.position, openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
             yield return PressForFrame(mouse.leftButton);
-            
+
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
@@ -108,7 +108,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         [UnityTest]
         [ReloadScene]
         public IEnumerator CanStartGame()
-        { 
+        {
             SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
             SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
 
