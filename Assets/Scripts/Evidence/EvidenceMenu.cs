@@ -77,7 +77,9 @@ public class EvidenceMenu : MonoBehaviour
     private void OnEnable()
     {
         _activeDictionary = _evidenceInventory;
-        
+        _menuLabel.sprite = _evidenceMenuLabel;
+        _profileMenuActive = false;
+
         if (!_menu.DontResetSelectedOnClose)
         {
             _currentPage = 0;

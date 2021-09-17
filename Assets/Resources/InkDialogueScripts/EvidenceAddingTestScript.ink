@@ -1,4 +1,5 @@
-﻿&ACTOR:Arin
+﻿&SCENE:TMPH_Defense
+&ACTOR:Arin
 &SPEAK:Arin
 I'm going to add evidence to the menu.
 
