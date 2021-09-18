@@ -47,38 +47,6 @@ jobs:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
-  unityTest:
-    name: Run PlayMode and EditorMode tests for Unity project
-    needs: [checkLicense]
-    if: needs.checkLicense.outputs.is_unity_license_set == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - name: Run PlayMode and EditMode tests
-        uses: game-ci/unity-test-runner@v2.0-alpha-6
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Store test artifacts
-        uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: Test results
-          path: artifacts
-
   unityBuild:
     name: Build for ${{ matrix.targetPlatform.outputName }}
     needs: [checkLicense]
@@ -138,7 +106,7 @@ jobs:
   # GitHub Releases
   createGitHubRelease:
     name: Create GitHub Release
-    needs: [unityBuild, unityTest]
+    needs: [unityBuild]
     if: (github.event.inputs.createRelease != 'false' || (github.ref == 'refs/heads/master' && github.event_name == 'push'))
     runs-on: ubuntu-latest
     steps:
@@ -201,7 +169,7 @@ jobs:
       
   createItchIORelease:
     name: Create/update itch.io for ${{ matrix.platforms.outputName }}
-    needs: [unityBuild, unityTest, checkItchIO]
+    needs: [unityBuild, checkItchIO]
     if: (github.event.inputs.createRelease != 'false' || (github.ref == 'refs/heads/master' && github.event_name == 'push')) && needs.checkItchIO.outputs.is_ITCHIO_set == 'true'
     runs-on: ubuntu-latest
     strategy:
