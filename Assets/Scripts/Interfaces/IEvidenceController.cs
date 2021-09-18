@@ -9,5 +9,5 @@ public interface IEvidenceController
     void AddToCourtRecord(string actor);
     void OpenEvidenceMenu();
     void SubstituteEvidenceWithAlt(string evidence);
-    void OnPresentEvidence(Evidence evidence);
+    void OnPresentEvidence(ICourtRecordObject evidence);
 }

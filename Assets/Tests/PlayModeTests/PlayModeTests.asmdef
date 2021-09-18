@@ -6,7 +6,9 @@
         "UnityEditor.TestRunner",
         "GG-JointJustice",
         "Unity.InputSystem",
-        "Unity.InputSystem.TestFramework"
+        "Unity.InputSystem.TestFramework",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
