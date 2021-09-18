@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class EvidenceController : MonoBehaviour, IEvidenceController
 {
@@ -12,10 +13,11 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [SerializeField] private UnityEvent _onOpenEvidenceMenu;
 
     [Tooltip("This event is called when a piece of evidence is clicked")]
-    [SerializeField] private UnityEvent<Evidence> _onPresentEvidence;
+    [SerializeField] private UnityEvent<ICourtRecordObject> _onPresentEvidence;
 
+    [FormerlySerializedAs("_evidenceDictionary")]
     [Tooltip("Drag an EvidenceDictionary component here.")]
-    [SerializeField] public EvidenceDictionary _evidenceDictionary;
+    [SerializeField] public EvidenceInventory _evidenceInventory;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +31,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
             _directorActionDecoder.SetEvidenceController(this);
         }
 
-        if (_evidenceDictionary == null)
+        if (_evidenceInventory == null)
         {
             Debug.LogError("EvidenceDictionary has not been assigned to evidence controller.");
         }
@@ -47,7 +49,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
             return;
         }
         
-        _evidenceDictionary.AddEvidence(evidence);
+        _evidenceInventory.AddObject(evidence);
     }
 
     /// <summary>
@@ -61,7 +63,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
             return;
         }
             
-        _evidenceDictionary.RemoveEvidence(evidence);
+        _evidenceInventory.RemoveObject(evidence);
     }
 
     public void AddToCourtRecord(string actor)
@@ -89,7 +91,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
             return;
         }
         
-        _evidenceDictionary.SubstituteEvidenceWithAlt(evidence);
+        _evidenceInventory.SubstituteEvidenceWithAlt(evidence);
     }
 
     /// <summary>
@@ -99,7 +101,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <returns></returns>
     public bool HasEvidenceDictionary()
     {
-        if (_evidenceDictionary == null)
+        if (_evidenceInventory == null)
         {
             Debug.LogError("EvidenceDictionary has not been assigned to evidence controller.");
             return false;
@@ -113,7 +115,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// clicked and needs to be presented.
     /// </summary>
     /// <param name="evidence">The evidence to present.</param>
-    public void OnPresentEvidence(Evidence evidence)
+    public void OnPresentEvidence(ICourtRecordObject evidence)
     {
         _onPresentEvidence.Invoke(evidence);
     }

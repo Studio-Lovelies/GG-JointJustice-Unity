@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class ActorController : MonoBehaviour, IActorController
 {
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
+    [FormerlySerializedAs("_actorDictionary")]
     [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
-    [SerializeField] private ActorDictionary _actorDictionary;
+    [SerializeField] private ActorInventory _actorInventory;
 
     private Actor _activeActor;
 
@@ -61,7 +63,7 @@ public class ActorController : MonoBehaviour, IActorController
         try
         { 
             if (_activeActor != null)
-                _activeActor.SetActor(_actorDictionary.Actors[actor]);
+                _activeActor.SetActor(_actorInventory[actor]);
         }
         catch (KeyNotFoundException exception)
         {
@@ -110,7 +112,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _actorDictionary.Actors[actor];
+            _currentSpeakingActor = _actorInventory[actor];
             _onNewSpeakingActor.Invoke(_currentSpeakingActor);
         }
         catch (KeyNotFoundException exception)

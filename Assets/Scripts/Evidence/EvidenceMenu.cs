@@ -1,7 +1,7 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Menu))]
@@ -10,9 +10,12 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag the evidence controller here")]
     private EvidenceController _evidenceController;
 
-    [SerializeField, Tooltip("Drag the evidence dictionary here")]
-    private EvidenceDictionary _evidenceDictionary;
-    
+    [FormerlySerializedAs("_evidenceDictionary")] [SerializeField, Tooltip("Drag the evidence dictionary here")]
+    private EvidenceInventory _evidenceInventory;
+
+    [FormerlySerializedAs("_actorDictionary")] [SerializeField, Tooltip("Drag the actor dictionary here")]
+    private ActorInventory _actorInventory;
+
     [SerializeField, Tooltip("Drag the TextMeshProUGUI component used for displaying the evidence's name here")]
     private TextMeshProUGUI _evidenceName;
     
@@ -22,6 +25,12 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag the Image component used for displaying the evidence's icon here.")]
     private Image _evidenceIcon;
 
+    [SerializeField, Tooltip("Drag the Image component for the menu label here.")]
+    private Image _menuLabel;
+    
+    [SerializeField, Tooltip("Drag the sprite used for the profiles menu label.")]
+    private Sprite _profilesMenuLabel;
+
     [SerializeField, Tooltip("The boxes used to represent menu items.")]
     private EvidenceMenuItem[] _evidenceMenuItems;
     
@@ -30,7 +39,10 @@ public class EvidenceMenu : MonoBehaviour
 
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent _onEvidenceClicked;
-    
+
+    private bool _profileMenuActive;
+    private Sprite _evidenceMenuLabel;
+    private ICourtRecordObjectInventory _activeDictionary;
     private int _currentPage;
     private int _numberOfPages;
     private int _startIndex;
@@ -42,6 +54,8 @@ public class EvidenceMenu : MonoBehaviour
     private void Awake()
     {
         _menu = GetComponent<Menu>();
+        _activeDictionary = _evidenceInventory;
+        _evidenceMenuLabel = _menuLabel.sprite;
     }
     
     /// <summary>
@@ -50,9 +64,9 @@ public class EvidenceMenu : MonoBehaviour
     /// Called by EvidenceMenuItems when they are selected.
     /// </summary>
     /// <param name="evidence"></param>
-    public void UpdateEvidenceInfo(Evidence evidence)
+    public void UpdateEvidenceInfo(ICourtRecordObject evidence)
     {
-        _evidenceName.text = evidence.DisplayName;
+        _evidenceName.text = evidence.CourtRecordName;
         _evidenceDescription.text = evidence.Description;
         _evidenceIcon.sprite = evidence.Icon;
     }
@@ -62,6 +76,15 @@ public class EvidenceMenu : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
+        _activeDictionary = _evidenceInventory;
+        _menuLabel.sprite = _evidenceMenuLabel;
+        _profileMenuActive = false;
+
+        if (!_menu.DontResetSelectedOnClose)
+        {
+            _currentPage = 0;
+        }
+        
         UpdateEvidenceMenu();
     }
 
@@ -76,30 +99,50 @@ public class EvidenceMenu : MonoBehaviour
             return;
         }
         
-        _numberOfPages = Mathf.CeilToInt((float)_evidenceDictionary.Count / _evidenceMenuItems.Length);
-        _currentPage = Mathf.Clamp(_currentPage, 0, _numberOfPages == 0 ? 0 : _numberOfPages - 1); // Max value must always be positive 
-        _startIndex = _currentPage * _evidenceMenuItems.Length;
+        CalculatePages();
+        SetNavigationButtonsActive();
+        DrawMenuItems();
+    }
 
-        if (!_menu.DontResetSelectedOnClose)
-        {
-            _currentPage = 0;
-        }
-        
+    /// <summary>
+    /// Calculates the number of pages, the current pages, and the starting index
+    /// to start getting objects from the object dictionary.
+    /// </summary>
+    private void CalculatePages()
+    {
+        _numberOfPages = Mathf.CeilToInt((float)_activeDictionary.Count / _evidenceMenuItems.Length);
+        _currentPage = Mathf.Clamp(_currentPage, 0,_numberOfPages == 0 ? 0 : _numberOfPages - 1); // Max value must always be positive 
+        _startIndex = _currentPage * _evidenceMenuItems.Length;
+    }
+    
+    /// <summary>
+    /// Loops through the navigation buttons and disables them if
+    /// there is less than one page.
+    /// </summary>
+    private void SetNavigationButtonsActive()
+    {
         foreach (var button in _navigationButtons)
         {
             button.interactable = _numberOfPages > 1; // Navigation buttons not needed if less than 2 pages
         }
-
+    }
+    
+    /// <summary>
+    /// Loops through each menu item and gives it an ICourtRecordObject
+    /// or disables it if there is no ICourtRecordObject to assign.
+    /// </summary>
+    private void DrawMenuItems()
+    {
         for (int i = 0; i < _evidenceMenuItems.Length; i++)
         {
-            if (i + _startIndex > _evidenceDictionary.Count - 1)
+            if (i + _startIndex > _activeDictionary.Count - 1)
             {
                 _evidenceMenuItems[i].gameObject.SetActive(false);
             }
             else
             {
                 _evidenceMenuItems[i].gameObject.SetActive(true);
-                _evidenceMenuItems[i].Evidence = _evidenceDictionary.GetEvidenceAtIndex(i + _startIndex);
+                _evidenceMenuItems[i].CourtRecordObject = _activeDictionary.GetObjectAtIndex(i + _startIndex);
             }
         }
     }
@@ -158,7 +201,7 @@ public class EvidenceMenu : MonoBehaviour
     /// Also used to call en event to close this menu.
     /// </summary>
     /// <param name="evidence">The Evidence object that has been clicked.</param>
-    public void OnEvidenceClicked(Evidence evidence)
+    public void OnEvidenceClicked(ICourtRecordObject evidence)
     {
         _onEvidenceClicked.Invoke();
         _evidenceController.OnPresentEvidence(evidence);
@@ -171,12 +214,37 @@ public class EvidenceMenu : MonoBehaviour
     /// <returns>Whether an EvidenceDictionary has been assigned (true) or not (false).</returns>
     private bool HasEvidenceDictionary()
     {
-        if (_evidenceDictionary == null)
+        if (_evidenceInventory == null)
         {
             Debug.LogError("EvidenceDictionary component has not been assigned.");
             return false;
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Switches between the evidence menu and the profiles menu.
+    /// Subscribe this to an input event to toggle the menus in game.
+    /// </summary>
+    public void ToggleProfileMenu()
+    {
+        if (!isActiveAndEnabled) return;
+
+        if (_profileMenuActive)
+        {
+            _profileMenuActive = false;
+            _activeDictionary = _evidenceInventory;
+            _menuLabel.sprite = _evidenceMenuLabel;
+        }
+        else
+        {
+            _profileMenuActive = true;
+            _activeDictionary = _actorInventory;
+            _menuLabel.sprite = _profilesMenuLabel;
+        }
+        
+        UpdateEvidenceMenu();
+        _menu.SelectInitialButton();
     }
 }

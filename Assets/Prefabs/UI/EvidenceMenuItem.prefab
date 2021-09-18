@@ -126,7 +126,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7467009520762512749}
         m_TargetAssemblyTypeName: EvidenceMenuItem, GG-JointJustice
-        m_MethodName: OnEvidenceClicked
+        m_MethodName: OnMenuItemClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

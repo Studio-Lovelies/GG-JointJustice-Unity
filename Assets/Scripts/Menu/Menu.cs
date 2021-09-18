@@ -45,12 +45,17 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void SelectInitialButton()
     {
-        if (_initiallyHighlightedButton == null)
+        if (_initiallyHighlightedButton == null || !_initiallyHighlightedButton.isActiveAndEnabled)
         {
-            GetComponentInChildren<Selectable>().Select();
+            Selectable selectable = GetComponentInChildren<Selectable>();
+            if (selectable.interactable)
+            {
+                selectable.Select();
+            }
             return;
         }
-        
+
+        EventSystem.current.SetSelectedGameObject(null); // Select event is not called if selecting the game object already selected
         _initiallyHighlightedButton.Select();
     }
 
