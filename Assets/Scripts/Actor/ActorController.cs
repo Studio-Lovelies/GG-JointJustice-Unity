@@ -46,7 +46,8 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetActiveActorObject(Actor actor)
     {
         _activeActor = actor;
-        actor.AttachController(this);
+        if (actor != null)
+            actor.AttachController(this);
     }
 
     /// <summary>
@@ -59,7 +60,8 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         { 
-            _activeActor.SetActor(_actorDictionary.Actors[actor]);
+            if (_activeActor != null)
+                _activeActor.SetActor(_actorDictionary.Actors[actor]);
         }
         catch (KeyNotFoundException exception)
         {
