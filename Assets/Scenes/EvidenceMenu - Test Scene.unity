@@ -433,7 +433,7 @@ PrefabInstance:
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _narrativeScript
       value: 
-      objectReference: {fileID: 4900000, guid: a1e4b72174a9248d6b1987a838b988e7, type: 3}
+      objectReference: {fileID: 4900000, guid: 943a3a8861ee14fcb8a1070439f52a41, type: 3}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: StandardInclusion
