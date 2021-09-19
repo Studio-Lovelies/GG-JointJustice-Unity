@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
     [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
     [SerializeField] private BGSceneList _sceneList;
+
+    [FormerlySerializedAs("_fadeToImageController")]
+    [Tooltip("Drag a FadeToImageController here.")]
+    [SerializeField] private FadeToImageTransition _fadeToImageTransition;
 
     [Header("Events")]
     [Tooltip("Attach the action decoder object here")]
@@ -41,14 +46,24 @@ public class SceneController : MonoBehaviour, ISceneController
 
     }
 
+    /// <summary>
+    /// Fades an image from opaque to transparent. Used to fade in to a scene from a black screen.
+    /// </summary>
+    /// <param name="seconds">The number of seconds it should take to fade.</param>
     public void FadeIn(float seconds)
     {
-        Debug.LogWarning("FadeIn not implemented");
+        _onWaitStart.Invoke();
+        StartCoroutine(_fadeToImageTransition.FadeImage(1, 0, seconds, _onWaitComplete));
     }
 
+    /// <summary>
+    /// Fades an image from transparent to opaque. Used to fade out from a scene to a black screen.
+    /// </summary>
+    /// <param name="seconds">The number of seconds it should take to fade.</param>
     public void FadeOut(float seconds)
     {
-        Debug.LogWarning("FadeOut not implemented");
+        _onWaitStart.Invoke();
+        StartCoroutine(_fadeToImageTransition.FadeImage(0, 1, seconds, _onWaitComplete));
     }
 
     public void PanCamera(float seconds, Vector2Int position)

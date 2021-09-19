@@ -17,14 +17,17 @@ public class SceneLoader : MonoBehaviour
 
     [SerializeField, Tooltip("The index of the scene to load")]
     private int _sceneIndex;
-    
-    [SerializeField, Tooltip("Assign a transition controller here if a transition is required when changing the scene.")]
-    private TransitionController _transitionController;
 
     [SerializeField, Tooltip("Assign a loading bar here if required")]
     private Slider _loadingBar;
 
+    private ITransition _transition;
     private AsyncOperation _sceneLoadOperation;
+
+    private void Awake()
+    {
+        _transition = GetComponent<ITransition>();
+    }
 
     /// <summary>
     /// Call this method when wanting to change the scene using a specific scene's index.
@@ -52,13 +55,13 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     private void Transition()
     {
-        if (_transitionController != null)
+        if (_transition != null)
         {
             if (_sceneLoadOperation != null)
             {
                 _sceneLoadOperation.allowSceneActivation = false;
             }
-            _transitionController.Transition();
+            _transition.Transition();
             return;
         }
         

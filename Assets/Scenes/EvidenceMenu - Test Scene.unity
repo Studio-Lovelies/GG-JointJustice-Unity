@@ -236,10 +236,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _isProfileMenuActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueMode
       value: 0
@@ -247,7 +243,7 @@ PrefabInstance:
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _narrativeScript
       value: 
-      objectReference: {fileID: 4900000, guid: 943a3a8861ee14fcb8a1070439f52a41, type: 3}
+      objectReference: {fileID: 4900000, guid: c1be2cb0b31264b51921daec9448469c, type: 3}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: StandardInclusion
@@ -300,6 +296,5 @@ PrefabInstance:
       propertyPath: _sceneList
       value: 
       objectReference: {fileID: 56178302}
-    m_RemovedComponents:
-    - {fileID: 5228303783052357476, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
