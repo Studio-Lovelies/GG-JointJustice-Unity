@@ -101,7 +101,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (_itemDisplay == null)
         {
-            Debug.LogError($"$Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
+            Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
 
         Evidence evidence = _evidenceInventory.GetObjectFromAvailableObjects(item);
@@ -113,6 +113,11 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     public void HideItem()
     {
+        if (_itemDisplay == null)
+        {
+            Debug.LogError($"Cannot hide item, no ItemDisplay component assigned to {name}.", gameObject);
+        }
+        
         _itemDisplay.HideItem();
     }
     
