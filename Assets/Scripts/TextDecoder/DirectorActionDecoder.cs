@@ -60,6 +60,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SCENE": SetScene(parameters); break;
             case "WAIT": Wait(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
+            case "HIDE_ITEM": HideItem(); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
@@ -333,6 +334,19 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Debug.LogError("Invalid paramater " + parameters[1] + " for function CAMERA_PAN");
         }
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Hides the item displayed on the screen by ShowItem method.
+    /// </summary>
+    void HideItem()
+    {
+        if (!HasSceneController())
+            return;
+
+        _sceneController.HideItem();
+        _onActionDone.Invoke();
     }
 
     /// <summary>
