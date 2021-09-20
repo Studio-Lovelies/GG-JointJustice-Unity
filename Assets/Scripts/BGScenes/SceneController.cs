@@ -71,14 +71,14 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="pos">Target position</param>
     /// <param name="time">Time for the pan to take in seconds</param>
     /// <returns>IEnumerator stuff for coroutine</returns>
-    private IEnumerator PanToPosition(Vector2 targetPos, float time)
+    private IEnumerator PanToPosition(Vector2 targetPos, float timeToTake)
     {
-        var startPos = _activeScene.transform.position;
-        var t = 0f;
-        while (t < 1)
+        Vector2 startPos = _activeScene.transform.position;
+        float percentagePassed = 0f;
+        while (percentagePassed < 1)
         {
-            t += Time.deltaTime / time;
-            _activeScene.transform.position = Vector2.Lerp(startPos, targetPos, t);
+            percentagePassed += Time.deltaTime / timeToTake;
+            _activeScene.transform.position = Vector2.Lerp(startPos, targetPos, percentagePassed);
             yield return null;
         }
     }
@@ -162,6 +162,11 @@ public class SceneController : MonoBehaviour, ISceneController
         _waitCoroutine = null;
     }
 
+    /// <summary>
+    /// Turns pixel position into a unity position that unity can use based on the configured pixels per unit. Also inverts any value given because the camera has inverse movements because of the implementation.
+    /// </summary>
+    /// <param name="pixelPosition">Pixel position to turn into unit position</param>
+    /// <returns>Unit position from pixel position</returns>
     public Vector2 PixelPositionToUnitPosition(Vector2Int pixelPosition)
     {
         return new Vector2((float)(pixelPosition.x * -1) / _pixelsPerUnit, (float)(pixelPosition.y * -1) / _pixelsPerUnit);
