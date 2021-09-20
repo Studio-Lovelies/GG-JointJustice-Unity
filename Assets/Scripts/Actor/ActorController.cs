@@ -129,7 +129,6 @@ public class ActorController : MonoBehaviour, IActorController
     {
         if (_activeActor == null)
         {
-            Debug.LogError("Actor has not been assigned");
             return;
         }
 
@@ -152,7 +151,6 @@ public class ActorController : MonoBehaviour, IActorController
     {
         if (_activeActor == null)
         {
-            Debug.LogError("Actor has not been assigned");
             return;
         }
         _activeActor.SetTalking(false);
