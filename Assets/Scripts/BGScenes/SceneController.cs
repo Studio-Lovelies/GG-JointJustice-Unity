@@ -5,6 +5,10 @@ using UnityEngine.Events;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
+    [Tooltip("Pixels per unit of the basic ")]
+    [SerializeField] private int _pixelsPerUnit = 100;
+
+    [Header("Events")]
     [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
     [SerializeField] private BGSceneList _sceneList;
 
@@ -21,9 +25,9 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Event that gets called when the actor displayed on screen changes")]
     [SerializeField] private UnityEvent<Actor> _onActorChanged;
 
-
-
     private Coroutine _waitCoroutine;
+
+    private BGScene _activeScene;
     
     /// <summary>
     /// Called when the object is initialized
@@ -51,9 +55,32 @@ public class SceneController : MonoBehaviour, ISceneController
         Debug.LogWarning("FadeOut not implemented");
     }
 
+    /// <summary>
+    /// Pans the camera position to the target position in pixels
+    /// </summary>
+    /// <param name="position">Target position in pixels</param>
+    /// <param name="seconds">Time for the pan to take in seconds</param>
     public void PanCamera(float seconds, Vector2Int position)
     {
-        Debug.LogWarning("PanCamera not implemented");
+        StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds));
+    }
+
+    /// <summary>
+    /// Pans the camera position to the target position
+    /// </summary>
+    /// <param name="pos">Target position</param>
+    /// <param name="time">Time for the pan to take in seconds</param>
+    /// <returns>IEnumerator stuff for coroutine</returns>
+    private IEnumerator PanToPosition(Vector2 targetPos, float time)
+    {
+        var startPos = _activeScene.transform.position;
+        var t = 0f;
+        while (t < 1)
+        {
+            t += Time.deltaTime / time;
+            _activeScene.transform.position = Vector2.Lerp(startPos, targetPos, t);
+            yield return null;
+        }
     }
 
     /// <summary>
@@ -62,17 +89,21 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="background">Target bg-scene</param>
     public void SetScene(string background)
     {
-        BGScene newScene = _sceneList.SetScene(background);
+        _activeScene = _sceneList.SetScene(background);
 
-        if (newScene != null)
+        if (_activeScene != null)
         {
-            _onActorChanged.Invoke(newScene.ActiveActor);
+            _onActorChanged.Invoke(_activeScene.ActiveActor);
         }
     }
 
+    /// <summary>
+    /// Sets the camera position to the target position in pixels
+    /// </summary>
+    /// <param name="position">Target pixel position, top left</param>
     public void SetCameraPos(Vector2Int position)
     {
-        Debug.LogWarning("SetCameraPos not implemented");
+        _activeScene.transform.position = PixelPositionToUnitPosition(position);
     }
 
     public void ShakeScreen(float intensity)
@@ -134,5 +165,10 @@ public class SceneController : MonoBehaviour, ISceneController
         
         StopCoroutine(_waitCoroutine);
         _waitCoroutine = null;
+    }
+
+    public Vector2 PixelPositionToUnitPosition(Vector2Int pixelPosition)
+    {
+        return new Vector2((float)(pixelPosition.x * -1) / _pixelsPerUnit, (float)(pixelPosition.y * -1) / _pixelsPerUnit);
     }
 }

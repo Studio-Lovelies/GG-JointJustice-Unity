@@ -304,7 +304,7 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Debug.LogError("Invalid paramater " + durationAndPosition + " for function CAMERA_PAN");
         }
-
+        _onActionDone.Invoke();
     }
 
     /// <summary>

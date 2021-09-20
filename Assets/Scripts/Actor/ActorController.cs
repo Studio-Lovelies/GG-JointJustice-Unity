@@ -48,7 +48,8 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetActiveActorObject(Actor actor)
     {
         _activeActor = actor;
-        actor.AttachController(this);
+        if (actor != null)
+            actor.AttachController(this);
     }
 
     /// <summary>
@@ -61,7 +62,8 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         { 
-            _activeActor.SetActor(_actorInventory[actor]);
+            if (_activeActor != null)
+                _activeActor.SetActor(_actorInventory[actor]);
         }
         catch (KeyNotFoundException exception)
         {
@@ -127,7 +129,6 @@ public class ActorController : MonoBehaviour, IActorController
     {
         if (_activeActor == null)
         {
-            Debug.LogError("Actor has not been assigned");
             return;
         }
 
@@ -150,7 +151,6 @@ public class ActorController : MonoBehaviour, IActorController
     {
         if (_activeActor == null)
         {
-            Debug.LogError("Actor has not been assigned");
             return;
         }
         _activeActor.SetTalking(false);
