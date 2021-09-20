@@ -126,9 +126,40 @@ public class SceneController : MonoBehaviour, ISceneController
         Debug.LogWarning("HideActor not implemented");
     }
 
-    public void MoveToSubPosition(int position)
+    public void PanToSubPosition(int position, float seconds)
     {
+        if (_activeScene == null)
+        {
+            Debug.LogError("Not active scene, can't go to sub position");
+            return;
+        }
+        if (!_activeScene.HasSubPositions())
+        {
+            Debug.LogError("Active scene does not have sub positions");
+            return;
+        }
 
+        _activeScene.SetSubPosition(position);
+        _onActorChanged.Invoke(_activeScene.ActiveActor);
+        PanCamera(seconds, _activeScene.GetTargetPosition());
+    }
+
+    public void SetToSubPosition(int position)
+    {
+        if (_activeScene == null)
+        {
+            Debug.LogError("Not active scene, can't go to sub position");
+            return;
+        }
+        if (!_activeScene.HasSubPositions())
+        {
+            Debug.LogError("Active scene does not have sub positions");
+            return;
+        }
+
+        _activeScene.SetSubPosition(position);
+        _onActorChanged.Invoke(_activeScene.ActiveActor);
+        SetCameraPos(_activeScene.GetTargetPosition());
     }
 
     /// <summary>

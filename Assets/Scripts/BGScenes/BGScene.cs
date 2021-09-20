@@ -39,7 +39,7 @@ public class BGScene : MonoBehaviour
         ActiveActor = _currentSubPosition.AttachedActor;
     }
 
-    public Vector2 GetTargetPosition()
+    public Vector2Int GetTargetPosition()
     {
         return _currentSubPosition.position;
     }
@@ -51,5 +51,5 @@ public class BGScene : MonoBehaviour
 public struct SubPosition
 {
     public Actor AttachedActor;
-    public Vector2 position;
+    public Vector2Int position;
 }

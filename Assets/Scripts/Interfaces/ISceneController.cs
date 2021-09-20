@@ -15,6 +15,8 @@ public interface ISceneController
     void SetScene(string background);
     void SetCameraPos(Vector2Int position);
     void PanCamera(float seconds, Vector2Int finalPosition);
+    void PanToSubPosition(int position, float seconds);
+    public void SetToSubPosition(int position);
     void ShowItem(string item, itemDisplayPosition position);
     void ShowActor();
     void HideActor();
