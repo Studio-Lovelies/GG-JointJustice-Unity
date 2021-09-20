@@ -85,7 +85,7 @@ public class FadeToImageTransition : MonoBehaviour, ITransition
     /// <param name="targetAlpha">The alpha value to fade to</param>
     /// <param name="time">The time in seconds to complete the animation</param>
     /// <param name="onComplete">The event to call once fading is complete</param>
-    public IEnumerator FadeImage(float startAlpha, float targetAlpha, float time, UnityEvent onComplete)
+    private IEnumerator FadeImage(float startAlpha, float targetAlpha, float time, UnityEvent onComplete)
     {
         if (!HasImage())
         {
