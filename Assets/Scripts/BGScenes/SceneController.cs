@@ -95,6 +95,11 @@ public class SceneController : MonoBehaviour, ISceneController
         Debug.LogWarning("HideActor not implemented");
     }
 
+    public void MoveToSubPosition(int position)
+    {
+
+    }
+
     /// <summary>
     /// Starts and caches a coroutine to wait for a specific amount of time.
     /// Called by DirectorActionController when a WAIT action is read.
