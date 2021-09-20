@@ -59,7 +59,7 @@ public class FadeToImageTransition : MonoBehaviour, ITransition
     
     /// <summary>
     /// Call this method to begin the transition at the end of a scene.
-    /// Used by SceneLoader which does not necessarily how a scene transition is being handled.
+    /// Used by SceneLoader which does not necessarily know how a scene transition is being handled.
     /// </summary>
     public void Transition()
     {
