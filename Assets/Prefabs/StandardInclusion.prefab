@@ -1140,7 +1140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneList: {fileID: 0}
-  _fadeToImageTransition: {fileID: 6446693915523047731}
+  _fadeToImageTransition: {fileID: 4852033968973296574}
   _directorActionDecoder: {fileID: 5228303783986964379}
   _onWaitStart:
     m_PersistentCalls:
@@ -1434,6 +1434,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6328943494710566537, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328943494710566537, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328943494710566537, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4cda231489f65341910a0acac208946, type: 3}
 --- !u!114 &4864517766780460 stripped
@@ -1491,9 +1503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6446693915523047731 stripped
+--- !u!114 &4852033968973296574 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1295325177881132598, guid: f4cda231489f65341910a0acac208946, type: 3}
+  m_CorrespondingSourceObject: {fileID: 854357536539487419, guid: f4cda231489f65341910a0acac208946, type: 3}
   m_PrefabInstance: {fileID: 5228303783516512005}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
