@@ -50,6 +50,12 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The number of seconds it should take to fade.</param>
     public void FadeIn(float seconds)
     {
+        if (_fadeToImageTransition == null)
+        {
+            Debug.LogError($"Could not begin fade in. {name} does not have a FadeToImageTransition component attached.");
+            return;
+        }
+        
         _onWaitStart.Invoke();
         _fadeToImageTransition.StartFade(1, 0, seconds, _onWaitComplete);
     }
@@ -60,6 +66,12 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The number of seconds it should take to fade.</param>
     public void FadeOut(float seconds)
     {
+        if (_fadeToImageTransition == null)
+        {
+            Debug.LogError($"Could not begin fade out. {name} does not have a FadeToImageTransition component attached.");
+            return;
+        }
+        
         _onWaitStart.Invoke();
         _fadeToImageTransition.StartFade(0, 1, seconds, _onWaitComplete);
     }
