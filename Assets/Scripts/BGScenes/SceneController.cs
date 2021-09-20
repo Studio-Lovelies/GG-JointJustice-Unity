@@ -51,7 +51,7 @@ public class SceneController : MonoBehaviour, ISceneController
     public void FadeIn(float seconds)
     {
         _onWaitStart.Invoke();
-        _fadeToImageTransition.Fade(1, 0, seconds, _onWaitComplete);
+        _fadeToImageTransition.StartFade(1, 0, seconds, _onWaitComplete);
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ public class SceneController : MonoBehaviour, ISceneController
     public void FadeOut(float seconds)
     {
         _onWaitStart.Invoke();
-        _fadeToImageTransition.Fade(0, 1, seconds, _onWaitComplete);
+        _fadeToImageTransition.StartFade(0, 1, seconds, _onWaitComplete);
     }
 
     public void PanCamera(float seconds, Vector2Int position)

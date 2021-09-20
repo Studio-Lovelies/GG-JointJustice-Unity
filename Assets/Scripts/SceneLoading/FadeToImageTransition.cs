@@ -63,17 +63,17 @@ public class FadeToImageTransition : MonoBehaviour, ITransition
     /// </summary>
     public void Transition()
     {
-        Fade(0, 1, _fadeTime, _onTransitionOutComplete);
+        StartFade(0, 1, _fadeTime, _onTransitionOutComplete);
     }
 
     /// <summary>
-    /// Enables the game object and starts the coroutine to start fading to or from the assigned image.
+    /// Starts the coroutine to start fading to or from the assigned image.
     /// </summary>
     /// <param name="startAlpha">The alpha value to fade from</param>
     /// <param name="targetAlpha">The alpha value to fade to</param>
     /// <param name="time">The time in seconds to complete the animation</param>
     /// <param name="onComplete">The event to call once fading is complete</param>
-    public void Fade(float startAlpha, float targetAlpha, float time, UnityEvent onComplete)
+    public void StartFade(float startAlpha, float targetAlpha, float time, UnityEvent onComplete)
     {
         StartCoroutine(FadeImage(startAlpha, targetAlpha, time, onComplete));
     }
