@@ -20,10 +20,10 @@ public class FadeToImageTransition : MonoBehaviour, ITransition
     private FadeToImageSettings _fadeToImageSettings;
     
     [SerializeField, Tooltip("This event is called when transition at the end of a scene is complete. Should be subscribed to to load the next scene.")]
-    protected UnityEvent _onTransitionOutComplete;
+    private UnityEvent _onTransitionOutComplete;
 
     [SerializeField, Tooltip("This event is called when a transition at the start of a scene is complete. Should be subscribed to in order to start scene once faded in.")]
-    protected UnityEvent _onTransitionInComplete;
+    private UnityEvent _onTransitionInComplete;
     
     private float _fadeTime;
     private AnimationCurve _fadeAnimationCurve;
