@@ -107,11 +107,11 @@ public class FadeToImageTransition : MonoBehaviour, ITransition
         color.a = targetAlpha;
         _image.color = color;
 
-        if (targetAlpha == 0)
+        if (Mathf.Approximately(targetAlpha, 0))
         {
             _image.enabled = false;
         }
-        
+
         onComplete.Invoke();
     }
 
