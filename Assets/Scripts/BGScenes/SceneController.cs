@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
     [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
     [SerializeField] private BGSceneList _sceneList;
-
-    [FormerlySerializedAs("_fadeToImageController")]
+    
     [Tooltip("Drag a FadeToImageController here.")]
     [SerializeField] private FadeToImageTransition _fadeToImageTransition;
 
