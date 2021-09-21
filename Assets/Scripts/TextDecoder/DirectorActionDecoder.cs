@@ -43,6 +43,7 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             //Actor controller
             case "ACTOR": SetActor(parameters); break;
+            case "SET_ACTOR_POSITION": SetActorPosition(parameters); break;
             case "SHOWACTOR": SetActorVisibility(parameters); break;
             case "SPEAK": SetSpeaker(parameters, SpeakingType.Speaking); break;
             case "THINK": SetSpeaker(parameters, SpeakingType.Thinking); break;
@@ -60,6 +61,8 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SCENE": SetScene(parameters); break;
             case "WAIT": Wait(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
+            case "JUMP_TO_POSITION": JumpToSubPosition(parameters); break;
+            case "PAN_TO_POSITION": PanToSubPosition(parameters); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
@@ -161,6 +164,25 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _actorController.PlayEmotion(animation);
+    }
+
+    private void SetActorPosition(string positionAndActor)
+    {
+        if (!HasActorController())
+            return;
+
+        string[] parameters = positionAndActor.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length != 2)
+        {
+            Debug.LogError("Invalid amount of parameters for function SET_ACTOR_POSITION");
+            return;
+        }
+        if (int.TryParse(parameters[0], out int pos))
+        {
+            _actorController.AssignActorToSubPosition(parameters[1], pos);
+        }
+        _onActionDone.Invoke();
     }
     #endregion
 
@@ -354,6 +376,37 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Debug.LogError("Invalid paramater " + seconds + " for function WAIT");
         }
+    }
+
+    void JumpToSubPosition(string position)
+    {
+        if (!HasSceneController())
+            return;
+
+        if (int.TryParse(position, out int pos))
+        {
+            _sceneController.SetToSubPosition(pos);
+        }
+        _onActionDone.Invoke();
+    }
+
+    void PanToSubPosition(string positionAndTime)
+    {
+        if (!HasSceneController())
+            return;
+
+        string[] parameters = positionAndTime.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length != 2)
+        {
+            Debug.LogError("Invalid amount of parameters for function PAN_TO_POSITION");
+            return;
+        }
+        if (int.TryParse(parameters[0], out int pos) && float.TryParse(parameters[1], NumberStyles.Any, CultureInfo.InvariantCulture, out float seconds))
+        {
+            _sceneController.PanToSubPosition(pos, seconds);
+        }
+        _onActionDone.Invoke();
     }
 
     #endregion

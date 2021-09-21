@@ -15,6 +15,7 @@ public class ActorController : MonoBehaviour, IActorController
     [SerializeField] private ActorInventory _actorInventory;
 
     private Actor _activeActor;
+    private BGScene _activeScene;
 
     [SerializeField] private UnityEvent<ActorData> _onNewSpeakingActor;
     [SerializeField] private UnityEvent _onAnimationStarted;
@@ -39,6 +40,11 @@ public class ActorController : MonoBehaviour, IActorController
             _directorActionDecoder.SetActorController(this);
         }
 
+    }
+
+    public void OnSceneChanged(BGScene newScene)
+    {
+        _activeScene = newScene;
     }
 
     /// <summary>
@@ -176,5 +182,27 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetSpeakingType(SpeakingType speakingType)
     {
         _currentSpeakingType = speakingType;
+    }
+
+    public void AssignActorToSubPosition(string actor, int subPosition)
+    {
+        if (_activeScene == null || !_activeScene.HasSubPositions())
+        {
+            Debug.LogError("No active scene or active scene doesn't have sub positions");
+            return;
+        }
+
+        Actor tempActor = _activeScene.GetActorAtSubposition(subPosition);
+
+        try
+        {
+            tempActor.SetActor(_actorInventory[actor]);
+        }
+        catch (KeyNotFoundException exception)
+        {
+            tempActor.SetActor(null);
+            Debug.Log($"{exception.GetType().Name}: Actor {actor} was not found in actor dictionary");
+            return;
+        }
     }
 }

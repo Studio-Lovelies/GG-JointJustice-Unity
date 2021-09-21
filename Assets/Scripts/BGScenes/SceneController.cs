@@ -25,6 +25,9 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Event that gets called when the actor displayed on screen changes")]
     [SerializeField] private UnityEvent<Actor> _onActorChanged;
 
+    [Tooltip("Event that gets called when the active bg-scene changes")]
+    [SerializeField] private UnityEvent<BGScene> _onSceneChanged;
+
     private Coroutine _waitCoroutine;
 
     private BGScene _activeScene;
@@ -94,6 +97,7 @@ public class SceneController : MonoBehaviour, ISceneController
         if (_activeScene != null)
         {
             _onActorChanged.Invoke(_activeScene.ActiveActor);
+            _onSceneChanged.Invoke(_activeScene);
         }
     }
 

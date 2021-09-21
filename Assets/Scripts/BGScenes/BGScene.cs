@@ -44,6 +44,17 @@ public class BGScene : MonoBehaviour
         return _currentSubPosition.position;
     }
 
+    public Actor GetActorAtSubposition(int position)
+    {
+        int actualPosition = position - 1;
+        if (actualPosition >= _subPositions.Count)
+        {
+            Debug.LogError($"No such subposition in scene {gameObject.name}");
+            return null;
+        }
+        return _subPositions[actualPosition].AttachedActor;
+    }
+
     
 }
 
