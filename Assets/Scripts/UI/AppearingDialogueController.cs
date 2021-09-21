@@ -14,7 +14,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private float _currentAppearTime = 0;
     [SerializeField, Tooltip("DirectionActionDecoder this script is connected to.")]
     DirectorActionDecoder _directorActionDecorder = null;
-    [SerializeField, Tooltip("Drag the game object containing the text box.")]
+    [SerializeField, Tooltip("Drag the game object containing the text box here.")]
     private GameObject _textBoxGameObject;
     [SerializeField, Tooltip("TextMeshPro-component all the dialog should appear in.")]
     private TextMeshProUGUI _controlledText = null;
