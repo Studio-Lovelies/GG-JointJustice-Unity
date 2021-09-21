@@ -29,16 +29,15 @@ public class BGSceneList : MonoBehaviour
     /// <returns>The new active scene. Can be null if an error ocurred.</returns>
     public BGScene SetScene(string sceneName) //TODO: Change this when making file names universal
     {
-        if (_activeScene != null)
-        {
-            _activeScene.gameObject.SetActive(false);
-            _activeScene = null;
-        }
-
         try
         {
-            _activeScene = _scenesInChildren[sceneName];
-            _activeScene.gameObject.SetActive(true);
+            BGScene targetScene = _scenesInChildren[sceneName];
+            if (_activeScene == null || targetScene != _activeScene)
+            {
+                _activeScene?.gameObject.SetActive(false);
+                _activeScene = targetScene;
+                targetScene.gameObject.SetActive(true);
+            }
         }
         catch (KeyNotFoundException exception)
         {

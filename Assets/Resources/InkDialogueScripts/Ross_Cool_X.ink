@@ -179,7 +179,6 @@ Hah hah hah hah!!!
 
 &SCENE:TMPH_CourtPan
 &JUMP_TO_POSITION:1
-&SET_POSE:Annoyed
 &THINK:Arin
 (Goddamnit, Ross.)
 
