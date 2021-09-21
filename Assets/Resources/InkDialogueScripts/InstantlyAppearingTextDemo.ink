@@ -1,7 +1,7 @@
 ﻿&SCENE:TMPH_Defense
 &ACTOR:Arin
 &SPEAK:Arin
-The following text will appear instantly
+The following text will appear instantly.
 &APPEAR_INSTANTLY
 This text has appeared instantly.
 &APPEAR_INSTANTLY
