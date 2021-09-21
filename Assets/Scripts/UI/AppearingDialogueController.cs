@@ -185,6 +185,11 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <param name="dialog">The dialog that should be showed to player.</param>
     public void StartDialog(string dialog)
     {
+        if (!_textBoxGameObject.activeSelf)
+        {
+            _textBoxGameObject.SetActive(true);
+        }
+        
         StartCoroutine(StartDialogCoroutine(dialog));
     }
 
@@ -555,18 +560,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     public void HideTextbox()
     {
         _textBoxGameObject.SetActive(false);
-    }
-
-    /// <summary>
-    /// Shows the dialogue textbox.
-    /// Should be subscribed to DialogueController's OnNewSpokenLine event.
-    /// </summary>
-    public void ShowTextbox()
-    {
-        if (!_textBoxGameObject.activeSelf)
-        {
-            _textBoxGameObject.SetActive(true);
-        }
     }
 
     ///<summary>
