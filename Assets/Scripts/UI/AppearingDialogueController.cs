@@ -14,6 +14,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private float _currentAppearTime = 0;
     [SerializeField, Tooltip("DirectionActionDecoder this script is connected to.")]
     DirectorActionDecoder _directorActionDecorder = null;
+    [SerializeField, Tooltip("Drag the game object containing the text box.")]
+    private GameObject _textBoxGameObject;
     [SerializeField, Tooltip("TextMeshPro-component all the dialog should appear in.")]
     private TextMeshProUGUI _controlledText = null;
     [SerializeField, Tooltip("TextMeshPro-component the name of the speaker should appear in.")]
@@ -54,6 +56,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private bool _continueDialog = false;
     private bool _autoSkipDialog = false;
 
+    public bool PrintTextInstantly { get; set; }
 
     ///<summary>
     ///Awake is called automatically in the game when object is created, before Start-function.
@@ -161,6 +164,14 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         StartDialogSetup(dialog);
 
+        if (PrintTextInstantly)
+        {
+            _controlledText.maxVisibleCharacters = _controlledText.text.Length;
+            _dialogueEndEvent.Invoke();
+            PrintTextInstantly = false;
+            yield break;
+        }
+        
         while (_writingDialog)
         {
             WriteDialog();
@@ -537,8 +548,26 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         _nameBackgroundImage.color = newColor;
     }
+    
+    /// <summary>
+    /// Hides the dialogue textbox.
+    /// </summary>
+    public void HideTextbox()
+    {
+        _textBoxGameObject.SetActive(false);
+    }
 
-
+    /// <summary>
+    /// Shows the dialogue textbox.
+    /// Should be subscribed to DialogueController's OnNewSpokenLine event.
+    /// </summary>
+    public void ShowTextbox()
+    {
+        if (!_textBoxGameObject.activeSelf)
+        {
+            _textBoxGameObject.SetActive(true);
+        }
+    }
 
     ///<summary>
     ///Small class containing if the current WaitTimer is in use, and how long to wait if it is.

@@ -364,6 +364,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5228303784783594414}
+        m_TargetAssemblyTypeName: AppearingDialogueController, GG-JointJustice
+        m_MethodName: ShowTextbox
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onNewActionLine:
     m_PersistentCalls:
       m_Calls:
@@ -1029,6 +1041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentAppearTime: 0
   _directorActionDecorder: {fileID: 5228303783986964379}
+  _textBoxGameObject: {fileID: 5490628540614266465}
   _controlledText: {fileID: 5490628541157029231}
   _nameText: {fileID: 2355926578739761039}
   _nameBackgroundImage: {fileID: 3245558184056835669}
@@ -1690,3 +1703,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5490628540614266465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 341159793510650958, guid: 37849bb488a16344e8888662757571aa, type: 3}
+  m_PrefabInstance: {fileID: 5228303784605014575}
+  m_PrefabAsset: {fileID: 0}

@@ -75,6 +75,8 @@ public class DirectorActionDecoder : MonoBehaviour
             case "DISABLE_SKIPPING": DisableTextSkipping(parameters); break;
             case "AUTOSKIP": AutoSkip(parameters); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
+            case "APPEAR_INSTANTLY": AppearInstantly(); break;
+            case "HIDE_TEXTBOX": HideTextbox(); break;
             //Do nothing
             case "WAIT_FOR_INPUT": break;
             //Default
@@ -642,6 +644,30 @@ public class DirectorActionDecoder : MonoBehaviour
         }
 
         _appearingDialogController.AutoSkipDialog(value);
+    }
+
+    /// <summary>
+    /// Makes the next line of dialogue appear instantly instead of one character at a time.
+    /// </summary>
+    private void AppearInstantly()
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.PrintTextInstantly = true;
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Hides the dialogue textbox.
+    /// </summary>
+    private void HideTextbox()
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.HideTextbox();
+        _onActionDone.Invoke();
     }
     #endregion
 }
