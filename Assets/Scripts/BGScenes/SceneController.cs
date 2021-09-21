@@ -12,6 +12,12 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
     [SerializeField] private BGSceneList _sceneList;
 
+    [Tooltip("Drag an ItemDisplay component here.")]
+    [SerializeField] private ItemDisplay _itemDisplay;
+
+    [Tooltip("Drag an EvidenceInventory component here")]
+    [SerializeField] private EvidenceInventory _evidenceInventory;
+    
     [Header("Events")]
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
@@ -111,9 +117,39 @@ public class SceneController : MonoBehaviour, ISceneController
         Debug.LogWarning("ShakeScreen not implemented");
     }
 
+    /// <summary>
+    /// Gets an item from the evidence dictionary and shows it on the screen at a specified position.
+    /// </summary>
+    /// <param name="item">The name of the item to show.</param>
+    /// <param name="position">The position of the item's image on the screen (left, middle, right).</param>
     public void ShowItem(string item, itemDisplayPosition position)
     {
-        Debug.LogWarning("ShowItem not implemented");
+        if (_evidenceInventory == null)
+        {
+            Debug.LogError($"Cannot show item, no EvidenceInventory component assigned to {name}.", gameObject);
+            return;
+        }
+
+        if (_itemDisplay == null)
+        {
+            Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
+        }
+
+        Evidence evidence = _evidenceInventory.GetObjectFromAvailableObjects(item);
+        _itemDisplay.ShowItem(evidence.Icon, position);
+    }
+
+    /// <summary>
+    /// Hides the item currently being displayed on the screen.
+    /// </summary>
+    public void HideItem()
+    {
+        if (_itemDisplay == null)
+        {
+            Debug.LogError($"Cannot hide item, no ItemDisplay component assigned to {name}.", gameObject);
+        }
+        
+        _itemDisplay.HideItem();
     }
     
     public void ShowActor()
