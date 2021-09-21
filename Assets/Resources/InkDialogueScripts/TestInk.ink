@@ -6,6 +6,7 @@ After all the work I put into those levels...
 
 &SCENE:TMPH_Ross
 &CAMERA_SET:0,-204 //x, y
+&HIDE_TEXTBOX
 &FADE_IN:1
 
 &CAMERA_PAN:2,0,0 //Speed, x, y
@@ -14,6 +15,7 @@ After all the work I put into those levels...
 &SPEAK:Ross //Optional, doesn't need to be here, but can be nice for clarity
 ...We'll see who the real good boy is now, won't we Jory?
 
+&HIDE_TEXTBOX
 &FADE_OUT:1
 &SCENE:TMPH_Ross_With_Dinos
 &CAMERA_SET:0,0 //x, y
