@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
@@ -9,7 +10,7 @@ public class SceneController : MonoBehaviour, ISceneController
     [SerializeField] private BGSceneList _sceneList;
     
     [Tooltip("Drag a FadeToImageController here.")]
-    [SerializeField] private FadeToImageTransition _fadeToImageTransition;
+    [SerializeField] private ImageFader _imageFader;
 
     [Tooltip("Drag an ItemDisplay component here.")]
     [SerializeField] private ItemDisplay _itemDisplay;
@@ -56,14 +57,14 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The number of seconds it should take to fade.</param>
     public void FadeIn(float seconds)
     {
-        if (_fadeToImageTransition == null)
+        if (_imageFader == null)
         {
             Debug.LogError($"Could not begin fade in. {name} does not have a FadeToImageTransition component attached.");
             return;
         }
         
         _onWaitStart.Invoke();
-        _fadeToImageTransition.StartFade(1, 0, seconds, _onWaitComplete);
+        _imageFader.StartFade(1, 0, seconds, _onWaitComplete);
     }
 
     /// <summary>
@@ -72,14 +73,14 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The number of seconds it should take to fade.</param>
     public void FadeOut(float seconds)
     {
-        if (_fadeToImageTransition == null)
+        if (_imageFader == null)
         {
             Debug.LogError($"Could not begin fade out. {name} does not have a FadeToImageTransition component attached.");
             return;
         }
         
         _onWaitStart.Invoke();
-        _fadeToImageTransition.StartFade(0, 1, seconds, _onWaitComplete);
+        _imageFader.StartFade(0, 1, seconds, _onWaitComplete);
     }
 
     public void PanCamera(float seconds, Vector2Int position)

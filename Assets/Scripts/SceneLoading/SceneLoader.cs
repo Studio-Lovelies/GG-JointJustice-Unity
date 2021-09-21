@@ -93,7 +93,6 @@ public class SceneLoader : MonoBehaviour
         {
             while (!_sceneLoadOperation.isDone)
             {
-                Debug.Log(_sceneLoadOperation.isDone);
                 if (_loadingBar != null)
                 {
                     if (!_loadingBar.gameObject.activeInHierarchy)
