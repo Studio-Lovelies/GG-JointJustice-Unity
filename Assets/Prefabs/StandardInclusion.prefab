@@ -1031,6 +1031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentAppearTime: 0
   _directorActionDecorder: {fileID: 5228303783986964379}
+  _textBoxGameObject: {fileID: 5490628540614266465}
   _controlledText: {fileID: 160785083171597126}
   _nameText: {fileID: 7978256493272732070}
   _nameBackgroundImage: {fileID: 7134565227706126460}
@@ -1481,6 +1482,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4cda231489f65341910a0acac208946, type: 3}
+--- !u!224 &1963507969312400552 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6030709744272325549, guid: f4cda231489f65341910a0acac208946,
+    type: 3}
+  m_PrefabInstance: {fileID: 5228303783516512005}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6400957159047848953 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1178375235127180540, guid: f4cda231489f65341910a0acac208946,
+    type: 3}
+  m_PrefabInstance: {fileID: 5228303783516512005}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b2b402f35864b7099d7534251c3563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4864517766780460 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5233150709086226729, guid: f4cda231489f65341910a0acac208946,
@@ -1553,21 +1572,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c516981a0c274483bb82bc6d981a84a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6400957159047848953 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1178375235127180540, guid: f4cda231489f65341910a0acac208946,
+--- !u!1 &5490628540614266465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 341159793510650958, guid: 37849bb488a16344e8888662757571aa,
     type: 3}
-  m_PrefabInstance: {fileID: 5228303783516512005}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b2b402f35864b7099d7534251c3563, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!224 &1963507969312400552 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6030709744272325549, guid: f4cda231489f65341910a0acac208946,
-    type: 3}
-  m_PrefabInstance: {fileID: 5228303783516512005}
+  m_PrefabInstance: {fileID: 5228303784605014575}
   m_PrefabAsset: {fileID: 0}
