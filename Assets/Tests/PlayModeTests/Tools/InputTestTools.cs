@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -14,6 +16,24 @@ namespace Tests.PlayModeTests.Tools
         public Keyboard Keyboard { get; } = InputSystem.AddDevice<Keyboard>();
         public Mouse Mouse { get; } = InputSystem.AddDevice<Mouse>();
 
+        private EditorWindow _gameViewWindow;
+
+        private EditorWindow GameViewWindow
+        {
+            get
+            {
+                if (_gameViewWindow != null)
+                {
+                    return _gameViewWindow;
+                }
+
+                System.Reflection.Assembly assembly = typeof(EditorWindow).Assembly;
+                Type type = assembly.GetType("UnityEditor.GameView");
+                _gameViewWindow = EditorWindow.GetWindow(type);
+                return _gameViewWindow;
+            }
+        }
+
         /// <summary>
         /// Start this coroutine to press a specified key for one frame.
         /// </summary>
@@ -24,8 +44,10 @@ namespace Tests.PlayModeTests.Tools
             for (int i = 0; i < repeats; i++)
             {
                 Press(control);
+                GameViewWindow.Repaint();
                 yield return null;
                 Release(control);
+                GameViewWindow.Repaint();
                 yield return null;
             }
         }

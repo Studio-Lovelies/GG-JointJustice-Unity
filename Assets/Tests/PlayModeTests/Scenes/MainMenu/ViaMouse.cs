@@ -12,14 +12,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 {
     public class ViaMouse : InputTestFixture
     {
-        private IEnumerator PressForFrame(ButtonControl control)
-        {
-            yield return null;
-            Press(control);
-            yield return null;
-            Release(control);
-            yield return null;
-        }
+        private readonly InputTestTools _inputTestTools = new InputTestTools();
 
         [UnityTest]
         [ReloadScene("Assets/Scenes/MainMenu.unity")]
@@ -43,25 +36,25 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Assert.False(subMenu.Active);
 
             Set(mouse.position, openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
             Set(mouse.position, openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(secondSubMenu.Active);
             Assert.False(subMenu.Active);
 
             Set(mouse.position, closeSecondSubMenuButton.position + closeSecondSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
             Set(mouse.position, closeFirstSubMenuButton.position + closeFirstSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
@@ -88,19 +81,19 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Assert.False(subMenu.Active);
 
             Set(mouse.position, openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
             Set(mouse.position, openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(secondSubMenu.Active);
             Assert.False(subMenu.Active);
 
             Set(mouse.position, closeAllSubMenusButton.position + closeAllSubMenusButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(secondSubMenu.Active);
@@ -124,7 +117,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 
             Set(mouse.position, startGameButton.position + startGameButton.localScale * 0.5f);
             Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
             Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
 
             SceneManagerAPI.overrideAPI = null;
