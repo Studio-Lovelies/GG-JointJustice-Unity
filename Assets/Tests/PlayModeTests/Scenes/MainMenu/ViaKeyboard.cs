@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 using NUnit.Framework;
+using Tests.PlayModeTests.Tools;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,7 +24,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         }
 
         [UnityTest]
-        [ReloadScene]
+        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
@@ -69,7 +70,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         }
 
         [UnityTest]
-        [ReloadScene]
+        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanEnterAndCloseTwoSubMenusWithCloseAllButton()
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
@@ -104,7 +105,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 
 
         [UnityTest]
-        [ReloadScene]
+        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanStartGame()
         {
             SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
