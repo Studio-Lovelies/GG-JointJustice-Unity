@@ -177,7 +177,16 @@ public class SceneController : MonoBehaviour, ISceneController
         
         _itemDisplay.HideItem();
     }
-    
+
+    /// <summary>
+    /// Plays a full screen animation e.g. Ross' galaxy brain or the gavel hit animations.
+    /// </summary>
+    /// <param name="animationName">The name of the animation to play.</param>
+    public void PlayAnimation(string animationName)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void ShowActor()
     {
         Debug.LogWarning("ShowActor not implemented");

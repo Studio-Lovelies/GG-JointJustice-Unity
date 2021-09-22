@@ -61,6 +61,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "WAIT": Wait(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
             case "HIDE_ITEM": HideItem(); break;
+            case "PLAY_ANIMATION": PlayAnimation(parameters); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
@@ -370,6 +371,18 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Debug.LogError("Invalid paramater " + seconds + " for function WAIT");
         }
+    }
+
+    /// <summary>
+    /// Plays a full screen animation e.g. Ross' galaxy brain or the gavel hit animations.
+    /// </summary>
+    /// <param name="animationName">The name of the animation to play.</param>
+    private void PlayAnimation(string animationName)
+    {
+        if (!HasSceneController())
+            return;
+
+        _sceneController.PlayAnimation(animationName);
     }
 
     #endregion

@@ -20,4 +20,5 @@ public interface ISceneController
     void HideActor();
     void Wait(float seconds);
     void HideItem();
+    void PlayAnimation(string animationName);
 }
