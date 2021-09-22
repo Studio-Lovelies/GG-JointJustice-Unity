@@ -14,14 +14,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 {
     public class ViaKeyboard : InputTestFixture
     {
-        private IEnumerator PressForFrame(ButtonControl control)
-        {
-            yield return null;
-            Press(control);
-            yield return null;
-            Release(control);
-            yield return null;
-        }
+        private readonly InputTestTools _inputTestTools = new InputTestTools();
 
         [UnityTest]
         [ReloadScene("Assets/Scenes/MainMenu.unity")]
@@ -37,34 +30,34 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Keyboard keyboard = InputSystem.AddDevice<Keyboard>();
 
             string selectedButton = mainMenu.SelectedButton.name;
-            yield return PressForFrame(keyboard.rightArrowKey);
+            yield return _inputTestTools.PressForFrame(keyboard.rightArrowKey);
             string newSelectedButton = mainMenu.SelectedButton.name;
             Assert.AreNotEqual(selectedButton, newSelectedButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return PressForFrame(keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(keyboard.enterKey);
             Assert.False(mainMenu.Active);
             Assert.True(subMenu.Active);
 
-            yield return PressForFrame(keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(keyboard.enterKey);
             Assert.False(subMenu.Active);
             Assert.True(secondSubMenu.Active);
 
-            yield return PressForFrame(keyboard.downArrowKey);
-            yield return PressForFrame(keyboard.downArrowKey);
-            yield return PressForFrame(keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(keyboard.downArrowKey);
 
-            yield return PressForFrame(keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(keyboard.enterKey);
             Assert.False(secondSubMenu.Active);
             Assert.True(subMenu.Active);
 
-            yield return PressForFrame(keyboard.downArrowKey);
-            yield return PressForFrame(keyboard.downArrowKey);
-            yield return PressForFrame(keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(keyboard.downArrowKey);
 
-            yield return PressForFrame(keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(keyboard.enterKey);
             Assert.False(subMenu.Active);
             Assert.True(mainMenu.Active);
         }
@@ -82,22 +75,22 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 
             Keyboard keyboard = InputSystem.AddDevice<Keyboard>();
             string selectedButton = mainMenu.SelectedButton.name;
-            yield return PressForFrame(keyboard.rightArrowKey);
+            yield return _inputTestTools.PressForFrame(keyboard.rightArrowKey);
             string newSelectedButton = mainMenu.SelectedButton.name;
             Assert.AreNotEqual(selectedButton, newSelectedButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return PressForFrame(keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(keyboard.enterKey);
             Assert.False(mainMenu.Active);
             Assert.True(subMenu.Active);
 
-            yield return PressForFrame(keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(keyboard.enterKey);
             Assert.False(subMenu.Active);
             Assert.True(secondSubMenu.Active);
 
-            yield return PressForFrame(keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(keyboard.enterKey);
             Assert.False(secondSubMenu.Active);
             Assert.False(subMenu.Active);
             Assert.True(mainMenu.Active);
@@ -114,7 +107,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Keyboard keyboard = InputSystem.AddDevice<Keyboard>();
 
             Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-            yield return PressForFrame(keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(keyboard.enterKey);
             Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
 
             SceneManagerAPI.overrideAPI = null;

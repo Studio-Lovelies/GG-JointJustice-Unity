@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EvidenceMenu - Test Scene.unity
     guid: d8df2bbcdddb04157a57d5ed72bfd319
+  - enabled: 1
+    path: Assets/Scenes/CrossExamination - TestScene.unity
+    guid: fecfa2268f8a8a54391ec55cc822b4de
   m_configObjects: {}
