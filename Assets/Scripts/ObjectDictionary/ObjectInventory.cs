@@ -64,4 +64,13 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     {
         ObjectStorage.Remove(objectName);
     }
+    
+    /// <summary>
+    /// Allows the dictionary of all available objects to be accessed.
+    /// </summary>
+    /// <param name="objectName">The name of the object to get.</param>
+    public T GetObjectFromAvailableObjects(string objectName)
+    {
+        return _availableObjectDictionary[objectName];
+    }
 }

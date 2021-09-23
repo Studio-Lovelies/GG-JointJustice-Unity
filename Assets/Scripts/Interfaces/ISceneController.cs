@@ -21,4 +21,5 @@ public interface ISceneController
     void ShowActor();
     void HideActor();
     void Wait(float seconds);
+    void HideItem();
 }

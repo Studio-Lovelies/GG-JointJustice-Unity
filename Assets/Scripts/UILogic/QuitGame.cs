@@ -3,17 +3,25 @@ using UnityEngine;
 
 public class QuitGame : MonoBehaviour
 {
-    [SerializeField, Tooltip("Assign a transition controller here if a transition is required when changing the scene.")]
-    private TransitionController _transitionController;
-
+    private ITransition _transition;
+    
+    private void Awake()
+    {
+        _transition = GetComponent<ITransition>();
+    }
+    
     /// <summary>
     /// Called "on select" to run the transition which, in turn, will call the `ExecuteQuit()` method when ending the transition
     /// </summary>
     public void QueueTransition()
     {
-        if (_transitionController != null)
+        if (_transition != null)
         {
-            _transitionController.Transition();
+            _transition.Transition();
+        }
+        else
+        {
+            ExecuteQuit(); // No ITransition attached? Then quit without a transition.
         }
     }
 

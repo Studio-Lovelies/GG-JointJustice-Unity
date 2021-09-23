@@ -61,6 +61,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SCENE": SetScene(parameters); break;
             case "WAIT": Wait(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
+            case "HIDE_ITEM": HideItem(); break;
             case "JUMP_TO_POSITION": JumpToSubPosition(parameters); break;
             case "PAN_TO_POSITION": PanToSubPosition(parameters); break;
             //Evidence controller
@@ -77,6 +78,8 @@ public class DirectorActionDecoder : MonoBehaviour
             case "DISABLE_SKIPPING": DisableTextSkipping(parameters); break;
             case "AUTOSKIP": AutoSkip(parameters); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
+            case "APPEAR_INSTANTLY": AppearInstantly(); break;
+            case "HIDE_TEXTBOX": HideTextbox(); break;
             //Do nothing
             case "WAIT_FOR_INPUT": break;
             //Default
@@ -359,6 +362,19 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Debug.LogError("Invalid paramater " + parameters[1] + " for function CAMERA_PAN");
         }
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Hides the item displayed on the screen by ShowItem method.
+    /// </summary>
+    void HideItem()
+    {
+        if (!HasSceneController())
+            return;
+
+        _sceneController.HideItem();
+        _onActionDone.Invoke();
     }
 
     /// <summary>
@@ -693,6 +709,30 @@ public class DirectorActionDecoder : MonoBehaviour
         }
 
         _appearingDialogController.AutoSkipDialog(value);
+    }
+
+    /// <summary>
+    /// Makes the next line of dialogue appear instantly instead of one character at a time.
+    /// </summary>
+    private void AppearInstantly()
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.PrintTextInstantly = true;
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Hides the dialogue textbox.
+    /// </summary>
+    private void HideTextbox()
+    {
+        if (!HasAppearingDialogController())
+            return;
+
+        _appearingDialogController.HideTextbox();
+        _onActionDone.Invoke();
     }
     #endregion
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
@@ -11,7 +12,16 @@ public class SceneController : MonoBehaviour, ISceneController
     [Header("Events")]
     [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
     [SerializeField] private BGSceneList _sceneList;
+    
+    [Tooltip("Drag a FadeToImageController here.")]
+    [SerializeField] private ImageFader _imageFader;
 
+    [Tooltip("Drag an ItemDisplay component here.")]
+    [SerializeField] private ItemDisplay _itemDisplay;
+
+    [Tooltip("Drag an EvidenceInventory component here")]
+    [SerializeField] private EvidenceInventory _evidenceInventory;
+    
     [Header("Events")]
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
@@ -48,14 +58,36 @@ public class SceneController : MonoBehaviour, ISceneController
 
     }
 
+    /// <summary>
+    /// Fades an image from opaque to transparent. Used to fade in to a scene from a black screen.
+    /// </summary>
+    /// <param name="seconds">The number of seconds it should take to fade.</param>
     public void FadeIn(float seconds)
     {
-        Debug.LogWarning("FadeIn not implemented");
+        if (_imageFader == null)
+        {
+            Debug.LogError($"Could not begin fade in. {name} does not have a FadeToImageTransition component attached.");
+            return;
+        }
+        
+        _onWaitStart.Invoke();
+        _imageFader.StartFade(1, 0, seconds, _onWaitComplete);
     }
 
+    /// <summary>
+    /// Fades an image from transparent to opaque. Used to fade out from a scene to a black screen.
+    /// </summary>
+    /// <param name="seconds">The number of seconds it should take to fade.</param>
     public void FadeOut(float seconds)
     {
-        Debug.LogWarning("FadeOut not implemented");
+        if (_imageFader == null)
+        {
+            Debug.LogError($"Could not begin fade out. {name} does not have a FadeToImageTransition component attached.");
+            return;
+        }
+        
+        _onWaitStart.Invoke();
+        _imageFader.StartFade(0, 1, seconds, _onWaitComplete);
     }
 
     /// <summary>
@@ -74,14 +106,14 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="pos">Target position</param>
     /// <param name="time">Time for the pan to take in seconds</param>
     /// <returns>IEnumerator stuff for coroutine</returns>
-    private IEnumerator PanToPosition(Vector2 targetPos, float time)
+    private IEnumerator PanToPosition(Vector2 targetPos, float timeToTake)
     {
-        var startPos = _activeScene.transform.position;
-        var t = 0f;
-        while (t < 1)
+        Vector2 startPos = _activeScene.transform.position;
+        float percentagePassed = 0f;
+        while (percentagePassed < 1)
         {
-            t += Time.deltaTime / time;
-            _activeScene.transform.position = Vector2.Lerp(startPos, targetPos, t);
+            percentagePassed += Time.deltaTime / timeToTake;
+            _activeScene.transform.position = Vector2.Lerp(startPos, targetPos, percentagePassed);
             yield return null;
         }
     }
@@ -115,9 +147,39 @@ public class SceneController : MonoBehaviour, ISceneController
         Debug.LogWarning("ShakeScreen not implemented");
     }
 
+    /// <summary>
+    /// Gets an item from the evidence dictionary and shows it on the screen at a specified position.
+    /// </summary>
+    /// <param name="item">The name of the item to show.</param>
+    /// <param name="position">The position of the item's image on the screen (left, middle, right).</param>
     public void ShowItem(string item, itemDisplayPosition position)
     {
-        Debug.LogWarning("ShowItem not implemented");
+        if (_evidenceInventory == null)
+        {
+            Debug.LogError($"Cannot show item, no EvidenceInventory component assigned to {name}.", gameObject);
+            return;
+        }
+
+        if (_itemDisplay == null)
+        {
+            Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
+        }
+
+        Evidence evidence = _evidenceInventory.GetObjectFromAvailableObjects(item);
+        _itemDisplay.ShowItem(evidence.Icon, position);
+    }
+
+    /// <summary>
+    /// Hides the item currently being displayed on the screen.
+    /// </summary>
+    public void HideItem()
+    {
+        if (_itemDisplay == null)
+        {
+            Debug.LogError($"Cannot hide item, no ItemDisplay component assigned to {name}.", gameObject);
+        }
+        
+        _itemDisplay.HideItem();
     }
     
     public void ShowActor()
@@ -212,10 +274,10 @@ public class SceneController : MonoBehaviour, ISceneController
     }
 
     /// <summary>
-    /// Converts pixel positions into unit positions that the unity engine can use.
+    /// Turns pixel position into a unity position that unity can use based on the configured pixels per unit. Also inverts any value given because the camera has inverse movements because of the implementation.
     /// </summary>
-    /// <param name="pixelPosition">Pixel position, gets inverted as well as converted to the proper value</param>
-    /// <returns>Converted value</returns>
+    /// <param name="pixelPosition">Pixel position to turn into unit position</param>
+    /// <returns>Unit position from pixel position</returns>
     public Vector2 PixelPositionToUnitPosition(Vector2Int pixelPosition)
     {
         return new Vector2((float)(pixelPosition.x * -1) / _pixelsPerUnit, (float)(pixelPosition.y * -1) / _pixelsPerUnit);
