@@ -166,6 +166,10 @@ public class DirectorActionDecoder : MonoBehaviour
         _actorController.PlayEmotion(animation);
     }
 
+    /// <summary>
+    /// Sets an actor to a specific location in the currently active scene.
+    /// </summary>
+    /// <param name="positionAndActor">String containing the actor name first and position second, 1 based.</param>
     private void SetActorPosition(string positionAndActor)
     {
         if (!HasActorController())
@@ -378,6 +382,10 @@ public class DirectorActionDecoder : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Jump-cuts the camera to the target sub position if the bg-scene has sub positions.
+    /// </summary>
+    /// <param name="position">String containing an integer referring to the target sub position, 1 based.</param>
     void JumpToSubPosition(string position)
     {
         if (!HasSceneController())
@@ -390,6 +398,10 @@ public class DirectorActionDecoder : MonoBehaviour
         _onActionDone.Invoke();
     }
 
+    /// <summary>
+    /// Pans the camera to the target sub position if the bg-scene has a sub positions.
+    /// </summary>
+    /// <param name="positionAndTime">String containing an integer referring to the target sub position, 1 based, and a floating point number referring to the amount of time the pan should take in seconds.</param>
     void PanToSubPosition(string positionAndTime)
     {
         if (!HasSceneController())

@@ -42,6 +42,10 @@ public class ActorController : MonoBehaviour, IActorController
 
     }
 
+    /// <summary>
+    /// Connect to an event that exposes the active scene when it changes.
+    /// </summary>
+    /// <param name="newScene">New bg-scene that got set</param>
     public void OnSceneChanged(BGScene newScene)
     {
         _activeScene = newScene;
@@ -184,6 +188,11 @@ public class ActorController : MonoBehaviour, IActorController
         _currentSpeakingType = speakingType;
     }
 
+    /// <summary>
+    /// Sets an actor to a sub position in the scene, if the active bg-scene has sub positions.
+    /// </summary>
+    /// <param name="actor">Target actor</param>
+    /// <param name="subPosition">Target sub position, 1 based</param>
     public void AssignActorToSubPosition(string actor, int subPosition)
     {
         if (_activeScene == null || !_activeScene.HasSubPositions())

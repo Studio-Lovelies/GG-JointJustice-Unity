@@ -20,11 +20,19 @@ public class BGScene : MonoBehaviour
             SetSubPosition(1);
     }
 
+    /// <summary>
+    /// Sees whether the current scene has sub positions
+    /// </summary>
+    /// <returns>whether this bg-scene has sub positions</returns>
     public bool HasSubPositions()
     {
         return _subPositions.Count > 0;
     }
 
+    /// <summary>
+    /// Sets the active sub position so the actor and position can be used.
+    /// </summary>
+    /// <param name="position">target position, 1 based.</param>
     public void SetSubPosition(int position)
     {
         int actualPosition = position - 1;
@@ -39,11 +47,21 @@ public class BGScene : MonoBehaviour
         ActiveActor = _currentSubPosition.AttachedActor;
     }
 
+    /// <summary>
+    /// Gets the target position based on the current sub position
+    /// </summary>
+    /// <returns></returns>
     public Vector2Int GetTargetPosition()
     {
         return _currentSubPosition.position;
     }
 
+
+    /// <summary>
+    /// Gets the actor object at a certain position without activating the system
+    /// </summary>
+    /// <param name="position">Target position, 1 based</param>
+    /// <returns>Actor object at target position</returns>
     public Actor GetActorAtSubposition(int position)
     {
         int actualPosition = position - 1;

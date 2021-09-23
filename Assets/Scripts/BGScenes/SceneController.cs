@@ -130,6 +130,11 @@ public class SceneController : MonoBehaviour, ISceneController
         Debug.LogWarning("HideActor not implemented");
     }
 
+    /// <summary>
+    /// Pans to sub position if the bg-scene has sub positions.
+    /// </summary>
+    /// <param name="position">Target sub position, 1 based.</param>
+    /// <param name="seconds">Time in seconds the pan should take</param>
     public void PanToSubPosition(int position, float seconds)
     {
         if (_activeScene == null)
@@ -148,6 +153,10 @@ public class SceneController : MonoBehaviour, ISceneController
         PanCamera(seconds, _activeScene.GetTargetPosition());
     }
 
+    /// <summary>
+    /// Jump cuts to the target sub position, if the bg-scene has sub positions.
+    /// </summary>
+    /// <param name="position">Target sub position, 1 based.</param>
     public void SetToSubPosition(int position)
     {
         if (_activeScene == null)
@@ -202,6 +211,11 @@ public class SceneController : MonoBehaviour, ISceneController
         _waitCoroutine = null;
     }
 
+    /// <summary>
+    /// Converts pixel positions into unit positions that the unity engine can use.
+    /// </summary>
+    /// <param name="pixelPosition">Pixel position, gets inverted as well as converted to the proper value</param>
+    /// <returns>Converted value</returns>
     public Vector2 PixelPositionToUnitPosition(Vector2Int pixelPosition)
     {
         return new Vector2((float)(pixelPosition.x * -1) / _pixelsPerUnit, (float)(pixelPosition.y * -1) / _pixelsPerUnit);
