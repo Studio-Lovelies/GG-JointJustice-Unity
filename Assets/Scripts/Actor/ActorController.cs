@@ -20,6 +20,7 @@ public class ActorController : MonoBehaviour, IActorController
 
     public bool Animating { get; set; }
 
+    private Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
     private ActorData _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
 
@@ -47,7 +48,9 @@ public class ActorController : MonoBehaviour, IActorController
     {
         _activeActor = actor;
         if (actor != null)
+        {
             actor.AttachController(this);
+        }
     }
 
     /// <summary>
@@ -60,7 +63,10 @@ public class ActorController : MonoBehaviour, IActorController
     {
         var targetActorData = FindActorData(actor);
         if (_activeActor != null)
+        {
             _activeActor.SetActor(targetActorData);
+            _actorDataToActor[targetActorData] = _activeActor;
+        }
     }
 
     private ActorData FindActorData(string actorName)
@@ -74,6 +80,17 @@ public class ActorController : MonoBehaviour, IActorController
             Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in actor dictionary");
             return null;
         }
+    }
+
+    private Actor FindActor(string actorName)
+    {
+        var actorData = FindActorData(actorName);
+        if (actorData != null && _actorDataToActor.ContainsKey(actorData))
+        {
+            return _actorDataToActor[actorData];
+        }
+
+        return null;
     }
 
     /// <summary>
@@ -91,6 +108,16 @@ public class ActorController : MonoBehaviour, IActorController
                 return;
             }
             _activeActor.PlayAnimation(pose);
+        }
+        else
+        {
+            var actor = FindActor(actorName);
+
+            if (actor == null)
+            {
+                Debug.LogError(string.Format("Actor not found: {0}", actorName));
+            }
+            actor.PlayAnimation(pose);
         }
     }
 
@@ -112,6 +139,20 @@ public class ActorController : MonoBehaviour, IActorController
             _onAnimationStarted.Invoke();
             Animating = true;
             _activeActor.PlayAnimation(emotion);
+        }
+        else
+        {
+            var actor = FindActor(actorName);
+
+            if (actor == null)
+            {
+                Debug.LogError(string.Format("Actor not found: {0}", actorName));
+                _onAnimationComplete.Invoke();
+            }
+
+            _onAnimationStarted.Invoke();
+            Animating = true;
+            actor.PlayAnimation(emotion);
         }
     }
 
