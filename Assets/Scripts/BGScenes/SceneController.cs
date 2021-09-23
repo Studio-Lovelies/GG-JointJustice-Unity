@@ -21,6 +21,9 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Drag an EvidenceInventory component here")]
     [SerializeField] private EvidenceInventory _evidenceInventory;
+
+    [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
+    [SerializeField] private AnimatableObject _fullscreenAnimationPlayer;
     
     [Header("Events")]
     [Tooltip("Attach the action decoder object here")]
@@ -184,7 +187,13 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="animationName">The name of the animation to play.</param>
     public void PlayAnimation(string animationName)
     {
-        throw new System.NotImplementedException();
+        if (_fullscreenAnimationPlayer == null)
+        {
+            Debug.LogError($"Fullscreen Animation Player has not been set on {name}.");
+            return;
+        }
+        
+        _fullscreenAnimationPlayer.PlayAnimation(animationName);
     }
 
     public void ShowActor()

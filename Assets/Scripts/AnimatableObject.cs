@@ -6,6 +6,8 @@ public class AnimatableObject : MonoBehaviour
 {
     [SerializeField, Tooltip("This events is called when an animation completes.")]
     private UnityEvent _onAnimationComplete;
+
+    private SpriteRenderer _spriteRenderer;
     
     protected Animator Animator { get; private set; }
     
@@ -14,6 +16,7 @@ public class AnimatableObject : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
     }
     
@@ -36,8 +39,8 @@ public class AnimatableObject : MonoBehaviour
             Debug.LogError($"Could not find animation {animation} on animator {Animator.runtimeAnimatorController.name}.");
             return;
         }
-        
-        gameObject.SetActive(true);
+
+        _spriteRenderer.enabled = true;
         Animator.Play(animationHash);
     }
     

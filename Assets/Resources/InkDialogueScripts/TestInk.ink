@@ -26,6 +26,12 @@ Just as planned...
 
 &CAMERA_PAN:3,270,0 //Speed, x, y
 Soon, I'll have all the coins!
+&WAIT:2
+
+&PLAY_ANIMATION:RossGalaxyBrain
+&SPEAK:Ross //Optional, doesn't need to be here, but can be nice for clarity
+Now this is a galaxy-brain move right here!
+&HIDE_TEXTBOX
 
     -> END
 
