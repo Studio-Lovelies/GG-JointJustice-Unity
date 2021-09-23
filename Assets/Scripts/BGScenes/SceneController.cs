@@ -187,13 +187,36 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="animationName">The name of the animation to play.</param>
     public void PlayAnimation(string animationName)
     {
+        if (!HasFullScreenAnimationPlayer())
+            return;
+
+        _fullscreenAnimationPlayer.PlayAnimation(animationName);
+    }
+    
+    /// <summary>
+    /// Method to end the animation currently playing.
+    /// Should be called when an animation should not pause on the final frame (e.g. Ross' galaxy brain animation).
+    /// </summary>
+    public void EndAnimation()
+    {
+        if (!HasFullScreenAnimationPlayer())
+            return;
+
+        _fullscreenAnimationPlayer.EndAnimation();
+    }
+
+    /// <summary>
+    /// Method to check if an AnimatableObject has been assigned to _fullscreenAnimationPlayer.
+    /// </summary>
+    private bool HasFullScreenAnimationPlayer()
+    {
         if (_fullscreenAnimationPlayer == null)
         {
             Debug.LogError($"Fullscreen Animation Player has not been set on {name}.");
-            return;
+            return false;
         }
-        
-        _fullscreenAnimationPlayer.PlayAnimation(animationName);
+
+        return true;
     }
 
     public void ShowActor()

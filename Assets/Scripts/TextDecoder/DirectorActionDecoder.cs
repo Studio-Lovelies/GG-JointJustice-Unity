@@ -62,6 +62,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SHOW_ITEM": ShowItem(parameters); break;
             case "HIDE_ITEM": HideItem(); break;
             case "PLAY_ANIMATION": PlayAnimation(parameters); break;
+            case "END_ANIMATION": EndAnimation(); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
@@ -383,6 +384,19 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _sceneController.PlayAnimation(animationName);
+    }
+
+    /// <summary>
+    /// Method to end the animation currently playing.
+    /// Should be called when an animation should not pause on the final frame (e.g. Ross' galaxy brain animation).
+    /// </summary>
+    private void EndAnimation()
+    {
+        if (!HasSceneController())
+            return;
+        
+        _sceneController.EndAnimation();
+        _onActionDone.Invoke();
     }
 
     #endregion

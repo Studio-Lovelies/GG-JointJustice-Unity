@@ -32,6 +32,8 @@ Soon, I'll have all the coins!
 &SPEAK:Ross //Optional, doesn't need to be here, but can be nice for clarity
 Now this is a galaxy-brain move right here!
 &HIDE_TEXTBOX
+&WAIT:1
+&FADE_OUT:0
 
     -> END
 
