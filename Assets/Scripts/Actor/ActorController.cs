@@ -110,7 +110,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// <param name="pose"></param>
     public void SetPose(string pose, string actorName = null)
     {
-        if (actorName == null)
+        if (actorName == null || FindActor(actorName) == _activeActor)
         {
             if (_activeActor == null)
             {
@@ -138,7 +138,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// <param name="emotion">The emotion to play.</param>
     public void PlayEmotion(string emotion, string actorName = null)
     {
-        if (actorName == null)
+        if (actorName == null || FindActor(actorName) == _activeActor)
         {
             if (_activeActor == null)
             {
