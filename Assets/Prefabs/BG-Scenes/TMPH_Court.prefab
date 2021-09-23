@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 8092316712924599042}
   - component: {fileID: 8092316712924599041}
   m_Layer: 0
-  m_Name: TMPH_CourtPan
+  m_Name: TMPH_Court
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

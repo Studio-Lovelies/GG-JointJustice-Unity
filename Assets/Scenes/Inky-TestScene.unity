@@ -489,7 +489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8092316712924599043, guid: 6a76445d659e2db4baf7ee7ff4a2133c, type: 3}
       propertyPath: m_Name
-      value: TMPH_CourtPan
+      value: TMPH_Court
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a76445d659e2db4baf7ee7ff4a2133c, type: 3}
