@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -61,7 +59,7 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetActiveActor(string actor)
     {
         try
-        { 
+        {
             if (_activeActor != null)
                 _activeActor.SetActor(_actorInventory[actor]);
         }
@@ -137,11 +135,11 @@ public class ActorController : MonoBehaviour, IActorController
             return;
         }
 
-        if ( _activeActor.MatchesActorData(_currentSpeakingActor))
+        if (_activeActor.MatchesActorData(_currentSpeakingActor))
         {
             _activeActor.SetTalking(true);
         }
-            
+
     }
 
     /// <summary>
@@ -166,7 +164,7 @@ public class ActorController : MonoBehaviour, IActorController
             Animating = false;
             _onAnimationComplete.Invoke();
         }
-        
+
     }
 
     /// <summary>
