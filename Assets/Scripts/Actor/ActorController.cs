@@ -69,6 +69,11 @@ public class ActorController : MonoBehaviour, IActorController
         }
     }
 
+    /// <summary>
+    /// Find ActorData in ActorInventory.
+    /// </summary>
+    /// <param name="actorName"></param>
+    /// <returns></returns>
     private ActorData FindActorData(string actorName)
     {
         try
@@ -82,6 +87,11 @@ public class ActorController : MonoBehaviour, IActorController
         }
     }
 
+    /// <summary>
+    /// Find Actor in scene
+    /// </summary>
+    /// <param name="actorName"></param>
+    /// <returns></returns>
     private Actor FindActor(string actorName)
     {
         var actorData = FindActorData(actorName);
