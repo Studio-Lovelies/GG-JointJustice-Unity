@@ -58,14 +58,21 @@ public class ActorController : MonoBehaviour, IActorController
     /// Actors use the same name as their ActorData object.</param>
     public void SetActiveActor(string actor)
     {
+        var targetActorData = FindActorData(actor);
+        if (_activeActor != null)
+            _activeActor.SetActor(targetActorData);
+    }
+
+    private ActorData FindActorData(string actorName)
+    {
         try
         {
-            if (_activeActor != null)
-                _activeActor.SetActor(_actorInventory[actor]);
+            return _actorInventory[actorName];
         }
         catch (KeyNotFoundException exception)
         {
-            Debug.Log($"{exception.GetType().Name}: Actor {actor} was not found in actor dictionary");
+            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in actor dictionary");
+            return null;
         }
     }
 
