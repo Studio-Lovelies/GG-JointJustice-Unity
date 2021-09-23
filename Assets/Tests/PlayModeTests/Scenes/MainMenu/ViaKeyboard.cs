@@ -2,11 +2,8 @@
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 

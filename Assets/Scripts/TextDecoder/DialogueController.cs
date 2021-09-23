@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using Ink.Runtime;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public enum DialogueControllerMode
@@ -23,7 +21,6 @@ public enum CrossExaminationChoice
 public class DialogueController : MonoBehaviour
 {
     private const char ACTION_TOKEN = '&';
-
 
     [SerializeField] private TextAsset _narrativeScript;
 
@@ -54,11 +51,11 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private UnityEvent<bool> _onBusySet;
 
     private Story _inkStory;
-    bool _isBusy = false;
+    private bool _isBusy;
     private bool _isMenuOpen;
     private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
 
-    private bool _isAtChoice = false; //Possibly small state machine to handle all input?
+    private bool _isAtChoice; //Possibly small state machine to handle all input?
 
     /// <summary>
     /// Called when the object is initialized
@@ -72,7 +69,7 @@ public class DialogueController : MonoBehaviour
     }
 
     /// <summary>
-    /// Initialzed a sub story by hooking the events to the parent dialogue so everything propagated down correctly
+    /// Initialized a sub story by hooking the events to the parent dialogue so everything propagated down correctly
     /// </summary>
     /// <param name="parent">Parent of this dialogue to hook everything in to</param>
     void SubStoryInit(DialogueController parent)
@@ -167,7 +164,7 @@ public class DialogueController : MonoBehaviour
     }
 
     /// <summary>
-    /// Actually handles the evidence being presented by seeing if it is one of the current choices and then progressing the story appriopriately. Makes sure we're in cross examination mode before continuing.
+    /// Actually handles the evidence being presented by seeing if it is one of the current choices and then progressing the story appropriately. Makes sure we're in cross examination mode before continuing.
     /// May spawn a random failure sub story.
     /// </summary>
     /// <param name="presentedObject">Name of the object you want to present to the court</param>
@@ -191,28 +188,24 @@ public class DialogueController : MonoBehaviour
             StartSubStory(_failureList.GetRandomFailurestate());
             return;
         }
-        else
+
+        int evidenceFoundAt = -1;
+        for (int i = 2; i < choiceList.Count; i++)
         {
-            int evidenceFoundAt = -1;
-            for (int i = 2; i < choiceList.Count; i++)
+            if (choiceList[i].text == presentedObject.InstanceName)
             {
-                if (choiceList[i].text == presentedObject.InstanceName)
-                {
-                    evidenceFoundAt = i;
-                    break;
-                }
-            }
-            if (evidenceFoundAt != -1)
-            {
-                HandleChoice(evidenceFoundAt);
-            }
-            else
-            {
-                //Deal with bad consequences, spawn sub story and continue that
-                StartSubStory(_failureList.GetRandomFailurestate());
-                return;
+                evidenceFoundAt = i;
+                break;
             }
         }
+        if (evidenceFoundAt != -1)
+        {
+            HandleChoice(evidenceFoundAt);
+            return;
+        }
+
+        //Deal with bad consequences, spawn sub story and continue that
+        StartSubStory(_failureList.GetRandomFailurestate());
     }
 
     /// <summary>
@@ -228,10 +221,11 @@ public class DialogueController : MonoBehaviour
             string currentLine = _inkStory.Continue();
             if (currentLine.Length == 0) //0 should never happen
             {
-                Debug.LogError("Linelength was 0, should never happen");
+                Debug.LogError("Line-length was 0, should never happen");
                 return;
             }
-            else if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
+
+            if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
             {
                 HandleNextLineDialogue();
                 return;
@@ -283,7 +277,7 @@ public class DialogueController : MonoBehaviour
             string currentLine = _inkStory.Continue();
             if (currentLine.Length == 0) //0 should never happen
             {
-                Debug.LogError("Linelength was 0, should never happen");
+                Debug.LogError("Line-length was 0, should never happen");
                 return;
             }
             else if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
@@ -334,7 +328,7 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     /// <param name="line">Line to check</param>
     /// <returns>Whether the line is an action or not</returns>
-    private bool IsAction(string line)
+    private static bool IsAction(string line)
     {
         return line[0] == ACTION_TOKEN;
     }
@@ -347,7 +341,7 @@ public class DialogueController : MonoBehaviour
     /// <param name="subStory">Inky dialogue script to be set as the sub story</param>
     public void StartSubStory(TextAsset subStory)
     {
-        _subStory = GameObject.Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
+        _subStory = Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
         _subStory.SubStoryInit(this); //RECURSION
         _subStory.SetNarrativeScript(subStory);
         _subStory.OnContinueStory();

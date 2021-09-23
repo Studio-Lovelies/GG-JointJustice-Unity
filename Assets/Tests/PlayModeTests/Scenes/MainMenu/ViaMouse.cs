@@ -4,7 +4,6 @@ using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 

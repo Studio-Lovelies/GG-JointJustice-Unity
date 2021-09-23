@@ -3,7 +3,6 @@ using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scripts.EvidenceMenu
