@@ -141,26 +141,55 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <summary>
     /// Set the pose of the current actor
     /// </summary>
-    /// <param name="pose">Pose to display for the current actor</param>
-    private void SetPose(string pose)
+    /// <param name="poseAndActorName">Pose to display for the current actor</param>
+    private void SetPose(string poseAndActorName)
     {
         if (!HasActorController())
             return;
 
-        _actorController.SetPose(pose);
-        _onActionDone.Invoke();
+        string[] parameters = poseAndActorName.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length == 1)
+        {
+            _actorController.SetPose(parameters[0]);
+            _onActionDone.Invoke();
+        }
+        else if (parameters.Length == 2)
+        {
+            _actorController.SetPose(parameters[0], parameters[1]);
+            _onActionDone.Invoke();
+        }
+        else
+        {
+            Debug.LogError("Invalid number of paramaters for function PLAY_EMOTION");
+        }
+
+
     }
 
     /// <summary>
     /// Plays an emotion for the current actor. Emotion is a fancy term for animation on an actor.
     /// </summary>
-    /// <param name="animation">Animation to play</param>
-    private void PlayEmotion(string animation)
+    /// <param name="animationAndActorName">Animation to play</param>
+    private void PlayEmotion(string animationAndActorName)
     {
         if (!HasActorController())
             return;
 
-        _actorController.PlayEmotion(animation);
+        string[] parameters = animationAndActorName.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length == 1)
+        {
+            _actorController.PlayEmotion(parameters[0]);
+        }
+        else if (parameters.Length == 2)
+        {
+            _actorController.PlayEmotion(parameters[0], parameters[1]);
+        }
+        else
+        {
+            Debug.LogError("Invalid number of paramaters for function PLAY_EMOTION");
+        }
     }
     #endregion
 
