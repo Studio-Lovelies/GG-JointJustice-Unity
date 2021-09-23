@@ -81,14 +81,17 @@ public class ActorController : MonoBehaviour, IActorController
     /// In working this is mostly the same as PlayEmotion without calling OnAnimationStarted so the system can continue without waiting for the animation to end.
     /// </summary>
     /// <param name="pose"></param>
-    public void SetPose(string pose)
+    public void SetPose(string pose, string actorName = null)
     {
-        if (_activeActor == null)
+        if (actorName == null)
         {
-            Debug.LogError("Actor has not been assigned");
-            return;
+            if (_activeActor == null)
+            {
+                Debug.LogError("Actor has not been assigned");
+                return;
+            }
+            _activeActor.PlayAnimation(pose);
         }
-        _activeActor.PlayAnimation(pose);
     }
 
     /// <summary>
@@ -96,17 +99,20 @@ public class ActorController : MonoBehaviour, IActorController
     /// Flags the system as busy so it waits for the animation to end.
     /// </summary>
     /// <param name="emotion">The emotion to play.</param>
-    public void PlayEmotion(string emotion)
+    public void PlayEmotion(string emotion, string actorName = null)
     {
-        if (_activeActor == null)
+        if (actorName == null)
         {
-            Debug.LogError("Actor has not been assigned");
-            _onAnimationComplete.Invoke();
-            return;
+            if (_activeActor == null)
+            {
+                Debug.LogError("Actor has not been assigned");
+                _onAnimationComplete.Invoke();
+                return;
+            }
+            _onAnimationStarted.Invoke();
+            Animating = true;
+            _activeActor.PlayAnimation(emotion);
         }
-        _onAnimationStarted.Invoke();
-        Animating = true;
-        _activeActor.PlayAnimation(emotion);
     }
 
     /// <summary>
