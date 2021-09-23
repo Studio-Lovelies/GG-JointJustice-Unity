@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Animator))]
 public class Actor : MonoBehaviour
@@ -8,6 +7,7 @@ public class Actor : MonoBehaviour
     private Animator _animator;
     private ActorData _actorData;
     private IActorController _attachedController;
+    private string _pendingAnimation;
 
     /// <summary>
     /// Called on awake, before Start
@@ -16,6 +16,18 @@ public class Actor : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+    }
+
+    /// <summary>
+    /// Built-in Unity thing, called when GameObject is re-enabled
+    /// </summary>
+    private void OnEnable()
+    {
+        if (_pendingAnimation != null)
+        {
+            PlayAnimation(_pendingAnimation);
+            _pendingAnimation = null;
+        }
     }
 
     /// <summary>
@@ -36,7 +48,7 @@ public class Actor : MonoBehaviour
     public void PlayAnimation(string animation)
     {
         int animationHash = Animator.StringToHash(animation); // Required for HasState method
-        
+
         if (_animator.runtimeAnimatorController == null)
         {
             Debug.LogError("Current actor has not been assigned an animator controller.");
@@ -51,7 +63,7 @@ public class Actor : MonoBehaviour
 
         _animator.Play(animationHash);
     }
-    
+
     /// <summary>
     /// This method is called by animations when they are completed and require the next line to be to be read.
     /// </summary>
@@ -80,7 +92,7 @@ public class Actor : MonoBehaviour
     {
         _animator.SetBool("Talking", isTalking);
     }
-    
+
     /// <summary>
     /// Checks if this actor is the actor passed
     /// </summary>
@@ -89,5 +101,10 @@ public class Actor : MonoBehaviour
     public bool MatchesActorData(ActorData actor)
     {
         return _actorData == actor;
+    }
+
+    public void SetPendingAnimation(string animationName)
+    {
+        _pendingAnimation = animationName;
     }
 }

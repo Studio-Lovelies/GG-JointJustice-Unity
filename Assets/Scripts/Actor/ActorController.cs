@@ -127,7 +127,7 @@ public class ActorController : MonoBehaviour, IActorController
             {
                 Debug.LogError(string.Format("Actor not found: {0}", actorName));
             }
-            actor.PlayAnimation(pose);
+            actor.SetPendingAnimation(pose);
         }
     }
 
@@ -157,12 +157,9 @@ public class ActorController : MonoBehaviour, IActorController
             if (actor == null)
             {
                 Debug.LogError(string.Format("Actor not found: {0}", actorName));
-                _onAnimationComplete.Invoke();
             }
 
-            _onAnimationStarted.Invoke();
-            Animating = true;
-            actor.PlayAnimation(emotion);
+            actor.SetPendingAnimation(emotion);
         }
     }
 
