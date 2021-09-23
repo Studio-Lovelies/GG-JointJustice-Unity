@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,9 +10,7 @@ public class AnimatableObject : MonoBehaviour
     
     [SerializeField, Tooltip("This events is called when an animation completes.")]
     private UnityEvent _onAnimationComplete;
-
-    private SpriteRenderer _spriteRenderer;
-
+    
     protected Animator Animator { get; private set; }
     
     /// <summary>
@@ -19,7 +18,6 @@ public class AnimatableObject : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
     }
     
@@ -43,21 +41,10 @@ public class AnimatableObject : MonoBehaviour
             return;
         }
         
-        Animator.enabled = true;
         _onAnimationBegin.Invoke();
         Animator.Play(animationHash);
     }
 
-    /// <summary>
-    /// Method to end the animation currently playing.
-    /// Should be called when an animation should not pause on the final frame (e.g. Ross' galaxy brain animation).
-    /// </summary>
-    public void EndAnimation()
-    {
-        Animator.enabled = false;
-        _spriteRenderer.sprite = null;
-    }
-    
     /// <summary>
     /// This method is called by animations when they are completed and require the next line to be to be read.
     /// </summary>

@@ -39,6 +39,7 @@ public class SceneController : MonoBehaviour, ISceneController
     [SerializeField] private UnityEvent<Actor> _onActorChanged;
 
     private Coroutine _waitCoroutine;
+    private Coroutine _panToPositionCoroutine;
 
     private BGScene _activeScene;
     
@@ -97,7 +98,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">Time for the pan to take in seconds</param>
     public void PanCamera(float seconds, Vector2Int position)
     {
-        StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds));
+        _panToPositionCoroutine = StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds));
     }
 
     /// <summary>
@@ -116,6 +117,8 @@ public class SceneController : MonoBehaviour, ISceneController
             _activeScene.transform.position = Vector2.Lerp(startPos, targetPos, percentagePassed);
             yield return null;
         }
+
+        _panToPositionCoroutine = null;
     }
 
     /// <summary>
@@ -125,7 +128,11 @@ public class SceneController : MonoBehaviour, ISceneController
     public void SetScene(string background)
     {
         _activeScene = _sceneList.SetScene(background);
-
+        if (_panToPositionCoroutine != null)
+        {
+            StopCoroutine(_panToPositionCoroutine);
+        }
+        
         if (_activeScene != null)
         {
             _onActorChanged.Invoke(_activeScene.ActiveActor);
@@ -182,7 +189,7 @@ public class SceneController : MonoBehaviour, ISceneController
     }
 
     /// <summary>
-    /// Plays a full screen animation e.g. Ross' galaxy brain or the gavel hit animations.
+    /// Plays a fullscreen animation e.g. Ross' galaxy brain or the gavel hit animations.
     /// </summary>
     /// <param name="animationName">The name of the animation to play.</param>
     public void PlayAnimation(string animationName)
@@ -190,19 +197,8 @@ public class SceneController : MonoBehaviour, ISceneController
         if (!HasFullScreenAnimationPlayer())
             return;
 
+        SetScene("FullscreenAnimationPlayer");
         _fullscreenAnimationPlayer.PlayAnimation(animationName);
-    }
-    
-    /// <summary>
-    /// Method to end the animation currently playing.
-    /// Should be called when an animation should not pause on the final frame (e.g. Ross' galaxy brain animation).
-    /// </summary>
-    public void EndAnimation()
-    {
-        if (!HasFullScreenAnimationPlayer())
-            return;
-
-        _fullscreenAnimationPlayer.EndAnimation();
     }
 
     /// <summary>
