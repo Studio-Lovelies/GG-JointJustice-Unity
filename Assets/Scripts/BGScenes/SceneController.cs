@@ -9,7 +9,6 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Pixels per unit of the basic ")]
     [SerializeField] private int _pixelsPerUnit = 100;
 
-    [Header("Events")]
     [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
     [SerializeField] private BGSceneList _sceneList;
     
@@ -22,10 +21,10 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag an EvidenceInventory component here")]
     [SerializeField] private EvidenceInventory _evidenceInventory;
     
-    [Header("Events")]
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
+    [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
     [SerializeField] private UnityEvent _onWaitStart;
 
