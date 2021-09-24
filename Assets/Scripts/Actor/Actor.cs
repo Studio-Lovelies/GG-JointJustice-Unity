@@ -103,6 +103,10 @@ public class Actor : MonoBehaviour
         return _actorData == actor;
     }
 
+    /// <summary>
+    /// Sets the pending animation on the actor, will play this animation once the actor is the current active actor.
+    /// </summary>
+    /// <param name="animationName"></param>
     public void SetPendingAnimation(string animationName)
     {
         _pendingAnimation = animationName;
