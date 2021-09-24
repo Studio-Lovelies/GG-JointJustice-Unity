@@ -20,7 +20,7 @@ public class ActorController : MonoBehaviour, IActorController
 
     public bool Animating { get; set; }
 
-    private Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
+    private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
     private ActorData _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
 
