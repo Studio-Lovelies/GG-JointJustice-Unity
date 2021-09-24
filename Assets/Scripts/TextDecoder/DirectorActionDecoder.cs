@@ -141,7 +141,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <summary>
     /// Set the pose of the current actor
     /// </summary>
-    /// <param name="poseAndActorName">Pose to display for the current actor</param>
+    /// <param name="poseAndActorName">"[pose name]" to set pose for current actor OR "[pose name],[actor name]" to set pose for another actor</param>
     private void SetPose(string poseAndActorName)
     {
         if (!HasActorController())
@@ -170,7 +170,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <summary>
     /// Plays an emotion for the current actor. Emotion is a fancy term for animation on an actor.
     /// </summary>
-    /// <param name="animationAndActorName">Animation to play</param>
+    /// <param name="animationAndActorName">"[animation name]" to set pose for current actor OR "[animation name],[actor name]" to queue animation for another actor (gets played as soon as actor is visible)</param>
     private void PlayEmotion(string animationAndActorName)
     {
         if (!HasActorController())
