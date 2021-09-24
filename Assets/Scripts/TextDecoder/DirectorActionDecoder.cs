@@ -161,7 +161,7 @@ public class DirectorActionDecoder : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Invalid number of paramaters for function PLAY_EMOTION");
+            Debug.LogError("Invalid number of parameters for function PLAY_EMOTION");
         }
 
 
@@ -188,7 +188,7 @@ public class DirectorActionDecoder : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Invalid number of paramaters for function PLAY_EMOTION");
+            Debug.LogError("Invalid number of parameters for function PLAY_EMOTION");
         }
     }
     #endregion
