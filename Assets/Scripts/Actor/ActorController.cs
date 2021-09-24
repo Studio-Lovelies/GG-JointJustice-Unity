@@ -61,7 +61,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// Actors use the same name as their ActorData object.</param>
     public void SetActiveActor(string actor)
     {
-        var targetActorData = FindActorData(actor);
+        var targetActorData = FindActorDataInInventory(actor);
         if (_activeActor != null)
         {
             _activeActor.SetActor(targetActorData);
@@ -74,7 +74,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// </summary>
     /// <param name="actorName"></param>
     /// <returns></returns>
-    private ActorData FindActorData(string actorName)
+    private ActorData FindActorDataInInventory(string actorName)
     {
         try
         {
@@ -88,13 +88,13 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
-    /// Find Actor in scene
+    /// Find Actor based on ActorData in ActorInventory
     /// </summary>
     /// <param name="actorName"></param>
     /// <returns></returns>
-    private Actor FindActor(string actorName)
+    private Actor FindActorInInventory(string actorName)
     {
-        var actorData = FindActorData(actorName);
+        var actorData = FindActorDataInInventory(actorName);
         if (actorData != null && _actorDataToActor.ContainsKey(actorData))
         {
             return _actorDataToActor[actorData];
@@ -110,7 +110,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// <param name="pose"></param>
     public void SetPose(string pose, string actorName = null)
     {
-        if (actorName == null || FindActor(actorName) == _activeActor)
+        if (actorName == null || FindActorInInventory(actorName) == _activeActor)
         {
             if (_activeActor == null)
             {
@@ -121,7 +121,7 @@ public class ActorController : MonoBehaviour, IActorController
         }
         else
         {
-            var actor = FindActor(actorName);
+            var actor = FindActorInInventory(actorName);
 
             if (actor == null)
             {
@@ -138,7 +138,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// <param name="emotion">The emotion to play.</param>
     public void PlayEmotion(string emotion, string actorName = null)
     {
-        if (actorName == null || FindActor(actorName) == _activeActor)
+        if (actorName == null || FindActorInInventory(actorName) == _activeActor)
         {
             if (_activeActor == null)
             {
@@ -152,7 +152,7 @@ public class ActorController : MonoBehaviour, IActorController
         }
         else
         {
-            var actor = FindActor(actorName);
+            var actor = FindActorInInventory(actorName);
 
             if (actor == null)
             {
