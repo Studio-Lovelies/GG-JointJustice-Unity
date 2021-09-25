@@ -16,6 +16,11 @@ public class StoryController : MonoBehaviour
     private SceneLoader _sceneLoader;
 
     private int _currentStory = -1;
+
+    /// <summary>
+    /// Initializes the script and starts the first dialogue script.
+    /// This script should always be last in the run order in order for this to work properly.
+    /// </summary>
     void Start()
     {
         if (_dialogueList.Count == 0)
@@ -27,6 +32,9 @@ public class StoryController : MonoBehaviour
         RunNextDialogueScript();
     }
 
+    /// <summary>
+    /// Loads the next dialogue script. If it doesn't exist, loads the next unity scene.
+    /// </summary>
     public void RunNextDialogueScript()
     {
         if (_dialogueList.Count <= 0)
