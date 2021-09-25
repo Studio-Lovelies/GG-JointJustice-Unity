@@ -107,10 +107,11 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         Vector2 startPos = _activeScene.transform.position;
         float percentagePassed = 0f;
+        BGScene targetScene = _activeScene;
         while (percentagePassed < 1)
         {
             percentagePassed += Time.deltaTime / timeToTake;
-            _activeScene.transform.position = Vector2.Lerp(startPos, targetPos, percentagePassed);
+            targetScene.transform.position = Vector2.Lerp(startPos, targetPos, percentagePassed);
             yield return null;
         }
     }
