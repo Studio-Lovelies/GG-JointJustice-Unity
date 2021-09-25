@@ -170,7 +170,13 @@ public class DialogueController : MonoBehaviour
     /// <param name="presentedObject">Name of the object you want to present to the court</param>
     public void HandlePresenting(ICourtRecordObject presentedObject)
     {
-        if (_subStory != null)
+        if (_subStory)
+        {
+            _subStory.HandlePresenting(presentedObject);
+            return;
+        }
+
+        if (!_isAtChoice)
         {
             return;
         }

@@ -35,6 +35,15 @@ namespace Tests.PlayModeTests.Tools
         }
 
         /// <summary>
+        /// Waits for the editor "GameView"-tab to repaint
+        /// </summary>
+        public IEnumerator WaitForRepaint()
+        {
+            GameViewWindow.Repaint();
+            yield return null;
+        }
+
+        /// <summary>
         /// Start this coroutine to press a specified key for one frame.
         /// </summary>
         /// <param name="control">The key to press.</param>
