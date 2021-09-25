@@ -6,7 +6,7 @@
 &SCENE:TMPH_Assistant
 &ACTOR:Dan
 
-&SCENE:TMPH_CourtPan
+&SCENE:TMPH_Court
 &SET_ACTOR_POSITION:1,Arin
 &SET_ACTOR_POSITION:2,Ross
 &SET_ACTOR_POSITION:3,Tutorial_Boy
@@ -14,7 +14,7 @@
 -> Line1
 
 === Line1 ===
-&SCENE:TMPH_CourtPan
+&SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
 <color="green">I was animating by myself over in my room at the office.
@@ -24,7 +24,7 @@
     -> Line1Press
 
 === Line2 ===
-&SCENE:TMPH_CourtPan
+&SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
 <color="green">But then... I saw someone taking the dinos!!
@@ -34,7 +34,7 @@
     -> Line2Press
 
 === Line3 ===
-&SCENE:TMPH_CourtPan
+&SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
 <color="green">It was Jory! He was on the 10 Minute Power Hour set taking the dinos!
@@ -44,7 +44,7 @@
     -> Finale
 
 === Line4 ===
-&SCENE:TMPH_CourtPan
+&SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
 <color="green">Now that I know they were stolen, that means the culprit must be Jory!
@@ -70,7 +70,7 @@ Your Honor, this is clearly irrelevant to the case.
 &SPEAK:Brent_Judge
 I agree. Arin, try being serious about this.
 
-&SCENE:TMPH_CourtPan
+&SCENE:TMPH_Court
 &JUMP_TO_POSITION:3
 &SPEAK:Tutorial_Boy
 Ross, continue your testimony.
@@ -123,7 +123,7 @@ What makes you so sure that the dinos were stolen, anyways!?
 &SPEAK:Dan
 Arin, that's literally the reason we're all here.
 
-&SCENE:TMPH_CourtPan
+&SCENE:TMPH_Court
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
 ...
@@ -162,7 +162,7 @@ I'm sure Ross has a very reasonable explanation for all this.
 &SPEAK:Dan
 He oughta have a real good reason for this.
 
-&SCENE:TMPH_CourtPan
+&SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
 T-That's right! The reason I was able to see Jory was... because I needed to poop!
@@ -177,7 +177,7 @@ Um... excuse me?
 &SPEAK:Dan
 Hah hah hah hah!!!
 
-&SCENE:TMPH_CourtPan
+&SCENE:TMPH_Court
 &JUMP_TO_POSITION:1
 &THINK:Arin
 (Goddamnit, Ross.)
@@ -199,7 +199,7 @@ Your Honor, I believe this needs to be added to the witness's testimony.
 &SPEAK:Brent_Judge
 Agreed. Witness, add your poop story to your testimony.
 
-&SCENE:TMPH_CourtPan
+&SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
 Uh... Yes, why of course, Your Honor. Let me go over it again.
