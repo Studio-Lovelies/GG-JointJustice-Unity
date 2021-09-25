@@ -1,3 +1,4 @@
+&FADE_OUT:0
 &SHOWACTOR:False
 &PLAYSONG:prologueInPMinor
 
@@ -26,6 +27,8 @@ Just as planned...
 
 &CAMERA_PAN:3,270,0 //Speed, x, y
 Soon, I'll have all the coins!
+&HIDE_TEXTBOX
+&FADE_OUT:1
 
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:RossGalaxyBrain

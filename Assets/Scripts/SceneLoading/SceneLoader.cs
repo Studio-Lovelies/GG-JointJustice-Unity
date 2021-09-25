@@ -12,6 +12,8 @@ using UnityEngine.UI;
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
+    public bool Busy { get; private set; }
+
     [SerializeField, Tooltip("The name of the scene to load")]
     private string _sceneName;
 
@@ -82,6 +84,7 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     private IEnumerator LoadSceneCoroutine()
     {
+        Busy = true;
         if (_sceneLoadOperation != null)
         {
             _sceneLoadOperation.allowSceneActivation = true;

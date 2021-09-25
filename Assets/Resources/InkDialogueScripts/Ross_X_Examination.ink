@@ -1,4 +1,5 @@
 //Do these before fading in, sets up the scene
+&FADE_OUT:0
 
 &SCENE:TMPH_Witness
 &ACTOR:Ross
@@ -14,6 +15,12 @@
 
 &SCENE:TMPH_Assistant
 &ACTOR:Dan
+
+&SCENE:TMPH_Witness
+&PLAYSONG:fyiIWannaXYourExaminationAllegro
+//Set up done
+
+&FADE_IN:1
 
 -> Line1
 
@@ -200,4 +207,6 @@ Uh... Yes, why of course, Your Honor. Let me go over it again.
 &SCENE:TMPH_Assistant
 &SPEAK:Dan
 Way to go, Big Cat! Let's see how this changes things.
+&HIDE_TEXTBOX
+&FADE_OUT:1
 ->END
