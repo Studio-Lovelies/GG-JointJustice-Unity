@@ -25,7 +25,7 @@ public class DialogueController : MonoBehaviour
     private const char ACTION_TOKEN = '&';
 
 
-    [SerializeField] private TextAsset _narrativeScript;
+    private TextAsset _narrativeScript;
 
     [SerializeField] private DialogueControllerMode _dialogueMode = DialogueControllerMode.Dialogue;
 
@@ -34,9 +34,6 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private DialogueController _dialogueControllerPrefab;
 
     [Header("Events")]
-
-    [Tooltip("Attach a scene controller to this so it can cancel 'wait' actions on new lines.")]
-    [SerializeField] private UnityEvent _onNewLine;
 
     [Tooltip("Attach a dialogue controller to this so it can display spoken lines")]
     [SerializeField] private UnityEvent<string> _onNewSpokenLine;
@@ -61,17 +58,6 @@ public class DialogueController : MonoBehaviour
     private bool _isAtChoice = false; //Possibly small state machine to handle all input?
 
     /// <summary>
-    /// Called when the object is initialized
-    /// </summary>
-    void Start()
-    {
-        if (_narrativeScript != null)
-        {
-            SetNarrativeScript(_narrativeScript); //TODO:Disable this, for debug only
-        }
-    }
-
-    /// <summary>
     /// Initialzed a sub story by hooking the events to the parent dialogue so everything propagated down correctly
     /// </summary>
     /// <param name="parent">Parent of this dialogue to hook everything in to</param>
@@ -84,12 +70,14 @@ public class DialogueController : MonoBehaviour
     }
 
     /// <summary>
-    /// Used to start a new narrative script
+    /// Used to start a new narrative script, set the correct dialogue mode, and start it.
     /// </summary>
-    /// <param name="narrativeScript">JSON file to switch to</param>
-    public void SetNarrativeScript(TextAsset narrativeScript)
+    /// <param name="dialogue">Dialogue to switch to</param>
+    public void SetNewDialogue(Dialogue dialogue)
     {
-        _inkStory = new Story(narrativeScript.text);
+        _inkStory = new Story(dialogue.DialogueScript.text);
+        _dialogueMode = dialogue.ScriptType;
+        OnContinueStory(); //Auto start
     }
 
     /// <summary>
@@ -287,8 +275,6 @@ public class DialogueController : MonoBehaviour
                 return;
             }
 
-            _onNewLine.Invoke();
-
             if (IsAction(currentLine))
             {
                 _onNewActionLine.Invoke(currentLine);
@@ -345,8 +331,7 @@ public class DialogueController : MonoBehaviour
     {
         _subStory = GameObject.Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
         _subStory.SubStoryInit(this); //RECURSION
-        _subStory.SetNarrativeScript(subStory);
-        _subStory.OnContinueStory();
+        _subStory.SetNewDialogue(new Dialogue(subStory, DialogueControllerMode.Dialogue));
     }
 
     /// <summary>
