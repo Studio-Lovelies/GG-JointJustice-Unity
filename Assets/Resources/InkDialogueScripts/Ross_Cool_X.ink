@@ -90,7 +90,7 @@ Who did you see?
 &SPEAK:Ross
 I'm getting to it, just be patient. I'm trying to build suspense for the viewers!
 
-&JUMP_TO_POSITION:Bent_Coins_1
+&JUMP_TO_POSITION:1
 &SPEAK:Arin
 But this isn't being broadcasted...
 
