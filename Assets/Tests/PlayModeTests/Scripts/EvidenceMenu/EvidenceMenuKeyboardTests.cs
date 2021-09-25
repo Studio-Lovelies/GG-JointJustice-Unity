@@ -178,7 +178,6 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceCanBeSubstitutedWithAltEvidence()
         {
             yield return ProfileMenuCanBeAccessed();
-
             global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
             
