@@ -22,7 +22,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceMenuOpensAndCloses()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return null;
+            yield return new WaitForSeconds(2);
             _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
@@ -40,7 +40,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceMenuCannotBeClosedWhenPresentingEvidence()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return null;
+            yield return new WaitForSeconds(2);
             _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
@@ -61,7 +61,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceCanBeSelected()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return null;
+            yield return new WaitForSeconds(2);
             _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
@@ -84,7 +84,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator CanNavigateWithLeftAndRightArrows()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return null;
+            yield return new WaitForSeconds(2);
             _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
@@ -117,7 +117,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator CanNavigateToMultiplePages()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return null;
+            yield return new WaitForSeconds(2);
             _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
@@ -187,7 +187,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator ProfileMenuCanBeAccessed()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return null;
+            yield return new WaitForSeconds(2);
             _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
@@ -273,7 +273,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceCanBeSubstitutedWithAltEvidence()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return null;
+            yield return new WaitForSeconds(2);
             _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
