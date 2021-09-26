@@ -357,7 +357,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             }
 
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.rightArrowKey);
-            Assert.AreEqual("Attorney's Badge", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
+            Assert.AreEqual("Switch", _evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
             SceneManager.UnloadScene("EvidenceMenu - Test Scene");
         }
     }

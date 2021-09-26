@@ -10,14 +10,34 @@ public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourt
     /// <param name="evidenceName">The name of the evidence to substitute.</param>
     public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-        Evidence evidence = CurrentObjectList.SingleOrDefault(evidence => evidence.name == evidenceName);
-        if (evidence == null)
+        try
         {
-            Debug.LogError($"Evidence {evidenceName} has not been added to the evidence inventory.");
+            Evidence evidence = CurrentObjectList.SingleOrDefault(evidenceInList => evidenceInList.name == evidenceName);
+            
+            if (evidence == null)
+            {
+                Debug.LogWarning($"Evidence {evidenceName} has not been added to the evidence inventory.");
+                return;
+            }
+        
+            if (IsObjectInList(evidence.AltEvidence.name, CurrentObjectList))
+            {
+                Debug.LogWarning($"Cannot substitute evidence with alt evidence. Evidence with name {evidenceName} is already in the object inventory.");
+                return;
+            }
+            
+            if (evidence.AltEvidence == null)
+            {
+                Debug.LogWarning($"Cannot substitute evidence with alt evidence. Alt evidence for {evidenceName} is null.");
+                return;
+            }
+        
+            CurrentObjectList[CurrentObjectList.IndexOf(evidence)] = evidence.AltEvidence;
+        }
+        catch
+        {
             return;
         }
-        
-        CurrentObjectList[CurrentObjectList.IndexOf(evidence)] = evidence.AltEvidence;
     }
     
     /// <summary>
