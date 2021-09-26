@@ -52,7 +52,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(key.enterKey);
-            Assert.False(evidenceMenu.isActiveAndEnabled);
+            Assert.True(evidenceMenu.isActiveAndEnabled);
 
             Assert.AreEqual(subStoryCount, Resources.FindObjectsOfTypeAll<global::DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
         }
@@ -94,7 +94,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(key.enterKey);
-            Assert.False(evidenceMenu.isActiveAndEnabled);
+            Assert.True(evidenceMenu.isActiveAndEnabled);
 
             Assert.AreEqual(existingSubstories, Resources.FindObjectsOfTypeAll<DialogueController>().Count(controller => {
                 GameObject gameObject = controller.gameObject;
