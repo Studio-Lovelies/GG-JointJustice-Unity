@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -46,11 +47,11 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     /// <param name="objectName">The name of the object to add.</param>
     public void AddObject(string objectName)
     {
-        if (!IsObjectInDictionary(objectName, AvailableObjectDictionary))
+        if (!IsObjectInDictionary(objectName, AvailableObjectDictionary) || IsObjectInList(objectName, CurrentObjectList))
         {
             return;
         }
-        
+
         CurrentObjectList.Add(AvailableObjectDictionary[objectName]);
     }
 
@@ -60,6 +61,12 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     /// <param name="objectName">The name of the object to remove.</param>
     public void RemoveObject(string objectName)
     {
+        if (!IsObjectInList(objectName, CurrentObjectList))
+        {
+            Debug.LogWarning($"Could not remove {objectName} from object inventory as object does not exist in object inventory.");
+            return;
+        }
+        
         CurrentObjectList.Remove(AvailableObjectDictionary[objectName]);
     }
     
@@ -100,5 +107,17 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
             dictionary.Add(obj.name, obj);
         }
         return dictionary;
+    }
+
+    /// <summary>
+    /// Checks if an object is in a list. Used to prevent duplicate objects being added to the object list.
+    /// </summary>
+    /// <param name="objectName">The name of the object to check.</param>
+    /// <param name="objectList">The list to search.</param>
+    /// <returns>Whether or object was in the list (true) or not (false).</returns>
+    public static bool IsObjectInList(string objectName, List<T> objectList)
+    {
+        T objectInstance = objectList.SingleOrDefault(objectInList => objectInList.name == objectName);
+        return objectInstance != null;
     }
 }
