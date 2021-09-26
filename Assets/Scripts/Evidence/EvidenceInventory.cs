@@ -1,13 +1,23 @@
+using System.Linq;
+using UnityEngine;
+
 public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourtRecordObjectInventory
 {
     /// <summary>
-    /// Replaces an Evidence object with its designated alternate evidence.
+    /// Checks if evidence has been added to the evidence inventory
+    /// and swaps it with its alternate evidence.
     /// </summary>
     /// <param name="evidenceName">The name of the evidence to substitute.</param>
     public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-        Evidence altEvidence = CurrentObjectList[evidenceName].AltEvidence;
-        ObjectStorage.SubstituteObject(evidenceName, altEvidence);
+        Evidence evidence = CurrentObjectList.SingleOrDefault(evidence => evidence.name == evidenceName);
+        if (evidence == null)
+        {
+            Debug.LogError($"Evidence {evidenceName} has not been added to the evidence inventory.");
+            return;
+        }
+        
+        CurrentObjectList[CurrentObjectList.IndexOf(evidence)] = evidence.AltEvidence;
     }
     
     /// <summary>
