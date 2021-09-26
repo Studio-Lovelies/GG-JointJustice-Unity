@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Tools
 {
@@ -34,10 +36,28 @@ namespace Tests.PlayModeTests.Tools
             }
         }
 
-        /// <summary>
-        /// Waits for the editor "GameView"-tab to repaint
-        /// </summary>
-        public IEnumerator WaitForRepaint()
+        public static T[] FindInactiveInScene<T>() where T : Object
+        {
+            return Resources.FindObjectsOfTypeAll<T>().Where(o => {
+                if (o.hideFlags != HideFlags.None)
+                {
+                    return false;
+                }
+
+                if (PrefabUtility.GetPrefabAssetType(o) == PrefabAssetType.Regular)
+                {
+                    return false;
+                }
+
+                return true;
+            }).ToArray();
+        }
+
+
+    /// <summary>
+    /// Waits for the editor "GameView"-tab to repaint
+    /// </summary>
+    public IEnumerator WaitForRepaint()
         {
             GameViewWindow.Repaint();
             yield return null;

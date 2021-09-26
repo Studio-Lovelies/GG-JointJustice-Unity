@@ -20,9 +20,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator EvidenceMenuOpensAndCloses()
         {
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
             yield return null;
-            global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
@@ -40,7 +39,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return EvidenceMenuOpensAndCloses();
 
-            global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, _inputTestTools.Keyboard.xKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
@@ -56,7 +55,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return EvidenceMenuCannotBeClosedWhenPresentingEvidence();
 
-            global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
         }
@@ -70,7 +69,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return EvidenceCanBeSelected();
 
-            global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, _inputTestTools.Keyboard.xKey);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.leftArrowKey);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.leftArrowKey);
@@ -92,7 +91,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return CanNavigateWithLeftAndRightArrows();
 
-            global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             // Get to the correct point in the scene
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, _inputTestTools.Keyboard.xKey);
@@ -142,7 +141,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return CanNavigateToMultiplePages();
 
-            global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu menu = evidenceMenu.GetComponent<Menu>();
             TextMeshProUGUI[] evidenceTextBoxes = evidenceMenu.GetComponentsInChildren<TextMeshProUGUI>();
             TextMeshProUGUI evidenceName =
@@ -179,7 +178,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return ProfileMenuCanBeAccessed();
 
-            global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
             
             while (!evidenceMenu.isActiveAndEnabled)

@@ -20,7 +20,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return null;
             yield return new WaitForSeconds(1); // Without this the text is huge for some reason.
-            global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
         
             // Get to required point in scene
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, _inputTestTools.Keyboard.xKey);
@@ -58,7 +58,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return MouseShouldHighlightEvidenceMenuItems();
 
-            global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
 
             Menu menu = evidenceMenu.GetComponent<Menu>();
 
@@ -86,7 +86,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return NavigationButtonsCanBeClicked();
 
-            global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Mouse.leftButton);
             Assert.False(evidenceMenu.isActiveAndEnabled);
