@@ -120,13 +120,10 @@ public class AudioController : MonoBehaviour, IAudioController
     /// </summary>
     public void StopSong()
     {
-        _isTransitioningMusicTracks = true;
         if (_musicAudioSource != null)
         {
             _musicAudioSource.Stop();
         }
-
-        _isTransitioningMusicTracks = false;
     }
 
     /// <summary>
