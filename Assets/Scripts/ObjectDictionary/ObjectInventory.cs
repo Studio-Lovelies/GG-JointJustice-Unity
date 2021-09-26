@@ -18,12 +18,12 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     [field: SerializeField, Tooltip("Add any object that the player should have at the start of the scene here.")]
     protected List<T> CurrentObjectList { get; private set; }
     
-    private Dictionary<string, T> _availableObjectDictionary;
+    protected Dictionary<string, T> AvailableObjectDictionary { get; private set; }
 
     // Use square brackets to get objects from the inventory
-    public T this[string objectName] => _availableObjectDictionary[objectName];
+    public T this[string objectName] => AvailableObjectDictionary[objectName];
     public T this[int objectIndex] => CurrentObjectList[objectIndex];
-    public int Count => _availableObjectDictionary.Count;
+    public int Count => CurrentObjectList.Count;
     
     /// <summary>
     /// Converts the available objects list into a dictionary
@@ -37,7 +37,7 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
             return;
         }
         
-        _availableObjectDictionary = EnumerableToDictionary<Dictionary<string, T>>(_availableObjectList.ObjectArray);
+        AvailableObjectDictionary = EnumerableToDictionary<Dictionary<string, T>>(_availableObjectList.ObjectArray);
     }
 
     /// <summary>
@@ -46,12 +46,12 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     /// <param name="objectName">The name of the object to add.</param>
     public void AddObject(string objectName)
     {
-        if (!IsObjectInDictionary(objectName, _availableObjectDictionary))
+        if (!IsObjectInDictionary(objectName, AvailableObjectDictionary))
         {
             return;
         }
         
-        _currentObjectList.Add(_availableObjectDictionary[objectName]);
+        CurrentObjectList.Add(AvailableObjectDictionary[objectName]);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     /// <param name="objectName">The name of the object to remove.</param>
     public void RemoveObject(string objectName)
     {
-        _currentObjectList.Remove(_availableObjectDictionary[objectName]);
+        CurrentObjectList.Remove(AvailableObjectDictionary[objectName]);
     }
     
     /// <summary>
