@@ -46,7 +46,10 @@ public class DialogueController : MonoBehaviour
 
     [Tooltip("Event fired when a choice is encountered in regular dialogue")]
     [SerializeField] private UnityEvent<List<Choice>> _onChoicePresented;
-    
+
+    [Tooltip("Event fired when the green text loop is entered or left")]
+    [SerializeField] private UnityEvent<bool> _onCrossExaminationLoopActive;
+
     [Tooltip("This event is called when the _isBusy field is set.")]
     [SerializeField] private UnityEvent<bool> _onBusySet;
 
@@ -129,6 +132,7 @@ public class DialogueController : MonoBehaviour
         {
             return;
         }
+        _onCrossExaminationLoopActive.Invoke(false);
         HandleChoice(1);
     }
 
@@ -185,6 +189,8 @@ public class DialogueController : MonoBehaviour
         {
             return;
         }
+
+        _onCrossExaminationLoopActive.Invoke(false);
 
         List<Choice> choiceList = _inkStory.currentChoices;
 
@@ -258,6 +264,10 @@ public class DialogueController : MonoBehaviour
             if (choiceList.Count > 0)
             {
                 _isAtChoice = true;
+                if (_dialogueMode == DialogueControllerMode.CrossExamination)
+                {
+                    _onCrossExaminationLoopActive.Invoke(true);
+                }
                 _onChoicePresented.Invoke(choiceList);
             }
             else
@@ -310,6 +320,10 @@ public class DialogueController : MonoBehaviour
             if (choiceList.Count > 0)
             {
                 _isAtChoice = true;
+                if (_dialogueMode == DialogueControllerMode.CrossExamination)
+                {
+                    _onCrossExaminationLoopActive.Invoke(true);
+                }
                 _onChoicePresented.Invoke(choiceList);
             }
             else

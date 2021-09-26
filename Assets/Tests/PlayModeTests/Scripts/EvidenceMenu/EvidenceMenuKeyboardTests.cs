@@ -20,6 +20,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator EvidenceMenuOpensAndCloses()
         {
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
             yield return null;
             global::EvidenceMenu evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);

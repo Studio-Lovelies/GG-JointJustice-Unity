@@ -19,6 +19,16 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [Tooltip("Drag an EvidenceDictionary component here.")]
     [SerializeField] public EvidenceInventory _evidenceInventory;
 
+    [Tooltip("Drag an EvidenceMenu component here, which will updated when the game state (i.e. ability to present evidence) changes.")]
+    [SerializeField] public EvidenceMenu _evidenceMenu;
+
+    /// Called either when invoking <see cref="DialogueController._onCrossExaminationLoopActive" />
+    /// or when a `PRESENT_EVIDENCE`-action has been encountered
+    public void SetCanPresentEvidence(bool canPresentEvidence)
+    {
+        _evidenceMenu.CanPresentEvidence = canPresentEvidence;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +87,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// </summary>
     public void OpenEvidenceMenu()
     {
+        SetCanPresentEvidence(true);
         _onOpenEvidenceMenu.Invoke();
     }
 
