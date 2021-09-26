@@ -196,8 +196,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         if (!HasFullScreenAnimationPlayer())
             return;
-
-        SetScene("FullscreenAnimationPlayer");
+        
         _fullscreenAnimationPlayer.PlayAnimation(animationName);
     }
 

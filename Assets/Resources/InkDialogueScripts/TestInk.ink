@@ -29,6 +29,7 @@ Soon, I'll have all the coins!
 
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:RossGalaxyBrain
+&SCENE:TMPH_GalaxyBrain
 &SPEAK:Ross //Optional, doesn't need to be here, but can be nice for clarity
 Now this is a galaxy-brain move right here!
 &HIDE_TEXTBOX
