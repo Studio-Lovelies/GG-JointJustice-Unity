@@ -221,59 +221,70 @@ public class DialogueController : MonoBehaviour
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="choiceList"></param>
+    private void HandleCrossExaminationLoop(List<Choice> choiceList)
+    {
+        _isAtChoice = true;
+        if (_dialogueMode == DialogueControllerMode.CrossExamination)
+        {
+            _onCrossExaminationLoopActive.Invoke(true);
+        }
+        _onChoicePresented.Invoke(choiceList);
+    }
+
+    /// <summary>
     /// Handles the next line of dialogue in regular dialogue mode.
     /// </summary>
     private void HandleNextLineDialogue()
     {
-        if (_isAtChoice) //Make sure we don't continue unless we're not at a choice
-            return;
-
-        if (_inkStory.canContinue)
+        if (_isAtChoice) // Make sure we don't continue unless we're not at a choice
         {
-            string currentLine = _inkStory.Continue();
-            if (currentLine.Length == 0) //0 should never happen
+            return;
+        }
+
+        if (!_inkStory.canContinue)
+        {
+            List<Choice> choiceList = _inkStory.currentChoices;
+            if (choiceList.Count <= 0)
             {
-                Debug.LogError("Line-length was 0, should never happen");
+                _onDialogueFinished.Invoke();
                 return;
             }
 
-            if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
+            // If we're at the end of the current ink story but have dialogue options available,
+            // we're inside a cross examination statement loop
+            HandleCrossExaminationLoop(choiceList);
+            return;
+        }
+
+        string currentLine = _inkStory.Continue();
+        if (currentLine.Length == 0) //0 should never happen
+        {
+            Debug.LogError("Line-length was 0, should never happen");
+            return;
+        }
+
+        if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
+        {
+            HandleNextLineDialogue();
+            return;
+        }
+
+        if (IsAction(currentLine))
+        {
+            _onNewActionLine.Invoke(currentLine);
+        }
+        else
+        {
+            if (currentLine == "\n")
             {
                 HandleNextLineDialogue();
                 return;
             }
 
-            if (IsAction(currentLine))
-            {
-                _onNewActionLine.Invoke(currentLine);
-            }
-            else
-            {
-                if (currentLine == "\n")
-                {
-                    HandleNextLineDialogue();
-                    return;
-                }
-                _onNewSpokenLine.Invoke(currentLine);
-            }
-        }
-        else
-        {
-            List<Choice> choiceList = _inkStory.currentChoices;
-
-            if (choiceList.Count > 0)
-            {
-                _isAtChoice = true;
-                if (_dialogueMode == DialogueControllerMode.CrossExamination)
-                {
-                    _onCrossExaminationLoopActive.Invoke(true);
-                }
-                _onChoicePresented.Invoke(choiceList);
-            }
-            else
-            {
-                _onDialogueFinished.Invoke();
-            }
+            _onNewSpokenLine.Invoke(currentLine);
         }
     }
 
@@ -296,7 +307,8 @@ public class DialogueController : MonoBehaviour
                 Debug.LogError("Line-length was 0, should never happen");
                 return;
             }
-            else if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
+            
+            if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
             {
                 HandleNextLineCrossExamination();
                 return;
@@ -331,6 +343,8 @@ public class DialogueController : MonoBehaviour
                 _onDialogueFinished.Invoke();
             }
         }
+
+        HandleCrossExaminationLoop(choiceList);
     }
 
     /// <summary>

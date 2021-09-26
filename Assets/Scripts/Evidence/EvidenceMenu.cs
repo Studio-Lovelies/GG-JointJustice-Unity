@@ -40,15 +40,16 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent _onEvidenceClicked;
 
-    // when set to false, this menu can only be toggled
-    // when set to true, this menu can be closed by presenting evidence and thereby following a different path of the active ink script
-    private bool _profileMenuActive;
+     private bool _profileMenuActive;
     private Sprite _evidenceMenuLabel;
     private ICourtRecordObjectInventory _activeDictionary;
     private int _currentPage;
     private int _numberOfPages;
     private int _startIndex;
     private Menu _menu;
+
+    // when set to false, this menu can only be toggled
+    // when set to true, this menu can be closed by presenting evidence and thereby following a different path of the active ink script
     public bool CanPresentEvidence { private get; set; }
 
     /// <summary>
