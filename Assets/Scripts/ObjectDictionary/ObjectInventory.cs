@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -15,16 +16,14 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     private S _availableObjectList;
 
     [field: SerializeField, Tooltip("Add any object that the player should have at the start of the scene here.")]
-    private T[] _currentObjectList;
+    protected List<T> CurrentObjectList { get; private set; }
     
     private Dictionary<string, T> _availableObjectDictionary;
-    
-    protected OrderedObjectStorage<T> ObjectStorage { get; private set; }
 
     // Use square brackets to get objects from the inventory
-    public T this[string objectName] => ObjectStorage[objectName];
-    public T this[int objectIndex] => ObjectStorage[objectIndex];
-    public int Count => ObjectStorage.Count;
+    public T this[string objectName] => _availableObjectDictionary[objectName];
+    public T this[int objectIndex] => CurrentObjectList[objectIndex];
+    public int Count => _availableObjectDictionary.Count;
     
     /// <summary>
     /// Converts the available objects list into a dictionary
@@ -37,9 +36,8 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
             Debug.LogError($"Available object list has not been assigned to {name} on {gameObject.name}.");
             return;
         }
-
-        ObjectStorage = new OrderedObjectStorage<T>(_currentObjectList);
-        _availableObjectDictionary = OrderedObjectStorage<T>.EnumerableToDictionary<Dictionary<string, T>>(_availableObjectList.ObjectArray);
+        
+        _availableObjectDictionary = EnumerableToDictionary<Dictionary<string, T>>(_availableObjectList.ObjectArray);
     }
 
     /// <summary>
@@ -48,12 +46,12 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     /// <param name="objectName">The name of the object to add.</param>
     public void AddObject(string objectName)
     {
-        if (!OrderedObjectStorage<T>.IsObjectInDictionary(objectName, _availableObjectDictionary))
+        if (!IsObjectInDictionary(objectName, _availableObjectDictionary))
         {
             return;
         }
         
-        ObjectStorage.Add(objectName, _availableObjectDictionary[objectName]);
+        _currentObjectList.Add(_availableObjectDictionary[objectName]);
     }
 
     /// <summary>
@@ -62,15 +60,45 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     /// <param name="objectName">The name of the object to remove.</param>
     public void RemoveObject(string objectName)
     {
-        ObjectStorage.Remove(objectName);
+        _currentObjectList.Remove(_availableObjectDictionary[objectName]);
     }
     
     /// <summary>
-    /// Allows the dictionary of all available objects to be accessed.
+    /// Used internally by this class to check if a key (and therefore
+    /// by extension an object) exists in the dictionary.
     /// </summary>
-    /// <param name="objectName">The name of the object to get.</param>
-    public T GetObjectFromAvailableObjects(string objectName)
+    /// <param name="key">The key used to represent the object in the dictionary.</param>
+    /// <param name="dictionary"></param>
+    /// <returns></returns>
+    public static bool IsObjectInDictionary(string key, IDictionary dictionary)
     {
-        return _availableObjectDictionary[objectName];
+        if (!dictionary.Contains(key))
+        {
+            Debug.LogError($"Object with key {key} could not be found in the dictionary.");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /// <summary>
+    /// Converts an object implementing IEnumerable into a dictionary.
+    /// </summary>
+    /// <param name="enumerable">The object to convert.</param>
+    /// <typeparam name="S">The type of dictionary to return.</typeparam>
+    /// <returns>The resulting dictionary.</returns>
+    public static S EnumerableToDictionary<S>(IEnumerable<T> enumerable) where S : IDictionary, new()
+    {
+        S dictionary = new S();
+        foreach (T obj in enumerable)
+        {
+            if (dictionary.Contains(obj.name))
+            {
+                Debug.LogWarning($"Could not add object to dictionary, object with name {obj.name} already exists in the dictionary.");
+                continue;
+            }
+            dictionary.Add(obj.name, obj);
+        }
+        return dictionary;
     }
 }
