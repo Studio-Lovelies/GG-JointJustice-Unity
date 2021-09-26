@@ -39,7 +39,15 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     {
         Selectable = GetComponent<Selectable>();
         _menu = GetComponentInParent<Menu>();
-        _menu.OnSetInteractable.AddListener(interactable => Selectable.interactable = interactable);
+        _menu.OnSetInteractable.AddListener(interactable =>
+        {
+            Selectable.enabled = interactable;
+            enabled = interactable;
+            if (interactable == false)
+            {
+                _highlight.SetHighlighted(false);
+            }
+        });
 
         if (!TryGetComponent<IHighlight>(out _highlight))
         {
