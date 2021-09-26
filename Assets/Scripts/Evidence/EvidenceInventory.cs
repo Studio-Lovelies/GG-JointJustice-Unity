@@ -6,7 +6,7 @@ public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourt
     /// <param name="evidenceName">The name of the evidence to substitute.</param>
     public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-        Evidence altEvidence = ObjectStorage[evidenceName].AltEvidence;
+        Evidence altEvidence = CurrentObjectList[evidenceName].AltEvidence;
         ObjectStorage.SubstituteObject(evidenceName, altEvidence);
     }
     
@@ -17,6 +17,6 @@ public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourt
     /// <returns>The evidence as an ICourtRecordObject</returns>
     public ICourtRecordObject GetObjectAtIndex(int index)
     {
-        return ObjectStorage[index];
+        return this[index];
     }
 }
