@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -11,42 +12,52 @@ using UnityEngine.UI;
 /// </summary>
 public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler
 {
-    private Selectable _selectable;
+    [Tooltip("Drag the menu item's text component here.")]
+    [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
+    
     private Menu _menu;
     private IHighlight _highlight;
     
+    public Selectable Selectable { get; set; }
+
+    public string Text
+    {
+        get => _textMeshProUGUI.text;
+        set
+        {
+            if (_textMeshProUGUI == null)
+            {
+                Debug.LogError($"No text component has been assigned to {name}", gameObject);
+                return;
+            }
+
+            _textMeshProUGUI.text = value;
+        }
+    }
+
     private void Awake()
     {
-        _selectable = GetComponent<Selectable>();
+        Selectable = GetComponent<Selectable>();
         _menu = GetComponentInParent<Menu>();
-        _menu.OnSetInteractable.AddListener(interactable => _selectable.interactable = interactable);
+        _menu.OnSetInteractable.AddListener(interactable => Selectable.interactable = interactable);
 
         if (!TryGetComponent<IHighlight>(out _highlight))
         {
-            Debug.LogError("Unable to find component with IHighlight interface.");
-        }
-        else
-        {
-            _highlight.SetHighlighted(false);
+            Debug.LogWarning($"{name} was unable to find component with IHighlight interface on {gameObject.name}.");
         }
     }
 
-    private void OnEnable()
-    {
-        _highlight?.SetHighlighted(false);
-    }
-    
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!_selectable.interactable) return;
+        if (!Selectable.interactable) return;
         
-        _selectable.Select();
+        Selectable.Select();
         _highlight?.SetHighlighted(true);
     }
 
     public void OnSelect(BaseEventData eventData)
     {
-        _menu.SelectedButton = _selectable;
+        _menu.SelectedButton = Selectable;
         _highlight?.SetHighlighted(true);
     }
 
