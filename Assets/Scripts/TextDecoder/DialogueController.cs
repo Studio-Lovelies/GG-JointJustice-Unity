@@ -115,7 +115,6 @@ public class DialogueController : MonoBehaviour
                 HandleNextLineDialogue();
                 break;
             case DialogueControllerMode.CrossExamination:
-                Debug.Log("now");
                 HandleNextLineCrossExamination();
                 break;
             default:
@@ -268,7 +267,6 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     private void HandleNextLineCrossExamination()
     {
-        Debug.Log("Hello");
         if (_isAtChoice)
         {
             HandleChoice(0); //Handle regular continue
