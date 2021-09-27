@@ -51,6 +51,7 @@ public class DirectorActionDecoder : MonoBehaviour
             //Audio controller
             case "PLAYSFX": PlaySFX(parameters); break;
             case "PLAYSONG": SetBGMusic(parameters); break;
+            case "STOP_SONG": StopSong(); break;
             //Scene controller
             case "FADE_OUT": FadeOutScene(parameters); break;
             case "FADE_IN": FadeInScene(parameters); break;
@@ -398,6 +399,18 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _audioController.PlaySong(songName);
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// If music is currently playing, stop it!
+    /// </summary>
+    void StopSong()
+    {
+        if (!HasAudioController())
+            return;
+
+        _audioController.StopSong();
         _onActionDone.Invoke();
     }
     #endregion
