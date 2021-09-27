@@ -27,6 +27,11 @@ public class ChoiceMenu : MonoBehaviour
     /// <param name="choiceList">The list of choices in the choice menu.</param>
     public void InitialiseChoiceMenu(List<Choice> choiceList)
     {
+        if (gameObject.activeInHierarchy)
+        {
+            return; // Don't make another menu if its already active
+        }
+        
         if (!HasRequiredComponents())
         {
             return;
