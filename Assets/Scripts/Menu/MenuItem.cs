@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -20,6 +21,9 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     
     public Selectable Selectable { get; set; }
 
+    /// <summary>
+    /// Use this to set the text of a menu item.
+    /// </summary>
     public string Text
     {
         get => _textMeshProUGUI.text;
@@ -35,6 +39,10 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
         }
     }
 
+    /// <summary>
+    /// Get required components on awake.
+    /// Add listeners to enable selectable and set highlighting on menu set interactable event.
+    /// </summary>
     private void Awake()
     {
         Selectable = GetComponent<Selectable>();
@@ -43,10 +51,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
         {
             Selectable.enabled = interactable;
             enabled = interactable;
-            if (interactable == false)
-            {
-                _highlight.SetHighlighted(false);
-            }
+            _highlight.SetHighlighted(_menu.SelectedButton == Selectable);
         });
 
         if (!TryGetComponent<IHighlight>(out _highlight))
@@ -55,6 +60,21 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
         }
     }
 
+    /// <summary>
+    /// Remove the highlight on disable.
+    /// </summary>
+    private void OnDisable()
+    {
+        if (_highlight == null)
+            return;
+
+        _highlight.SetHighlighted(false);
+    }
+
+    /// <summary>
+    /// Set menu item highlighted on mouse over.
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!Selectable.interactable) return;
@@ -63,12 +83,20 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
         _highlight?.SetHighlighted(true);
     }
 
+    /// <summary>
+    /// Set menu item highlighted on select (using menu navigation keyboard buttons).
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnSelect(BaseEventData eventData)
     {
         _menu.SelectedButton = Selectable;
         _highlight?.SetHighlighted(true);
     }
 
+    /// <summary>
+    /// Remove highlighted on deselect.
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnDeselect(BaseEventData eventData)
     {
         _highlight?.SetHighlighted(false);
