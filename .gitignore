@@ -67,3 +67,8 @@ ehthumbs.db
 
 #Unit Test Scenes
 Assets/InitTestScene*
+
+# Editor Rish Presence (for Discord)
+Assets/ERP
+Assets/ERP.meta
+.erp
