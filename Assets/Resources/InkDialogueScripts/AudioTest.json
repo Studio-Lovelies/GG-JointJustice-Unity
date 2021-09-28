@@ -1,0 +1,1 @@
+﻿{"inkVersion":20,"root":[["^&SCENE:TMPH_Defense","\n","^&PLAYSONG:aKissFromARose","\n","^&ACTOR:Dan","\n","^&SPEAK:Dan","\n","^This is some rad music!","\n","^&STOP_SONG","\n","^&SPEAK:Tutorial_Boy","\n","^SILENCE!","\n","^&SPEAK:Dan","\n","^...aww, it stopped.","\n",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}
