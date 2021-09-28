@@ -10,4 +10,10 @@ Your honour! Bang that gavel!
 &SPEAK:Brent_Judge
 Request granted!
 
+&HIDE_TEXTBOX
+&PLAY_ANIMATION:GoodBoy
+&SCENE:TMPH_Defense
+&SPEAK:Arin
+That was weird...
+
     ->END
