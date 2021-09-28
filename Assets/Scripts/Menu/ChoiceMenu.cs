@@ -61,12 +61,12 @@ public class ChoiceMenu : MonoBehaviour
     /// </summary>
     public void DeactivateChoiceMenu()
     {
+        _menuOpener.CloseMenu();
+        
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
-        
-        _menuOpener.CloseMenu();
     }
 
     /// <summary>
