@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,7 +6,7 @@ using UnityEngine.Serialization;
 public class ActorController : MonoBehaviour, IActorController
 {
     [Tooltip("Attach the action decoder object here")]
-    [SerializeField] DirectorActionDecoder _directorActionDecoder;
+    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
     [FormerlySerializedAs("_actorDictionary")]
     [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
@@ -34,12 +32,10 @@ public class ActorController : MonoBehaviour, IActorController
         if (_directorActionDecoder == null)
         {
             Debug.LogError("Actor Controller doesn't have an action decoder to attach to");
-        }
-        else
-        {
-            _directorActionDecoder.SetActorController(this);
+            return;
         }
 
+        _directorActionDecoder.SetActorController(this);
     }
 
     /// <summary>
@@ -117,7 +113,8 @@ public class ActorController : MonoBehaviour, IActorController
     /// <summary>
     /// Sets the active speaker in the scene, changing the name shown.
     /// </summary>
-    /// <param name="actor">Target actor. This gets the correct name and colour from the list of existing actors.</param>
+    /// <param name="actor">Target actor. This gets the correct name and
+    /// from the list of existing actors.</param>
     public void SetActiveSpeaker(string actor)
     {
         try
@@ -180,7 +177,7 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
-    /// Sets the speaking type of the sentences shown, so the actor can react appropiately.
+    /// Sets the speaking type of the sentences shown, so the actor can react appropriately.
     /// </summary>
     /// <param name="speakingType">Type of speaking the next sentence is gonna be.</param>
     public void SetSpeakingType(SpeakingType speakingType)
@@ -189,19 +186,25 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
-    /// Sets an actor to a sub position in the scene, if the active bg-scene has sub positions.
+    /// Sets an actor inside a slot in the scene, if the active bg-scene has support for slots.
     /// </summary>
     /// <param name="actor">Target actor</param>
-    /// <param name="subPosition">Target sub position, 1 based</param>
-    public void AssignActorToSubPosition(string actor, int subPosition)
+    /// <param name="oneBasedSlotIndex">Target slot, 1 based</param>
+    public void AssignActorToSlot(string actor, int oneBasedSlotIndex)
     {
-        if (_activeScene == null || !_activeScene.HasSubPositions())
+        if (_activeScene == null)
         {
-            Debug.LogError("No active scene or active scene doesn't have sub positions");
+            Debug.LogError("Can't assign actor to slot: No active scene");
             return;
         }
 
-        Actor tempActor = _activeScene.GetActorAtSubposition(subPosition);
+        if (!_activeScene.SupportsActorSlots())
+        {
+            Debug.LogError("Can't assign actor to slot: This scene has no support for slots");
+            return;
+        }
+
+        Actor tempActor = _activeScene.GetActorAtSlot(oneBasedSlotIndex);
 
         try
         {
@@ -211,7 +214,6 @@ public class ActorController : MonoBehaviour, IActorController
         {
             tempActor.SetActor(null);
             Debug.Log($"{exception.GetType().Name}: Actor {actor} was not found in actor dictionary");
-            return;
         }
     }
 }

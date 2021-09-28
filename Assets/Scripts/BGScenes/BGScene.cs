@@ -1,84 +1,90 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BGScene : MonoBehaviour
 {
-    [SerializeField] private List<SubPosition> _subPositions;
-    public Actor ActiveActor { get; private set; }
+    [Tooltip("List of potential actor slots in the scene that can be filled with ActorData and an associated camera position")]
+    [FormerlySerializedAs("_ActorSlots")]
+    [SerializeField] private List<ActorSlot> _actorSlots;
 
-    private SubPosition _currentSubPosition;
+    private ActorSlot _currentActorSlot;
+
+    public Actor ActiveActor { get; private set; }
 
     /// <summary>
     /// Sets the active actor to the first actor in the scene.
     /// </summary>
-    void Awake()
+    private void Awake()
     {
-        if (!HasSubPositions())
-            ActiveActor = GetComponentInChildren<Actor>();
-        else
-            SetSubPosition(1);
-    }
-
-    /// <summary>
-    /// Sees whether the current scene has sub positions
-    /// </summary>
-    /// <returns>whether this bg-scene has sub positions</returns>
-    public bool HasSubPositions()
-    {
-        return _subPositions.Count > 0;
-    }
-
-    /// <summary>
-    /// Sets the active sub position so the actor and position can be used.
-    /// </summary>
-    /// <param name="position">target position, 1 based.</param>
-    public void SetSubPosition(int position)
-    {
-        int actualPosition = position - 1;
-        
-        if (actualPosition >= _subPositions.Count)
+        if (SupportsActorSlots())
         {
-            Debug.LogError($"No such subposition in scene {gameObject.name}");
+            SetActiveActorSlot(1);
+            return;
+        }
+            
+        ActiveActor = GetComponentInChildren<Actor>();
+    }
+
+    /// <summary>
+    /// Sees whether the current scene has support for actor slots
+    /// </summary>
+    /// <returns>whether this bg-scene has support for actor slots</returns>
+    public bool SupportsActorSlots()
+    {
+        return _actorSlots.Count > 0;
+    }
+
+    /// <summary>
+    /// Sets the active actor slot used when calculating the camera target position
+    /// </summary>
+    /// <param name="oneBasedSlotIndex">new active slot index, 1 based.</param>
+    /// <see cref="GetTargetPosition"/>
+    public void SetActiveActorSlot(int oneBasedSlotIndex)
+    {
+        int slotIndex = oneBasedSlotIndex - 1;
+        
+        if (slotIndex >= _actorSlots.Count)
+        {
+            Debug.LogError($"Slot with index '{slotIndex}' (one-based index '{oneBasedSlotIndex}') not found in scene {gameObject.name}");
             return;
         }
 
-        _currentSubPosition = _subPositions[actualPosition];
-        ActiveActor = _currentSubPosition.AttachedActor;
+        _currentActorSlot = _actorSlots[slotIndex];
+        ActiveActor = _currentActorSlot.AttachedActor;
     }
 
     /// <summary>
-    /// Gets the target position based on the current sub position
+    /// Gets the target position based on the current actor slot
     /// </summary>
     /// <returns></returns>
     public Vector2Int GetTargetPosition()
     {
-        return _currentSubPosition.position;
+        return _currentActorSlot.Position;
     }
 
 
     /// <summary>
-    /// Gets the actor object at a certain position without activating the system
+    /// Gets the actor object at a certain slot without activating the system
     /// </summary>
-    /// <param name="position">Target position, 1 based</param>
-    /// <returns>Actor object at target position</returns>
-    public Actor GetActorAtSubposition(int position)
+    /// <param name="oneBasedSlotIndex">Target slot index, 1 based</param>
+    /// <returns>Actor object at target slot</returns>
+    public Actor GetActorAtSlot(int oneBasedSlotIndex)
     {
-        int actualPosition = position - 1;
-        if (actualPosition >= _subPositions.Count)
+        int slotIndex = oneBasedSlotIndex - 1;
+        if (slotIndex >= _actorSlots.Count)
         {
-            Debug.LogError($"No such subposition in scene {gameObject.name}");
+            Debug.LogError($"Slot with index '{slotIndex}' (one-based index '{oneBasedSlotIndex}') not found in scene {gameObject.name}");
             return null;
         }
-        return _subPositions[actualPosition].AttachedActor;
+        return _actorSlots[slotIndex].AttachedActor;
     }
 
-    
-}
 
-[System.Serializable]
-public struct SubPosition
-{
-    public Actor AttachedActor;
-    public Vector2Int position;
+    [System.Serializable]
+    public struct ActorSlot
+    {
+        public Actor AttachedActor;
+        public Vector2Int Position;
+    }
 }

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using System.Globalization;
 using UnityEngine.Events;
 using UnityEngine;
@@ -62,8 +59,8 @@ public class DirectorActionDecoder : MonoBehaviour
             case "WAIT": Wait(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
             case "HIDE_ITEM": HideItem(); break;
-            case "JUMP_TO_POSITION": JumpToSubPosition(parameters); break;
-            case "PAN_TO_POSITION": PanToSubPosition(parameters); break;
+            case "JUMP_TO_POSITION": JumpToActorSlot(parameters); break;
+            case "PAN_TO_POSITION": PanToActorSlot(parameters); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
@@ -170,25 +167,32 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets an actor to a specific location in the currently active scene.
+    /// Sets an actor to a specific slot in the currently active scene.
     /// </summary>
-    /// <param name="positionAndActor">String containing the actor name first and position second, 1 based.</param>
-    private void SetActorPosition(string positionAndActor)
+    /// <param name="slotIndexAndActor">String containing the actor name first and one-based slot index second.</param>
+    private void SetActorPosition(string slotIndexAndActor)
     {
         if (!HasActorController())
+        {
             return;
+        }
 
-        string[] parameters = positionAndActor.Split(ACTION_PARAMETER_SEPARATOR);
+        string[] parameters = slotIndexAndActor.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 2)
         {
-            Debug.LogError("Invalid amount of parameters for function SET_ACTOR_POSITION");
+            Debug.LogError("SET_ACTOR_POSITION requires exactly 2 parameters: [actorName <string>], [slotIndex <int>]");
             return;
         }
-        if (int.TryParse(parameters[0], out int pos))
+
+        string actorName = parameters[1];
+        if (!int.TryParse(parameters[0], out int oneBasedSlotIndex))
         {
-            _actorController.AssignActorToSubPosition(parameters[1], pos);
+            Debug.LogError("Second parameter needs to be a one-based integer index");
+            return;
         }
+
+        _actorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
         _onActionDone.Invoke();
     }
     #endregion
@@ -401,39 +405,56 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <summary>
     /// Jump-cuts the camera to the target sub position if the bg-scene has sub positions.
     /// </summary>
-    /// <param name="position">String containing an integer referring to the target sub position, 1 based.</param>
-    void JumpToSubPosition(string position)
+    /// <param name="oneBasedSlotIndexAsString">String containing an integer referring to the target sub position, 1 based.</param>
+    void JumpToActorSlot(string oneBasedSlotIndexAsString)
     {
         if (!HasSceneController())
-            return;
-
-        if (int.TryParse(position, out int pos))
         {
-            _sceneController.SetToSubPosition(pos);
+            return;
         }
+
+        if (!int.TryParse(oneBasedSlotIndexAsString, out int oneBasedSlotIndex))
+        {
+            Debug.LogError("First parameter needs to be a one-based integer index");
+            return;
+        }
+
+        _sceneController.JumpToActorSlot(oneBasedSlotIndex);
         _onActionDone.Invoke();
     }
 
     /// <summary>
-    /// Pans the camera to the target sub position if the bg-scene has a sub positions.
+    /// Pans the camera to the target actor slot if the bg-scene has support for actor slots.
     /// </summary>
-    /// <param name="positionAndTime">String containing an integer referring to the target sub position, 1 based, and a floating point number referring to the amount of time the pan should take in seconds.</param>
-    void PanToSubPosition(string positionAndTime)
+    /// <param name="oneBasedSlotIndexAndTimeInSeconds">String containing a one-based integer index referring to the target actor slot, and a floating point number referring to the amount of time the pan should take in seconds.</param>
+    void PanToActorSlot(string oneBasedSlotIndexAndTimeInSeconds)
     {
         if (!HasSceneController())
+        {
             return;
+        }
 
-        string[] parameters = positionAndTime.Split(ACTION_PARAMETER_SEPARATOR);
+        string[] parameters = oneBasedSlotIndexAndTimeInSeconds.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 2)
         {
-            Debug.LogError("Invalid amount of parameters for function PAN_TO_POSITION");
+            Debug.LogError("PAN_TO_POSITION requires exactly 2 parameters: [slotIndex <int>], [panDurationInSeconds <float>]");
             return;
         }
-        if (int.TryParse(parameters[0], out int pos) && float.TryParse(parameters[1], NumberStyles.Any, CultureInfo.InvariantCulture, out float seconds))
+
+        if (!int.TryParse(parameters[0], out int oneBasedSlotIndex))
         {
-            _sceneController.PanToSubPosition(pos, seconds);
+            Debug.LogError("First parameter needs to be a one-based integer index");
+            return;
         }
+
+        if (!float.TryParse(parameters[1], NumberStyles.Any, CultureInfo.InvariantCulture, out float timeInSeconds))
+        {
+            Debug.LogError("Second parameter needs to be a floating point number");
+            return;
+        }
+        
+        _sceneController.PanToActorSlot(oneBasedSlotIndex, timeInSeconds);
         _onActionDone.Invoke();
     }
 

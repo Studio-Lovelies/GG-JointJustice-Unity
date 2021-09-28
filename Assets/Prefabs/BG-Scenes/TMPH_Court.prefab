@@ -296,13 +296,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad66b107bf491fd4b9b74b44e10dd580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _subPositions:
+  _actorSlots:
   - AttachedActor: {fileID: 8239092870040901235}
-    position: {x: 0, y: 0}
+    Position: {x: 0, y: 0}
   - AttachedActor: {fileID: 8239092870962547047}
-    position: {x: 504, y: 0}
+    Position: {x: 504, y: 0}
   - AttachedActor: {fileID: 8239092869838533241}
-    position: {x: 976, y: 0}
+    Position: {x: 976, y: 0}
 --- !u!1 &8092316713152032216
 GameObject:
   m_ObjectHideFlags: 0
