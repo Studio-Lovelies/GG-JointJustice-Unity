@@ -1,18 +1,13 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 /// <summary>
-/// This class uses an OrderedObjectStorage and its own Dictionary to handle
-/// adding objects to a dictionary from a list of predefined objects.
-/// Allows assigning of an object with an IObjectList interface to convert to a dictionary.
+/// Class that takes an Object and an IObjectList and creates an ObjectLookup object.
+/// Humble object that allows unity components to communicate with the testable ObjectLookup class.
 /// </summary>
 /// <typeparam name="T">The type of values to be stored.</typeparam>
-/// <typeparam name="S">The type that the assignable IObjectList should use.</typeparam>
+/// <typeparam name="S">The type of IObjectList should use.</typeparam>
 public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object where S : IObjectList<T>
 {
     [Tooltip("Drag an object list scriptable object here.")]
