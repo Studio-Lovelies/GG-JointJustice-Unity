@@ -12,27 +12,8 @@ public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourt
     {
         try
         {
-            Evidence evidence = CurrentObjectList.SingleOrDefault(evidenceInList => evidenceInList.name == evidenceName);
-            
-            if (evidence == null)
-            {
-                Debug.LogWarning($"Evidence {evidenceName} has not been added to the evidence inventory.");
-                return;
-            }
-        
-            if (IsObjectInList(evidence.AltEvidence.name, CurrentObjectList))
-            {
-                Debug.LogWarning($"Cannot substitute evidence with alt evidence. Evidence with name {evidenceName} is already in the object inventory.");
-                return;
-            }
-            
-            if (evidence.AltEvidence == null)
-            {
-                Debug.LogWarning($"Cannot substitute evidence with alt evidence. Alt evidence for {evidenceName} is null.");
-                return;
-            }
-        
-            CurrentObjectList[CurrentObjectList.IndexOf(evidence)] = evidence.AltEvidence;
+            Evidence altEvidence = ObjectDictionary[evidenceName].AltEvidence;
+            ObjectDictionary.SubstituteObject(evidenceName, altEvidence);
         }
         catch
         {
@@ -47,6 +28,6 @@ public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourt
     /// <returns>The evidence as an ICourtRecordObject</returns>
     public ICourtRecordObject GetObjectAtIndex(int index)
     {
-        return this[index];
+        return ObjectDictionary[index];
     }
 }
