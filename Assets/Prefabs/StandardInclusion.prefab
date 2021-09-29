@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 6754048343442240844}
   - component: {fileID: 844180367432201528}
   m_Layer: 0
-  m_Name: ActorDictionary
+  m_Name: ActorInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1214,7 +1214,7 @@ GameObject:
   - component: {fileID: 6572538901796348132}
   - component: {fileID: 4951557165338670209}
   m_Layer: 0
-  m_Name: EvidenceDictionary
+  m_Name: EvidenceInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
