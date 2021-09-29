@@ -17,26 +17,23 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
 {
     [Tooltip("Drag an object list scriptable object here.")]
     [SerializeField] private S _objectList;
-
+    
     [Tooltip("Drag objects that should be in the inventory when the scene starts here.")]
-    [SerializeField] protected List<T> CurrentObjectList;
-    
-    protected Dictionary<string, T> AvailableObjectDictionary { get; private set; }
-    
+    [SerializeField] private List<T> _currentObjectList;
+
+    protected ObjectLookup<T> ObjectLookup { get; private set; }
     
     // Use square brackets to get objects from the inventory
-    public T this[string objectName] => ObjectDictionary[objectName];
-    public T this[int objectIndex] => CurrentObjectList[objectIndex];
-    public int Count => ObjectDictionary.CurrentObjectListCount;
-
-    protected ObjectDictionary<T> ObjectDictionary { get; private set; }
+    public T this[string objectName] => ObjectLookup[objectName];
+    public T this[int objectIndex] => _currentObjectList[objectIndex];
+    public int Count => ObjectLookup.CurrentObjectCount;
 
     /// <summary>
     /// Convert list to a dictionary on awake.
     /// </summary>
     private void Awake()
     {
-        ObjectDictionary = new ObjectDictionary<T>(_objectList.ObjectArray, CurrentObjectList);
+        ObjectLookup = new ObjectLookup<T>(_objectList.ObjectArray, _currentObjectList);
     }
 
     /// <summary>
@@ -45,7 +42,7 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     /// <param name="objectName">The name of the object to add.</param>
     public void AddObject(string objectName)
     {
-        ObjectDictionary.AddObject(objectName);
+        ObjectLookup.AddObject(objectName);
     }
 
     /// <summary>
@@ -54,6 +51,6 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     /// <param name="objectName">The name of the object to remove.</param>
     public void RemoveObject(string objectName)
     {
-        ObjectDictionary.RemoveObject(objectName);
+        ObjectLookup.RemoveObject(objectName);
     }
 }

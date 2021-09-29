@@ -10,15 +10,8 @@ public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourt
     /// <param name="evidenceName">The name of the evidence to substitute.</param>
     public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-        try
-        {
-            Evidence altEvidence = ObjectDictionary[evidenceName].AltEvidence;
-            ObjectDictionary.SubstituteObject(evidenceName, altEvidence);
-        }
-        catch
-        {
-            return;
-        }
+            Evidence altEvidence = ObjectLookup[evidenceName].AltEvidence;
+            ObjectLookup.SubstituteObject(evidenceName, altEvidence);
     }
     
     /// <summary>
@@ -28,6 +21,6 @@ public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourt
     /// <returns>The evidence as an ICourtRecordObject</returns>
     public ICourtRecordObject GetObjectAtIndex(int index)
     {
-        return ObjectDictionary[index];
+        return ObjectLookup[index];
     }
 }
