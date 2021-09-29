@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 /// Humble object that allows unity components to communicate with the testable ObjectLookup class.
 /// </summary>
 /// <typeparam name="T">The type of values to be stored.</typeparam>
-/// <typeparam name="S">The type of IObjectList should use.</typeparam>
+/// <typeparam name="S">A class implementing IObjectList with type T.</typeparam>
 public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object where S : IObjectList<T>
 {
     [Tooltip("Drag an object list scriptable object here.")]
