@@ -4,6 +4,11 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+/// <summary>
+/// Testable class that retrieves objects by name from a dictionary and stores them in a list
+/// that is used for displaying them in order.
+/// </summary>
+/// <typeparam name="T">The type of values to be stored.</typeparam>
 public class ObjectLookup<T> where T : Object
 {
     private readonly List<T> _currentObjectList;

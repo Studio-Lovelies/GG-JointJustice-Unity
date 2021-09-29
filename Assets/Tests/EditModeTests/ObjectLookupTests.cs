@@ -8,14 +8,23 @@ public class ObjectLookupTests
     private ObjectLookup<Evidence> _objectLookup;
     private int ItemCount => _objectLookup.AvailableObjectCount;
 
+    /// <summary>
+    /// Create a new ObjectLookup object on SetUp
+    /// </summary>
     [SetUp]
     public void Setup()
     {
         _objectLookup = new ObjectLookup<Evidence>(CreateScriptableObjectList<Evidence>(50), null);
     }
 
+    /// <summary>
+    /// Test if objects can be added from the dictionary of available objects to the list of current objects
+    /// by adding to it and checking if CurrentObjectCount equals the expected number.
+    /// Tries to objects that are not in the dictionary of available
+    /// objects and objects that are already in the list.
+    /// </summary>
     [Test]
-    public void ObjectsCanBeAddedToObjectLookup()
+    public void ObjectsCanBeAddedToCurrentObjectsList()
     {
         Assert.AreEqual(0, _objectLookup.CurrentObjectCount);
         AddObjectsInRange(0, ItemCount);
@@ -25,8 +34,11 @@ public class ObjectLookupTests
         Assert.AreEqual(ItemCount, _objectLookup.CurrentObjectCount);
     }
     
+    /// <summary>
+    /// Test if objects can be retrieved from the dictionary of available objects by name.
+    /// </summary>
     [Test]
-    public void CanGetObjectFromLookup()
+    public void CanGetObjectFromAvailableObjects()
     {
         for (int i = 0; i < ItemCount; i++)
         {
@@ -34,6 +46,9 @@ public class ObjectLookupTests
         }
     }
     
+    /// <summary>
+    /// Test if objects can be retrieved from the list of current objects by index.
+    /// </summary>
     [Test]
     public void CanGetObjectFromCurrentObjects()
     {
@@ -44,8 +59,13 @@ public class ObjectLookupTests
         }
     }
 
+    /// <summary>
+    /// Test if objects can be removed from the list of current objects.
+    /// First adds objects then removes them all and checks if there are 0 objects in the list.
+    /// Tries to remove objects not in the dictionary and objects in the dictionary but not the list.
+    /// </summary>
     [Test]
-    public void ObjectsCanBeRemovedFromObjectLookup()
+    public void ObjectsCanBeRemovedFromCurrentObjectsList()
     {
         AddObjectsInRange(0, ItemCount);
         for (int i = 0; i < ItemCount; i++)
@@ -58,6 +78,11 @@ public class ObjectLookupTests
         Assert.AreEqual(0, _objectLookup.CurrentObjectCount);
     }
 
+    /// <summary>
+    /// Test if objects can be substituted with other objects using the SubstituteObject method.
+    /// Reverses the order of the list of current objects, then loops through checking if all
+    /// the names are in the expected order.
+    /// </summary>
     [Test]
     public void ObjectsCanBeSubstitutedWithOtherObjects()
     {
