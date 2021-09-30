@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,7 +5,7 @@ using UnityEngine.Events;
 public class AnimatableObject : MonoBehaviour
 {
     [SerializeField, Tooltip("This event is called when an animation begins.")]
-    private UnityEvent _onAnimationBegin;
+    private UnityEvent _onAnimationStart;
     
     [SerializeField, Tooltip("This events is called when an animation completes.")]
     private UnityEvent _onAnimationComplete;
@@ -24,10 +23,10 @@ public class AnimatableObject : MonoBehaviour
     /// <summary>
     /// Checks if an animation is on the animator controller (if one is present) and plays it.
     /// </summary>
-    /// <param name="animation"></param>
-    public void PlayAnimation(string animation)
+    /// <param name="animationName">The name of the animation to play.</param>
+    public void PlayAnimation(string animationName)
     {
-        int animationHash = Animator.StringToHash(animation); // Required for HasState method
+        int animationHash = Animator.StringToHash(animationName); // Required for HasState method
         
         if (Animator.runtimeAnimatorController == null)
         {
@@ -37,11 +36,11 @@ public class AnimatableObject : MonoBehaviour
 
         if (!Animator.HasState(0, animationHash))
         {
-            Debug.LogError($"Could not find animation {animation} on animator {Animator.runtimeAnimatorController.name}.");
+            Debug.LogError($"Could not find animation {animationName} on animator {Animator.runtimeAnimatorController.name}.");
             return;
         }
         
-        _onAnimationBegin.Invoke();
+        _onAnimationStart.Invoke();
         Animator.Play(animationHash);
     }
 
