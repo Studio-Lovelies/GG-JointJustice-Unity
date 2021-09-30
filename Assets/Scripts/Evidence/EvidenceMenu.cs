@@ -40,7 +40,7 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent _onEvidenceClicked;
 
-     private bool _profileMenuActive;
+    private bool _profileMenuActive;
     private Sprite _evidenceMenuLabel;
     private ICourtRecordObjectInventory _activeDictionary;
     private int _currentPage;
