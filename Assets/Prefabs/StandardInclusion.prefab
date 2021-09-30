@@ -807,7 +807,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5979690604451775322}
         m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
         m_MethodName: CloseMenu
         m_Mode: 1
@@ -1658,6 +1658,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 2714227482403401104, guid: ea64ab6ecd23d470b830b2e77df58778,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2714227482403401105, guid: ea64ab6ecd23d470b830b2e77df58778,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1900,18 +1905,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4840743306771287255, guid: ea64ab6ecd23d470b830b2e77df58778,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4840743306771287255, guid: ea64ab6ecd23d470b830b2e77df58778,
-        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4840743306771287255, guid: ea64ab6ecd23d470b830b2e77df58778,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenMenu
       objectReference: {fileID: 0}
     - target: {fileID: 4840743306771287255, guid: ea64ab6ecd23d470b830b2e77df58778,
         type: 3}
@@ -1948,6 +1943,18 @@ PrefabInstance:
 --- !u!114 &3697150473256226950 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2714227482403401106, guid: ea64ab6ecd23d470b830b2e77df58778,
+    type: 3}
+  m_PrefabInstance: {fileID: 1649501945265339668}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5979690604451775322 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4906695621807570510, guid: ea64ab6ecd23d470b830b2e77df58778,
     type: 3}
   m_PrefabInstance: {fileID: 1649501945265339668}
   m_PrefabAsset: {fileID: 0}
@@ -2174,6 +2181,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8072484017964742647, guid: f4cda231489f65341910a0acac208946,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4cda231489f65341910a0acac208946, type: 3}

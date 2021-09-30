@@ -35,7 +35,7 @@ public class SceneLoader : MonoBehaviour
     /// <param name="menuNavigator">The menu navigator used to call this method. It is passed in case it needs to be disabled</param>
     public void ChangeSceneBySceneIndex()
     {
-        _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneIndex, LoadSceneMode.Additive);
+        _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneIndex, LoadSceneMode.Single);
         Transition();
     }
 
@@ -45,7 +45,7 @@ public class SceneLoader : MonoBehaviour
     /// <param name="menuNavigator">The menu navigator used to call this method. It is passed in case it needs to be disabled</param>
     public void ChangeSceneBySceneName()
     {
-        _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Additive);
+        _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Single);
         Transition();
     }
 
