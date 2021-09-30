@@ -75,13 +75,29 @@ public class ChoiceMenu : MonoBehaviour
     /// <returns>Whether the required components have been assigned (true) or not (false).</returns>
     private bool HasRequiredComponents()
     {
-        if (_menu != null && _menuOpener != null)
+        bool hasRequiredComponents = true;
+        
+        if (_menu == null)
         {
-            return true;
+            PrintMissingComponent("Menu");
+            hasRequiredComponents = false;
         }
         
-        string missingComponent = _menuOpener == null ? "MenuOpener" : "Menu";
-        Debug.LogError($"{missingComponent} has not been assigned to {name} on {gameObject.name}.", this);
-        return false;
+        if (_menuOpener == null)
+        {
+            PrintMissingComponent("MenuOpener");
+            hasRequiredComponents = false;
+        }
+
+        return hasRequiredComponents;
+    }
+
+    /// <summary>
+    /// Method used by HasRequiredComponents method to print an appropriates error message.
+    /// </summary>
+    /// <param name="componentName">The name of the missing component.</param>
+    private void PrintMissingComponent(string componentName)
+    {
+        Debug.LogError($"{componentName} has not been assigned to component {this} on {gameObject.name}.", this);
     }
 }

@@ -19,7 +19,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     private Menu _menu;
     private IHighlight _highlight;
     
-    public Selectable Selectable { get; set; }
+    public Selectable Selectable { get; private set; }
 
     /// <summary>
     /// Use this to set the text of a menu item.
