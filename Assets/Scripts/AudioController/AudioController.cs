@@ -116,6 +116,17 @@ public class AudioController : MonoBehaviour, IAudioController
     }
 
     /// <summary>
+    /// If music is currently playing, stop it!
+    /// </summary>
+    public void StopSong()
+    {
+        if (_musicAudioSource != null)
+        {
+            _musicAudioSource.Stop();
+        }
+    }
+
+    /// <summary>
     /// Are we playing music?
     /// </summary>
     /// <returns>True if we're playing a music track with a volume above zero</returns>
