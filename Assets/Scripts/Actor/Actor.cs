@@ -15,6 +15,7 @@ public class Actor : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _animator.keepAnimatorControllerStateOnDisable = true;
     }
 
     /// <summary>
