@@ -7,6 +7,15 @@ public class Actor : Animatable
     private IActorController _attachedController;
 
     /// <summary>
+    /// Call base awake method and also set animator to keep state on disable.
+    /// </summary>
+    protected override void Awake()
+    {
+        base.Awake();
+        Animator.keepAnimatorControllerStateOnDisable = true;
+    }
+
+    /// <summary>
     /// This method is called by animations when they are completed and require the next line to be to be read.
     /// </summary>
     public override void OnAnimationComplete()
