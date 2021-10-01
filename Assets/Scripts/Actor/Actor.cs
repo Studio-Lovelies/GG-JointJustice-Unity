@@ -7,7 +7,6 @@ public class Actor : MonoBehaviour
     private Animator _animator;
     private ActorData _actorData;
     private IActorController _attachedController;
-    private string _pendingAnimation;
 
     /// <summary>
     /// Called on awake, before Start
@@ -16,18 +15,6 @@ public class Actor : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-    }
-
-    /// <summary>
-    /// Built-in Unity thing, called when GameObject is re-enabled
-    /// </summary>
-    private void OnEnable()
-    {
-        if (_pendingAnimation != null)
-        {
-            PlayAnimation(_pendingAnimation);
-            _pendingAnimation = null;
-        }
     }
 
     /// <summary>
@@ -101,14 +88,5 @@ public class Actor : MonoBehaviour
     public bool MatchesActorData(ActorData actor)
     {
         return _actorData == actor;
-    }
-
-    /// <summary>
-    /// Sets the pending animation on the actor, will play this animation once the actor is the current active actor.
-    /// </summary>
-    /// <param name="animationName"></param>
-    public void SetPendingAnimation(string animationName)
-    {
-        _pendingAnimation = animationName;
     }
 }
