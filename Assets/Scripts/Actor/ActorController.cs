@@ -134,11 +134,9 @@ public class ActorController : MonoBehaviour, IActorController
             if (actor == null)
             {
                 Debug.LogError($"Actor not found: {actorName}");
+                return;
             }
-            else
-            {
-                actor.PlayAnimation(pose);
-            }
+            actor.PlayAnimation(pose);
         }
     }
 
@@ -168,11 +166,9 @@ public class ActorController : MonoBehaviour, IActorController
             if (actor == null)
             {
                 Debug.LogError($"Actor not found: {actorName}");
+                return;
             }
-            else
-            {
-                actor.PlayAnimation(emotion);
-            }
+            actor.PlayAnimation(emotion);
         }
     }
 
