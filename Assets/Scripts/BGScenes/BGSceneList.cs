@@ -1,19 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class BGSceneList : MonoBehaviour
 {
-
     private Dictionary<string, BGScene> _scenesInChildren;
 
     private BGScene _activeScene;
 
     /// <summary>
-    /// Initalizes the background scene dictionary
+    /// Initializes the background scene dictionary
     /// </summary>
-    void Start()
+    private void Start()
     {
         _scenesInChildren = new Dictionary<string, BGScene>();
         foreach(BGScene scene in GetComponentsInChildren<BGScene>(true))
@@ -26,24 +23,27 @@ public class BGSceneList : MonoBehaviour
     /// Sets the new active scene based on the provided scene name.
     /// </summary>
     /// <param name="sceneName">name of the target scene</param>
-    /// <returns>The new active scene. Can be null if an error ocurred.</returns>
+    /// <returns>The new active scene. Can be null if an error occurred.</returns>
     public BGScene SetScene(string sceneName) //TODO: Change this when making file names universal
     {
+        if (!_scenesInChildren.ContainsKey(sceneName))
+        {
+            Debug.LogError($"BGScene '{sceneName}' was not found in bg-scenes dictionary");
+            return _activeScene;
+        }
+
+        BGScene targetScene = _scenesInChildren[sceneName];
+        if (_activeScene != null && targetScene == _activeScene)
+        {
+            return _activeScene;
+        }
+
         if (_activeScene != null)
         {
             _activeScene.gameObject.SetActive(false);
-            _activeScene = null;
         }
-
-        try
-        {
-            _activeScene = _scenesInChildren[sceneName];
-            _activeScene.gameObject.SetActive(true);
-        }
-        catch (KeyNotFoundException exception)
-        {
-            Debug.Log($"{exception.GetType().Name}: BG-Scene {sceneName} was not found in bg-scenes dictionary");
-        }
+        _activeScene = targetScene;
+        targetScene.gameObject.SetActive(true);
 
         return _activeScene;
     }
