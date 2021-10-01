@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Animator))]
-public class AnimatableObject : MonoBehaviour
+public class Animatable : MonoBehaviour
 {
     [SerializeField, Tooltip("This event is called when an animation begins.")]
     private UnityEvent _onAnimationStart;
@@ -26,7 +26,7 @@ public class AnimatableObject : MonoBehaviour
     /// <param name="animationName">The name of the animation to play.</param>
     public void PlayAnimation(string animationName)
     {
-        int animationHash = Animator.StringToHash(animationName); // Required for HasState method
+        int animationHash = Animator.StringToHash(animationName);
         
         if (Animator.runtimeAnimatorController == null)
         {

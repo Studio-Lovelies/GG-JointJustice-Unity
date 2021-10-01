@@ -23,7 +23,7 @@ public class SceneController : MonoBehaviour, ISceneController
     [SerializeField] private EvidenceInventory _evidenceInventory;
 
     [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
-    [SerializeField] private AnimatableObject _fullscreenAnimationPlayer;
+    [SerializeField] private Animatable _fullscreenAnimationPlayer;
     
     [Header("Events")]
     [Tooltip("Attach the action decoder object here")]

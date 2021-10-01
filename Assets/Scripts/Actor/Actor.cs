@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Actor : AnimatableObject
+public class Actor : Animatable
 {
     private ActorData _actorData;
     private IActorController _attachedController;
