@@ -1,15 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
     [Tooltip("Pixels per unit of the basic ")]
     [SerializeField] private int _pixelsPerUnit = 100;
 
-    [Header("Events")]
     [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
     [SerializeField] private BGSceneList _sceneList;
     
@@ -22,10 +19,10 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag an EvidenceInventory component here")]
     [SerializeField] private EvidenceInventory _evidenceInventory;
     
-    [Header("Events")]
     [Tooltip("Attach the action decoder object here")]
-    [SerializeField] DirectorActionDecoder _directorActionDecoder;
+    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
+    [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
     [SerializeField] private UnityEvent _onWaitStart;
 
@@ -35,6 +32,9 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Event that gets called when the actor displayed on screen changes")]
     [SerializeField] private UnityEvent<Actor> _onActorChanged;
 
+    [Tooltip("Event that gets called when the active bg-scene changes")]
+    [SerializeField] private UnityEvent<BGScene> _onSceneChanged;
+
     private Coroutine _waitCoroutine;
 
     private BGScene _activeScene;
@@ -42,7 +42,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
-    void Start()
+    private void Start()
     {
         if (_directorActionDecoder == null)
         {
@@ -100,16 +100,16 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <summary>
     /// Pans the camera position to the target position
     /// </summary>
-    /// <param name="pos">Target position</param>
-    /// <param name="time">Time for the pan to take in seconds</param>
+    /// <param name="targetPos">Target position</param>
+    /// <param name="timeInSeconds">Time for the pan to take in seconds</param>
     /// <returns>IEnumerator stuff for coroutine</returns>
-    private IEnumerator PanToPosition(Vector2 targetPos, float timeToTake)
+    private IEnumerator PanToPosition(Vector2 targetPos, float timeInSeconds)
     {
         Vector2 startPos = _activeScene.transform.position;
         float percentagePassed = 0f;
         while (percentagePassed < 1)
         {
-            percentagePassed += Time.deltaTime / timeToTake;
+            percentagePassed += Time.deltaTime / timeInSeconds;
             _activeScene.transform.position = Vector2.Lerp(startPos, targetPos, percentagePassed);
             yield return null;
         }
@@ -126,6 +126,7 @@ public class SceneController : MonoBehaviour, ISceneController
         if (_activeScene != null)
         {
             _onActorChanged.Invoke(_activeScene.ActiveActor);
+            _onSceneChanged.Invoke(_activeScene);
         }
     }
 
@@ -186,6 +187,53 @@ public class SceneController : MonoBehaviour, ISceneController
     public void HideActor()
     {
         Debug.LogWarning("HideActor not implemented");
+    }
+
+    /// <summary>
+    /// Pans to the position of the specified slot index, if the bg-scene has support for actor slots.
+    /// </summary>
+    /// <param name="oneBasedSlotIndex">Target slot index, 1 based.</param>
+    /// <param name="seconds">Time in seconds the pan should take</param>
+    public void PanToActorSlot(int oneBasedSlotIndex, float seconds)
+    {
+        if (_activeScene == null)
+        {
+            Debug.LogError("Can't assign actor to slot: No active scene");
+            return;
+        }
+
+        if (!_activeScene.SupportsActorSlots())
+        {
+            Debug.LogError("Can't assign actor to slot: This scene has no support for slots");
+            return;
+        }
+
+        _activeScene.SetActiveActorSlot(oneBasedSlotIndex);
+        _onActorChanged.Invoke(_activeScene.ActiveActor);
+        PanCamera(seconds, _activeScene.GetTargetPosition());
+    }
+
+    /// <summary>
+    /// Jump cuts to the target sub position, if the bg-scene has sub positions.
+    /// </summary>
+    /// <param name="oneBasedSlotIndex">Target actor slot, 1 based.</param>
+    public void JumpToActorSlot(int oneBasedSlotIndex)
+    {
+        if (_activeScene == null)
+        {
+            Debug.LogError("Can't assign actor to slot: No active scene");
+            return;
+        }
+
+        if (!_activeScene.SupportsActorSlots())
+        {
+            Debug.LogError("Can't assign actor to slot: This scene has no support for slots");
+            return;
+        }
+
+        _activeScene.SetActiveActorSlot(oneBasedSlotIndex);
+        _onActorChanged.Invoke(_activeScene.ActiveActor);
+        SetCameraPos(_activeScene.GetTargetPosition());
     }
 
     /// <summary>
