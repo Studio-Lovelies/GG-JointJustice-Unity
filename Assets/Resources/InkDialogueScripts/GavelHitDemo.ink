@@ -1,4 +1,4 @@
-﻿&SCENE:TMPH_Defense
+﻿&SCENE:TMPH_Court
 &ACTOR:Arin
 &SPEAK:Arin
 Your honour! Bang that gavel!
@@ -12,7 +12,7 @@ Request granted!
 
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:GoodBoy
-&SCENE:TMPH_Defense
+&SCENE:TMPH_Court
 &SPEAK:Arin
 That was weird...
 
