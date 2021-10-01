@@ -28,7 +28,7 @@ public class BGSceneList : MonoBehaviour
     {
         if (!_scenesInChildren.ContainsKey(sceneName))
         {
-            Debug.Log($"BGScene '{sceneName}' was not found in bg-scenes dictionary");
+            Debug.LogError($"BGScene '{sceneName}' was not found in bg-scenes dictionary");
             return _activeScene;
         }
 

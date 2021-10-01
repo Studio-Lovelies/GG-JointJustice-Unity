@@ -113,8 +113,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// <summary>
     /// Sets the active speaker in the scene, changing the name shown.
     /// </summary>
-    /// <param name="actor">Target actor. This gets the correct name and
-    /// from the list of existing actors.</param>
+    /// <param name="actor">Target actor. This gets the correct name and color from the list of existing actors.</param>
     public void SetActiveSpeaker(string actor)
     {
         try

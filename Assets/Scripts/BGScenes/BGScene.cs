@@ -5,7 +5,6 @@ using UnityEngine.Serialization;
 public class BGScene : MonoBehaviour
 {
     [Tooltip("List of potential actor slots in the scene that can be filled with ActorData and an associated camera position")]
-    [FormerlySerializedAs("_ActorSlots")]
     [SerializeField] private List<ActorSlot> _actorSlots;
 
     private ActorSlot _currentActorSlot;
