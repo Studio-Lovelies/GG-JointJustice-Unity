@@ -73,8 +73,18 @@ public class ActorController : MonoBehaviour, IActorController
         if (_activeActor != null)
         {
             _activeActor.SetActor(targetActorData);
-            _actorDataToActor[targetActorData] = _activeActor;
+            AddActorToLookupTable(targetActorData, _activeActor);
         }
+    }
+
+    /// <summary>
+    /// Adds actor to the lookup table so we can go from ActorData -> Actor
+    /// </summary>
+    /// <param name="actorData">ActorData that corresponds to the actor</param>
+    /// <param name="actor">Actor that corresponds to the actorData</param>
+    private void AddActorToLookupTable(ActorData actorData, Actor actor)
+    {
+        _actorDataToActor[actorData] = actor;
     }
 
     /// <summary>
@@ -269,7 +279,9 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
-            tempActor.SetActor(_actorInventory[actor]);
+            var actorData = _actorInventory[actor];
+            tempActor.SetActor(actorData);
+            AddActorToLookupTable(actorData, tempActor);
         }
         catch (KeyNotFoundException exception)
         {

@@ -1,11 +1,4 @@
-&SCENE:TMPH_Witness
-&ACTOR:Ross
-
-&SCENE:TMPH_Defense
-&ACTOR:Arin
-
-&SCENE:TMPH_Prosecution
-&ACTOR:Tutorial_Boy
+//Do these before fading in, sets up the scene
 
 &SCENE:TMPH_Judge
 &ACTOR:Brent_Judge
@@ -13,32 +6,28 @@
 &SCENE:TMPH_Assistant
 &ACTOR:Dan
 
-&SCENE:TMPH_Defense
+&SCENE:TMPH_Court
+&SET_ACTOR_POSITION:1,Arin
+&SET_ACTOR_POSITION:2,Ross
+&SET_ACTOR_POSITION:3,Tutorial_Boy
 
 &SET_POSE:Normal
 Normal pose.
 
-&SCENE:TMPH_Prosecution
-Arin is gonna be close up in the next screen.
+&JUMP_TO_POSITION:2
+Arin.big = true
 
 &SET_POSE:CloseUp,Arin
-I'm big now.
-
-&SCENE:TMPH_Defense
-BIG ARIN!
+I'm big now, switch to Scene view to see
 
 &SET_POSE:Angry,Tutorial_Boy
 This makes Tutorial Boy angry.
 
-&SCENE:TMPH_Prosecution
 ANGERY!
 He gonna throw.
 
 &PLAY_EMOTION:HelmetHit,Arin
-He threw.
 
-&SCENE:TMPH_Defense
-He did wha--
-Oh.
+He threw
 
 -> END
