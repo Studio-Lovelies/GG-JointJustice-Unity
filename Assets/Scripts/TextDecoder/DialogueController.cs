@@ -215,7 +215,6 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     private void HandleNextLineDialogue()
     {
-        Debug.Log("here");
         if (_isAtChoice) //Make sure we don't continue unless we're not at a choice
             return;
 
@@ -268,7 +267,6 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     private void HandleNextLineCrossExamination()
     {
-        Debug.Log("here");
         if (_isAtChoice)
         {
             HandleChoice(0); //Handle regular continue
