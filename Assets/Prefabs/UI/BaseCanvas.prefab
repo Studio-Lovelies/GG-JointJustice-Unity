@@ -264,6 +264,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 5126768634469768299}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
+        m_MethodName: SetMenuCannotBeOpened
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _onMenuClosed:
     m_PersistentCalls:
       m_Calls:
@@ -278,6 +290,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2156551771264601347}
+        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
+        m_MethodName: SetMenuCannotBeOpened
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &4454197773906763391
 MonoBehaviour:
@@ -636,6 +660,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9199630569007061131, guid: 549eb05ae5be6478dba7990718c5ebe1, type: 3}
   m_PrefabInstance: {fileID: 1271492229566288399}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5126768634469768299 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6233210149760700004, guid: 549eb05ae5be6478dba7990718c5ebe1, type: 3}
+  m_PrefabInstance: {fileID: 1271492229566288399}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3799067211304309323 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2674505899918704708, guid: 549eb05ae5be6478dba7990718c5ebe1, type: 3}
