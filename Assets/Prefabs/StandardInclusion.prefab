@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edea055d8c3131428c88f22698e8a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueMode: 1
+  _dialogueMode: 0
   _failureList: {fileID: 11400000, guid: 5bc1f8e947a0c174097bbf8169c7299d, type: 2}
   _dialogueControllerPrefab: {fileID: 8494501069996666820, guid: 455e7eb71973e5c4fa9b886d5f8a5a63, type: 3}
   _onNewSpokenLine:

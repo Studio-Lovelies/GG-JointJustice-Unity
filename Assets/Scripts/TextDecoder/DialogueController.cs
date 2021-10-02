@@ -24,9 +24,6 @@ public class DialogueController : MonoBehaviour
 {
     private const char ACTION_TOKEN = '&';
 
-
-    private TextAsset _narrativeScript;
-
     [SerializeField] private DialogueControllerMode _dialogueMode = DialogueControllerMode.Dialogue;
 
     [SerializeField] private FailureStoryList _failureList;
