@@ -1,21 +1,28 @@
-using UnityEngine;
-using UnityEngine.Events;
-
-[RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Animator))]
-public class Actor : MonoBehaviour
+public class Actor : Animatable
 {
-    private SpriteRenderer _spriteRenderer;
-    private Animator _animator;
     private ActorData _actorData;
     private IActorController _attachedController;
 
     /// <summary>
-    /// Called on awake, before Start
+    /// Call base awake method and also set animator to keep state on disable.
     /// </summary>
-    private void Awake()
+    protected override void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
+        base.Awake();
+        Animator.keepAnimatorControllerStateOnDisable = true;
+    }
+
+    /// <summary>
+    /// This method is called by animations when they are completed and require the next line to be to be read.
+    /// </summary>
+    public override void OnAnimationComplete()
+    {
+        base.OnAnimationComplete();
+        
+        if (_attachedController != null)
+        {
+            _attachedController.OnAnimationDone();
+        }
     }
 
     /// <summary>
@@ -25,42 +32,8 @@ public class Actor : MonoBehaviour
     public void SetActor(ActorData actorData)
     {
         _actorData = actorData;
-        _animator.runtimeAnimatorController = actorData.AnimatorController;
-        _animator.Play("Normal");
-    }
-
-    /// <summary>
-    /// Checks if an animation is on the animator controller (if one is present) and plays it.
-    /// </summary>
-    /// <param name="animation"></param>
-    public void PlayAnimation(string animation)
-    {
-        int animationHash = Animator.StringToHash(animation); // Required for HasState method
-        
-        if (_animator.runtimeAnimatorController == null)
-        {
-            Debug.LogError("Current actor has not been assigned an animator controller.");
-            return;
-        }
-
-        if (!_animator.HasState(0, animationHash))
-        {
-            Debug.LogError($"Could not find emotion {animation} on animator of actor {_actorData.name}.");
-            return;
-        }
-
-        _animator.Play(animationHash);
-    }
-    
-    /// <summary>
-    /// This method is called by animations when they are completed and require the next line to be to be read.
-    /// </summary>
-    public void OnAnimationComplete()
-    {
-        if (_attachedController != null)
-        {
-            _attachedController.OnAnimationDone();
-        }
+        Animator.runtimeAnimatorController = actorData.AnimatorController;
+        Animator.Play("Normal");
     }
 
     /// <summary>
@@ -78,7 +51,7 @@ public class Actor : MonoBehaviour
     /// <param name="isTalking">Move mouth or not</param>
     public void SetTalking(bool isTalking)
     {
-        _animator.SetBool("Talking", isTalking);
+        Animator.SetBool("Talking", isTalking);
     }
     
     /// <summary>

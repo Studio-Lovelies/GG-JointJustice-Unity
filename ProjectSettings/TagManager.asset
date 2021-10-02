@@ -41,3 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: FullScreenAnimations
+    uniqueID: 1958080487
+    locked: 0
