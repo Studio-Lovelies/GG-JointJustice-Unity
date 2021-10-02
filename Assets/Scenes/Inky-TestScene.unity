@@ -481,31 +481,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5068679020486052208, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _sceneName
-      value: Inky-TestScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _dialogueList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _dialogueList.Array.data[1].ScriptType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _dialogueList.Array.data[0].DialogueScript
-      value: 
-      objectReference: {fileID: 4900000, guid: 0c32d6e773ed15e46a4196127cc3585c, type: 3}
-    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _dialogueList.Array.data[1].DialogueScript
-      value: 
-      objectReference: {fileID: 4900000, guid: 4e358af8a547cf749b1bf60efb1926c3, type: 3}
     - target: {fileID: 160785081537499211, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: m_AnchoredPosition.x

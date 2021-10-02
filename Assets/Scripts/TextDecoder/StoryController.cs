@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,30 +5,40 @@ using UnityEngine.Events;
 [RequireComponent(typeof(SceneLoader))]
 public class StoryController : MonoBehaviour
 {
+    [Tooltip("List of inky dialogue scripts to be played in order")]
     [SerializeField] private List<Dialogue> _dialogueList;
 
     [Header("Events")]
 
     [SerializeField] private UnityEvent<Dialogue> _onNextDialogueScript;
 
-
     private SceneLoader _sceneLoader;
 
     private int _currentStory = -1;
 
     /// <summary>
-    /// Initializes the script and starts the first dialogue script.
+    /// Initializes variables
+    /// </summary>
+    private void Awake()
+    {
+        _sceneLoader = GetComponent<SceneLoader>();
+    }
+
+    /// <summary>
+    /// Starts the first dialogue script.
     /// This script should always be last in the run order in order for this to work properly.
     /// </summary>
-    void Start()
+    private void Start()
     {
         if (_dialogueList.Count == 0)
         {
             Debug.LogError("This unity scene does not have any dialogue scripts");
             return;
         }
-        _sceneLoader = GetComponent<SceneLoader>();
-        RunNextDialogueScript();
+        else
+        {
+            RunNextDialogueScript();
+        }
     }
 
     /// <summary>
