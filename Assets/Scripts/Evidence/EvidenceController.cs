@@ -23,8 +23,11 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [Tooltip("Drag an EvidenceMenu component here, which will updated when the game state (i.e. ability to present evidence) changes.")]
     [SerializeField] public EvidenceMenu _evidenceMenu;
 
+    /// <summary>
     /// Called either when invoking <see cref="DialogueController._onCrossExaminationLoopActive" />
     /// or when a `PRESENT_EVIDENCE`-action has been encountered
+    /// </summary>
+    /// <param name="canPresentEvidence">Set to true, if evidence can be presented, set to false if presenting evidence is currently disabled</param>
     public void SetCanPresentEvidence(bool canPresentEvidence)
     {
         _evidenceMenu.CanPresentEvidence = canPresentEvidence;

@@ -221,9 +221,9 @@ public class DialogueController : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Handles branching-off points; either for cross examination loops or regular choices
     /// </summary>
-    /// <param name="choiceList"></param>
+    /// <param name="choiceList">List of available choices for the player</param>
     private void HandleCrossExaminationLoop(List<Choice> choiceList)
     {
         _isAtChoice = true;
