@@ -15,4 +15,5 @@ public interface IActorController
     void StopTalking();
     void OnAnimationDone();
     void SetSpeakingType(SpeakingType speakingType);
+    void AssignActorToSlot(string actor, int oneBasedSlotIndex);
 }

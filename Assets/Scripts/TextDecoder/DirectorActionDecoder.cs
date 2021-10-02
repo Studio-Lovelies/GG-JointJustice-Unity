@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using System.Globalization;
 using UnityEngine.Events;
 using UnityEngine;
@@ -43,6 +40,7 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             //Actor controller
             case "ACTOR": SetActor(parameters); break;
+            case "SET_ACTOR_POSITION": SetActorPosition(parameters); break;
             case "SHOWACTOR": SetActorVisibility(parameters); break;
             case "SPEAK": SetSpeaker(parameters, SpeakingType.Speaking); break;
             case "THINK": SetSpeaker(parameters, SpeakingType.Thinking); break;
@@ -51,6 +49,7 @@ public class DirectorActionDecoder : MonoBehaviour
             //Audio controller
             case "PLAYSFX": PlaySFX(parameters); break;
             case "PLAYSONG": SetBGMusic(parameters); break;
+            case "STOP_SONG": StopSong(); break;
             //Scene controller
             case "FADE_OUT": FadeOutScene(parameters); break;
             case "FADE_IN": FadeInScene(parameters); break;
@@ -61,6 +60,8 @@ public class DirectorActionDecoder : MonoBehaviour
             case "WAIT": Wait(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
             case "HIDE_ITEM": HideItem(); break;
+            case "JUMP_TO_POSITION": JumpToActorSlot(parameters); break;
+            case "PAN_TO_POSITION": PanToActorSlot(parameters); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
@@ -164,6 +165,36 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _actorController.PlayEmotion(animation);
+    }
+
+    /// <summary>
+    /// Sets an actor to a specific slot in the currently active scene.
+    /// </summary>
+    /// <param name="slotIndexAndActor">String containing the actor name first and one-based slot index second.</param>
+    private void SetActorPosition(string slotIndexAndActor)
+    {
+        if (!HasActorController())
+        {
+            return;
+        }
+
+        string[] parameters = slotIndexAndActor.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length != 2)
+        {
+            Debug.LogError("SET_ACTOR_POSITION requires exactly 2 parameters: [actorName <string>], [slotIndex <int>]");
+            return;
+        }
+
+        string actorName = parameters[1];
+        if (!int.TryParse(parameters[0], out int oneBasedSlotIndex))
+        {
+            Debug.LogError("Second parameter needs to be a one-based integer index");
+            return;
+        }
+
+        _actorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
+        _onActionDone.Invoke();
     }
     #endregion
 
@@ -372,6 +403,62 @@ public class DirectorActionDecoder : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Jump-cuts the camera to the target sub position if the bg-scene has sub positions.
+    /// </summary>
+    /// <param name="oneBasedSlotIndexAsString">String containing an integer referring to the target sub position, 1 based.</param>
+    void JumpToActorSlot(string oneBasedSlotIndexAsString)
+    {
+        if (!HasSceneController())
+        {
+            return;
+        }
+
+        if (!int.TryParse(oneBasedSlotIndexAsString, out int oneBasedSlotIndex))
+        {
+            Debug.LogError("First parameter needs to be a one-based integer index");
+            return;
+        }
+
+        _sceneController.JumpToActorSlot(oneBasedSlotIndex);
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Pans the camera to the target actor slot if the bg-scene has support for actor slots.
+    /// </summary>
+    /// <param name="oneBasedSlotIndexAndTimeInSeconds">String containing a one-based integer index referring to the target actor slot, and a floating point number referring to the amount of time the pan should take in seconds.</param>
+    void PanToActorSlot(string oneBasedSlotIndexAndTimeInSeconds)
+    {
+        if (!HasSceneController())
+        {
+            return;
+        }
+
+        string[] parameters = oneBasedSlotIndexAndTimeInSeconds.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length != 2)
+        {
+            Debug.LogError("PAN_TO_POSITION requires exactly 2 parameters: [slotIndex <int>], [panDurationInSeconds <float>]");
+            return;
+        }
+
+        if (!int.TryParse(parameters[0], out int oneBasedSlotIndex))
+        {
+            Debug.LogError("First parameter needs to be a one-based integer index");
+            return;
+        }
+
+        if (!float.TryParse(parameters[1], NumberStyles.Any, CultureInfo.InvariantCulture, out float timeInSeconds))
+        {
+            Debug.LogError("Second parameter needs to be a floating point number");
+            return;
+        }
+        
+        _sceneController.PanToActorSlot(oneBasedSlotIndex, timeInSeconds);
+        _onActionDone.Invoke();
+    }
+
     #endregion
     
     #region AudioController
@@ -398,6 +485,18 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _audioController.PlaySong(songName);
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// If music is currently playing, stop it!
+    /// </summary>
+    void StopSong()
+    {
+        if (!HasAudioController())
+            return;
+
+        _audioController.StopSong();
         _onActionDone.Invoke();
     }
     #endregion

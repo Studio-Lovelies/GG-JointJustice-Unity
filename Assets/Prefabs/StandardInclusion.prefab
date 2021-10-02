@@ -452,7 +452,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae56a18858b8b474fb20992291f416c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueList: []
+  _dialogueList:
+  - DialogueScript: {fileID: 4900000, guid: 0c32d6e773ed15e46a4196127cc3585c, type: 3}
+    ScriptType: 0
   _onNextDialogueScript:
     m_PersistentCalls:
       m_Calls:
@@ -480,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33de4f31ae9f94bf6a3ef7e8c1b64085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneName: MainMenu
+  _sceneName: Inky-TestScene
   _sceneIndex: 0
   _loadingBar: {fileID: 0}
 --- !u!1 &5228303783288880050
@@ -1234,6 +1236,21 @@ MonoBehaviour:
       - m_Target: {fileID: 5228303783822522784}
         m_TargetAssemblyTypeName: ActorController, GG-JointJustice
         m_MethodName: SetActiveActorObject
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onSceneChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5228303783822522784}
+        m_TargetAssemblyTypeName: ActorController, GG-JointJustice
+        m_MethodName: OnSceneChanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
