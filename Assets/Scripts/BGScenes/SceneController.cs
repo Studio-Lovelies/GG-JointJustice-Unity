@@ -18,6 +18,9 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Drag an EvidenceInventory component here")]
     [SerializeField] private EvidenceInventory _evidenceInventory;
+
+    [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
+    [SerializeField] private Animatable _fullscreenAnimationPlayer;
     
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
@@ -36,6 +39,7 @@ public class SceneController : MonoBehaviour, ISceneController
     [SerializeField] private UnityEvent<BGScene> _onSceneChanged;
 
     private Coroutine _waitCoroutine;
+    private Coroutine _panToPositionCoroutine;
 
     private BGScene _activeScene;
     
@@ -94,7 +98,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">Time for the pan to take in seconds</param>
     public void PanCamera(float seconds, Vector2Int position)
     {
-        StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds));
+        _panToPositionCoroutine = StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds));
     }
 
     /// <summary>
@@ -114,6 +118,8 @@ public class SceneController : MonoBehaviour, ISceneController
             targetScene.transform.position = Vector2.Lerp(startPos, targetPos, percentagePassed);
             yield return null;
         }
+
+        _panToPositionCoroutine = null;
     }
 
     /// <summary>
@@ -123,7 +129,11 @@ public class SceneController : MonoBehaviour, ISceneController
     public void SetScene(string background)
     {
         _activeScene = _sceneList.SetScene(background);
-
+        if (_panToPositionCoroutine != null)
+        {
+            StopCoroutine(_panToPositionCoroutine);
+        }
+        
         if (_activeScene != null)
         {
             _onActorChanged.Invoke(_activeScene.ActiveActor);
@@ -179,7 +189,33 @@ public class SceneController : MonoBehaviour, ISceneController
         
         _itemDisplay.HideItem();
     }
-    
+
+    /// <summary>
+    /// Plays a fullscreen animation e.g. Ross' galaxy brain or the gavel hit animations.
+    /// </summary>
+    /// <param name="animationName">The name of the animation to play.</param>
+    public void PlayAnimation(string animationName)
+    {
+        if (!HasFullScreenAnimationPlayer())
+            return;
+        
+        _fullscreenAnimationPlayer.PlayAnimation(animationName);
+    }
+
+    /// <summary>
+    /// Method to check if an AnimatableObject has been assigned to _fullscreenAnimationPlayer.
+    /// </summary>
+    private bool HasFullScreenAnimationPlayer()
+    {
+        if (_fullscreenAnimationPlayer == null)
+        {
+            Debug.LogError($"Fullscreen Animation Player has not been set on {name}.");
+            return false;
+        }
+
+        return true;
+    }
+
     public void ShowActor()
     {
         Debug.LogWarning("ShowActor not implemented");

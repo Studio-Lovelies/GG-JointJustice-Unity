@@ -1,4 +1,4 @@
-﻿&SCENE:TMPH_Defense
+&SCENE:TMPH_Defense
 &PLAYSONG:aKissFromARose
 &ACTOR:Dan
 &SPEAK:Dan
