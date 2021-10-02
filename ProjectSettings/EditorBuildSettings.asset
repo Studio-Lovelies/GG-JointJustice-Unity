@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EvidenceMenu - Test Scene.unity
     guid: d8df2bbcdddb04157a57d5ed72bfd319
+  - enabled: 1
+    path: Assets/Scenes/Transition - Test Scene.unity
+    guid: 2d575b92868cc4c01a028f5be14a7682
   m_configObjects: {}
