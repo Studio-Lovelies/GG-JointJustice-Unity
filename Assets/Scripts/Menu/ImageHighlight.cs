@@ -10,6 +10,14 @@ public class ImageHighlight : MonoBehaviour, IHighlight
     [SerializeField, Tooltip("The Image component that will display the highlight sprite")]
     private Image _image;
 
+    /// <summary>
+    /// Disable the highlight on awake
+    /// </summary>
+    public void Awake()
+    {
+        _image.enabled = false;
+    }
+    
     public void SetHighlighted(bool isHighlighted)
     {
         _image.enabled = isHighlighted;
