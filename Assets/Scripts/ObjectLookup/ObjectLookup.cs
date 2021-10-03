@@ -15,7 +15,6 @@ public class ObjectLookup<T> where T : Object
     private readonly Dictionary<string, T> _availableObjectDictionary;
 
     public T this[string objectName] => _availableObjectDictionary[objectName];
-    public T this[int objectIndex] => _currentObjectList[objectIndex];
     public int AvailableObjectCount => _availableObjectDictionary.Count;
     public int CurrentObjectCount => _currentObjectList.Count;
 
@@ -116,5 +115,17 @@ public class ObjectLookup<T> where T : Object
     private bool IsObjectInList(T obj)
     {
         return _currentObjectList.Count(listObject => listObject == obj) > 0;
+    }
+
+    /// <summary>
+    /// Get an object from the current object list by its build index.
+    /// Not accessed using brackets [] to avoid confusion with
+    /// accessing objects from dictionary of available objects
+    /// </summary>
+    /// <param name="objectIndex"></param>
+    /// <returns></returns>
+    public T GetObjectInList(int objectIndex)
+    {
+        return _currentObjectList[objectIndex];
     }
 }

@@ -55,7 +55,7 @@ public class ObjectLookupTests
         AddObjectsInRange(0, ItemCount);
         for (int i = 0; i < ItemCount; i++)
         {
-            Assert.AreEqual(i.ToString(), _objectLookup[i].name);
+            Assert.AreEqual(i.ToString(), _objectLookup.GetObjectInList(i).name);
         }
     }
 
@@ -89,13 +89,13 @@ public class ObjectLookupTests
         AddObjectsInRange(0, ItemCount);
         for (int i = 0; i < ItemCount; i++)
         {
-            Evidence evidenceStore = _objectLookup[i];
-            _objectLookup.SubstituteObject(i.ToString(), _objectLookup[ItemCount - 1 - i]);
+            Evidence evidenceStore = _objectLookup.GetObjectInList(i);
+            _objectLookup.SubstituteObject(i.ToString(), _objectLookup.GetObjectInList(ItemCount - 1 - i));
             _objectLookup.SubstituteObject((ItemCount - 1 - i).ToString(), evidenceStore);
         }
         for (int i = 0; i < ItemCount; i++)
         {
-            Assert.AreEqual((ItemCount - 1 - i).ToString(), _objectLookup[i].name);
+            Assert.AreEqual((ItemCount - 1 - i).ToString(), _objectLookup.GetObjectInList(i).name);
         }
     }
 

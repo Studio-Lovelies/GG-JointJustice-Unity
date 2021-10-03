@@ -10,8 +10,8 @@ public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourt
     /// <param name="evidenceName">The name of the evidence to substitute.</param>
     public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-            Evidence altEvidence = ObjectLookup[evidenceName].AltEvidence;
-            ObjectLookup.SubstituteObject(evidenceName, altEvidence);
+        Evidence altEvidence = ObjectLookup[evidenceName].AltEvidence;
+        ObjectLookup.SubstituteObject(evidenceName, altEvidence);
     }
     
     /// <summary>
@@ -19,8 +19,8 @@ public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourt
     /// </summary>
     /// <param name="index">The index of the evidence to get.</param>
     /// <returns>The evidence as an ICourtRecordObject</returns>
-    public ICourtRecordObject GetObjectAtIndex(int index)
+    public ICourtRecordObject GetObjectInList(int index)
     {
-        return ObjectLookup[index];
+        return ObjectLookup.GetObjectInList(index);
     }
 }

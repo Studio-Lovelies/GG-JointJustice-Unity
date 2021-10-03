@@ -20,7 +20,6 @@ public abstract class ObjectInventory<T, S> : MonoBehaviour where T : Object whe
     
     // Use square brackets to get objects from the inventory
     public T this[string objectName] => ObjectLookup[objectName];
-    public T this[int objectIndex] => _currentObjectList[objectIndex];
     public int Count => ObjectLookup.CurrentObjectCount;
 
     /// <summary>
