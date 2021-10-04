@@ -35,6 +35,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [SerializeField, Tooltip("Number of letters to be displayed before playing a speech SFX")]
     private int _lettersBeforeSpeechSFX = 4;
 
+    [SerializeField, Tooltip("Percentage of the speed before playing a speech SFX when text is sped up")]
+    private float _percentageSpedUpSpeechSFX = 75;
+
     [Header("Events")]
     [SerializeField, Tooltip("Events that should happen before the dialog start.")]
     private UnityEvent _dialogueStartEvent = new UnityEvent();
@@ -272,7 +275,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
         if (_speedupText)
         {
-            if (_currentLetterCounter >= _lettersBeforeSpeechSFX * (_speedMultiplierFromPlayerInput * 0.80))
+            if (_currentLetterCounter >= _lettersBeforeSpeechSFX + (_lettersBeforeSpeechSFX / (_percentageSpedUpSpeechSFX / 100)))
             {
                 _onPlaySpeech.Invoke();
                 _currentLetterCounter = 0;
