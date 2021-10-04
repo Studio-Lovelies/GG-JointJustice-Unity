@@ -299,6 +299,8 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
+        List<Choice> choiceList = _inkStory.currentChoices;
+
         if (_inkStory.canContinue)
         {
             string currentLine = _inkStory.Continue();
@@ -327,24 +329,15 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
-            List<Choice> choiceList = _inkStory.currentChoices;
-
             if (choiceList.Count > 0)
             {
-                _isAtChoice = true;
-                if (_dialogueMode == DialogueControllerMode.CrossExamination)
-                {
-                    _onCrossExaminationLoopActive.Invoke(true);
-                }
-                _onChoicePresented.Invoke(choiceList);
+                HandleCrossExaminationLoop(choiceList);
             }
             else
             {
                 _onDialogueFinished.Invoke();
             }
         }
-
-        HandleCrossExaminationLoop(choiceList);
     }
 
     /// <summary>
