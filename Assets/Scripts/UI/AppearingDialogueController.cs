@@ -32,6 +32,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [SerializeField, Tooltip("ActorData that is used to hide the spoken actor.")]
     private ActorData _actorDataHiddenActor;
 
+    [SerializeField, Tooltip("Number of letters to be displayed before playing a speech SFX")]
+    private int _lettersBeforeSpeechSFX = 4;
+
     [Header("Events")]
     [SerializeField, Tooltip("Events that should happen before the dialog start.")]
     private UnityEvent _dialogueStartEvent = new UnityEvent();
@@ -40,6 +43,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
     [SerializeField, Tooltip("Event is invoked every time letter appears")]
     private UnityEvent _onLetterAppear = new UnityEvent();
+
+    [SerializeField, Tooltip("Event is invoked every time a speech SFX is to be played")]
+    private UnityEvent _onPlaySpeech;
 
     [SerializeField, Tooltip("Event is invoked when dialog ends while autoskip is still true. Should be made to start the next dialog immediatly")]
     private UnityEvent _onAutoSkip = new UnityEvent();
@@ -55,6 +61,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private bool _disableTextSkipping = false;
     private bool _continueDialog = false;
     private bool _autoSkipDialog = false;
+    private int _currentLetterCounter = 0;
 
     public bool PrintTextInstantly { get; set; }
 
@@ -121,7 +128,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
         _allWaiters[WaiterType.DefaultPunctuation].waitTime = _defaultPunctuationAppearTime;
 
-        //If the textbox is using autosize, lets take if off or else the text will keep changing size when more dialog appears. 
+        //If the textbox is using autosize, lets take if off or else the text will keep changing size when more dialog appears.
         _currentAppearTime = _defaultAppearTime;
     }
 
@@ -134,7 +141,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         //Diabled prototype. Take out from comment to enable.
         //_currentDialog = ReadCommands(dialog);
 
-        //If we continue dialog, all values should already be correct. 
+        //If we continue dialog, all values should already be correct.
         if (_continueDialog)
         {
             _currentDialog += dialog;
@@ -171,7 +178,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             PrintTextInstantly = false;
             yield break;
         }
-        
+
         while (_writingDialog)
         {
             WriteDialog();
@@ -189,7 +196,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             _textBoxGameObject.SetActive(true);
         }
-        
+
         StartCoroutine(StartDialogCoroutine(dialog));
     }
 
@@ -243,6 +250,43 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         _controlledText.maxVisibleCharacters = _currentLetterNum;
         _onLetterAppear.Invoke();
 
+        bool isPunctuation = false;
+
+        if (_currentLetterNum < _currentDialog.Length)
+        {
+            isPunctuation = _currentDialog[_currentLetterNum] == ',' || _currentDialog[_currentLetterNum] == '.' || _currentDialog[_currentLetterNum] == '?' || _currentDialog[_currentLetterNum] == '!';
+        }
+        else
+        {
+            isPunctuation = _currentDialog[_currentLetterNum - 1] == ',' || _currentDialog[_currentLetterNum - 1] == '.' || _currentDialog[_currentLetterNum - 1] == '?' || _currentDialog[_currentLetterNum - 1] == '!';
+        }
+
+        if (!isPunctuation)
+        {
+            _currentLetterCounter++;
+        }
+        else
+        {
+            _currentLetterCounter = 0;
+        }
+
+        if (_speedupText)
+        {
+            if (_currentLetterCounter >= _lettersBeforeSpeechSFX * (_speedMultiplierFromPlayerInput * 0.75))
+            {
+                _onPlaySpeech.Invoke();
+                _currentLetterCounter = 0;
+            }
+        }
+        else
+        {
+           if (_currentLetterCounter >= _lettersBeforeSpeechSFX)
+            {
+                _onPlaySpeech.Invoke();
+                _currentLetterCounter = 0;
+            }
+        }
+
         //If the end of dialog is reached, make appropriate measures.
         if (_currentDialog.Length == _currentLetterNum)
         {
@@ -290,7 +334,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     ///<returns>Returns which kind of waiter is used for the next character.</returns>
     private WaiterType GetCurrentWaiter(char characterToAppear)
     {
-        bool isPunctuation = characterToAppear == '.' || characterToAppear == '?' || characterToAppear == '!';
+        bool isPunctuation = characterToAppear == ',' || characterToAppear == '.' || characterToAppear == '?' || characterToAppear == '!';
         foreach (WaiterType wt in _allWaiters.Keys)
         {
             if (_allWaiters[wt].inUse)
@@ -342,7 +386,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         bool increase = dialogText[0] == '+';
         bool decrease = dialogText[0] == '-';
 
-        //If either increase or decrease were found, it will be cut from number conversion. 
+        //If either increase or decrease were found, it will be cut from number conversion.
         if (increase || decrease)
             dialogText = dialogText.Substring(1);
 
@@ -553,7 +597,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         _nameBackgroundImage.color = newColor;
     }
-    
+
     /// <summary>
     /// Hides the dialogue textbox.
     /// </summary>

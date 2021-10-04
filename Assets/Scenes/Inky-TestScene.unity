@@ -270,6 +270,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8092316712924599042, guid: 6a76445d659e2db4baf7ee7ff4a2133c, type: 3}
   m_PrefabInstance: {fileID: 8092316712680511531}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1244615159 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5766951243316258182, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+  m_PrefabInstance: {fileID: 5228303782951346616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c1588c060bf994aa9f9fed3449e1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1381699178 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8239092869838533241, guid: 6a76445d659e2db4baf7ee7ff4a2133c, type: 3}
@@ -464,6 +475,58 @@ PrefabInstance:
     - target: {fileID: 5228303783942753771, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _lettersBeforeSpeechSFX
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _maxLettersBeforeSpeechSFX
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPlaySpeech.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onLetterAppear.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPlaySpeech.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onLetterAppear.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPlaySpeech.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1244615159}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPlaySpeech.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPlaySpeech.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaySFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onLetterAppear.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPlaySpeech.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AudioController, GG-JointJustice
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPlaySpeech.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: maleTalk
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594414, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPlaySpeech.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _sceneList
