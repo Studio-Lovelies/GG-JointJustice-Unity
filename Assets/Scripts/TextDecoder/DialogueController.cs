@@ -221,20 +221,6 @@ public class DialogueController : MonoBehaviour
     }
 
     /// <summary>
-    /// Handles branching-off points; either for cross examination loops or regular choices
-    /// </summary>
-    /// <param name="choiceList">List of available choices for the player</param>
-    private void HandleCrossExaminationLoop(List<Choice> choiceList)
-    {
-        _isAtChoice = true;
-        if (_dialogueMode == DialogueControllerMode.CrossExamination)
-        {
-            _onCrossExaminationLoopActive.Invoke(true);
-        }
-        _onChoicePresented.Invoke(choiceList);
-    }
-
-    /// <summary>
     /// Handles the next line of dialogue in regular dialogue mode.
     /// </summary>
     private void HandleNextLineDialogue()
@@ -253,9 +239,8 @@ public class DialogueController : MonoBehaviour
                 return;
             }
 
-            // If we're at the end of the current ink story but have dialogue options available,
-            // we're inside a cross examination statement loop
-            HandleCrossExaminationLoop(choiceList);
+            _isAtChoice = true;
+            _onChoicePresented.Invoke(choiceList);
             return;
         }
 
@@ -295,11 +280,10 @@ public class DialogueController : MonoBehaviour
     {
         if (_isAtChoice)
         {
+            _onCrossExaminationLoopActive.Invoke(false);
             HandleChoice(0); //Handle regular continue
             return;
         }
-
-        List<Choice> choiceList = _inkStory.currentChoices;
 
         if (_inkStory.canContinue)
         {
@@ -309,7 +293,7 @@ public class DialogueController : MonoBehaviour
                 Debug.LogError("Line-length was 0, should never happen");
                 return;
             }
-            
+
             if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
             {
                 HandleNextLineCrossExamination();
@@ -329,14 +313,19 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
-            if (choiceList.Count > 0)
-            {
-                HandleCrossExaminationLoop(choiceList);
-            }
-            else
-            {
-                _onDialogueFinished.Invoke();
-            }
+            //Story has ended because any choices would have been handled before this is reached
+            _onDialogueFinished.Invoke();
+        }
+
+        if (_inkStory.canContinue)
+        {
+            return;
+        }
+        else //At choice, which means cross examination point
+        {
+            _isAtChoice = true;
+            _onCrossExaminationLoopActive.Invoke(true);
+            Debug.Log("Start shit");
         }
     }
 
