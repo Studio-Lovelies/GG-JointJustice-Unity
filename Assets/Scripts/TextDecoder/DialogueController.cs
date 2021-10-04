@@ -321,11 +321,14 @@ public class DialogueController : MonoBehaviour
         {
             return;
         }
-        else //At choice, which means cross examination point
+        else //At choice, which means cross examination point. Maybe add sanity check to make sure we have at least 2 options?
         {
-            _isAtChoice = true;
-            _onCrossExaminationLoopActive.Invoke(true);
-            Debug.Log("Start shit");
+            if (_inkStory.currentChoices.Count > 0)
+            {
+                _isAtChoice = true;
+                _onCrossExaminationLoopActive.Invoke(true);
+            }
+            
         }
     }
 
