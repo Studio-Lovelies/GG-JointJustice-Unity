@@ -272,7 +272,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
         if (_speedupText)
         {
-            if (_currentLetterCounter >= _lettersBeforeSpeechSFX * (_speedMultiplierFromPlayerInput * 0.75))
+            if (_currentLetterCounter >= _lettersBeforeSpeechSFX * (_speedMultiplierFromPlayerInput * 0.80))
             {
                 _onPlaySpeech.Invoke();
                 _currentLetterCounter = 0;
