@@ -30,6 +30,8 @@ public class DialogueController : MonoBehaviour
 
     [SerializeField] private DialogueController _dialogueControllerPrefab;
 
+    public bool IsBusy { get; private set; }
+
     [Header("Events")]
 
     [Tooltip("Attach a dialogue controller to this so it can display spoken lines")]
@@ -48,7 +50,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private UnityEvent<bool> _onBusySet;
 
     private Story _inkStory;
-    bool _isBusy = false;
+    
     private bool _isMenuOpen;
     private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
 
@@ -82,9 +84,9 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     public void OnContinueStory()
     {
-        if (_isBusy || _isMenuOpen) //Doesn't need to be handled in the sub story
+        if (IsBusy || _isMenuOpen) //Doesn't need to be handled in the sub story
         {
-            Debug.Log($"Tried to continue while {(_isBusy ? "busy" : "menu is open")}");
+            Debug.Log($"Tried to continue while {(IsBusy ? "busy" : "menu is open")}");
             return;
         }
 
@@ -126,7 +128,7 @@ public class DialogueController : MonoBehaviour
     /// <param name="choice">The index of the choice to be picked (0 based)</param>
     public void HandleChoice(int choice)
     {
-        if (!_isAtChoice || _isBusy || _isMenuOpen)
+        if (!_isAtChoice || IsBusy || _isMenuOpen)
             return;
 
         if (choice > _inkStory.currentChoices.Count)
@@ -304,8 +306,9 @@ public class DialogueController : MonoBehaviour
     /// <param name="busy">Sets the busy flag</param>
     public void SetBusy(bool busy)
     {
-        _isBusy = busy;
-        _onBusySet.Invoke(_isBusy);
+        Debug.Log("Changing busy state");
+        IsBusy = busy;
+        _onBusySet.Invoke(IsBusy);
     }
 
     /// <summary>

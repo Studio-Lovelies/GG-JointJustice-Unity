@@ -14,6 +14,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
         private global::EvidenceMenu _evidenceMenu;
+        private global::DialogueController _dialogueController;
 
         /// <summary>
         /// Attempts to open and close the menu and checks if the menu is active after each attempt.
@@ -22,8 +23,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceMenuOpensAndCloses()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return new WaitForSeconds(2);
-            _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+
+            yield return TestTools.WaitForState(() => SceneManager.sceneCount > 0, 5.0f);
+            _dialogueController = Object.FindObjectOfType<global::DialogueController>(true);
+            yield return TestTools.WaitForState(() => _dialogueController.IsBusy, 5.0f);
+            yield return TestTools.WaitForState(() => !_dialogueController.IsBusy, 10.0f);
+
+            _evidenceMenu = Object.FindObjectOfType<global::EvidenceMenu>(true);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
@@ -40,8 +46,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceMenuCannotBeClosedWhenPresentingEvidence()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return new WaitForSeconds(2);
-            _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+
+            yield return TestTools.WaitForState(() => SceneManager.sceneCount > 0, 5.0f);
+            _dialogueController = Object.FindObjectOfType<global::DialogueController>(true);
+            yield return TestTools.WaitForState(() => _dialogueController.IsBusy, 5.0f);
+            yield return TestTools.WaitForState(() => !_dialogueController.IsBusy, 10.0f);
+
+            _evidenceMenu = Object.FindObjectOfType<global::EvidenceMenu>(true);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
@@ -61,8 +72,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceCanBeSelected()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return new WaitForSeconds(2);
-            _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+
+            yield return TestTools.WaitForState(() => SceneManager.sceneCount > 0, 5.0f);
+            _dialogueController = Object.FindObjectOfType<global::DialogueController>(true);
+            yield return TestTools.WaitForState(() => _dialogueController.IsBusy, 5.0f);
+            yield return TestTools.WaitForState(() => !_dialogueController.IsBusy, 10.0f);
+
+            _evidenceMenu = Object.FindObjectOfType<global::EvidenceMenu>(true);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
@@ -84,8 +100,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator CanNavigateWithLeftAndRightArrows()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return new WaitForSeconds(2);
-            _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+
+            yield return TestTools.WaitForState(() => SceneManager.sceneCount > 0, 5.0f);
+            _dialogueController = Object.FindObjectOfType<global::DialogueController>(true);
+            yield return TestTools.WaitForState(() => _dialogueController.IsBusy, 5.0f);
+            yield return TestTools.WaitForState(() => !_dialogueController.IsBusy, 10.0f);
+
+            _evidenceMenu = Object.FindObjectOfType<global::EvidenceMenu>(true);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
@@ -117,8 +138,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator CanNavigateToMultiplePages()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return new WaitForSeconds(2);
-            _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+
+            yield return TestTools.WaitForState(() => SceneManager.sceneCount > 0, 5.0f);
+            _dialogueController = Object.FindObjectOfType<global::DialogueController>(true);
+            yield return TestTools.WaitForState(() => _dialogueController.IsBusy, 5.0f);
+            yield return TestTools.WaitForState(() => !_dialogueController.IsBusy, 10.0f);
+
+            _evidenceMenu = Object.FindObjectOfType<global::EvidenceMenu>(true);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
@@ -187,8 +213,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator ProfileMenuCanBeAccessed()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return new WaitForSeconds(2);
-            _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+
+            yield return TestTools.WaitForState(() => SceneManager.sceneCount > 0, 5.0f);
+            _dialogueController = Object.FindObjectOfType<global::DialogueController>(true);
+            yield return TestTools.WaitForState(() => _dialogueController.IsBusy, 5.0f);
+            yield return TestTools.WaitForState(() => !_dialogueController.IsBusy, 10.0f);
+
+            _evidenceMenu = Object.FindObjectOfType<global::EvidenceMenu>(true);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
@@ -273,8 +304,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceCanBeSubstitutedWithAltEvidence()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return new WaitForSeconds(2);
-            _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
+
+            yield return TestTools.WaitForState(() => SceneManager.sceneCount > 0, 5.0f);
+            _dialogueController = Object.FindObjectOfType<global::DialogueController>(true);
+            yield return TestTools.WaitForState(() => _dialogueController.IsBusy, 5.0f);
+            yield return TestTools.WaitForState(() => !_dialogueController.IsBusy, 10.0f);
+
+            _evidenceMenu = Object.FindObjectOfType<global::EvidenceMenu>(true);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(_evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
