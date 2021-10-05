@@ -250,7 +250,10 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         _timer = 0;
 
-        if (_currentDialog.IndexOf(">") != -1) _currentDialog = _currentDialog.Substring(_currentDialog.IndexOf(">"));
+        if (_currentDialog.IndexOf(">") != -1)
+        {
+            _currentDialog = _currentDialog.Substring(_currentDialog.IndexOf(">") + 1);
+        }
 
         //Increase the maxVisibleCharacters to show the next letter.
         _controlledText.maxVisibleCharacters = _currentLetterNum;
@@ -282,6 +285,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
         if (_currentLetterCounter >= maxLetters)
         {
+            Debug.Log("Play sound");
             _onPlaySpeech.Invoke();
             _currentLetterCounter = 0;
         }
