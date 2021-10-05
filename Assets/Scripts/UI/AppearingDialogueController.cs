@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+
 public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueController
 {
     [Header("Basic Values")]
@@ -29,13 +30,10 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private float _defaultPunctuationAppearTime = 0.02f;
     [SerializeField, Tooltip("When player is giving correct input to the game, how much faster should the game go.")]
     private float _speedMultiplierFromPlayerInput = 2;
-
     [SerializeField, Tooltip("ActorData that is used to hide the spoken actor.")]
     private ActorData _actorDataHiddenActor;
-
     [SerializeField, Tooltip("Number of letters to be displayed before playing a speech SFX")]
     private int _lettersBeforeSpeechSFX = 4;
-
     [SerializeField, Tooltip("Percentage of the speed before playing a speech SFX when text is sped up")]
     private float _percentageSpedUpSpeechSFX = 75;
 
@@ -44,13 +42,10 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private UnityEvent _dialogueStartEvent = new UnityEvent();
     [SerializeField, Tooltip("Events that should happen after completing a dialog.")]
     private UnityEvent _dialogueEndEvent = new UnityEvent();
-
     [SerializeField, Tooltip("Event is invoked every time letter appears")]
     private UnityEvent _onLetterAppear = new UnityEvent();
-
     [SerializeField, Tooltip("Event is invoked every time a speech SFX is to be played")]
     private UnityEvent _onPlaySpeech;
-
     [SerializeField, Tooltip("Event is invoked when dialog ends while autoskip is still true. Should be made to start the next dialog immediatly")]
     private UnityEvent _onAutoSkip = new UnityEvent();
     private string _currentDialog = "";
