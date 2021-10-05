@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -249,6 +250,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         _timer = 0;
 
+        if (_currentDialog.IndexOf(">") != -1) _currentDialog = _currentDialog.Substring(_currentDialog.IndexOf(">"));
+
         //Increase the maxVisibleCharacters to show the next letter.
         _controlledText.maxVisibleCharacters = _currentLetterNum;
         _onLetterAppear.Invoke();
@@ -264,30 +267,23 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             isPunctuation = _currentDialog[_currentLetterNum - 1] == ',' || _currentDialog[_currentLetterNum - 1] == '.' || _currentDialog[_currentLetterNum - 1] == '?' || _currentDialog[_currentLetterNum - 1] == '!';
         }
 
-        if (!isPunctuation)
+        _currentLetterCounter = isPunctuation ? _currentLetterCounter = 0 : _currentLetterCounter = _currentLetterCounter + 1;
+
+        /*if (!isPunctuation)
         {
             _currentLetterCounter++;
         }
         else
         {
             _currentLetterCounter = 0;
-        }
+        }*/
 
-        if (_speedupText)
+        int maxLetters = _speedupText ? (int)Math.Round(_lettersBeforeSpeechSFX + (_lettersBeforeSpeechSFX / (_percentageSpedUpSpeechSFX / 100))) : _lettersBeforeSpeechSFX;
+
+        if (_currentLetterCounter >= maxLetters)
         {
-            if (_currentLetterCounter >= _lettersBeforeSpeechSFX + (_lettersBeforeSpeechSFX / (_percentageSpedUpSpeechSFX / 100)))
-            {
-                _onPlaySpeech.Invoke();
-                _currentLetterCounter = 0;
-            }
-        }
-        else
-        {
-           if (_currentLetterCounter >= _lettersBeforeSpeechSFX)
-            {
-                _onPlaySpeech.Invoke();
-                _currentLetterCounter = 0;
-            }
+            _onPlaySpeech.Invoke();
+            _currentLetterCounter = 0;
         }
 
         //If the end of dialog is reached, make appropriate measures.
