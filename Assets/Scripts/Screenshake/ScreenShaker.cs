@@ -6,9 +6,9 @@ using UnityEngine.Serialization;
 public class ScreenShaker : MonoBehaviour
 {
     [SerializeField] private AnimationCurve _animationCurve;
-    [SerializeField] private float amplitude;
-    [SerializeField] private Vector2 _seed;
-    [SerializeField] private Vector2 _noiseScale;
+    [SerializeField] private float _amplitude = 0.1f;
+    [SerializeField] private Vector2 _seed = new Vector2(234, 456);
+    [SerializeField] private Vector2 _noiseScale = new Vector2(30, 30);
     
     private Transform _transform;
     private Vector3 _cameraOffset;
@@ -33,30 +33,25 @@ public class ScreenShaker : MonoBehaviour
     /// <summary>
     /// Call this method to begin shaking screen.
     /// </summary>
-    /// <param name="intensity">The intensity of the screen shake.</param>
     /// <param name="time">The time (in seconds) that the shake will last.</param>
     public void Shake(float time)
     {
         StartCoroutine(ShakeCoroutine(time));
     }
 
+    /// <summary>
+    /// Coroutine that causes the camera to shake over a specified amount of time.
+    /// </summary>
+    /// <param name="time">The number of seconds to shake the camera for.</param>
     private IEnumerator ShakeCoroutine(float time)
     {
-        float t = 1;
-        while (t > 0)
+        var screenshakeCalculator = new ScreenshakeCalculator(time, _amplitude, _noiseScale, _seed, _animationCurve);
+        while (screenshakeCalculator.Shaking)
         {
-            t -= Time.deltaTime / time;
-            Vector3 direction = GetDirection();
-            transform.localPosition = (direction * amplitude * _animationCurve.Evaluate(t)) + _cameraOffset;
+            _transform.localPosition = screenshakeCalculator.Calculate() + _cameraOffset;
             yield return null;
         }
 
-        transform.localPosition = _cameraOffset;
-    }
-
-    private Vector2 GetDirection()
-    {
-        return new Vector2(Mathf.PerlinNoise(_seed.x, Time.time * _noiseScale.x) - 0.5f,
-            Mathf.PerlinNoise(_seed.y, Time.time * _noiseScale.y) - 0.5f).normalized;
+        _transform.localPosition = _cameraOffset;
     }
 }
