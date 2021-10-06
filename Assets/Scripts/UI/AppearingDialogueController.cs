@@ -245,48 +245,27 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         _timer = 0;
 
-        if (_currentDialog.IndexOf(">") != -1)
-        {
-            _currentDialog = _currentDialog.Substring(_currentDialog.IndexOf(">") + 1);
-        }
-
         //Increase the maxVisibleCharacters to show the next letter.
         _controlledText.maxVisibleCharacters = _currentLetterNum;
         _onLetterAppear.Invoke();
+        
+        char[] punctuations = [",", ".", "?", "!"];
 
-        bool isPunctuation = false;
+        int letterIndex = _currentLetterNum < _controlledText.GetTextInfo(_currentDialog).characterCount ? _currentLetterNum : _currentLetterNum - 1;
+        bool isPunctuation = punctuations.Contains(_currentDialog[letterIndex]);
 
-        if (_currentLetterNum < _currentDialog.Length)
-        {
-            isPunctuation = _currentDialog[_currentLetterNum] == ',' || _currentDialog[_currentLetterNum] == '.' || _currentDialog[_currentLetterNum] == '?' || _currentDialog[_currentLetterNum] == '!';
-        }
-        else
-        {
-            isPunctuation = _currentDialog[_currentLetterNum - 1] == ',' || _currentDialog[_currentLetterNum - 1] == '.' || _currentDialog[_currentLetterNum - 1] == '?' || _currentDialog[_currentLetterNum - 1] == '!';
-        }
-
-        _currentLetterCounter = isPunctuation ? _currentLetterCounter = 0 : _currentLetterCounter = _currentLetterCounter + 1;
-
-        /*if (!isPunctuation)
-        {
-            _currentLetterCounter++;
-        }
-        else
-        {
-            _currentLetterCounter = 0;
-        }*/
+        _currentLetterCounter = isPunctuation ? _currentLetterCounter = 0 : _currentLetterCounter + 1;
 
         int maxLetters = _speedupText ? (int)Math.Round(_lettersBeforeSpeechSFX + (_lettersBeforeSpeechSFX / (_percentageSpedUpSpeechSFX / 100))) : _lettersBeforeSpeechSFX;
 
         if (_currentLetterCounter >= maxLetters)
         {
-            Debug.Log("Play sound");
             _onPlaySpeech.Invoke();
             _currentLetterCounter = 0;
         }
 
         //If the end of dialog is reached, make appropriate measures.
-        if (_currentDialog.Length == _currentLetterNum)
+        if (_controlledText.GetTextInfo(_currentDialog).characterCount == _currentLetterNum)
         {
             EndDialog();
             return;
@@ -332,7 +311,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     ///<returns>Returns which kind of waiter is used for the next character.</returns>
     private WaiterType GetCurrentWaiter(char characterToAppear)
     {
-        bool isPunctuation = characterToAppear == ',' || characterToAppear == '.' || characterToAppear == '?' || characterToAppear == '!';
+        char[] punctuations = [",", ".", "?", "!"];
+        
+        bool isPunctuation = punctuations.Contains(characterToAppear);
         foreach (WaiterType wt in _allWaiters.Keys)
         {
             if (_allWaiters[wt].inUse)
