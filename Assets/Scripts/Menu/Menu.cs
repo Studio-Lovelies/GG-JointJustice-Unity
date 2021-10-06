@@ -19,17 +19,13 @@ public class Menu : MonoBehaviour
 
     public UnityEvent<bool> OnSetInteractable { get; } = new UnityEvent<bool>();
     public Selectable SelectedButton { get; set; } // Set by child buttons when they are selected
-    public bool Active => gameObject.activeInHierarchy && (SelectedButton == null || SelectedButton.interactable); // Returns true when no child menus are active ONLY if this menu is enabled
+    public bool Active => gameObject.activeInHierarchy && (SelectedButton == null || SelectedButton.enabled); // Returns true when no child menus are active ONLY if this menu is enabled
 
-    private void Update()
+    private void Start()
     {
-        // Stop button being deselected when clicking somewhere other than a button
-        if (EventSystem.current.currentSelectedGameObject == null && SelectedButton != null && Active)
-        {
-            SelectedButton.Select();
-        }
+        SelectInitialButton();
     }
-    
+
     /// <summary>
     /// Enables and disables this section of menu.
     /// Used when opening sub menus.
@@ -47,6 +43,11 @@ public class Menu : MonoBehaviour
     {
         if (_initiallyHighlightedButton == null || !_initiallyHighlightedButton.isActiveAndEnabled)
         {
+            if (transform.childCount == 0)
+            {
+                return;
+            }
+
             Selectable selectable = GetComponentInChildren<Selectable>();
             if (selectable.interactable)
             {
@@ -54,8 +55,8 @@ public class Menu : MonoBehaviour
             }
             return;
         }
-
-        EventSystem.current.SetSelectedGameObject(null); // Select event is not called if selecting the game object already selected
+        
+        EventSystem.current.SetSelectedGameObject(null); // Select event is not called if selecting the game object that is already selected
         _initiallyHighlightedButton.Select();
     }
 
