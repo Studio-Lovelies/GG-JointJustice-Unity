@@ -205,6 +205,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8523057635661323075, guid: 5fe315117a99c7746a6eb571af7695ef, type: 3}
   m_PrefabInstance: {fileID: 8523057635431554599}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &677739438 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+  m_PrefabInstance: {fileID: 5228303782951346616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9edea055d8c3131428c88f22698e8a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &749697829
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,8 +493,40 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8457434445234389370, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onChoiceClicked.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8457434445234389370, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onChoiceClicked.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 677739438}
+    - target: {fileID: 8457434445234389370, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onChoiceClicked.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8457434445234389370, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onChoiceClicked.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8457434445234389370, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onChoiceClicked.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8457434445234389370, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onChoiceClicked.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: ChoiceMenu, GG-JointJustice
+      objectReference: {fileID: 0}
+    - target: {fileID: 8457434445234389370, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onChoiceClicked.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9088852514991569890, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220922295162058796, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

@@ -285,17 +285,16 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
-            //Story has ended
-            _onDialogueFinished.Invoke();
-        }
-
-        if (!_inkStory.canContinue) //At choice, set up choice sequence (or at end, but we'll deal with that on the next space press)
-        {
             List<Choice> choiceList = _inkStory.currentChoices;
 
             if (choiceList.Count > 0)
             {
                 _isAtChoice = true;
+                _onChoicePresented.Invoke(choiceList);
+            }
+            else
+            {
+                _onDialogueFinished.Invoke();
             }
         }
     }
