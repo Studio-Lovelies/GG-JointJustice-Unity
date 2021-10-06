@@ -8,9 +8,13 @@ public class OutlineHighlight : MonoBehaviour, IHighlight
 {
     private Outline _outline;
 
+    /// <summary>
+    /// Get Outline component and disable the highlight on awake.
+    /// </summary>
     private void Awake()
     {
         _outline = GetComponent<Outline>();
+        SetHighlighted(false);
     }
 
     public void SetHighlighted(bool isHighlighted)

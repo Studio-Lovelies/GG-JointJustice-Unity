@@ -60,6 +60,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "WAIT": Wait(parameters); break;
             case "SHOW_ITEM": ShowItem(parameters); break;
             case "HIDE_ITEM": HideItem(); break;
+            case "PLAY_ANIMATION": PlayAnimation(parameters); break;
             case "JUMP_TO_POSITION": JumpToActorSlot(parameters); break;
             case "PAN_TO_POSITION": PanToActorSlot(parameters); break;
             //Evidence controller
@@ -433,6 +434,17 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     /// <summary>
+    /// Plays a full screen animation e.g. Ross' galaxy brain or the gavel hit animations.
+    /// </summary>
+    /// <param name="animationName">The name of the animation to play.</param>
+    private void PlayAnimation(string animationName)
+    {
+        if (!HasSceneController())
+            return;
+
+        _sceneController.PlayAnimation(animationName);
+    }
+
     /// Jump-cuts the camera to the target sub position if the bg-scene has sub positions.
     /// </summary>
     /// <param name="oneBasedSlotIndexAsString">String containing an integer referring to the target sub position, 1 based.</param>
