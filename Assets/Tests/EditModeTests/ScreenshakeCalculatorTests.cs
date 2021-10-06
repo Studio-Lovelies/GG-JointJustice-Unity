@@ -1,9 +1,11 @@
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
 public class ScreenshakeCalculatorTests
 {
     private const float DELTA_TIME = 0.02f;
+    private const float FREQUENCY = 10;
     private const float SHAKE_DURATION = 50;
     private const int NUMBER_OF_POSITIONS = (int)(SHAKE_DURATION / DELTA_TIME);
     private const float AMPLITUDE = 0.1f;
@@ -40,7 +42,6 @@ public class ScreenshakeCalculatorTests
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
             shakePositions[i] = _screenshakeCalculator.Calculate(DELTA_TIME);
-            Debug.Log(shakePositions[i].ToString("F10"));
         }
 
         var screenShakeCalculatorComparison = CreateScreenshakeCalculator();
@@ -54,11 +55,20 @@ public class ScreenshakeCalculatorTests
     [Test]
     public void ShakeIsConstrainedWithinSpecifiedAmplitude()
     {
+        Vector3[] shakePositions = new Vector3[NUMBER_OF_POSITIONS];
+        Keyframe[] animationKeys = { new Keyframe(0, 1), new Keyframe(1, 1) };
+        var screenshakeCalculator = new ScreenshakeCalculator(SHAKE_DURATION, FREQUENCY, AMPLITUDE, new Vector2(1, 1),
+            new Vector2(0, 0), new AnimationCurve(animationKeys));
+        for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
+        {
+            shakePositions[i] = screenshakeCalculator.Calculate(DELTA_TIME);
+        }
         
+        Assert.IsTrue(shakePositions.Max(vector3 => Mathf.Approximately(vector3.x, AMPLITUDE));
     }
 
     private ScreenshakeCalculator CreateScreenshakeCalculator()
     {
-        return new ScreenshakeCalculator(SHAKE_DURATION, 10, AMPLITUDE, new Vector2(1, 1), new Vector2(0, 0));
+        return new ScreenshakeCalculator(SHAKE_DURATION, FREQUENCY, AMPLITUDE, new Vector2(1, 1), new Vector2(0, 0));
     }
 }
