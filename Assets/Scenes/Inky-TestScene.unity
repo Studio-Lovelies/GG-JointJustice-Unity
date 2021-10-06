@@ -420,7 +420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1920.0001
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_SizeDelta.y
@@ -444,15 +444,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -612,7 +612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8591347059487037669, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _duration
-      value: 0.5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8591347059487037669, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _amplitude
@@ -620,7 +620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8591347059487037669, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _frequency
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8591347059487037669, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _noiseScale.x
