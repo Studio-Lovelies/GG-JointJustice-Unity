@@ -24,8 +24,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator MouseShouldHighlightEvidenceMenuItems()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return null;
-            yield return new WaitForSeconds(1); // Without this the text is huge for some reason.
+            yield return TestTools.WaitForState(() => SceneManager.sceneCount > 0, 5.0f);
+
             _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
         
             // Get to required point in scene
@@ -63,8 +63,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator NavigationButtonsCanBeClicked()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return null;
-            yield return new WaitForSeconds(1); // Without this the text is huge for some reason.
+            yield return TestTools.WaitForState(() => SceneManager.sceneCount > 0, 5.0f);
+
             _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
 
             // Get to required point in scene
@@ -114,8 +114,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator MenuItemsCanBeClickedWithMouse()
         {
             SceneManager.LoadScene("EvidenceMenu - Test Scene", LoadSceneMode.Single);
-            yield return null;
-            yield return new WaitForSeconds(1); // Without this the text is huge for some reason.
+            yield return TestTools.WaitForState(() => SceneManager.sceneCount > 0, 5.0f);
+
             _evidenceMenu = Resources.FindObjectsOfTypeAll<global::EvidenceMenu>()[0];
 
             // Get to required point in scene
