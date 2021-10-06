@@ -33,7 +33,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [SerializeField, Tooltip("ActorData that is used to hide the spoken actor.")]
     private ActorData _actorDataHiddenActor;
     [SerializeField, Tooltip("Number of letters to be displayed before playing a speech SFX")]
-    private int _lettersBeforeSpeechSFX = 4;
+    private int _lettersBeforeSpeechSFX = 3;
     [SerializeField, Tooltip("Percentage of the speed before playing a speech SFX when text is sped up")]
     private float _percentageSpedUpSpeechSFX = 75;
 
@@ -263,7 +263,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         }
 
         //If the end of dialog is reached, make appropriate measures.
-        if (_controlledText.GetTextInfo(_currentDialog).characterCount - 2 == _currentLetterNum)
+        //Here we use -1 because otherwise the dialogue loops back for 1 more character.
+        if (_controlledText.GetTextInfo(_currentDialog).characterCount - 1 == _currentLetterNum)
         {
             EndDialog();
             return;
@@ -308,9 +309,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     ///<param name = "characterToAppear">What is the next character we are checking the timer for. Mainly used to see if its character or punctuation.</param>
     ///<returns>Returns which kind of waiter is used for the next character.</returns>
     private WaiterType GetCurrentWaiter(char characterToAppear)
-    {
-        string[] punctuations = {",", ".", "?", "!"};
-        
+    {   
         bool isPunctuation = Char.IsPunctuation(characterToAppear);
         foreach (WaiterType wt in _allWaiters.Keys)
         {
