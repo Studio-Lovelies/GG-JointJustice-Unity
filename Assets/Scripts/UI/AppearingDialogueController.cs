@@ -248,11 +248,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         //Increase the maxVisibleCharacters to show the next letter.
         _controlledText.maxVisibleCharacters = _currentLetterNum;
         _onLetterAppear.Invoke();
-        
-        char[] punctuations = [",", ".", "?", "!"];
 
         int letterIndex = _currentLetterNum < _controlledText.GetTextInfo(_currentDialog).characterCount ? _currentLetterNum : _currentLetterNum - 1;
-        bool isPunctuation = punctuations.Contains(_currentDialog[letterIndex]);
+        bool isPunctuation = Char.IsPunctuation(_controlledText.GetTextInfo(_currentDialog).characterInfo[letterIndex].character);
 
         _currentLetterCounter = isPunctuation ? _currentLetterCounter = 0 : _currentLetterCounter + 1;
 
@@ -265,7 +263,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         }
 
         //If the end of dialog is reached, make appropriate measures.
-        if (_controlledText.GetTextInfo(_currentDialog).characterCount == _currentLetterNum)
+        if (_controlledText.GetTextInfo(_currentDialog).characterCount - 2 == _currentLetterNum)
         {
             EndDialog();
             return;
@@ -311,9 +309,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     ///<returns>Returns which kind of waiter is used for the next character.</returns>
     private WaiterType GetCurrentWaiter(char characterToAppear)
     {
-        char[] punctuations = [",", ".", "?", "!"];
+        string[] punctuations = {",", ".", "?", "!"};
         
-        bool isPunctuation = punctuations.Contains(characterToAppear);
+        bool isPunctuation = Char.IsPunctuation(characterToAppear);
         foreach (WaiterType wt in _allWaiters.Keys)
         {
             if (_allWaiters[wt].inUse)
