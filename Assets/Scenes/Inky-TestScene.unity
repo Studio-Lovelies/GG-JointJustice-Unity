@@ -501,11 +501,6 @@ PrefabInstance:
       propertyPath: _dialogueMode
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _narrativeScript
-      value: 
-      objectReference: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
     - target: {fileID: 3697150471741588061, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1068,7 +1063,8 @@ PrefabInstance:
       propertyPath: m_Navigation.m_Mode
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: [{fileID: 0}]
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
 --- !u!1001 &7016246306410484242
 PrefabInstance:
