@@ -3,38 +3,62 @@ using UnityEngine;
 
 public class ScreenshakeCalculatorTests
 {
+    private const float DELTA_TIME = 0.02f;
+    private const float SHAKE_DURATION = 50;
+    private const int NUMBER_OF_POSITIONS = (int)(SHAKE_DURATION / DELTA_TIME);
+    private const float AMPLITUDE = 0.1f;
+
     private ScreenshakeCalculator _screenshakeCalculator;
-    private MockTimeGetter _timeGetter = new MockTimeGetter();
-    
+    private float _time;
+
     [SetUp]
     public void Setup()
     {
-        _screenshakeCalculator = new ScreenshakeCalculator(1, 1, new Vector2(1, 1), new Vector2(0, 0))
-        { 
-            TimeGetter = _timeGetter
-        };
+        _screenshakeCalculator = CreateScreenshakeCalculator();
+        _time = 0;
     }
 
     [Test]
     public void ScreenshakeRunsForCorrectAmountOfTime()
     {
-        for (int i = 0; i < 1 / _timeGetter.DeltaTime; i++)
+        for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
-            Assert.IsTrue(_screenshakeCalculator.Shaking);
-            _screenshakeCalculator.Calculate();
+            _screenshakeCalculator.Calculate(DELTA_TIME);
+            if (i != NUMBER_OF_POSITIONS - 1)
+            {
+                Assert.IsTrue(_screenshakeCalculator.IsShaking);
+            }
         }
-        
-        Assert.IsFalse(_screenshakeCalculator.Shaking);
+
+        Assert.IsFalse(_screenshakeCalculator.IsShaking);
     }
 
-    private void IncrementTime()
+    [Test]
+    public void ScreenShakesWithTheSameValuesAreIdentical()
     {
-        _timeGetter.CurrentTime += _timeGetter.DeltaTime;
-    }
-}
+        Vector3[] shakePositions = new Vector3[NUMBER_OF_POSITIONS];
+        for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
+        {
+            shakePositions[i] = _screenshakeCalculator.Calculate(DELTA_TIME);
+            Debug.Log(shakePositions[i].ToString("F10"));
+        }
 
-public class MockTimeGetter : ITimeGetter
-{
-    public float DeltaTime => 0.02f;
-    public float CurrentTime { get; set; } = 0;
+        var screenShakeCalculatorComparison = CreateScreenshakeCalculator();
+        
+        for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
+        {
+            Assert.AreEqual(shakePositions[i], screenShakeCalculatorComparison.Calculate(DELTA_TIME));
+        }
+    }
+
+    [Test]
+    public void ShakeIsConstrainedWithinSpecifiedAmplitude()
+    {
+        
+    }
+
+    private ScreenshakeCalculator CreateScreenshakeCalculator()
+    {
+        return new ScreenshakeCalculator(SHAKE_DURATION, 10, AMPLITUDE, new Vector2(1, 1), new Vector2(0, 0));
+    }
 }
