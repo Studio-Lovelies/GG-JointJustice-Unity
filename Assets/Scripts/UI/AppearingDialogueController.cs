@@ -249,8 +249,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         _controlledText.maxVisibleCharacters = _currentLetterNum;
         _onLetterAppear.Invoke();
 
-        int letterIndex = _currentLetterNum < _controlledText.GetTextInfo(_currentDialog).characterCount ? _currentLetterNum : _currentLetterNum - 1;
-        bool isPunctuation = Char.IsPunctuation(_controlledText.GetTextInfo(_currentDialog).characterInfo[letterIndex].character);
+        bool isPunctuation = Char.IsPunctuation(_controlledText.GetTextInfo(_currentDialog).characterInfo[_currentLetterNum].character);
 
         _currentLetterCounter = isPunctuation ? _currentLetterCounter = 0 : _currentLetterCounter + 1;
 
