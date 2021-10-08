@@ -54,6 +54,7 @@ public class ScreenshakeCalculator
     /// <summary>
     /// Uses perlin noise to calculate a position that the camera should be.
     /// Allows for seemingly consistently random but smooth shaking.
+    /// Sin and Cos are used to sample points on a circle.
     /// </summary>
     /// <returns>The calculated noise values.</returns>
     private Vector2 GetNoise()

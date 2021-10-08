@@ -7,13 +7,7 @@ public class ScreenShaker : MonoBehaviour
 {
     [Tooltip("The time between frames of the screenshake. Allows for the framerate of the shake to be controlled.")]
     [SerializeField] private float _timeStep = 0.02f;
-    
-    [Tooltip("The frequency at which the shake oscillates, giving a back and forth motion.")]
-    [SerializeField] private float _frequency = 10f;
-    
-    [Tooltip("The maximum distance the camera can move from its original point.")]
-    [SerializeField] private float _amplitude = 0.1f;
-    
+
     [Tooltip("The offset applied to the noise used for shaking. Change this to change the start point for calculating noise.")]
     [SerializeField] private Vector2 _noiseOffset = new Vector2(234, 456);
     
