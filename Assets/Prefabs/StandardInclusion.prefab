@@ -117,29 +117,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d235432278969446cabe94c09abdad5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeStep: 0.02
-  _frequency: 10
-  _amplitude: 2
+  _timeStep: 0.034
+  _frequency: 20
+  _amplitude: 0.1
   _noiseOffset: {x: 234, y: 456}
-  _noiseScale: {x: 30, y: 30}
+  _noiseScale: {x: 100, y: 100}
   _animationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0

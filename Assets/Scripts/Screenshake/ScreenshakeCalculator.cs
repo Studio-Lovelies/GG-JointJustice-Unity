@@ -15,7 +15,6 @@ public class ScreenshakeCalculator
     private float _completion = 1;
     private float _time;
     
-    public List<Vector2> Positions { get; }= new List<Vector2>();
     public bool IsShaking => !Mathf.Approximately(_completion, 0);
 
     /// <summary>
@@ -49,9 +48,7 @@ public class ScreenshakeCalculator
         _completion = Mathf.Clamp(_completion, 0, 1);
         var sin = Mathf.Sin(_time * WAVELENGTH_TO_RADIANS);
         _time += deltaTime * _frequency;
-        Vector2 position = GetNoise() * sin * _amplitude * _animationCurve.Evaluate(_completion);
-        Positions.Add(position);
-        return position;
+        return GetNoise() * sin * _amplitude * _animationCurve.Evaluate(_completion);
     }
 
     /// <summary>

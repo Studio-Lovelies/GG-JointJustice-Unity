@@ -136,7 +136,7 @@ public class ScreenshakeCalculatorTests
     /// <param name="noiseOffsetY">How much the noise should be offset on the Y axis.</param>
     /// <param name="animationCurve">The animation curve used to calculate the falloff of the shake.</param>
     /// <returns>The ScreenshakeCalculator object created.</returns>
-    private ScreenshakeCalculator CreateScreenshakeCalculator(float shakeDuration = SHAKE_DURATION, float frequency = FREQUENCY, float amplitude = AMPLITUDE, float noiseScaleX = 1, float noiseScaleY = 1, float noiseOffsetX = 0, float noiseOffsetY = 1, AnimationCurve animationCurve = null)
+    private static ScreenshakeCalculator CreateScreenshakeCalculator(float shakeDuration = SHAKE_DURATION, float frequency = FREQUENCY, float amplitude = AMPLITUDE, float noiseScaleX = 1, float noiseScaleY = 1, float noiseOffsetX = 0, float noiseOffsetY = 1, AnimationCurve animationCurve = null)
     {
         return new ScreenshakeCalculator(shakeDuration, frequency, amplitude, new Vector2(noiseScaleX, noiseScaleY), new Vector2(noiseOffsetX, noiseOffsetY), animationCurve);
     }

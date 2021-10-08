@@ -23,13 +23,6 @@ public class ScreenShaker : MonoBehaviour
     [Tooltip("Animation curve is used to alter the animation, e.g. it smoother or less uniform.")]
     [SerializeField] private AnimationCurve _animationCurve;
 
-    [Header("Screenshake Waveforms")]
-    [Tooltip("Shows the waveform of the last screenshake for debugging.")]
-    [SerializeField] private AnimationCurve _xWaveform;
-    
-    [Tooltip("Shows the waveform of the last screenshake for debugging.")]
-    [SerializeField] private AnimationCurve _yWaveform;
-
     [SerializeField] private UnityEvent _onShakeStart;
     [SerializeField] private UnityEvent _onShakeComplete;
     
@@ -50,13 +43,14 @@ public class ScreenShaker : MonoBehaviour
     /// Call this method to begin shaking screen.
     /// </summary>
     /// <param name="intensity">The time (in seconds) that the shake will last.</param>
-    public void Shake(float intensity)
+    /// <param name="shouldWaitForShake">Whether the system waits for the shake to complete before continuing.</param>
+    public void Shake(float intensity, float time, bool shouldWaitForShake)
     {
         if (_shakeCoroutine != null)
         {
             StopCoroutine(_shakeCoroutine);
         }
-        _shakeCoroutine = StartCoroutine(ShakeCoroutine(intensity, intensity * 10f, intensity / 10f));
+        _shakeCoroutine = StartCoroutine(ShakeCoroutine(time, intensity * 10f, intensity / 10f, shouldWaitForShake));
     }
 
     /// <summary>
@@ -64,10 +58,16 @@ public class ScreenShaker : MonoBehaviour
     /// Creates a screenshake calculator and every time step gets the new position of the camera.
     /// </summary>
     /// <param name="duration">The number of seconds to shake the camera for.</param>
-    private IEnumerator ShakeCoroutine(float duration, float frequency, float amplitude)
+    /// <param name="frequency">The frequency of the shake's oscillation.</param>
+    /// <param name="amplitude">The maximum distance from the objects original position.</param>
+    /// <param name="shouldWaitForShake">Whether the system waits for the shake to complete before continuing.</param>
+    private IEnumerator ShakeCoroutine(float duration, float frequency, float amplitude, bool shouldWaitForShake)
     {
-        _onShakeStart.Invoke();
-        
+        if (shouldWaitForShake)
+        {
+            _onShakeStart.Invoke();
+        }
+
         var screenshakeCalculator = new ScreenshakeCalculator(duration, frequency, amplitude, _noiseScale, _noiseOffset, _animationCurve);
         while (screenshakeCalculator.IsShaking)
         {
@@ -76,19 +76,10 @@ public class ScreenShaker : MonoBehaviour
         }
 
         _transform.position = _cameraOffset;
-
-        // Allows the waveform of the shake to be seen in the editor for debug purposes.
-        #if UNITY_EDITOR
-        _xWaveform = new AnimationCurve();
-        _yWaveform = new AnimationCurve();
-        for (int i = 0; i < screenshakeCalculator.Positions.Count; i++)
-        {
-            _xWaveform.AddKey(_timeStep * i, screenshakeCalculator.Positions[i].x);
-            _yWaveform.AddKey(_timeStep * i, screenshakeCalculator.Positions[i].y);
-        }
-        #endif
-
         _shakeCoroutine = null;
-        _onShakeComplete.Invoke();
+        if (shouldWaitForShake)
+        {
+            _onShakeComplete.Invoke();
+        }
     }
 }
