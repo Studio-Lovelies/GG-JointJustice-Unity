@@ -1,8 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ScreenshakeCalculator
 {
-    private const float WAVELENGTH_TO_RADS = 2 * Mathf.PI;
+    private const float WAVELENGTH_TO_RADIANS = 2 * Mathf.PI;
     
     private readonly float _duration;
     private readonly float _frequency;
@@ -12,13 +14,15 @@ public class ScreenshakeCalculator
     private readonly AnimationCurve _animationCurve;
     private float _completion = 1;
     private float _time;
-
+    
+    public List<Vector2> Positions { get; }= new List<Vector2>();
     public bool IsShaking => !Mathf.Approximately(_completion, 0);
 
     /// <summary>
     /// Initialised private methods on object construction.
     /// </summary>
     /// <param name="duration">The duration of the shake in seconds.</param>
+    /// <param name="frequency">The frequency that the object will oscillate at.</param>
     /// <param name="amplitude">The maximum distance the camera can move from its starting position in units.</param>
     /// <param name="noiseScale">How much the noise should be scaled on each axis. Bigger numbers mean a faster shake.</param>
     /// <param name="noiseOffset">The position that noise should begin calculating from.</param>
@@ -43,9 +47,11 @@ public class ScreenshakeCalculator
     {
         _completion -= deltaTime / _duration;
         _completion = Mathf.Clamp(_completion, 0, 1);
+        var sin = Mathf.Sin(_time * WAVELENGTH_TO_RADIANS);
         _time += deltaTime * _frequency;
-        var sin = Mathf.Sin(_time * WAVELENGTH_TO_RADS);
-        return GetNoise() * sin * _amplitude * _animationCurve.Evaluate(_completion);
+        Vector2 position = GetNoise() * sin * _amplitude * _animationCurve.Evaluate(_completion);
+        Positions.Add(position);
+        return position;
     }
 
     /// <summary>

@@ -111,10 +111,10 @@ public class ScreenshakeCalculatorTests
         var screenshakeCalculator = CreateScreenshakeCalculator(noiseScaleX: 0, noiseScaleY: 0, animationCurve: new AnimationCurve(animationKeys));
         int previousSign = Math.Sign(screenshakeCalculator.Calculate(DELTA_TIME).x);
         int halfOscillationCount = 0;
-        for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
+        for (int i = 1; i < NUMBER_OF_POSITIONS; i++)
         {
             int currentSign = Math.Sign(screenshakeCalculator.Calculate(DELTA_TIME).x);
-            if (currentSign != previousSign)
+            if (currentSign != previousSign && currentSign != 0)
             {
                 halfOscillationCount++;
                 previousSign = currentSign;

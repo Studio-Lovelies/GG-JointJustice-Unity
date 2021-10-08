@@ -117,9 +117,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d235432278969446cabe94c09abdad5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 20
+  _timeStep: 0.02
+  _frequency: 10
   _amplitude: 2
-  _seed: {x: 23, y: 2346}
+  _noiseOffset: {x: 234, y: 456}
   _noiseScale: {x: 30, y: 30}
   _animationCurve:
     serializedVersion: 2
@@ -145,6 +146,60 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _xWaveform:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _yWaveform:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _onShakeStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5228303783123296233}
+        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
+        m_MethodName: SetBusy
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _onShakeComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5228303783123296233}
+        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
+        m_MethodName: SetBusy
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5228303783123296233}
+        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
+        m_MethodName: OnContinueStory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1548621597353977202
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,6 +1460,7 @@ MonoBehaviour:
   _evidenceInventory: {fileID: 4951557165338670209}
   _fullscreenAnimationPlayer: {fileID: 0}
   _directorActionDecoder: {fileID: 5228303783986964379}
+  _screenShaker: {fileID: 0}
   _onWaitStart:
     m_PersistentCalls:
       m_Calls:
@@ -1764,6 +1820,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6030709744272325550, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 650829536}
     - target: {fileID: 6030709744272325553, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: m_Name
       value: BaseCanvas

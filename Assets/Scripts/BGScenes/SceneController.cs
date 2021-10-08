@@ -25,6 +25,9 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
+    [Tooltip("Attach the screenshaker object here")]
+    [SerializeField] private ScreenShaker _screenShaker;
+
     [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
     [SerializeField] private UnityEvent _onWaitStart;
@@ -149,9 +152,13 @@ public class SceneController : MonoBehaviour, ISceneController
         _activeScene.transform.position = PixelPositionToUnitPosition(position);
     }
 
+    /// <summary>
+    /// Calls shake method on the assigned screen shaker.
+    /// </summary>
+    /// <param name="intensity"></param>
     public void ShakeScreen(float intensity)
     {
-        Debug.LogWarning("ShakeScreen not implemented");
+        _screenShaker.Shake(intensity);
     }
 
     /// <summary>
