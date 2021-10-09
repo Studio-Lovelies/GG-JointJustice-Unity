@@ -77,7 +77,7 @@ namespace Tests.EditModeTests
 
             Assert.Throws(typeof(UnknownCommandException), () =>
             {
-                decoder.OnNewActionLine("spujb");
+                decoder.OnNewActionLine(new ActionLine("spujb"));
             });
         }
 
@@ -88,7 +88,7 @@ namespace Tests.EditModeTests
 
             Assert.Throws(typeof(InvalidSyntaxException), () =>
             {
-                decoder.OnNewActionLine("&SPEAK:Arin:Dan:Ross");
+                decoder.OnNewActionLine(new ActionLine("&SPEAK:Arin:Dan:Ross"));
             });
         }
 
@@ -101,7 +101,7 @@ namespace Tests.EditModeTests
 
             Assert.DoesNotThrow(() =>
             {
-                decoder.OnNewActionLine("&SPEAK:Arin");
+                decoder.OnNewActionLine(new ActionLine("&SPEAK:Arin"));
             });
         }
 
@@ -120,7 +120,7 @@ namespace Tests.EditModeTests
             });
 
             // Act
-            decoder.OnNewActionLine("&SET_ACTOR_POSITION:3,Arin "); // <-- that space needs to be there... weird
+            decoder.OnNewActionLine(new ActionLine("&SET_ACTOR_POSITION:3,Arin ")); // <-- that space needs to be there... weird
 
             // Assert
             Assert.AreEqual("Arin", actorController.actorSlots[3]);
@@ -142,7 +142,7 @@ namespace Tests.EditModeTests
             });
 
             // Act
-            decoder.OnNewActionLine("&PLAY_EMOTION:Happy ");
+            decoder.OnNewActionLine(new ActionLine("&PLAY_EMOTION:Happy "));
 
             // Assert
             Assert.AreEqual("Happy", actorController.emotion);
@@ -164,7 +164,7 @@ namespace Tests.EditModeTests
             });
 
             // Act
-            decoder.OnNewActionLine("&PLAY_EMOTION:Happy,Arin ");
+            decoder.OnNewActionLine(new ActionLine("&PLAY_EMOTION:Happy,Arin "));
 
             // Assert
             Assert.AreEqual("Arin", actorController.emotionActiveActor);
