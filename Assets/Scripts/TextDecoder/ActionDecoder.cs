@@ -1,6 +1,17 @@
+using System;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
+
+public class UnknownCommandException : Exception
+{
+    public string CommandName { get; private set; }
+
+    public UnknownCommandException(string commandName)
+    {
+        this.CommandName = commandName;
+    }
+}
 
 public class ActionDecoder
 {
@@ -85,7 +96,7 @@ public class ActionDecoder
             //Do nothing
             case "WAIT_FOR_INPUT": break;
             //Default
-            default: Debug.LogError("Unknown action: " + action); break;
+            default: throw new UnknownCommandException(action);
         }
     }
 
