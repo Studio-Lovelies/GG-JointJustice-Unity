@@ -129,4 +129,73 @@ public class ActionDecoder
         _onActionDone.Invoke();
     }
     #endregion
+
+    #region EvidenceController
+    /// <summary>
+    /// Checks if the decoder has an evidence controller attached, and shows an error if it doesn't
+    /// </summary>
+    /// <returns>Whether an evidence controller is connected</returns>
+    private bool HasEvidenceController()
+    {
+        if (_evidenceController == null)
+        {
+            Debug.LogError("No evidence controller attached to the action decoder");
+            return false;
+        }
+        return true;
+    }
+
+    public void AddEvidence(string evidence)
+    {
+        if (!HasEvidenceController())
+            return;
+
+        _evidenceController.AddEvidence(evidence);
+        _onActionDone.Invoke();
+    }
+
+    public void RemoveEvidence(string evidence)
+    {
+        if (!HasEvidenceController())
+            return;
+
+        _evidenceController.RemoveEvidence(evidence);
+        _onActionDone.Invoke();
+    }
+
+    public void AddToCourtRecord(string actor)
+    {
+        if (!HasEvidenceController())
+            return;
+
+        _evidenceController.AddToCourtRecord(actor);
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Calls the onPresentEvidence event on evidence controller which
+    /// opens the evidence menu so evidence can be presented.
+    /// </summary>
+    public void OpenEvidenceMenu()
+    {
+        if (!HasEvidenceController())
+            return;
+
+        _evidenceController.OpenEvidenceMenu();
+    }
+
+    /// <summary>
+    /// Used to substitute a specified Evidence object with its assigned alternate Evidence object.
+    /// </summary>
+    /// <param name="evidence">The name of the evidence to substitute.</param>
+    public void SubstituteEvidence(string evidence)
+    {
+        if (!HasEvidenceController())
+            return;
+
+        _evidenceController.SubstituteEvidenceWithAlt(evidence);
+        _onActionDone.Invoke();
+    }
+
+    #endregion
 }
