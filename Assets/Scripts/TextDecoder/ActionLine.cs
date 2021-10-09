@@ -3,7 +3,7 @@ using System.Globalization;
 public class UnableToParseException : System.Exception
 {
     public UnableToParseException(string typeName, string parameterName, string token)
-        : base($"Unable to parse {parameterName}: \"{token}\" as type {typeName}.")
+        : base($"Failed to parse {parameterName}: cannot parse `{token}` as {typeName}")
     {
     }
 }
