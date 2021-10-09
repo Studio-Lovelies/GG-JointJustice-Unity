@@ -17,7 +17,7 @@ public class DirectorActionDecoder : MonoBehaviour
     [Tooltip("Event that gets called when the system is done processing the action")]
     [SerializeField] private UnityEvent _onActionDone;
 
-    private readonly ActionDecoder decoder;
+    private readonly ActionDecoder _decoder;
 
     private void Awake()
     {
