@@ -96,6 +96,7 @@ public class DirectorActionDecoder : MonoBehaviour
     {
         _decoder._actorController = newController;
     }
+
     /// <summary>
     /// Attach a new ISceneController to the decoder
     /// </summary>
@@ -104,6 +105,7 @@ public class DirectorActionDecoder : MonoBehaviour
     {
         _decoder._sceneController = newController;
     }
+
     /// <summary>
     /// Attach a new IAudioController to the decoder
     /// </summary>
@@ -112,6 +114,7 @@ public class DirectorActionDecoder : MonoBehaviour
     {
         _decoder._audioController = newController;
     }
+
     /// <summary>
     /// Attach a new IEvidenceController to the decoder
     /// </summary>
@@ -120,6 +123,7 @@ public class DirectorActionDecoder : MonoBehaviour
     {
         _decoder._evidenceController = newController;
     }
+
     /// <summary>
     /// Attach a new IAppearingDialogController to the decoder
     /// </summary>
