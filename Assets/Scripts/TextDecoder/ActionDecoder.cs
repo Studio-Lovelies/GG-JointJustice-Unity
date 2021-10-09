@@ -25,8 +25,6 @@ public class InvalidSyntaxException : Exception
 
 public class ActionDecoder
 {
-    private const char ACTION_PARAMETER_SEPARATOR = ',';
-
     /// <summary>
     /// Forwarded from the DirectorActionDecoder
     /// </summary>
@@ -51,43 +49,43 @@ public class ActionDecoder
         switch (actionLine.Action)
         {
             //Actor controller
-            case "ACTOR": SetActor(actionLine.Parameters); break;
-            case "SET_ACTOR_POSITION": SetActorPosition(actionLine.Parameters); break;
-            case "SHOWACTOR": SetActorVisibility(actionLine.Parameters); break;
-            case "SPEAK": SetSpeaker(actionLine.Parameters, SpeakingType.Speaking); break;
-            case "THINK": SetSpeaker(actionLine.Parameters, SpeakingType.Thinking); break;
-            case "SET_POSE": SetPose(actionLine.Parameters); break;
-            case "PLAY_EMOTION": PlayEmotion(actionLine.Parameters); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
+            case "ACTOR": SetActor(actionLine.FirstStringParameter()); break;
+            case "SET_ACTOR_POSITION": SetActorPosition(actionLine.Parameters()); break;
+            case "SHOWACTOR": SetActorVisibility(actionLine.FirstStringParameter()); break;
+            case "SPEAK": SetSpeaker(actionLine.FirstStringParameter(), SpeakingType.Speaking); break;
+            case "THINK": SetSpeaker(actionLine.FirstStringParameter(), SpeakingType.Thinking); break;
+            case "SET_POSE": SetPose(actionLine.Parameters()); break;
+            case "PLAY_EMOTION": PlayEmotion(actionLine.Parameters()); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
-            case "PLAYSFX": PlaySFX(actionLine.Parameters); break;
-            case "PLAYSONG": SetBGMusic(actionLine.Parameters); break;
+            case "PLAYSFX": PlaySFX(actionLine.FirstStringParameter()); break;
+            case "PLAYSONG": SetBGMusic(actionLine.FirstStringParameter()); break;
             case "STOP_SONG": StopSong(); break;
             //Scene controller
-            case "FADE_OUT": FadeOutScene(actionLine.Parameters); break;
-            case "FADE_IN": FadeInScene(actionLine.Parameters); break;
-            case "CAMERA_PAN": PanCamera(actionLine.Parameters); break;
-            case "CAMERA_SET": SetCameraPosition(actionLine.Parameters); break;
-            case "SHAKESCREEN": ShakeScreen(actionLine.Parameters); break;
-            case "SCENE": SetScene(actionLine.Parameters); break;
-            case "WAIT": Wait(actionLine.Parameters); break;
-            case "SHOW_ITEM": ShowItem(actionLine.Parameters); break;
+            case "FADE_OUT": FadeOutScene(actionLine.FirstStringParameter()); break;
+            case "FADE_IN": FadeInScene(actionLine.FirstStringParameter()); break;
+            case "CAMERA_PAN": PanCamera(actionLine.Parameters()); break;
+            case "CAMERA_SET": SetCameraPosition(actionLine.Parameters()); break;
+            case "SHAKESCREEN": ShakeScreen(actionLine.FirstStringParameter()); break;
+            case "SCENE": SetScene(actionLine.FirstStringParameter()); break;
+            case "WAIT": Wait(actionLine.FirstStringParameter()); break;
+            case "SHOW_ITEM": ShowItem(actionLine.Parameters()); break;
             case "HIDE_ITEM": HideItem(); break;
-            case "PLAY_ANIMATION": PlayAnimation(actionLine.Parameters); break;
-            case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.Parameters); break;
-            case "PAN_TO_POSITION": PanToActorSlot(actionLine.Parameters); break;
+            case "PLAY_ANIMATION": PlayAnimation(actionLine.FirstStringParameter()); break;
+            case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.FirstStringParameter()); break;
+            case "PAN_TO_POSITION": PanToActorSlot(actionLine.Parameters()); break;
             //Evidence controller
-            case "ADD_EVIDENCE": AddEvidence(actionLine.Parameters); break;
-            case "REMOVE_EVIDENCE": RemoveEvidence(actionLine.Parameters); break;
-            case "ADD_RECORD": AddToCourtRecord(actionLine.Parameters); break;
+            case "ADD_EVIDENCE": AddEvidence(actionLine.FirstStringParameter()); break;
+            case "REMOVE_EVIDENCE": RemoveEvidence(actionLine.FirstStringParameter()); break;
+            case "ADD_RECORD": AddToCourtRecord(actionLine.FirstStringParameter()); break;
             case "PRESENT_EVIDENCE": OpenEvidenceMenu(); break;
-            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(actionLine.Parameters); break;
+            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(actionLine.FirstStringParameter()); break;
             //Dialog controller
-            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, actionLine.Parameters); break;
-            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.Parameters); break;
-            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.Parameters); break;
+            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, actionLine.FirstStringParameter()); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.FirstStringParameter()); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.FirstStringParameter()); break;
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
-            case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.Parameters); break;
-            case "AUTOSKIP": AutoSkip(actionLine.Parameters); break;
+            case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.FirstStringParameter()); break;
+            case "AUTOSKIP": AutoSkip(actionLine.FirstStringParameter()); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
             case "APPEAR_INSTANTLY": AppearInstantly(); break;
             case "HIDE_TEXTBOX": HideTextbox(); break;
@@ -426,13 +424,11 @@ public class ActionDecoder
     /// <summary>
     /// Sets the camera position
     /// </summary>
-    /// <param name="position">New camera coordinates in the "int x,int y" format</param>
-    private void SetCameraPosition(string position)
+    /// <param name="parameters">New camera coordinates in the "int x,int y" format</param>
+    private void SetCameraPosition(string[] parameters)
     {
         if (!HasSceneController())
             return;
-
-        string[] parameters = position.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 2)
         {
@@ -450,7 +446,7 @@ public class ActionDecoder
         }
         else
         {
-            Debug.LogError("Invalid paramater " + position + " for function CAMERA_SET");
+            Debug.LogError("Invalid paramater " + string.Join(",", parameters) + " for function CAMERA_SET");
         }
         OnActionDone.Invoke();
     }
@@ -458,13 +454,11 @@ public class ActionDecoder
     /// <summary>
     /// Pan the camera to a certain x,y position
     /// </summary>
-    /// <param name="durationAndPosition">Duration the pan should take and the target coordinates in the "float seconds, int x, int y" format</param>
-    private void PanCamera(string durationAndPosition)
+    /// <param name="parameters">Duration the pan should take and the target coordinates in the "float seconds, int x, int y" format</param>
+    private void PanCamera(string[] parameters)
     {
         if (!HasSceneController())
             return;
-
-        string[] parameters = durationAndPosition.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 3)
         {
@@ -484,7 +478,7 @@ public class ActionDecoder
         }
         else
         {
-            Debug.LogError("Invalid paramater " + durationAndPosition + " for function CAMERA_PAN");
+            Debug.LogError("Invalid paramater " + string.Join(",", parameters) + " for function CAMERA_PAN");
         }
         OnActionDone.Invoke();
     }
@@ -492,13 +486,11 @@ public class ActionDecoder
     /// <summary>
     /// Shows an item on the middle, left, or right side of the screen.
     /// </summary>
-    /// <param name="ItemNameAndPosition">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
-    private void ShowItem(string ItemNameAndPosition)
+    /// <param name="parameters">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
+    private void ShowItem(string[] parameters)
     {
         if (!HasSceneController())
             return;
-
-        string[] parameters = ItemNameAndPosition.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 2)
         {
@@ -586,15 +578,13 @@ public class ActionDecoder
     /// <summary>
     /// Pans the camera to the target actor slot if the bg-scene has support for actor slots.
     /// </summary>
-    /// <param name="oneBasedSlotIndexAndTimeInSeconds">String containing a one-based integer index referring to the target actor slot, and a floating point number referring to the amount of time the pan should take in seconds.</param>
-    private void PanToActorSlot(string oneBasedSlotIndexAndTimeInSeconds)
+    /// <param name="parameters">String containing a one-based integer index referring to the target actor slot, and a floating point number referring to the amount of time the pan should take in seconds.</param>
+    private void PanToActorSlot(string[] parameters)
     {
         if (!HasSceneController())
         {
             return;
         }
-
-        string[] parameters = oneBasedSlotIndexAndTimeInSeconds.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 2)
         {
@@ -695,13 +685,11 @@ public class ActionDecoder
     /// <summary>
     /// Set the pose of the current actor
     /// </summary>
-    /// <param name="poseAndActorName">"[pose name]" to set pose for current actor OR "[pose name],[actor name]" to set pose for another actor</param>
-    private void SetPose(string poseAndActorName)
+    /// <param name="parameters">"[pose name]" to set pose for current actor OR "[pose name],[actor name]" to set pose for another actor</param>
+    private void SetPose(string[] parameters)
     {
         if (!HasActorController())
             return;
-
-        string[] parameters = poseAndActorName.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length == 1)
         {
@@ -724,13 +712,11 @@ public class ActionDecoder
     /// <summary>
     /// Plays an emotion for the current actor. Emotion is a fancy term for animation on an actor.
     /// </summary>
-    /// <param name="animationAndActorName">"[animation name]" to set pose for current actor OR "[animation name],[actor name]" to queue animation for another actor (gets played as soon as actor is visible)</param>
-    private void PlayEmotion(string animationAndActorName)
+    /// <param name="parameters">"[animation name]" to set pose for current actor OR "[animation name],[actor name]" to queue animation for another actor (gets played as soon as actor is visible)</param>
+    private void PlayEmotion(string[] parameters)
     {
         if (!HasActorController())
             return;
-
-        string[] parameters = animationAndActorName.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length == 1)
         {
@@ -749,15 +735,13 @@ public class ActionDecoder
     /// <summary>
     /// Sets an actor to a specific slot in the currently active scene.
     /// </summary>
-    /// <param name="slotIndexAndActor">String containing the actor name first and one-based slot index second.</param>
-    private void SetActorPosition(string slotIndexAndActor)
+    /// <param name="parameters">String containing the actor name first and one-based slot index second.</param>
+    private void SetActorPosition(string[] parameters)
     {
         if (!HasActorController())
         {
             return;
         }
-
-        string[] parameters = slotIndexAndActor.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length != 2)
         {
