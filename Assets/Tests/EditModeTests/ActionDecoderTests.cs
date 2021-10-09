@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace Tests.EditModeTests
@@ -18,10 +17,11 @@ namespace Tests.EditModeTests
             private string pose = "";
             private string activeSpeaker = "";
             private string activeActor = "";
-            private string emotion = "";
+            public string emotion = "";
+            public string emotionActiveActor;
             public readonly Dictionary<int, string> actorSlots = new Dictionary<int, string>();
 
-            Action onAnimationDone;
+            public Action onAnimationDone;
 
             public void AssignActorToSlot(string actor, int oneBasedSlotIndex)
             {
@@ -36,6 +36,7 @@ namespace Tests.EditModeTests
             public void PlayEmotion(string emotion, string actorName = null)
             {
                 this.emotion = emotion;
+                this.emotionActiveActor = actorName;
             }
 
             public void SetActiveActor(string actor)
@@ -107,6 +108,7 @@ namespace Tests.EditModeTests
         [Test]
         public void TestSetActorPosition()
         {
+            // Arrange
             var decoder = new ActionDecoder();
             decoder.OnActionDone = new UnityEvent();
             var actorController = new FakeActorController();
@@ -117,15 +119,34 @@ namespace Tests.EditModeTests
                 actionDoneCalled = true;
             });
 
+            // Act
             decoder.OnNewActionLine("&SET_ACTOR_POSITION:3,Arin "); // <-- that space needs to be there... weird
 
-            foreach (var key in actorController.actorSlots.Keys)
-            {
-                Debug.Log($"key: {key}");
-            }
-
+            // Assert
             Assert.AreEqual("Arin", actorController.actorSlots[3]);
             Assert.IsTrue(actionDoneCalled);
+        }
+
+        [Test]
+        public void TestPlayEmotionWithoutOptionalParameter()
+        {
+            // Arrange
+            var decoder = new ActionDecoder();
+            decoder.OnActionDone = new UnityEvent();
+            var actorController = new FakeActorController();
+            decoder.ActorController = actorController;
+            bool actionDoneCalled = false;
+            decoder.OnActionDone.AddListener(() =>
+            {
+                actionDoneCalled = true;
+            });
+
+            // Act
+            decoder.OnNewActionLine("&PLAY_EMOTION:Happy ");
+
+            // Assert
+            Assert.AreEqual("Happy", actorController.emotion);
+            Assert.IsFalse(actionDoneCalled);
         }
     }
 }
