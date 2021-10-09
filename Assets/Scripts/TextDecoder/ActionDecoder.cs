@@ -25,7 +25,6 @@ public class InvalidSyntaxException : Exception
 
 public class ActionDecoder
 {
-    private const char ACTION_SIDE_SEPARATOR = ':';
     private const char ACTION_PARAMETER_SEPARATOR = ',';
 
     /// <summary>
@@ -47,64 +46,55 @@ public class ActionDecoder
 
     public void OnNewActionLine(string line)
     {
-        //Split into action and parameter
-        string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR);
+        var actionLine = new ActionLine(line);
 
-        if (actionAndParam.Length > 2)
-        {
-            throw new InvalidSyntaxException(line);
-        }
-
-        string action = actionAndParam[0];
-        string parameters = (actionAndParam.Length == 2) ? actionAndParam[1] : "";
-
-        switch (action)
+        switch (actionLine.Action)
         {
             //Actor controller
-            case "ACTOR": SetActor(parameters); break;
-            case "SET_ACTOR_POSITION": SetActorPosition(parameters); break;
-            case "SHOWACTOR": SetActorVisibility(parameters); break;
-            case "SPEAK": SetSpeaker(parameters, SpeakingType.Speaking); break;
-            case "THINK": SetSpeaker(parameters, SpeakingType.Thinking); break;
-            case "SET_POSE": SetPose(parameters); break;
-            case "PLAY_EMOTION": PlayEmotion(parameters); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
+            case "ACTOR": SetActor(actionLine.Parameters); break;
+            case "SET_ACTOR_POSITION": SetActorPosition(actionLine.Parameters); break;
+            case "SHOWACTOR": SetActorVisibility(actionLine.Parameters); break;
+            case "SPEAK": SetSpeaker(actionLine.Parameters, SpeakingType.Speaking); break;
+            case "THINK": SetSpeaker(actionLine.Parameters, SpeakingType.Thinking); break;
+            case "SET_POSE": SetPose(actionLine.Parameters); break;
+            case "PLAY_EMOTION": PlayEmotion(actionLine.Parameters); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
-            case "PLAYSFX": PlaySFX(parameters); break;
-            case "PLAYSONG": SetBGMusic(parameters); break;
+            case "PLAYSFX": PlaySFX(actionLine.Parameters); break;
+            case "PLAYSONG": SetBGMusic(actionLine.Parameters); break;
             case "STOP_SONG": StopSong(); break;
             //Scene controller
-            case "FADE_OUT": FadeOutScene(parameters); break;
-            case "FADE_IN": FadeInScene(parameters); break;
-            case "CAMERA_PAN": PanCamera(parameters); break;
-            case "CAMERA_SET": SetCameraPosition(parameters); break;
-            case "SHAKESCREEN": ShakeScreen(parameters); break;
-            case "SCENE": SetScene(parameters); break;
-            case "WAIT": Wait(parameters); break;
-            case "SHOW_ITEM": ShowItem(parameters); break;
+            case "FADE_OUT": FadeOutScene(actionLine.Parameters); break;
+            case "FADE_IN": FadeInScene(actionLine.Parameters); break;
+            case "CAMERA_PAN": PanCamera(actionLine.Parameters); break;
+            case "CAMERA_SET": SetCameraPosition(actionLine.Parameters); break;
+            case "SHAKESCREEN": ShakeScreen(actionLine.Parameters); break;
+            case "SCENE": SetScene(actionLine.Parameters); break;
+            case "WAIT": Wait(actionLine.Parameters); break;
+            case "SHOW_ITEM": ShowItem(actionLine.Parameters); break;
             case "HIDE_ITEM": HideItem(); break;
-            case "PLAY_ANIMATION": PlayAnimation(parameters); break;
-            case "JUMP_TO_POSITION": JumpToActorSlot(parameters); break;
-            case "PAN_TO_POSITION": PanToActorSlot(parameters); break;
+            case "PLAY_ANIMATION": PlayAnimation(actionLine.Parameters); break;
+            case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.Parameters); break;
+            case "PAN_TO_POSITION": PanToActorSlot(actionLine.Parameters); break;
             //Evidence controller
-            case "ADD_EVIDENCE": AddEvidence(parameters); break;
-            case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
-            case "ADD_RECORD": AddToCourtRecord(parameters); break;
+            case "ADD_EVIDENCE": AddEvidence(actionLine.Parameters); break;
+            case "REMOVE_EVIDENCE": RemoveEvidence(actionLine.Parameters); break;
+            case "ADD_RECORD": AddToCourtRecord(actionLine.Parameters); break;
             case "PRESENT_EVIDENCE": OpenEvidenceMenu(); break;
-            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(parameters); break;
+            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(actionLine.Parameters); break;
             //Dialog controller
-            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
-            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, parameters); break;
-            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, parameters); break;
+            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, actionLine.Parameters); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.Parameters); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.Parameters); break;
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
-            case "DISABLE_SKIPPING": DisableTextSkipping(parameters); break;
-            case "AUTOSKIP": AutoSkip(parameters); break;
+            case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.Parameters); break;
+            case "AUTOSKIP": AutoSkip(actionLine.Parameters); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
             case "APPEAR_INSTANTLY": AppearInstantly(); break;
             case "HIDE_TEXTBOX": HideTextbox(); break;
             //Do nothing
             case "WAIT_FOR_INPUT": break;
             //Default
-            default: throw new UnknownCommandException(action);
+            default: throw new UnknownCommandException(actionLine.Action);
         }
     }
 
