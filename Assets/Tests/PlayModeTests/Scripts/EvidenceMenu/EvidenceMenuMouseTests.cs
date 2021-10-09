@@ -15,7 +15,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         private readonly InputTestTools _inputTestTools = new InputTestTools();
 
         private Keyboard Keyboard => _inputTestTools.Keyboard;
-        private Mouse Mouse => _inputTestTools.Mouse
+        private Mouse Mouse => _inputTestTools.Mouse;
 
         /// <summary>
         /// Places mouse over each menu item and asserts it is highlighted.
