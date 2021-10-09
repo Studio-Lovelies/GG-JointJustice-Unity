@@ -183,6 +183,21 @@ namespace Tests.EditModeTests
         }
 
         [Test]
+        public void FailureToParseFloatLogsGoodError()
+        {
+            var line = new ActionLine("&rise:moon ");
+
+            try
+            {
+                line.NextFloat("radius of the sun");
+            }
+            catch (UnableToParseException e)
+            {
+                Assert.AreEqual("Failed to parse radius of the sun: cannot parse `moon` as decimal value", e.Message);
+            }
+        }
+
+        [Test]
         public void NotEnoughParametersThrows()
         {
             var line = new ActionLine("action:one,two,three");
