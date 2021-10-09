@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace Tests.EditModeTests
 {
-    public class DirectorActionDecoderTests
+    public class ActionDecoderTests
     {
         [Test]
         public void RunInvalidCommand()
