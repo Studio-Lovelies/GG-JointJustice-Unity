@@ -16,6 +16,7 @@ public class DirectorActionDecoder : MonoBehaviour
     private void Awake()
     {
         _decoder._onActionDone = _onActionDone;
+        _decoder._gameObject = gameObject;
     }
 
     #region API
@@ -72,15 +73,15 @@ public class DirectorActionDecoder : MonoBehaviour
             case "PRESENT_EVIDENCE": OpenEvidenceMenu(); break;
             case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(parameters); break;
             //Dialog controller
-            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
-            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, parameters); break;
-            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, parameters); break;
-            case "CLEAR_SPEED": ClearDialogSpeeds(); break;
-            case "DISABLE_SKIPPING": DisableTextSkipping(parameters); break;
-            case "AUTOSKIP": AutoSkip(parameters); break;
-            case "CONTINUE_DIALOG": ContinueDialog(); break;
-            case "APPEAR_INSTANTLY": AppearInstantly(); break;
-            case "HIDE_TEXTBOX": HideTextbox(); break;
+            case "DIALOG_SPEED": _decoder.ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
+            case "OVERALL_SPEED": _decoder.ChangeDialogSpeed(WaiterType.Overall, parameters); break;
+            case "PUNCTUATION_SPEED": _decoder.ChangeDialogSpeed(WaiterType.Punctuation, parameters); break;
+            case "CLEAR_SPEED": _decoder.ClearDialogSpeeds(); break;
+            case "DISABLE_SKIPPING": _decoder.DisableTextSkipping(parameters); break;
+            case "AUTOSKIP": _decoder.AutoSkip(parameters); break;
+            case "CONTINUE_DIALOG": _decoder.ContinueDialog(); break;
+            case "APPEAR_INSTANTLY": _decoder.AppearInstantly(); break;
+            case "HIDE_TEXTBOX": _decoder.HideTextbox(); break;
             //Do nothing
             case "WAIT_FOR_INPUT": break;
             //Default
@@ -702,117 +703,6 @@ public class DirectorActionDecoder : MonoBehaviour
             return false;
         }
         return true;
-    }
-
-    /// <summary>
-    /// Checks if the decoder has an appearing dialog controller attached, and shows an error if it doesn't
-    /// </summary>
-    /// <returns>Whether an appearing dialog controller is connected</returns>
-    private bool HasAppearingDialogController()
-    {
-        if (_decoder._appearingDialogController == null)
-        {
-            Debug.LogError("No appearing dialog controller attached to the action decoder", gameObject);
-            return false;
-        }
-        return true;
-    }
-    #endregion
-
-    #region DialogStuff
-
-    ///<summary>
-    ///Changes the dialog speed in appearingDialogController if it has beben set.
-    ///</summary>
-    ///<param name = "currentWaiterType">The current waiters type which appear time should be changed.</param>
-    ///<param name = "parameters">Contains all the parameters needed to change the appearing time.</param>
-    private void ChangeDialogSpeed(WaiterType currentWaiterType, string parameters)
-    {
-        if (!HasAppearingDialogController())
-            return;
-
-        _decoder._appearingDialogController.SetTimerValue(currentWaiterType, parameters);
-    }
-
-    ///<summary>
-    ///Clears all custom set dialog speeds
-    ///</summary>
-    private void ClearDialogSpeeds()
-    {
-        if (!HasAppearingDialogController())
-            return;
-
-        _decoder._appearingDialogController.ClearAllWaiters();
-    }
-
-    ///<summary>
-    ///Toggles skipping on or off
-    ///</summary>
-    ///<param name = "disable">Should the text skipping be disabled or not</param>
-    private void DisableTextSkipping(string disabled)
-    {
-        if (!HasAppearingDialogController())
-            return;
-
-        if (!bool.TryParse(disabled, out bool value))
-        {
-            Debug.LogError("Bool value wasn't found from DisableTextSkipping command. Please fix.");
-            return;
-        }
-
-        _decoder._appearingDialogController.ToggleDisableTextSkipping(value);
-    }
-
-    ///<summary>
-    ///Makes the new dialog appear after current one.
-    ///</summary>
-    private void ContinueDialog()
-    {
-        if (!HasAppearingDialogController())
-            return;
-
-        _decoder._appearingDialogController.ContinueDialog();
-    }
-
-    ///<summary>
-    ///Forces the next line of dialog happen right after current one.
-    ///</summary>
-    private void AutoSkip(string on)
-    {
-        if (!HasAppearingDialogController())
-            return;
-
-        if (!bool.TryParse(on, out bool value))
-        {
-            Debug.LogError("Bool value wasn't found from autoskip command. Please fix.");
-            return;
-        }
-
-        _decoder._appearingDialogController.AutoSkipDialog(value);
-    }
-
-    /// <summary>
-    /// Makes the next line of dialogue appear instantly instead of one character at a time.
-    /// </summary>
-    private void AppearInstantly()
-    {
-        if (!HasAppearingDialogController())
-            return;
-
-        _decoder._appearingDialogController.PrintTextInstantly = true;
-        _decoder._onActionDone.Invoke();
-    }
-
-    /// <summary>
-    /// Hides the dialogue textbox.
-    /// </summary>
-    private void HideTextbox()
-    {
-        if (!HasAppearingDialogController())
-            return;
-
-        _decoder._appearingDialogController.HideTextbox();
-        _decoder._onActionDone.Invoke();
     }
     #endregion
 }
