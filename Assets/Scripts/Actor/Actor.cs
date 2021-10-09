@@ -18,7 +18,7 @@ public class Actor : Animatable
     public override void OnAnimationComplete()
     {
         base.OnAnimationComplete();
-        
+
         if (_attachedController != null)
         {
             _attachedController.OnAnimationDone();
@@ -53,7 +53,7 @@ public class Actor : Animatable
     {
         Animator.SetBool("Talking", isTalking);
     }
-    
+
     /// <summary>
     /// Checks if this actor is the actor passed
     /// </summary>
