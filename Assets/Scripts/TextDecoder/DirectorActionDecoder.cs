@@ -11,8 +11,8 @@ public class DirectorActionDecoder : MonoBehaviour
 
     private void Awake()
     {
-        _decoder._onActionDone = _onActionDone;
-        _decoder._gameObject = gameObject;
+        _decoder.OnActionDone = _onActionDone;
+        _decoder.GameObject = gameObject;
     }
 
     #region API
@@ -31,7 +31,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New action controller to be added</param>
     public void SetActorController(IActorController newController)
     {
-        _decoder._actorController = newController;
+        _decoder.ActorController = newController;
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New scene controller to be added</param>
     public void SetSceneController(ISceneController newController)
     {
-        _decoder._sceneController = newController;
+        _decoder.SceneController = newController;
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New audio controller to be added</param>
     public void SetAudioController(IAudioController newController)
     {
-        _decoder._audioController = newController;
+        _decoder.AudioController = newController;
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New evidence controller to be added</param>
     public void SetEvidenceController(IEvidenceController newController)
     {
-        _decoder._evidenceController = newController;
+        _decoder.EvidenceController = newController;
     }
 
     /// <summary>
@@ -67,7 +67,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New appearing dialog controller to be added</param>
     public void SetAppearingDialogController(IAppearingDialogueController newController)
     {
-        _decoder._appearingDialogController = newController;
+        _decoder.AppearingDialogueController = newController;
     }
 
     #endregion
