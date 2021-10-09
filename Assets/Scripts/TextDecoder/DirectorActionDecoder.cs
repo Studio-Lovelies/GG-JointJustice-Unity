@@ -67,11 +67,11 @@ public class DirectorActionDecoder : MonoBehaviour
             case "JUMP_TO_POSITION": JumpToActorSlot(parameters); break;
             case "PAN_TO_POSITION": PanToActorSlot(parameters); break;
             //Evidence controller
-            case "ADD_EVIDENCE": AddEvidence(parameters); break;
-            case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
-            case "ADD_RECORD": AddToCourtRecord(parameters); break;
-            case "PRESENT_EVIDENCE": RequirePresentEvidence(); break;
-            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(parameters); break;
+            case "ADD_EVIDENCE": _decoder.AddEvidence(parameters); break;
+            case "REMOVE_EVIDENCE": _decoder.RemoveEvidence(parameters); break;
+            case "ADD_RECORD": _decoder.AddToCourtRecord(parameters); break;
+            case "PRESENT_EVIDENCE": _decoder.OpenEvidenceMenu(); break;
+            case "SUBSTITUTE_EVIDENCE": _decoder.SubstituteEvidence(parameters); break;
             //Dialog controller
             case "DIALOG_SPEED": _decoder.ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
             case "OVERALL_SPEED": _decoder.ChangeDialogSpeed(WaiterType.Overall, parameters); break;
@@ -609,61 +609,6 @@ public class DirectorActionDecoder : MonoBehaviour
     }
     #endregion
 
-    #region EvidenceController
-    void AddEvidence(string evidence)
-    {
-        if (!HasEvidenceController())
-            return;
-
-        _decoder._evidenceController.AddEvidence(evidence);
-        _decoder._onActionDone.Invoke();
-    }
-
-    void RemoveEvidence(string evidence)
-    {
-        if (!HasEvidenceController())
-            return;
-
-        _decoder._evidenceController.RemoveEvidence(evidence);
-        _decoder._onActionDone.Invoke();
-    }
-
-    void AddToCourtRecord(string actor)
-    {
-        if (!HasEvidenceController())
-            return;
-
-        _decoder._evidenceController.AddToCourtRecord(actor);
-        _decoder._onActionDone.Invoke();
-    }
-
-    /// <summary>
-    /// Invokes RequirePresentEvidence() on EvidenceController which
-    /// opens the evidence menu and requires the user to select a piece evidence to be presented.
-    /// </summary>
-    void RequirePresentEvidence()
-    {
-        if (!HasEvidenceController())
-            return;
-
-        _decoder._evidenceController.RequirePresentEvidence();
-    }
-
-    /// <summary>
-    /// Used to substitute a specified Evidence object with its assigned alternate Evidence object.
-    /// </summary>
-    /// <param name="evidence">The name of the evidence to substitute.</param>
-    void SubstituteEvidence(string evidence)
-    {
-        if (!HasEvidenceController())
-            return;
-
-        _decoder._evidenceController.SubstituteEvidenceWithAlt(evidence);
-        _decoder._onActionDone.Invoke();
-    }
-
-    #endregion
-
     #region ControllerStuff
 
     /// <summary>
@@ -703,20 +648,6 @@ public class DirectorActionDecoder : MonoBehaviour
         if (_decoder._audioController == null)
         {
             Debug.LogError("No audio controller attached to the action decoder");
-            return false;
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// Checks if the decoder has an evidence controller attached, and shows an error if it doesn't
-    /// </summary>
-    /// <returns>Whether an evidence controller is connected</returns>
-    private bool HasEvidenceController()
-    {
-        if (_decoder._evidenceController == null)
-        {
-            Debug.LogError("No evidence controller attached to the action decoder");
             return false;
         }
         return true;
