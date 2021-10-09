@@ -47,43 +47,43 @@ public class ActionDecoder
         switch (actionLine.Action)
         {
             //Actor controller
-            case "ACTOR": SetActor(actionLine.FirstStringParameter()); break;
+            case "ACTOR": SetActor(actionLine.NextString()); break;
             case "SET_ACTOR_POSITION": SetActorPosition(actionLine.Parameters()); break;
-            case "SHOWACTOR": SetActorVisibility(actionLine.FirstStringParameter()); break;
-            case "SPEAK": SetSpeaker(actionLine.FirstStringParameter(), SpeakingType.Speaking); break;
-            case "THINK": SetSpeaker(actionLine.FirstStringParameter(), SpeakingType.Thinking); break;
+            case "SHOWACTOR": SetActorVisibility(actionLine.NextString()); break;
+            case "SPEAK": SetSpeaker(actionLine.NextString(), SpeakingType.Speaking); break;
+            case "THINK": SetSpeaker(actionLine.NextString(), SpeakingType.Thinking); break;
             case "SET_POSE": SetPose(actionLine.Parameters()); break;
             case "PLAY_EMOTION": PlayEmotion(actionLine.Parameters()); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
-            case "PLAYSFX": PlaySFX(actionLine.FirstStringParameter()); break;
-            case "PLAYSONG": SetBGMusic(actionLine.FirstStringParameter()); break;
+            case "PLAYSFX": PlaySFX(actionLine.NextString()); break;
+            case "PLAYSONG": SetBGMusic(actionLine.NextString()); break;
             case "STOP_SONG": StopSong(); break;
             //Scene controller
-            case "FADE_OUT": FadeOutScene(actionLine.FirstStringParameter()); break;
-            case "FADE_IN": FadeInScene(actionLine.FirstStringParameter()); break;
+            case "FADE_OUT": FadeOutScene(actionLine.NextString()); break;
+            case "FADE_IN": FadeInScene(actionLine.NextString()); break;
             case "CAMERA_PAN": PanCamera(actionLine.NextFloat(), actionLine.NextInt(), actionLine.NextInt()); break;
             case "CAMERA_SET": SetCameraPosition(actionLine.Parameters()); break;
-            case "SHAKESCREEN": ShakeScreen(actionLine.FirstStringParameter()); break;
-            case "SCENE": SetScene(actionLine.FirstStringParameter()); break;
-            case "WAIT": Wait(actionLine.FirstStringParameter()); break;
+            case "SHAKESCREEN": ShakeScreen(actionLine.NextString()); break;
+            case "SCENE": SetScene(actionLine.NextString()); break;
+            case "WAIT": Wait(actionLine.NextString()); break;
             case "SHOW_ITEM": ShowItem(actionLine.Parameters()); break;
             case "HIDE_ITEM": HideItem(); break;
-            case "PLAY_ANIMATION": PlayAnimation(actionLine.FirstStringParameter()); break;
-            case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.FirstStringParameter()); break;
+            case "PLAY_ANIMATION": PlayAnimation(actionLine.NextString()); break;
+            case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.NextString()); break;
             case "PAN_TO_POSITION": PanToActorSlot(actionLine.Parameters()); break;
             //Evidence controller
-            case "ADD_EVIDENCE": AddEvidence(actionLine.FirstStringParameter()); break;
-            case "REMOVE_EVIDENCE": RemoveEvidence(actionLine.FirstStringParameter()); break;
-            case "ADD_RECORD": AddToCourtRecord(actionLine.FirstStringParameter()); break;
+            case "ADD_EVIDENCE": AddEvidence(actionLine.NextString()); break;
+            case "REMOVE_EVIDENCE": RemoveEvidence(actionLine.NextString()); break;
+            case "ADD_RECORD": AddToCourtRecord(actionLine.NextString()); break;
             case "PRESENT_EVIDENCE": OpenEvidenceMenu(); break;
-            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(actionLine.FirstStringParameter()); break;
+            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(actionLine.NextString()); break;
             //Dialog controller
-            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, actionLine.FirstStringParameter()); break;
-            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.FirstStringParameter()); break;
-            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.FirstStringParameter()); break;
+            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, actionLine.NextString()); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.NextString()); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.NextString()); break;
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
-            case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.FirstStringParameter()); break;
-            case "AUTOSKIP": AutoSkip(actionLine.FirstStringParameter()); break;
+            case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.NextString()); break;
+            case "AUTOSKIP": AutoSkip(actionLine.NextString()); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
             case "APPEAR_INSTANTLY": AppearInstantly(); break;
             case "HIDE_TEXTBOX": HideTextbox(); break;
