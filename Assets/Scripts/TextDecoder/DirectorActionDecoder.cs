@@ -30,6 +30,11 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Debug.Log($"Unknown action: {e.CommandName}");
         }
+        catch (InvalidSyntaxException e)
+        {
+            Debug.LogError($"Invalid syntax with line: " + e.Line);
+            _onActionDone.Invoke();
+        }
     }
 
     /// <summary>
