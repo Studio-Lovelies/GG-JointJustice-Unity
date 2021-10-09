@@ -50,9 +50,9 @@ public class DirectorActionDecoder : MonoBehaviour
             case "SET_POSE": SetPose(parameters); break;
             case "PLAY_EMOTION": PlayEmotion(parameters); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
-            case "PLAYSFX": PlaySFX(parameters); break;
-            case "PLAYSONG": SetBGMusic(parameters); break;
-            case "STOP_SONG": StopSong(); break;
+            case "PLAYSFX": _decoder.PlaySFX(parameters); break;
+            case "PLAYSONG": _decoder.SetBGMusic(parameters); break;
+            case "STOP_SONG": _decoder.StopSong(); break;
             //Scene controller
             case "FADE_OUT": FadeOutScene(parameters); break;
             case "FADE_IN": FadeInScene(parameters); break;
@@ -552,46 +552,6 @@ public class DirectorActionDecoder : MonoBehaviour
 
     #endregion
 
-    #region AudioController
-    /// <summary>
-    /// Plays a sound effect
-    /// </summary>
-    /// <param name="sfx">Name of the sound effect</param>
-    void PlaySFX(string sfx)
-    {
-        if (!HasAudioController())
-            return;
-
-        _decoder._audioController.PlaySFX(sfx);
-        _decoder._onActionDone.Invoke();
-    }
-
-    /// <summary>
-    /// Sets the background music
-    /// </summary>
-    /// <param name="songName">Name of the new song</param>
-    void SetBGMusic(string songName)
-    {
-        if (!HasAudioController())
-            return;
-
-        _decoder._audioController.PlaySong(songName);
-        _decoder._onActionDone.Invoke();
-    }
-
-    /// <summary>
-    /// If music is currently playing, stop it!
-    /// </summary>
-    void StopSong()
-    {
-        if (!HasAudioController())
-            return;
-
-        _decoder._audioController.StopSong();
-        _decoder._onActionDone.Invoke();
-    }
-    #endregion
-
     #region ControllerStuff
 
     /// <summary>
@@ -617,20 +577,6 @@ public class DirectorActionDecoder : MonoBehaviour
         if (_decoder._sceneController == null)
         {
             Debug.LogError("No scene controller attached to the action decoder");
-            return false;
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// Checks if the decoder has an audio controller attached, and shows an error if it doesn't
-    /// </summary>
-    /// <returns>Whether an audio controller is connected</returns>
-    private bool HasAudioController()
-    {
-        if (_decoder._audioController == null)
-        {
-            Debug.LogError("No audio controller attached to the action decoder");
             return false;
         }
         return true;
