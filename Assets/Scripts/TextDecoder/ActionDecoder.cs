@@ -109,7 +109,7 @@ public class ActionDecoder
     ///</summary>
     ///<param name = "currentWaiterType">The current waiters type which appear time should be changed.</param>
     ///<param name = "parameters">Contains all the parameters needed to change the appearing time.</param>
-    public void ChangeDialogSpeed(WaiterType currentWaiterType, string parameters)
+    private void ChangeDialogSpeed(WaiterType currentWaiterType, string parameters)
     {
         if (!HasAppearingDialogController())
             return;
@@ -120,7 +120,7 @@ public class ActionDecoder
     ///<summary>
     ///Clears all custom set dialog speeds
     ///</summary>
-    public void ClearDialogSpeeds()
+    private void ClearDialogSpeeds()
     {
         if (!HasAppearingDialogController())
             return;
@@ -132,7 +132,7 @@ public class ActionDecoder
     ///Toggles skipping on or off
     ///</summary>
     ///<param name = "disable">Should the text skipping be disabled or not</param>
-    public void DisableTextSkipping(string disabled)
+    private void DisableTextSkipping(string disabled)
     {
         if (!HasAppearingDialogController())
             return;
@@ -149,7 +149,7 @@ public class ActionDecoder
     ///<summary>
     ///Makes the new dialog appear after current one.
     ///</summary>
-    public void ContinueDialog()
+    private void ContinueDialog()
     {
         if (!HasAppearingDialogController())
             return;
@@ -160,7 +160,7 @@ public class ActionDecoder
     ///<summary>
     ///Forces the next line of dialog happen right after current one.
     ///</summary>
-    public void AutoSkip(string on)
+    private void AutoSkip(string on)
     {
         if (!HasAppearingDialogController())
             return;
@@ -177,7 +177,7 @@ public class ActionDecoder
     /// <summary>
     /// Makes the next line of dialogue appear instantly instead of one character at a time.
     /// </summary>
-    public void AppearInstantly()
+    private void AppearInstantly()
     {
         if (!HasAppearingDialogController())
             return;
@@ -189,7 +189,7 @@ public class ActionDecoder
     /// <summary>
     /// Hides the dialogue textbox.
     /// </summary>
-    public void HideTextbox()
+    private void HideTextbox()
     {
         if (!HasAppearingDialogController())
             return;
@@ -214,7 +214,7 @@ public class ActionDecoder
         return true;
     }
 
-    public void AddEvidence(string evidence)
+    private void AddEvidence(string evidence)
     {
         if (!HasEvidenceController())
             return;
@@ -223,7 +223,7 @@ public class ActionDecoder
         OnActionDone.Invoke();
     }
 
-    public void RemoveEvidence(string evidence)
+    private void RemoveEvidence(string evidence)
     {
         if (!HasEvidenceController())
             return;
@@ -232,7 +232,7 @@ public class ActionDecoder
         OnActionDone.Invoke();
     }
 
-    public void AddToCourtRecord(string actor)
+    private void AddToCourtRecord(string actor)
     {
         if (!HasEvidenceController())
             return;
@@ -245,7 +245,7 @@ public class ActionDecoder
     /// Calls the onPresentEvidence event on evidence controller which
     /// opens the evidence menu so evidence can be presented.
     /// </summary>
-    public void OpenEvidenceMenu()
+    private void OpenEvidenceMenu()
     {
         if (!HasEvidenceController())
             return;
@@ -257,7 +257,7 @@ public class ActionDecoder
     /// Used to substitute a specified Evidence object with its assigned alternate Evidence object.
     /// </summary>
     /// <param name="evidence">The name of the evidence to substitute.</param>
-    public void SubstituteEvidence(string evidence)
+    private void SubstituteEvidence(string evidence)
     {
         if (!HasEvidenceController())
             return;
@@ -288,7 +288,7 @@ public class ActionDecoder
     /// Plays a sound effect
     /// </summary>
     /// <param name="sfx">Name of the sound effect</param>
-    public void PlaySFX(string sfx)
+    private void PlaySFX(string sfx)
     {
         if (!HasAudioController())
             return;
@@ -301,7 +301,7 @@ public class ActionDecoder
     /// Sets the background music
     /// </summary>
     /// <param name="songName">Name of the new song</param>
-    public void SetBGMusic(string songName)
+    private void SetBGMusic(string songName)
     {
         if (!HasAudioController())
             return;
@@ -313,7 +313,7 @@ public class ActionDecoder
     /// <summary>
     /// If music is currently playing, stop it!
     /// </summary>
-    public void StopSong()
+    private void StopSong()
     {
         if (!HasAudioController())
             return;
@@ -328,7 +328,7 @@ public class ActionDecoder
     /// Checks if the decoder has a scene controller attached, and shows an error if it doesn't
     /// </summary>
     /// <returns>Whether a scene controller is connected</returns>
-    public bool HasSceneController()
+    private bool HasSceneController()
     {
         if (SceneController == null)
         {
@@ -342,7 +342,7 @@ public class ActionDecoder
     /// Fades the scene in from black
     /// </summary>
     /// <param name="seconds">Amount of seconds the fade-in should take as a float</param>
-    public void FadeInScene(string seconds)
+    private void FadeInScene(string seconds)
     {
         if (!HasSceneController())
             return;
@@ -363,7 +363,7 @@ public class ActionDecoder
     /// Fades the scene to black
     /// </summary>
     /// <param name="seconds">Amount of seconds the fade-out should take as a float</param>
-    public void FadeOutScene(string seconds)
+    private void FadeOutScene(string seconds)
     {
         if (!HasSceneController())
             return;
@@ -384,7 +384,7 @@ public class ActionDecoder
     /// Shakes the screen
     /// </summary>
     /// <param name="intensity">Max displacement of the screen as a float</param>
-    public void ShakeScreen(string intensity)
+    private void ShakeScreen(string intensity)
     {
         if (!HasSceneController())
             return;
@@ -405,7 +405,7 @@ public class ActionDecoder
     /// Sets the scene (background, character location on screen, any props (probably prefabs))
     /// </summary>
     /// <param name="sceneName">Scene to change to</param>
-    public void SetScene(string sceneName)
+    private void SetScene(string sceneName)
     {
         if (!HasSceneController())
             return;
@@ -418,7 +418,7 @@ public class ActionDecoder
     /// Sets the camera position
     /// </summary>
     /// <param name="position">New camera coordinates in the "int x,int y" format</param>
-    public void SetCameraPosition(string position)
+    private void SetCameraPosition(string position)
     {
         if (!HasSceneController())
             return;
@@ -450,7 +450,7 @@ public class ActionDecoder
     /// Pan the camera to a certain x,y position
     /// </summary>
     /// <param name="durationAndPosition">Duration the pan should take and the target coordinates in the "float seconds, int x, int y" format</param>
-    public void PanCamera(string durationAndPosition)
+    private void PanCamera(string durationAndPosition)
     {
         if (!HasSceneController())
             return;
@@ -484,7 +484,7 @@ public class ActionDecoder
     /// Shows an item on the middle, left, or right side of the screen.
     /// </summary>
     /// <param name="ItemNameAndPosition">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
-    public void ShowItem(string ItemNameAndPosition)
+    private void ShowItem(string ItemNameAndPosition)
     {
         if (!HasSceneController())
             return;
@@ -512,7 +512,7 @@ public class ActionDecoder
     /// <summary>
     /// Hides the item displayed on the screen by ShowItem method.
     /// </summary>
-    public void HideItem()
+    private void HideItem()
     {
         if (!HasSceneController())
             return;
@@ -525,7 +525,7 @@ public class ActionDecoder
     /// Waits seconds before automatically continuing.
     /// </summary>
     /// <param name="seconds">Amount of seconds to wait</param>
-    public void Wait(string seconds)
+    private void Wait(string seconds)
     {
         if (!HasSceneController())
             return;
@@ -546,7 +546,7 @@ public class ActionDecoder
     /// Plays a full screen animation e.g. Ross' galaxy brain or the gavel hit animations.
     /// </summary>
     /// <param name="animationName">The name of the animation to play.</param>
-    public void PlayAnimation(string animationName)
+    private void PlayAnimation(string animationName)
     {
         if (!HasSceneController())
             return;
@@ -557,7 +557,7 @@ public class ActionDecoder
     /// Jump-cuts the camera to the target sub position if the bg-scene has sub positions.
     /// </summary>
     /// <param name="oneBasedSlotIndexAsString">String containing an integer referring to the target sub position, 1 based.</param>
-    public void JumpToActorSlot(string oneBasedSlotIndexAsString)
+    private void JumpToActorSlot(string oneBasedSlotIndexAsString)
     {
         if (!HasSceneController())
         {
@@ -578,7 +578,7 @@ public class ActionDecoder
     /// Pans the camera to the target actor slot if the bg-scene has support for actor slots.
     /// </summary>
     /// <param name="oneBasedSlotIndexAndTimeInSeconds">String containing a one-based integer index referring to the target actor slot, and a floating point number referring to the amount of time the pan should take in seconds.</param>
-    public void PanToActorSlot(string oneBasedSlotIndexAndTimeInSeconds)
+    private void PanToActorSlot(string oneBasedSlotIndexAndTimeInSeconds)
     {
         if (!HasSceneController())
         {
@@ -631,7 +631,7 @@ public class ActionDecoder
     /// Sets the shown actor in the scene
     /// </summary>
     /// <param name="actor">Actor to be switched to</param>
-    public void SetActor(string actor)
+    private void SetActor(string actor)
     {
         if (!HasActorController())
             return;
@@ -644,7 +644,7 @@ public class ActionDecoder
     /// Shows or hides the actor based on the string parameter.
     /// </summary>
     /// <param name="showActor">Should contain true or false based on showing or hiding the actor respectively</param>
-    public void SetActorVisibility(string showActor)
+    private void SetActorVisibility(string showActor)
     {
         if (!HasSceneController())
             return;
@@ -673,7 +673,7 @@ public class ActionDecoder
     /// </summary>
     /// <param name="actor">Actor to make the speaker</param>
     /// <param name="speakingType">Type of speaking to speak the text with</param>
-    public void SetSpeaker(string actor, SpeakingType speakingType)
+    private void SetSpeaker(string actor, SpeakingType speakingType)
     {
         if (!HasActorController())
             return;
@@ -687,7 +687,7 @@ public class ActionDecoder
     /// Set the pose of the current actor
     /// </summary>
     /// <param name="poseAndActorName">"[pose name]" to set pose for current actor OR "[pose name],[actor name]" to set pose for another actor</param>
-    public void SetPose(string poseAndActorName)
+    private void SetPose(string poseAndActorName)
     {
         if (!HasActorController())
             return;
@@ -716,7 +716,7 @@ public class ActionDecoder
     /// Plays an emotion for the current actor. Emotion is a fancy term for animation on an actor.
     /// </summary>
     /// <param name="animationAndActorName">"[animation name]" to set pose for current actor OR "[animation name],[actor name]" to queue animation for another actor (gets played as soon as actor is visible)</param>
-    public void PlayEmotion(string animationAndActorName)
+    private void PlayEmotion(string animationAndActorName)
     {
         if (!HasActorController())
             return;
@@ -741,7 +741,7 @@ public class ActionDecoder
     /// Sets an actor to a specific slot in the currently active scene.
     /// </summary>
     /// <param name="slotIndexAndActor">String containing the actor name first and one-based slot index second.</param>
-    public void SetActorPosition(string slotIndexAndActor)
+    private void SetActorPosition(string slotIndexAndActor)
     {
         if (!HasActorController())
         {
