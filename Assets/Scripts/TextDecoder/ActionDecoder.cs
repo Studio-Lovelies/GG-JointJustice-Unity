@@ -42,10 +42,8 @@ public class ActionDecoder
     {
     }
 
-    public void OnNewActionLine(string line)
+    public void OnNewActionLine(ActionLine actionLine)
     {
-        var actionLine = new ActionLine(line);
-
         switch (actionLine.Action)
         {
             //Actor controller
