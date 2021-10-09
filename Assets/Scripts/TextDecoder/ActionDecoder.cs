@@ -9,7 +9,17 @@ public class UnknownCommandException : Exception
 
     public UnknownCommandException(string commandName)
     {
-        this.CommandName = commandName;
+        CommandName = commandName;
+    }
+}
+
+public class InvalidSyntaxException : Exception
+{
+    public string Line { get; private set; }
+
+    public InvalidSyntaxException(string line)
+    {
+        Line = line;
     }
 }
 
@@ -42,9 +52,7 @@ public class ActionDecoder
 
         if (actionAndParam.Length > 2)
         {
-            Debug.LogError("Invalid action with line: " + line);
-            OnActionDone.Invoke();
-            return;
+            throw new InvalidSyntaxException(line);
         }
 
         string action = actionAndParam[0];
