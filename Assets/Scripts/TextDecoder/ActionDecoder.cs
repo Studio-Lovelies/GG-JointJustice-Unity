@@ -5,10 +5,9 @@ public class ActionDecoder
     /// <summary>
     /// Forwarded from the DirectorActionDecoder
     /// </summary>
-    private UnityEvent _onActionDone;
+    public UnityEvent _onActionDone { get; set; }
 
-    public ActionDecoder(UnityEvent onActionDoneFromDirector)
+    public ActionDecoder()
     {
-        this._onActionDone = onActionDoneFromDirector;
     }
 }
