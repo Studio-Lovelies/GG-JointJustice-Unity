@@ -7,12 +7,6 @@ public class DirectorActionDecoder : MonoBehaviour
     private const char ACTION_SIDE_SEPARATOR = ':';
     private const char ACTION_PARAMETER_SEPARATOR = ',';
 
-    private IActorController _actorController;
-    private ISceneController _sceneController;
-    private IAudioController _audioController;
-    private IEvidenceController _evidenceController;
-    private IAppearingDialogueController _appearingDialogController = null;
-
     [Header("Events")]
     [Tooltip("Event that gets called when the system is done processing the action")]
     [SerializeField] private UnityEvent _onActionDone;
@@ -36,7 +30,7 @@ public class DirectorActionDecoder : MonoBehaviour
         if (actionAndParam.Length > 2)
         {
             Debug.LogError("Invalid action with line: " + line);
-            _onActionDone.Invoke();
+            _decoder._onActionDone.Invoke();
             return;
         }
 
@@ -103,8 +97,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasActorController())
             return;
 
-        _actorController.SetActiveActor(actor);
-        _onActionDone.Invoke();
+        _decoder._actorController.SetActiveActor(actor);
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -121,18 +115,18 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             if (shouldShow)
             {
-                _sceneController.ShowActor();
+                _decoder._sceneController.ShowActor();
             }
             else
             {
-                _sceneController.HideActor();
+                _decoder._sceneController.HideActor();
             }
         }
         else
         {
             Debug.LogError("Invalid paramater " + showActor + " for function SHOWACTOR");
         }
-        _onActionDone.Invoke();
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -145,9 +139,9 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasActorController())
             return;
 
-        _actorController.SetActiveSpeaker(actor);
-        _actorController.SetSpeakingType(speakingType);
-        _onActionDone.Invoke();
+        _decoder._actorController.SetActiveSpeaker(actor);
+        _decoder._actorController.SetSpeakingType(speakingType);
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -163,13 +157,13 @@ public class DirectorActionDecoder : MonoBehaviour
 
         if (parameters.Length == 1)
         {
-            _actorController.SetPose(parameters[0]);
-            _onActionDone.Invoke();
+            _decoder._actorController.SetPose(parameters[0]);
+            _decoder._onActionDone.Invoke();
         }
         else if (parameters.Length == 2)
         {
-            _actorController.SetPose(parameters[0], parameters[1]);
-            _onActionDone.Invoke();
+            _decoder._actorController.SetPose(parameters[0], parameters[1]);
+            _decoder._onActionDone.Invoke();
         }
         else
         {
@@ -192,11 +186,11 @@ public class DirectorActionDecoder : MonoBehaviour
 
         if (parameters.Length == 1)
         {
-            _actorController.PlayEmotion(parameters[0]);
+            _decoder._actorController.PlayEmotion(parameters[0]);
         }
         else if (parameters.Length == 2)
         {
-            _actorController.PlayEmotion(parameters[0], parameters[1]);
+            _decoder._actorController.PlayEmotion(parameters[0], parameters[1]);
         }
         else
         {
@@ -230,8 +224,8 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
         }
 
-        _actorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
-        _onActionDone.Invoke();
+        _decoder._actorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
+        _decoder._onActionDone.Invoke();
     }
     #endregion
 
@@ -249,7 +243,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out timeInSeconds))
         {
-            _sceneController.FadeIn(timeInSeconds);
+            _decoder._sceneController.FadeIn(timeInSeconds);
         }
         else
         {
@@ -270,7 +264,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out timeInSeconds))
         {
-            _sceneController.FadeOut(timeInSeconds);
+            _decoder._sceneController.FadeOut(timeInSeconds);
         }
         else
         {
@@ -325,8 +319,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasSceneController())
             return;
 
-        _sceneController.SetScene(sceneName);
-        _onActionDone.Invoke();
+        _decoder._sceneController.SetScene(sceneName);
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -352,13 +346,13 @@ public class DirectorActionDecoder : MonoBehaviour
         if (int.TryParse(parameters[0], out x)
             && int.TryParse(parameters[1], out y))
         {
-            _sceneController.SetCameraPos(new Vector2Int(x, y));
+            _decoder._sceneController.SetCameraPos(new Vector2Int(x, y));
         }
         else
         {
             Debug.LogError("Invalid paramater " + position + " for function CAMERA_SET");
         }
-        _onActionDone.Invoke();
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -386,13 +380,13 @@ public class DirectorActionDecoder : MonoBehaviour
             && int.TryParse(parameters[1], out x)
             && int.TryParse(parameters[2], out y))
         {
-            _sceneController.PanCamera(duration, new Vector2Int(x, y));
+            _decoder._sceneController.PanCamera(duration, new Vector2Int(x, y));
         }
         else
         {
             Debug.LogError("Invalid paramater " + durationAndPosition + " for function CAMERA_PAN");
         }
-        _onActionDone.Invoke();
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -415,13 +409,13 @@ public class DirectorActionDecoder : MonoBehaviour
         itemDisplayPosition pos;
         if (System.Enum.TryParse<itemDisplayPosition>(parameters[1], out pos))
         {
-            _sceneController.ShowItem(parameters[0], pos);
+            _decoder._sceneController.ShowItem(parameters[0], pos);
         }
         else
         {
             Debug.LogError("Invalid paramater " + parameters[1] + " for function CAMERA_PAN");
         }
-        _onActionDone.Invoke();
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -432,8 +426,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasSceneController())
             return;
 
-        _sceneController.HideItem();
-        _onActionDone.Invoke();
+        _decoder._sceneController.HideItem();
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -449,7 +443,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out secondsFloat))
         {
-            _sceneController.Wait(secondsFloat);
+            _decoder._sceneController.Wait(secondsFloat);
         }
         else
         {
@@ -466,7 +460,7 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasSceneController())
             return;
 
-        _sceneController.PlayAnimation(animationName);
+        _decoder._sceneController.PlayAnimation(animationName);
     }
 
     /// Jump-cuts the camera to the target sub position if the bg-scene has sub positions.
@@ -485,8 +479,8 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
         }
 
-        _sceneController.JumpToActorSlot(oneBasedSlotIndex);
-        _onActionDone.Invoke();
+        _decoder._sceneController.JumpToActorSlot(oneBasedSlotIndex);
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -520,8 +514,8 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
         }
 
-        _sceneController.PanToActorSlot(oneBasedSlotIndex, timeInSeconds);
-        _onActionDone.Invoke();
+        _decoder._sceneController.PanToActorSlot(oneBasedSlotIndex, timeInSeconds);
+        _decoder._onActionDone.Invoke();
     }
 
     #endregion
@@ -536,8 +530,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAudioController())
             return;
 
-        _audioController.PlaySFX(sfx);
-        _onActionDone.Invoke();
+        _decoder._audioController.PlaySFX(sfx);
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -549,8 +543,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAudioController())
             return;
 
-        _audioController.PlaySong(songName);
-        _onActionDone.Invoke();
+        _decoder._audioController.PlaySong(songName);
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -561,8 +555,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAudioController())
             return;
 
-        _audioController.StopSong();
-        _onActionDone.Invoke();
+        _decoder._audioController.StopSong();
+        _decoder._onActionDone.Invoke();
     }
     #endregion
 
@@ -572,8 +566,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasEvidenceController())
             return;
 
-        _evidenceController.AddEvidence(evidence);
-        _onActionDone.Invoke();
+        _decoder._evidenceController.AddEvidence(evidence);
+        _decoder._onActionDone.Invoke();
     }
 
     void RemoveEvidence(string evidence)
@@ -581,8 +575,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasEvidenceController())
             return;
 
-        _evidenceController.RemoveEvidence(evidence);
-        _onActionDone.Invoke();
+        _decoder._evidenceController.RemoveEvidence(evidence);
+        _decoder._onActionDone.Invoke();
     }
 
     void AddToCourtRecord(string actor)
@@ -590,8 +584,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasEvidenceController())
             return;
 
-        _evidenceController.AddToCourtRecord(actor);
-        _onActionDone.Invoke();
+        _decoder._evidenceController.AddToCourtRecord(actor);
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -602,8 +596,8 @@ public class DirectorActionDecoder : MonoBehaviour
     {
         if (!HasEvidenceController())
             return;
-        
-        _evidenceController.RequirePresentEvidence();
+
+        _decoder._evidenceController.RequirePresentEvidence();
     }
 
     /// <summary>
@@ -615,8 +609,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasEvidenceController())
             return;
 
-        _evidenceController.SubstituteEvidenceWithAlt(evidence);
-        _onActionDone.Invoke();
+        _decoder._evidenceController.SubstituteEvidenceWithAlt(evidence);
+        _decoder._onActionDone.Invoke();
     }
 
     #endregion
@@ -628,7 +622,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New action controller to be added</param>
     public void SetActorController(IActorController newController)
     {
-        _actorController = newController;
+        _decoder._actorController = newController;
     }
 
     /// <summary>
@@ -637,7 +631,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <returns>Whether an actor controller is connected</returns>
     private bool HasActorController()
     {
-        if (_actorController == null)
+        if (_decoder._actorController == null)
         {
             Debug.LogError("No actor controller attached to the action decoder");
             return false;
@@ -651,7 +645,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New scene controller to be added</param>
     public void SetSceneController(ISceneController newController)
     {
-        _sceneController = newController;
+        _decoder._sceneController = newController;
     }
 
     /// <summary>
@@ -660,7 +654,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <returns>Whether a scene controller is connected</returns>
     private bool HasSceneController()
     {
-        if (_sceneController == null)
+        if (_decoder._sceneController == null)
         {
             Debug.LogError("No scene controller attached to the action decoder");
             return false;
@@ -674,7 +668,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New audio controller to be added</param>
     public void SetAudioController(IAudioController newController)
     {
-        _audioController = newController;
+        _decoder._audioController = newController;
     }
 
     /// <summary>
@@ -683,7 +677,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <returns>Whether an audio controller is connected</returns>
     private bool HasAudioController()
     {
-        if (_audioController == null)
+        if (_decoder._audioController == null)
         {
             Debug.LogError("No audio controller attached to the action decoder");
             return false;
@@ -697,7 +691,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New evidence controller to be added</param>
     public void SetEvidenceController(IEvidenceController newController)
     {
-        _evidenceController = newController;
+        _decoder._evidenceController = newController;
     }
 
     /// <summary>
@@ -706,7 +700,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <returns>Whether an evidence controller is connected</returns>
     private bool HasEvidenceController()
     {
-        if (_evidenceController == null)
+        if (_decoder._evidenceController == null)
         {
             Debug.LogError("No evidence controller attached to the action decoder");
             return false;
@@ -720,7 +714,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New appearing dialog controller to be added</param>
     public void SetAppearingDialogController(IAppearingDialogueController newController)
     {
-        _appearingDialogController = newController;
+        _decoder._appearingDialogController = newController;
     }
 
     /// <summary>
@@ -729,7 +723,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <returns>Whether an appearing dialog controller is connected</returns>
     private bool HasAppearingDialogController()
     {
-        if (_appearingDialogController == null)
+        if (_decoder._appearingDialogController == null)
         {
             Debug.LogError("No appearing dialog controller attached to the action decoder", gameObject);
             return false;
@@ -750,7 +744,7 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAppearingDialogController())
             return;
 
-        _appearingDialogController.SetTimerValue(currentWaiterType, parameters);
+        _decoder._appearingDialogController.SetTimerValue(currentWaiterType, parameters);
     }
 
     ///<summary>
@@ -761,7 +755,7 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAppearingDialogController())
             return;
 
-        _appearingDialogController.ClearAllWaiters();
+        _decoder._appearingDialogController.ClearAllWaiters();
     }
 
     ///<summary>
@@ -779,7 +773,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
         }
 
-        _appearingDialogController.ToggleDisableTextSkipping(value);
+        _decoder._appearingDialogController.ToggleDisableTextSkipping(value);
     }
 
     ///<summary>
@@ -790,7 +784,7 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAppearingDialogController())
             return;
 
-        _appearingDialogController.ContinueDialog();
+        _decoder._appearingDialogController.ContinueDialog();
     }
 
     ///<summary>
@@ -807,7 +801,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
         }
 
-        _appearingDialogController.AutoSkipDialog(value);
+        _decoder._appearingDialogController.AutoSkipDialog(value);
     }
 
     /// <summary>
@@ -818,8 +812,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAppearingDialogController())
             return;
 
-        _appearingDialogController.PrintTextInstantly = true;
-        _onActionDone.Invoke();
+        _decoder._appearingDialogController.PrintTextInstantly = true;
+        _decoder._onActionDone.Invoke();
     }
 
     /// <summary>
@@ -830,8 +824,8 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasAppearingDialogController())
             return;
 
-        _appearingDialogController.HideTextbox();
-        _onActionDone.Invoke();
+        _decoder._appearingDialogController.HideTextbox();
+        _decoder._onActionDone.Invoke();
     }
     #endregion
 }
