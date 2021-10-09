@@ -198,4 +198,59 @@ public class ActionDecoder
     }
 
     #endregion
+
+
+    #region AudioController
+    /// <summary>
+    /// Checks if the decoder has an audio controller attached, and shows an error if it doesn't
+    /// </summary>
+    /// <returns>Whether an audio controller is connected</returns>
+    private bool HasAudioController()
+    {
+        if (_audioController == null)
+        {
+            Debug.LogError("No audio controller attached to the action decoder");
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Plays a sound effect
+    /// </summary>
+    /// <param name="sfx">Name of the sound effect</param>
+    public void PlaySFX(string sfx)
+    {
+        if (!HasAudioController())
+            return;
+
+        _audioController.PlaySFX(sfx);
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Sets the background music
+    /// </summary>
+    /// <param name="songName">Name of the new song</param>
+    public void SetBGMusic(string songName)
+    {
+        if (!HasAudioController())
+            return;
+
+        _audioController.PlaySong(songName);
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// If music is currently playing, stop it!
+    /// </summary>
+    public void StopSong()
+    {
+        if (!HasAudioController())
+            return;
+
+        _audioController.StopSong();
+        _onActionDone.Invoke();
+    }
+    #endregion
 }
