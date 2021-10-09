@@ -32,7 +32,17 @@ public class DirectorActionDecoder : MonoBehaviour
         }
         catch (InvalidSyntaxException e)
         {
-            Debug.LogError($"Invalid syntax with line: " + e.Line);
+            Debug.LogError($"Invalid syntax with line: {line}");
+            _onActionDone.Invoke();
+        }
+        catch (UnableToParseException e)
+        {
+            Debug.LogError($"Invalid parameters with line: {line}\n{e.Message}");
+            _onActionDone.Invoke();
+        }
+        catch (NotEnoughParametersException e)
+        {
+            Debug.LogError($"Not enough parameters on line: {line}");
             _onActionDone.Invoke();
         }
     }
