@@ -17,11 +17,11 @@ public class DirectorActionDecoder : MonoBehaviour
     [Tooltip("Event that gets called when the system is done processing the action")]
     [SerializeField] private UnityEvent _onActionDone;
 
-    private readonly ActionDecoder _decoder;
+    private readonly ActionDecoder _decoder = new ActionDecoder();
 
     private void Awake()
     {
-        new ActionDecoder(_onActionDone);
+        _decoder._onActionDone = _onActionDone;
     }
 
     /// <summary>
