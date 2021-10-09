@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public class ActionDecoder
 {
+    private const char ACTION_SIDE_SEPARATOR = ':';
     private const char ACTION_PARAMETER_SEPARATOR = ',';
 
     /// <summary>
@@ -21,6 +22,71 @@ public class ActionDecoder
 
     public ActionDecoder()
     {
+    }
+
+    public void OnNewActionLine(string line)
+    {
+        //Split into action and parameter
+        string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR);
+
+        if (actionAndParam.Length > 2)
+        {
+            Debug.LogError("Invalid action with line: " + line);
+            _onActionDone.Invoke();
+            return;
+        }
+
+        string action = actionAndParam[0];
+        string parameters = (actionAndParam.Length == 2) ? actionAndParam[1] : "";
+
+        switch (action)
+        {
+            //Actor controller
+            case "ACTOR": SetActor(parameters); break;
+            case "SET_ACTOR_POSITION": SetActorPosition(parameters); break;
+            case "SHOWACTOR": SetActorVisibility(parameters); break;
+            case "SPEAK": SetSpeaker(parameters, SpeakingType.Speaking); break;
+            case "THINK": SetSpeaker(parameters, SpeakingType.Thinking); break;
+            case "SET_POSE": SetPose(parameters); break;
+            case "PLAY_EMOTION": PlayEmotion(parameters); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
+            //Audio controller
+            case "PLAYSFX": PlaySFX(parameters); break;
+            case "PLAYSONG": SetBGMusic(parameters); break;
+            case "STOP_SONG": StopSong(); break;
+            //Scene controller
+            case "FADE_OUT": FadeOutScene(parameters); break;
+            case "FADE_IN": FadeInScene(parameters); break;
+            case "CAMERA_PAN": PanCamera(parameters); break;
+            case "CAMERA_SET": SetCameraPosition(parameters); break;
+            case "SHAKESCREEN": ShakeScreen(parameters); break;
+            case "SCENE": SetScene(parameters); break;
+            case "WAIT": Wait(parameters); break;
+            case "SHOW_ITEM": ShowItem(parameters); break;
+            case "HIDE_ITEM": HideItem(); break;
+            case "PLAY_ANIMATION": PlayAnimation(parameters); break;
+            case "JUMP_TO_POSITION": JumpToActorSlot(parameters); break;
+            case "PAN_TO_POSITION": PanToActorSlot(parameters); break;
+            //Evidence controller
+            case "ADD_EVIDENCE": AddEvidence(parameters); break;
+            case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
+            case "ADD_RECORD": AddToCourtRecord(parameters); break;
+            case "PRESENT_EVIDENCE": OpenEvidenceMenu(); break;
+            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(parameters); break;
+            //Dialog controller
+            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, parameters); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, parameters); break;
+            case "CLEAR_SPEED": ClearDialogSpeeds(); break;
+            case "DISABLE_SKIPPING": DisableTextSkipping(parameters); break;
+            case "AUTOSKIP": AutoSkip(parameters); break;
+            case "CONTINUE_DIALOG": ContinueDialog(); break;
+            case "APPEAR_INSTANTLY": AppearInstantly(); break;
+            case "HIDE_TEXTBOX": HideTextbox(); break;
+            //Do nothing
+            case "WAIT_FOR_INPUT": break;
+            //Default
+            default: Debug.LogError("Unknown action: " + action); break;
+        }
     }
 
     #region DialogStuff
