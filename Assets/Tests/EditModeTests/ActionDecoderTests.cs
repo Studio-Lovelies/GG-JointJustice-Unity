@@ -148,5 +148,28 @@ namespace Tests.EditModeTests
             Assert.AreEqual("Happy", actorController.emotion);
             Assert.IsFalse(actionDoneCalled);
         }
+
+        [Test]
+        public void TestPlayEmotionWithOptionalParameter()
+        {
+            // Arrange
+            var decoder = new ActionDecoder();
+            decoder.OnActionDone = new UnityEvent();
+            var actorController = new FakeActorController();
+            decoder.ActorController = actorController;
+            bool actionDoneCalled = false;
+            decoder.OnActionDone.AddListener(() =>
+            {
+                actionDoneCalled = true;
+            });
+
+            // Act
+            decoder.OnNewActionLine("&PLAY_EMOTION:Happy,Arin ");
+
+            // Assert
+            Assert.AreEqual("Arin", actorController.emotionActiveActor);
+            Assert.AreEqual("Happy", actorController.emotion);
+            Assert.IsFalse(actionDoneCalled);
+        }
     }
 }
