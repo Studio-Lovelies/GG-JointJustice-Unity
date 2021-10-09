@@ -7,6 +7,12 @@ namespace Tests.EditModeTests
         [Test]
         public void RunInvalidCommand()
         {
+            var decoder = new ActionDecoder();
+
+            Assert.Throws(typeof(UnknownCommandException), () =>
+            {
+                decoder.OnNewActionLine("spujb");
+            });
         }
     }
 }

@@ -22,7 +22,14 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="line">The full line in the script containing the action and parameters</param>
     public void OnNewActionLine(string line)
     {
-        _decoder.OnNewActionLine(line);
+        try
+        {
+            _decoder.OnNewActionLine(line);
+        }
+        catch (UnknownCommandException e)
+        {
+            Debug.Log($"Unknown action: {e.CommandName}");
+        }
     }
 
     /// <summary>
