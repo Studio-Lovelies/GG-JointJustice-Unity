@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Tests.EditModeTests
@@ -18,7 +19,7 @@ namespace Tests.EditModeTests
             private string activeSpeaker = "";
             private string activeActor = "";
             private string emotion = "";
-            private Dictionary<int, string> actorSlots = new Dictionary<int, string>();
+            public readonly Dictionary<int, string> actorSlots = new Dictionary<int, string>();
 
             Action onAnimationDone;
 
@@ -101,6 +102,30 @@ namespace Tests.EditModeTests
             {
                 decoder.OnNewActionLine("&SPEAK:Arin");
             });
+        }
+
+        [Test]
+        public void TestSetActorPosition()
+        {
+            var decoder = new ActionDecoder();
+            decoder.OnActionDone = new UnityEvent();
+            var actorController = new FakeActorController();
+            decoder.ActorController = actorController;
+            bool actionDoneCalled = false;
+            decoder.OnActionDone.AddListener(() =>
+            {
+                actionDoneCalled = true;
+            });
+
+            decoder.OnNewActionLine("&SET_ACTOR_POSITION:3,Arin "); // <-- that space needs to be there... weird
+
+            foreach (var key in actorController.actorSlots.Keys)
+            {
+                Debug.Log($"key: {key}");
+            }
+
+            Assert.AreEqual("Arin", actorController.actorSlots[3]);
+            Assert.IsTrue(actionDoneCalled);
         }
     }
 }
