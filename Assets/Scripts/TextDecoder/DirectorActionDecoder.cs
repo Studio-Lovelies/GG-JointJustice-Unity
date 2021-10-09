@@ -41,13 +41,13 @@ public class DirectorActionDecoder : MonoBehaviour
         switch (action)
         {
             //Actor controller
-            case "ACTOR": SetActor(parameters); break;
-            case "SET_ACTOR_POSITION": SetActorPosition(parameters); break;
-            case "SHOWACTOR": SetActorVisibility(parameters); break;
-            case "SPEAK": SetSpeaker(parameters, SpeakingType.Speaking); break;
-            case "THINK": SetSpeaker(parameters, SpeakingType.Thinking); break;
-            case "SET_POSE": SetPose(parameters); break;
-            case "PLAY_EMOTION": PlayEmotion(parameters); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
+            case "ACTOR": _decoder.SetActor(parameters); break;
+            case "SET_ACTOR_POSITION": _decoder.SetActorPosition(parameters); break;
+            case "SHOWACTOR": _decoder.SetActorVisibility(parameters); break;
+            case "SPEAK": _decoder.SetSpeaker(parameters, SpeakingType.Speaking); break;
+            case "THINK": _decoder.SetSpeaker(parameters, SpeakingType.Thinking); break;
+            case "SET_POSE": _decoder.SetPose(parameters); break;
+            case "PLAY_EMOTION": _decoder.PlayEmotion(parameters); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
             case "PLAYSFX": _decoder.PlaySFX(parameters); break;
             case "PLAYSONG": _decoder.SetBGMusic(parameters); break;
@@ -133,164 +133,5 @@ public class DirectorActionDecoder : MonoBehaviour
         _decoder._appearingDialogController = newController;
     }
 
-    #endregion
-
-    #region ActorController
-    /// <summary>
-    /// Sets the shown actor in the scene
-    /// </summary>
-    /// <param name="actor">Actor to be switched to</param>
-    private void SetActor(string actor)
-    {
-        if (!HasActorController())
-            return;
-
-        _decoder._actorController.SetActiveActor(actor);
-        _decoder._onActionDone.Invoke();
-    }
-
-    /// <summary>
-    /// Shows or hides the actor based on the string parameter.
-    /// </summary>
-    /// <param name="showActor">Should contain true or false based on showing or hiding the actor respectively</param>
-    private void SetActorVisibility(string showActor)
-    {
-        if (!_decoder.HasSceneController())
-            return;
-
-        bool shouldShow;
-        if (bool.TryParse(showActor, out shouldShow))
-        {
-            if (shouldShow)
-            {
-                _decoder._sceneController.ShowActor();
-            }
-            else
-            {
-                _decoder._sceneController.HideActor();
-            }
-        }
-        else
-        {
-            Debug.LogError("Invalid paramater " + showActor + " for function SHOWACTOR");
-        }
-        _decoder._onActionDone.Invoke();
-    }
-
-    /// <summary>
-    /// Set the speaker for the current and following lines, until a new speaker is set
-    /// </summary>
-    /// <param name="actor">Actor to make the speaker</param>
-    /// <param name="speakingType">Type of speaking to speak the text with</param>
-    private void SetSpeaker(string actor, SpeakingType speakingType)
-    {
-        if (!HasActorController())
-            return;
-
-        _decoder._actorController.SetActiveSpeaker(actor);
-        _decoder._actorController.SetSpeakingType(speakingType);
-        _decoder._onActionDone.Invoke();
-    }
-
-    /// <summary>
-    /// Set the pose of the current actor
-    /// </summary>
-    /// <param name="poseAndActorName">"[pose name]" to set pose for current actor OR "[pose name],[actor name]" to set pose for another actor</param>
-    private void SetPose(string poseAndActorName)
-    {
-        if (!HasActorController())
-            return;
-
-        string[] parameters = poseAndActorName.Split(ACTION_PARAMETER_SEPARATOR);
-
-        if (parameters.Length == 1)
-        {
-            _decoder._actorController.SetPose(parameters[0]);
-            _decoder._onActionDone.Invoke();
-        }
-        else if (parameters.Length == 2)
-        {
-            _decoder._actorController.SetPose(parameters[0], parameters[1]);
-            _decoder._onActionDone.Invoke();
-        }
-        else
-        {
-            Debug.LogError("Invalid number of parameters for function PLAY_EMOTION");
-        }
-
-
-    }
-
-    /// <summary>
-    /// Plays an emotion for the current actor. Emotion is a fancy term for animation on an actor.
-    /// </summary>
-    /// <param name="animationAndActorName">"[animation name]" to set pose for current actor OR "[animation name],[actor name]" to queue animation for another actor (gets played as soon as actor is visible)</param>
-    private void PlayEmotion(string animationAndActorName)
-    {
-        if (!HasActorController())
-            return;
-
-        string[] parameters = animationAndActorName.Split(ACTION_PARAMETER_SEPARATOR);
-
-        if (parameters.Length == 1)
-        {
-            _decoder._actorController.PlayEmotion(parameters[0]);
-        }
-        else if (parameters.Length == 2)
-        {
-            _decoder._actorController.PlayEmotion(parameters[0], parameters[1]);
-        }
-        else
-        {
-            Debug.LogError("Invalid number of parameters for function PLAY_EMOTION");
-        }
-    }
-
-    /// <summary>
-    /// Sets an actor to a specific slot in the currently active scene.
-    /// </summary>
-    /// <param name="slotIndexAndActor">String containing the actor name first and one-based slot index second.</param>
-    private void SetActorPosition(string slotIndexAndActor)
-    {
-        if (!HasActorController())
-        {
-            return;
-        }
-
-        string[] parameters = slotIndexAndActor.Split(ACTION_PARAMETER_SEPARATOR);
-
-        if (parameters.Length != 2)
-        {
-            Debug.LogError("SET_ACTOR_POSITION requires exactly 2 parameters: [actorName <string>], [slotIndex <int>]");
-            return;
-        }
-
-        string actorName = parameters[1];
-        if (!int.TryParse(parameters[0], out int oneBasedSlotIndex))
-        {
-            Debug.LogError("Second parameter needs to be a one-based integer index");
-            return;
-        }
-
-        _decoder._actorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
-        _decoder._onActionDone.Invoke();
-    }
-    #endregion
-
-    #region ControllerStuff
-
-    /// <summary>
-    /// Checks if the decoder has an actor controller attached, and shows an error if it doesn't
-    /// </summary>
-    /// <returns>Whether an actor controller is connected</returns>
-    private bool HasActorController()
-    {
-        if (_decoder._actorController == null)
-        {
-            Debug.LogError("No actor controller attached to the action decoder");
-            return false;
-        }
-        return true;
-    }
     #endregion
 }
