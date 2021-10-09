@@ -46,11 +46,6 @@ public class ActionLine
         return this.splitParameters;
     }
 
-    public string FirstStringParameter()
-    {
-        return this.splitParameters[0];
-    }
-
     private string NextToken()
     {
         if (parameterIndex < this.splitParameters.Length)
