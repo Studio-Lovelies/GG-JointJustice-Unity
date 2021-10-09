@@ -63,7 +63,7 @@ public class ActionDecoder
             //Scene controller
             case "FADE_OUT": FadeOutScene(actionLine.FirstStringParameter()); break;
             case "FADE_IN": FadeInScene(actionLine.FirstStringParameter()); break;
-            case "CAMERA_PAN": PanCamera(actionLine.Parameters()); break;
+            case "CAMERA_PAN": PanCamera(actionLine.NextFloat(), actionLine.NextInt(), actionLine.NextInt()); break;
             case "CAMERA_SET": SetCameraPosition(actionLine.Parameters()); break;
             case "SHAKESCREEN": ShakeScreen(actionLine.FirstStringParameter()); break;
             case "SCENE": SetScene(actionLine.FirstStringParameter()); break;
@@ -454,32 +454,12 @@ public class ActionDecoder
     /// <summary>
     /// Pan the camera to a certain x,y position
     /// </summary>
-    /// <param name="parameters">Duration the pan should take and the target coordinates in the "float seconds, int x, int y" format</param>
-    private void PanCamera(string[] parameters)
+    private void PanCamera(float duration, int x, int y)
     {
         if (!HasSceneController())
             return;
 
-        if (parameters.Length != 3)
-        {
-            Debug.LogError("Invalid amount of parameters for function CAMERA_PAN");
-            return;
-        }
-
-        float duration;
-        int x;
-        int y;
-
-        if (float.TryParse(parameters[0], NumberStyles.Any, CultureInfo.InvariantCulture, out duration)
-            && int.TryParse(parameters[1], out x)
-            && int.TryParse(parameters[2], out y))
-        {
-            SceneController.PanCamera(duration, new Vector2Int(x, y));
-        }
-        else
-        {
-            Debug.LogError("Invalid paramater " + string.Join(",", parameters) + " for function CAMERA_PAN");
-        }
+        SceneController.PanCamera(duration, new Vector2Int(x, y));
         OnActionDone.Invoke();
     }
 

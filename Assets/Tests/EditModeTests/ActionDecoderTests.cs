@@ -171,5 +171,33 @@ namespace Tests.EditModeTests
             Assert.AreEqual("Happy", actorController.emotion);
             Assert.IsFalse(actionDoneCalled);
         }
+
+        [Test]
+        public void FailureToParseFloatThrows()
+        {
+            var line = new ActionLine("this is not a number");
+            Assert.Throws(typeof(UnableToParseException), () =>
+            {
+                line.NextFloat();
+            });
+        }
+
+        [Test]
+        public void NotEnoughParametersThrows()
+        {
+            var line = new ActionLine("action:one,two,three");
+
+            Assert.DoesNotThrow(() =>
+            {
+                line.NextString();
+                line.NextString();
+                line.NextString();
+            });
+
+            Assert.Throws(typeof(NotEnoughParametersException), () =>
+            {
+                line.NextString();
+            });
+        }
     }
 }
