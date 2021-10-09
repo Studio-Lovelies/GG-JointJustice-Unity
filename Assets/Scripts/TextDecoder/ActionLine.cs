@@ -106,4 +106,16 @@ public class ActionLine
             throw new UnableToParseException("one-based integer", tokenName, nextInt.ToString());
         }
     }
+
+    public string NextOptionalString(string tokenName)
+    {
+        try
+        {
+            return NextString(tokenName);
+        }
+        catch (NotEnoughParametersException e)
+        {
+            return null;
+        }
+    }
 }
