@@ -1,8 +1,12 @@
 public class ActionLine
 {
     private const char ACTION_SIDE_SEPARATOR = ':';
+    private const char ACTION_PARAMETER_SEPARATOR = ',';
+
+    private readonly string fullParametersString;
+    private readonly string[] splitParameters;
+
     public string Action { get; set; }
-    public string Parameters { get; set; }
 
     public ActionLine(string line)
     {
@@ -15,6 +19,17 @@ public class ActionLine
         }
 
         Action = actionAndParam[0];
-        Parameters = (actionAndParam.Length == 2) ? actionAndParam[1] : "";
+        fullParametersString = (actionAndParam.Length == 2) ? actionAndParam[1] : "";
+        this.splitParameters = fullParametersString.Split(ACTION_PARAMETER_SEPARATOR);
+    }
+
+    public string[] Parameters()
+    {
+        return this.splitParameters;
+    }
+
+    public string FirstStringParameter()
+    {
+        return this.splitParameters[0];
     }
 }
