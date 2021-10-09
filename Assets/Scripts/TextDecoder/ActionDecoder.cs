@@ -1,8 +1,11 @@
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class ActionDecoder
 {
+    private const char ACTION_PARAMETER_SEPARATOR = ',';
+
     /// <summary>
     /// Forwarded from the DirectorActionDecoder
     /// </summary>
@@ -252,5 +255,293 @@ public class ActionDecoder
         _audioController.StopSong();
         _onActionDone.Invoke();
     }
+    #endregion
+
+    #region SceneController
+    /// <summary>
+    /// Checks if the decoder has a scene controller attached, and shows an error if it doesn't
+    /// </summary>
+    /// <returns>Whether a scene controller is connected</returns>
+    public bool HasSceneController()
+    {
+        if (_sceneController == null)
+        {
+            Debug.LogError("No scene controller attached to the action decoder");
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Fades the scene in from black
+    /// </summary>
+    /// <param name="seconds">Amount of seconds the fade-in should take as a float</param>
+    public void FadeInScene(string seconds)
+    {
+        if (!HasSceneController())
+            return;
+
+        float timeInSeconds;
+
+        if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out timeInSeconds))
+        {
+            _sceneController.FadeIn(timeInSeconds);
+        }
+        else
+        {
+            Debug.LogError("Invalid paramater " + seconds + " for function FADE_IN");
+        }
+    }
+
+    /// <summary>
+    /// Fades the scene to black
+    /// </summary>
+    /// <param name="seconds">Amount of seconds the fade-out should take as a float</param>
+    public void FadeOutScene(string seconds)
+    {
+        if (!HasSceneController())
+            return;
+
+        float timeInSeconds;
+
+        if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out timeInSeconds))
+        {
+            _sceneController.FadeOut(timeInSeconds);
+        }
+        else
+        {
+            Debug.LogError("Invalid paramater " + seconds + " for function FADE_OUT");
+        }
+    }
+
+    /// <summary>
+    /// Shakes the screen
+    /// </summary>
+    /// <param name="intensity">Max displacement of the screen as a float</param>
+    public void ShakeScreen(string intensity)
+    {
+        if (!HasSceneController())
+            return;
+
+        float intensityNumerical;
+
+        if (float.TryParse(intensity, NumberStyles.Any, CultureInfo.InvariantCulture, out intensityNumerical))
+        {
+            _sceneController.ShakeScreen(intensityNumerical);
+        }
+        else
+        {
+            Debug.LogError("Invalid paramater " + intensity + " for function SHAKESCREEN");
+        }
+    }
+
+    /// <summary>
+    /// Sets the scene (background, character location on screen, any props (probably prefabs))
+    /// </summary>
+    /// <param name="sceneName">Scene to change to</param>
+    public void SetScene(string sceneName)
+    {
+        if (!HasSceneController())
+            return;
+
+        _sceneController.SetScene(sceneName);
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Sets the camera position
+    /// </summary>
+    /// <param name="position">New camera coordinates in the "int x,int y" format</param>
+    public void SetCameraPosition(string position)
+    {
+        if (!HasSceneController())
+            return;
+
+        string[] parameters = position.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length != 2)
+        {
+            Debug.LogError("Invalid amount of parameters for function CAMERA_SET");
+            return;
+        }
+
+        int x;
+        int y;
+
+        if (int.TryParse(parameters[0], out x)
+            && int.TryParse(parameters[1], out y))
+        {
+            _sceneController.SetCameraPos(new Vector2Int(x, y));
+        }
+        else
+        {
+            Debug.LogError("Invalid paramater " + position + " for function CAMERA_SET");
+        }
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Pan the camera to a certain x,y position
+    /// </summary>
+    /// <param name="durationAndPosition">Duration the pan should take and the target coordinates in the "float seconds, int x, int y" format</param>
+    public void PanCamera(string durationAndPosition)
+    {
+        if (!HasSceneController())
+            return;
+
+        string[] parameters = durationAndPosition.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length != 3)
+        {
+            Debug.LogError("Invalid amount of parameters for function CAMERA_PAN");
+            return;
+        }
+
+        float duration;
+        int x;
+        int y;
+
+        if (float.TryParse(parameters[0], NumberStyles.Any, CultureInfo.InvariantCulture, out duration)
+            && int.TryParse(parameters[1], out x)
+            && int.TryParse(parameters[2], out y))
+        {
+            _sceneController.PanCamera(duration, new Vector2Int(x, y));
+        }
+        else
+        {
+            Debug.LogError("Invalid paramater " + durationAndPosition + " for function CAMERA_PAN");
+        }
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Shows an item on the middle, left, or right side of the screen.
+    /// </summary>
+    /// <param name="ItemNameAndPosition">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
+    public void ShowItem(string ItemNameAndPosition)
+    {
+        if (!HasSceneController())
+            return;
+
+        string[] parameters = ItemNameAndPosition.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length != 2)
+        {
+            Debug.LogError("Invalid amount of parameters for function SHOW_ITEM");
+            return;
+        }
+
+        itemDisplayPosition pos;
+        if (System.Enum.TryParse<itemDisplayPosition>(parameters[1], out pos))
+        {
+            _sceneController.ShowItem(parameters[0], pos);
+        }
+        else
+        {
+            Debug.LogError("Invalid paramater " + parameters[1] + " for function CAMERA_PAN");
+        }
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Hides the item displayed on the screen by ShowItem method.
+    /// </summary>
+    public void HideItem()
+    {
+        if (!HasSceneController())
+            return;
+
+        _sceneController.HideItem();
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Waits seconds before automatically continuing.
+    /// </summary>
+    /// <param name="seconds">Amount of seconds to wait</param>
+    public void Wait(string seconds)
+    {
+        if (!HasSceneController())
+            return;
+
+        float secondsFloat;
+
+        if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out secondsFloat))
+        {
+            _sceneController.Wait(secondsFloat);
+        }
+        else
+        {
+            Debug.LogError("Invalid paramater " + seconds + " for function WAIT");
+        }
+    }
+
+    /// <summary>
+    /// Plays a full screen animation e.g. Ross' galaxy brain or the gavel hit animations.
+    /// </summary>
+    /// <param name="animationName">The name of the animation to play.</param>
+    public void PlayAnimation(string animationName)
+    {
+        if (!HasSceneController())
+            return;
+
+        _sceneController.PlayAnimation(animationName);
+    }
+
+    /// Jump-cuts the camera to the target sub position if the bg-scene has sub positions.
+    /// </summary>
+    /// <param name="oneBasedSlotIndexAsString">String containing an integer referring to the target sub position, 1 based.</param>
+    public void JumpToActorSlot(string oneBasedSlotIndexAsString)
+    {
+        if (!HasSceneController())
+        {
+            return;
+        }
+
+        if (!int.TryParse(oneBasedSlotIndexAsString, out int oneBasedSlotIndex))
+        {
+            Debug.LogError("First parameter needs to be a one-based integer index");
+            return;
+        }
+
+        _sceneController.JumpToActorSlot(oneBasedSlotIndex);
+        _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Pans the camera to the target actor slot if the bg-scene has support for actor slots.
+    /// </summary>
+    /// <param name="oneBasedSlotIndexAndTimeInSeconds">String containing a one-based integer index referring to the target actor slot, and a floating point number referring to the amount of time the pan should take in seconds.</param>
+    public void PanToActorSlot(string oneBasedSlotIndexAndTimeInSeconds)
+    {
+        if (!HasSceneController())
+        {
+            return;
+        }
+
+        string[] parameters = oneBasedSlotIndexAndTimeInSeconds.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length != 2)
+        {
+            Debug.LogError("PAN_TO_POSITION requires exactly 2 parameters: [slotIndex <int>], [panDurationInSeconds <float>]");
+            return;
+        }
+
+        if (!int.TryParse(parameters[0], out int oneBasedSlotIndex))
+        {
+            Debug.LogError("First parameter needs to be a one-based integer index");
+            return;
+        }
+
+        if (!float.TryParse(parameters[1], NumberStyles.Any, CultureInfo.InvariantCulture, out float timeInSeconds))
+        {
+            Debug.LogError("Second parameter needs to be a floating point number");
+            return;
+        }
+
+        _sceneController.PanToActorSlot(oneBasedSlotIndex, timeInSeconds);
+        _onActionDone.Invoke();
+    }
+
     #endregion
 }
