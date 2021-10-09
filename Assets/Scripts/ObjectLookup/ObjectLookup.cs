@@ -5,8 +5,11 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 /// <summary>
-/// Testable class that retrieves objects by name from a dictionary and stores them in a list
-/// that is used for displaying them in order.
+/// Stores all available objects that are available in a scene in a dictionary.
+/// Values in the dictionary are accessed by name and are added to a list 
+/// that consists only of values that exist in the dictionary.
+/// The list represents the objects currently owned by the player,
+/// and is used for displaying these objects in the evidence menu.
 /// </summary>
 /// <typeparam name="T">The type of values to be stored.</typeparam>
 public class ObjectLookup<T> where T : Object
@@ -22,11 +25,11 @@ public class ObjectLookup<T> where T : Object
     /// Creates an ObjectDictionary by converting the list of available objects to the dictionary
     /// and creating a new current object list based on the list of current objects inputted.
     /// </summary>
-    /// <param name="availableOjectList">List to be converted to a dictionary of available objects.</param>
+    /// <param name="availableObjectList">List to be converted to a dictionary of available objects.</param>
     /// <param name="currentObjectList">List to be added to list of current objects on creation.</param>
-    public ObjectLookup(IEnumerable<T> availableOjectList, IEnumerable<T> currentObjectList)
+    public ObjectLookup(IEnumerable<T> availableObjectList, IEnumerable<T> currentObjectList)
     {
-        _availableObjectDictionary = availableOjectList.ToDictionary(obj => obj.name, obj => obj);
+        _availableObjectDictionary = availableObjectList.ToDictionary(obj => obj.name, obj => obj);
         _currentObjectList = currentObjectList == null ? new List<T>() : new List<T>(currentObjectList);
     }
 
@@ -36,18 +39,10 @@ public class ObjectLookup<T> where T : Object
     /// <param name="objectName">The name of the object to add.</param>
     public void AddObject(string objectName)
     {
-        if (!IsObjectInDictionary(objectName))
-        {
-            return;
-        }
-
-        if (IsObjectInList(_availableObjectDictionary[objectName]))
-        {
-            Debug.LogWarning($"Object {objectName} is already in the list of current objects.");
-            return;
-        }
-
-        _currentObjectList.Add(this[objectName]);
+        VerifyObjectInDictionary(objectName);
+        T obj = this[objectName];
+        VerifyObjectNotInList(obj);
+        _currentObjectList.Add(obj);
     }
 
     /// <summary>
@@ -56,17 +51,9 @@ public class ObjectLookup<T> where T : Object
     /// <param name="objectName">The name of the object to remove.</param>
     public void RemoveObject(string objectName)
     {
-        if (!IsObjectInDictionary(objectName))
-        {
-            return;
-        }
-
-        if (!IsObjectInList(this[objectName]))
-        {
-            Debug.LogWarning($"Object {objectName} could not be found in the list of current objects.");
-            return;
-        }
-
+        VerifyObjectInDictionary(objectName);
+        T obj = this[objectName];
+        VerifyObjectInList(obj);
         _currentObjectList.Remove(this[objectName]);
     }
 
@@ -83,12 +70,10 @@ public class ObjectLookup<T> where T : Object
             return;
         }
         
-        if (!IsObjectInDictionary(originalObjectName) || !IsObjectInList(_availableObjectDictionary[originalObjectName]))
-        {
-            return;
-        }
-        
-        _currentObjectList[_currentObjectList.IndexOf(this[originalObjectName])] = newObject;
+        VerifyObjectInDictionary(originalObjectName);
+        T obj = this[originalObjectName];
+        VerifyObjectInList(obj);
+        _currentObjectList[_currentObjectList.IndexOf(obj)] = newObject;
     }
 
     /// <summary>
@@ -96,22 +81,47 @@ public class ObjectLookup<T> where T : Object
     /// </summary>
     /// <param name="objectName">The name of the object to check for.</param>
     /// <returns>Whether the object was in the dictionary (true) or not (false).</returns>
-    private bool IsObjectInDictionary(string objectName)
+    private void VerifyObjectInDictionary(string objectName)
     {
-        if (_availableObjectDictionary.ContainsKey(objectName))
+        if (!_availableObjectDictionary.ContainsKey(objectName))
         {
-            return true;
+            throw new ArgumentException($"Object {objectName} could not be found in dictionary of available objects.");
         }
-        
-        throw new ArgumentException($"Object {objectName} could not be found in dictionary of available objects.");
     }
 
     /// <summary>
     /// Method to check if an object is in the list of current objects.
-    /// No error as this is used to check if object should be in list and if object should not be in list.
+    /// Throws an ArgumentException if the object is NOT in the list.
     /// </summary>
     /// <param name="obj">The object to check for.</param>
     /// <returns>Whether the object was in the list (true) or not (false).</returns>
+    private void VerifyObjectInList(T obj)
+    {
+        if (!IsObjectInList(obj))
+        {
+            throw new ArgumentException($"Object {obj.name} could not be found in the list of current objects.");
+        }
+    }
+
+    /// <summary>
+    /// Method to check if an object is NOT in the list of current objects.
+    /// Throws an ArgumentException if the object is in the list.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <exception cref="ArgumentException"></exception>
+    private void VerifyObjectNotInList(T obj)
+    {
+        if (IsObjectInList(obj))
+        {
+            throw new ArgumentException($"Object {obj.name} is already in the list of current objects.");
+        }
+    }
+
+    /// <summary>
+    /// Checks if an object is in the list of current objects.
+    /// </summary>
+    /// <param name="obj">The object that is being checked.</param>
+    /// <returns>If the object is in the list (true) or not (false).</returns>
     private bool IsObjectInList(T obj)
     {
         return _currentObjectList.Count(listObject => listObject == obj) > 0;
@@ -123,7 +133,7 @@ public class ObjectLookup<T> where T : Object
     /// accessing objects from dictionary of available objects
     /// </summary>
     /// <param name="objectIndex"></param>
-    /// <returns></returns>
+    /// <returns>The object from the list.</returns>
     public T GetObjectInList(int objectIndex)
     {
         return _currentObjectList[objectIndex];
