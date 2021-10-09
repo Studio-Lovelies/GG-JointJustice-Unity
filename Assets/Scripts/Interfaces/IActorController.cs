@@ -5,12 +5,12 @@ public enum SpeakingType
 }
 
 public interface IActorController
-{ 
+{
     void SetActiveActor(string actor);
     void SetActiveSpeaker(string actor);
 
-    void SetPose(string pose);
-    void PlayEmotion(string emotion);
+    void SetPose(string pose, string actorName = null);
+    void PlayEmotion(string emotion, string actorName = null);
     void StartTalking();
     void StopTalking();
     void OnAnimationDone();
