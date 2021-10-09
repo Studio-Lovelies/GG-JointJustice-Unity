@@ -48,7 +48,7 @@ public class ActionDecoder
         {
             //Actor controller
             case "ACTOR": SetActor(actionLine.NextString("actor name")); break;
-            case "SET_ACTOR_POSITION": SetActorPosition(actionLine.NextString("actor name"), actionLine.NextOneBasedInt("slot index")); break;
+            case "SET_ACTOR_POSITION": SetActorPosition(actionLine.NextOneBasedInt("slot index"), actionLine.NextString("actor name")); break;
             case "SHOWACTOR": SetActorVisibility(actionLine.NextString("actor visibility")); break;
             case "SPEAK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Speaking); break;
             case "THINK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Thinking); break;
@@ -714,7 +714,7 @@ public class ActionDecoder
     /// Sets an actor to a specific slot in the currently active scene.
     /// </summary>
     /// <param name="parameters">String containing the actor name first and one-based slot index second.</param>
-    private void SetActorPosition(string actorName, int oneBasedSlotIndex)
+    private void SetActorPosition(int oneBasedSlotIndex, string actorName)
     {
         if (!HasActorController())
         {
