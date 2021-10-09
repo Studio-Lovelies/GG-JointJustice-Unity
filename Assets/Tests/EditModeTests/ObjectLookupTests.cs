@@ -30,7 +30,7 @@ public class ObjectLookupTests
         AddObjectsInRange(0, ItemCount);
         Assert.AreEqual(ItemCount, _objectLookup.CurrentObjectCount);
         Assert.Throws<ArgumentException>(() => _objectLookup.AddObject("51"));
-        _objectLookup.AddObject("1");
+        Assert.Throws<ArgumentException>(() => _objectLookup.AddObject("1"));
         Assert.AreEqual(ItemCount, _objectLookup.CurrentObjectCount);
     }
     
@@ -74,7 +74,7 @@ public class ObjectLookupTests
         }
         Assert.AreEqual(0, _objectLookup.CurrentObjectCount);
         Assert.Throws<ArgumentException>(() => _objectLookup.RemoveObject("-1"));
-        _objectLookup.RemoveObject("0");
+        Assert.Throws<ArgumentException>(() => _objectLookup.RemoveObject("0"));
         Assert.AreEqual(0, _objectLookup.CurrentObjectCount);
     }
 
