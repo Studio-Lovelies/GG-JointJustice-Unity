@@ -17,6 +17,13 @@ public class DirectorActionDecoder : MonoBehaviour
     [Tooltip("Event that gets called when the system is done processing the action")]
     [SerializeField] private UnityEvent _onActionDone;
 
+    private readonly ActionDecoder decoder;
+
+    private void Awake()
+    {
+        new ActionDecoder(_onActionDone);
+    }
+
     /// <summary>
     /// Called whenever a new action is executed (encountered and then forwarded here) in the script
     /// </summary>
@@ -512,7 +519,7 @@ public class DirectorActionDecoder : MonoBehaviour
             Debug.LogError("Second parameter needs to be a floating point number");
             return;
         }
-        
+
         _sceneController.PanToActorSlot(oneBasedSlotIndex, timeInSeconds);
         _onActionDone.Invoke();
     }
