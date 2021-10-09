@@ -120,7 +120,7 @@ namespace Tests.EditModeTests
             });
 
             // Act
-            decoder.OnNewActionLine(new ActionLine("&SET_ACTOR_POSITION:Arin,3 ")); // <-- that space needs to be there... weird
+            decoder.OnNewActionLine(new ActionLine("&SET_ACTOR_POSITION:3,Arin ")); // <-- that space needs to be there... weird
 
             // Assert
             Assert.AreEqual("Arin", actorController.actorSlots[3]);
