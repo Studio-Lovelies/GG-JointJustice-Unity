@@ -18,6 +18,7 @@ public class DirectorActionDecoder : MonoBehaviour
         _decoder._onActionDone = _onActionDone;
     }
 
+    #region API
     /// <summary>
     /// Called whenever a new action is executed (encountered and then forwarded here) in the script
     /// </summary>
@@ -86,6 +87,49 @@ public class DirectorActionDecoder : MonoBehaviour
             default: Debug.LogError("Unknown action: " + action); break;
         }
     }
+
+    /// <summary>
+    /// Attach a new IActorController to the decoder
+    /// </summary>
+    /// <param name="newController">New action controller to be added</param>
+    public void SetActorController(IActorController newController)
+    {
+        _decoder._actorController = newController;
+    }
+    /// <summary>
+    /// Attach a new ISceneController to the decoder
+    /// </summary>
+    /// <param name="newController">New scene controller to be added</param>
+    public void SetSceneController(ISceneController newController)
+    {
+        _decoder._sceneController = newController;
+    }
+    /// <summary>
+    /// Attach a new IAudioController to the decoder
+    /// </summary>
+    /// <param name="newController">New audio controller to be added</param>
+    public void SetAudioController(IAudioController newController)
+    {
+        _decoder._audioController = newController;
+    }
+    /// <summary>
+    /// Attach a new IEvidenceController to the decoder
+    /// </summary>
+    /// <param name="newController">New evidence controller to be added</param>
+    public void SetEvidenceController(IEvidenceController newController)
+    {
+        _decoder._evidenceController = newController;
+    }
+    /// <summary>
+    /// Attach a new IAppearingDialogController to the decoder
+    /// </summary>
+    /// <param name="newController">New appearing dialog controller to be added</param>
+    public void SetAppearingDialogController(IAppearingDialogueController newController)
+    {
+        _decoder._appearingDialogController = newController;
+    }
+
+    #endregion
 
     #region ActorController
     /// <summary>
@@ -599,14 +643,6 @@ public class DirectorActionDecoder : MonoBehaviour
     #endregion
 
     #region ControllerStuff
-    /// <summary>
-    /// Attach a new IActorController to the decoder
-    /// </summary>
-    /// <param name="newController">New action controller to be added</param>
-    public void SetActorController(IActorController newController)
-    {
-        _decoder._actorController = newController;
-    }
 
     /// <summary>
     /// Checks if the decoder has an actor controller attached, and shows an error if it doesn't
@@ -620,15 +656,6 @@ public class DirectorActionDecoder : MonoBehaviour
             return false;
         }
         return true;
-    }
-
-    /// <summary>
-    /// Attach a new ISceneController to the decoder
-    /// </summary>
-    /// <param name="newController">New scene controller to be added</param>
-    public void SetSceneController(ISceneController newController)
-    {
-        _decoder._sceneController = newController;
     }
 
     /// <summary>
@@ -646,15 +673,6 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     /// <summary>
-    /// Attach a new IAudioController to the decoder
-    /// </summary>
-    /// <param name="newController">New audio controller to be added</param>
-    public void SetAudioController(IAudioController newController)
-    {
-        _decoder._audioController = newController;
-    }
-
-    /// <summary>
     /// Checks if the decoder has an audio controller attached, and shows an error if it doesn't
     /// </summary>
     /// <returns>Whether an audio controller is connected</returns>
@@ -669,15 +687,6 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     /// <summary>
-    /// Attach a new IEvidenceController to the decoder
-    /// </summary>
-    /// <param name="newController">New evidence controller to be added</param>
-    public void SetEvidenceController(IEvidenceController newController)
-    {
-        _decoder._evidenceController = newController;
-    }
-
-    /// <summary>
     /// Checks if the decoder has an evidence controller attached, and shows an error if it doesn't
     /// </summary>
     /// <returns>Whether an evidence controller is connected</returns>
@@ -689,15 +698,6 @@ public class DirectorActionDecoder : MonoBehaviour
             return false;
         }
         return true;
-    }
-
-    /// <summary>
-    /// Attach a new IAppearingDialogController to the decoder
-    /// </summary>
-    /// <param name="newController">New appearing dialog controller to be added</param>
-    public void SetAppearingDialogController(IAppearingDialogueController newController)
-    {
-        _decoder._appearingDialogController = newController;
     }
 
     /// <summary>
