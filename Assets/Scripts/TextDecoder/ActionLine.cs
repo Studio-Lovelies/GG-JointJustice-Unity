@@ -2,14 +2,16 @@ using System.Globalization;
 
 public class UnableToParseException : System.Exception
 {
-    public UnableToParseException(string typeName, string token) : base($"Unable to parse {token} as {typeName}.")
+    public UnableToParseException(string typeName, string parameterName, string token)
+        : base($"Unable to parse {parameterName}: \"{token}\" as type {typeName}.")
     {
     }
 }
 
 public class NotEnoughParametersException : System.Exception
 {
-    public NotEnoughParametersException()
+    public NotEnoughParametersException(string tokenName)
+        : base($"Not enough parameters, missing: {tokenName}")
     {
     }
 }
@@ -46,7 +48,7 @@ public class ActionLine
         return this.splitParameters;
     }
 
-    private string NextToken()
+    private string NextToken(string tokenName)
     {
         if (parameterIndex < this.splitParameters.Length)
         {
@@ -56,38 +58,52 @@ public class ActionLine
         }
         else
         {
-            throw new NotEnoughParametersException();
+            throw new NotEnoughParametersException(tokenName);
         }
     }
 
-    public string NextString()
+    public string NextString(string tokenName)
     {
-        return NextToken();
+        return NextToken(tokenName);
     }
 
-    public float NextFloat()
+    public float NextFloat(string tokenName)
     {
-        var token = NextToken();
+        var token = NextToken(tokenName);
         if (float.TryParse(token, NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
         {
             return value;
         }
         else
         {
-            throw new UnableToParseException("float", token);
+            throw new UnableToParseException("decimal value", tokenName, token);
         }
     }
 
-    public int NextInt()
+    public int NextInt(string tokenName)
     {
-        var token = NextToken();
+        var token = NextToken(tokenName);
         if (int.TryParse(token, out int value))
         {
             return value;
         }
         else
         {
-            throw new UnableToParseException("int", token);
+            throw new UnableToParseException("integer", tokenName, token);
+        }
+    }
+
+    public int NextOneBasedInt(string tokenName)
+    {
+        var nextInt = NextInt(tokenName);
+
+        if (nextInt > 0)
+        {
+            return nextInt;
+        }
+        else
+        {
+            throw new UnableToParseException("one-based integer", tokenName, nextInt.ToString());
         }
     }
 }

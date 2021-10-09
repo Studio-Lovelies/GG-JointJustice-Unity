@@ -120,7 +120,7 @@ namespace Tests.EditModeTests
             });
 
             // Act
-            decoder.OnNewActionLine(new ActionLine("&SET_ACTOR_POSITION:3,Arin ")); // <-- that space needs to be there... weird
+            decoder.OnNewActionLine(new ActionLine("&SET_ACTOR_POSITION:Arin,3 ")); // <-- that space needs to be there... weird
 
             // Assert
             Assert.AreEqual("Arin", actorController.actorSlots[3]);
@@ -178,7 +178,7 @@ namespace Tests.EditModeTests
             var line = new ActionLine("this is not a number");
             Assert.Throws(typeof(UnableToParseException), () =>
             {
-                line.NextFloat();
+                line.NextFloat("radius of the sun");
             });
         }
 
@@ -189,14 +189,14 @@ namespace Tests.EditModeTests
 
             Assert.DoesNotThrow(() =>
             {
-                line.NextString();
-                line.NextString();
-                line.NextString();
+                line.NextString("first");
+                line.NextString("second");
+                line.NextString("third");
             });
 
             Assert.Throws(typeof(NotEnoughParametersException), () =>
             {
-                line.NextString();
+                line.NextString("fourth");
             });
         }
     }

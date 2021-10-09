@@ -47,43 +47,43 @@ public class ActionDecoder
         switch (actionLine.Action)
         {
             //Actor controller
-            case "ACTOR": SetActor(actionLine.NextString()); break;
-            case "SET_ACTOR_POSITION": SetActorPosition(actionLine.Parameters()); break;
-            case "SHOWACTOR": SetActorVisibility(actionLine.NextString()); break;
-            case "SPEAK": SetSpeaker(actionLine.NextString(), SpeakingType.Speaking); break;
-            case "THINK": SetSpeaker(actionLine.NextString(), SpeakingType.Thinking); break;
+            case "ACTOR": SetActor(actionLine.NextString("actor name")); break;
+            case "SET_ACTOR_POSITION": SetActorPosition(actionLine.NextString("actor name"), actionLine.NextOneBasedInt("slot index")); break;
+            case "SHOWACTOR": SetActorVisibility(actionLine.NextString("actor visibility")); break;
+            case "SPEAK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Speaking); break;
+            case "THINK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Thinking); break;
             case "SET_POSE": SetPose(actionLine.Parameters()); break;
             case "PLAY_EMOTION": PlayEmotion(actionLine.Parameters()); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
-            case "PLAYSFX": PlaySFX(actionLine.NextString()); break;
-            case "PLAYSONG": SetBGMusic(actionLine.NextString()); break;
+            case "PLAYSFX": PlaySFX(actionLine.NextString("sfx name")); break;
+            case "PLAYSONG": SetBGMusic(actionLine.NextString("song name")); break;
             case "STOP_SONG": StopSong(); break;
             //Scene controller
-            case "FADE_OUT": FadeOutScene(actionLine.NextString()); break;
-            case "FADE_IN": FadeInScene(actionLine.NextString()); break;
-            case "CAMERA_PAN": PanCamera(actionLine.NextFloat(), actionLine.NextInt(), actionLine.NextInt()); break;
+            case "FADE_OUT": FadeOutScene(actionLine.NextString("seconds")); break;
+            case "FADE_IN": FadeInScene(actionLine.NextString("seconds")); break;
+            case "CAMERA_PAN": PanCamera(actionLine.NextFloat("duration"), actionLine.NextInt("x"), actionLine.NextInt("y")); break;
             case "CAMERA_SET": SetCameraPosition(actionLine.Parameters()); break;
-            case "SHAKESCREEN": ShakeScreen(actionLine.NextString()); break;
-            case "SCENE": SetScene(actionLine.NextString()); break;
-            case "WAIT": Wait(actionLine.NextString()); break;
+            case "SHAKESCREEN": ShakeScreen(actionLine.NextString("intensity")); break;
+            case "SCENE": SetScene(actionLine.NextString("scene name")); break;
+            case "WAIT": Wait(actionLine.NextString("seconds")); break;
             case "SHOW_ITEM": ShowItem(actionLine.Parameters()); break;
             case "HIDE_ITEM": HideItem(); break;
-            case "PLAY_ANIMATION": PlayAnimation(actionLine.NextString()); break;
-            case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.NextString()); break;
+            case "PLAY_ANIMATION": PlayAnimation(actionLine.NextString("animation name")); break;
+            case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.NextString("slot index")); break;
             case "PAN_TO_POSITION": PanToActorSlot(actionLine.Parameters()); break;
             //Evidence controller
-            case "ADD_EVIDENCE": AddEvidence(actionLine.NextString()); break;
-            case "REMOVE_EVIDENCE": RemoveEvidence(actionLine.NextString()); break;
-            case "ADD_RECORD": AddToCourtRecord(actionLine.NextString()); break;
+            case "ADD_EVIDENCE": AddEvidence(actionLine.NextString("evidence name")); break;
+            case "REMOVE_EVIDENCE": RemoveEvidence(actionLine.NextString("evidence name")); break;
+            case "ADD_RECORD": AddToCourtRecord(actionLine.NextString("evidence name")); break;
             case "PRESENT_EVIDENCE": OpenEvidenceMenu(); break;
-            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(actionLine.NextString()); break;
+            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(actionLine.NextString("evidence name")); break;
             //Dialog controller
-            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, actionLine.NextString()); break;
-            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.NextString()); break;
-            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.NextString()); break;
+            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, actionLine.NextString("???")); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.NextString("???")); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.NextString("???")); break;
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
-            case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.NextString()); break;
-            case "AUTOSKIP": AutoSkip(actionLine.NextString()); break;
+            case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.NextString("disabled")); break;
+            case "AUTOSKIP": AutoSkip(actionLine.NextString("on")); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
             case "APPEAR_INSTANTLY": AppearInstantly(); break;
             case "HIDE_TEXTBOX": HideTextbox(); break;
@@ -714,23 +714,10 @@ public class ActionDecoder
     /// Sets an actor to a specific slot in the currently active scene.
     /// </summary>
     /// <param name="parameters">String containing the actor name first and one-based slot index second.</param>
-    private void SetActorPosition(string[] parameters)
+    private void SetActorPosition(string actorName, int oneBasedSlotIndex)
     {
         if (!HasActorController())
         {
-            return;
-        }
-
-        if (parameters.Length != 2)
-        {
-            Debug.LogError("SET_ACTOR_POSITION requires exactly 2 parameters: [actorName <string>], [slotIndex <int>]");
-            return;
-        }
-
-        string actorName = parameters[1];
-        if (!int.TryParse(parameters[0], out int oneBasedSlotIndex))
-        {
-            Debug.LogError("Second parameter needs to be a one-based integer index");
             return;
         }
 

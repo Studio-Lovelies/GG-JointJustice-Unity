@@ -43,7 +43,7 @@ public class DirectorActionDecoder : MonoBehaviour
         }
         catch (NotEnoughParametersException e)
         {
-            Debug.LogError($"Not enough parameters on line: {line}");
+            Debug.LogError($"Not enough parameters on line: {line}\n{e.Message}");
             _onActionDone.Invoke();
         }
     }
