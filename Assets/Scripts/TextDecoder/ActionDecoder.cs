@@ -52,7 +52,7 @@ public class ActionDecoder
             case "SHOWACTOR": SetActorVisibility(actionLine.NextString("actor visibility")); break;
             case "SPEAK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Speaking); break;
             case "THINK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Thinking); break;
-            case "SET_POSE": SetPose(actionLine.Parameters()); break;
+            case "SET_POSE": SetPose(actionLine.NextString("pose name"), actionLine.NextOptionalString("target actor")); break;
             case "PLAY_EMOTION": PlayEmotion(actionLine.Parameters()); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
             case "PLAYSFX": PlaySFX(actionLine.NextString("sfx name")); break;
@@ -664,27 +664,21 @@ public class ActionDecoder
     /// Set the pose of the current actor
     /// </summary>
     /// <param name="parameters">"[pose name]" to set pose for current actor OR "[pose name],[actor name]" to set pose for another actor</param>
-    private void SetPose(string[] parameters)
+    private void SetPose(string poseName, string optional_targetActor)
     {
         if (!HasActorController())
             return;
 
-        if (parameters.Length == 1)
+        if (optional_targetActor == null)
         {
-            ActorController.SetPose(parameters[0]);
-            OnActionDone.Invoke();
-        }
-        else if (parameters.Length == 2)
-        {
-            ActorController.SetPose(parameters[0], parameters[1]);
+            ActorController.SetPose(poseName);
             OnActionDone.Invoke();
         }
         else
         {
-            Debug.LogError("Invalid number of parameters for function PLAY_EMOTION");
+            ActorController.SetPose(poseName, optional_targetActor);
+            OnActionDone.Invoke();
         }
-
-
     }
 
     /// <summary>
