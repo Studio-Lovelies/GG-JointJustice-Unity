@@ -280,10 +280,6 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasSceneController())
             return;
 
-        float intensityNumerical;
-        float duration;
-        bool shouldWaitForShake = false;
-        
         string[] parameters = intensity.Split(ACTION_PARAMETER_SEPARATOR);
 
         if (parameters.Length < 2)
@@ -292,24 +288,25 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
         }
         
-        if (!float.TryParse(parameters[0], NumberStyles.Any, CultureInfo.InvariantCulture, out intensityNumerical))
+        if (!float.TryParse(parameters[0], NumberStyles.Any, CultureInfo.InvariantCulture, out float intensityNumerical))
         {
-            Debug.LogError("Invalid parameter " + parameters[0] + " for function SHAKESCREEN");
+            Debug.LogError($"Invalid parameter {parameters[0]} for function SHAKESCREEN");
             return;
         }
 
-        if (!float.TryParse(parameters[1], NumberStyles.Any, CultureInfo.InvariantCulture, out duration))
+        if (!float.TryParse(parameters[1], NumberStyles.Any, CultureInfo.InvariantCulture, out float duration))
         {
-            Debug.LogError("Invalid parameter " + parameters[1] + " for function SHAKESCREEN");
+            Debug.LogError($"Invalid parameter {parameters[1]} for function SHAKESCREEN");
         }
-        
-        if (parameters.Length > 2 && !bool.TryParse(parameters[2], out shouldWaitForShake))
+
+        bool isBlocking = false;
+        if (parameters.Length > 2 && !bool.TryParse(parameters[2], out isBlocking))
         {
-            Debug.LogError("Invalid parameter " + parameters[2] + " for function SHAKESCREEN");
+            Debug.LogError($"Invalid parameter {parameters[2]} for function SHAKESCREEN");
             return;
         }
         
-        _sceneController.ShakeScreen(intensityNumerical, duration, shouldWaitForShake);
+        _sceneController.ShakeScreen(intensityNumerical, duration, isBlocking);
     }
 
     /// <summary>

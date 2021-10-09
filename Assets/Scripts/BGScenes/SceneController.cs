@@ -157,12 +157,12 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="intensity">The intensity of the shake.</param>
     /// <param name="duration">The duration of the shake.</param>
-    /// <param name="shouldWaitForShake">Whether the system waits for the shake to complete before continuing.</param>
-    public void ShakeScreen(float intensity, float duration, bool shouldWaitForShake)
+    /// <param name="isBlocking">Whether the system waits for the shake to complete before continuing.</param>
+    public void ShakeScreen(float intensity, float duration, bool isBlocking)
     {
-        _screenShaker.Shake(intensity, duration, shouldWaitForShake);
+        _screenShaker.Shake(intensity, duration, isBlocking);
 
-        if (!shouldWaitForShake)
+        if (!isBlocking)
         {
             _onWaitComplete.Invoke();
         }

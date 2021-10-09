@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ScreenshakeCalculator
@@ -18,7 +16,7 @@ public class ScreenshakeCalculator
     public bool IsShaking => !Mathf.Approximately(_completion, 0);
 
     /// <summary>
-    /// Initialised private methods on object construction.
+    /// Creates ScreenshakeCalculator instance with pre-defined intensity
     /// </summary>
     /// <param name="duration">The duration of the shake in seconds.</param>
     /// <param name="frequency">The frequency that the object will oscillate at.</param>

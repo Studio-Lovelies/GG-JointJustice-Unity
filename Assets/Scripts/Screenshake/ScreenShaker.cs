@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class ScreenShaker : MonoBehaviour
 {
@@ -36,15 +35,16 @@ public class ScreenShaker : MonoBehaviour
     /// <summary>
     /// Call this method to begin shaking screen.
     /// </summary>
-    /// <param name="intensity">The time (in seconds) that the shake will last.</param>
+    /// <param name="intensity">How much the camera should shake. Combines amplitude and frequency into one value.</param>
+    /// <param name="duration">The time (in seconds) that the shake will last.</param>
     /// <param name="shouldWaitForShake">Whether the system waits for the shake to complete before continuing.</param>
-    public void Shake(float intensity, float time, bool shouldWaitForShake)
+    public void Shake(float intensity, float duration, bool shouldWaitForShake)
     {
         if (_shakeCoroutine != null)
         {
             StopCoroutine(_shakeCoroutine);
         }
-        _shakeCoroutine = StartCoroutine(ShakeCoroutine(time, intensity * 10f, intensity / 10f, shouldWaitForShake));
+        _shakeCoroutine = StartCoroutine(ShakeCoroutine(duration, intensity * 10f, intensity / 10f, shouldWaitForShake));
     }
 
     /// <summary>
@@ -54,10 +54,10 @@ public class ScreenShaker : MonoBehaviour
     /// <param name="duration">The number of seconds to shake the camera for.</param>
     /// <param name="frequency">The frequency of the shake's oscillation.</param>
     /// <param name="amplitude">The maximum distance from the objects original position.</param>
-    /// <param name="shouldWaitForShake">Whether the system waits for the shake to complete before continuing.</param>
-    private IEnumerator ShakeCoroutine(float duration, float frequency, float amplitude, bool shouldWaitForShake)
+    /// <param name="isBlocking">Whether the system waits for the shake to complete before continuing.</param>
+    private IEnumerator ShakeCoroutine(float duration, float frequency, float amplitude, bool isBlocking)
     {
-        if (shouldWaitForShake)
+        if (isBlocking)
         {
             _onShakeStart.Invoke();
         }
@@ -71,7 +71,7 @@ public class ScreenShaker : MonoBehaviour
 
         _transform.position = _cameraOffset;
         _shakeCoroutine = null;
-        if (shouldWaitForShake)
+        if (isBlocking)
         {
             _onShakeComplete.Invoke();
         }
