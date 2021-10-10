@@ -83,7 +83,7 @@ public class ActionDecoder
             case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.Parameters()); break;
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
             case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.NextBool("is disabled")); break;
-            case "AUTOSKIP": AutoSkip(actionLine.NextString("on")); break;
+            case "AUTOSKIP": AutoSkip(actionLine.NextBool("is on")); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
             case "APPEAR_INSTANTLY": AppearInstantly(); break;
             case "HIDE_TEXTBOX": HideTextbox(); break;
@@ -159,16 +159,10 @@ public class ActionDecoder
     ///<summary>
     ///Forces the next line of dialog happen right after current one.
     ///</summary>
-    private void AutoSkip(string on)
+    private void AutoSkip(bool value)
     {
         if (!HasAppearingDialogController())
             return;
-
-        if (!bool.TryParse(on, out bool value))
-        {
-            Debug.LogError("Bool value wasn't found from autoskip command. Please fix.");
-            return;
-        }
 
         AppearingDialogueController.AutoSkipDialog(value);
     }
