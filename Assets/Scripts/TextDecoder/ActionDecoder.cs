@@ -70,7 +70,7 @@ public class ActionDecoder
             case "HIDE_ITEM": HideItem(); break;
             case "PLAY_ANIMATION": PlayAnimation(actionLine.NextString("animation name")); break;
             case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.NextString("slot index")); break;
-            case "PAN_TO_POSITION": PanToActorSlot(actionLine.Parameters()); break;
+            case "PAN_TO_POSITION": PanToActorSlot(actionLine.NextOneBasedInt("slot index"), actionLine.NextFloat("pan duration")); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(actionLine.NextString("evidence name")); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(actionLine.NextString("evidence name")); break;
@@ -514,32 +514,14 @@ public class ActionDecoder
     /// Pans the camera to the target actor slot if the bg-scene has support for actor slots.
     /// </summary>
     /// <param name="parameters">String containing a one-based integer index referring to the target actor slot, and a floating point number referring to the amount of time the pan should take in seconds.</param>
-    private void PanToActorSlot(string[] parameters)
+    private void PanToActorSlot(int slotIndex, float panDuration)
     {
         if (!HasSceneController())
         {
             return;
         }
 
-        if (parameters.Length != 2)
-        {
-            Debug.LogError("PAN_TO_POSITION requires exactly 2 parameters: [slotIndex <int>], [panDurationInSeconds <float>]");
-            return;
-        }
-
-        if (!int.TryParse(parameters[0], out int oneBasedSlotIndex))
-        {
-            Debug.LogError("First parameter needs to be a one-based integer index");
-            return;
-        }
-
-        if (!float.TryParse(parameters[1], NumberStyles.Any, CultureInfo.InvariantCulture, out float timeInSeconds))
-        {
-            Debug.LogError("Second parameter needs to be a floating point number");
-            return;
-        }
-
-        SceneController.PanToActorSlot(oneBasedSlotIndex, timeInSeconds);
+        SceneController.PanToActorSlot(slotIndex, panDuration);
         OnActionDone.Invoke();
     }
 
