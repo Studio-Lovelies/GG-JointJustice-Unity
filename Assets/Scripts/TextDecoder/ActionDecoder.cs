@@ -33,8 +33,6 @@ public class ActionDecoder
     public IEvidenceController EvidenceController { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; } = null;
 
-    public GameObject GameObject { get; set; }
-
     public ActionDecoder()
     {
     }
@@ -100,7 +98,7 @@ public class ActionDecoder
     {
         if (AppearingDialogueController == null)
         {
-            Debug.LogError("No appearing dialog controller attached to the action decoder", GameObject);
+            Debug.LogError("No appearing dialog controller attached to the action decoder");
             return false;
         }
         return true;
