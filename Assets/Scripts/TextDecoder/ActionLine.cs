@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 
 public class UnableToParseException : System.Exception
@@ -117,6 +118,20 @@ public class ActionLine
         else
         {
             throw new UnableToParseException("one-based integer", tokenName, nextInt.ToString());
+        }
+    }
+
+    public T NextEnumValue<T>(string tokenName) where T : struct, IConvertible
+    {
+        var token = NextToken(tokenName);
+
+        if (Enum.TryParse(token, out T value))
+        {
+            return value;
+        }
+        else
+        {
+            throw new UnableToParseException(string.Join("/", typeof(T).GetEnumNames()), tokenName, token);
         }
     }
 
