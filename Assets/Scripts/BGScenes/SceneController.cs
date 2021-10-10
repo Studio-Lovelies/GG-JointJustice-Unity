@@ -172,7 +172,7 @@ public class SceneController : MonoBehaviour, ISceneController
             Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
 
-        Evidence evidence = _evidenceInventory.GetObjectFromAvailableObjects(item);
+        Evidence evidence = _evidenceInventory[item];
         _itemDisplay.ShowItem(evidence.Icon, position);
     }
 

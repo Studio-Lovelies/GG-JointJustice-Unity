@@ -5,8 +5,8 @@ public class ActorInventory : ObjectInventory<ActorData, ActorList>, ICourtRecor
     /// </summary>
     /// <param name="index">The index of the actor data to get.</param>
     /// <returns>The actor data as an ICourtRecordObject</returns>
-    public ICourtRecordObject GetObjectAtIndex(int index)
+    public ICourtRecordObject GetObjectInList(int index)
     {
-        return ObjectStorage[index];
+        return ObjectLookup.GetObjectInList(index);
     }
 }
