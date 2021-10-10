@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using UnityEngine;
 
 public class UnknownCommandException : Exception
@@ -43,7 +42,7 @@ public class ActionDecoder
             //Actor controller
             case "ACTOR": SetActor(actionLine.NextString("actor name")); break;
             case "SET_ACTOR_POSITION": SetActorPosition(actionLine.NextOneBasedInt("slot index"), actionLine.NextString("actor name")); break;
-            case "SHOWACTOR": SetActorVisibility(actionLine.NextString("actor visibility")); break;
+            case "SHOWACTOR": SetActorVisibility(actionLine.NextBool("should show")); break;
             case "SPEAK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Speaking); break;
             case "THINK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Thinking); break;
             case "SET_POSE": SetPose(actionLine.NextString("pose name"), actionLine.NextOptionalString("target actor")); break;
@@ -53,17 +52,17 @@ public class ActionDecoder
             case "PLAYSONG": SetBGMusic(actionLine.NextString("song name")); break;
             case "STOP_SONG": StopSong(); break;
             //Scene controller
-            case "FADE_OUT": FadeOutScene(actionLine.NextString("seconds")); break;
-            case "FADE_IN": FadeInScene(actionLine.NextString("seconds")); break;
+            case "FADE_OUT": FadeOutScene(actionLine.NextFloat("seconds")); break;
+            case "FADE_IN": FadeInScene(actionLine.NextFloat("seconds")); break;
             case "CAMERA_PAN": PanCamera(actionLine.NextFloat("duration"), actionLine.NextInt("x"), actionLine.NextInt("y")); break;
             case "CAMERA_SET": SetCameraPosition(actionLine.NextInt("x"), actionLine.NextInt("y")); break;
-            case "SHAKESCREEN": ShakeScreen(actionLine.NextString("intensity")); break;
+            case "SHAKESCREEN": ShakeScreen(actionLine.NextFloat("intensity")); break;
             case "SCENE": SetScene(actionLine.NextString("scene name")); break;
-            case "WAIT": Wait(actionLine.NextString("seconds")); break;
+            case "WAIT": Wait(actionLine.NextFloat("seconds")); break;
             case "SHOW_ITEM": ShowItem(actionLine.NextString("item name"), actionLine.NextEnumValue<ItemDisplayPosition>("item position")); break;
             case "HIDE_ITEM": HideItem(); break;
             case "PLAY_ANIMATION": PlayAnimation(actionLine.NextString("animation name")); break;
-            case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.NextString("slot index")); break;
+            case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.NextOneBasedInt("slot index")); break;
             case "PAN_TO_POSITION": PanToActorSlot(actionLine.NextOneBasedInt("slot index"), actionLine.NextFloat("pan duration")); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(actionLine.NextString("evidence name")); break;
@@ -329,63 +328,37 @@ public class ActionDecoder
     /// Fades the scene in from black
     /// </summary>
     /// <param name="seconds">Amount of seconds the fade-in should take as a float</param>
-    private void FadeInScene(string seconds)
+    private void FadeInScene(float timeInSeconds)
     {
         if (!HasSceneController())
             return;
 
-        float timeInSeconds;
-
-        if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out timeInSeconds))
-        {
-            SceneController.FadeIn(timeInSeconds);
-        }
-        else
-        {
-            Debug.LogError("Invalid paramater " + seconds + " for function FADE_IN");
-        }
+        SceneController.FadeIn(timeInSeconds);
     }
 
     /// <summary>
     /// Fades the scene to black
     /// </summary>
     /// <param name="seconds">Amount of seconds the fade-out should take as a float</param>
-    private void FadeOutScene(string seconds)
+    private void FadeOutScene(float timeInSeconds)
     {
         if (!HasSceneController())
             return;
 
-        float timeInSeconds;
+        SceneController.FadeOut(timeInSeconds);
 
-        if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out timeInSeconds))
-        {
-            SceneController.FadeOut(timeInSeconds);
-        }
-        else
-        {
-            Debug.LogError("Invalid paramater " + seconds + " for function FADE_OUT");
-        }
     }
 
     /// <summary>
     /// Shakes the screen
     /// </summary>
     /// <param name="intensity">Max displacement of the screen as a float</param>
-    private void ShakeScreen(string intensity)
+    private void ShakeScreen(float intensity)
     {
         if (!HasSceneController())
             return;
 
-        float intensityNumerical;
-
-        if (float.TryParse(intensity, NumberStyles.Any, CultureInfo.InvariantCulture, out intensityNumerical))
-        {
-            SceneController.ShakeScreen(intensityNumerical);
-        }
-        else
-        {
-            Debug.LogError("Invalid paramater " + intensity + " for function SHAKESCREEN");
-        }
+        SceneController.ShakeScreen(intensity);
     }
 
     /// <summary>
@@ -455,21 +428,12 @@ public class ActionDecoder
     /// Waits seconds before automatically continuing.
     /// </summary>
     /// <param name="seconds">Amount of seconds to wait</param>
-    private void Wait(string seconds)
+    private void Wait(float seconds)
     {
         if (!HasSceneController())
             return;
 
-        float secondsFloat;
-
-        if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out secondsFloat))
-        {
-            SceneController.Wait(secondsFloat);
-        }
-        else
-        {
-            Debug.LogError("Invalid paramater " + seconds + " for function WAIT");
-        }
+        SceneController.Wait(seconds);
     }
 
     /// <summary>
@@ -487,20 +451,14 @@ public class ActionDecoder
     /// Jump-cuts the camera to the target sub position if the bg-scene has sub positions.
     /// </summary>
     /// <param name="oneBasedSlotIndexAsString">String containing an integer referring to the target sub position, 1 based.</param>
-    private void JumpToActorSlot(string oneBasedSlotIndexAsString)
+    private void JumpToActorSlot(int slotIndex)
     {
         if (!HasSceneController())
         {
             return;
         }
 
-        if (!int.TryParse(oneBasedSlotIndexAsString, out int oneBasedSlotIndex))
-        {
-            Debug.LogError("First parameter needs to be a one-based integer index");
-            return;
-        }
-
-        SceneController.JumpToActorSlot(oneBasedSlotIndex);
+        SceneController.JumpToActorSlot(slotIndex);
         OnActionDone?.Invoke();
     }
 
@@ -554,27 +512,20 @@ public class ActionDecoder
     /// Shows or hides the actor based on the string parameter.
     /// </summary>
     /// <param name="showActor">Should contain true or false based on showing or hiding the actor respectively</param>
-    private void SetActorVisibility(string showActor)
+    private void SetActorVisibility(bool shouldShow)
     {
         if (!HasSceneController())
             return;
 
-        bool shouldShow;
-        if (bool.TryParse(showActor, out shouldShow))
+        if (shouldShow)
         {
-            if (shouldShow)
-            {
-                SceneController.ShowActor();
-            }
-            else
-            {
-                SceneController.HideActor();
-            }
+            SceneController.ShowActor();
         }
         else
         {
-            Debug.LogError("Invalid paramater " + showActor + " for function SHOWACTOR");
+            SceneController.HideActor();
         }
+
         OnActionDone?.Invoke();
     }
 
