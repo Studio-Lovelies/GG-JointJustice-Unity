@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using UnityEngine.Events;
 
 namespace Tests.EditModeTests
 {
@@ -96,7 +95,6 @@ namespace Tests.EditModeTests
         public void UseValidSyntax()
         {
             var decoder = new ActionDecoder();
-            decoder.OnActionDone = new UnityEvent();
             decoder.ActorController = new FakeActorController();
 
             Assert.DoesNotThrow(() =>
@@ -110,14 +108,13 @@ namespace Tests.EditModeTests
         {
             // Arrange
             var decoder = new ActionDecoder();
-            decoder.OnActionDone = new UnityEvent();
             var actorController = new FakeActorController();
             decoder.ActorController = actorController;
             bool actionDoneCalled = false;
-            decoder.OnActionDone.AddListener(() =>
+            decoder.OnActionDone += () =>
             {
                 actionDoneCalled = true;
-            });
+            };
 
             // Act
             decoder.OnNewActionLine(new ActionLine("&SET_ACTOR_POSITION:3,Arin ")); // <-- that space needs to be there... weird
@@ -132,14 +129,13 @@ namespace Tests.EditModeTests
         {
             // Arrange
             var decoder = new ActionDecoder();
-            decoder.OnActionDone = new UnityEvent();
             var actorController = new FakeActorController();
             decoder.ActorController = actorController;
             bool actionDoneCalled = false;
-            decoder.OnActionDone.AddListener(() =>
+            decoder.OnActionDone += () =>
             {
                 actionDoneCalled = true;
-            });
+            };
 
             // Act
             decoder.OnNewActionLine(new ActionLine("&PLAY_EMOTION:Happy "));
@@ -154,14 +150,13 @@ namespace Tests.EditModeTests
         {
             // Arrange
             var decoder = new ActionDecoder();
-            decoder.OnActionDone = new UnityEvent();
             var actorController = new FakeActorController();
             decoder.ActorController = actorController;
             bool actionDoneCalled = false;
-            decoder.OnActionDone.AddListener(() =>
+            decoder.OnActionDone += () =>
             {
                 actionDoneCalled = true;
-            });
+            };
 
             // Act
             decoder.OnNewActionLine(new ActionLine("&PLAY_EMOTION:Happy,Arin "));

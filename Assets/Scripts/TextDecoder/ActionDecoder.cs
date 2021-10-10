@@ -1,7 +1,6 @@
 using System;
 using System.Globalization;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class UnknownCommandException : Exception
 {
@@ -25,7 +24,7 @@ public class ActionDecoder
     /// <summary>
     /// Forwarded from the DirectorActionDecoder
     /// </summary>
-    public UnityEvent OnActionDone { get; set; }
+    public event Action OnActionDone;
 
     public IActorController ActorController { get; set; }
     public ISceneController SceneController { get; set; }
@@ -171,7 +170,7 @@ public class ActionDecoder
             return;
 
         AppearingDialogueController.PrintTextInstantly = true;
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -183,7 +182,7 @@ public class ActionDecoder
             return;
 
         AppearingDialogueController.HideTextbox();
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
     #endregion
 
@@ -208,7 +207,7 @@ public class ActionDecoder
             return;
 
         EvidenceController.AddEvidence(evidence);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     private void RemoveEvidence(string evidence)
@@ -217,7 +216,7 @@ public class ActionDecoder
             return;
 
         EvidenceController.RemoveEvidence(evidence);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     private void AddToCourtRecord(string actor)
@@ -226,7 +225,7 @@ public class ActionDecoder
             return;
 
         EvidenceController.AddToCourtRecord(actor);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -251,7 +250,7 @@ public class ActionDecoder
             return;
 
         EvidenceController.SubstituteEvidenceWithAlt(evidence);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     #endregion
@@ -282,7 +281,7 @@ public class ActionDecoder
             return;
 
         AudioController.PlaySFX(sfx);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -295,7 +294,7 @@ public class ActionDecoder
             return;
 
         AudioController.PlaySong(songName);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -307,7 +306,7 @@ public class ActionDecoder
             return;
 
         AudioController.StopSong();
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
     #endregion
 
@@ -399,7 +398,7 @@ public class ActionDecoder
             return;
 
         SceneController.SetScene(sceneName);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -412,7 +411,7 @@ public class ActionDecoder
             return;
 
         SceneController.SetCameraPos(new Vector2Int(x, y));
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -424,7 +423,7 @@ public class ActionDecoder
             return;
 
         SceneController.PanCamera(duration, new Vector2Int(x, y));
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -437,7 +436,7 @@ public class ActionDecoder
             return;
 
         SceneController.ShowItem(item, itemPos);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -449,7 +448,7 @@ public class ActionDecoder
             return;
 
         SceneController.HideItem();
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -502,7 +501,7 @@ public class ActionDecoder
         }
 
         SceneController.JumpToActorSlot(oneBasedSlotIndex);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -517,7 +516,7 @@ public class ActionDecoder
         }
 
         SceneController.PanToActorSlot(slotIndex, panDuration);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     #endregion
@@ -548,7 +547,7 @@ public class ActionDecoder
             return;
 
         ActorController.SetActiveActor(actor);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -576,7 +575,7 @@ public class ActionDecoder
         {
             Debug.LogError("Invalid paramater " + showActor + " for function SHOWACTOR");
         }
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -591,7 +590,7 @@ public class ActionDecoder
 
         ActorController.SetActiveSpeaker(actor);
         ActorController.SetSpeakingType(speakingType);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -606,12 +605,12 @@ public class ActionDecoder
         if (optional_targetActor == null)
         {
             ActorController.SetPose(poseName);
-            OnActionDone.Invoke();
+            OnActionDone?.Invoke();
         }
         else
         {
             ActorController.SetPose(poseName, optional_targetActor);
-            OnActionDone.Invoke();
+            OnActionDone?.Invoke();
         }
     }
 
@@ -646,7 +645,7 @@ public class ActionDecoder
         }
 
         ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
-        OnActionDone.Invoke();
+        OnActionDone?.Invoke();
     }
     #endregion
 
