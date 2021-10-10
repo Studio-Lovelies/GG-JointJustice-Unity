@@ -62,7 +62,7 @@ public class ActionDecoder
             case "FADE_OUT": FadeOutScene(actionLine.NextString("seconds")); break;
             case "FADE_IN": FadeInScene(actionLine.NextString("seconds")); break;
             case "CAMERA_PAN": PanCamera(actionLine.NextFloat("duration"), actionLine.NextInt("x"), actionLine.NextInt("y")); break;
-            case "CAMERA_SET": SetCameraPosition(actionLine.Parameters()); break;
+            case "CAMERA_SET": SetCameraPosition(actionLine.NextInt("x"), actionLine.NextInt("y")); break;
             case "SHAKESCREEN": ShakeScreen(actionLine.NextString("intensity")); break;
             case "SCENE": SetScene(actionLine.NextString("scene name")); break;
             case "WAIT": Wait(actionLine.NextString("seconds")); break;
@@ -423,29 +423,12 @@ public class ActionDecoder
     /// Sets the camera position
     /// </summary>
     /// <param name="parameters">New camera coordinates in the "int x,int y" format</param>
-    private void SetCameraPosition(string[] parameters)
+    private void SetCameraPosition(int x, int y)
     {
         if (!HasSceneController())
             return;
 
-        if (parameters.Length != 2)
-        {
-            Debug.LogError("Invalid amount of parameters for function CAMERA_SET");
-            return;
-        }
-
-        int x;
-        int y;
-
-        if (int.TryParse(parameters[0], out x)
-            && int.TryParse(parameters[1], out y))
-        {
-            SceneController.SetCameraPos(new Vector2Int(x, y));
-        }
-        else
-        {
-            Debug.LogError("Invalid paramater " + string.Join(",", parameters) + " for function CAMERA_SET");
-        }
+        SceneController.SetCameraPos(new Vector2Int(x, y));
         OnActionDone.Invoke();
     }
 
