@@ -27,7 +27,7 @@ public class ActionLine
     private readonly string[] splitParameters;
     private int parameterIndex;
 
-    public string Action { get; set; }
+    public ActionName Action { get; set; }
 
     public ActionLine(string line)
     {
@@ -39,7 +39,16 @@ public class ActionLine
             throw new InvalidSyntaxException();
         }
 
-        Action = actionAndParam[0];
+        var actionNameAsString = actionAndParam[0];
+
+        if (Enum.TryParse(actionNameAsString, out ActionName actionNameAsEnum))
+        {
+            Action = actionNameAsEnum;
+        }
+        else
+        {
+            throw new UnknownCommandException(actionNameAsString);
+        }
         fullParametersString = (actionAndParam.Length == 2) ? actionAndParam[1] : "";
         this.splitParameters = fullParametersString.Split(ACTION_PARAMETER_SEPARATOR);
     }

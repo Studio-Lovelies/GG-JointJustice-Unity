@@ -18,6 +18,47 @@ public class InvalidSyntaxException : Exception
     }
 }
 
+public enum ActionName
+{
+    ACTOR,
+    SET_ACTOR_POSITION,
+    SHOWACTOR,
+    SPEAK,
+    THINK,
+    SET_POSE,
+    PLAY_EMOTION,
+    PLAYSFX,
+    PLAYSONG,
+    STOP_SONG,
+    FADE_OUT,
+    FADE_IN,
+    CAMERA_PAN,
+    CAMERA_SET,
+    SHAKESCREEN,
+    SCENE,
+    WAIT,
+    SHOW_ITEM,
+    HIDE_ITEM,
+    PLAY_ANIMATION,
+    JUMP_TO_POSITION,
+    PAN_TO_POSITION,
+    ADD_EVIDENCE,
+    REMOVE_EVIDENCE,
+    ADD_RECORD,
+    PRESENT_EVIDENCE,
+    SUBSTITUTE_EVIDENCE,
+    DIALOG_SPEED,
+    OVERALL_SPEED,
+    PUNCTUATION_SPEED,
+    CLEAR_SPEED,
+    DISABLE_SKIPPING,
+    AUTOSKIP,
+    CONTINUE_DIALOG,
+    APPEAR_INSTANTLY,
+    HIDE_TEXTBOX,
+    WAIT_FOR_INPUT
+}
+
 public class ActionDecoder
 {
     /// <summary>
@@ -40,50 +81,51 @@ public class ActionDecoder
         switch (actionLine.Action)
         {
             //Actor controller
-            case "ACTOR": SetActor(actionLine.NextString("actor name")); break;
-            case "SET_ACTOR_POSITION": SetActorPosition(actionLine.NextOneBasedInt("slot index"), actionLine.NextString("actor name")); break;
-            case "SHOWACTOR": SetActorVisibility(actionLine.NextBool("should show")); break;
-            case "SPEAK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Speaking); break;
-            case "THINK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Thinking); break;
-            case "SET_POSE": SetPose(actionLine.NextString("pose name"), actionLine.NextOptionalString("target actor")); break;
-            case "PLAY_EMOTION": PlayEmotion(actionLine.NextString("emotion name"), actionLine.NextOptionalString("target actor")); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
+            case ActionName.ACTOR: SetActor(actionLine.NextString("actor name")); break;
+            case ActionName.SET_ACTOR_POSITION: SetActorPosition(actionLine.NextOneBasedInt("slot index"), actionLine.NextString("actor name")); break;
+            case ActionName.SHOWACTOR: SetActorVisibility(actionLine.NextBool("should show")); break;
+            case ActionName.SPEAK: SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Speaking); break;
+            case ActionName.THINK: SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Thinking); break;
+            case ActionName.SET_POSE: SetPose(actionLine.NextString("pose name"), actionLine.NextOptionalString("target actor")); break;
+            case ActionName.PLAY_EMOTION: PlayEmotion(actionLine.NextString("emotion name"), actionLine.NextOptionalString("target actor")); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
-            case "PLAYSFX": PlaySFX(actionLine.NextString("sfx name")); break;
-            case "PLAYSONG": SetBGMusic(actionLine.NextString("song name")); break;
-            case "STOP_SONG": StopSong(); break;
+            case ActionName.PLAYSFX: PlaySFX(actionLine.NextString("sfx name")); break;
+            case ActionName.PLAYSONG: SetBGMusic(actionLine.NextString("song name")); break;
+            case ActionName.STOP_SONG: StopSong(); break;
             //Scene controller
-            case "FADE_OUT": FadeOutScene(actionLine.NextFloat("seconds")); break;
-            case "FADE_IN": FadeInScene(actionLine.NextFloat("seconds")); break;
-            case "CAMERA_PAN": PanCamera(actionLine.NextFloat("duration"), actionLine.NextInt("x"), actionLine.NextInt("y")); break;
-            case "CAMERA_SET": SetCameraPosition(actionLine.NextInt("x"), actionLine.NextInt("y")); break;
-            case "SHAKESCREEN": ShakeScreen(actionLine.NextFloat("intensity")); break;
-            case "SCENE": SetScene(actionLine.NextString("scene name")); break;
-            case "WAIT": Wait(actionLine.NextFloat("seconds")); break;
-            case "SHOW_ITEM": ShowItem(actionLine.NextString("item name"), actionLine.NextEnumValue<ItemDisplayPosition>("item position")); break;
-            case "HIDE_ITEM": HideItem(); break;
-            case "PLAY_ANIMATION": PlayAnimation(actionLine.NextString("animation name")); break;
-            case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.NextOneBasedInt("slot index")); break;
-            case "PAN_TO_POSITION": PanToActorSlot(actionLine.NextOneBasedInt("slot index"), actionLine.NextFloat("pan duration")); break;
+            case ActionName.FADE_OUT: FadeOutScene(actionLine.NextFloat("seconds")); break;
+            case ActionName.FADE_IN: FadeInScene(actionLine.NextFloat("seconds")); break;
+            case ActionName.CAMERA_PAN: PanCamera(actionLine.NextFloat("duration"), actionLine.NextInt("x"), actionLine.NextInt("y")); break;
+            case ActionName.CAMERA_SET: SetCameraPosition(actionLine.NextInt("x"), actionLine.NextInt("y")); break;
+            case ActionName.SHAKESCREEN: ShakeScreen(actionLine.NextFloat("intensity")); break;
+            case ActionName.SCENE: SetScene(actionLine.NextString("scene name")); break;
+            case ActionName.WAIT: Wait(actionLine.NextFloat("seconds")); break;
+            case ActionName.SHOW_ITEM: ShowItem(actionLine.NextString("item name"), actionLine.NextEnumValue<ItemDisplayPosition>("item position")); break;
+            case ActionName.HIDE_ITEM: HideItem(); break;
+            case ActionName.PLAY_ANIMATION: PlayAnimation(actionLine.NextString("animation name")); break;
+            case ActionName.JUMP_TO_POSITION: JumpToActorSlot(actionLine.NextOneBasedInt("slot index")); break;
+            case ActionName.PAN_TO_POSITION: PanToActorSlot(actionLine.NextOneBasedInt("slot index"), actionLine.NextFloat("pan duration")); break;
             //Evidence controller
-            case "ADD_EVIDENCE": AddEvidence(actionLine.NextString("evidence name")); break;
-            case "REMOVE_EVIDENCE": RemoveEvidence(actionLine.NextString("evidence name")); break;
-            case "ADD_RECORD": AddToCourtRecord(actionLine.NextString("evidence name")); break;
-            case "PRESENT_EVIDENCE": OpenEvidenceMenu(); break;
-            case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(actionLine.NextString("evidence name")); break;
+            case ActionName.ADD_EVIDENCE: AddEvidence(actionLine.NextString("evidence name")); break;
+            case ActionName.REMOVE_EVIDENCE: RemoveEvidence(actionLine.NextString("evidence name")); break;
+            case ActionName.ADD_RECORD: AddToCourtRecord(actionLine.NextString("evidence name")); break;
+            case ActionName.PRESENT_EVIDENCE: OpenEvidenceMenu(); break;
+            case ActionName.SUBSTITUTE_EVIDENCE: SubstituteEvidence(actionLine.NextString("evidence name")); break;
             //Dialog controller
-            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, actionLine.NextFloat("seconds")); break;
-            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.NextFloat("seconds")); break;
-            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.NextFloat("seconds")); break;
-            case "CLEAR_SPEED": ClearDialogSpeeds(); break;
-            case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.NextBool("is disabled")); break;
-            case "AUTOSKIP": AutoSkip(actionLine.NextBool("is on")); break;
-            case "CONTINUE_DIALOG": ContinueDialog(); break;
-            case "APPEAR_INSTANTLY": AppearInstantly(); break;
-            case "HIDE_TEXTBOX": HideTextbox(); break;
+            case ActionName.DIALOG_SPEED: ChangeDialogSpeed(WaiterType.Dialog, actionLine.NextFloat("seconds")); break;
+            case ActionName.OVERALL_SPEED: ChangeDialogSpeed(WaiterType.Overall, actionLine.NextFloat("seconds")); break;
+            case ActionName.PUNCTUATION_SPEED: ChangeDialogSpeed(WaiterType.Punctuation, actionLine.NextFloat("seconds")); break;
+            case ActionName.CLEAR_SPEED: ClearDialogSpeeds(); break;
+            case ActionName.DISABLE_SKIPPING: DisableTextSkipping(actionLine.NextBool("is disabled")); break;
+            case ActionName.AUTOSKIP: AutoSkip(actionLine.NextBool("is on")); break;
+            case ActionName.CONTINUE_DIALOG: ContinueDialog(); break;
+            case ActionName.APPEAR_INSTANTLY: AppearInstantly(); break;
+            case ActionName.HIDE_TEXTBOX: HideTextbox(); break;
             //Do nothing
-            case "WAIT_FOR_INPUT": break;
+            case ActionName.WAIT_FOR_INPUT: break;
             //Default
-            default: throw new UnknownCommandException(actionLine.Action);
+            // If we got here then the action exists in the ActionName enum but doesn't have a case in the switch hooked up to it.
+            default: throw new UnknownCommandException(actionLine.Action.ToString());
         }
     }
 
