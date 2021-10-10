@@ -12,7 +12,6 @@ public class DirectorActionDecoder : MonoBehaviour
     private void Awake()
     {
         _decoder.OnActionDone = _onActionDone;
-        _decoder.GameObject = gameObject;
     }
 
     #region API
