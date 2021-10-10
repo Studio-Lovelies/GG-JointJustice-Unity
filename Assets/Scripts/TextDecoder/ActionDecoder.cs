@@ -66,7 +66,7 @@ public class ActionDecoder
             case "SHAKESCREEN": ShakeScreen(actionLine.NextString("intensity")); break;
             case "SCENE": SetScene(actionLine.NextString("scene name")); break;
             case "WAIT": Wait(actionLine.NextString("seconds")); break;
-            case "SHOW_ITEM": ShowItem(actionLine.Parameters()); break;
+            case "SHOW_ITEM": ShowItem(actionLine.NextString("item name"), actionLine.NextEnumValue<ItemDisplayPosition>("item position")); break;
             case "HIDE_ITEM": HideItem(); break;
             case "PLAY_ANIMATION": PlayAnimation(actionLine.NextString("animation name")); break;
             case "JUMP_TO_POSITION": JumpToActorSlot(actionLine.NextString("slot index")); break;
@@ -436,26 +436,12 @@ public class ActionDecoder
     /// Shows an item on the middle, left, or right side of the screen.
     /// </summary>
     /// <param name="parameters">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
-    private void ShowItem(string[] parameters)
+    private void ShowItem(string item, ItemDisplayPosition itemPos)
     {
         if (!HasSceneController())
             return;
 
-        if (parameters.Length != 2)
-        {
-            Debug.LogError("Invalid amount of parameters for function SHOW_ITEM");
-            return;
-        }
-
-        ItemDisplayPosition pos;
-        if (System.Enum.TryParse<ItemDisplayPosition>(parameters[1], out pos))
-        {
-            SceneController.ShowItem(parameters[0], pos);
-        }
-        else
-        {
-            Debug.LogError("Invalid paramater " + parameters[1] + " for function CAMERA_PAN");
-        }
+        SceneController.ShowItem(item, itemPos);
         OnActionDone.Invoke();
     }
 
