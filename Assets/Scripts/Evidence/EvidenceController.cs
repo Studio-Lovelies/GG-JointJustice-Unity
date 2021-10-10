@@ -10,7 +10,8 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
     [Tooltip("This event is called when the PRESENT_EVIDENCE action is called.")]
-    [SerializeField] private UnityEvent _onOpenEvidenceMenu;
+    [FormerlySerializedAs("_onOpenEvidenceMenu")]
+    [SerializeField] private UnityEvent _onRequirePresentEvidence;
 
     [Tooltip("This event is called when a piece of evidence is clicked")]
     [SerializeField] private UnityEvent<ICourtRecordObject> _onPresentEvidence;
@@ -18,6 +19,19 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [FormerlySerializedAs("_evidenceDictionary")]
     [Tooltip("Drag an EvidenceDictionary component here.")]
     [SerializeField] public EvidenceInventory _evidenceInventory;
+
+    [Tooltip("Drag an EvidenceMenu component here, which will updated when the game state (i.e. ability to present evidence) changes.")]
+    [SerializeField] public EvidenceMenu _evidenceMenu;
+
+    /// <summary>
+    /// Called either when invoking <see cref="DialogueController._onCrossExaminationLoopActive" />
+    /// or when a `PRESENT_EVIDENCE`-action has been encountered
+    /// </summary>
+    /// <param name="canPresentEvidence">Set to true, if evidence can be presented, set to false if presenting evidence is currently disabled</param>
+    public void SetCanPresentEvidence(bool canPresentEvidence)
+    {
+        _evidenceMenu.CanPresentEvidence = canPresentEvidence;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -72,12 +86,13 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     }
 
     /// <summary>
-    /// Method called by DirectorActionDecoder to open the evidence menu to allow presenting of evidence.
+    /// Method called by DirectorActionDecoder to open the evidence menu and require the user to present a piece of evidence.
     /// Calls an event which should open (and disable closing of) the evidence menu.
     /// </summary>
-    public void OpenEvidenceMenu()
+    public void RequirePresentEvidence()
     {
-        _onOpenEvidenceMenu.Invoke();
+        SetCanPresentEvidence(true);
+        _onRequirePresentEvidence.Invoke();
     }
 
     /// <summary>

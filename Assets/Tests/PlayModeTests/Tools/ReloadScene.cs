@@ -3,21 +3,26 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using UnityEngine.SceneManagement;
 
-namespace Tests.PlayModeTests.Scenes.MainMenu
+namespace Tests.PlayModeTests.Tools
 {
-
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class ReloadScene : Attribute, ITestAction
     {
-        private const string MainMenuScene = "Assets/Scenes/MainMenu.unity";
+        private readonly string _absoluteScenePath;
+
+        public ReloadScene(string absoluteScenePath)
+        {
+            _absoluteScenePath = absoluteScenePath;
+        }
+
         public void BeforeTest(ITest test)
         {
-            SceneManager.LoadScene(MainMenuScene, LoadSceneMode.Additive);
+            SceneManager.LoadScene(_absoluteScenePath, LoadSceneMode.Additive);
         }
 
         public void AfterTest(ITest test)
         {
-            SceneManager.UnloadScene(MainMenuScene);
+            SceneManager.UnloadScene(_absoluteScenePath);
         }
 
         public ActionTargets Targets => ActionTargets.Test;

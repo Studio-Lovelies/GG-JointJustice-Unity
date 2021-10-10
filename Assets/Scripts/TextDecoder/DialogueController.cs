@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using Ink.Runtime;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public enum DialogueControllerMode
@@ -23,7 +21,6 @@ public enum CrossExaminationChoice
 public class DialogueController : MonoBehaviour
 {
     private const char ACTION_TOKEN = '&';
-
 
     [SerializeField] private TextAsset _narrativeScript;
 
@@ -49,16 +46,19 @@ public class DialogueController : MonoBehaviour
 
     [Tooltip("Event fired when a choice is encountered in regular dialogue")]
     [SerializeField] private UnityEvent<List<Choice>> _onChoicePresented;
-    
+
+    [Tooltip("Event fired when the green text loop is entered or left")]
+    [SerializeField] private UnityEvent<bool> _onCrossExaminationLoopActive;
+
     [Tooltip("This event is called when the _isBusy field is set.")]
     [SerializeField] private UnityEvent<bool> _onBusySet;
 
     private Story _inkStory;
-    bool _isBusy = false;
+    private bool _isBusy;
     private bool _isMenuOpen;
     private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
 
-    private bool _isAtChoice = false; //Possibly small state machine to handle all input?
+    private bool _isAtChoice; //Possibly small state machine to handle all input?
 
     /// <summary>
     /// Called when the object is initialized
@@ -72,7 +72,7 @@ public class DialogueController : MonoBehaviour
     }
 
     /// <summary>
-    /// Initialzed a sub story by hooking the events to the parent dialogue so everything propagated down correctly
+    /// Initialized a sub story by hooking the events to the parent dialogue so everything propagated down correctly
     /// </summary>
     /// <param name="parent">Parent of this dialogue to hook everything in to</param>
     void SubStoryInit(DialogueController parent)
@@ -132,6 +132,7 @@ public class DialogueController : MonoBehaviour
         {
             return;
         }
+        _onCrossExaminationLoopActive.Invoke(false);
         HandleChoice(1);
     }
 
@@ -167,16 +168,29 @@ public class DialogueController : MonoBehaviour
     }
 
     /// <summary>
-    /// Actually handles the evidence being presented by seeing if it is one of the current choices and then progressing the story appriopriately. Makes sure we're in cross examination mode before continuing.
+    /// Actually handles the evidence being presented by seeing if it is one of the current choices and then progressing the story appropriately. Makes sure we're in cross examination mode before continuing.
     /// May spawn a random failure sub story.
     /// </summary>
     /// <param name="presentedObject">Name of the object you want to present to the court</param>
     public void HandlePresenting(ICourtRecordObject presentedObject)
     {
+        if (_subStory)
+        {
+            _subStory.HandlePresenting(presentedObject);
+            return;
+        }
+
+        if (!_isAtChoice)
+        {
+            return;
+        }
+
         if (_dialogueMode != DialogueControllerMode.CrossExamination)
         {
             return;
         }
+
+        _onCrossExaminationLoopActive.Invoke(false);
 
         List<Choice> choiceList = _inkStory.currentChoices;
 
@@ -186,28 +200,24 @@ public class DialogueController : MonoBehaviour
             StartSubStory(_failureList.GetRandomFailurestate());
             return;
         }
-        else
+
+        int evidenceFoundAt = -1;
+        for (int i = 2; i < choiceList.Count; i++)
         {
-            int evidenceFoundAt = -1;
-            for (int i = 2; i < choiceList.Count; i++)
+            if (choiceList[i].text == presentedObject.InstanceName)
             {
-                if (choiceList[i].text == presentedObject.InstanceName)
-                {
-                    evidenceFoundAt = i;
-                    break;
-                }
-            }
-            if (evidenceFoundAt != -1)
-            {
-                HandleChoice(evidenceFoundAt);
-            }
-            else
-            {
-                //Deal with bad consequences, spawn sub story and continue that
-                StartSubStory(_failureList.GetRandomFailurestate());
-                return;
+                evidenceFoundAt = i;
+                break;
             }
         }
+        if (evidenceFoundAt != -1)
+        {
+            HandleChoice(evidenceFoundAt);
+            return;
+        }
+
+        //Deal with bad consequences, spawn sub story and continue that
+        StartSubStory(_failureList.GetRandomFailurestate());
     }
 
     /// <summary>
@@ -215,50 +225,51 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     private void HandleNextLineDialogue()
     {
-        if (_isAtChoice) //Make sure we don't continue unless we're not at a choice
-            return;
-
-        if (_inkStory.canContinue)
+        if (_isAtChoice) // Make sure we don't continue unless we're not at a choice
         {
-            string currentLine = _inkStory.Continue();
-            if (currentLine.Length == 0) //0 should never happen
+            return;
+        }
+
+        if (!_inkStory.canContinue)
+        {
+            List<Choice> choiceList = _inkStory.currentChoices;
+            if (choiceList.Count <= 0)
             {
-                Debug.LogError("Linelength was 0, should never happen");
+                _onDialogueFinished.Invoke();
                 return;
             }
-            else if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
+
+            _isAtChoice = true;
+            _onChoicePresented.Invoke(choiceList);
+            return;
+        }
+
+        string currentLine = _inkStory.Continue();
+        if (currentLine.Length == 0) //0 should never happen
+        {
+            Debug.LogError("Line-length was 0, should never happen");
+            return;
+        }
+
+        if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
+        {
+            HandleNextLineDialogue();
+            return;
+        }
+
+        if (IsAction(currentLine))
+        {
+            _onNewActionLine.Invoke(currentLine);
+        }
+        else
+        {
+            if (currentLine == "\n")
             {
                 HandleNextLineDialogue();
                 return;
             }
 
-            if (IsAction(currentLine))
-            {
-                _onNewActionLine.Invoke(currentLine);
-            }
-            else
-            {
-                if (currentLine == "\n")
-                {
-                    HandleNextLineDialogue();
-                    return;
-                }
-                _onNewSpokenLine.Invoke(currentLine);
-            }
-        }
-        else
-        {
-            List<Choice> choiceList = _inkStory.currentChoices;
-
-            if (choiceList.Count > 0)
-            {
-                _isAtChoice = true;
-                _onChoicePresented.Invoke(choiceList);
-            }
-            else
-            {
-                _onDialogueFinished.Invoke();
-            }
+            _onNewSpokenLine.Invoke(currentLine);
         }
     }
 
@@ -269,6 +280,7 @@ public class DialogueController : MonoBehaviour
     {
         if (_isAtChoice)
         {
+            _onCrossExaminationLoopActive.Invoke(false);
             HandleChoice(0); //Handle regular continue
             return;
         }
@@ -278,10 +290,11 @@ public class DialogueController : MonoBehaviour
             string currentLine = _inkStory.Continue();
             if (currentLine.Length == 0) //0 should never happen
             {
-                Debug.LogError("Linelength was 0, should never happen");
+                Debug.LogError("Line-length was 0, should never happen");
                 return;
             }
-            else if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
+
+            if (currentLine.Length == 1) //inky reports a line with a comment back as a line with \n so this is used to automatically continue in that case
             {
                 HandleNextLineCrossExamination();
                 return;
@@ -300,17 +313,22 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
-            List<Choice> choiceList = _inkStory.currentChoices;
+            //Story has ended because any choices would have been handled before this is reached
+            _onDialogueFinished.Invoke();
+        }
 
-            if (choiceList.Count > 0)
+        if (_inkStory.canContinue)
+        {
+            return;
+        }
+        else //At choice, which means cross examination point. Maybe add sanity check to make sure we have at least 2 options?
+        {
+            if (_inkStory.currentChoices.Count > 0)
             {
                 _isAtChoice = true;
-                _onChoicePresented.Invoke(choiceList);
+                _onCrossExaminationLoopActive.Invoke(true);
             }
-            else
-            {
-                _onDialogueFinished.Invoke();
-            }
+            
         }
     }
 
@@ -329,7 +347,7 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     /// <param name="line">Line to check</param>
     /// <returns>Whether the line is an action or not</returns>
-    private bool IsAction(string line)
+    private static bool IsAction(string line)
     {
         return line[0] == ACTION_TOKEN;
     }
@@ -342,7 +360,7 @@ public class DialogueController : MonoBehaviour
     /// <param name="subStory">Inky dialogue script to be set as the sub story</param>
     public void StartSubStory(TextAsset subStory)
     {
-        _subStory = GameObject.Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
+        _subStory = Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
         _subStory.SubStoryInit(this); //RECURSION
         _subStory.SetNarrativeScript(subStory);
         _subStory.OnContinueStory();
