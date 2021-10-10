@@ -6,7 +6,7 @@ namespace Tests.EditModeTests
         [Test]
         public void FailureToParseFloatThrows()
         {
-            var line = new ActionLine("this is not a number");
+            var line = new ActionLine("&SPEAK:this is not a number");
             Assert.Throws(typeof(UnableToParseException), () =>
             {
                 line.NextFloat("radius of the sun");
@@ -16,7 +16,7 @@ namespace Tests.EditModeTests
         [Test]
         public void FailureToParseFloatLogsGoodError()
         {
-            var line = new ActionLine("&rise:moon ");
+            var line = new ActionLine("&SPEAK:moon ");
 
             try
             {
@@ -31,7 +31,7 @@ namespace Tests.EditModeTests
         [Test]
         public void NotEnoughParametersThrows()
         {
-            var line = new ActionLine("action:one,two,three");
+            var line = new ActionLine("&SPEAK:one,two,three");
 
             Assert.DoesNotThrow(() =>
             {
@@ -49,7 +49,7 @@ namespace Tests.EditModeTests
         [Test]
         public void CanParseEnumValues()
         {
-            var line = new ActionLine("action:Left,Right,Middle ");
+            var line = new ActionLine("&SPEAK:Left,Right,Middle ");
 
             var left = line.NextEnumValue<ItemDisplayPosition>("display pos");
             var right = line.NextEnumValue<ItemDisplayPosition>("display pos");
@@ -63,7 +63,7 @@ namespace Tests.EditModeTests
         [Test]
         public void EnumParseValueThrows()
         {
-            var line = new ActionLine("action:Roight ");
+            var line = new ActionLine("&SPEAK:Roight ");
 
 
             Assert.Throws(typeof(UnableToParseException), () =>
@@ -76,7 +76,7 @@ namespace Tests.EditModeTests
         [Test]
         public void EnumParseValueGivesGoodErrorMessage()
         {
-            var line = new ActionLine("action:Roight ");
+            var line = new ActionLine("&SPEAK:Roight ");
 
             try
             {
