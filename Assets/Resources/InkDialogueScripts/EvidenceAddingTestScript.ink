@@ -30,7 +30,6 @@ See?
 Now I'm going to add a lot of stuff to showcase the page functionality.
 
 &ADD_EVIDENCE:Bent_Coins
-&ADD_EVIDENCE:Attorneys_Badge
 &ADD_EVIDENCE:Jorys_Backpack
 &ADD_EVIDENCE:Jory_Srs_Letter
 &ADD_EVIDENCE:Livestream_Recording

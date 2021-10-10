@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Tools
 {
@@ -14,6 +18,51 @@ namespace Tests.PlayModeTests.Tools
         public Keyboard Keyboard { get; } = InputSystem.AddDevice<Keyboard>();
         public Mouse Mouse { get; } = InputSystem.AddDevice<Mouse>();
 
+        private EditorWindow _gameViewWindow;
+
+        private EditorWindow GameViewWindow
+        {
+            get
+            {
+                if (_gameViewWindow != null)
+                {
+                    return _gameViewWindow;
+                }
+
+                System.Reflection.Assembly assembly = typeof(EditorWindow).Assembly;
+                Type type = assembly.GetType("UnityEditor.GameView");
+                _gameViewWindow = EditorWindow.GetWindow(type);
+                return _gameViewWindow;
+            }
+        }
+
+        public static T[] FindInactiveInScene<T>() where T : Object
+        {
+            return Resources.FindObjectsOfTypeAll<T>().Where(o => {
+                if (o.hideFlags != HideFlags.None)
+                {
+                    return false;
+                }
+
+                if (PrefabUtility.GetPrefabAssetType(o) == PrefabAssetType.Regular)
+                {
+                    return false;
+                }
+
+                return true;
+            }).ToArray();
+        }
+
+
+    /// <summary>
+    /// Waits for the editor "GameView"-tab to repaint
+    /// </summary>
+    public IEnumerator WaitForRepaint()
+        {
+            GameViewWindow.Repaint();
+            yield return null;
+        }
+
         /// <summary>
         /// Start this coroutine to press a specified key for one frame.
         /// </summary>
@@ -24,8 +73,10 @@ namespace Tests.PlayModeTests.Tools
             for (int i = 0; i < repeats; i++)
             {
                 Press(control);
+                GameViewWindow.Repaint();
                 yield return null;
                 Release(control);
+                GameViewWindow.Repaint();
                 yield return null;
             }
         }

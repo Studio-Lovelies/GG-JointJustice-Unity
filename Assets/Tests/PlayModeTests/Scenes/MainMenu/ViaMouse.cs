@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Linq;
 using NUnit.Framework;
+using Tests.PlayModeTests.Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
@@ -11,22 +11,15 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 {
     public class ViaMouse : InputTestFixture
     {
-        private IEnumerator PressForFrame(ButtonControl control)
-        {
-            yield return null;
-            Press(control);
-            yield return null;
-            Release(control);
-            yield return null;
-        }
+        private readonly InputTestTools _inputTestTools = new InputTestTools();
 
         [UnityTest]
-        [ReloadScene]
+        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu[] menus = InputTestTools.FindInactiveInScene<Menu>();
             Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
             Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
             Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
@@ -42,37 +35,37 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Assert.False(subMenu.Active);
 
             Set(mouse.position, openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
             Set(mouse.position, openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(secondSubMenu.Active);
             Assert.False(subMenu.Active);
 
             Set(mouse.position, closeSecondSubMenuButton.position + closeSecondSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
             Set(mouse.position, closeFirstSubMenuButton.position + closeFirstSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
         }
 
         [UnityTest]
-        [ReloadScene]
+        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanEnterAndCloseTwoSubMenusWithCloseAllButton()
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu[] menus = InputTestTools.FindInactiveInScene<Menu>();
             Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
             Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
             Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
@@ -87,26 +80,26 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Assert.False(subMenu.Active);
 
             Set(mouse.position, openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
             Set(mouse.position, openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(secondSubMenu.Active);
             Assert.False(subMenu.Active);
 
             Set(mouse.position, closeAllSubMenusButton.position + closeAllSubMenusButton.localScale * 0.5f);
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(secondSubMenu.Active);
         }
 
         [UnityTest]
-        [ReloadScene]
+        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanStartGame()
         {
             SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
@@ -114,7 +107,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            Menu[] menus = Resources.FindObjectsOfTypeAll<Menu>();
+            Menu[] menus = InputTestTools.FindInactiveInScene<Menu>();
             Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
 
             Mouse mouse = InputSystem.AddDevice<Mouse>();
@@ -123,7 +116,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 
             Set(mouse.position, startGameButton.position + startGameButton.localScale * 0.5f);
             Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-            yield return PressForFrame(mouse.leftButton);
+            yield return _inputTestTools.PressForFrame(mouse.leftButton);
             Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
 
             SceneManagerAPI.overrideAPI = null;

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Tests.PlayModeTests.Scenes.MainMenu
+namespace Tests.PlayModeTests.Tools
 {
     public class SceneManagerAPIStub : SceneManagerAPI
     {
