@@ -11,6 +11,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(_decoder.WriteDocsForAllCommands());
         // We wrap this in an Action so we have no ties to UnityEngine in the ActionDecoder
         _decoder.OnActionDone += () => _onActionDone.Invoke();
     }

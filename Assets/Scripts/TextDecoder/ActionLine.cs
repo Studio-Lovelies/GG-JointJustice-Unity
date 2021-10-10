@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 public class UnableToParseException : System.Exception
@@ -17,8 +18,81 @@ public class NotEnoughParametersException : System.Exception
     }
 }
 
+public interface IActionLine
+{
+    ActionName Action { get; }
 
-public class ActionLine
+    string NextString(string input);
+    string NextOptionalString(string input);
+    int NextInt(string input);
+    float NextFloat(string input);
+    int NextOneBasedInt(string input);
+    bool NextBool(string input);
+    T NextEnumValue<T>(string input) where T : struct, IConvertible;
+}
+
+public class DocActionLine : IActionLine
+{
+    private List<string> args = new List<string>();
+    public ActionName Action { get; set; }
+
+    public DocActionLine(ActionName action)
+    {
+        Action = action;
+    }
+
+
+    public bool NextBool(string argName)
+    {
+        args.Add(argName + ":bool");
+        return true;
+    }
+
+    public T NextEnumValue<T>(string argName) where T : struct, IConvertible
+    {
+        args.Add($"{argName}:[{string.Join(",", typeof(T).GetEnumNames())}]");
+
+        // I apologize for this line
+        return (typeof(T).GetEnumValues() as T[])[0];
+    }
+
+    public float NextFloat(string argName)
+    {
+        args.Add($"{argName}:decimal number");
+        return 0f;
+    }
+
+    public int NextInt(string argName)
+    {
+        args.Add($"{argName}:int");
+        return 0;
+    }
+
+    public int NextOneBasedInt(string argName)
+    {
+        args.Add($"{argName}:one-based int");
+        return 0;
+    }
+
+    public string NextOptionalString(string argName)
+    {
+        args.Add($"{argName}:string (optional)");
+        return null;
+    }
+
+    public string NextString(string argName)
+    {
+        args.Add($"{argName}:string");
+        return "";
+    }
+
+    public string Description()
+    {
+        return $"{Action.ToString()} takes args {string.Join(", ", args)}";
+    }
+}
+
+public class ActionLine : IActionLine
 {
     private const char ACTION_SIDE_SEPARATOR = ':';
     private const char ACTION_PARAMETER_SEPARATOR = ',';

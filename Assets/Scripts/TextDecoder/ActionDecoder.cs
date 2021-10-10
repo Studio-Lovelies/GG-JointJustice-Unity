@@ -18,6 +18,13 @@ public class InvalidSyntaxException : Exception
     }
 }
 
+public class DecoderMissingComponentException : Exception
+{
+    public DecoderMissingComponentException(string message) : base(message)
+    {
+    }
+}
+
 public enum ActionName
 {
     ACTOR,
@@ -76,7 +83,7 @@ public class ActionDecoder
     {
     }
 
-    public void OnNewActionLine(ActionLine actionLine)
+    public void OnNewActionLine(IActionLine actionLine)
     {
         switch (actionLine.Action)
         {
@@ -138,8 +145,7 @@ public class ActionDecoder
     {
         if (AppearingDialogueController == null)
         {
-            Debug.LogError("No appearing dialog controller attached to the action decoder");
-            return false;
+            throw new DecoderMissingComponentException("No appearing dialog controller attached to the action decoder");
         }
         return true;
     }
@@ -236,8 +242,7 @@ public class ActionDecoder
     {
         if (EvidenceController == null)
         {
-            Debug.LogError("No evidence controller attached to the action decoder");
-            return false;
+            throw new DecoderMissingComponentException("No evidence controller attached to the action decoder");
         }
         return true;
     }
@@ -306,8 +311,7 @@ public class ActionDecoder
     {
         if (AudioController == null)
         {
-            Debug.LogError("No audio controller attached to the action decoder");
-            return false;
+            throw new DecoderMissingComponentException("No audio controller attached to the action decoder");
         }
         return true;
     }
@@ -360,8 +364,7 @@ public class ActionDecoder
     {
         if (SceneController == null)
         {
-            Debug.LogError("No scene controller attached to the action decoder");
-            return false;
+            throw new DecoderMissingComponentException("No scene controller attached to the action decoder");
         }
         return true;
     }
@@ -531,8 +534,7 @@ public class ActionDecoder
     {
         if (ActorController == null)
         {
-            Debug.LogError("No actor controller attached to the action decoder");
-            return false;
+            throw new DecoderMissingComponentException("No actor controller attached to the action decoder");
         }
         return true;
     }
@@ -642,4 +644,29 @@ public class ActionDecoder
     }
     #endregion
 
+
+    public string Describe(ActionName action)
+    {
+        var docAction = new DocActionLine(action);
+
+        try
+        {
+            OnNewActionLine(docAction);
+        }
+        catch (DecoderMissingComponentException)
+        {
+        }
+
+        return docAction.Description();
+    }
+
+    public string WriteDocsForAllCommands()
+    {
+        var doc = "";
+        foreach (ActionName action in typeof(ActionName).GetEnumValues())
+        {
+            doc += $"## {action.ToString()}\n{Describe(action)}\n\n";
+        }
+        return doc;
+    }
 }
