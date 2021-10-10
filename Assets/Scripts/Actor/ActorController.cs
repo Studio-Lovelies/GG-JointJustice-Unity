@@ -21,6 +21,7 @@ public class ActorController : MonoBehaviour, IActorController
 
     public bool Animating { get; set; }
 
+    private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
     private ActorData _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
 
@@ -55,7 +56,9 @@ public class ActorController : MonoBehaviour, IActorController
     {
         _activeActor = actor;
         if (actor != null)
+        {
             actor.AttachController(this);
+        }
     }
 
     /// <summary>
@@ -66,15 +69,56 @@ public class ActorController : MonoBehaviour, IActorController
     /// Actors use the same name as their ActorData object.</param>
     public void SetActiveActor(string actor)
     {
+        var targetActorData = FindActorDataInInventory(actor);
+        if (_activeActor != null)
+        {
+            _activeActor.SetActor(targetActorData);
+            SetActorInLookupTable(targetActorData, _activeActor);
+        }
+    }
+
+    /// <summary>
+    /// Sets actor to the lookup table so we can go from ActorData -> Actor
+    /// </summary>
+    /// <param name="key">ActorData that corresponds to the actor</param>
+    /// <param name="value">Actor that corresponds to the actorData</param>
+    private void SetActorInLookupTable(ActorData key, Actor value)
+    {
+        _actorDataToActor[key] = value;
+    }
+
+    /// <summary>
+    /// Find ActorData in ActorInventory.
+    /// </summary>
+    /// <param name="actorName"></param>
+    /// <returns></returns>
+    private ActorData FindActorDataInInventory(string actorName)
+    {
         try
-        { 
-            if (_activeActor != null)
-                _activeActor.SetActor(_actorInventory[actor]);
+        {
+            return _actorInventory[actorName];
         }
         catch (KeyNotFoundException exception)
         {
-            Debug.Log($"{exception.GetType().Name}: Actor {actor} was not found in actor dictionary");
+            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in actor dictionary");
+            return null;
         }
+    }
+
+    /// <summary>
+    /// Find Actor based on ActorData in ActorInventory
+    /// </summary>
+    /// <param name="actorName"></param>
+    /// <returns></returns>
+    private Actor FindActorInInventory(string actorName)
+    {
+        var actorData = FindActorDataInInventory(actorName);
+        if (actorData != null && _actorDataToActor.ContainsKey(actorData))
+        {
+            return _actorDataToActor[actorData];
+        }
+
+        return null;
     }
 
     /// <summary>
@@ -82,14 +126,28 @@ public class ActorController : MonoBehaviour, IActorController
     /// In working this is mostly the same as PlayEmotion without calling OnAnimationStarted so the system can continue without waiting for the animation to end.
     /// </summary>
     /// <param name="pose"></param>
-    public void SetPose(string pose)
+    public void SetPose(string pose, string actorName = null)
     {
-        if (_activeActor == null)
+        if (string.IsNullOrEmpty(actorName) || FindActorInInventory(actorName) == _activeActor)
         {
-            Debug.LogError("Actor has not been assigned");
-            return;
+            if (_activeActor == null)
+            {
+                Debug.LogError("Actor has not been assigned");
+                return;
+            }
+            _activeActor.PlayAnimation(pose);
         }
-        _activeActor.PlayAnimation(pose);
+        else
+        {
+            var actor = FindActorInInventory(actorName);
+
+            if (actor == null)
+            {
+                Debug.LogError($"Actor not found: {actorName}");
+                return;
+            }
+            actor.PlayAnimation(pose);
+        }
     }
 
     /// <summary>
@@ -97,17 +155,31 @@ public class ActorController : MonoBehaviour, IActorController
     /// Flags the system as busy so it waits for the animation to end.
     /// </summary>
     /// <param name="emotion">The emotion to play.</param>
-    public void PlayEmotion(string emotion)
+    public void PlayEmotion(string emotion, string actorName = null)
     {
-        if (_activeActor == null)
+        if (string.IsNullOrEmpty(actorName) || FindActorInInventory(actorName) == _activeActor)
         {
-            Debug.LogError("Actor has not been assigned");
-            _onAnimationComplete.Invoke();
-            return;
+            if (_activeActor == null)
+            {
+                Debug.LogError("Actor has not been assigned");
+                _onAnimationComplete.Invoke();
+                return;
+            }
+            _onAnimationStarted.Invoke();
+            Animating = true;
+            _activeActor.PlayAnimation(emotion);
         }
-        _onAnimationStarted.Invoke();
-        Animating = true;
-        _activeActor.PlayAnimation(emotion);
+        else
+        {
+            var actor = FindActorInInventory(actorName);
+
+            if (actor == null)
+            {
+                Debug.LogError($"Actor not found: {actorName}");
+                return;
+            }
+            actor.PlayAnimation(emotion);
+        }
     }
 
     /// <summary>
@@ -143,11 +215,11 @@ public class ActorController : MonoBehaviour, IActorController
             return;
         }
 
-        if ( _activeActor.MatchesActorData(_currentSpeakingActor))
+        if (_activeActor.MatchesActorData(_currentSpeakingActor))
         {
             _activeActor.SetTalking(true);
         }
-            
+
     }
 
     /// <summary>
@@ -172,7 +244,7 @@ public class ActorController : MonoBehaviour, IActorController
             Animating = false;
             _onAnimationComplete.Invoke();
         }
-        
+
     }
 
     /// <summary>
@@ -207,7 +279,9 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
-            tempActor.SetActor(_actorInventory[actor]);
+            var actorData = _actorInventory[actor];
+            tempActor.SetActor(actorData);
+            SetActorInLookupTable(actorData, tempActor);
         }
         catch (KeyNotFoundException exception)
         {

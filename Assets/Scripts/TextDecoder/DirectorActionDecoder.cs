@@ -1,6 +1,6 @@
 using System.Globalization;
-using UnityEngine.Events;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DirectorActionDecoder : MonoBehaviour
 {
@@ -24,7 +24,7 @@ public class DirectorActionDecoder : MonoBehaviour
     public void OnNewActionLine(string line)
     {
         //Split into action and parameter
-        string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR); 
+        string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR);
 
         if (actionAndParam.Length > 2)
         {
@@ -36,7 +36,7 @@ public class DirectorActionDecoder : MonoBehaviour
         string action = actionAndParam[0];
         string parameters = (actionAndParam.Length == 2) ? actionAndParam[1] : "";
 
-        switch(action)
+        switch (action)
         {
             //Actor controller
             case "ACTOR": SetActor(parameters); break;
@@ -112,7 +112,7 @@ public class DirectorActionDecoder : MonoBehaviour
         bool shouldShow;
         if (bool.TryParse(showActor, out shouldShow))
         {
-            if(shouldShow)
+            if (shouldShow)
             {
                 _sceneController.ShowActor();
             }
@@ -146,26 +146,55 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <summary>
     /// Set the pose of the current actor
     /// </summary>
-    /// <param name="pose">Pose to display for the current actor</param>
-    private void SetPose(string pose)
+    /// <param name="poseAndActorName">"[pose name]" to set pose for current actor OR "[pose name],[actor name]" to set pose for another actor</param>
+    private void SetPose(string poseAndActorName)
     {
         if (!HasActorController())
             return;
 
-        _actorController.SetPose(pose);
-        _onActionDone.Invoke();
+        string[] parameters = poseAndActorName.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length == 1)
+        {
+            _actorController.SetPose(parameters[0]);
+            _onActionDone.Invoke();
+        }
+        else if (parameters.Length == 2)
+        {
+            _actorController.SetPose(parameters[0], parameters[1]);
+            _onActionDone.Invoke();
+        }
+        else
+        {
+            Debug.LogError("Invalid number of parameters for function PLAY_EMOTION");
+        }
+
+
     }
 
     /// <summary>
     /// Plays an emotion for the current actor. Emotion is a fancy term for animation on an actor.
     /// </summary>
-    /// <param name="animation">Animation to play</param>
-    private void PlayEmotion(string animation)
+    /// <param name="animationAndActorName">"[animation name]" to set pose for current actor OR "[animation name],[actor name]" to queue animation for another actor (gets played as soon as actor is visible)</param>
+    private void PlayEmotion(string animationAndActorName)
     {
         if (!HasActorController())
             return;
 
-        _actorController.PlayEmotion(animation);
+        string[] parameters = animationAndActorName.Split(ACTION_PARAMETER_SEPARATOR);
+
+        if (parameters.Length == 1)
+        {
+            _actorController.PlayEmotion(parameters[0]);
+        }
+        else if (parameters.Length == 2)
+        {
+            _actorController.PlayEmotion(parameters[0], parameters[1]);
+        }
+        else
+        {
+            Debug.LogError("Invalid number of parameters for function PLAY_EMOTION");
+        }
     }
 
     /// <summary>
@@ -211,7 +240,7 @@ public class DirectorActionDecoder : MonoBehaviour
 
         float timeInSeconds;
 
-        if(float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out timeInSeconds))
+        if (float.TryParse(seconds, NumberStyles.Any, CultureInfo.InvariantCulture, out timeInSeconds))
         {
             _sceneController.FadeIn(timeInSeconds);
         }
@@ -296,10 +325,10 @@ public class DirectorActionDecoder : MonoBehaviour
         int x;
         int y;
 
-        if (int.TryParse(parameters[0], out x) 
+        if (int.TryParse(parameters[0], out x)
             && int.TryParse(parameters[1], out y))
         {
-            _sceneController.SetCameraPos(new Vector2Int(x,y));
+            _sceneController.SetCameraPos(new Vector2Int(x, y));
         }
         else
         {
@@ -329,8 +358,8 @@ public class DirectorActionDecoder : MonoBehaviour
         int x;
         int y;
 
-        if (float.TryParse(parameters[0], NumberStyles.Any, CultureInfo.InvariantCulture, out duration) 
-            && int.TryParse(parameters[1], out x) 
+        if (float.TryParse(parameters[0], NumberStyles.Any, CultureInfo.InvariantCulture, out duration)
+            && int.TryParse(parameters[1], out x)
             && int.TryParse(parameters[2], out y))
         {
             _sceneController.PanCamera(duration, new Vector2Int(x, y));
@@ -472,7 +501,7 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     #endregion
-    
+
     #region AudioController
     /// <summary>
     /// Plays a sound effect
@@ -561,7 +590,7 @@ public class DirectorActionDecoder : MonoBehaviour
     {
         if (!HasEvidenceController())
             return;
-        
+
         _evidenceController.SubstituteEvidenceWithAlt(evidence);
         _onActionDone.Invoke();
     }

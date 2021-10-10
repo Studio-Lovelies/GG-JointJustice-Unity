@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using NUnit.Framework;
+using Tests.PlayModeTests.Scenes.MainMenu;
 using Tests.PlayModeTests.Tools;
 using TMPro;
 using UnityEngine;
@@ -187,7 +188,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             }
 
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.rightArrowKey);
-            Assert.AreEqual("Attorney's Badge", evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
+            Assert.AreEqual("Switch", evidenceMenu.GetComponent<Menu>().SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
         }
     }
 }

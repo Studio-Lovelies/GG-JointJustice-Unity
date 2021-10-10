@@ -1,13 +1,14 @@
 public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourtRecordObjectInventory
 {
     /// <summary>
-    /// Replaces an Evidence object with its designated alternate evidence.
+    /// Checks if evidence has been added to the evidence inventory
+    /// and swaps it with its alternate evidence.
     /// </summary>
     /// <param name="evidenceName">The name of the evidence to substitute.</param>
     public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-        Evidence altEvidence = ObjectStorage[evidenceName].AltEvidence;
-        ObjectStorage.SubstituteObject(evidenceName, altEvidence);
+        Evidence altEvidence = ObjectLookup[evidenceName].AltEvidence;
+        ObjectLookup.SubstituteObject(evidenceName, altEvidence);
     }
     
     /// <summary>
@@ -15,8 +16,8 @@ public class EvidenceInventory : ObjectInventory<Evidence, EvidenceList>, ICourt
     /// </summary>
     /// <param name="index">The index of the evidence to get.</param>
     /// <returns>The evidence as an ICourtRecordObject</returns>
-    public ICourtRecordObject GetObjectAtIndex(int index)
+    public ICourtRecordObject GetObjectInList(int index)
     {
-        return ObjectStorage[index];
+        return ObjectLookup.GetObjectInList(index);
     }
 }

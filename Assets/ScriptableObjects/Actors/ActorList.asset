@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81b9fc2f1de4848f4b316edf3f8df738, type: 3}
-  m_Name: Actor Dictionary
+  m_Name: ActorList
   m_EditorClassIdentifier: 
   <ObjectArray>k__BackingField:
   - {fileID: 11400000, guid: 2cf259801b39643bdbc9a15b5b9720f7, type: 2}
