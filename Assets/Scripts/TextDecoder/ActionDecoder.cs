@@ -15,11 +15,8 @@ public class UnknownCommandException : Exception
 
 public class InvalidSyntaxException : Exception
 {
-    public string Line { get; private set; }
-
-    public InvalidSyntaxException(string line)
+    public InvalidSyntaxException()
     {
-        Line = line;
     }
 }
 
