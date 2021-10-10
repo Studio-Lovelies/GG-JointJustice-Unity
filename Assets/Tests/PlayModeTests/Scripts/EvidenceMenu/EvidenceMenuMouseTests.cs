@@ -37,7 +37,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             MenuItem[] menuItems = GameObject.Find("EvidenceContainer").GetComponentsInChildren<MenuItem>();
             EvidenceMenuItem firstMenuItem = menuItems.First(menuItem => menuItem.gameObject.name == "EvidenceMenuItem").GetComponent<EvidenceMenuItem>();
             yield return _inputTestTools.SetMousePosition(firstMenuItem.transform.position + firstMenuItem.GetComponent<RectTransform>().rect.size.x * canvasScale);
-            Menu menu = _evidenceMenu.GetComponent<Menu>();
+            Menu menu = evidenceMenu.GetComponent<Menu>();
             Assert.AreEqual(firstMenuItem.CourtRecordObject.DisplayName, menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
             
             // Loop through the menu items and check if they highlight correctly
