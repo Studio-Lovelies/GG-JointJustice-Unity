@@ -11,7 +11,8 @@ public class DirectorActionDecoder : MonoBehaviour
 
     private void Awake()
     {
-        _decoder.OnActionDone = _onActionDone;
+        // We wrap this in an Action so we have no ties to UnityEngine in the ActionDecoder
+        _decoder.OnActionDone += () => _onActionDone.Invoke();
     }
 
     #region API
