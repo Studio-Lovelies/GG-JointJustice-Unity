@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using NUnit.Framework;
+using Tests.PlayModeTests.Scenes.MainMenu;
 using Tests.PlayModeTests.Tools;
 using TMPro;
 using UnityEngine;

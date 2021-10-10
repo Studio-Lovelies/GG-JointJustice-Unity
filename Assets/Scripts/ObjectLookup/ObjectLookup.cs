@@ -41,11 +41,7 @@ public class ObjectLookup<T> where T : Object
     {
         VerifyObjectInDictionary(objectName);
         T obj = this[objectName];
-        if (IsObjectInList(obj))
-        {
-            Debug.LogWarning($"Could not add object {obj.name} to list as it is already in the list of current objects.");
-            return;
-        }
+        VerifyObjectNotInList(obj);
         _currentObjectList.Add(obj);
     }
 
@@ -104,6 +100,20 @@ public class ObjectLookup<T> where T : Object
         if (!IsObjectInList(obj))
         {
             throw new ArgumentException($"Object {obj.name} could not be found in the list of current objects.");
+        }
+    }
+
+    /// <summary>
+    /// Method to check if an object is NOT in the list of current objects.
+    /// Throws an ArgumentException if the object is in the list.
+    /// </summary>
+    /// <param name="obj">The object to check for.</param>
+    /// <returns>Whether the object was in the list (true) or not (false).</returns>
+    private void VerifyObjectNotInList(T obj)
+    {
+        if (IsObjectInList(obj))
+        {
+            throw new ArgumentException($"Could not add object {obj.name} to list as it is already in the list of current objects.");
         }
     }
 
