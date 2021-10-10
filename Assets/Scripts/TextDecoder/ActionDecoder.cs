@@ -53,7 +53,7 @@ public class ActionDecoder
             case "SPEAK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Speaking); break;
             case "THINK": SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Thinking); break;
             case "SET_POSE": SetPose(actionLine.NextString("pose name"), actionLine.NextOptionalString("target actor")); break;
-            case "PLAY_EMOTION": PlayEmotion(actionLine.Parameters()); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
+            case "PLAY_EMOTION": PlayEmotion(actionLine.NextString("emotion name"), actionLine.NextOptionalString("target actor")); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
             case "PLAYSFX": PlaySFX(actionLine.NextString("sfx name")); break;
             case "PLAYSONG": SetBGMusic(actionLine.NextString("song name")); break;
@@ -685,22 +685,18 @@ public class ActionDecoder
     /// Plays an emotion for the current actor. Emotion is a fancy term for animation on an actor.
     /// </summary>
     /// <param name="parameters">"[animation name]" to set pose for current actor OR "[animation name],[actor name]" to queue animation for another actor (gets played as soon as actor is visible)</param>
-    private void PlayEmotion(string[] parameters)
+    private void PlayEmotion(string poseName, string optional_targetActor)
     {
         if (!HasActorController())
             return;
 
-        if (parameters.Length == 1)
+        if (optional_targetActor == null)
         {
-            ActorController.PlayEmotion(parameters[0]);
-        }
-        else if (parameters.Length == 2)
-        {
-            ActorController.PlayEmotion(parameters[0], parameters[1]);
+            ActorController.PlayEmotion(poseName);
         }
         else
         {
-            Debug.LogError("Invalid number of parameters for function PLAY_EMOTION");
+            ActorController.PlayEmotion(poseName, optional_targetActor);
         }
     }
 
