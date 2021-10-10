@@ -36,7 +36,7 @@ public class ActionLine
 
         if (actionAndParam.Length > 2)
         {
-            throw new InvalidSyntaxException(line);
+            throw new InvalidSyntaxException();
         }
 
         Action = actionAndParam[0];
