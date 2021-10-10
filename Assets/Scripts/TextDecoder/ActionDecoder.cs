@@ -82,7 +82,7 @@ public class ActionDecoder
             case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.Parameters()); break;
             case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.Parameters()); break;
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
-            case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.NextString("disabled")); break;
+            case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.NextBool("is disabled")); break;
             case "AUTOSKIP": AutoSkip(actionLine.NextString("on")); break;
             case "CONTINUE_DIALOG": ContinueDialog(); break;
             case "APPEAR_INSTANTLY": AppearInstantly(); break;
@@ -137,16 +137,10 @@ public class ActionDecoder
     ///Toggles skipping on or off
     ///</summary>
     ///<param name = "disable">Should the text skipping be disabled or not</param>
-    private void DisableTextSkipping(string disabled)
+    private void DisableTextSkipping(bool value)
     {
         if (!HasAppearingDialogController())
             return;
-
-        if (!bool.TryParse(disabled, out bool value))
-        {
-            Debug.LogError("Bool value wasn't found from DisableTextSkipping command. Please fix.");
-            return;
-        }
 
         AppearingDialogueController.ToggleDisableTextSkipping(value);
     }
