@@ -108,7 +108,7 @@ public class ObjectLookup<T> where T : Object
     /// Throws an ArgumentException if the object is in the list.
     /// </summary>
     /// <param name="obj">The object to check for.</param>
-    /// <returns>Whether the object was in the list (true) or not (false).</returns>
+    /// <returns>Whether the object was in the list (false) or not (true).</returns>
     private void VerifyObjectNotInList(T obj)
     {
         if (IsObjectInList(obj))
