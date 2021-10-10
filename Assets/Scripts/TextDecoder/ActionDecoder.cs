@@ -459,8 +459,8 @@ public class ActionDecoder
             return;
         }
 
-        itemDisplayPosition pos;
-        if (System.Enum.TryParse<itemDisplayPosition>(parameters[1], out pos))
+        ItemDisplayPosition pos;
+        if (System.Enum.TryParse<ItemDisplayPosition>(parameters[1], out pos))
         {
             SceneController.ShowItem(parameters[0], pos);
         }
