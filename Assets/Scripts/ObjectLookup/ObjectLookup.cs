@@ -5,7 +5,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 /// <summary>
-/// Stores all available objects that are available in a scene in a dictionary.
+/// Stores all objects that are available in a scene in a dictionary.
 /// Values in the dictionary are accessed by name and are added to a list 
 /// that consists only of values that exist in the dictionary.
 /// The list represents the objects currently owned by the player,
