@@ -80,6 +80,19 @@ public class ActionLine
         }
     }
 
+    public bool NextBool(string tokenName)
+    {
+        var token = NextToken(tokenName);
+        if (bool.TryParse(token, out bool value))
+        {
+            return value;
+        }
+        else
+        {
+            throw new UnableToParseException("true or false", tokenName, token);
+        }
+    }
+
     public int NextInt(string tokenName)
     {
         var token = NextToken(tokenName);
