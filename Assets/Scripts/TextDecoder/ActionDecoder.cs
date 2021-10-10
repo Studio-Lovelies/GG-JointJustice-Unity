@@ -78,9 +78,9 @@ public class ActionDecoder
             case "PRESENT_EVIDENCE": OpenEvidenceMenu(); break;
             case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(actionLine.NextString("evidence name")); break;
             //Dialog controller
-            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, actionLine.NextString("???")); break;
-            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.NextString("???")); break;
-            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.NextString("???")); break;
+            case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, actionLine.Parameters()); break;
+            case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, actionLine.Parameters()); break;
+            case "PUNCTUATION_SPEED": ChangeDialogSpeed(WaiterType.Punctuation, actionLine.Parameters()); break;
             case "CLEAR_SPEED": ClearDialogSpeeds(); break;
             case "DISABLE_SKIPPING": DisableTextSkipping(actionLine.NextString("disabled")); break;
             case "AUTOSKIP": AutoSkip(actionLine.NextString("on")); break;
@@ -114,12 +114,12 @@ public class ActionDecoder
     ///</summary>
     ///<param name = "currentWaiterType">The current waiters type which appear time should be changed.</param>
     ///<param name = "parameters">Contains all the parameters needed to change the appearing time.</param>
-    private void ChangeDialogSpeed(WaiterType currentWaiterType, string parameters)
+    private void ChangeDialogSpeed(WaiterType currentWaiterType, string[] parameters)
     {
         if (!HasAppearingDialogController())
             return;
 
-        AppearingDialogueController.SetTimerValue(currentWaiterType, parameters);
+        AppearingDialogueController.SetTimerValue(currentWaiterType, parameters[0]);
     }
 
     ///<summary>
