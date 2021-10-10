@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scenes.MainMenu
 {
-    public class ViaKeyboard : InputTestFixture
+    public class ViaKeyboard
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
 
