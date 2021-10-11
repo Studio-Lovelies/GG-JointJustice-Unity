@@ -16,7 +16,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
             yield return ToggleMenu();
             foreach (var button in Buttons)
             {
-                yield return InputTools.SetMousePositionWorldSpace(button.transform.position);
+                yield return InputTools.SetMousePositionWorldSpace(GetButtonCenter(button));
                 AssertButtonSelected(button);
             }
         }
@@ -27,7 +27,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnityTest]
         public IEnumerator ResumeButtonResumesGame()
         {
-            yield return TestResumeButton(() => InputTools.ClickAtPosition(GetButton(RESUME_BUTTON_NAME).transform.position));
+            yield return TestResumeButton(() => InputTools.ClickAtPositionWorldSpace(GetButtonCenter(GetButton(RESUME_BUTTON_NAME))));
         }
         
         /// <summary>
@@ -36,7 +36,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnityTest]
         public IEnumerator SettingsMenuCanBeOpenedAndClosed()
         {
-            yield return TestSettingsButton(() => InputTools.ClickAtPosition(GetButton(SETTINGS_BUTTON_NAME).transform.position));
+            yield return TestSettingsButton(() => InputTools.ClickAtPositionWorldSpace(GetButtonCenter(GetButton(SETTINGS_BUTTON_NAME))));
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnityTest]
         public IEnumerator MainMenuButtonReturnsToMainMenu()
         {
-            yield return TestMainMenuButton(() => InputTools.ClickAtPosition(GetButton(MAIN_MENU_BUTTON_NAME).transform.position));
+            yield return TestMainMenuButton(() => InputTools.ClickAtPositionWorldSpace(GetButtonCenter(GetButton(MAIN_MENU_BUTTON_NAME))));
         }
 
         /// <summary>
@@ -58,8 +58,18 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
             yield return ToggleMenu();
             Button button = GetButton(RESUME_BUTTON_NAME);
             AssertButtonSelected(button);
-            yield return InputTools.ClickAtPosition(Vector2.zero);
+            yield return InputTools.ClickAtPositionWorldSpace(new Vector2(10, 10));
             AssertButtonSelected(button);
+        }
+
+        /// <summary>
+        /// Get the center position of a button with its pivot on the middle left.
+        /// </summary>
+        /// <param name="button">The button to get the center of.</param>
+        /// <returns>The position of the center of the button.</returns>
+        private Vector2 GetButtonCenter(Button button)
+        {
+            return button.transform.position + Vector3.right * (button.GetComponent<RectTransform>().rect.size.x / 2) * CanvasScale;
         }
     }
 }

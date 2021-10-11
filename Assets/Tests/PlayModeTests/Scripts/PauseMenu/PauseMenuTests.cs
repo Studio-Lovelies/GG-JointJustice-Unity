@@ -25,6 +25,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         protected Button[] Buttons { get; private set; }
         protected InputTestTools InputTools { get; }= new InputTestTools();
         protected Keyboard Keyboard => InputTools.Keyboard;
+        protected float CanvasScale { get; private set; }
 
         /// <summary>
         /// Loads the correct scene and gets the required objects before every test.
@@ -36,6 +37,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
             yield return null;
             PauseMenu = InputTestTools.FindInactiveInSceneByName<Menu>("PauseMenu");
             Buttons = PauseMenu.GetComponentsInChildren<Button>();
+            CanvasScale = GameObject.Find("BaseCanvas").transform.localScale.x;
         }
 
         /// <summary>
