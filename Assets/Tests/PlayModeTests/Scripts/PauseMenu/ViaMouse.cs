@@ -16,7 +16,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
             yield return ToggleMenu();
             foreach (var button in Buttons)
             {
-                yield return InputTools.SetMousePosition(button.transform.position);
+                yield return InputTools.SetMousePositionWorldSpace(button.transform.position);
                 AssertButtonSelected(button);
             }
         }

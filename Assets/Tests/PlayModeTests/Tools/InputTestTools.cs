@@ -114,6 +114,16 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="position">The position to set the mouse to.</param>
         public IEnumerator SetMousePosition(Vector2 position)
         {
+            Set(Mouse.position, position);
+            yield return null;
+        }
+        
+        /// <summary>
+        /// Sets the position of the mouse in the scene.
+        /// </summary>
+        /// <param name="position">The position to set the mouse to.</param>
+        public IEnumerator SetMousePositionWorldSpace(Vector2 position)
+        {
             Set(Mouse.position, Camera.main.WorldToScreenPoint(position));
             yield return null;
         }
