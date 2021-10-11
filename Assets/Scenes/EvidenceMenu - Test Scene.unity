@@ -667,81 +667,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 1080
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.0016666668
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.0016666668
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.0016666668
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400554, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400555, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_RenderMode
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2259195148890734988, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: m_Enabled
@@ -765,11 +690,6 @@ PrefabInstance:
     - target: {fileID: 3054061761488393776, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3418167332342603494, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3697150472402826587, guid: ef7dd0dd7a380264d90181b3a106c435,
@@ -1283,11 +1203,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 234110975}
     - target: {fileID: 7096462132062294392, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7459855669607129928, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: m_IsActive
       value: 0

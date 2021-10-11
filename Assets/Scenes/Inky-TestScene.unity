@@ -258,18 +258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb22b3340afa7d54ba8eba8387a5ac39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &757208929 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8591347059487037669, guid: ef7dd0dd7a380264d90181b3a106c435,
-    type: 3}
-  m_PrefabInstance: {fileID: 5228303782951346616}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d235432278969446cabe94c09abdad5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &915704617 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8092316712924599042, guid: 6a76445d659e2db4baf7ee7ff4a2133c,
@@ -481,31 +469,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 160785081537499211, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -759.99994
-      objectReference: {fileID: 0}
-    - target: {fileID: 1411788007532845118, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 187.09998
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400554, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _dialogueMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _narrativeScript
-      value: 
-      objectReference: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
     - target: {fileID: 3697150471741588061, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -993,21 +956,6 @@ PrefabInstance:
       propertyPath: _sceneList
       value: 
       objectReference: {fileID: 749697831}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _screenShaker
-      value: 
-      objectReference: {fileID: 757208929}
-    - target: {fileID: 7459855669607129931, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 34.833313
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591347059487037669, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _duration
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5979690604451775322, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: _menuToOpen
@@ -1068,7 +1016,7 @@ PrefabInstance:
       propertyPath: m_Navigation.m_Mode
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: [{fileID: 0}]
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
 --- !u!1001 &7016246306410484242
 PrefabInstance:
