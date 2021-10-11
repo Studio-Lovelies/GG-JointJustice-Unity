@@ -7,6 +7,15 @@ public class ScreenShaker : MonoBehaviour
     [Tooltip("The time between frames of the screenshake. Allows for the framerate of the shake to be controlled.")]
     [SerializeField] private float _timeStep = 0.02f;
 
+    [Tooltip()]
+    [SerializeField] private float _duration;
+    
+    [Tooltip()]
+    [SerializeField] private float _frequency;
+    
+    [Tooltip()]
+    [SerializeField] private float _amplitude;
+    
     [Tooltip("The offset applied to the noise used for shaking. Change this to change the start point for calculating noise.")]
     [SerializeField] private Vector2 _noiseOffset = new Vector2(234, 456);
     
@@ -33,18 +42,36 @@ public class ScreenShaker : MonoBehaviour
     }
 
     /// <summary>
-    /// Call this method to begin shaking screen.
+    /// Shakes the screen, overriding the duration, frequency, and amplitude
+    /// set in the inspector and combining frequency and amplitude into one value.
     /// </summary>
     /// <param name="intensity">How much the camera should shake. Combines amplitude and frequency into one value.</param>
     /// <param name="duration">The time (in seconds) that the shake will last.</param>
     /// <param name="shouldWaitForShake">Whether the system waits for the shake to complete before continuing.</param>
     public void Shake(float intensity, float duration, bool shouldWaitForShake)
     {
+        StopCurrentlyRunningCoroutine();
+        _shakeCoroutine = StartCoroutine(ShakeCoroutine(duration, intensity * 10f, intensity / 10f, shouldWaitForShake));
+    }
+    
+    /// <summary>
+    /// Shakes the screen using the values set in the inspector.
+    /// </summary>
+    public void Shake()
+    {
+        StopCurrentlyRunningCoroutine();
+        _shakeCoroutine = StartCoroutine(ShakeCoroutine(_duration, _frequency, _amplitude, true));
+    }
+
+    /// <summary>
+    /// Stops the currently running coroutine (if there is one)
+    /// </summary>
+    private void StopCurrentlyRunningCoroutine()
+    {
         if (_shakeCoroutine != null)
         {
             StopCoroutine(_shakeCoroutine);
         }
-        _shakeCoroutine = StartCoroutine(ShakeCoroutine(duration, intensity * 10f, intensity / 10f, shouldWaitForShake));
     }
 
     /// <summary>

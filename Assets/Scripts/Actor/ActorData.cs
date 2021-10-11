@@ -31,6 +31,9 @@ public class ActorData : ScriptableObject, ICourtRecordObject
     [field: SerializeField, Tooltip("The animator controllers that this actor uses.")]
     public RuntimeAnimatorController AnimatorController { get; private set; }
 
+    [field: SerializeField, Tooltip("Drag sprites for any shout variations this actor has here.")]
+    public Sprite[] ShoutVariations { get; private set; }
+    
     public string InstanceName => name;
     public string CourtRecordName => GenerateNameWithAge();
     public Sprite Icon => Profile;
