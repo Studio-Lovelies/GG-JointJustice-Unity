@@ -280,16 +280,33 @@ public class DirectorActionDecoder : MonoBehaviour
         if (!HasSceneController())
             return;
 
-        float intensityNumerical;
+        string[] parameters = intensity.Split(ACTION_PARAMETER_SEPARATOR);
 
-        if (float.TryParse(intensity, NumberStyles.Any, CultureInfo.InvariantCulture, out intensityNumerical))
+        if (parameters.Length < 2)
         {
-            _sceneController.ShakeScreen(intensityNumerical);
+            Debug.LogError("Invalid number of parameters for function SHAKESCREEN");
+            return;
         }
-        else
+        
+        if (!float.TryParse(parameters[0], NumberStyles.Any, CultureInfo.InvariantCulture, out float intensityNumerical))
         {
-            Debug.LogError("Invalid paramater " + intensity + " for function SHAKESCREEN");
+            Debug.LogError($"Invalid parameter {parameters[0]} for function SHAKESCREEN");
+            return;
         }
+
+        if (!float.TryParse(parameters[1], NumberStyles.Any, CultureInfo.InvariantCulture, out float duration))
+        {
+            Debug.LogError($"Invalid parameter {parameters[1]} for function SHAKESCREEN");
+        }
+
+        bool isBlocking = false;
+        if (parameters.Length > 2 && !bool.TryParse(parameters[2], out isBlocking))
+        {
+            Debug.LogError($"Invalid parameter {parameters[2]} for function SHAKESCREEN");
+            return;
+        }
+        
+        _sceneController.ShakeScreen(intensityNumerical, duration, isBlocking);
     }
 
     /// <summary>
