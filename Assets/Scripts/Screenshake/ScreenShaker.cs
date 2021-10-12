@@ -7,14 +7,14 @@ public class ScreenShaker : MonoBehaviour
     [Tooltip("The time between frames of the screenshake. Allows for the framerate of the shake to be controlled.")]
     [SerializeField] private float _timeStep = 0.02f;
 
-    [Tooltip()]
-    [SerializeField] private float _duration;
+    [Tooltip("The duration of the shake in seconds.")]
+    [SerializeField] private float _duration = 0.5f;
     
-    [Tooltip()]
-    [SerializeField] private float _frequency;
+    [Tooltip("The frequency of the shake's sine wave in oscillations per second.")]
+    [SerializeField] private float _frequency = 10f;
     
-    [Tooltip()]
-    [SerializeField] private float _amplitude;
+    [Tooltip("The maximum distance the object can move from its starting point.")]
+    [SerializeField] private float _amplitude = 0.1f;
     
     [Tooltip("The offset applied to the noise used for shaking. Change this to change the start point for calculating noise.")]
     [SerializeField] private Vector2 _noiseOffset = new Vector2(234, 456);
@@ -23,7 +23,7 @@ public class ScreenShaker : MonoBehaviour
     [SerializeField] private Vector2 _noiseScale = new Vector2(30, 30);
     
     [Tooltip("Animation curve is used to alter the animation, e.g. it smoother or less uniform.")]
-    [SerializeField] private AnimationCurve _animationCurve;
+    [SerializeField] private AnimationCurve _animationCurve = AnimationCurve.Constant(0, 1, 0);
 
     [SerializeField] private UnityEvent _onShakeStart;
     [SerializeField] private UnityEvent _onShakeComplete;
