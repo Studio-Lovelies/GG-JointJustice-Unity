@@ -49,6 +49,12 @@ public class Menu : MonoBehaviour
             }
 
             Selectable selectable = GetComponentInChildren<Selectable>();
+
+            if (selectable == null)
+            {
+                return;
+            }
+            
             if (selectable.interactable)
             {
                 selectable.Select();
