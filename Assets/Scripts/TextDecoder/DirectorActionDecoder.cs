@@ -69,6 +69,10 @@ public class DirectorActionDecoder : MonoBehaviour
             case "ADD_RECORD": AddToCourtRecord(parameters); break;
             case "PRESENT_EVIDENCE": RequirePresentEvidence(); break;
             case "SUBSTITUTE_EVIDENCE": SubstituteEvidence(parameters); break;
+            case "OBJECTION": Objection(parameters); break;
+            case "HOLD_IT": HoldIt(parameters); break;
+            case "TAKE_THAT": TakeThat(parameters); break;
+            case "SHOUTOUT": Shoutout(parameters); break;
             //Dialog controller
             case "DIALOG_SPEED": ChangeDialogSpeed(WaiterType.Dialog, parameters); break;
             case "OVERALL_SPEED": ChangeDialogSpeed(WaiterType.Overall, parameters); break;
@@ -610,6 +614,43 @@ public class DirectorActionDecoder : MonoBehaviour
 
         _evidenceController.SubstituteEvidenceWithAlt(evidence);
         _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Makes a specified actor shout "objection!"
+    /// </summary>
+    /// <param name="actorName">The name of the actor to shout.</param>
+    private void Objection(string actorName)
+    {
+        _sceneController.Objection(actorName);
+    }
+
+    /// <summary>
+    /// Makes a specified actor shout "hold it!"
+    /// </summary>
+    /// <param name="actorName">The name of the actor to shout.</param>
+    private void HoldIt(string actorName)
+    {
+        _sceneController.HoldIt(actorName);
+    }
+
+    /// <summary>
+    /// Makes a specified actor shout "take that!"
+    /// </summary>
+    /// <param name="actorName">The name of the actor to shout.</param>
+    private void TakeThat(string actorName)
+    {
+        _sceneController.TakeThat(actorName);
+    }
+
+    /// <summary>
+    /// Makes a specified actor shout a specific phrase.
+    /// </summary>
+    /// <param name="actorNameAndShoutName">The name of the actor to shout,
+    /// and the name of the shout itself.</param>
+    private void Shoutout(string actorNameAndShoutName)
+    {
+        
     }
 
     #endregion

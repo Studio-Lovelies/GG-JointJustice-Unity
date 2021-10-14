@@ -1,4 +1,4 @@
-﻿&SCENE:TMPH_Judge
+&SCENE:TMPH_Judge
 &ACTOR:Brent_Judge
 &SPEAK:Brent_Judge
 Arin! Demonstrate the screenshake effect!

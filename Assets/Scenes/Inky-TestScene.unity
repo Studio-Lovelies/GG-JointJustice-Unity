@@ -254,17 +254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb22b3340afa7d54ba8eba8387a5ac39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &757208929 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8591347059487037669, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-  m_PrefabInstance: {fileID: 5228303782951346616}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d235432278969446cabe94c09abdad5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &915704617 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8092316712924599042, guid: 6a76445d659e2db4baf7ee7ff4a2133c, type: 3}
@@ -327,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeStep: 0.02
-  _duration: 0.25
+  _duration: 0.5
   _frequency: 10
   _amplitude: 0.1
   _noiseOffset: {x: 234, y: 456}
@@ -414,6 +403,7 @@ MonoBehaviour:
   _objectionSprite: {fileID: 21300000, guid: acb9e7bf00fd28e4bbd6e2ba716692dc, type: 3}
   _holdItSprite: {fileID: 21300000, guid: d4a8875b0ee18ac4aa74b6921e9b8164, type: 3}
   _takeThatSprite: {fileID: 21300000, guid: b829cea1a0d6654418a2285a9653dca1, type: 3}
+  _audioController: {fileID: 1523786133}
 --- !u!212 &1452524992
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -542,6 +532,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6276402831480686355, guid: 10cbdef6ea18e6d49a2ddaaecbb78e45, type: 3}
   m_PrefabInstance: {fileID: 1521282217}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1523786133 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5766951243316258182, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+  m_PrefabInstance: {fileID: 5228303782951346616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c1588c060bf994aa9f9fed3449e1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1730540834 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7016246307934938928, guid: 0c139b7759e63e14a80dfc79229451ff, type: 3}
@@ -632,7 +633,7 @@ PrefabInstance:
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _narrativeScript
       value: 
-      objectReference: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
+      objectReference: {fileID: 4900000, guid: e3873bd7ef43b4365ae235f06626026e, type: 3}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: StandardInclusion
@@ -682,13 +683,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _shout
+      value: 
+      objectReference: {fileID: 1452524991}
+    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _sceneList
       value: 
       objectReference: {fileID: 749697831}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _screenShaker
-      value: 
-      objectReference: {fileID: 757208929}
     - target: {fileID: 7459855669607129931, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 34.833313

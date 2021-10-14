@@ -31,8 +31,17 @@ public class ActorData : ScriptableObject, ICourtRecordObject
     [field: SerializeField, Tooltip("The animator controllers that this actor uses.")]
     public RuntimeAnimatorController AnimatorController { get; private set; }
 
+    [field: SerializeField, Tooltip("Drag this actor's 'Objection' sound here")]
+    public AudioClip Objection { get; private set; }
+
+    [field: SerializeField, Tooltip("Drag this actor's 'HoldIt' sound here")]
+    public AudioClip HoldIt { get; private set; }
+    
+    [field: SerializeField, Tooltip("Drag this actor's 'TakeThat' sound here")]
+    public AudioClip TakeThat { get; private set; }
+
     [field: SerializeField, Tooltip("Drag sprites for any shout variations this actor has here.")]
-    public Sprite[] ShoutVariants { get; private set; }
+    public SpriteAudioClipPair[] ShoutVariants { get; private set; }
     
     public string InstanceName => name;
     public string CourtRecordName => GenerateNameWithAge();
@@ -55,4 +64,12 @@ public class ActorData : ScriptableObject, ICourtRecordObject
 
         return $"{DisplayName} (Age: {age})";
     }
+}
+
+[Serializable]
+public struct SpriteAudioClipPair
+{
+    public string Name => Sprite.name;
+    [field: SerializeField] public Sprite Sprite { get; set; }
+    [field: SerializeField] public AudioClip AudioClip { get; set; }
 }

@@ -19,6 +19,9 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag an EvidenceInventory component here")]
     [SerializeField] private EvidenceInventory _evidenceInventory;
 
+    [Tooltip("Drag an ActorInventory component here.")]
+    [SerializeField] private ActorInventory _actorInventory;
+
     [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
     [SerializeField] private Animatable _fullscreenAnimationPlayer;
     
@@ -27,6 +30,9 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Attach the screenshaker object here")]
     [SerializeField] private ScreenShaker _screenShaker;
+    
+    [Tooltip("Drag a Shout component here.")]
+    [SerializeField] private Shout _shout;
 
     [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
@@ -330,5 +336,42 @@ public class SceneController : MonoBehaviour, ISceneController
     public Vector2 PixelPositionToUnitPosition(Vector2Int pixelPosition)
     {
         return new Vector2((float)(pixelPosition.x * -1) / _pixelsPerUnit, (float)(pixelPosition.y * -1) / _pixelsPerUnit);
+    }
+    
+    /// <summary>
+    /// Makes a specified actor shout "objection!"
+    /// </summary>
+    /// <param name="actorName">The name of the actor to shout.</param>
+    public void Objection(string actorName)
+    {
+        _shout.Objection(_actorInventory[actorName]);
+    }
+
+    /// <summary>
+    /// Makes a specified actor shout "hold it!"
+    /// </summary>
+    /// <param name="actorName">The name of the actor to shout.</param>
+    public void HoldIt(string actorName)
+    {
+        _shout.HoldIt(_actorInventory[actorName]);
+    }
+
+    /// <summary>
+    /// Makes a specified actor shout "take that!"
+    /// </summary>
+    /// <param name="actorName">The name of the actor to shout.</param>
+    public void TakeThat(string actorName)
+    {
+        _shout.TakeThat(_actorInventory[actorName]);
+    }
+
+    /// <summary>
+    /// Makes a specified actor shout a specific phrase.
+    /// </summary>
+    /// <param name="actorName">The name of the actor to shout.</param>
+    /// <param name="shoutName">The name of the scout.</param>
+    public void Shoutout(string actorName, string shoutName)
+    {
+        _shout.Shoutout(_actorInventory[actorName], shoutName);
     }
 }

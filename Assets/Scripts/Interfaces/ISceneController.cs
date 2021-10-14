@@ -23,4 +23,8 @@ public interface ISceneController
     void Wait(float seconds);
     void HideItem();
     void PlayAnimation(string animationName);
+    void Objection(string actorName);
+    void HoldIt(string actorName);
+    void TakeThat(string actorName);
+    void Shoutout(string actorName, string shoutName);
 }
