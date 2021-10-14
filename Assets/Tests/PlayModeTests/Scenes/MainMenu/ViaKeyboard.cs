@@ -2,14 +2,13 @@
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scenes.MainMenu
 {
-    public class ViaKeyboard : InputTestFixture
+    public class ViaKeyboard
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
 

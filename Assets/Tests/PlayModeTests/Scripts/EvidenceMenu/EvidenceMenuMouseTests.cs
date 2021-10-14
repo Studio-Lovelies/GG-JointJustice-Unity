@@ -36,7 +36,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             // Get the menu items to test
             MenuItem[] menuItems = GameObject.Find("EvidenceContainer").GetComponentsInChildren<MenuItem>();
             EvidenceMenuItem firstMenuItem = menuItems.First(menuItem => menuItem.gameObject.name == "EvidenceMenuItem").GetComponent<EvidenceMenuItem>();
-            yield return _inputTestTools.SetMousePosition(firstMenuItem.transform.position + firstMenuItem.GetComponent<RectTransform>().rect.size.x * canvasScale);
+            yield return _inputTestTools.SetMousePositionWorldSpace(firstMenuItem.transform.position + firstMenuItem.GetComponent<RectTransform>().rect.size.x * canvasScale);
             Menu menu = evidenceMenu.GetComponent<Menu>();
             Assert.AreEqual(firstMenuItem.CourtRecordObject.DisplayName, menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
             
@@ -44,7 +44,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             for (int i = 1; i < menuItems.Length; i++)
             {
                 MenuItem menuItem = menuItems.First(item => item.gameObject.name == $"EvidenceMenuItem ({i})");
-                yield return _inputTestTools.SetMousePosition(menuItem.transform.position + (menuItem.GetComponent<RectTransform>().rect.size.x / 2) * canvasScale);
+                yield return _inputTestTools.SetMousePositionWorldSpace(menuItem.transform.position + (menuItem.GetComponent<RectTransform>().rect.size.x / 2) * canvasScale);
                 ICourtRecordObject evidence = menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
                 Assert.AreEqual(menuItem.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName, evidence.DisplayName);
             }
@@ -69,13 +69,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             MenuItem decrementButton = GameObject.Find("DecrementButton").GetComponent<MenuItem>();
             MenuItem incrementButton = GameObject.Find("IncrementButton").GetComponent<MenuItem>();
             
-            yield return _inputTestTools.SetMousePosition(decrementButton.transform.position + (decrementButton.GetComponent<RectTransform>().rect.size.x / 2) * canvasScale);
+            yield return _inputTestTools.SetMousePositionWorldSpace(decrementButton.transform.position + (decrementButton.GetComponent<RectTransform>().rect.size.x / 2) * canvasScale);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Mouse.leftButton, 100);
-            yield return _inputTestTools.SetMousePosition(incrementButton.transform.position + (incrementButton.GetComponent<RectTransform>().rect.size.x / 2) * canvasScale);
+            yield return _inputTestTools.SetMousePositionWorldSpace(incrementButton.transform.position + (incrementButton.GetComponent<RectTransform>().rect.size.x / 2) * canvasScale);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Mouse.leftButton, 123);
         
             Transform outerMenuItem = GameObject.Find("EvidenceMenuItem").transform;
-            yield return _inputTestTools.SetMousePosition(outerMenuItem.position + (outerMenuItem.GetComponent<RectTransform>().rect.size.x / 2) * canvasScale);
+            yield return _inputTestTools.SetMousePositionWorldSpace(outerMenuItem.position + (outerMenuItem.GetComponent<RectTransform>().rect.size.x / 2) * canvasScale);
         
             Assert.AreEqual(outerMenuItem.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName,
                 menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);

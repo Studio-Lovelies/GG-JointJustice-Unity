@@ -4,6 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Used by highlightable menu items to enable and disable outline components.
 /// </summary>
+[RequireComponent(typeof(Outline))]
 public class OutlineHighlight : MonoBehaviour, IHighlight
 {
     private Outline _outline;
