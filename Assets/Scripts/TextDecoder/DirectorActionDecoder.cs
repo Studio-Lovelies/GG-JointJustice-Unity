@@ -650,7 +650,16 @@ public class DirectorActionDecoder : MonoBehaviour
     /// and the name of the shout itself.</param>
     private void Shoutout(string actorNameAndShoutName)
     {
+        string[] parameters = actorNameAndShoutName.Split(ACTION_PARAMETER_SEPARATOR);
         
+        if (parameters.Length != 2)
+        {
+            Debug.LogError($"Invalid number of parameters for action SHOUTOUT. Expected 2, got {parameters.Length}");
+            _onActionDone.Invoke();
+            return;
+        }
+        
+        _sceneController.Shoutout(parameters[0], parameters[1]);
     }
 
     #endregion

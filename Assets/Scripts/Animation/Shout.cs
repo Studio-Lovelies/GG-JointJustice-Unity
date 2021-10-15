@@ -90,7 +90,7 @@ public class Shout : MonoBehaviour
     {
         _spriteRenderer.enabled = true;
 
-        if (shoutVariants != null && Random.Range(0f, 1f) < _randomShoutChance)
+        if (shoutVariants != null && shoutVariants.Length != 0 && Random.Range(0f, 1f) < _randomShoutChance)
         {
             SpriteAudioClipPair shoutVariant = shoutVariants[Random.Range(0, shoutVariants.Length)];
             _spriteRenderer.sprite = shoutVariant.Sprite;

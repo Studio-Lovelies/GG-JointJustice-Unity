@@ -22,4 +22,19 @@ I'm gonna shout again!
 ...and again!
 
 &TAKE_THAT:Arin
+Once more...
+
+&SHOUTOUT:Arin,4
 Ok, I'm done.
+
+&OBJECTION:Tutorial_Boy
+&PAN_TO_POSITION:3,1
+&SPEAK:Tutorial_Boy
+I would also like to say a few words.
+
+&OBJECTION:Dan
+&SCENE:TMPH_Assistant
+&SPEAK:Dan
+No! We're done!
+
+-> END

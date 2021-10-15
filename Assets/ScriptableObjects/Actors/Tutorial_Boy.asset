@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Tutorial_Boy
   m_EditorClassIdentifier: 
   <Profile>k__BackingField: {fileID: 0}
-  <DefaultSprite>k__BackingField: {fileID: 0}
   <DisplayName>k__BackingField: Tutorial Boy
   <Age>k__BackingField: 33
   _ageCertainty: 0
   <DisplayColor>k__BackingField: {r: 0.69411767, g: 0.003921569, b: 0.1137255, a: 1}
   <Bio>k__BackingField: The first prosecutor. Has an extremely predictable name.
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: 9ee2d8da674a44f25b37eaad51116e16, type: 2}
+  <Objection>k__BackingField: {fileID: 8300000, guid: e32639a36acafb644a08ab58833682d3, type: 3}
+  <HoldIt>k__BackingField: {fileID: 0}
+  <TakeThat>k__BackingField: {fileID: 0}
+  <ShoutVariants>k__BackingField: []
