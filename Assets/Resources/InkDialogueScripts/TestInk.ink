@@ -1,4 +1,4 @@
-&SHOWACTOR:False
+&SHOW_ACTOR:False
 &PLAYSONG:prologueInPMinor
 
 &SPEAK:Ross
