@@ -1,5 +1,5 @@
 &SHOW_ACTOR:False
-&PLAYSONG:prologueInPMinor
+&PLAY_SONG:prologueInPMinor
 
 &SPEAK:Ross
 After all the work I put into those levels...
