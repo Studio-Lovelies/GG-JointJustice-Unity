@@ -34,7 +34,7 @@ public enum ActionName
     THINK,
     SET_POSE,
     PLAY_EMOTION,
-    PLAYSFX,
+    PLAY_SFX,
     PLAYSONG,
     STOP_SONG,
     FADE_OUT,
@@ -96,7 +96,7 @@ public class ActionDecoder
             case ActionName.SET_POSE: SetPose(actionLine.NextString("pose name"), actionLine.NextOptionalString("target actor")); break;
             case ActionName.PLAY_EMOTION: PlayEmotion(actionLine.NextString("emotion name"), actionLine.NextOptionalString("target actor")); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
-            case ActionName.PLAYSFX: PlaySFX(actionLine.NextString("sfx name")); break;
+            case ActionName.PLAY_SFX: PlaySFX(actionLine.NextString("sfx name")); break;
             case ActionName.PLAYSONG: SetBGMusic(actionLine.NextString("song name")); break;
             case ActionName.STOP_SONG: StopSong(); break;
             //Scene controller
