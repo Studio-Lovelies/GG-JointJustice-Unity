@@ -41,7 +41,7 @@ public enum ActionName
     FADE_IN,
     CAMERA_PAN,
     CAMERA_SET,
-    SHAKESCREEN,
+    SHAKE_SCREEN,
     SCENE,
     WAIT,
     SHOW_ITEM,
@@ -104,7 +104,7 @@ public class ActionDecoder
             case ActionName.FADE_IN: FadeInScene(actionLine.NextFloat("seconds")); break;
             case ActionName.CAMERA_PAN: PanCamera(actionLine.NextFloat("duration"), actionLine.NextInt("x"), actionLine.NextInt("y")); break;
             case ActionName.CAMERA_SET: SetCameraPosition(actionLine.NextInt("x"), actionLine.NextInt("y")); break;
-            case ActionName.SHAKESCREEN: ShakeScreen(actionLine.NextFloat("intensity")); break;
+            case ActionName.SHAKE_SCREEN: ShakeScreen(actionLine.NextFloat("intensity")); break;
             case ActionName.SCENE: SetScene(actionLine.NextString("scene name")); break;
             case ActionName.WAIT: Wait(actionLine.NextFloat("seconds")); break;
             case ActionName.SHOW_ITEM: ShowItem(actionLine.NextString("item name"), actionLine.NextEnumValue<ItemDisplayPosition>("item position")); break;
