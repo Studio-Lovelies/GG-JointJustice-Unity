@@ -59,7 +59,7 @@ public enum ActionName
     PUNCTUATION_SPEED,
     CLEAR_SPEED,
     DISABLE_SKIPPING,
-    AUTOSKIP,
+    AUTO_SKIP,
     CONTINUE_DIALOG,
     APPEAR_INSTANTLY,
     HIDE_TEXTBOX,
@@ -124,7 +124,7 @@ public class ActionDecoder
             case ActionName.PUNCTUATION_SPEED: ChangeDialogSpeed(WaiterType.Punctuation, actionLine.NextFloat("seconds")); break;
             case ActionName.CLEAR_SPEED: ClearDialogSpeeds(); break;
             case ActionName.DISABLE_SKIPPING: DisableTextSkipping(actionLine.NextBool("is disabled")); break;
-            case ActionName.AUTOSKIP: AutoSkip(actionLine.NextBool("is on")); break;
+            case ActionName.AUTO_SKIP: AutoSkip(actionLine.NextBool("is on")); break;
             case ActionName.CONTINUE_DIALOG: ContinueDialog(); break;
             case ActionName.APPEAR_INSTANTLY: AppearInstantly(); break;
             case ActionName.HIDE_TEXTBOX: HideTextbox(); break;
