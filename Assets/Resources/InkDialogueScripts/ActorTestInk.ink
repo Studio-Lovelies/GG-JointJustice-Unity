@@ -8,7 +8,7 @@ Hello Jory!
 &SPEAK:Dan
 Watch this!
 
-&PLAYSFX:airGuitar
+&PLAY_SFX:airGuitar
 &PLAY_ANIMATION:AirGuitar
 
 &EMOTION:Normal
