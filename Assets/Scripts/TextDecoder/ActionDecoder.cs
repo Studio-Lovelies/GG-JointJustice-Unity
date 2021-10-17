@@ -29,7 +29,7 @@ public enum ActionName
 {
     ACTOR,
     SET_ACTOR_POSITION,
-    SHOWACTOR,
+    SHOW_ACTOR,
     SPEAK,
     THINK,
     SET_POSE,
@@ -90,7 +90,7 @@ public class ActionDecoder
             //Actor controller
             case ActionName.ACTOR: SetActor(actionLine.NextString("actor name")); break;
             case ActionName.SET_ACTOR_POSITION: SetActorPosition(actionLine.NextOneBasedInt("slot index"), actionLine.NextString("actor name")); break;
-            case ActionName.SHOWACTOR: SetActorVisibility(actionLine.NextBool("should show")); break;
+            case ActionName.SHOW_ACTOR: SetActorVisibility(actionLine.NextBool("should show")); break;
             case ActionName.SPEAK: SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Speaking); break;
             case ActionName.THINK: SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Thinking); break;
             case ActionName.SET_POSE: SetPose(actionLine.NextString("pose name"), actionLine.NextOptionalString("target actor")); break;
