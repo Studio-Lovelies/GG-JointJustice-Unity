@@ -473,30 +473,4 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
     #endregion
-
-
-    public string Describe(ActionName action)
-    {
-        var docAction = new DocActionLine(action);
-
-        try
-        {
-            OnNewActionLine(docAction);
-        }
-        catch (DecoderMissingComponentException)
-        {
-        }
-
-        return docAction.Description();
-    }
-
-    public string WriteDocsForAllCommands()
-    {
-        var doc = "";
-        foreach (ActionName action in typeof(ActionName).GetEnumValues())
-        {
-            doc += $"## {action.ToString()}\n{Describe(action)}\n\n";
-        }
-        return doc;
-    }
 }

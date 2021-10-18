@@ -166,14 +166,5 @@ namespace Tests.EditModeTests
             Assert.AreEqual("Happy", actorController.emotion);
             Assert.IsFalse(actionDoneCalled);
         }
-
-        [Test]
-        public void DescribeActionArguments()
-        {
-            var decoder = new ActionDecoder();
-            var description = decoder.Describe(ActionName.CAMERA_PAN);
-
-            Assert.AreEqual("CAMERA_PAN takes args duration:decimal number, x:int, y:int", description);
-        }
     }
 }
