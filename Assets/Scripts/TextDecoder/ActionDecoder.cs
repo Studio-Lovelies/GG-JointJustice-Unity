@@ -273,27 +273,11 @@ public class ActionDecoder
 
     #region SceneController
     /// <summary>
-    /// Checks if the decoder has a scene controller attached, and shows an error if it doesn't
-    /// </summary>
-    /// <returns>Whether a scene controller is connected</returns>
-    private bool HasSceneController()
-    {
-        if (SceneController == null)
-        {
-            throw new DecoderMissingComponentException("No scene controller attached to the action decoder");
-        }
-        return true;
-    }
-
-    /// <summary>
     /// Fades the scene in from black
     /// </summary>
     /// <param name="seconds">Amount of seconds the fade-in should take as a float</param>
     private void FadeInScene(float timeInSeconds)
     {
-        if (!HasSceneController())
-            return;
-
         SceneController.FadeIn(timeInSeconds);
     }
 
@@ -303,9 +287,6 @@ public class ActionDecoder
     /// <param name="seconds">Amount of seconds the fade-out should take as a float</param>
     private void FadeOutScene(float timeInSeconds)
     {
-        if (!HasSceneController())
-            return;
-
         SceneController.FadeOut(timeInSeconds);
 
     }
@@ -316,9 +297,6 @@ public class ActionDecoder
     /// <param name="intensity">Max displacement of the screen as a float</param>
     private void ShakeScreen(float intensity)
     {
-        if (!HasSceneController())
-            return;
-
         SceneController.ShakeScreen(intensity);
     }
 
@@ -328,9 +306,6 @@ public class ActionDecoder
     /// <param name="sceneName">Scene to change to</param>
     private void SetScene(string sceneName)
     {
-        if (!HasSceneController())
-            return;
-
         SceneController.SetScene(sceneName);
         OnActionDone?.Invoke();
     }
@@ -341,9 +316,6 @@ public class ActionDecoder
     /// <param name="parameters">New camera coordinates in the "int x,int y" format</param>
     private void SetCameraPosition(int x, int y)
     {
-        if (!HasSceneController())
-            return;
-
         SceneController.SetCameraPos(new Vector2Int(x, y));
         OnActionDone?.Invoke();
     }
@@ -353,9 +325,6 @@ public class ActionDecoder
     /// </summary>
     private void PanCamera(float duration, int x, int y)
     {
-        if (!HasSceneController())
-            return;
-
         SceneController.PanCamera(duration, new Vector2Int(x, y));
         OnActionDone?.Invoke();
     }
@@ -366,9 +335,6 @@ public class ActionDecoder
     /// <param name="parameters">Which item to show and where to show it, in the "string item, itemPosition pos" format</param>
     private void ShowItem(string item, ItemDisplayPosition itemPos)
     {
-        if (!HasSceneController())
-            return;
-
         SceneController.ShowItem(item, itemPos);
         OnActionDone?.Invoke();
     }
@@ -378,9 +344,6 @@ public class ActionDecoder
     /// </summary>
     private void HideItem()
     {
-        if (!HasSceneController())
-            return;
-
         SceneController.HideItem();
         OnActionDone?.Invoke();
     }
@@ -391,9 +354,6 @@ public class ActionDecoder
     /// <param name="seconds">Amount of seconds to wait</param>
     private void Wait(float seconds)
     {
-        if (!HasSceneController())
-            return;
-
         SceneController.Wait(seconds);
     }
 
@@ -403,9 +363,6 @@ public class ActionDecoder
     /// <param name="animationName">The name of the animation to play.</param>
     private void PlayAnimation(string animationName)
     {
-        if (!HasSceneController())
-            return;
-
         SceneController.PlayAnimation(animationName);
     }
 
@@ -414,11 +371,6 @@ public class ActionDecoder
     /// <param name="oneBasedSlotIndexAsString">String containing an integer referring to the target sub position, 1 based.</param>
     private void JumpToActorSlot(int slotIndex)
     {
-        if (!HasSceneController())
-        {
-            return;
-        }
-
         SceneController.JumpToActorSlot(slotIndex);
         OnActionDone?.Invoke();
     }
@@ -429,11 +381,6 @@ public class ActionDecoder
     /// <param name="parameters">String containing a one-based integer index referring to the target actor slot, and a floating point number referring to the amount of time the pan should take in seconds.</param>
     private void PanToActorSlot(int slotIndex, float panDuration)
     {
-        if (!HasSceneController())
-        {
-            return;
-        }
-
         SceneController.PanToActorSlot(slotIndex, panDuration);
         OnActionDone?.Invoke();
     }
@@ -474,9 +421,6 @@ public class ActionDecoder
     /// <param name="showActor">Should contain true or false based on showing or hiding the actor respectively</param>
     private void SetActorVisibility(bool shouldShow)
     {
-        if (!HasSceneController())
-            return;
-
         if (shouldShow)
         {
             SceneController.ShowActor();
