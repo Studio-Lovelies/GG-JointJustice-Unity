@@ -390,27 +390,11 @@ public class ActionDecoder
 
     #region ActorController
     /// <summary>
-    /// Checks if the decoder has an actor controller attached, and shows an error if it doesn't
-    /// </summary>
-    /// <returns>Whether an actor controller is connected</returns>
-    private bool HasActorController()
-    {
-        if (ActorController == null)
-        {
-            throw new DecoderMissingComponentException("No actor controller attached to the action decoder");
-        }
-        return true;
-    }
-
-    /// <summary>
     /// Sets the shown actor in the scene
     /// </summary>
     /// <param name="actor">Actor to be switched to</param>
     private void SetActor(string actor)
     {
-        if (!HasActorController())
-            return;
-
         ActorController.SetActiveActor(actor);
         OnActionDone?.Invoke();
     }
@@ -440,9 +424,6 @@ public class ActionDecoder
     /// <param name="speakingType">Type of speaking to speak the text with</param>
     private void SetSpeaker(string actor, SpeakingType speakingType)
     {
-        if (!HasActorController())
-            return;
-
         ActorController.SetActiveSpeaker(actor);
         ActorController.SetSpeakingType(speakingType);
         OnActionDone?.Invoke();
@@ -454,9 +435,6 @@ public class ActionDecoder
     /// <param name="parameters">"[pose name]" to set pose for current actor OR "[pose name],[actor name]" to set pose for another actor</param>
     private void SetPose(string poseName, string optional_targetActor)
     {
-        if (!HasActorController())
-            return;
-
         if (optional_targetActor == null)
         {
             ActorController.SetPose(poseName);
@@ -475,9 +453,6 @@ public class ActionDecoder
     /// <param name="parameters">"[animation name]" to set pose for current actor OR "[animation name],[actor name]" to queue animation for another actor (gets played as soon as actor is visible)</param>
     private void PlayEmotion(string poseName, string optional_targetActor)
     {
-        if (!HasActorController())
-            return;
-
         if (optional_targetActor == null)
         {
             ActorController.PlayEmotion(poseName);
@@ -494,11 +469,6 @@ public class ActionDecoder
     /// <param name="parameters">String containing the actor name first and one-based slot index second.</param>
     private void SetActorPosition(int oneBasedSlotIndex, string actorName)
     {
-        if (!HasActorController())
-        {
-            return;
-        }
-
         ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
         OnActionDone?.Invoke();
     }
