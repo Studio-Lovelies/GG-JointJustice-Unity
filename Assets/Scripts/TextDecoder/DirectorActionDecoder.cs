@@ -30,7 +30,7 @@ public class DirectorActionDecoder : MonoBehaviour
         }
         catch (UnknownCommandException e)
         {
-            Debug.Log($"Unknown action: {e.CommandName}");
+            Debug.LogError($"Unknown action: {e.CommandName}");
         }
         catch (InvalidSyntaxException e)
         {
