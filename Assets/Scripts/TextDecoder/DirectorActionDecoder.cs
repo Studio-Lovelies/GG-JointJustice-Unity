@@ -7,13 +7,13 @@ public class DirectorActionDecoder : MonoBehaviour
     [Tooltip("Event that gets called when the system is done processing the action")]
     [SerializeField] private UnityEvent _onActionDone;
 
-    private readonly ActionDecoder _decoder = new ActionDecoder();
+    public ActionDecoder Decoder { get; } = new ActionDecoder();
 
     private void Awake()
     {
-        Debug.Log(_decoder.WriteDocsForAllCommands());
+        Debug.Log(Decoder.WriteDocsForAllCommands());
         // We wrap this in an Action so we have no ties to UnityEngine in the ActionDecoder
-        _decoder.OnActionDone += () => _onActionDone.Invoke();
+        Decoder.OnActionDone += () => _onActionDone.Invoke();
     }
 
     #region API
@@ -26,7 +26,7 @@ public class DirectorActionDecoder : MonoBehaviour
         var actionLine = new ActionLine(line);
         try
         {
-            _decoder.OnNewActionLine(actionLine);
+            Decoder.OnNewActionLine(actionLine);
         }
         catch (UnknownCommandException e)
         {
@@ -55,7 +55,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New action controller to be added</param>
     public void SetActorController(IActorController newController)
     {
-        _decoder.ActorController = newController;
+        Decoder.ActorController = newController;
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New scene controller to be added</param>
     public void SetSceneController(ISceneController newController)
     {
-        _decoder.SceneController = newController;
+        Decoder.SceneController = newController;
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New audio controller to be added</param>
     public void SetAudioController(IAudioController newController)
     {
-        _decoder.AudioController = newController;
+        Decoder.AudioController = newController;
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New evidence controller to be added</param>
     public void SetEvidenceController(IEvidenceController newController)
     {
-        _decoder.EvidenceController = newController;
+        Decoder.EvidenceController = newController;
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New appearing dialog controller to be added</param>
     public void SetAppearingDialogController(IAppearingDialogueController newController)
     {
-        _decoder.AppearingDialogueController = newController;
+        Decoder.AppearingDialogueController = newController;
     }
 
     #endregion
