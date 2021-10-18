@@ -54,7 +54,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
         else
         {
-            _directorActionDecoder.SetSceneController(this);
+            _directorActionDecoder.Decoder.SceneController = this;
         }
 
     }
