@@ -29,19 +29,19 @@ public enum ActionName
 {
     ACTOR,
     SET_ACTOR_POSITION,
-    SHOWACTOR,
+    SHOW_ACTOR,
     SPEAK,
     THINK,
     SET_POSE,
     PLAY_EMOTION,
-    PLAYSFX,
-    PLAYSONG,
+    PLAY_SFX,
+    PLAY_SONG,
     STOP_SONG,
     FADE_OUT,
     FADE_IN,
     CAMERA_PAN,
     CAMERA_SET,
-    SHAKESCREEN,
+    SHAKE_SCREEN,
     SCENE,
     WAIT,
     SHOW_ITEM,
@@ -59,7 +59,7 @@ public enum ActionName
     PUNCTUATION_SPEED,
     CLEAR_SPEED,
     DISABLE_SKIPPING,
-    AUTOSKIP,
+    AUTO_SKIP,
     CONTINUE_DIALOG,
     APPEAR_INSTANTLY,
     HIDE_TEXTBOX,
@@ -90,21 +90,21 @@ public class ActionDecoder
             //Actor controller
             case ActionName.ACTOR: SetActor(actionLine.NextString("actor name")); break;
             case ActionName.SET_ACTOR_POSITION: SetActorPosition(actionLine.NextOneBasedInt("slot index"), actionLine.NextString("actor name")); break;
-            case ActionName.SHOWACTOR: SetActorVisibility(actionLine.NextBool("should show")); break;
+            case ActionName.SHOW_ACTOR: SetActorVisibility(actionLine.NextBool("should show")); break;
             case ActionName.SPEAK: SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Speaking); break;
             case ActionName.THINK: SetSpeaker(actionLine.NextString("actor name"), SpeakingType.Thinking); break;
             case ActionName.SET_POSE: SetPose(actionLine.NextString("pose name"), actionLine.NextOptionalString("target actor")); break;
             case ActionName.PLAY_EMOTION: PlayEmotion(actionLine.NextString("emotion name"), actionLine.NextOptionalString("target actor")); break; //Emotion = animation on an actor. Saves PLAY_ANIMATION for other things
             //Audio controller
-            case ActionName.PLAYSFX: PlaySFX(actionLine.NextString("sfx name")); break;
-            case ActionName.PLAYSONG: SetBGMusic(actionLine.NextString("song name")); break;
+            case ActionName.PLAY_SFX: PlaySFX(actionLine.NextString("sfx name")); break;
+            case ActionName.PLAY_SONG: SetBGMusic(actionLine.NextString("song name")); break;
             case ActionName.STOP_SONG: StopSong(); break;
             //Scene controller
             case ActionName.FADE_OUT: FadeOutScene(actionLine.NextFloat("seconds")); break;
             case ActionName.FADE_IN: FadeInScene(actionLine.NextFloat("seconds")); break;
             case ActionName.CAMERA_PAN: PanCamera(actionLine.NextFloat("duration"), actionLine.NextInt("x"), actionLine.NextInt("y")); break;
             case ActionName.CAMERA_SET: SetCameraPosition(actionLine.NextInt("x"), actionLine.NextInt("y")); break;
-            case ActionName.SHAKESCREEN: ShakeScreen(actionLine.NextFloat("intensity")); break;
+            case ActionName.SHAKE_SCREEN: ShakeScreen(actionLine.NextFloat("intensity")); break;
             case ActionName.SCENE: SetScene(actionLine.NextString("scene name")); break;
             case ActionName.WAIT: Wait(actionLine.NextFloat("seconds")); break;
             case ActionName.SHOW_ITEM: ShowItem(actionLine.NextString("item name"), actionLine.NextEnumValue<ItemDisplayPosition>("item position")); break;
@@ -124,7 +124,7 @@ public class ActionDecoder
             case ActionName.PUNCTUATION_SPEED: ChangeDialogSpeed(WaiterType.Punctuation, actionLine.NextFloat("seconds")); break;
             case ActionName.CLEAR_SPEED: ClearDialogSpeeds(); break;
             case ActionName.DISABLE_SKIPPING: DisableTextSkipping(actionLine.NextBool("is disabled")); break;
-            case ActionName.AUTOSKIP: AutoSkip(actionLine.NextBool("is on")); break;
+            case ActionName.AUTO_SKIP: AutoSkip(actionLine.NextBool("is on")); break;
             case ActionName.CONTINUE_DIALOG: ContinueDialog(); break;
             case ActionName.APPEAR_INSTANTLY: AppearInstantly(); break;
             case ActionName.HIDE_TEXTBOX: HideTextbox(); break;
