@@ -50,15 +50,6 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     /// <summary>
-    /// Attach a new IAudioController to the decoder
-    /// </summary>
-    /// <param name="newController">New audio controller to be added</param>
-    public void SetAudioController(IAudioController newController)
-    {
-        Decoder.AudioController = newController;
-    }
-
-    /// <summary>
     /// Attach a new IAppearingDialogController to the decoder
     /// </summary>
     /// <param name="newController">New appearing dialog controller to be added</param>
