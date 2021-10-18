@@ -242,27 +242,11 @@ public class ActionDecoder
 
     #region AudioController
     /// <summary>
-    /// Checks if the decoder has an audio controller attached, and shows an error if it doesn't
-    /// </summary>
-    /// <returns>Whether an audio controller is connected</returns>
-    private bool HasAudioController()
-    {
-        if (AudioController == null)
-        {
-            throw new DecoderMissingComponentException("No audio controller attached to the action decoder");
-        }
-        return true;
-    }
-
-    /// <summary>
     /// Plays a sound effect
     /// </summary>
     /// <param name="sfx">Name of the sound effect</param>
     private void PlaySFX(string sfx)
     {
-        if (!HasAudioController())
-            return;
-
         AudioController.PlaySFX(sfx);
         OnActionDone?.Invoke();
     }
@@ -273,9 +257,6 @@ public class ActionDecoder
     /// <param name="songName">Name of the new song</param>
     private void SetBGMusic(string songName)
     {
-        if (!HasAudioController())
-            return;
-
         AudioController.PlaySong(songName);
         OnActionDone?.Invoke();
     }
@@ -285,9 +266,6 @@ public class ActionDecoder
     /// </summary>
     private void StopSong()
     {
-        if (!HasAudioController())
-            return;
-
         AudioController.StopSong();
         OnActionDone?.Invoke();
     }
