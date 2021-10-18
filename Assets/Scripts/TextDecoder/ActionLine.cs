@@ -17,20 +17,7 @@ public class NotEnoughParametersException : System.Exception
     }
 }
 
-public interface IActionLine
-{
-    ActionName Action { get; }
-
-    string NextString(string input);
-    string NextOptionalString(string input);
-    int NextInt(string input);
-    float NextFloat(string input);
-    int NextOneBasedInt(string input);
-    bool NextBool(string input);
-    T NextEnumValue<T>(string input) where T : struct, IConvertible;
-}
-
-public class ActionLine : IActionLine
+public class ActionLine
 {
     private const char ACTION_SIDE_SEPARATOR = ':';
     private const char ACTION_PARAMETER_SEPARATOR = ',';
