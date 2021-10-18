@@ -200,42 +200,20 @@ public class ActionDecoder
     #endregion
 
     #region EvidenceController
-    /// <summary>
-    /// Checks if the decoder has an evidence controller attached, and shows an error if it doesn't
-    /// </summary>
-    /// <returns>Whether an evidence controller is connected</returns>
-    private bool HasEvidenceController()
-    {
-        if (EvidenceController == null)
-        {
-            throw new DecoderMissingComponentException("No evidence controller attached to the action decoder");
-        }
-        return true;
-    }
-
     private void AddEvidence(string evidence)
     {
-        if (!HasEvidenceController())
-            return;
-
         EvidenceController.AddEvidence(evidence);
         OnActionDone?.Invoke();
     }
 
     private void RemoveEvidence(string evidence)
     {
-        if (!HasEvidenceController())
-            return;
-
         EvidenceController.RemoveEvidence(evidence);
         OnActionDone?.Invoke();
     }
 
     private void AddToCourtRecord(string actor)
     {
-        if (!HasEvidenceController())
-            return;
-
         EvidenceController.AddToCourtRecord(actor);
         OnActionDone?.Invoke();
     }
@@ -246,9 +224,6 @@ public class ActionDecoder
     /// </summary>
     private void OpenEvidenceMenu()
     {
-        if (!HasEvidenceController())
-            return;
-
         EvidenceController.OpenEvidenceMenu();
     }
 
@@ -258,9 +233,6 @@ public class ActionDecoder
     /// <param name="evidence">The name of the evidence to substitute.</param>
     private void SubstituteEvidence(string evidence)
     {
-        if (!HasEvidenceController())
-            return;
-
         EvidenceController.SubstituteEvidenceWithAlt(evidence);
         OnActionDone?.Invoke();
     }
