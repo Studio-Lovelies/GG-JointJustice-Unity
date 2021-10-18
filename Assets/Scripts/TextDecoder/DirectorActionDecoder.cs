@@ -50,15 +50,6 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     /// <summary>
-    /// Attach a new IActorController to the decoder
-    /// </summary>
-    /// <param name="newController">New action controller to be added</param>
-    public void SetActorController(IActorController newController)
-    {
-        Decoder.ActorController = newController;
-    }
-
-    /// <summary>
     /// Attach a new ISceneController to the decoder
     /// </summary>
     /// <param name="newController">New scene controller to be added</param>
