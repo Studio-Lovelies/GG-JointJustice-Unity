@@ -50,30 +50,12 @@ public class DirectorActionDecoder : MonoBehaviour
     }
 
     /// <summary>
-    /// Attach a new ISceneController to the decoder
-    /// </summary>
-    /// <param name="newController">New scene controller to be added</param>
-    public void SetSceneController(ISceneController newController)
-    {
-        Decoder.SceneController = newController;
-    }
-
-    /// <summary>
     /// Attach a new IAudioController to the decoder
     /// </summary>
     /// <param name="newController">New audio controller to be added</param>
     public void SetAudioController(IAudioController newController)
     {
         Decoder.AudioController = newController;
-    }
-
-    /// <summary>
-    /// Attach a new IEvidenceController to the decoder
-    /// </summary>
-    /// <param name="newController">New evidence controller to be added</param>
-    public void SetEvidenceController(IEvidenceController newController)
-    {
-
     }
 
     /// <summary>
