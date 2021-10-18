@@ -49,14 +49,5 @@ public class DirectorActionDecoder : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Attach a new IAppearingDialogController to the decoder
-    /// </summary>
-    /// <param name="newController">New appearing dialog controller to be added</param>
-    public void SetAppearingDialogController(IAppearingDialogueController newController)
-    {
-        Decoder.AppearingDialogueController = newController;
-    }
-
     #endregion
 }
