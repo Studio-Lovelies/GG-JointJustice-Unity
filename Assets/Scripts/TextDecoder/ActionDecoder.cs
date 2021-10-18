@@ -79,10 +79,6 @@ public class ActionDecoder
     public IEvidenceController EvidenceController { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; } = null;
 
-    public ActionDecoder()
-    {
-    }
-
     public void OnNewActionLine(ActionLine actionLine)
     {
         switch (actionLine.Action)
