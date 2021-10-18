@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -28,7 +26,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
         }
         else
         {
-            _directorActionDecoder.SetEvidenceController(this);
+            _directorActionDecoder.Decoder.EvidenceController = this;
         }
 
         if (_evidenceInventory == null)
@@ -48,7 +46,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
         {
             return;
         }
-        
+
         _evidenceInventory.AddObject(evidence);
     }
 
@@ -62,7 +60,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
         {
             return;
         }
-            
+
         _evidenceInventory.RemoveObject(evidence);
     }
 
@@ -90,7 +88,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
         {
             return;
         }
-        
+
         _evidenceInventory.SubstituteEvidenceWithAlt(evidence);
     }
 

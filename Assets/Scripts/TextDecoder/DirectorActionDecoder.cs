@@ -82,7 +82,7 @@ public class DirectorActionDecoder : MonoBehaviour
     /// <param name="newController">New evidence controller to be added</param>
     public void SetEvidenceController(IEvidenceController newController)
     {
-        Decoder.EvidenceController = newController;
+
     }
 
     /// <summary>
