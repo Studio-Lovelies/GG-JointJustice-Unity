@@ -83,7 +83,7 @@ public class ActionDecoder
     {
     }
 
-    public void OnNewActionLine(IActionLine actionLine)
+    public void OnNewActionLine(ActionLine actionLine)
     {
         switch (actionLine.Action)
         {
