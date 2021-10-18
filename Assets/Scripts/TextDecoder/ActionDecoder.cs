@@ -137,19 +137,6 @@ public class ActionDecoder
     }
 
     #region DialogStuff
-    /// <summary>
-    /// Checks if the decoder has an appearing dialog controller attached, and shows an error if it doesn't
-    /// </summary>
-    /// <returns>Whether an appearing dialog controller is connected</returns>
-    private bool HasAppearingDialogController()
-    {
-        if (AppearingDialogueController == null)
-        {
-            throw new DecoderMissingComponentException("No appearing dialog controller attached to the action decoder");
-        }
-        return true;
-    }
-
     ///<summary>
     ///Changes the dialog speed in appearingDialogController if it has beben set.
     ///</summary>
@@ -157,9 +144,6 @@ public class ActionDecoder
     ///<param name = "parameters">Contains all the parameters needed to change the appearing time.</param>
     private void ChangeDialogSpeed(WaiterType currentWaiterType, float seconds)
     {
-        if (!HasAppearingDialogController())
-            return;
-
         AppearingDialogueController.SetTimerValue(currentWaiterType, seconds);
     }
 
@@ -168,9 +152,6 @@ public class ActionDecoder
     ///</summary>
     private void ClearDialogSpeeds()
     {
-        if (!HasAppearingDialogController())
-            return;
-
         AppearingDialogueController.ClearAllWaiters();
     }
 
@@ -180,9 +161,6 @@ public class ActionDecoder
     ///<param name = "disable">Should the text skipping be disabled or not</param>
     private void DisableTextSkipping(bool value)
     {
-        if (!HasAppearingDialogController())
-            return;
-
         AppearingDialogueController.ToggleDisableTextSkipping(value);
     }
 
@@ -191,9 +169,6 @@ public class ActionDecoder
     ///</summary>
     private void ContinueDialog()
     {
-        if (!HasAppearingDialogController())
-            return;
-
         AppearingDialogueController.ContinueDialog();
     }
 
@@ -202,9 +177,6 @@ public class ActionDecoder
     ///</summary>
     private void AutoSkip(bool value)
     {
-        if (!HasAppearingDialogController())
-            return;
-
         AppearingDialogueController.AutoSkipDialog(value);
     }
 
@@ -213,9 +185,6 @@ public class ActionDecoder
     /// </summary>
     private void AppearInstantly()
     {
-        if (!HasAppearingDialogController())
-            return;
-
         AppearingDialogueController.PrintTextInstantly = true;
         OnActionDone?.Invoke();
     }
@@ -225,9 +194,6 @@ public class ActionDecoder
     /// </summary>
     private void HideTextbox()
     {
-        if (!HasAppearingDialogController())
-            return;
-
         AppearingDialogueController.HideTextbox();
         OnActionDone?.Invoke();
     }
