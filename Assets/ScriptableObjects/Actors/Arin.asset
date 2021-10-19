@@ -23,4 +23,6 @@ MonoBehaviour:
   <Objection>k__BackingField: {fileID: 8300000, guid: 19b48d76ef3cdac4b85155df10b9e673, type: 3}
   <HoldIt>k__BackingField: {fileID: 8300000, guid: ce1fce4a6857b4e478e0d450dadc7750, type: 3}
   <TakeThat>k__BackingField: {fileID: 8300000, guid: 2d664a5ebfdd03b44b7399265e302fcb, type: 3}
-  <ShoutVariants>k__BackingField: []
+  <ShoutVariants>k__BackingField:
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: acb9e7bf00fd28e4bbd6e2ba716692dc, type: 3}
+    <AudioClip>k__BackingField: {fileID: 8300000, guid: 19b48d76ef3cdac4b85155df10b9e673, type: 3}

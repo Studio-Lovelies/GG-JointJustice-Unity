@@ -818,10 +818,6 @@ PrefabInstance:
       propertyPath: _dialogueMode
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _narrativeScript
-      value: 
-      objectReference: {fileID: 4900000, guid: e3873bd7ef43b4365ae235f06626026e, type: 3}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: StandardInclusion
