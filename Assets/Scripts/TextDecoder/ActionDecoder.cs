@@ -1,29 +1,6 @@
 using System;
+using TextDecoder.Exceptions;
 using UnityEngine;
-
-public class UnknownCommandException : Exception
-{
-    public string CommandName { get; private set; }
-
-    public UnknownCommandException(string commandName)
-    {
-        CommandName = commandName;
-    }
-}
-
-public class InvalidSyntaxException : Exception
-{
-    public InvalidSyntaxException()
-    {
-    }
-}
-
-public class DecoderMissingComponentException : Exception
-{
-    public DecoderMissingComponentException(string message) : base(message)
-    {
-    }
-}
 
 public enum ActionName
 {
