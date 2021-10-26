@@ -1,3 +1,4 @@
+using TextDecoder.Exceptions;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,23 +28,9 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Decoder.OnNewActionLine(actionLine);
         }
-        catch (UnknownCommandException e)
+        catch (BaseDecoderException exception)
         {
-            Debug.LogError($"Unknown action: {e.CommandName}");
-        }
-        catch (InvalidSyntaxException e)
-        {
-            Debug.LogError($"Invalid syntax: {line}");
-            _onActionDone.Invoke();
-        }
-        catch (UnableToParseException e)
-        {
-            Debug.LogError($"Invalid parameters for {actionLine.Action}\n{line}\n{e.Message}");
-            _onActionDone.Invoke();
-        }
-        catch (NotEnoughParametersException e)
-        {
-            Debug.LogError($"Not enough parameters for {actionLine.Action}\n{line}\n{e.Message}");
+            Debug.LogError(exception);
             _onActionDone.Invoke();
         }
     }
