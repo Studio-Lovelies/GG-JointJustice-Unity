@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using TextDecoder.Exceptions;
+
 namespace Tests.EditModeTests
 {
     public class ActionLineTests

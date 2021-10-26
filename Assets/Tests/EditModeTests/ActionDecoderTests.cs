@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using TextDecoder.Exceptions;
 
 namespace Tests.EditModeTests
 {

@@ -1,21 +1,6 @@
 using System;
 using System.Globalization;
-
-public class UnableToParseException : System.Exception
-{
-    public UnableToParseException(string typeName, string parameterName, string token)
-        : base($"Failed to parse {parameterName}: cannot parse `{token}` as {typeName}")
-    {
-    }
-}
-
-public class NotEnoughParametersException : System.Exception
-{
-    public NotEnoughParametersException(string tokenName)
-        : base($"Not enough parameters, missing: {tokenName}")
-    {
-    }
-}
+using TextDecoder.Exceptions;
 
 public class ActionLine
 {
@@ -33,9 +18,9 @@ public class ActionLine
         //Split into action and parameter
         string[] actionAndParam = line.Substring(1, line.Length - 2).Split(ACTION_SIDE_SEPARATOR);
 
-        if (actionAndParam.Length > 2)
+        if (actionAndParam.Length > 1)
         {
-            throw new InvalidSyntaxException();
+            throw new InvalidSyntaxException($"':' can only occur once per action line, as it's used to separate action name and arguments. Multiple arguments are separated using '{ACTION_PARAMETER_SEPARATOR}'\r\nExamples: `&PLAY_SFX:airGuitar`, `&SET_POSE:CloseUp,Arin`)");
         }
 
         var actionNameAsString = actionAndParam[0];
