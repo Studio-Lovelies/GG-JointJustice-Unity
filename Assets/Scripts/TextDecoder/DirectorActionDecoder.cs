@@ -1,4 +1,3 @@
-using TextDecoder.Exceptions;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,7 +26,7 @@ public class DirectorActionDecoder : MonoBehaviour
         {
             Decoder.OnNewActionLine(line);
         }
-        catch (BaseDecoderException exception)
+        catch (TextDecoder.Parser.ScriptParsingException exception)
         {
             Debug.LogError(exception);
             _onActionDone.Invoke();
