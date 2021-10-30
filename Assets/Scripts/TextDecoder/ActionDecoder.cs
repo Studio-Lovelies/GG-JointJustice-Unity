@@ -26,7 +26,7 @@ public class ActionDecoder
         }
 
         string action = actionAndParam[0];
-        string[] parameters = (actionAndParam.Length == 2) ? actionAndParam[1].Split(actionParameterSeparator) : new string[0];
+        string[] parameters = (actionAndParam.Length == 2) ? actionAndParam[1].Split(actionParameterSeparator) : Array.Empty<string>();
 
         // Find method with exact same name as action inside script
         MethodInfo method = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
@@ -35,7 +35,6 @@ public class ActionDecoder
             throw new TextDecoder.Parser.ScriptParsingException($"DirectorActionDecoder contains no method named '{action}'");
         }
 
-        // For each parameter of that action...
         ParameterInfo[] methodParameters = method.GetParameters();
         var optionalParameters = methodParameters.Count(parameter => parameter.IsOptional);
         if (parameters.Length < (methodParameters.Length - optionalParameters) || parameters.Length > (methodParameters.Length))
@@ -43,9 +42,9 @@ public class ActionDecoder
             throw new TextDecoder.Parser.ScriptParsingException($"'{action}' requires {(optionalParameters == 0 ? "exactly" : "between")} {(optionalParameters == 0 ? methodParameters.Length.ToString() : $"{methodParameters.Length-optionalParameters} and {methodParameters.Length}")} parameters (has {parameters.Length} instead)");
         }
 
-
         List<object> parsedMethodParameters = new List<object>();
-        for (int index = 0; index < methodParameters.Length; index++)
+        // For each supplied parameter of that action...
+        for (int index = 0; index < parameters.Length; index++)
         {
             if (parameters.Length <= index && methodParameters[index].IsOptional)
             {
@@ -73,7 +72,7 @@ public class ActionDecoder
             }
 
             // Create a parser and call the 'Parse' method
-            object parserInstance = parserConstructor.Invoke(new object[0]);
+            object parserInstance = parserConstructor.Invoke(Array.Empty<object>());
             object[] parseMethodParameters = { parameters[index], null };
 
             // If we received an error attempting to parse a parameter to the type, expose it to the user
@@ -84,6 +83,12 @@ public class ActionDecoder
             }
 
             parsedMethodParameters.Add(parseMethodParameters[1]);
+        }
+
+        // If the method supports optional parameters, fill the remaining parameters based on the default value of the method
+        for (int suppliedParameterCount = parameters.Length; suppliedParameterCount < methodParameters.Length; suppliedParameterCount++)
+        {
+            parsedMethodParameters.Add(methodParameters[suppliedParameterCount].DefaultValue);
         }
 
         // Call the method

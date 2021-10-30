@@ -11,7 +11,16 @@ namespace Tests.EditModeTests
 {
     public class ActionDecoderTests
     {
-        private static IEnumerable<string> AvailableActions => typeof(ActionDecoder).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Select(method=>method.Name).Where(methodName => new Regex("^[A-Z_]+$").IsMatch(methodName)).ToArray();
+        private static IEnumerable<MethodInfo> AvailableActionMethods => typeof(ActionDecoder).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Where(method => new Regex("^[A-Z_]+$").IsMatch(method.Name)).ToArray();
+        private static IEnumerable<string> AllAvailableActionsWithoutOptionalParameters => AvailableActionMethods.Where(method => method.GetParameters().All(parameter => !parameter.IsOptional)).Select(methodInfo => methodInfo.Name);
+        private static IEnumerable<object[]> AvailableActionsWithOptionalParametersAndRange => AvailableActionMethods
+            .Where(method => method.GetParameters().Any(parameter => parameter.IsOptional))
+            .Select(method => { 
+                return Enumerable.Range(method.GetParameters().Count(parameter => !parameter.IsOptional), method.GetParameters().Length).Select(parameterCount => new object[]{method.Name, parameterCount});
+            })
+            .SelectMany(list => list);
+        private static IEnumerable<string> AvailableActionsWithNoOptionalParameters => AvailableActionMethods.Where(method => method.GetParameters().Any() && method.GetParameters().All(parameter => !parameter.IsOptional)).Select(methodInfo => methodInfo.Name);
+        private static IEnumerable<string> AvailableActionsWithNonStringParameters => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.ParameterType != typeof(string))).Select(methodInfo => methodInfo.Name);
 
         private static readonly Dictionary<Type, object> ValidData = new Dictionary<Type, object>{
             {typeof(string), "ValidString"},
@@ -41,7 +50,7 @@ namespace Tests.EditModeTests
         }
 
         [Test]
-        [TestCaseSource(nameof(AvailableActions))]
+        [TestCaseSource(nameof(AllAvailableActionsWithoutOptionalParameters))]
         public void RunValidCommand(string methodName)
         {
             var decoder = CreateMockedActionDecoder();
@@ -57,7 +66,23 @@ namespace Tests.EditModeTests
         }
 
         [Test]
-        [TestCaseSource(nameof(AvailableActions))]
+        [TestCaseSource(nameof(AvailableActionsWithOptionalParametersAndRange))]
+        public void RunCommandWithOptionalParameters(string methodName, int parameterCount)
+        {
+            var decoder = CreateMockedActionDecoder();
+
+            var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
+            var validParameters = method.GetParameters().Select(parameterInfo => ValidData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).Take(parameterCount).ToList();
+            var lineToParse = $"&{methodName}{(validParameters.Any() ? ":" : "")}{string.Join(",", validParameters)}";
+            Debug.Log("Attempting to parse:\n" + lineToParse);
+            Assert.DoesNotThrow(() => {
+                decoder.OnNewActionLine(lineToParse);
+            });
+        }
+
+        [Test]
+        [TestCaseSource(nameof(AllAvailableActionsWithoutOptionalParameters))]
         public void RunCommandWithTooManyArguments(string methodName)
         {
             var decoder = CreateMockedActionDecoder();
@@ -73,7 +98,7 @@ namespace Tests.EditModeTests
         }
 
         [Test]
-        [TestCaseSource(nameof(AvailableActions))]
+        [TestCaseSource(nameof(AvailableActionsWithNoOptionalParameters))]
         public void RunCommandWithTooFewArguments(string methodName)
         {
             var decoder = CreateMockedActionDecoder();
@@ -81,11 +106,6 @@ namespace Tests.EditModeTests
             var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
             Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
             var generatedParameters = method.GetParameters().Select(parameterInfo => ValidData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).ToList();
-            if (generatedParameters.Count == 0)
-            {
-                Debug.LogWarning($"This method doesn't require any parameters, therefore it is impossible to call it with too few arguments");
-                return;
-            }
             var lineToParse = $"&{methodName}{(generatedParameters.Any() ? ":" : "")}{string.Join(",", string.Join(",", generatedParameters.Skip(1)))}";
             Debug.Log("Attempting to parse:\n"+lineToParse);
             Assert.Throws<ScriptParsingException>(() => {
@@ -94,20 +114,13 @@ namespace Tests.EditModeTests
         }
 
         [Test]
-        [TestCaseSource(nameof(AvailableActions))]
+        [TestCaseSource(nameof(AvailableActionsWithNonStringParameters))]
         public void RunCommandWithIncorrectParameterTypes(string methodName)
         {
             var decoder = CreateMockedActionDecoder();
 
             var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
             Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
-            var distinctTypes = method.GetParameters().Select(parameter => parameter.ParameterType).Distinct().ToList();
-            if (distinctTypes.All(type => type == typeof(string)))
-            {
-                Debug.LogWarning($"All parameters are of type '{typeof(string)}', therefore we cannot supply invalid values to this method (strings are always valid)"); // see TextDecoder.Parser.StringParser.Parse()
-                return;
-            }
-
             var generatedParameters = method.GetParameters().Select(parameterInfo => InvalidData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).ToList();
             var lineToParse = $"&{methodName}{(generatedParameters.Any() ? ":" : "")}{string.Join(",", generatedParameters)}";
             Debug.Log("Attempting to parse:\n"+lineToParse);
