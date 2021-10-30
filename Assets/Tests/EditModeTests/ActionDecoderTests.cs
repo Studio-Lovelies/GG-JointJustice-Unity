@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using TextDecoder.Parser;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace Tests.EditModeTests
 {
@@ -140,6 +141,25 @@ namespace Tests.EditModeTests
             Assert.Throws<ScriptParsingException>(() => {
                 decoder.OnNewActionLine(lineToParse);
             }, $"More than one ':' detected in line '{lineToParse}");
+        }
+
+        [Test]
+        public void TrimsExcessWhitespace()
+        {
+            var decoder = CreateMockedActionDecoder();
+            var sceneControllerMock = new Moq.Mock<ISceneController>();
+            sceneControllerMock.Setup(controller => controller.SetScene("NEW_SCENE"));
+            decoder.SceneController = sceneControllerMock.Object;
+
+            var lineToParse = " &SCENE:NEW_SCENE \n\n\n";
+            var logMessage = "Attempting to parse:\n" + lineToParse;
+            Debug.Log(logMessage);
+            Assert.DoesNotThrow(() => { decoder.OnNewActionLine(lineToParse); });
+
+            LogAssert.Expect(LogType.Log, logMessage);
+            LogAssert.NoUnexpectedReceived();
+
+            sceneControllerMock.Verify(controller => controller.SetScene("NEW_SCENE"));
         }
 
     }
