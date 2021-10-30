@@ -8,7 +8,7 @@ namespace TextDecoder.Parser
         {
             if (!Enum.TryParse(input, out output))
             {
-                return $"Cannot convert '{input}' into an {typeof(ItemDisplayPosition)}";
+                return $"Cannot convert '{input}' into an {typeof(ItemDisplayPosition)} (valid values include: '{string.Join(", ", Enum.GetValues(typeof(ItemDisplayPosition)))}')";
             }
             return null;
         }
