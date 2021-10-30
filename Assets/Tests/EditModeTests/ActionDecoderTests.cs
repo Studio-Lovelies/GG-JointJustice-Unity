@@ -12,6 +12,7 @@ namespace Tests.EditModeTests
 {
     public class ActionDecoderTests
     {
+        // This block generates lists of method names, based on their characteristics
         private static IEnumerable<MethodInfo> AvailableActionMethods => typeof(ActionDecoder).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Where(method => new Regex("^[A-Z_]+$").IsMatch(method.Name)).ToArray();
         private static IEnumerable<string> AllAvailableActionsWithoutOptionalParameters => AvailableActionMethods.Where(method => method.GetParameters().All(parameter => !parameter.IsOptional)).Select(methodInfo => methodInfo.Name);
         private static IEnumerable<object[]> AvailableActionsWithOptionalParametersAndRange => AvailableActionMethods
@@ -23,21 +24,26 @@ namespace Tests.EditModeTests
         private static IEnumerable<string> AvailableActionsWithNoOptionalParameters => AvailableActionMethods.Where(method => method.GetParameters().Any() && method.GetParameters().All(parameter => !parameter.IsOptional)).Select(methodInfo => methodInfo.Name);
         private static IEnumerable<string> AvailableActionsWithNonStringParameters => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.ParameterType != typeof(string))).Select(methodInfo => methodInfo.Name);
 
-        private static readonly Dictionary<Type, object> ValidData = new Dictionary<Type, object>{
+        // These are example values for parameters of "Ink"-script action lines for the ActionDecoder
+        private static readonly Dictionary<Type, object> ValidData = new Dictionary<Type, object> {
             {typeof(string), "ValidString"},
             {typeof(bool), "true"},
             {typeof(int), "1"},
             {typeof(float), "1.0"},
             {typeof(ItemDisplayPosition), "Left"},
         };
-        private static readonly Dictionary<Type, object> InvalidData = new Dictionary<Type, object>{
+        private static readonly Dictionary<Type, object> InvalidData = new Dictionary<Type, object> {
             {typeof(string), "IsAlwaysValid"}, // see: TextDecoder.Parser.StringParser.Parser()
             {typeof(bool), "NotABool"},
             {typeof(int), "1.0"},
             {typeof(float), "NotAFloat"},
             {typeof(ItemDisplayPosition), "Invalid"}
         };
-
+        
+        /// <summary>
+        /// Helper method to create a fully mocked ActionDecoder
+        /// </summary>
+        /// <returns>A fully mocked ActionDecoder</returns>
         private static ActionDecoder CreateMockedActionDecoder()
         {
             return new ActionDecoder()
@@ -52,7 +58,7 @@ namespace Tests.EditModeTests
 
         [Test]
         [TestCaseSource(nameof(AllAvailableActionsWithoutOptionalParameters))]
-        public void RunValidCommand(string methodName)
+        public void RunValidCommandWithoutOptionalParameters(string methodName)
         {
             var decoder = CreateMockedActionDecoder();
 
@@ -132,7 +138,7 @@ namespace Tests.EditModeTests
         }
 
         [Test]
-        public void OnlyOneColonAllowedPerAction()
+        public void VerifyOnlyOneColonAllowedPerActionLine()
         {
             var decoder = CreateMockedActionDecoder();
 
@@ -144,7 +150,7 @@ namespace Tests.EditModeTests
         }
 
         [Test]
-        public void TrimsExcessWhitespace()
+        public void VerifyActionDecoderTrimsExcessWhitespace()
         {
             var decoder = CreateMockedActionDecoder();
             var sceneControllerMock = new Moq.Mock<ISceneController>();
