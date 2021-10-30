@@ -1,171 +1,133 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using TextDecoder.Exceptions;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using TextDecoder.Parser;
+using UnityEngine;
 
 namespace Tests.EditModeTests
 {
     public class ActionDecoderTests
     {
-        /// <summary>
-        /// Clumsy implementation of IActorController for tests
-        /// </summary>
-        private class FakeActorController : IActorController
+        private static IEnumerable<string> AvailableActions => typeof(ActionDecoder).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Select(method=>method.Name).Where(methodName => new Regex("^[A-Z_]+$").IsMatch(methodName)).ToArray();
+
+        private static readonly Dictionary<Type, object> ValidData = new Dictionary<Type, object>{
+            {typeof(string), "ValidString"},
+            {typeof(bool), "true"},
+            {typeof(int), "1"},
+            {typeof(float), "1.0"},
+            {typeof(ItemDisplayPosition), "Left"},
+        };
+        private static readonly Dictionary<Type, object> InvalidData = new Dictionary<Type, object>{
+            {typeof(string), "IsAlwaysValid"}, // see: TextDecoder.Parser.StringParser.Parser()
+            {typeof(bool), "NotABool"},
+            {typeof(int), "1.0"},
+            {typeof(float), "NotAFloat"},
+            {typeof(ItemDisplayPosition), "Invalid"}
+        };
+
+        private static ActionDecoder CreateMockedActionDecoder()
         {
-            private bool talking;
-            private SpeakingType speakingType;
-            private string pose = "";
-            private string activeSpeaker = "";
-            private string activeActor = "";
-            public string emotion = "";
-            public string emotionActiveActor;
-            public readonly Dictionary<int, string> actorSlots = new Dictionary<int, string>();
-
-            public Action onAnimationDone;
-
-            public void AssignActorToSlot(string actor, int oneBasedSlotIndex)
+            return new ActionDecoder()
             {
-                this.actorSlots[oneBasedSlotIndex] = actor;
-            }
-
-            public void OnAnimationDone()
-            {
-                onAnimationDone?.Invoke();
-            }
-
-            public void PlayEmotion(string emotion, string actorName = null)
-            {
-                this.emotion = emotion;
-                this.emotionActiveActor = actorName;
-            }
-
-            public void SetActiveActor(string actor)
-            {
-                this.activeActor = actor;
-            }
-
-            public void SetActiveSpeaker(string actor)
-            {
-                this.activeSpeaker = actor;
-            }
-
-            public void SetPose(string pose, string actorName = null)
-            {
-                this.pose = pose;
-            }
-
-            public void SetSpeakingType(SpeakingType speakingType)
-            {
-                this.speakingType = speakingType;
-            }
-
-            public void StartTalking()
-            {
-                this.talking = true;
-            }
-
-            public void StopTalking()
-            {
-                this.talking = false;
-            }
+                ActorController = new Moq.Mock<IActorController>().Object,
+                AppearingDialogueController = new Moq.Mock<IAppearingDialogueController>().Object,
+                AudioController = new Moq.Mock<IAudioController>().Object,
+                EvidenceController = new Moq.Mock<IEvidenceController>().Object,
+                SceneController = new Moq.Mock<ISceneController>().Object,
+            };
         }
 
         [Test]
-        public void RunInvalidCommand()
+        [TestCaseSource(nameof(AvailableActions))]
+        public void RunValidCommand(string methodName)
         {
-            var decoder = new ActionDecoder();
+            var decoder = CreateMockedActionDecoder();
 
-            Assert.Throws(typeof(UnknownCommandException), () =>
-            {
-                decoder.OnNewActionLine(new ActionLine("spujb"));
+            var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
+            var validParameters = method.GetParameters().Select(parameterInfo => ValidData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).ToList();
+            var lineToParse = $"&{methodName}{(validParameters.Any()?":":"")}{string.Join(",", validParameters)}";
+            Debug.Log("Attempting to parse:\n"+lineToParse);
+            Assert.DoesNotThrow(() => {
+                decoder.OnNewActionLine(lineToParse);
             });
         }
 
         [Test]
-        public void UseInvalidSyntax()
+        [TestCaseSource(nameof(AvailableActions))]
+        public void RunCommandWithTooManyArguments(string methodName)
         {
-            var decoder = new ActionDecoder();
+            var decoder = CreateMockedActionDecoder();
 
-            Assert.Throws(typeof(InvalidSyntaxException), () =>
+            var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
+            var generatedParameters = method.GetParameters().Select(parameterInfo => ValidData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).Append("NewElement").ToList();
+            var lineToParse = $"&{methodName}{(generatedParameters.Any()?":":"")}{string.Join(",", generatedParameters)}";
+            Debug.Log("Attempting to parse:\n"+lineToParse);
+            Assert.Throws<ScriptParsingException>(() => {
+                decoder.OnNewActionLine(lineToParse);
+            }, $"'{methodName}' requires exactly {generatedParameters.Count-1} parameters (has {generatedParameters.Count} instead)");
+        }
+
+        [Test]
+        [TestCaseSource(nameof(AvailableActions))]
+        public void RunCommandWithTooFewArguments(string methodName)
+        {
+            var decoder = CreateMockedActionDecoder();
+
+            var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
+            var generatedParameters = method.GetParameters().Select(parameterInfo => ValidData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).ToList();
+            if (generatedParameters.Count == 0)
             {
-                decoder.OnNewActionLine(new ActionLine("&SPEAK:Arin:Dan:Ross"));
+                Debug.LogWarning($"This method doesn't require any parameters, therefore it is impossible to call it with too few arguments");
+                return;
+            }
+            var lineToParse = $"&{methodName}{(generatedParameters.Any() ? ":" : "")}{string.Join(",", string.Join(",", generatedParameters.Skip(1)))}";
+            Debug.Log("Attempting to parse:\n"+lineToParse);
+            Assert.Throws<ScriptParsingException>(() => {
+                decoder.OnNewActionLine(lineToParse);
+            }, $"'{methodName}' requires exactly {generatedParameters.Count + 1} parameters (has {generatedParameters.Count} instead)");
+        }
+
+        [Test]
+        [TestCaseSource(nameof(AvailableActions))]
+        public void RunCommandWithIncorrectParameterTypes(string methodName)
+        {
+            var decoder = CreateMockedActionDecoder();
+
+            var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
+            var distinctTypes = method.GetParameters().Select(parameter => parameter.ParameterType).Distinct().ToList();
+            if (distinctTypes.All(type => type == typeof(string)))
+            {
+                Debug.LogWarning($"All parameters are of type '{typeof(string)}', therefore we cannot supply invalid values to this method (strings are always valid)"); // see TextDecoder.Parser.StringParser.Parse()
+                return;
+            }
+
+            var generatedParameters = method.GetParameters().Select(parameterInfo => InvalidData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).ToList();
+            var lineToParse = $"&{methodName}{(generatedParameters.Any() ? ":" : "")}{string.Join(",", generatedParameters)}";
+            Debug.Log("Attempting to parse:\n"+lineToParse);
+            var thrownException = Assert.Throws<ScriptParsingException>(() => {
+                decoder.OnNewActionLine(lineToParse);
             });
+            StringAssert.Contains("is incorrect as parameter", thrownException.Message);
         }
 
         [Test]
-        public void UseValidSyntax()
+        public void OnlyOneColonAllowedPerAction()
         {
-            var decoder = new ActionDecoder();
-            decoder.ActorController = new FakeActorController();
+            var decoder = CreateMockedActionDecoder();
 
-            Assert.DoesNotThrow(() =>
-            {
-                decoder.OnNewActionLine(new ActionLine("&SPEAK:Arin"));
-            });
+            var lineToParse = $"&METHODNAME:PARAMETER:INVALID";
+            Debug.Log("Attempting to parse:\n" + lineToParse);
+            Assert.Throws<ScriptParsingException>(() => {
+                decoder.OnNewActionLine(lineToParse);
+            }, $"More than one ':' detected in line '{lineToParse}");
         }
 
-        [Test]
-        public void TestSetActorPosition()
-        {
-            // Arrange
-            var decoder = new ActionDecoder();
-            var actorController = new FakeActorController();
-            decoder.ActorController = actorController;
-            bool actionDoneCalled = false;
-            decoder.OnActionDone += () =>
-            {
-                actionDoneCalled = true;
-            };
-
-            // Act
-            decoder.OnNewActionLine(new ActionLine("&SET_ACTOR_POSITION:3,Arin ")); // <-- that space needs to be there... weird
-
-            // Assert
-            Assert.AreEqual("Arin", actorController.actorSlots[3]);
-            Assert.IsTrue(actionDoneCalled);
-        }
-
-        [Test]
-        public void TestPlayEmotionWithoutOptionalParameter()
-        {
-            // Arrange
-            var decoder = new ActionDecoder();
-            var actorController = new FakeActorController();
-            decoder.ActorController = actorController;
-            bool actionDoneCalled = false;
-            decoder.OnActionDone += () =>
-            {
-                actionDoneCalled = true;
-            };
-
-            // Act
-            decoder.OnNewActionLine(new ActionLine("&PLAY_EMOTION:Happy "));
-
-            // Assert
-            Assert.AreEqual("Happy", actorController.emotion);
-            Assert.IsFalse(actionDoneCalled);
-        }
-
-        [Test]
-        public void TestPlayEmotionWithOptionalParameter()
-        {
-            // Arrange
-            var decoder = new ActionDecoder();
-            var actorController = new FakeActorController();
-            decoder.ActorController = actorController;
-            bool actionDoneCalled = false;
-            decoder.OnActionDone += () =>
-            {
-                actionDoneCalled = true;
-            };
-
-            // Act
-            decoder.OnNewActionLine(new ActionLine("&PLAY_EMOTION:Happy,Arin "));
-
-            // Assert
-            Assert.AreEqual("Arin", actorController.emotionActiveActor);
-            Assert.AreEqual("Happy", actorController.emotion);
-            Assert.IsFalse(actionDoneCalled);
-        }
     }
 }
