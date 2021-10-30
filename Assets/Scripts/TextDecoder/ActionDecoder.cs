@@ -56,7 +56,13 @@ public class ActionDecoder
             ParameterInfo methodParameter = methodParameters[index];
 
             // Construct a parser for it
-            Type parser = GetType().Assembly.GetTypes().First(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
+            Type parser = GetType().Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
+            if (parser == null)
+            {
+                Debug.LogError($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
+                return;
+            }
+
             ConstructorInfo parserConstructor = parser.GetConstructor(Type.EmptyTypes);
             if (parserConstructor == null)
             {
