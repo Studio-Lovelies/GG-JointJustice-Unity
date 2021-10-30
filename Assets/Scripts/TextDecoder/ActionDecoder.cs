@@ -15,10 +15,11 @@ public class ActionDecoder
 
     public void OnNewActionLine(string actionLine)
     {
+        actionLine = actionLine.Trim();
         const char actionSideSeparator = ':';
         const char actionParameterSeparator = ',';
 
-        string[] actionAndParam = actionLine.Substring(1, actionLine.Length - 1).Split(actionSideSeparator);
+        string[] actionAndParam = actionLine.Substring(1, actionLine.Length - 1).Trim().Split(actionSideSeparator);
 
         if (actionAndParam.Length > 2)
         {
@@ -131,7 +132,7 @@ public class ActionDecoder
         AppearingDialogueController.ContinueDialog();
     }
 
-    private void AUTOSKIP(bool value)
+    private void AUTO_SKIP(bool value)
     {
         AppearingDialogueController.AutoSkipDialog(value);
     }
@@ -183,13 +184,13 @@ public class ActionDecoder
 
 
     #region AudioController
-    private void PLAYSFX(string sfx)
+    private void PLAY_SFX(string sfx)
     {
         AudioController.PlaySFX(sfx);
         OnActionDone?.Invoke();
     }
 
-    private void PLAYSONG(string songName)
+    private void PLAY_SONG(string songName)
     {
         AudioController.PlaySong(songName);
         OnActionDone?.Invoke();
@@ -280,7 +281,7 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
 
-    private void SHOWACTOR(bool shouldShow)
+    private void SHOW_ACTOR(bool shouldShow)
     {
         if (shouldShow)
         {
