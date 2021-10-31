@@ -25,6 +25,9 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
+    [Tooltip("Attach the screenshaker object here")]
+    [SerializeField] private ScreenShaker _screenShaker;
+
     [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
     [SerializeField] private UnityEvent _onWaitStart;
@@ -149,9 +152,20 @@ public class SceneController : MonoBehaviour, ISceneController
         _activeScene.transform.position = PixelPositionToUnitPosition(position);
     }
 
-    public void ShakeScreen(float intensity)
+    /// <summary>
+    /// Calls shake method on the assigned screen shaker.
+    /// </summary>
+    /// <param name="intensity">The intensity of the shake.</param>
+    /// <param name="duration">The duration of the shake.</param>
+    /// <param name="isBlocking">Whether the system waits for the shake to complete before continuing.</param>
+    public void ShakeScreen(float intensity, float duration, bool isBlocking)
     {
-        Debug.LogWarning("ShakeScreen not implemented");
+        _screenShaker.Shake(intensity, duration, isBlocking);
+
+        if (!isBlocking)
+        {
+            _onWaitComplete.Invoke();
+        }
     }
 
     /// <summary>
@@ -172,7 +186,7 @@ public class SceneController : MonoBehaviour, ISceneController
             Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
 
-        Evidence evidence = _evidenceInventory.GetObjectFromAvailableObjects(item);
+        Evidence evidence = _evidenceInventory[item];
         _itemDisplay.ShowItem(evidence.Icon, position);
     }
 

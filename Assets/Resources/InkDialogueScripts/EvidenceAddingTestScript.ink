@@ -30,7 +30,6 @@ See?
 Now I'm going to add a lot of stuff to showcase the page functionality.
 
 &ADD_EVIDENCE:Bent_Coins
-&ADD_EVIDENCE:Attorneys_Badge
 &ADD_EVIDENCE:Jorys_Backpack
 &ADD_EVIDENCE:Jory_Srs_Letter
 &ADD_EVIDENCE:Livestream_Recording
@@ -45,6 +44,20 @@ Now I'm going to add a lot of stuff to showcase the page functionality.
 &ADD_EVIDENCE:Stolen_Dinos_1
 
 Take a look now.
+
+&PRESENT_EVIDENCE
+
+Now let's remove it all.
+
+&REMOVE_EVIDENCE:Bent_Coins_1
+&REMOVE_EVIDENCE:Attorneys_Badge_1
+&REMOVE_EVIDENCE:Jorys_Backpack_1
+&REMOVE_EVIDENCE:Jory_Srs_Letter_1
+&REMOVE_EVIDENCE:Livestream_Recording_1
+&REMOVE_EVIDENCE:Plumber_Invoice_1
+&REMOVE_EVIDENCE:Stolen_Dinos_1
+
+It is done.
 
 &PRESENT_EVIDENCE
 
@@ -65,18 +78,9 @@ Ta-da!
 
 &PRESENT_EVIDENCE
 
-Now let's remove it all.
-
+I'm going to remove evidence that isn't in the menu.
 &REMOVE_EVIDENCE:Bent_Coins_1
-&REMOVE_EVIDENCE:Attorneys_Badge_1
-&REMOVE_EVIDENCE:Jorys_Backpack_1
-&REMOVE_EVIDENCE:Jory_Srs_Letter_1
-&REMOVE_EVIDENCE:Livestream_Recording_1
-&REMOVE_EVIDENCE:Plumber_Invoice_1
-&REMOVE_EVIDENCE:Stolen_Dinos_1
-
-It is done.
-
-&PRESENT_EVIDENCE
+&REMOVE_EVIDENCE:Stolen_Dinos
+&REMOVE_EVIDENCE:Stolen_Dinos
 
 -> END

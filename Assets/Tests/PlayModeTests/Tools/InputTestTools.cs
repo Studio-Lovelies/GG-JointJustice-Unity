@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Tools
 {
@@ -14,6 +18,61 @@ namespace Tests.PlayModeTests.Tools
         public Keyboard Keyboard { get; } = InputSystem.AddDevice<Keyboard>();
         public Mouse Mouse { get; } = InputSystem.AddDevice<Mouse>();
 
+        private EditorWindow _gameViewWindow;
+
+        private EditorWindow GameViewWindow
+        {
+            get
+            {
+                if (_gameViewWindow != null)
+                {
+                    return _gameViewWindow;
+                }
+
+                System.Reflection.Assembly assembly = typeof(EditorWindow).Assembly;
+                Type type = assembly.GetType("UnityEditor.GameView");
+                _gameViewWindow = EditorWindow.GetWindow(type);
+                return _gameViewWindow;
+            }
+        }
+
+        public static T[] FindInactiveInScene<T>() where T : Object
+        {
+            return Resources.FindObjectsOfTypeAll<T>().Where(o => {
+                if (o.hideFlags != HideFlags.None)
+                {
+                    return false;
+                }
+
+                if (PrefabUtility.GetPrefabAssetType(o) == PrefabAssetType.Regular)
+                {
+                    return false;
+                }
+
+                return true;
+            }).ToArray();
+        }
+
+        /// <summary>
+        /// Gets an inactive object from the scene using its name in the hierarchy
+        /// </summary>
+        /// <param name="name">The name of the game object the object is attached to</param>
+        /// <typeparam name="T">The type of object to search for.</typeparam>
+        /// <returns>The object found, or null if none are found.</returns>
+        public static T FindInactiveInSceneByName<T>(string name) where T : Object
+        {
+            return FindInactiveInScene<T>().SingleOrDefault(obj => obj.name == name);
+        }
+
+        /// <summary>
+        /// Waits for the editor "GameView"-tab to repaint
+        /// </summary>
+        public IEnumerator WaitForRepaint()
+        {
+            GameViewWindow.Repaint();
+            yield return null;
+        }
+
         /// <summary>
         /// Start this coroutine to press a specified key for one frame.
         /// </summary>
@@ -24,8 +83,10 @@ namespace Tests.PlayModeTests.Tools
             for (int i = 0; i < repeats; i++)
             {
                 Press(control);
+                GameViewWindow.Repaint();
                 yield return null;
                 Release(control);
+                GameViewWindow.Repaint();
                 yield return null;
             }
         }
@@ -56,6 +117,18 @@ namespace Tests.PlayModeTests.Tools
             Set(Mouse.position, position);
             yield return null;
         }
+        
+        /// <summary>
+        /// Sets the position of the mouse in the scene.
+        /// </summary>
+        /// <param name="position">The position to set the mouse to.</param>
+        public IEnumerator SetMousePositionWorldSpace(Vector2 position)
+        {
+            Set(Mouse.position, Camera.main.WorldToScreenPoint(position));
+            yield return null;
+            yield return new WaitForEndOfFrame();
+            yield return null;
+        }
 
         /// <summary>
         /// Spams a button until a particular behaviour is active and enabled.
@@ -69,6 +142,16 @@ namespace Tests.PlayModeTests.Tools
             {
                 yield return PressForSeconds(key, 0.2f);
             }
+        }
+
+        /// <summary>
+        /// Sets the mouse to a position and clicks.
+        /// </summary>
+        /// <param name="position">The position to click at.</param>
+        public IEnumerator ClickAtPositionWorldSpace(Vector2 position)
+        {
+            yield return SetMousePositionWorldSpace(position);
+            yield return PressForFrame(Mouse.leftButton);
         }
     }
 }

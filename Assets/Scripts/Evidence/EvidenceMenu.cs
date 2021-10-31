@@ -48,6 +48,10 @@ public class EvidenceMenu : MonoBehaviour
     private int _startIndex;
     private Menu _menu;
 
+    // when set to false, this menu can only be toggled
+    // when set to true, this menu can be closed by presenting evidence and thereby following a different path of the active ink script
+    public bool CanPresentEvidence { private get; set; }
+
     /// <summary>
     /// Get the menu on awake to access its DontResetSelectedOnClose property
     /// </summary>
@@ -142,7 +146,7 @@ public class EvidenceMenu : MonoBehaviour
             else
             {
                 _evidenceMenuItems[i].gameObject.SetActive(true);
-                _evidenceMenuItems[i].CourtRecordObject = _activeDictionary.GetObjectAtIndex(i + _startIndex);
+                _evidenceMenuItems[i].CourtRecordObject = _activeDictionary.GetObjectInList(i + _startIndex);
             }
         }
     }
@@ -203,6 +207,10 @@ public class EvidenceMenu : MonoBehaviour
     /// <param name="evidence">The Evidence object that has been clicked.</param>
     public void OnEvidenceClicked(ICourtRecordObject evidence)
     {
+        if (!CanPresentEvidence)
+        {
+            return;
+        }
         _onEvidenceClicked.Invoke();
         _evidenceController.OnPresentEvidence(evidence);
     }

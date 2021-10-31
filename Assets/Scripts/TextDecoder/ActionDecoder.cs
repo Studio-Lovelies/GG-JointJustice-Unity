@@ -100,7 +100,7 @@ public class ActionDecoder
             case ActionName.FADE_IN: FadeInScene(actionLine.NextFloat("seconds")); break;
             case ActionName.CAMERA_PAN: PanCamera(actionLine.NextFloat("duration"), actionLine.NextInt("x"), actionLine.NextInt("y")); break;
             case ActionName.CAMERA_SET: SetCameraPosition(actionLine.NextInt("x"), actionLine.NextInt("y")); break;
-            case ActionName.SHAKE_SCREEN: ShakeScreen(actionLine.NextFloat("intensity")); break;
+            case ActionName.SHAKE_SCREEN: ShakeScreen(actionLine.NextFloat("intensity"), actionLine.NextFloat("duration"), actionLine.NextBool("isBlocking")); break;
             case ActionName.SCENE: SetScene(actionLine.NextString("scene name")); break;
             case ActionName.WAIT: Wait(actionLine.NextFloat("seconds")); break;
             case ActionName.SHOW_ITEM: ShowItem(actionLine.NextString("item name"), actionLine.NextEnumValue<ItemDisplayPosition>("item position")); break;
@@ -112,7 +112,7 @@ public class ActionDecoder
             case ActionName.ADD_EVIDENCE: AddEvidence(actionLine.NextString("evidence name")); break;
             case ActionName.REMOVE_EVIDENCE: RemoveEvidence(actionLine.NextString("evidence name")); break;
             case ActionName.ADD_RECORD: AddToCourtRecord(actionLine.NextString("evidence name")); break;
-            case ActionName.PRESENT_EVIDENCE: OpenEvidenceMenu(); break;
+            case ActionName.PRESENT_EVIDENCE: RequirePresentEvidence(); break;
             case ActionName.SUBSTITUTE_EVIDENCE: SubstituteEvidence(actionLine.NextString("evidence name")); break;
             //Dialog controller
             case ActionName.DIALOG_SPEED: ChangeDialogSpeed(WaiterType.Dialog, actionLine.NextFloat("seconds")); break;
@@ -218,9 +218,9 @@ public class ActionDecoder
     /// Calls the onPresentEvidence event on evidence controller which
     /// opens the evidence menu so evidence can be presented.
     /// </summary>
-    private void OpenEvidenceMenu()
+    private void RequirePresentEvidence()
     {
-        EvidenceController.OpenEvidenceMenu();
+        EvidenceController.RequirePresentEvidence();
     }
 
     /// <summary>
@@ -291,9 +291,9 @@ public class ActionDecoder
     /// Shakes the screen
     /// </summary>
     /// <param name="intensity">Max displacement of the screen as a float</param>
-    private void ShakeScreen(float intensity)
+    private void ShakeScreen(float intensity, float duration, bool isBlocking)
     {
-        SceneController.ShakeScreen(intensity);
+        SceneController.ShakeScreen(intensity, duration, isBlocking);
     }
 
     /// <summary>
