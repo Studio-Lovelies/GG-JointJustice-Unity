@@ -7,7 +7,7 @@ Arin! Demonstrate the screenshake effect!
 &SCENE:TMPH_Court
 &ACTOR:Arin
 &SET_POSE:ShockAnimation
-&SHAKESCREEN:0.25,0.25,true
+&SHAKE_SCREEN:0.25,0.25,true
 &SPEAK:Arin
 Was that good enough, your honour?
 
@@ -15,17 +15,17 @@ Was that good enough, your honour?
 &SPEAK:Brent_Judge
 &ACTOR:Brent_Judge
 &SET_POSE:HeadShake
-&SHAKESCREEN:0.5,0.25
+&SHAKE_SCREEN:0.5,0.25
 No!
 &SET_POSE:Angry
-&SHAKESCREEN:0.75,0.5
+&SHAKE_SCREEN:0.75,0.5
 LOUDER!
 
 &SCENE:TMPH_Court
 &ACTOR:Arin
 &SPEAK:Arin
 &SET_POSE:CloseUp
-&SHAKESCREEN:2,5
+&SHAKE_SCREEN:2,5
 \*Screaming\*
 
 -> END
