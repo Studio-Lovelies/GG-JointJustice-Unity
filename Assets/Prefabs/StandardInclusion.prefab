@@ -118,9 +118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeStep: 0.034
-  _duration: 0.5
-  _frequency: 10
-  _amplitude: 0.1
   _noiseOffset: {x: 234, y: 456}
   _noiseScale: {x: 100, y: 100}
   _animationCurve:
@@ -1491,8 +1488,8 @@ MonoBehaviour:
   _actorInventory: {fileID: 844180367432201528}
   _fullscreenAnimationPlayer: {fileID: 522180359754412203}
   _directorActionDecoder: {fileID: 5228303783986964379}
-  _screenShaker: {fileID: 8591347059487037669}
-  _shout: {fileID: 7963192264883019674}
+  _objectShaker: {fileID: 8591347059487037669}
+  _shoutPlayer: {fileID: 7963192264883019674}
   _onWaitStart:
     m_PersistentCalls:
       m_Calls:
@@ -1781,6 +1778,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d86872a14ec4712a8799e1c35037ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _duration: 0.5
+  _frequency: 10
+  _amplitude: 0.05
   _randomShoutChance: 0.1
   _objectionSprite: {fileID: 21300000, guid: acb9e7bf00fd28e4bbd6e2ba716692dc, type: 3}
   _holdItSprite: {fileID: 21300000, guid: d4a8875b0ee18ac4aa74b6921e9b8164, type: 3}
@@ -1799,9 +1799,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeStep: 0.01
-  _duration: 0.5
-  _frequency: 10
-  _amplitude: 0.025
   _noiseOffset: {x: 234, y: 456}
   _noiseScale: {x: 30, y: 30}
   _animationCurve:

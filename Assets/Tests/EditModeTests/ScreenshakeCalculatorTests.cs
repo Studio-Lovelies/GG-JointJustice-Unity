@@ -11,7 +11,7 @@ public class ScreenshakeCalculatorTests
     private const int NUMBER_OF_POSITIONS = (int)(SHAKE_DURATION / DELTA_TIME);
     private const float AMPLITUDE = 0.1f;
 
-    private ScreenshakeCalculator _screenshakeCalculator;
+    private ObjectshakeCalculator _objectshakeCalculator;
     private Vector3[] _shakePositions;
 
     /// <summary>
@@ -20,7 +20,7 @@ public class ScreenshakeCalculatorTests
     [SetUp]
     public void Setup()
     {
-        _screenshakeCalculator = CreateScreenshakeCalculator();
+        _objectshakeCalculator = CreateScreenshakeCalculator();
         _shakePositions = new Vector3[NUMBER_OF_POSITIONS];
     }
 
@@ -34,14 +34,14 @@ public class ScreenshakeCalculatorTests
     {
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
-            _screenshakeCalculator.Calculate(DELTA_TIME);
+            _objectshakeCalculator.Calculate(DELTA_TIME);
             if (i != NUMBER_OF_POSITIONS - 1)
             {
-                Assert.IsTrue(_screenshakeCalculator.IsShaking);
+                Assert.IsTrue(_objectshakeCalculator.IsShaking);
             }
         }
 
-        Assert.IsFalse(_screenshakeCalculator.IsShaking);
+        Assert.IsFalse(_objectshakeCalculator.IsShaking);
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public class ScreenshakeCalculatorTests
     {
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
-            _shakePositions[i] = _screenshakeCalculator.Calculate(DELTA_TIME);
+            _shakePositions[i] = _objectshakeCalculator.Calculate(DELTA_TIME);
         }
 
         var screenShakeCalculatorComparison = CreateScreenshakeCalculator();
@@ -136,8 +136,8 @@ public class ScreenshakeCalculatorTests
     /// <param name="noiseOffsetY">How much the noise should be offset on the Y axis.</param>
     /// <param name="animationCurve">The animation curve used to calculate the falloff of the shake.</param>
     /// <returns>The ScreenshakeCalculator object created.</returns>
-    private static ScreenshakeCalculator CreateScreenshakeCalculator(float shakeDuration = SHAKE_DURATION, float frequency = FREQUENCY, float amplitude = AMPLITUDE, float noiseScaleX = 1, float noiseScaleY = 1, float noiseOffsetX = 0, float noiseOffsetY = 1, AnimationCurve animationCurve = null)
+    private static ObjectshakeCalculator CreateScreenshakeCalculator(float shakeDuration = SHAKE_DURATION, float frequency = FREQUENCY, float amplitude = AMPLITUDE, float noiseScaleX = 1, float noiseScaleY = 1, float noiseOffsetX = 0, float noiseOffsetY = 1, AnimationCurve animationCurve = null)
     {
-        return new ScreenshakeCalculator(shakeDuration, frequency, amplitude, new Vector2(noiseScaleX, noiseScaleY), new Vector2(noiseOffsetX, noiseOffsetY), animationCurve);
+        return new ObjectshakeCalculator(shakeDuration, frequency, amplitude, new Vector2(noiseScaleX, noiseScaleY), new Vector2(noiseOffsetX, noiseOffsetY), animationCurve);
     }
 }

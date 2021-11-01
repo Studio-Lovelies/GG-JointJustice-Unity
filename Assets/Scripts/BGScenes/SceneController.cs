@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
@@ -27,12 +28,12 @@ public class SceneController : MonoBehaviour, ISceneController
     
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
-
+    
     [Tooltip("Attach the screenshaker object here")]
-    [SerializeField] private ScreenShaker _screenShaker;
+    [SerializeField] private ObjectShaker _objectShaker;
     
     [Tooltip("Drag a Shout component here.")]
-    [SerializeField] private Shout _shout;
+    [SerializeField] private ShoutPlayer _shoutPlayer;
 
     [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
@@ -166,7 +167,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="isBlocking">Whether the system waits for the shake to complete before continuing.</param>
     public void ShakeScreen(float intensity, float duration, bool isBlocking)
     {
-        _screenShaker.Shake(intensity, duration, isBlocking);
+        _objectShaker.Shake(intensity * 10f, intensity / 10f, duration, isBlocking);
 
         if (!isBlocking)
         {
@@ -344,7 +345,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="actorName">The name of the actor to shout.</param>
     public void Objection(string actorName)
     {
-        _shout.Objection(_actorInventory[actorName]);
+        _shoutPlayer.PlayObjection(_actorInventory[actorName]);
     }
 
     /// <summary>
@@ -353,7 +354,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="actorName">The name of the actor to shout.</param>
     public void HoldIt(string actorName)
     {
-        _shout.HoldIt(_actorInventory[actorName]);
+        _shoutPlayer.PlayHoldIt(_actorInventory[actorName]);
     }
 
     /// <summary>
@@ -362,7 +363,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="actorName">The name of the actor to shout.</param>
     public void TakeThat(string actorName)
     {
-        _shout.TakeThat(_actorInventory[actorName]);
+        _shoutPlayer.PlayTakeThat(_actorInventory[actorName]);
     }
 
     /// <summary>
@@ -372,6 +373,6 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="shoutName">The name of the scout.</param>
     public void Shoutout(string actorName, string shoutName)
     {
-        _shout.Shoutout(_actorInventory[actorName], shoutName);
+        _shoutPlayer.PlayShoutout(_actorInventory[actorName], shoutName);
     }
 }

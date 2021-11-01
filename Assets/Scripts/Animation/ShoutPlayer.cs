@@ -3,9 +3,18 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(ScreenShaker))]
-public class Shout : MonoBehaviour
+[RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(ObjectShaker))]
+public class ShoutPlayer : MonoBehaviour
 {
+    [Tooltip("The duration of the shake in seconds.")]
+    [SerializeField] private float _duration = 0.5f;
+    
+    [Tooltip("The frequency of the shake's sine wave in oscillations per second.")]
+    [SerializeField] private float _frequency = 10f;
+    
+    [Tooltip("The maximum distance the object can move from its starting point.")]
+    [SerializeField] private float _amplitude = 0.1f;
+    
     [Tooltip("The probability that a shout will be replaced by a variation."), Range(0, 1)]
     [SerializeField] private float _randomShoutChance;
 
@@ -22,7 +31,7 @@ public class Shout : MonoBehaviour
     [SerializeField] private AudioController _audioController;
     
     private SpriteRenderer _spriteRenderer;
-    private ScreenShaker _screenShaker;
+    private ObjectShaker _objectShaker;
 
     /// <summary>
     /// Get the required components on awake.
@@ -30,14 +39,14 @@ public class Shout : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _screenShaker = GetComponent<ScreenShaker>();
+        _objectShaker = GetComponent<ObjectShaker>();
     }
     
     /// <summary>
     /// Call this method to play the "objection" animation.
     /// </summary>
     /// <param name="actorData">An actor data containing an array of shout variants.</param>
-    public void Objection(ActorData actorData)
+    public void PlayObjection(ActorData actorData)
     {
         PlayShout(_objectionSprite, actorData.Objection, actorData.ShoutVariants);
     }
@@ -46,7 +55,7 @@ public class Shout : MonoBehaviour
     /// Call this method to play the "hold it" animation.
     /// </summary>
     /// <param name="actorData">An actor data containing an array of shout variants.</param>
-    public void HoldIt(ActorData actorData)
+    public void PlayHoldIt(ActorData actorData)
     {
         PlayShout(_holdItSprite, actorData.HoldIt, actorData.ShoutVariants);
     }
@@ -55,17 +64,17 @@ public class Shout : MonoBehaviour
     /// Call this method to play the "take that" animation.
     /// </summary>
     /// <param name="actorData">An actor data containing an array of shout variants.</param>
-    public void TakeThat(ActorData actorData)
+    public void PlayTakeThat(ActorData actorData)
     {
         PlayShout(_takeThatSprite, actorData.TakeThat, actorData.ShoutVariants);
     }
 
     /// <summary>
-    /// Call this method to play the "take that" animation.
+    /// Call this method to play a specific shout
     /// </summary>
     /// <param name="actorData">An actor data containing an array of shout variants.</param>
     /// <param name="shoutName">The name of the shout.</param>
-    public void Shoutout(ActorData actorData, string shoutName)
+    public void PlayShoutout(ActorData actorData, string shoutName)
     {
         try
         {
@@ -90,7 +99,7 @@ public class Shout : MonoBehaviour
     {
         _spriteRenderer.enabled = true;
 
-        if (shoutVariants != null && shoutVariants.Length != 0 && Random.Range(0f, 1f) < _randomShoutChance)
+        if (ShouldPlayerShoutVariant(shoutVariants))
         {
             SpriteAudioClipPair shoutVariant = shoutVariants[Random.Range(0, shoutVariants.Length)];
             _spriteRenderer.sprite = shoutVariant.Sprite;
@@ -102,6 +111,18 @@ public class Shout : MonoBehaviour
             _audioController.PlaySFX(defaultAudio);
         }
         
-        _screenShaker.Shake();
+        _objectShaker.Shake(_frequency, _amplitude, _duration, true);
+    }
+
+    /// <summary>
+    /// Checks if a shout variant should be played.
+    /// </summary>
+    /// <param name="shoutVariants">The array of shout variants.</param>
+    /// <returns>Whether or not a shout variant should be played.</returns>
+    private bool ShouldPlayerShoutVariant(SpriteAudioClipPair[] shoutVariants)
+    {
+        return shoutVariants != null &&
+               shoutVariants.Length != 0 &&
+               Random.Range(0f, 1f) < _randomShoutChance;
     }
 }

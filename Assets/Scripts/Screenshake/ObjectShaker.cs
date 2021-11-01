@@ -2,20 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ScreenShaker : MonoBehaviour
+public class ObjectShaker : MonoBehaviour
 {
-    [Tooltip("The time between frames of the screenshake. Allows for the framerate of the shake to be controlled.")]
+    [Tooltip("The time between frames of the objectshake. Allows for the framerate of the shake to be controlled.")]
     [SerializeField] private float _timeStep = 0.02f;
 
-    [Tooltip("The duration of the shake in seconds.")]
-    [SerializeField] private float _duration = 0.5f;
-    
-    [Tooltip("The frequency of the shake's sine wave in oscillations per second.")]
-    [SerializeField] private float _frequency = 10f;
-    
-    [Tooltip("The maximum distance the object can move from its starting point.")]
-    [SerializeField] private float _amplitude = 0.1f;
-    
     [Tooltip("The offset applied to the noise used for shaking. Change this to change the start point for calculating noise.")]
     [SerializeField] private Vector2 _noiseOffset = new Vector2(234, 456);
     
@@ -42,25 +33,16 @@ public class ScreenShaker : MonoBehaviour
     }
 
     /// <summary>
-    /// Shakes the screen, overriding the duration, frequency, and amplitude
-    /// set in the inspector and combining frequency and amplitude into one value.
+    /// Shakes the object with a specified frequency, amplitude, and duration.
     /// </summary>
-    /// <param name="intensity">How much the camera should shake. Combines amplitude and frequency into one value.</param>
+    /// <param name="frequency">The frequency at which the object should oscillate.</param>
+    /// <param name="amplitude">The maximum displacement from the origin.</param>
     /// <param name="duration">The time (in seconds) that the shake will last.</param>
     /// <param name="shouldWaitForShake">Whether the system waits for the shake to complete before continuing.</param>
-    public void Shake(float intensity, float duration, bool shouldWaitForShake)
+    public void Shake(float frequency, float amplitude, float duration, bool shouldWaitForShake)
     {
         StopCurrentlyRunningCoroutine();
-        _shakeCoroutine = StartCoroutine(ShakeCoroutine(duration, intensity * 10f, intensity / 10f, shouldWaitForShake));
-    }
-    
-    /// <summary>
-    /// Shakes the screen using the values set in the inspector.
-    /// </summary>
-    public void Shake()
-    {
-        StopCurrentlyRunningCoroutine();
-        _shakeCoroutine = StartCoroutine(ShakeCoroutine(_duration, _frequency, _amplitude, true));
+        _shakeCoroutine = StartCoroutine(ShakeCoroutine(frequency, amplitude, duration, shouldWaitForShake));
     }
 
     /// <summary>
@@ -76,23 +58,23 @@ public class ScreenShaker : MonoBehaviour
 
     /// <summary>
     /// Coroutine that causes the camera to shake over a specified amount of time.
-    /// Creates a screenshake calculator and every time step gets the new position of the camera.
+    /// Creates an ObjectShakeCalculator and every time step gets the new position of the camera.
     /// </summary>
     /// <param name="duration">The number of seconds to shake the camera for.</param>
     /// <param name="frequency">The frequency of the shake's oscillation.</param>
     /// <param name="amplitude">The maximum distance from the objects original position.</param>
     /// <param name="isBlocking">Whether the system waits for the shake to complete before continuing.</param>
-    private IEnumerator ShakeCoroutine(float duration, float frequency, float amplitude, bool isBlocking)
+    private IEnumerator ShakeCoroutine(float frequency, float amplitude, float duration, bool isBlocking)
     {
         if (isBlocking)
         {
             _onShakeStart.Invoke();
         }
 
-        var screenshakeCalculator = new ScreenshakeCalculator(duration, frequency, amplitude, _noiseScale, _noiseOffset, _animationCurve);
-        while (screenshakeCalculator.IsShaking)
+        var objectshakeCalculator = new ObjectshakeCalculator(duration, frequency, amplitude, _noiseScale, _noiseOffset, _animationCurve);
+        while (objectshakeCalculator.IsShaking)
         {
-            _transform.position = screenshakeCalculator.Calculate(_timeStep) + _cameraOffset;
+            _transform.position = objectshakeCalculator.Calculate(_timeStep) + _cameraOffset;
             yield return new WaitForSeconds(_timeStep);
         }
 
