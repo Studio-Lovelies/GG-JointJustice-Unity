@@ -19,7 +19,10 @@ MonoBehaviour:
   <DisplayColor>k__BackingField: {r: 0.69411767, g: 0.003921569, b: 0.1137255, a: 1}
   <Bio>k__BackingField: The first prosecutor. Has an extremely predictable name.
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: 9ee2d8da674a44f25b37eaad51116e16, type: 2}
-  <Objection>k__BackingField: {fileID: 8300000, guid: e32639a36acafb644a08ab58833682d3, type: 3}
-  <HoldIt>k__BackingField: {fileID: 0}
-  <TakeThat>k__BackingField: {fileID: 0}
-  <ShoutVariants>k__BackingField: []
+  <ShoutVariants>k__BackingField:
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: acb9e7bf00fd28e4bbd6e2ba716692dc, type: 3}
+    <AudioClip>k__BackingField: {fileID: 8300000, guid: e32639a36acafb644a08ab58833682d3, type: 3}
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: d4a8875b0ee18ac4aa74b6921e9b8164, type: 3}
+    <AudioClip>k__BackingField: {fileID: 0}
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: b829cea1a0d6654418a2285a9653dca1, type: 3}
+    <AudioClip>k__BackingField: {fileID: 0}

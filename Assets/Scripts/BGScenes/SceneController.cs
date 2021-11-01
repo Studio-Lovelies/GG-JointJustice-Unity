@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
@@ -10,7 +13,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
     [SerializeField] private BGSceneList _sceneList;
-    
+
     [Tooltip("Drag a FadeToImageController here.")]
     [SerializeField] private ImageFader _imageFader;
 
@@ -25,13 +28,13 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
     [SerializeField] private Animatable _fullscreenAnimationPlayer;
-    
+
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
-    
+
     [Tooltip("Attach the screenshaker object here")]
     [SerializeField] private ObjectShaker _objectShaker;
-    
+
     [Tooltip("Drag a Shout component here.")]
     [SerializeField] private ShoutPlayer _shoutPlayer;
 
@@ -52,7 +55,7 @@ public class SceneController : MonoBehaviour, ISceneController
     private Coroutine _panToPositionCoroutine;
 
     private BGScene _activeScene;
-    
+
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
@@ -77,10 +80,11 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         if (_imageFader == null)
         {
-            Debug.LogError($"Could not begin fade in. {name} does not have a FadeToImageTransition component attached.");
+            Debug.LogError(
+                $"Could not begin fade in. {name} does not have a FadeToImageTransition component attached.");
             return;
         }
-        
+
         _onWaitStart.Invoke();
         _imageFader.StartFade(1, 0, seconds, _onWaitComplete);
     }
@@ -93,10 +97,11 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         if (_imageFader == null)
         {
-            Debug.LogError($"Could not begin fade out. {name} does not have a FadeToImageTransition component attached.");
+            Debug.LogError(
+                $"Could not begin fade out. {name} does not have a FadeToImageTransition component attached.");
             return;
         }
-        
+
         _onWaitStart.Invoke();
         _imageFader.StartFade(0, 1, seconds, _onWaitComplete);
     }
@@ -142,7 +147,7 @@ public class SceneController : MonoBehaviour, ISceneController
         {
             StopCoroutine(_panToPositionCoroutine);
         }
-        
+
         if (_activeScene != null)
         {
             _onActorChanged.Invoke(_activeScene.ActiveActor);
@@ -206,7 +211,7 @@ public class SceneController : MonoBehaviour, ISceneController
         {
             Debug.LogError($"Cannot hide item, no ItemDisplay component assigned to {name}.", gameObject);
         }
-        
+
         _itemDisplay.HideItem();
     }
 
@@ -218,7 +223,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         if (!HasFullScreenAnimationPlayer())
             return;
-        
+
         _fullscreenAnimationPlayer.PlayAnimation(animationName);
     }
 
@@ -240,7 +245,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         Debug.LogWarning("ShowActor not implemented");
     }
-    
+
     public void HideActor()
     {
         Debug.LogWarning("HideActor not implemented");
@@ -324,7 +329,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         if (_waitCoroutine == null)
             return;
-        
+
         StopCoroutine(_waitCoroutine);
         _waitCoroutine = null;
     }
@@ -336,16 +341,17 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <returns>Unit position from pixel position</returns>
     public Vector2 PixelPositionToUnitPosition(Vector2Int pixelPosition)
     {
-        return new Vector2((float)(pixelPosition.x * -1) / _pixelsPerUnit, (float)(pixelPosition.y * -1) / _pixelsPerUnit);
+        return new Vector2((float)(pixelPosition.x * -1) / _pixelsPerUnit,
+            (float)(pixelPosition.y * -1) / _pixelsPerUnit);
     }
-    
+
     /// <summary>
     /// Makes a specified actor shout "objection!"
     /// </summary>
     /// <param name="actorName">The name of the actor to shout.</param>
     public void Objection(string actorName)
     {
-        _shoutPlayer.PlayObjection(_actorInventory[actorName]);
+        PlayShout(0, actorName);
     }
 
     /// <summary>
@@ -354,7 +360,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="actorName">The name of the actor to shout.</param>
     public void HoldIt(string actorName)
     {
-        _shoutPlayer.PlayHoldIt(_actorInventory[actorName]);
+        PlayShout(1, actorName);
     }
 
     /// <summary>
@@ -363,7 +369,22 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="actorName">The name of the actor to shout.</param>
     public void TakeThat(string actorName)
     {
-        _shoutPlayer.PlayTakeThat(_actorInventory[actorName]);
+        PlayShout(2, actorName);
+    }
+    
+    /// <summary>
+    /// Gets a shout variant and passes it to the ShoutPlayer so it can be played.
+    /// Sometimes replaced the shout with a random variant.
+    /// </summary>
+    /// <param name="index">The index of the shout to get.</param>
+    /// <param name="actorName">The name of the actor to get shouts from.</param>
+    private void PlayShout(int index, string actorName)
+    {
+        SpriteAudioClipPair[] shoutVariants = _actorInventory[actorName].ShoutVariants;
+        SpriteAudioClipPair shout = _shoutPlayer.ShouldPlayShoutVariant()
+            ? shoutVariants[Random.Range(2, shoutVariants.Length)]
+            : _actorInventory[actorName].ShoutVariants[index];
+        _shoutPlayer.PlayShout(shout);
     }
 
     /// <summary>
@@ -373,6 +394,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="shoutName">The name of the scout.</param>
     public void Shoutout(string actorName, string shoutName)
     {
-        _shoutPlayer.PlayShoutout(_actorInventory[actorName], shoutName);
+        SpriteAudioClipPair[] shoutVariants = _actorInventory[actorName].ShoutVariants;
+        _shoutPlayer.PlayShout(shoutVariants.Single(variant => variant.Sprite.name == shoutName));
     }
 }

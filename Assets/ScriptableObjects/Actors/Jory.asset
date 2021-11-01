@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Jory
   m_EditorClassIdentifier: 
   <Profile>k__BackingField: {fileID: 0}
-  <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: 26a9c8485eebf984398ac2094b0fcdc7, type: 3}
   <DisplayName>k__BackingField: Jory
   <Age>k__BackingField: 30
   _ageCertainty: 1
@@ -21,3 +20,10 @@ MonoBehaviour:
   <Bio>k__BackingField: 'Game developer for Dream Daddy. Previous job: P.P.I.S.S
     machine.'
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: cfd482816b6674280a326432f76ac73b, type: 2}
+  <ShoutVariants>k__BackingField:
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: acb9e7bf00fd28e4bbd6e2ba716692dc, type: 3}
+    <AudioClip>k__BackingField: {fileID: 8300000, guid: 19b48d76ef3cdac4b85155df10b9e673, type: 3}
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: d4a8875b0ee18ac4aa74b6921e9b8164, type: 3}
+    <AudioClip>k__BackingField: {fileID: 0}
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: b829cea1a0d6654418a2285a9653dca1, type: 3}
+    <AudioClip>k__BackingField: {fileID: 0}
