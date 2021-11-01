@@ -60,7 +60,6 @@ public class ActorData : ScriptableObject, ICourtRecordObject
 [Serializable]
 public struct SpriteAudioClipPair
 {
-    public string Name => Sprite.name;
     [field: SerializeField] public Sprite Sprite { get; set; }
     [field: SerializeField] public AudioClip AudioClip { get; set; }
 }
