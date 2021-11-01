@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
-public class ScreenshakeCalculatorTests
+public class ObjectshakeCalculatorTests
 {
     private const float DELTA_TIME = 0.02f;
     private const float FREQUENCY = 10;
@@ -15,22 +15,22 @@ public class ScreenshakeCalculatorTests
     private Vector3[] _shakePositions;
 
     /// <summary>
-    /// Create a new screenshake calculator and array to store positions before each test.
+    /// Create a new Objectshake calculator and array to store positions before each test.
     /// </summary>
     [SetUp]
     public void Setup()
     {
-        _objectshakeCalculator = CreateScreenshakeCalculator();
+        _objectshakeCalculator = CreateObjectshakeCalculator();
         _shakePositions = new Vector3[NUMBER_OF_POSITIONS];
     }
 
     /// <summary>
-    /// Tests if a screenshake runs for the correct amount of time by looping the
-    /// number of times it would expect to run for then checking if ScreenshakeCalculator's
+    /// Tests if a Objectshake runs for the correct amount of time by looping the
+    /// number of times it would expect to run for then checking if ObjectshakeCalculator's
     /// IsShaking property is false.
     /// </summary>
     [Test]
-    public void ScreenshakeRunsForCorrectAmountOfTime()
+    public void ObjectshakeRunsForCorrectAmountOfTime()
     {
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
@@ -45,27 +45,27 @@ public class ScreenshakeCalculatorTests
     }
 
     /// <summary>
-    /// If the same input is inputted, the ScreenshakeCalculator should output the same positions every time.
-    /// Runs the ScreenshakeCalculator twice and checks if the outputted positions are equal.
+    /// If the same input is inputted, the ObjectshakeCalculator should output the same positions every time.
+    /// Runs the ObjectshakeCalculator twice and checks if the outputted positions are equal.
     /// </summary>
     [Test]
-    public void ScreenShakesWithTheSameValuesAreIdentical()
+    public void ObjectShakesWithTheSameValuesAreIdentical()
     {
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
             _shakePositions[i] = _objectshakeCalculator.Calculate(DELTA_TIME);
         }
 
-        var screenShakeCalculatorComparison = CreateScreenshakeCalculator();
+        var ObjectShakeCalculatorComparison = CreateObjectshakeCalculator();
         
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
-            Assert.AreEqual(_shakePositions[i], screenShakeCalculatorComparison.Calculate(DELTA_TIME));
+            Assert.AreEqual(_shakePositions[i], ObjectShakeCalculatorComparison.Calculate(DELTA_TIME));
         }
     }
 
     /// <summary>
-    /// The amplitude of a screen shake should not be greater than the amplitude specified.
+    /// The amplitude of a Object shake should not be greater than the amplitude specified.
     /// Gets all the positions and makes sure they are all within a range of -AMPLITUDE and AMPLITUDE.
     /// Also makes sure all values are not the same.
     /// </summary>
@@ -73,10 +73,10 @@ public class ScreenshakeCalculatorTests
     public void ShakeIsConstrainedWithinSpecifiedAmplitude()
     {
         var animationKeys = new [] { new Keyframe(0, 1), new Keyframe(1, 1) };
-        var screenshakeCalculator = CreateScreenshakeCalculator(animationCurve: new AnimationCurve(animationKeys));
+        var ObjectshakeCalculator = CreateObjectshakeCalculator(animationCurve: new AnimationCurve(animationKeys));
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
-            _shakePositions[i] = screenshakeCalculator.Calculate(DELTA_TIME);
+            _shakePositions[i] = ObjectshakeCalculator.Calculate(DELTA_TIME);
         }
         
         Assert.IsTrue(_shakePositions.All(position1 => _shakePositions.Any(position2 => position1 == position2)));
@@ -89,11 +89,11 @@ public class ScreenshakeCalculatorTests
     [Test]
     public void NoShakeWhenAmplitudeIsZero()
     {
-        var screenshakeCalculator = CreateScreenshakeCalculator(amplitude: 0);
+        var ObjectshakeCalculator = CreateObjectshakeCalculator(amplitude: 0);
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
             
-            _shakePositions[i] = screenshakeCalculator.Calculate(DELTA_TIME);
+            _shakePositions[i] = ObjectshakeCalculator.Calculate(DELTA_TIME);
         }
         
         Assert.IsTrue(_shakePositions.All(position => position == Vector3.zero));
@@ -108,12 +108,12 @@ public class ScreenshakeCalculatorTests
     public void NumberOfOscillationsMatchesFrequency()
     {
         var animationKeys = new [] { new Keyframe(0, 1), new Keyframe(1, 1) };
-        var screenshakeCalculator = CreateScreenshakeCalculator(noiseScaleX: 0, noiseScaleY: 0, animationCurve: new AnimationCurve(animationKeys));
-        int previousSign = Math.Sign(screenshakeCalculator.Calculate(DELTA_TIME).x);
+        var ObjectshakeCalculator = CreateObjectshakeCalculator(noiseScaleX: 0, noiseScaleY: 0, animationCurve: new AnimationCurve(animationKeys));
+        int previousSign = Math.Sign(ObjectshakeCalculator.Calculate(DELTA_TIME).x);
         int halfOscillationCount = 0;
         for (int i = 1; i < NUMBER_OF_POSITIONS; i++)
         {
-            int currentSign = Math.Sign(screenshakeCalculator.Calculate(DELTA_TIME).x);
+            int currentSign = Math.Sign(ObjectshakeCalculator.Calculate(DELTA_TIME).x);
             if (currentSign != previousSign && currentSign != 0)
             {
                 halfOscillationCount++;
@@ -124,8 +124,8 @@ public class ScreenshakeCalculatorTests
     }
 
     /// <summary>
-    /// Method used to construct a ScreenshakeCalculator object.
-    /// Override specific values to customise the ScreenshakeCalculator.
+    /// Method used to construct a ObjectshakeCalculator object.
+    /// Override specific values to customise the ObjectshakeCalculator.
     /// </summary>
     /// <param name="shakeDuration">The duration of the shake.</param>
     /// <param name="frequency">The frequency of the shake's oscillation.</param>
@@ -135,8 +135,8 @@ public class ScreenshakeCalculatorTests
     /// <param name="noiseOffsetX">How much the noise should be offset on the X axis.</param>
     /// <param name="noiseOffsetY">How much the noise should be offset on the Y axis.</param>
     /// <param name="animationCurve">The animation curve used to calculate the falloff of the shake.</param>
-    /// <returns>The ScreenshakeCalculator object created.</returns>
-    private static ObjectshakeCalculator CreateScreenshakeCalculator(float shakeDuration = SHAKE_DURATION, float frequency = FREQUENCY, float amplitude = AMPLITUDE, float noiseScaleX = 1, float noiseScaleY = 1, float noiseOffsetX = 0, float noiseOffsetY = 1, AnimationCurve animationCurve = null)
+    /// <returns>The ObjectshakeCalculator object created.</returns>
+    private static ObjectshakeCalculator CreateObjectshakeCalculator(float shakeDuration = SHAKE_DURATION, float frequency = FREQUENCY, float amplitude = AMPLITUDE, float noiseScaleX = 1, float noiseScaleY = 1, float noiseOffsetX = 0, float noiseOffsetY = 1, AnimationCurve animationCurve = null)
     {
         return new ObjectshakeCalculator(shakeDuration, frequency, amplitude, new Vector2(noiseScaleX, noiseScaleY), new Vector2(noiseOffsetX, noiseOffsetY), animationCurve);
     }
