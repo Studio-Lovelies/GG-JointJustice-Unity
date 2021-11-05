@@ -9,11 +9,10 @@ public class StoryController : MonoBehaviour
     [SerializeField] private List<Dialogue> _dialogueList;
 
     [Header("Events")]
-
+    
     [SerializeField] private UnityEvent<Dialogue> _onNextDialogueScript;
 
     private SceneLoader _sceneLoader;
-
     private int _currentStory = -1;
 
     /// <summary>
@@ -32,8 +31,7 @@ public class StoryController : MonoBehaviour
     {
         if (_dialogueList.Count == 0)
         {
-            Debug.LogError("This unity scene does not have any dialogue scripts");
-            return;
+            Debug.LogWarning("No narrative scripts assigned to StoryController", this);
         }
         else
         {
