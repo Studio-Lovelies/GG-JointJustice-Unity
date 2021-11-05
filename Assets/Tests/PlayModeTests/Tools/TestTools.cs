@@ -6,7 +6,7 @@ namespace Tests.PlayModeTests.Tools
 {
     public class TestTools
     {
-        public static IEnumerator WaitForState(Func<bool> hasReachedState, double timeoutInSeconds)
+        public static IEnumerator WaitForState(Func<bool> hasReachedState, double timeoutInSeconds = 10)
         {
             DateTime timeoutAt = DateTime.Now.AddSeconds(timeoutInSeconds); // we cannot rely on UnityEngine.Time inside tests
             while (DateTime.Now < timeoutAt)

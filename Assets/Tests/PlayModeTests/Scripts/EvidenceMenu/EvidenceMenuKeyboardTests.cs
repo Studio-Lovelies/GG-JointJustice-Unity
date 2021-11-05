@@ -23,7 +23,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return null;
             var dialogueController = Object.FindObjectOfType<global::DialogueController>();
-            yield return new WaitUntil(() => !dialogueController.IsBusy);
+            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
             var evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
