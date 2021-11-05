@@ -58,5 +58,4 @@ public class StoryController : MonoBehaviour
             _onNextDialogueScript.Invoke(_dialogueList[_currentStory]);
         }
     }
-
 }
