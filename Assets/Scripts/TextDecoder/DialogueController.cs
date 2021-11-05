@@ -77,7 +77,7 @@ public class DialogueController : MonoBehaviour
     /// <param name="dialogue">Dialogue to switch to</param>
     public void SetNewDialogue(Dialogue dialogue)
     {
-        _inkStory = new Story(dialogue.DialogueScript.text);
+        _inkStory = new Story(dialogue._dialogueNarrativeScript.text);
         _dialogueMode = dialogue.ScriptType;
         OnContinueStory(); //Auto start
     }

@@ -62,16 +62,3 @@ public class StoryController : MonoBehaviour
     }
 
 }
-
-[System.Serializable]
-public struct Dialogue
-{
-    public Dialogue(TextAsset script, DialogueControllerMode type)
-    {
-        DialogueScript = script;
-        ScriptType = type;
-    }
-
-    public TextAsset DialogueScript;
-    public DialogueControllerMode ScriptType;
-}
