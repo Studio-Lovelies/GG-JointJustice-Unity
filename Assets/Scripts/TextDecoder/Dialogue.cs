@@ -15,8 +15,8 @@ public struct Dialogue
     }
 
     [field: Tooltip("Drag an Ink narrative script here.")]
-    [field: SerializeField] public TextAsset NarrativeScript { get; }
+    [field: SerializeField] public TextAsset NarrativeScript { get; private set; }
     
     [field: Tooltip("The dialogue mode the narrative script will use (dialogue or cross examination).")]
-    [field: SerializeField] public DialogueControllerMode ScriptType { get; }
+    [field: SerializeField] public DialogueControllerMode ScriptType { get; private set; }
 }
