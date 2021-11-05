@@ -29,7 +29,6 @@ Just as planned...
 &HIDE_TEXTBOX
 Soon, I'll have all the coins!
 &HIDE_TEXTBOX
-&FADE_OUT:1
 
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:RossGalaxyBrain

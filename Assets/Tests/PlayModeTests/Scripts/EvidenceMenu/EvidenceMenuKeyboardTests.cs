@@ -21,9 +21,10 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator EvidenceMenuOpensAndCloses()
         {
-
             yield return null;
-            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
+            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
+            yield return new WaitUntil(() => !dialogueController.IsBusy);
+            var evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);

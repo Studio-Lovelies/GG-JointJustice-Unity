@@ -326,7 +326,6 @@ public class DialogueController : MonoBehaviour
     /// <param name="busy">Sets the busy flag</param>
     public void SetBusy(bool busy)
     {
-        Debug.Log("Changing busy state");
         IsBusy = busy;
         _onBusySet.Invoke(IsBusy);
     }
