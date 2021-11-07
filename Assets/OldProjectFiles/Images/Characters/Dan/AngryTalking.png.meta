@@ -1,52 +1,52 @@
 fileFormatVersion: 2
-guid: cd7241247d63b4571829efcb40826049
+guid: 88836702db7a2dc458044030fec4946c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2569822441869009412
-    second: HairTalking_0
+      213: -8489912797805878322
+    second: AngryTalking_0
   - first:
-      213: 3647685953256769675
-    second: HairTalking_1
+      213: -7800345393521115653
+    second: AngryTalking_1
   - first:
-      213: -7396040191111836604
-    second: HairTalking_2
+      213: -6461268512302426075
+    second: AngryTalking_2
   - first:
-      213: -7262568056308524165
-    second: HairTalking_3
+      213: 6205070021780325143
+    second: AngryTalking_3
   - first:
-      213: -6878611075583165144
-    second: HairTalking_4
+      213: -228742272635842205
+    second: AngryTalking_4
   - first:
-      213: -6564694146008049310
-    second: HairTalking_5
+      213: 1560169155802941362
+    second: AngryTalking_5
   - first:
-      213: -5865047014698660967
-    second: HairTalking_6
+      213: 3607047486209524495
+    second: AngryTalking_6
   - first:
-      213: -207091530842649450
-    second: HairTalking_7
+      213: -7354145723415485363
+    second: AngryTalking_7
   - first:
-      213: -7484107307401107730
-    second: HairTalking_8
+      213: -2177863822812396239
+    second: AngryTalking_8
   - first:
-      213: -4920581370596019504
-    second: HairTalking_9
+      213: -2173519957937864074
+    second: AngryTalking_9
   - first:
-      213: -8092159299779846429
-    second: HairTalking_10
+      213: -2072318499906616748
+    second: AngryTalking_10
   - first:
-      213: -7301570277049957970
-    second: HairTalking_11
+      213: -3587862790452842393
+    second: AngryTalking_11
   - first:
-      213: -1244796926668557263
-    second: HairTalking_12
+      213: -6023931864118619868
+    second: AngryTalking_12
   - first:
-      213: -2582352818927233253
-    second: HairTalking_13
+      213: 3462096614324073040
+    second: AngryTalking_13
   - first:
-      213: 7693028997390496189
-    second: HairTalking_14
+      213: -2281780587327417612
+    second: AngryTalking_14
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -125,7 +125,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -136,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HairTalking_0
+      name: AngryTalking_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 402ed6735e7d9a320800000000000000
-      internalID: 2569822441869009412
+      spriteID: ec3ecb8ba45cd2a80800000000000000
+      internalID: -8489912797805878322
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_1
+      name: AngryTalking_1
       rect:
         serializedVersion: 2
-        x: 320
+        x: 256
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b884d085c0f2f9230800000000000000
-      internalID: 3647685953256769675
+      spriteID: bfdb1dd413b9fb390800000000000000
+      internalID: -7800345393521115653
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_2
+      name: AngryTalking_2
       rect:
         serializedVersion: 2
-        x: 640
+        x: 512
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,20 +192,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44c4440d1acfb5990800000000000000
-      internalID: -7396040191111836604
+      spriteID: 5281cc57586f456a0800000000000000
+      internalID: -6461268512302426075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_3
+      name: AngryTalking_3
       rect:
         serializedVersion: 2
-        x: 960
+        x: 768
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,20 +213,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7b91aed4dc263b90800000000000000
-      internalID: -7262568056308524165
+      spriteID: 71344a61f46dc1650800000000000000
+      internalID: 6205070021780325143
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_4
+      name: AngryTalking_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 361dc6e6d1853dcf0800000000000000
+      internalID: -228742272635842205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngryTalking_5
       rect:
         serializedVersion: 2
         x: 1280
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,20 +255,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 82d3cc3dba34a80a0800000000000000
-      internalID: -6878611075583165144
+      spriteID: 2b7c721c495d6a510800000000000000
+      internalID: 1560169155802941362
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_5
+      name: AngryTalking_6
       rect:
         serializedVersion: 2
-        x: 1600
+        x: 1536
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,20 +276,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2699a18947585e4a0800000000000000
-      internalID: -6564694146008049310
+      spriteID: f030c77e39ece0230800000000000000
+      internalID: 3607047486209524495
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_6
+      name: AngryTalking_7
       rect:
         serializedVersion: 2
-        x: 1920
+        x: 1792
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -276,20 +297,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99bcbe180da2b9ea0800000000000000
-      internalID: -5865047014698660967
+      spriteID: d44ac51bd63d0f990800000000000000
+      internalID: -7354145723415485363
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_7
+      name: AngryTalking_8
       rect:
         serializedVersion: 2
-        x: 2240
+        x: 2048
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -297,20 +318,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69cc1249953402df0800000000000000
-      internalID: -207091530842649450
+      spriteID: 135c718546ca6c1e0800000000000000
+      internalID: -2177863822812396239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_8
+      name: AngryTalking_9
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 0
+        width: 256
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67244e23d1b16d1e0800000000000000
+      internalID: -2173519957937864074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngryTalking_10
       rect:
         serializedVersion: 2
         x: 2560
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -318,20 +360,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee6a3717e0c132890800000000000000
-      internalID: -7484107307401107730
+      spriteID: 452889fcd45ad33e0800000000000000
+      internalID: -2072318499906616748
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_9
+      name: AngryTalking_11
       rect:
         serializedVersion: 2
-        x: 2880
+        x: 2816
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -339,20 +381,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d23835505596bbb0800000000000000
-      internalID: -4920581370596019504
+      spriteID: 76077382dc9553ec0800000000000000
+      internalID: -3587862790452842393
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_10
+      name: AngryTalking_12
       rect:
         serializedVersion: 2
-        x: 3200
+        x: 3072
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -360,20 +402,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ee9fbeadffd2bf80800000000000000
-      internalID: -8092159299779846429
+      spriteID: 4219d00c2e1b66ca0800000000000000
+      internalID: -6023931864118619868
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_11
+      name: AngryTalking_13
       rect:
         serializedVersion: 2
-        x: 3520
+        x: 3328
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -381,20 +423,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea103e5b48c9baa90800000000000000
-      internalID: -7301570277049957970
+      spriteID: 0527eda1786db0030800000000000000
+      internalID: 3462096614324073040
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HairTalking_12
+      name: AngryTalking_14
       rect:
         serializedVersion: 2
-        x: 3840
+        x: 3584
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -402,50 +444,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1343c685ac799bee0800000000000000
-      internalID: -1244796926668557263
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HairTalking_13
-      rect:
-        serializedVersion: 2
-        x: 4160
-        y: 0
-        width: 320
-        height: 180
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b171d170bc3a92cd0800000000000000
-      internalID: -2582352818927233253
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HairTalking_14
-      rect:
-        serializedVersion: 2
-        x: 4480
-        y: 0
-        width: 320
-        height: 180
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: db17d3c1d1123ca60800000000000000
-      internalID: 7693028997390496189
+      spriteID: 4f297fc25ac7550e0800000000000000
+      internalID: -2281780587327417612
       vertices: []
       indices: 
       edges: []

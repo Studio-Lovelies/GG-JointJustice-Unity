@@ -1,34 +1,46 @@
 fileFormatVersion: 2
-guid: 84dc458d9d7e04f1bbcf84a2f03aa3ff
+guid: 6b956cf263db18e42b5637077bb630eb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7985626363670038235
-    second: Happy_0
+      213: 3686135688718554036
+    second: HappyTalking_0
   - first:
-      213: 230064946218503653
-    second: Happy_1
+      213: -3655820738460195743
+    second: HappyTalking_1
   - first:
-      213: 8980492921325942086
-    second: Happy_2
+      213: -6525532616754440759
+    second: HappyTalking_2
   - first:
-      213: -6756546184391038746
-    second: Happy_3
+      213: -7049640283713550454
+    second: HappyTalking_3
   - first:
-      213: -5971488257379594603
-    second: Happy_4
+      213: 7746745305746982925
+    second: HappyTalking_4
   - first:
-      213: 1392268709508881557
-    second: Happy_5
+      213: 1961339536714542628
+    second: HappyTalking_5
   - first:
-      213: 6927280728186893345
-    second: Happy_6
+      213: 1137606782643261221
+    second: HappyTalking_6
   - first:
-      213: 7861070452285791792
-    second: Happy_7
+      213: 7903270295512839882
+    second: HappyTalking_7
   - first:
-      213: 747755608092323312
-    second: Happy_8
+      213: 3165904426859138412
+    second: HappyTalking_8
+  - first:
+      213: 6683497599160833994
+    second: HappyTalking_9
+  - first:
+      213: 3924401552149624597
+    second: HappyTalking_10
+  - first:
+      213: 6475497284026578202
+    second: HappyTalking_11
+  - first:
+      213: -7047289117611131827
+    second: HappyTalking_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -95,7 +107,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -107,7 +119,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,13 +130,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Happy_0
+      name: HappyTalking_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +144,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd60c8b3ed4a2de60800000000000000
-      internalID: 7985626363670038235
+      spriteID: 4b395fff0e8c72330800000000000000
+      internalID: 3686135688718554036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Happy_1
+      name: HappyTalking_1
       rect:
         serializedVersion: 2
-        x: 320
+        x: 256
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ed8f9289da513300800000000000000
-      internalID: 230064946218503653
+      spriteID: 164e291686ae34dc0800000000000000
+      internalID: -3655820738460195743
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Happy_2
+      name: HappyTalking_2
       rect:
         serializedVersion: 2
-        x: 640
+        x: 512
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +186,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 645fa833bbe11ac70800000000000000
-      internalID: 8980492921325942086
+      spriteID: 9c55028a8a6a075a0800000000000000
+      internalID: -6525532616754440759
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Happy_3
+      name: HappyTalking_3
       rect:
         serializedVersion: 2
-        x: 960
+        x: 768
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +207,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e8e9d20b0deb32a0800000000000000
-      internalID: -6756546184391038746
+      spriteID: a8748f63385aa2e90800000000000000
+      internalID: -7049640283713550454
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Happy_4
+      name: HappyTalking_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d084972cfc7f18b60800000000000000
+      internalID: 7746745305746982925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HappyTalking_5
       rect:
         serializedVersion: 2
         x: 1280
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +249,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59e09767113012da0800000000000000
-      internalID: -5971488257379594603
+      spriteID: 42eacc1cae3183b10800000000000000
+      internalID: 1961339536714542628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Happy_5
+      name: HappyTalking_6
       rect:
         serializedVersion: 2
-        x: 1600
+        x: 1536
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +270,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59c1b26c305525310800000000000000
-      internalID: 1392268709508881557
+      spriteID: 52fc68d675799cf00800000000000000
+      internalID: 1137606782643261221
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Happy_6
+      name: HappyTalking_7
       rect:
         serializedVersion: 2
-        x: 1920
+        x: 1792
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,20 +291,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1243df6be15a22060800000000000000
-      internalID: 6927280728186893345
+      spriteID: ac670ffd57e0ead60800000000000000
+      internalID: 7903270295512839882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Happy_7
+      name: HappyTalking_8
       rect:
         serializedVersion: 2
-        x: 2240
+        x: 2048
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +312,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03e50d63de1281d60800000000000000
-      internalID: 7861070452285791792
+      spriteID: c6d86c37d4d8feb20800000000000000
+      internalID: 3165904426859138412
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Happy_8
+      name: HappyTalking_9
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 0
+        width: 256
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac7582fd7ad80cc50800000000000000
+      internalID: 6683497599160833994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HappyTalking_10
       rect:
         serializedVersion: 2
         x: 2560
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,8 +354,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0fd262783cf806a00800000000000000
-      internalID: 747755608092323312
+      spriteID: 517bed75b66467630800000000000000
+      internalID: 3924401552149624597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HappyTalking_11
+      rect:
+        serializedVersion: 2
+        x: 2816
+        y: 0
+        width: 256
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a15396e98769dd950800000000000000
+      internalID: 6475497284026578202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HappyTalking_12
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 0
+        width: 256
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4cff4bb2eff23e90800000000000000
+      internalID: -7047289117611131827
       vertices: []
       indices: 
       edges: []

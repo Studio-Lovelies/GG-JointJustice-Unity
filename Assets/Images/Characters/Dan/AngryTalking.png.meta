@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 88836702db7a2dc458044030fec4946c
+guid: 9f9791ed490f94197b7e1936052a9046
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -113,7 +113,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -125,7 +125,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -141,8 +141,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +160,10 @@ TextureImporter:
       name: AngryTalking_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 320
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: AngryTalking_2
       rect:
         serializedVersion: 2
-        x: 512
+        x: 640
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: AngryTalking_3
       rect:
         serializedVersion: 2
-        x: 768
+        x: 960
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,10 +223,10 @@ TextureImporter:
       name: AngryTalking_4
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 1280
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,10 +244,10 @@ TextureImporter:
       name: AngryTalking_5
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 1600
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,10 +265,10 @@ TextureImporter:
       name: AngryTalking_6
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 1920
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,10 +286,10 @@ TextureImporter:
       name: AngryTalking_7
       rect:
         serializedVersion: 2
-        x: 1792
+        x: 2240
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -307,10 +307,10 @@ TextureImporter:
       name: AngryTalking_8
       rect:
         serializedVersion: 2
-        x: 2048
+        x: 2560
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,10 +328,10 @@ TextureImporter:
       name: AngryTalking_9
       rect:
         serializedVersion: 2
-        x: 2304
+        x: 2880
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -349,10 +349,10 @@ TextureImporter:
       name: AngryTalking_10
       rect:
         serializedVersion: 2
-        x: 2560
+        x: 3200
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -370,10 +370,10 @@ TextureImporter:
       name: AngryTalking_11
       rect:
         serializedVersion: 2
-        x: 2816
+        x: 3520
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -391,10 +391,10 @@ TextureImporter:
       name: AngryTalking_12
       rect:
         serializedVersion: 2
-        x: 3072
+        x: 3840
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -412,10 +412,10 @@ TextureImporter:
       name: AngryTalking_13
       rect:
         serializedVersion: 2
-        x: 3328
+        x: 4160
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -433,10 +433,10 @@ TextureImporter:
       name: AngryTalking_14
       rect:
         serializedVersion: 2
-        x: 3584
+        x: 4480
         y: 0
-        width: 256
-        height: 192
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

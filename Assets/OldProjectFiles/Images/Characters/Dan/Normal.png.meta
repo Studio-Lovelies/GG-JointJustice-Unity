@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 18063c7e5f7924ca297744ed2746a366
+guid: 44a8b7dc9ea23e947a628cc07bb63832
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -83,7 +83,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -95,7 +95,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -111,8 +111,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,10 +130,10 @@ TextureImporter:
       name: Normal_1
       rect:
         serializedVersion: 2
-        x: 320
+        x: 256
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,10 +151,10 @@ TextureImporter:
       name: Normal_2
       rect:
         serializedVersion: 2
-        x: 640
+        x: 512
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +172,10 @@ TextureImporter:
       name: Normal_3
       rect:
         serializedVersion: 2
-        x: 960
+        x: 768
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,10 +193,10 @@ TextureImporter:
       name: Normal_4
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 1024
         y: 0
-        width: 320
-        height: 180
+        width: 256
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
