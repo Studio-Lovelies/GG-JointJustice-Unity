@@ -1,3 +1,4 @@
+&FADE_OUT:0
 &SHOWACTOR:False
 &PLAYSONG:prologueInPMinor
 
@@ -25,7 +26,9 @@ After all the work I put into those levels...
 Just as planned...
 
 &CAMERA_PAN:3,270,0 //Speed, x, y
+&HIDE_TEXTBOX
 Soon, I'll have all the coins!
+&HIDE_TEXTBOX
 
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:RossGalaxyBrain

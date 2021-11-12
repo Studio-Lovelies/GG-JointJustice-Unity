@@ -22,7 +22,9 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceMenuOpensAndCloses()
         {
             yield return null;
-            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
+            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
+            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
+            var evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
@@ -178,7 +180,6 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceCanBeSubstitutedWithAltEvidence()
         {
             yield return ProfileMenuCanBeAccessed();
-
             global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
             

@@ -12,6 +12,8 @@ using UnityEngine.UI;
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
+    public bool Busy { get; private set; }
+
     [SerializeField, Tooltip("The name of the scene to load")]
     private string _sceneName;
 
@@ -32,21 +34,34 @@ public class SceneLoader : MonoBehaviour
     /// <summary>
     /// Call this method when wanting to change the scene using a specific scene's index.
     /// </summary>
-    /// <param name="menuNavigator">The menu navigator used to call this method. It is passed in case it needs to be disabled</param>
     public void ChangeSceneBySceneIndex()
     {
-        _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneIndex, LoadSceneMode.Single);
-        Transition();
+        if (!Busy)
+        {
+            _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneIndex, LoadSceneMode.Single);
+            if (_sceneLoadOperation != null)
+            {
+                Busy = true;
+                Transition();
+            }
+            
+        }
     }
 
     /// <summary>
     /// Call this method when wanting to change the scene using a specific scene's name.
     /// </summary>
-    /// <param name="menuNavigator">The menu navigator used to call this method. It is passed in case it needs to be disabled</param>
     public void ChangeSceneBySceneName()
     {
-        _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Single);
-        Transition();
+        if (!Busy)
+        {
+            _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Single);
+            if (_sceneLoadOperation != null)
+            {
+                Busy = true;
+                Transition();
+            }
+        }
     }
 
     /// <summary>
@@ -55,6 +70,7 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     private void Transition()
     {
+        Debug.Log("Transitioning");
         if (_transition != null)
         {
             if (_sceneLoadOperation != null)
@@ -64,7 +80,6 @@ public class SceneLoader : MonoBehaviour
             _transition.Transition();
             return;
         }
-        
         LoadSceneCallback();
     }
 

@@ -114,6 +114,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         Vector2 startPos = _activeScene.transform.position;
         float percentagePassed = 0f;
+        BGScene targetScene = _activeScene;
         while (percentagePassed < 1)
         {
             percentagePassed += Time.deltaTime / timeInSeconds;

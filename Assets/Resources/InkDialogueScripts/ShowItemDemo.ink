@@ -1,4 +1,4 @@
-﻿&SCENE:TMPH_Defense
+&SCENE:TMPH_Defense
 &ACTOR:Arin
 &SPEAK:Arin
 Look at this item!

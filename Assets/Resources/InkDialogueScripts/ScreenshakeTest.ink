@@ -1,4 +1,4 @@
-﻿&SCENE:TMPH_Judge
+&SCENE:TMPH_Judge
 &ACTOR:Brent_Judge
 &SPEAK:Brent_Judge
 Arin! Demonstrate the screenshake effect!
@@ -27,3 +27,5 @@ LOUDER!
 &SET_POSE:CloseUp
 &SHAKESCREEN:2,5
 \*Screaming\*
+
+-> END
