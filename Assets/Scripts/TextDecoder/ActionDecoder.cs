@@ -319,7 +319,7 @@ public class ActionDecoder
 
     private void THINK(string actor)
     {
-        SetSpeaker(actor, SpeakingType.Speaking);
+        SetSpeaker(actor, SpeakingType.Thinking);
     }
 
     private void SetSpeaker(string actor, SpeakingType speakingType)
