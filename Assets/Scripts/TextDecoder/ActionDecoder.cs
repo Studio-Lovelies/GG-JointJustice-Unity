@@ -13,21 +13,36 @@ public class ActionDecoder
     public IEvidenceController EvidenceController { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; }
 
+    /// <summary>
+    /// Parse action lines inside .ink-files
+    /// </summary>
+    /// <param name="lines">Action line</param>
+    /// <remarks>
+    ///     Writers are able to call methods inside .ink files. This is done by using the following syntax:
+    ///     <code>
+    ///     &amp;{methodName}:{parameter1},{parameter2},...
+    ///     </code>
+    ///     This method is responsible for:
+    ///         1. Finding a method inside this class, matching `methodName`
+    ///         2. Verifying the amount of parameters matches the amount of parameters needed in the method
+    ///         3. Attempting to parse each parameter into the correct type using <see cref="Parser<T>"/> of the type
+    ///         4. Invoking the method with the parsed parameters
+    /// </remarks>
     public void OnNewActionLine(string actionLine)
     {
         actionLine = actionLine.Trim();
         const char actionSideSeparator = ':';
         const char actionParameterSeparator = ',';
 
-        string[] actionAndParam = actionLine.Substring(1, actionLine.Length - 1).Trim().Split(actionSideSeparator);
+        string[] actionNameAndParameters = actionLine.Substring(1, actionLine.Length - 1).Trim().Split(actionSideSeparator);
 
-        if (actionAndParam.Length > 2)
+        if (actionNameAndParameters.Length > 2)
         {
             throw new TextDecoder.Parser.ScriptParsingException($"More than one '{actionSideSeparator}' detected in line '{actionLine}'");
         }
 
-        string action = actionAndParam[0];
-        string[] parameters = (actionAndParam.Length == 2) ? actionAndParam[1].Split(actionParameterSeparator) : Array.Empty<string>();
+        string action = actionNameAndParameters[0];
+        string[] parameters = (actionNameAndParameters.Length == 2) ? actionNameAndParameters[1].Split(actionParameterSeparator) : Array.Empty<string>();
 
         // Find method with exact same name as action inside script
         MethodInfo method = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
