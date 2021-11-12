@@ -123,19 +123,15 @@ public class ActionDecoder
     #region DialogStuff
     private void DIALOG_SPEED(float seconds)
     {
-        ChangeDialogSpeed(WaiterType.Dialog, seconds);
+        AppearingDialogueController.SetTimerValue(WaiterType.Dialog, seconds);
     }
     private void OVERALL_SPEED(float seconds)
     {
-        ChangeDialogSpeed(WaiterType.Overall, seconds);
+        AppearingDialogueController.SetTimerValue(WaiterType.Overall, seconds);
     }
     private void PUNCTUATION_SPEED(float seconds)
     {
-        ChangeDialogSpeed(WaiterType.Punctuation, seconds);
-    }
-    private void ChangeDialogSpeed(WaiterType currentWaiterType, float seconds)
-    {
-        AppearingDialogueController.SetTimerValue(currentWaiterType, seconds);
+        AppearingDialogueController.SetTimerValue(WaiterType.Punctuation, seconds);
     }
 
     private void CLEAR_SPEED()
