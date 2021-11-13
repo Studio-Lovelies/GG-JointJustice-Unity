@@ -9,7 +9,6 @@ public class StoryController : MonoBehaviour
     [SerializeField] private List<Dialogue> _dialogueList;
 
     [Header("Events")]
-    
     [SerializeField] private UnityEvent<Dialogue> _onNextDialogueScript;
 
     private SceneLoader _sceneLoader;
