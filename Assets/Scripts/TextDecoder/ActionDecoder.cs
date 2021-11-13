@@ -188,7 +188,7 @@ public class ActionDecoder
     
     private void PRESENT_EVIDENCE()
     {
-        EvidenceController.OpenEvidenceMenu();
+        EvidenceController.RequirePresentEvidence();
     }
 
     private void SUBSTITUTE_EVIDENCE(string evidence)
@@ -231,9 +231,9 @@ public class ActionDecoder
         SceneController.FadeOut(timeInSeconds);
     }
 
-    private void SHAKE_SCREEN(float intensity)
+    private void SHAKE_SCREEN(float intensity, float duration, bool isBlocking)
     {
-        SceneController.ShakeScreen(intensity);
+        SceneController.ShakeScreen(intensity, duration, isBlocking);
     }
 
     private void SCENE(string sceneName)
