@@ -8,7 +8,7 @@ namespace TextDecoder.Parser
     public abstract class Parser<T>
     {
         /// <summary>
-        ///     Converts .ink-file representation of a parameter to a usable object
+        ///     Converts .ink file representation of a parameter to a usable object
         /// </summary>
         public abstract string Parse(string input, out T output);
     }

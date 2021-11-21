@@ -14,9 +14,9 @@ public class ActionDecoder
     public IAppearingDialogueController AppearingDialogueController { get; set; }
 
     /// <summary>
-    /// Parse action lines inside .ink-files
+    ///     Parse action lines inside from inside .ink files
     /// </summary>
-    /// <param name="lines">Action line</param>
+    /// <param name="actionLine">Line of a .ink file that starts with &amp; (and thereby is not a "spoken dialogue" line)</param>
     /// <remarks>
     ///     Writers are able to call methods inside .ink files. This is done by using the following syntax:
     ///     <code>
@@ -25,7 +25,7 @@ public class ActionDecoder
     ///     This method is responsible for:
     ///         1. Finding a method inside this class, matching `methodName`
     ///         2. Verifying the amount of parameters matches the amount of parameters needed in the method
-    ///         3. Attempting to parse each parameter into the correct type using <see cref="Parser<T>"/> of the type
+    ///         3. Attempting to parse each parameter into the correct type using <see cref="Parser&lt;T&gt;"/> of the type
     ///         4. Invoking the method with the parsed parameters
     /// </remarks>
     public void OnNewActionLine(string actionLine)
@@ -120,15 +120,17 @@ public class ActionDecoder
     // ReSharper disable InconsistentNaming
     // ReSharper disable UnusedMember.Local
 #pragma warning disable IDE0051 // Remove unused private members
-    #region DialogStuff
+    #region AppearingDialogueController
     private void DIALOG_SPEED(float seconds)
     {
         AppearingDialogueController.SetTimerValue(WaiterType.Dialog, seconds);
     }
+
     private void OVERALL_SPEED(float seconds)
     {
         AppearingDialogueController.SetTimerValue(WaiterType.Overall, seconds);
     }
+
     private void PUNCTUATION_SPEED(float seconds)
     {
         AppearingDialogueController.SetTimerValue(WaiterType.Punctuation, seconds);
@@ -190,15 +192,13 @@ public class ActionDecoder
     {
         EvidenceController.RequirePresentEvidence();
     }
-
+    
     private void SUBSTITUTE_EVIDENCE(string evidence)
     {
         EvidenceController.SubstituteEvidenceWithAlt(evidence);
         OnActionDone?.Invoke();
     }
-
     #endregion
-
 
     #region AudioController
     private void PLAY_SFX(string sfx)
@@ -231,7 +231,7 @@ public class ActionDecoder
         SceneController.FadeOut(timeInSeconds);
     }
 
-    private void SHAKE_SCREEN(float intensity, float duration, bool isBlocking)
+    private void SHAKE_SCREEN(float intensity, float duration, bool isBlocking = false)
     {
         SceneController.ShakeScreen(intensity, duration, isBlocking);
     }
@@ -289,7 +289,6 @@ public class ActionDecoder
     }
 
     #endregion
-
 
     #region ActorController
     private void ACTOR(string actor)
