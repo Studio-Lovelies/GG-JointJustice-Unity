@@ -31,4 +31,5 @@ Yes!
 OOF.
 &THINK:Arin
 <color=\#0084ff>(I need to be more thoughtful and pay more attention I guess.)
+&ISSUE_PENALTY
     -> END

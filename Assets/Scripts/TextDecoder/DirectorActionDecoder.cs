@@ -63,6 +63,7 @@ public class DirectorActionDecoder : MonoBehaviour
             case "PLAY_ANIMATION": PlayAnimation(parameters); break;
             case "JUMP_TO_POSITION": JumpToActorSlot(parameters); break;
             case "PAN_TO_POSITION": PanToActorSlot(parameters); break;
+            case "ISSUE_PENALTY": IssuePenalty(); break;
             //Evidence controller
             case "ADD_EVIDENCE": AddEvidence(parameters); break;
             case "REMOVE_EVIDENCE": RemoveEvidence(parameters); break;
@@ -515,6 +516,18 @@ public class DirectorActionDecoder : MonoBehaviour
         
         _sceneController.PanToActorSlot(oneBasedSlotIndex, timeInSeconds);
         _onActionDone.Invoke();
+    }
+
+    /// <summary>
+    /// Issues a penalty to the player, decrementing their lives by one.
+    /// If their lives are zero the game over event is called.
+    /// </summary>
+    private void IssuePenalty()
+    {
+        if (!HasSceneController())
+            return;
+
+        _sceneController.IssuePenalty();
     }
 
     #endregion

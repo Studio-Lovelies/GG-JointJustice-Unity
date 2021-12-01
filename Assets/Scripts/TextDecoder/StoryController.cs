@@ -11,6 +11,7 @@ public class StoryController : MonoBehaviour
     [Header("Events")]
     
     [SerializeField] private UnityEvent<Dialogue> _onNextDialogueScript;
+    [SerializeField] private UnityEvent<int> _onCrossExaminationStart;
 
     private SceneLoader _sceneLoader;
     private int _currentStory = -1;
@@ -55,6 +56,10 @@ public class StoryController : MonoBehaviour
         }
         else
         {
+            if (_dialogueList[_currentStory].ScriptType == DialogueControllerMode.CrossExamination)
+            {
+                _onCrossExaminationStart.Invoke(5);
+            }
             _onNextDialogueScript.Invoke(_dialogueList[_currentStory]);
         }
     }

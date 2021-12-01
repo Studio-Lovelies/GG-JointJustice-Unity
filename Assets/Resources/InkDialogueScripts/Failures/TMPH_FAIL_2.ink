@@ -10,4 +10,5 @@ Wow you're terrible at this.
 &SET_POSE:Sweaty
 &THINK:Arin
 <color=\#0084ff>(God I hate this guy...)
+&ISSUE_PENALTY
     -> END
