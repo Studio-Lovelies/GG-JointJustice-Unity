@@ -528,6 +528,7 @@ public class DirectorActionDecoder : MonoBehaviour
             return;
 
         _sceneController.IssuePenalty();
+        _onActionDone.Invoke();
     }
 
     #endregion
