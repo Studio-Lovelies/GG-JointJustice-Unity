@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class ActionDecoder
@@ -69,6 +70,26 @@ public class ActionDecoder
 
             // Determine it's type
             ParameterInfo methodParameter = methodParameters[index];
+
+            // Edge-case for enums
+            if (methodParameter.ParameterType.BaseType == typeof(Enum))
+            {
+                try
+                {
+                    parsedMethodParameters.Add(Enum.Parse(methodParameter.ParameterType, parameters[index]));
+                    continue;
+                }
+                catch (ArgumentException e)
+                {
+                    Regex pattern = new Regex(@"Requested value '(.*)' was not found\.");
+                    Match match = pattern.Match(e.Message);
+                    if (match.Groups.Count > 0)
+                    {
+                        throw new TextDecoder.Parser.ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '{match.Groups[1].Captures[0]}' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a=>a.ToString()))}')");
+                    }
+                    throw;
+                }
+            }
 
             // Construct a parser for it
             Type parser = GetType().Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
