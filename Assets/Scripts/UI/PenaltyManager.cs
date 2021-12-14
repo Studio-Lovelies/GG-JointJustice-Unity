@@ -8,6 +8,8 @@ public class PenaltyManager : MonoBehaviour
 
     private Queue<GameObject> _penaltyObjects = new Queue<GameObject>();
 
+    public int PenaltiesLeft => _penaltyObjects.Count;
+
     /// <summary>
     /// Creates a specified number of penalties.
     /// </summary>

@@ -1,11 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
+using static UnityEngine.GameObject;
+using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scenes.CrossExamination
 {
@@ -100,6 +105,33 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 GameObject gameObject = controller.gameObject;
                 return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
             }));
+        }
+
+        [UnityTest]
+        [ReloadScene("Assets/Scenes/CrossExamination - TestScene.unity")]
+        public IEnumerator GameOverPlaysOnNoLivesLeft()
+        {
+            var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
+            var dialogueController = Object.FindObjectOfType<DialogueController>();
+
+            for (int i = 1; i > 0; i--)
+            {
+                yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
+                
+                Assert.AreEqual(i, penaltyManager.PenaltiesLeft);
+                yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
+                yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
+                var subStory = Find("SubStory(Clone)");
+                while (subStory != null)
+                {
+                    yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+                }
+                Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);
+            }
+
+            yield return new WaitForSeconds(1);
+            var gameOverStory = Find("SubStory(Clone)");
+            Assert.IsNotNull(gameOverStory);
         }
     }
 }
