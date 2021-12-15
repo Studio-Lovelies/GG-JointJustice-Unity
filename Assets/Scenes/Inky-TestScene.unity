@@ -189,17 +189,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6276402831480686355, guid: ba051a1745ca9df40845054bf2e42823, type: 3}
   m_PrefabInstance: {fileID: 140338526}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &334157109 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-  m_PrefabInstance: {fileID: 5228303782951346616}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9edea055d8c3131428c88f22698e8a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &500303204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8523057635661323075, guid: 5fe315117a99c7746a6eb571af7695ef, type: 3}
@@ -913,38 +902,6 @@ PrefabInstance:
       propertyPath: _sceneList
       value: 
       objectReference: {fileID: 749697831}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onGameOver.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onGameOver.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onGameOver.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 334157109}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onGameOver.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onGameOver.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartSubStory
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onGameOver.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: DialogueController, GG-JointJustice
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onGameOver.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 4900000, guid: f5d892d04ca1b4437909602a18ec1bf7, type: 3}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onGameOver.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.TextAsset, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 5979690604451775322, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _menuToOpen
       value: 

@@ -12,7 +12,7 @@ Regarding the lack of evidence in the favor of the accused, Mr. Jory Griffis, I 
 
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:BadBoy
-&FADE_TO_BLACK:1
+&FADE_OUT:1
 
 The defense loses.
 
