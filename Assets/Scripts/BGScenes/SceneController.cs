@@ -349,7 +349,8 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     public void IssuePenalty()
     {
-        if (!_penaltyManager.Decrement())
+        _penaltyManager.Decrement();
+        if (_penaltyManager.PenaltiesLeft <= 0)
         {
             _onGameOver.Invoke();
         }

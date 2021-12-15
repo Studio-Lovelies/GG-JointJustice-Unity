@@ -26,10 +26,12 @@ public class PenaltyManager : MonoBehaviour
     /// Decreases the number of penalties available to the player by one.
     /// </summary>
     /// <returns>True if number of penalties left is greater than 0, false if it is not.</returns>
-    public bool Decrement()
+    public void Decrement()
     {
+        if (PenaltiesLeft <= 0)
+            return;
+
         GameObject penaltyObject = _penaltyObjects.Dequeue();
         Destroy(penaltyObject);
-        return _penaltyObjects.Count > 0;
     }
 }
