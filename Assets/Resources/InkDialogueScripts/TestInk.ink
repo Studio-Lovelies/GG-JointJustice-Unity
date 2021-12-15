@@ -1,6 +1,6 @@
 &FADE_OUT:0
-&SHOWACTOR:False
-&PLAYSONG:prologueInPMinor
+&SHOW_ACTOR:False
+&PLAY_SONG:prologueInPMinor
 
 &SPEAK:Ross
 After all the work I put into those levels...

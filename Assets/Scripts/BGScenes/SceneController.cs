@@ -9,7 +9,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("List of BG scenes in the unity scene, needs to be dragged here for every scene")]
     [SerializeField] private BGSceneList _sceneList;
-    
+
     [Tooltip("Drag a FadeToImageController here.")]
     [SerializeField] private ImageFader _imageFader;
 
@@ -21,7 +21,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
     [SerializeField] private Animatable _fullscreenAnimationPlayer;
-    
+
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
@@ -51,7 +51,7 @@ public class SceneController : MonoBehaviour, ISceneController
     private Coroutine _panToPositionCoroutine;
 
     private BGScene _activeScene;
-    
+
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
@@ -63,7 +63,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
         else
         {
-            _directorActionDecoder.SetSceneController(this);
+            _directorActionDecoder.Decoder.SceneController = this;
         }
 
     }
@@ -79,7 +79,7 @@ public class SceneController : MonoBehaviour, ISceneController
             Debug.LogError($"Could not begin fade in. {name} does not have a FadeToImageTransition component attached.");
             return;
         }
-        
+
         _onWaitStart.Invoke();
         _imageFader.StartFade(1, 0, seconds, _onWaitComplete);
     }
@@ -95,7 +95,7 @@ public class SceneController : MonoBehaviour, ISceneController
             Debug.LogError($"Could not begin fade out. {name} does not have a FadeToImageTransition component attached.");
             return;
         }
-        
+
         _onWaitStart.Invoke();
         _imageFader.StartFade(0, 1, seconds, _onWaitComplete);
     }
@@ -142,7 +142,7 @@ public class SceneController : MonoBehaviour, ISceneController
         {
             StopCoroutine(_panToPositionCoroutine);
         }
-        
+
         if (_activeScene != null)
         {
             _onActorChanged.Invoke(_activeScene.ActiveActor);
@@ -180,7 +180,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="item">The name of the item to show.</param>
     /// <param name="position">The position of the item's image on the screen (left, middle, right).</param>
-    public void ShowItem(string item, itemDisplayPosition position)
+    public void ShowItem(string item, ItemDisplayPosition position)
     {
         if (_evidenceInventory == null)
         {
@@ -206,7 +206,7 @@ public class SceneController : MonoBehaviour, ISceneController
         {
             Debug.LogError($"Cannot hide item, no ItemDisplay component assigned to {name}.", gameObject);
         }
-        
+
         _itemDisplay.HideItem();
     }
 
@@ -218,7 +218,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         if (!HasFullScreenAnimationPlayer())
             return;
-        
+
         _fullscreenAnimationPlayer.PlayAnimation(animationName);
     }
 
@@ -240,7 +240,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         Debug.LogWarning("ShowActor not implemented");
     }
-    
+
     public void HideActor()
     {
         Debug.LogWarning("HideActor not implemented");
@@ -324,7 +324,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         if (_waitCoroutine == null)
             return;
-        
+
         StopCoroutine(_waitCoroutine);
         _waitCoroutine = null;
     }

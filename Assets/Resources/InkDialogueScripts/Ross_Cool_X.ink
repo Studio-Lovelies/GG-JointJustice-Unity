@@ -55,7 +55,7 @@
 
 
 === Line1Press ===
-&PLAYSFX:holdItArin
+&PLAY_SFX:holdItArin
 &WAIT:0.2
 &PAN_TO_POSITION:1,0.5
 &WAIT:0.5
@@ -79,7 +79,7 @@ Ross, continue your testimony.
 
 
 === Line2Press ===
-&PLAYSFX:holdItArin
+&PLAY_SFX:holdItArin
 &WAIT:0.2
 &PAN_TO_POSITION:1,0.5
 &WAIT:0.5
@@ -104,7 +104,7 @@ Witness, carry on.
 -> Line3
 
 === Line4Press ===
-&PLAYSFX:holdItArin
+&PLAY_SFX:holdItArin
 &WAIT:0.2
 &PAN_TO_POSITION:1,0.5
 &WAIT:0.5
@@ -136,7 +136,7 @@ I'll just pretend that didn't happen.
 
 
 === Finale ===
-&PLAYSFX:objectionArin
+&PLAY_SFX:objectionArin
 &PAN_TO_POSITION:1,0.5
 &PLAY_EMOTION:Objection
 &SPEAK:Arin

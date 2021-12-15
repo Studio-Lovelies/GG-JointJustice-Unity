@@ -20,18 +20,18 @@ public class ItemDisplay : MonoBehaviour
     /// </summary>
     /// <param name="itemSprite">The sprite of the item to display.</param>
     /// <param name="displayPosition">The position of the item to display.</param>
-    public void ShowItem(Sprite itemSprite, itemDisplayPosition displayPosition)
+    public void ShowItem(Sprite itemSprite, ItemDisplayPosition displayPosition)
     {
         HideItem();
         switch (displayPosition)
         {
-            case itemDisplayPosition.Left:
+            case ItemDisplayPosition.Left:
                 EnableAndSetImage(_itemLeft, itemSprite);
                 break;
-            case itemDisplayPosition.Middle:
+            case ItemDisplayPosition.Middle:
                 EnableAndSetImage(_itemMiddle, itemSprite);
                 break;
-            case itemDisplayPosition.Right:
+            case ItemDisplayPosition.Right:
                 EnableAndSetImage(_itemRight, itemSprite);
                 break;
         }

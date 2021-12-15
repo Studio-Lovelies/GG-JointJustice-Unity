@@ -13,7 +13,7 @@ This is my leaning in pose.
 &SPEAK:Arin
 That's really cool dan!
 
-&PLAYSFX:objectionArin
+&PLAY_SFX:objectionArin
 &SET_POSE:Objection
 &WAIT:1.5
 &WAIT_FOR_INPUT
@@ -30,7 +30,7 @@ Nothing, I just wanted to show off my objection animation.
 &SPEAK:Dan
 Oh, in that case I want to show my air guitar animation.
 
-&PLAYSFX:airGuitar
+&PLAY_SFX:airGuitar
 &PLAY_EMOTION:AirGuitar
 
 &SET_POSE:Normal
