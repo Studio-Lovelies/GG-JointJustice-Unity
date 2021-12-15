@@ -28,8 +28,7 @@ public class PenaltyManager : MonoBehaviour
     /// <returns>True if number of penalties left is greater than 0, false if it is not.</returns>
     public void Decrement()
     {
-        if (PenaltiesLeft <= 0)
-            return;
+        Debug.Assert(PenaltiesLeft > 0, "Decrement must not be called with 0 or fewer penalty lifelines left");
 
         GameObject penaltyObject = _penaltyObjects.Dequeue();
         Destroy(penaltyObject);
