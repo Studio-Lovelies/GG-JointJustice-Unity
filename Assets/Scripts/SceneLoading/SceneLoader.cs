@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -36,15 +35,23 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void ChangeSceneBySceneIndex()
     {
+        ChangeSceneBySceneIndex(_sceneIndex);
+    }
+
+    /// <summary>
+    /// Overload which allows the function to be called with the scene index as an argument
+    /// </summary>
+    /// <param name="index">The index of the scene to load</param>
+    public void ChangeSceneBySceneIndex(int index)
+    {
         if (!Busy)
         {
-            _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneIndex, LoadSceneMode.Single);
+            _sceneLoadOperation = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
             if (_sceneLoadOperation != null)
             {
                 Busy = true;
                 Transition();
             }
-            
         }
     }
 

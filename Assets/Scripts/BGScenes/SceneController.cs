@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
@@ -30,6 +31,9 @@ public class SceneController : MonoBehaviour, ISceneController
     
     [Tooltip("Drag a PenaltyManager object here.")]
     [SerializeField] private PenaltyManager _penaltyManager;
+
+    [Tooltip("Drag a SceneLoader object here.")]
+    [SerializeField] private SceneLoader _sceneLoader;
 
     [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
@@ -349,5 +353,14 @@ public class SceneController : MonoBehaviour, ISceneController
         {
             _onGameOver.Invoke();
         }
+    }
+
+    /// <summary>
+    /// Forces a scene reload.
+    /// Called in narrative scripts when a scene needs to be restarted.
+    /// </summary>
+    public void ReloadScene()
+    {
+        _sceneLoader.ChangeSceneBySceneIndex(SceneManager.GetActiveScene().buildIndex);
     }
 }

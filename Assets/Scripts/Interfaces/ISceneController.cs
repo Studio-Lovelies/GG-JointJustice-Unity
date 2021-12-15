@@ -24,4 +24,5 @@ public interface ISceneController
     void HideItem();
     void PlayAnimation(string animationName);
     void IssuePenalty();
+    void ReloadScene();
 }

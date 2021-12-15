@@ -309,6 +309,17 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
 
+    private void ISSUE_PENALTY()
+    {
+        SceneController.IssuePenalty();
+        OnActionDone?.Invoke();
+    }
+
+    private void RELOAD_SCENE()
+    {
+        SceneController.ReloadScene();
+    }
+
     #endregion
 
     #region ActorController
