@@ -362,6 +362,6 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     public void ReloadScene()
     {
-        _sceneLoader.ChangeSceneBySceneIndex(SceneManager.GetActiveScene().buildIndex);
+        _sceneLoader.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
