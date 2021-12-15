@@ -6,7 +6,7 @@ public class PenaltyManager : MonoBehaviour
     [Tooltip("Drag the prefab for the penalty UI object here.")]
     [SerializeField]private GameObject _penaltyObject;
 
-    private Queue<GameObject> _penaltyObjects = new Queue<GameObject>();
+    private readonly Queue<GameObject> _penaltyObjects = new Queue<GameObject>();
 
     public int PenaltiesLeft => _penaltyObjects.Count;
 
