@@ -114,7 +114,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
             var dialogueController = Object.FindObjectOfType<DialogueController>();
 
-            for (int i = 1; i > 0; i--)
+            for (int i = 5; i > 0; i--)
             {
                 yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
                 
@@ -122,14 +122,13 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
                 yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
                 var subStory = Find("SubStory(Clone)");
-                while (subStory != null)
+                while (subStory != null && penaltyManager.PenaltiesLeft > 0)
                 {
                     yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
                 }
                 Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);
             }
-
-            yield return new WaitForSeconds(1);
+            
             var gameOverStory = Find("SubStory(Clone)");
             Assert.IsNotNull(gameOverStory);
         }
