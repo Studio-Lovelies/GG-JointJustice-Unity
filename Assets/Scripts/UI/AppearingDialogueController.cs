@@ -122,7 +122,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         _allWaiters[WaiterType.DefaultPunctuation].waitTime = _defaultPunctuationAppearTime;
 
         //If the textbox is using autosize, lets take if off or else the text will keep changing size when more dialog appears. 
-        _currentAppearTime = _defaultAppearTime;
+        _currentAppearTime = 1 / _defaultAppearTime;
     }
 
     ///<summary>
@@ -225,7 +225,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             _timer += Time.deltaTime;
         }
-
+        Debug.Log(_timer + " " + _currentAppearTime);
         if (_timer >= _currentAppearTime)
         {
             NextLetter();
@@ -499,7 +499,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     public void SetTimerValue(WaiterType waiterTypeToChange, float newAppearTime)
     {
         _allWaiters[waiterTypeToChange].inUse = true;
-        _allWaiters[waiterTypeToChange].waitTime = newAppearTime;
+        _allWaiters[waiterTypeToChange].waitTime = 1f / newAppearTime;
     }
 
     ///<summary>
