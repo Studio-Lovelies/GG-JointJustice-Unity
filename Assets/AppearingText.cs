@@ -10,6 +10,9 @@ public class AppearingText : MonoBehaviour
     [Tooltip("Drag a TextMeshProUGUI component here.")]
     [SerializeField] private TextMeshProUGUI _textBox;
 
+    [Tooltip("Drag the speech panel game object here")]
+    [SerializeField] private GameObject _speechPanel;
+    
     [Tooltip("The number of characters that will appear in one second.")]
     [SerializeField] private float _charactersPerSecond;
 
@@ -33,6 +36,13 @@ public class AppearingText : MonoBehaviour
         }
     }
 
+    public float SpeedMultiplier { get; set; } = 1;
+    public bool SkippingDisabled { get; set; }
+    public bool ContinueDialogue { get; set; }
+    public bool AutoSkip { get; set; }
+    public bool AppearInstantly { get; set; }
+    public bool TextBoxHidden { get; set; }
+
     private void Awake()
     {
         CharactersPerSecond = _charactersPerSecond;
@@ -44,6 +54,7 @@ public class AppearingText : MonoBehaviour
     /// <param name="text">The text to print.</param>
     public void PrintText(string text)
     {
+        _speechPanel.gameObject.SetActive(true);
         _textBox.text = text;
         _textBox.maxVisibleCharacters = 0;
         _textBox.ForceMeshUpdate();
@@ -59,7 +70,8 @@ public class AppearingText : MonoBehaviour
         for (int i = 0; i < textInfo.characterCount; i++)
         {
             _textBox.maxVisibleCharacters++;
-            yield return new WaitForSeconds(GetDelay(textInfo.characterInfo[_textBox.maxVisibleCharacters - 1].character));
+            char currentCharacter = textInfo.characterInfo[_textBox.maxVisibleCharacters - 1].character;
+            yield return new WaitForSeconds(GetDelay(currentCharacter) / SpeedMultiplier);
         }
         _onLineEnd.Invoke();
     }
@@ -74,7 +86,7 @@ public class AppearingText : MonoBehaviour
         if (char.IsPunctuation(character))
         {
             var pair = _punctuationDelay.FirstOrDefault(punctuation => punctuation.Item1 == character);
-            return pair.Item1 == '\0' ? _defaultPunctutationDelay : pair.Item2;
+            return pair.Item1 == '\0' ? _defaultPunctutationDelay: pair.Item2;
         }
 
         return _characterDelay;

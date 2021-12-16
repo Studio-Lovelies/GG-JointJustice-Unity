@@ -889,30 +889,30 @@ MonoBehaviour:
   _onSpeedupTextStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5228303784783594414}
-        m_TargetAssemblyTypeName: AppearingDialogueController, GG-JointJustice
-        m_MethodName: SpeedupText
-        m_Mode: 6
+      - m_Target: {fileID: 3677055759813406900}
+        m_TargetAssemblyTypeName: AppearingText, Assembly-CSharp
+        m_MethodName: set_SpeedMultiplier
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 4
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
   _onSpeedupTextEnd:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5228303784783594414}
-        m_TargetAssemblyTypeName: AppearingDialogueController, GG-JointJustice
-        m_MethodName: SpeedupText
-        m_Mode: 6
+      - m_Target: {fileID: 3677055759813406900}
+        m_TargetAssemblyTypeName: AppearingText, Assembly-CSharp
+        m_MethodName: set_SpeedMultiplier
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1500,7 +1500,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textBox: {fileID: 160785083171597126}
+  _speechPanel: {fileID: 160785081537499208}
   _charactersPerSecond: 6
+  _defaultPunctutationDelay: 0.25
+  _punctuationDelay:
+  - <Item1>k__BackingField: 44
+    <Item2>k__BackingField: 0.1
   _onLineEnd:
     m_PersistentCalls:
       m_Calls:
