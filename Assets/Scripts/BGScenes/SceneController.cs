@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
@@ -27,6 +28,12 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Attach the screenshaker object here")]
     [SerializeField] private ScreenShaker _screenShaker;
+    
+    [Tooltip("Drag a PenaltyManager object here.")]
+    [SerializeField] private PenaltyManager _penaltyManager;
+
+    [Tooltip("Drag a SceneLoader object here.")]
+    [SerializeField] private SceneLoader _sceneLoader;
 
     [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
@@ -40,6 +47,9 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Event that gets called when the active bg-scene changes")]
     [SerializeField] private UnityEvent<BGScene> _onSceneChanged;
+
+    [Tooltip("Event that is called when player runs out of lives.")]
+    [SerializeField] private UnityEvent _onGameOver;
 
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
@@ -331,5 +341,27 @@ public class SceneController : MonoBehaviour, ISceneController
     public Vector2 PixelPositionToUnitPosition(Vector2Int pixelPosition)
     {
         return new Vector2((float)(pixelPosition.x * -1) / _pixelsPerUnit, (float)(pixelPosition.y * -1) / _pixelsPerUnit);
+    }
+
+    /// <summary>
+    /// Issues a penalty to the player, decrementing their lives by one.
+    /// If their lives are zero the game over event is called.
+    /// </summary>
+    public void IssuePenalty()
+    {
+        _penaltyManager.Decrement();
+        if (_penaltyManager.PenaltiesLeft <= 0)
+        {
+            _onGameOver.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// Forces a scene reload.
+    /// Called in narrative scripts when a scene needs to be restarted.
+    /// </summary>
+    public void ReloadScene()
+    {
+        _sceneLoader.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

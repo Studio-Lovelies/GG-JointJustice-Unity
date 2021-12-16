@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,12 +13,6 @@ public class SceneLoader : MonoBehaviour
 {
     public bool Busy { get; private set; }
 
-    [SerializeField, Tooltip("The name of the scene to load")]
-    private string _sceneName;
-
-    [SerializeField, Tooltip("The index of the scene to load")]
-    private int _sceneIndex;
-
     [SerializeField, Tooltip("Assign a loading bar here if required")]
     private Slider _loadingBar;
 
@@ -32,30 +25,13 @@ public class SceneLoader : MonoBehaviour
     }
 
     /// <summary>
-    /// Call this method when wanting to change the scene using a specific scene's index.
-    /// </summary>
-    public void ChangeSceneBySceneIndex()
-    {
-        if (!Busy)
-        {
-            _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneIndex, LoadSceneMode.Single);
-            if (_sceneLoadOperation != null)
-            {
-                Busy = true;
-                Transition();
-            }
-            
-        }
-    }
-
-    /// <summary>
     /// Call this method when wanting to change the scene using a specific scene's name.
     /// </summary>
-    public void ChangeSceneBySceneName()
+    public void LoadScene(string sceneName)
     {
         if (!Busy)
         {
-            _sceneLoadOperation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Single);
+            _sceneLoadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
             if (_sceneLoadOperation != null)
             {
                 Busy = true;
