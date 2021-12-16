@@ -5,8 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AppearingText : MonoBehaviour
+public class AppearingText : MonoBehaviour, IAppearingText
 {
+    [Tooltip("Drag a DirectorActionDecoder component here.")]
+    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+    
     [Tooltip("Drag a TextMeshProUGUI component here.")]
     [SerializeField] private TextMeshProUGUI _textBox;
 
@@ -16,16 +19,18 @@ public class AppearingText : MonoBehaviour
     [Tooltip("The number of characters that will appear in one second.")]
     [SerializeField] private float _charactersPerSecond;
 
-    [Tooltip("Set the default delay for punctuation characters here.")]
-    [SerializeField] private float _defaultPunctutationDelay;
+    [field: Tooltip("Set the default delay for punctuation characters here.")]
+    [field: SerializeField] public float DefaultPunctuationDelay { private get; set; }
 
     [Tooltip("Add punctuation characters and their delay values here.")]
     [SerializeField] private Pair<char, float>[] _punctuationDelay;
 
     [Header("Events")]
     [SerializeField] private UnityEvent _onLineEnd;
+    [SerializeField] private UnityEvent _onAutoSkip;
     
     private float _characterDelay;
+    private TMP_TextInfo _textInfo;
 
     public float CharactersPerSecond
     {
@@ -41,10 +46,16 @@ public class AppearingText : MonoBehaviour
     public bool ContinueDialogue { get; set; }
     public bool AutoSkip { get; set; }
     public bool AppearInstantly { get; set; }
-    public bool TextBoxHidden { get; set; }
+
+    public bool TextBoxHidden
+    {
+        set => _speechPanel.gameObject.SetActive(!value);
+    }
 
     private void Awake()
     {
+        _textInfo = _textBox.textInfo;
+        _directorActionDecoder.Decoder.AppearingText = this;
         CharactersPerSecond = _charactersPerSecond;
     }
 
@@ -54,10 +65,29 @@ public class AppearingText : MonoBehaviour
     /// <param name="text">The text to print.</param>
     public void PrintText(string text)
     {
-        _speechPanel.gameObject.SetActive(true);
-        _textBox.text = text;
-        _textBox.maxVisibleCharacters = 0;
+        TextBoxHidden = false;
+
+        if (ContinueDialogue)
+        {
+            _textBox.text += text;
+            _textBox.maxVisibleCharacters = _textBox.textInfo.characterCount;
+            ContinueDialogue = false;
+        }
+        else
+        {
+            _textBox.text = text;
+            _textBox.maxVisibleCharacters = 0;
+        }
+        
         _textBox.ForceMeshUpdate();
+        
+        if (AppearInstantly)
+        {
+            _textBox.maxVisibleCharacters = Int32.MaxValue;
+            AppearInstantly = false;
+            return;
+        }
+        
         StartCoroutine(PrintTextCoroutine());
     }
 
@@ -66,14 +96,19 @@ public class AppearingText : MonoBehaviour
     /// </summary>
     private IEnumerator PrintTextCoroutine()
     {
-        TMP_TextInfo textInfo = _textBox.textInfo;
-        for (int i = 0; i < textInfo.characterCount; i++)
+        for (int i = 0; i < _textInfo.characterCount; i++)
         {
             _textBox.maxVisibleCharacters++;
-            char currentCharacter = textInfo.characterInfo[_textBox.maxVisibleCharacters - 1].character;
-            yield return new WaitForSeconds(GetDelay(currentCharacter) / SpeedMultiplier);
+            char currentCharacter = _textInfo.characterInfo[_textInfo.characterCount - 1].character;
+            float speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
+            yield return new WaitForSeconds(GetDelay(currentCharacter) / speedMultiplier);
         }
         _onLineEnd.Invoke();
+
+        if (AutoSkip)
+        {
+            _onAutoSkip.Invoke();
+        }
     }
 
     /// <summary>
@@ -86,7 +121,7 @@ public class AppearingText : MonoBehaviour
         if (char.IsPunctuation(character))
         {
             var pair = _punctuationDelay.FirstOrDefault(punctuation => punctuation.Item1 == character);
-            return pair.Item1 == '\0' ? _defaultPunctutationDelay: pair.Item2;
+            return pair.Item1 == '\0' ? DefaultPunctuationDelay: pair.Item2;
         }
 
         return _characterDelay;

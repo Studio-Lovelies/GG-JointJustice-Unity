@@ -12,6 +12,7 @@ public class ActionDecoder
     public ISceneController SceneController { get; set; }
     public IAudioController AudioController { get; set; }
     public IEvidenceController EvidenceController { get; set; }
+    public IAppearingText AppearingText { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; }
 
     /// <summary>
@@ -142,50 +143,45 @@ public class ActionDecoder
     // ReSharper disable UnusedMember.Local
 #pragma warning disable IDE0051 // Remove unused private members
     #region AppearingDialogueController
-    private void DIALOG_SPEED(float seconds)
+    private void DIALOG_SPEED(float charactersPerSecond)
     {
-        AppearingDialogueController.SetTimerValue(WaiterType.Dialog, seconds);
-    }
-
-    private void OVERALL_SPEED(float seconds)
-    {
-        AppearingDialogueController.SetTimerValue(WaiterType.Overall, seconds);
+        AppearingText.CharactersPerSecond = charactersPerSecond;
+        OnActionDone?.Invoke();
     }
 
     private void PUNCTUATION_SPEED(float seconds)
     {
-        AppearingDialogueController.SetTimerValue(WaiterType.Punctuation, seconds);
-    }
-
-    private void CLEAR_SPEED()
-    {
-        AppearingDialogueController.ClearAllWaiters();
+        AppearingText.DefaultPunctuationDelay = seconds;
+        OnActionDone?.Invoke();
     }
 
     private void DISABLE_SKIPPING(bool value)
     {
-        AppearingDialogueController.ToggleDisableTextSkipping(value);
+        AppearingText.SkippingDisabled = value;
+        OnActionDone?.Invoke();
     }
 
     private void CONTINUE_DIALOG()
     {
-        AppearingDialogueController.ContinueDialog();
+        AppearingText.ContinueDialogue = true;
+        OnActionDone?.Invoke();
     }
 
     private void AUTO_SKIP(bool value)
     {
-        AppearingDialogueController.AutoSkipDialog(value);
+        AppearingText.AutoSkip = value;
+        OnActionDone?.Invoke();
     }
 
     private void APPEAR_INSTANTLY()
     {
-        AppearingDialogueController.PrintTextInstantly = true;
+        AppearingText.AppearInstantly = true;
         OnActionDone?.Invoke();
     }
 
     private void HIDE_TEXTBOX()
     {
-        AppearingDialogueController.HideTextbox();
+        AppearingText.TextBoxHidden = true;
         OnActionDone?.Invoke();
     }
     #endregion
