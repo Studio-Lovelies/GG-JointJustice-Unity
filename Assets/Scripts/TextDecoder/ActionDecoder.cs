@@ -12,7 +12,6 @@ public class ActionDecoder
     public ISceneController SceneController { get; set; }
     public IAudioController AudioController { get; set; }
     public IEvidenceController EvidenceController { get; set; }
-    public IAppearingText AppearingText { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; }
 
     /// <summary>
@@ -145,43 +144,43 @@ public class ActionDecoder
     #region AppearingDialogueController
     private void DIALOG_SPEED(float charactersPerSecond)
     {
-        AppearingText.CharactersPerSecond = charactersPerSecond;
+        AppearingDialogueController.CharactersPerSecond = charactersPerSecond;
         OnActionDone?.Invoke();
     }
 
     private void PUNCTUATION_SPEED(float seconds)
     {
-        AppearingText.DefaultPunctuationDelay = seconds;
+        AppearingDialogueController.DefaultPunctuationDelay = seconds;
         OnActionDone?.Invoke();
     }
 
     private void DISABLE_SKIPPING(bool value)
     {
-        AppearingText.SkippingDisabled = value;
+        AppearingDialogueController.SkippingDisabled = value;
         OnActionDone?.Invoke();
     }
 
     private void CONTINUE_DIALOG()
     {
-        AppearingText.ContinueDialogue = true;
+        AppearingDialogueController.ContinueDialogue = true;
         OnActionDone?.Invoke();
     }
 
     private void AUTO_SKIP(bool value)
     {
-        AppearingText.AutoSkip = value;
+        AppearingDialogueController.AutoSkip = value;
         OnActionDone?.Invoke();
     }
 
     private void APPEAR_INSTANTLY()
     {
-        AppearingText.AppearInstantly = true;
+        AppearingDialogueController.AppearInstantly = true;
         OnActionDone?.Invoke();
     }
 
     private void HIDE_TEXTBOX()
     {
-        AppearingText.TextBoxHidden = true;
+        AppearingDialogueController.TextBoxHidden = true;
         OnActionDone?.Invoke();
     }
     #endregion
