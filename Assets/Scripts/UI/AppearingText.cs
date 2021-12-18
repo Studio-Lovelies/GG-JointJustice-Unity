@@ -28,6 +28,7 @@ public class AppearingText : MonoBehaviour, IAppearingText
     [Header("Events")]
     [SerializeField] private UnityEvent _onLineEnd;
     [SerializeField] private UnityEvent _onAutoSkip;
+    [SerializeField] private UnityEvent _onLetterAppear;
     
     private float _characterDelay;
     private TMP_TextInfo _textInfo;
@@ -65,6 +66,7 @@ public class AppearingText : MonoBehaviour, IAppearingText
     /// <param name="text">The text to print.</param>
     public void PrintText(string text)
     {
+        text = text.TrimEnd('\n');
         TextBoxHidden = false;
 
         if (ContinueDialogue)
@@ -96,6 +98,7 @@ public class AppearingText : MonoBehaviour, IAppearingText
     /// </summary>
     private IEnumerator PrintTextCoroutine()
     {
+        
         for (int i = 0; i < _textInfo.characterCount; i++)
         {
             _textBox.maxVisibleCharacters++;

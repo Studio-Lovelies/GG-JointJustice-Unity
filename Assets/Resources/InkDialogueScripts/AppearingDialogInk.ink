@@ -1,4 +1,13 @@
 &SPEAK:Arin
+&AUTO_SKIP:True
+This text is slow
+&CONTINUE_DIALOG
+&DIALOG_SPEED:50
+and this text is fast
+&DIALOG_SPEED:12
+&CONTINUE_DIALOG
+&AUTO_SKIP:False
+and this text is slow again
 Hey Dan, look at this!
 
 &SPEAK:Dan
