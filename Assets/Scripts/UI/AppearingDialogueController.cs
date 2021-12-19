@@ -20,7 +20,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [SerializeField] private float _charactersPerSecond;
 
     [field: Tooltip("Set the default delay for punctuation characters here.")]
-    [field: SerializeField] public float DefaultPunctuationDelay { private get; set; }
+    [field: SerializeField] public float DefaultPunctuationDelay { get; set; }
 
     [Tooltip("Add punctuation characters and their delay values here.")]
     [SerializeField] private Pair<char, float>[] _punctuationDelay;
@@ -119,15 +119,15 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// </summary>
     /// <param name="character">The character to get the wait time for.</param>
     /// <returns>The time to wait.</returns>
-    private float GetDelay(char character)
+    public float GetDelay(char character)
     {
-        if (char.IsPunctuation(character))
+        if (!char.IsPunctuation(character))
         {
-            var pair = _punctuationDelay.FirstOrDefault(punctuation => punctuation.Item1 == character);
-            return pair.Item1 == '\0' ? DefaultPunctuationDelay: pair.Item2;
+            return _characterDelay;
         }
-
-        return _characterDelay;
+        
+        var pair = _punctuationDelay.FirstOrDefault(punctuation => punctuation.Item1 == character);
+        return pair.Item1 == '\0' ? DefaultPunctuationDelay: pair.Item2;
     }
 }
 

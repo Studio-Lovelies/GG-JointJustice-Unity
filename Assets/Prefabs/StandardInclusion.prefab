@@ -750,7 +750,6 @@ GameObject:
   - component: {fileID: 5228303783134667827}
   - component: {fileID: 5228303783134667828}
   - component: {fileID: 1851189106259518166}
-  - component: {fileID: 3978797351871056042}
   m_Layer: 0
   m_Name: StoryController
   m_TagString: Untagged
@@ -819,19 +818,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1851189106259518166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5228303783134667826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33de4f31ae9f94bf6a3ef7e8c1b64085, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _loadingBar: {fileID: 0}
---- !u!114 &3978797351871056042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
