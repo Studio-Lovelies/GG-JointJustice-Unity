@@ -4,9 +4,9 @@ using UnityEngine;
 public class PenaltyManager : MonoBehaviour
 {
     [Tooltip("Drag the prefab for the penalty UI object here.")]
-    [SerializeField]private GameObject _penaltyObject;
+    [SerializeField]private Animator _penaltyObject;
 
-    private readonly Queue<GameObject> _penaltyObjects = new Queue<GameObject>();
+    private readonly Queue<Animator> _penaltyObjects = new Queue<Animator>();
 
     public int PenaltiesLeft => _penaltyObjects.Count;
 
@@ -29,8 +29,6 @@ public class PenaltyManager : MonoBehaviour
     public void Decrement()
     {
         Debug.Assert(PenaltiesLeft > 0, "Decrement must not be called with 0 or fewer penalty lifelines left");
-
-        GameObject penaltyObject = _penaltyObjects.Dequeue();
-        Destroy(penaltyObject);
+        _penaltyObjects.Dequeue().Play("Explosion");
     }
 }
