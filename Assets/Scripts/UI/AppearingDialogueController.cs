@@ -71,7 +71,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
         if (ContinueDialogue)
         {
-            _textBox.text += text;
+            _textBox.text = $"{_textBox.text} {text}";
             _textBox.maxVisibleCharacters = _textBox.textInfo.characterCount;
             ContinueDialogue = false;
         }
@@ -98,10 +98,10 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// </summary>
     private IEnumerator PrintTextCoroutine()
     {
-        
         for (int i = 0; i < _textInfo.characterCount; i++)
         {
             _textBox.maxVisibleCharacters++;
+            _onLetterAppear.Invoke();
             char currentCharacter = _textInfo.characterInfo[_textInfo.characterCount - 1].character;
             float speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
             yield return new WaitForSeconds(GetDelay(currentCharacter) / speedMultiplier);
