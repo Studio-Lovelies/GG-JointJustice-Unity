@@ -1,15 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SceneLoader))]
 public class StoryController : MonoBehaviour
 {
     [Tooltip("List of inky dialogue scripts to be played in order")]
     [SerializeField] private List<Dialogue> _dialogueList;
-
+    
+    [Tooltip("Write the name of the next scene to load here.")]
+    [SerializeField] private string _nextSceneName;
+    
     [Header("Events")]
     [SerializeField] private UnityEvent<Dialogue> _onNextDialogueScript;
+    [SerializeField] private UnityEvent _onCrossExaminationStart;
 
     private SceneLoader _sceneLoader;
     private int _currentStory = -1;
@@ -50,10 +55,14 @@ public class StoryController : MonoBehaviour
         if (_currentStory >= _dialogueList.Count)
         {
             if (!_sceneLoader.Busy)
-                _sceneLoader.ChangeSceneBySceneName();
+                _sceneLoader.LoadScene(_nextSceneName);
         }
         else
         {
+            if (_dialogueList[_currentStory].ScriptType == DialogueControllerMode.CrossExamination)
+            {
+                _onCrossExaminationStart.Invoke();
+            }
             _onNextDialogueScript.Invoke(_dialogueList[_currentStory]);
         }
     }

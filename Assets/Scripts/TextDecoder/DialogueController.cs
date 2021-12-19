@@ -59,6 +59,8 @@ public class DialogueController : MonoBehaviour
 
     private bool _isAtChoice; //Possibly small state machine to handle all input?
 
+    public string NarrativeScriptName => _narrativeScript.name;
+    
     /// <summary>
     /// Initialize a sub story by hooking the events to the parent dialogue so everything propagates down correctly
     /// </summary>
@@ -77,6 +79,7 @@ public class DialogueController : MonoBehaviour
     /// <param name="dialogue">Dialogue to switch to</param>
     public void SetNewDialogue(Dialogue dialogue)
     {
+        _narrativeScript = dialogue.NarrativeScript;
         _inkStory = new Story(dialogue.NarrativeScript.text);
         _dialogueMode = dialogue.ScriptType;
         OnContinueStory(); //Auto start
