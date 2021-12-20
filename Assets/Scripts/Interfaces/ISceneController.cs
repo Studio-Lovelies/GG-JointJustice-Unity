@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum itemDisplayPosition
+public enum ItemDisplayPosition
 {
     Left,
     Right,
@@ -17,7 +17,7 @@ public interface ISceneController
     void PanCamera(float seconds, Vector2Int finalPosition);
     void PanToActorSlot(int oneBasedSlotIndex, float seconds);
     void JumpToActorSlot(int oneBasedSlotIndex);
-    void ShowItem(string item, itemDisplayPosition position);
+    void ShowItem(string item, ItemDisplayPosition position);
     void ShowActor();
     void HideActor();
     void Wait(float seconds);
@@ -26,5 +26,7 @@ public interface ISceneController
     void Objection(string actorName);
     void HoldIt(string actorName);
     void TakeThat(string actorName);
-    void Shoutout(string actorName, string shoutName);
+    void Shout(string actorName, string shoutName);
+    void IssuePenalty();
+    void ReloadScene();
 }

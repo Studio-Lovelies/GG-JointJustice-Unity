@@ -6,6 +6,8 @@ using Tests.PlayModeTests.Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
+using static UnityEngine.GameObject;
+using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scenes.CrossExamination
 {
@@ -29,6 +31,8 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             Assert.False(evidenceMenu.isActiveAndEnabled);
 
             Assert.AreNotEqual(0, InputTestTools.FindInactiveInScene<DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
+            
+            Object.Destroy(Find("SubStory(Clone)"));
         }
 
         [UnityTest]
@@ -55,6 +59,8 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             Assert.True(evidenceMenu.isActiveAndEnabled);
 
             Assert.AreEqual(subStoryCount, InputTestTools.FindInactiveInScene<global::DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
+
+            Object.Destroy(Find("SubStory(Clone)"));
         }
 
         [UnityTest]
@@ -100,6 +106,35 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 GameObject gameObject = controller.gameObject;
                 return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
             }));
+            
+            Object.Destroy(Find("SubStory(Clone)"));
+        }
+
+        [UnityTest]
+        [ReloadScene("Assets/Scenes/CrossExamination - TestScene.unity")]
+        public IEnumerator GameOverPlaysOnNoLivesLeft()
+        {
+            var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
+            var dialogueController = Object.FindObjectOfType<DialogueController>();
+
+            for (int i = 5; i > 0; i--)
+            {
+                yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
+
+                Assert.AreEqual(i, penaltyManager.PenaltiesLeft);
+                yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
+                yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
+                var subStory = Find("SubStory(Clone)");
+                while (subStory != null && penaltyManager.PenaltiesLeft > 0)
+                {
+                    yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+                }
+
+                Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);
+            }
+
+            var dialogueControllers = Object.FindObjectsOfType<DialogueController>();
+            Assert.IsTrue(dialogueControllers.Any(controller => controller.NarrativeScriptName == "TMPH_GameOver"));
         }
     }
 }

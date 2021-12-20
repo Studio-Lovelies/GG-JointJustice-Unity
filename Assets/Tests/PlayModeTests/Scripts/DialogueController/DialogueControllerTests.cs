@@ -40,10 +40,10 @@ namespace Tests.PlayModeTests.Scripts.DialogueController
             FieldInfo onNewLineFieldInfo = dialogueController.GetType().GetField("_onNewLine", BindingFlags.NonPublic | BindingFlags.Instance);
             onNewLineFieldInfo?.SetValue(dialogueController, new UnityEvent());
 
-            dialogueController.SetNarrativeScript(new TextAsset(ActionFollowedByScriptSerializedInk));
+            global::Dialogue testDialogue = new global::Dialogue(new TextAsset(ActionFollowedByScriptSerializedInk), global::DialogueControllerMode.Dialogue);
+            dialogueController.SetNewDialogue(testDialogue);
 
             // Run both lines
-            dialogueController.OnContinueStory();
             dialogueController.OnContinueStory();
             
             // Assert their existence due to the events being called

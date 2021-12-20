@@ -3,7 +3,8 @@
 &SPEAK:Dan
 Arin...
 
-&SCENE:TMPH_Defense
+&SCENE:TMPH_Court
+&JUMP_TO_POSITION:1
 &SPEAK:Arin
 What? It's the right answer, right?
 
@@ -13,7 +14,7 @@ What? It's the right answer, right?
 &SET_POSE:Angry
 No arin, we're getting a penalty for that one.
 
-&SCENE:TMPH_Defense
+&SCENE:TMPH_Court
 &SPEAK:Arin
 Wait, really?
 
@@ -22,7 +23,7 @@ Wait, really?
 &SPEAK:Brent_Judge
 Yes!
 
-&SCENE:TMPH_Defense
+&SCENE:TMPH_Court
 &ACTOR:Arin
 &PLAY_EMOTION:ShockAnimation
 &WAIT:0.5
@@ -31,4 +32,5 @@ Yes!
 OOF.
 &THINK:Arin
 <color=\#0084ff>(I need to be more thoughtful and pay more attention I guess.)
+&ISSUE_PENALTY
     -> END

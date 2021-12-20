@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using TMPro;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -19,7 +20,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator MouseShouldHighlightEvidenceMenuItems()
         {
             yield return null;
-            yield return new WaitForSeconds(1); // Without this the text is huge for some reason.
+            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
+            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
             Transform canvasTransform = Object.FindObjectOfType<Canvas>().transform;
             Vector3 canvasScale = Vector3.right * canvasTransform.localScale.x;
             global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];

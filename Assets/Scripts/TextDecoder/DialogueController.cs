@@ -22,7 +22,7 @@ public class DialogueController : MonoBehaviour
 {
     private const char ACTION_TOKEN = '&';
 
-    [SerializeField] private TextAsset _narrativeScript;
+    private TextAsset _narrativeScript;
 
     [SerializeField] private DialogueControllerMode _dialogueMode = DialogueControllerMode.Dialogue;
 
@@ -30,10 +30,9 @@ public class DialogueController : MonoBehaviour
 
     [SerializeField] private DialogueController _dialogueControllerPrefab;
 
-    [Header("Events")]
+    public bool IsBusy { get; private set; }
 
-    [Tooltip("Attach a scene controller to this so it can cancel 'wait' actions on new lines.")]
-    [SerializeField] private UnityEvent _onNewLine;
+    [Header("Events")]
 
     [Tooltip("Attach a dialogue controller to this so it can display spoken lines")]
     [SerializeField] private UnityEvent<string> _onNewSpokenLine;
@@ -60,19 +59,10 @@ public class DialogueController : MonoBehaviour
 
     private bool _isAtChoice; //Possibly small state machine to handle all input?
 
+    public string NarrativeScriptName => _narrativeScript.name;
+    
     /// <summary>
-    /// Called when the object is initialized
-    /// </summary>
-    void Start()
-    {
-        if (_narrativeScript != null)
-        {
-            SetNarrativeScript(_narrativeScript); //TODO:Disable this, for debug only
-        }
-    }
-
-    /// <summary>
-    /// Initialized a sub story by hooking the events to the parent dialogue so everything propagated down correctly
+    /// Initialize a sub story by hooking the events to the parent dialogue so everything propagates down correctly
     /// </summary>
     /// <param name="parent">Parent of this dialogue to hook everything in to</param>
     void SubStoryInit(DialogueController parent)
@@ -84,12 +74,15 @@ public class DialogueController : MonoBehaviour
     }
 
     /// <summary>
-    /// Used to start a new narrative script
+    /// Used to start a new narrative script, set the correct dialogue mode, and start it.
     /// </summary>
-    /// <param name="narrativeScript">JSON file to switch to</param>
-    public void SetNarrativeScript(TextAsset narrativeScript)
+    /// <param name="dialogue">Dialogue to switch to</param>
+    public void SetNewDialogue(Dialogue dialogue)
     {
-        _inkStory = new Story(narrativeScript.text);
+        _narrativeScript = dialogue.NarrativeScript;
+        _inkStory = new Story(dialogue.NarrativeScript.text);
+        _dialogueMode = dialogue.ScriptType;
+        OnContinueStory(); //Auto start
     }
 
     /// <summary>
@@ -97,9 +90,9 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     public void OnContinueStory()
     {
-        if (_isBusy || _isMenuOpen) //Doesn't need to be handled in the sub story
+        if (IsBusy || _isMenuOpen) //Doesn't need to be handled in the sub story
         {
-            Debug.Log($"Tried to continue while {(_isBusy ? "busy" : "menu is open")}");
+            Debug.Log($"Tried to continue while {(IsBusy ? "busy" : "menu is open")}");
             return;
         }
 
@@ -142,7 +135,7 @@ public class DialogueController : MonoBehaviour
     /// <param name="choice">The index of the choice to be picked (0 based)</param>
     public void HandleChoice(int choice)
     {
-        if (!_isAtChoice || _isBusy || _isMenuOpen)
+        if (!_isAtChoice || IsBusy || _isMenuOpen)
             return;
 
         if (choice > _inkStory.currentChoices.Count)
@@ -300,8 +293,6 @@ public class DialogueController : MonoBehaviour
                 return;
             }
 
-            _onNewLine.Invoke();
-
             if (IsAction(currentLine))
             {
                 _onNewActionLine.Invoke(currentLine);
@@ -338,8 +329,8 @@ public class DialogueController : MonoBehaviour
     /// <param name="busy">Sets the busy flag</param>
     public void SetBusy(bool busy)
     {
-        _isBusy = busy;
-        _onBusySet.Invoke(_isBusy);
+        IsBusy = busy;
+        _onBusySet.Invoke(IsBusy);
     }
 
     /// <summary>
@@ -362,8 +353,7 @@ public class DialogueController : MonoBehaviour
     {
         _subStory = Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
         _subStory.SubStoryInit(this); //RECURSION
-        _subStory.SetNarrativeScript(subStory);
-        _subStory.OnContinueStory();
+        _subStory.SetNewDialogue(new Dialogue(subStory, DialogueControllerMode.Dialogue));
     }
 
     /// <summary>

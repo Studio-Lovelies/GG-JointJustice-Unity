@@ -10,10 +10,10 @@ public class BGSceneList : MonoBehaviour
     /// <summary>
     /// Initializes the background scene dictionary
     /// </summary>
-    private void Start()
+    private void Awake()
     {
         _scenesInChildren = new Dictionary<string, BGScene>();
-        foreach(BGScene scene in GetComponentsInChildren<BGScene>(true))
+        foreach (BGScene scene in GetComponentsInChildren<BGScene>(true))
         {
             _scenesInChildren.Add(scene.gameObject.name, scene);
         }

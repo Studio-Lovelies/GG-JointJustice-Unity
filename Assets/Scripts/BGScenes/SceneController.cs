@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
@@ -33,10 +34,17 @@ public class SceneController : MonoBehaviour, ISceneController
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
     [Tooltip("Attach the screenshaker object here")]
+
     [SerializeField] private ObjectShaker _objectShaker;
 
     [Tooltip("Drag a Shout component here.")]
     [SerializeField] private ShoutPlayer _shoutPlayer;
+
+    [Tooltip("Drag a PenaltyManager object here.")]
+    [SerializeField] private PenaltyManager _penaltyManager;
+
+    [Tooltip("Drag a SceneLoader object here.")]
+    [SerializeField] private SceneLoader _sceneLoader;
 
     [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
@@ -50,6 +58,9 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Event that gets called when the active bg-scene changes")]
     [SerializeField] private UnityEvent<BGScene> _onSceneChanged;
+
+    [Tooltip("Event that is called when player runs out of lives.")]
+    [SerializeField] private UnityEvent _onGameOver;
 
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
@@ -67,7 +78,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
         else
         {
-            _directorActionDecoder.SetSceneController(this);
+            _directorActionDecoder.Decoder.SceneController = this;
         }
 
     }
@@ -126,6 +137,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         Vector2 startPos = _activeScene.transform.position;
         float percentagePassed = 0f;
+        BGScene targetScene = _activeScene;
         while (percentagePassed < 1)
         {
             percentagePassed += Time.deltaTime / timeInSeconds;
@@ -185,7 +197,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="item">The name of the item to show.</param>
     /// <param name="position">The position of the item's image on the screen (left, middle, right).</param>
-    public void ShowItem(string item, itemDisplayPosition position)
+    public void ShowItem(string item, ItemDisplayPosition position)
     {
         if (_evidenceInventory == null)
         {
@@ -392,9 +404,31 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="actorName">The name of the actor to shout.</param>
     /// <param name="shoutName">The name of the scout.</param>
-    public void Shoutout(string actorName, string shoutName)
+    public void Shout(string actorName, string shoutName)
     {
         SpriteAudioClipPair[] shoutVariants = _actorInventory[actorName].ShoutVariants;
         _shoutPlayer.PlayShout(shoutVariants.Single(variant => variant.Sprite.name == shoutName));
+    }
+
+    /// <summary>
+    /// Issues a penalty to the player, decrementing their lives by one.
+    /// If their lives are zero the game over event is called.
+    /// </summary>
+    public void IssuePenalty()
+    {
+        _penaltyManager.Decrement();
+        if (_penaltyManager.PenaltiesLeft <= 0)
+        {
+            _onGameOver.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// Forces a scene reload.
+    /// Called in narrative scripts when a scene needs to be restarted.
+    /// </summary>
+    public void ReloadScene()
+    {
+        _sceneLoader.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

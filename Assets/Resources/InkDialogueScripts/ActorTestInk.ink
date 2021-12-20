@@ -1,5 +1,5 @@
 &ACTOR:Dan
-&SHOWACTOR:True
+&SHOW_ACTOR:True
 
 &SPEAK:Dan
 Hello Jory!
@@ -8,7 +8,7 @@ Hello Jory!
 &SPEAK:Dan
 Watch this!
 
-&PLAYSFX:airGuitar
+&PLAY_SFX:airGuitar
 &PLAY_ANIMATION:AirGuitar
 
 &EMOTION:Normal

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -94,7 +94,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             return;
         }
 
-        _directorActionDecorder.SetAppearingDialogController(this);
+        _directorActionDecorder.Decoder.AppearingDialogueController = this;
 
         if (_controlledText == null)
         {
@@ -171,7 +171,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             PrintTextInstantly = false;
             yield break;
         }
-        
+
         while (_writingDialog)
         {
             WriteDialog();
@@ -189,7 +189,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             _textBoxGameObject.SetActive(true);
         }
-        
+
         StartCoroutine(StartDialogCoroutine(dialog));
     }
 
@@ -553,7 +553,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         _nameBackgroundImage.color = newColor;
     }
-    
+
     /// <summary>
     /// Hides the dialogue textbox.
     /// </summary>
