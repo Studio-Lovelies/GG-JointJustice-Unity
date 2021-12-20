@@ -144,7 +144,7 @@ public class ActionDecoder
     #region AppearingDialogueController
     private void DIALOG_SPEED(float charactersPerSecond)
     {
-        AppearingDialogueController.CharactersPerSecond = charactersPerSecond;
+        AppearingDialogueController.CharacterDelay = charactersPerSecond;
         OnActionDone?.Invoke();
     }
 

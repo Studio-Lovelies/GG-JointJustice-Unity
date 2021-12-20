@@ -1,6 +1,6 @@
 public interface IAppearingDialogueController
 {
-    float CharactersPerSecond { set; }
+    float CharacterDelay { get; set; }
     float DefaultPunctuationDelay { set; }
     bool SkippingDisabled { get; set; }
     bool ContinueDialogue { get; set; }

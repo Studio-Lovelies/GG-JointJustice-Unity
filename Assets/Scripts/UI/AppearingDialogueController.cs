@@ -16,8 +16,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Drag the speech panel game object here")]
     [SerializeField] private GameObject _speechPanel;
     
-    [Tooltip("The number of characters that will appear in one second.")]
-    [SerializeField] private float _charactersPerSecond;
+    [field: Tooltip("The time after one character appears and before the next character appears.")]
+    [field: SerializeField] public float CharacterDelay { get; set; }
 
     [field: Tooltip("Set the default delay for punctuation characters here.")]
     [field: SerializeField] public float DefaultPunctuationDelay { get; set; }
@@ -30,23 +30,15 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [SerializeField] private UnityEvent _onAutoSkip;
     [SerializeField] private UnityEvent _onLetterAppear;
     
-    private float _characterDelay;
+    
     private TMP_TextInfo _textInfo;
-
-    public float CharactersPerSecond
-    {
-        set
-        {
-            _charactersPerSecond = value;
-            _characterDelay = 1f / value;
-        }
-    }
 
     public float SpeedMultiplier { get; set; } = 1;
     public bool SkippingDisabled { get; set; }
     public bool ContinueDialogue { get; set; }
     public bool AutoSkip { get; set; }
     public bool AppearInstantly { get; set; }
+    public int MaxVisibleCharacters => _textBox.maxVisibleCharacters;
 
     public bool TextBoxHidden
     {
@@ -57,7 +49,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         _textInfo = _textBox.textInfo;
         _directorActionDecoder.Decoder.AppearingDialogueController = this;
-        CharactersPerSecond = _charactersPerSecond;
     }
 
     /// <summary>
@@ -66,6 +57,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <param name="text">The text to print.</param>
     public void PrintText(string text)
     {
+        StopAllCoroutines();
+        
         text = text.TrimEnd('\n');
         TextBoxHidden = false;
 
@@ -116,6 +109,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
     /// <summary>
     /// Return a time to wait for a given character.
+    /// If character is not found in the punctuation array
+    /// (i.e. the default null character is returned from FirstOrDefault)
+    /// then the default punctuation delay is returned.
     /// </summary>
     /// <param name="character">The character to get the wait time for.</param>
     /// <returns>The time to wait.</returns>
@@ -123,11 +119,11 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         if (!char.IsPunctuation(character))
         {
-            return _characterDelay;
+            return CharacterDelay;
         }
         
         var pair = _punctuationDelay.FirstOrDefault(punctuation => punctuation.Item1 == character);
-        return pair.Item1 == '\0' ? DefaultPunctuationDelay: pair.Item2;
+        return pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2;
     }
 }
 
