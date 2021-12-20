@@ -320,6 +320,25 @@ public class ActionDecoder
         SceneController.ReloadScene();
     }
 
+    private void OBJECTION(string actorName)
+    {
+        SceneController.Objection(actorName);
+    }
+
+    private void TAKE_THAT(string actorName)
+    {
+        SceneController.TakeThat(actorName);
+    }
+
+    private void HOLD_IT(string actorName)
+    {
+        SceneController.HoldIt(actorName);
+    }
+
+    private void SHOUT(string actorName, string shoutName)
+    {
+        SceneController.Shout(actorName, shoutName);
+    }
     #endregion
 
     #region ActorController

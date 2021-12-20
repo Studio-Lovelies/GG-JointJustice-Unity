@@ -24,7 +24,7 @@ I'm gonna shout again!
 &TAKE_THAT:Arin
 This next one sounds like a regular objection, but is actually a random variant.
 
-&SHOUTOUT:Arin,objection
+&SHOUT:Arin,objection
 Ok, I'm done.
 
 &OBJECTION:Tutorial_Boy
