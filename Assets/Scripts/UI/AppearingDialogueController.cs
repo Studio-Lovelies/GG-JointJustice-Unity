@@ -29,9 +29,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [SerializeField] private UnityEvent _onLineEnd;
     [SerializeField] private UnityEvent _onAutoSkip;
     [SerializeField] private UnityEvent _onLetterAppear;
-    
-    
+
     private TMP_TextInfo _textInfo;
+    private Coroutine _printCoroutine;
 
     public float SpeedMultiplier { get; set; } = 1;
     public bool SkippingDisabled { get; set; }
@@ -39,6 +39,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     public bool AutoSkip { get; set; }
     public bool AppearInstantly { get; set; }
     public int MaxVisibleCharacters => _textBox.maxVisibleCharacters;
+    public string Text => _textBox.GetParsedText();
+    public bool PrintingText { get; private set; }
 
     public bool TextBoxHidden
     {
@@ -57,16 +59,24 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <param name="text">The text to print.</param>
     public void PrintText(string text)
     {
-        StopAllCoroutines();
-        
+        if (_printCoroutine != null)
+        {
+            StopCoroutine(_printCoroutine);
+            _printCoroutine = null;
+            PrintingText = false;
+        }
+
         text = text.TrimEnd('\n');
         TextBoxHidden = false;
 
+        int startingIndex = 0;
         if (ContinueDialogue)
         {
+            startingIndex = _textInfo.characterCount;
             _textBox.text = $"{_textBox.text} {text}";
             _textBox.maxVisibleCharacters = _textBox.textInfo.characterCount;
             ContinueDialogue = false;
+            startingIndex -= Mathf.Abs(_textInfo.characterCount - startingIndex);
         }
         else
         {
@@ -83,19 +93,20 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             return;
         }
         
-        StartCoroutine(PrintTextCoroutine());
+        _printCoroutine = StartCoroutine(PrintTextCoroutine(startingIndex));
     }
 
     /// <summary>
     /// Coroutine to print text to the dialogue box over time
     /// </summary>
-    private IEnumerator PrintTextCoroutine()
+    private IEnumerator PrintTextCoroutine(int startingIndex)
     {
-        for (int i = 0; i < _textInfo.characterCount; i++)
+        PrintingText = true;
+        for (int i = startingIndex; i < _textInfo.characterCount; i++)
         {
             _textBox.maxVisibleCharacters++;
             _onLetterAppear.Invoke();
-            char currentCharacter = _textInfo.characterInfo[_textInfo.characterCount - 1].character;
+            char currentCharacter = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1].character;
             float speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
             yield return new WaitForSeconds(GetDelay(currentCharacter) / speedMultiplier);
         }
@@ -105,6 +116,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             _onAutoSkip.Invoke();
         }
+
+        PrintingText = false;
     }
 
     /// <summary>

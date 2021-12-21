@@ -77,13 +77,8 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
 
             yield return _inputTestTools.PressForFrame(key.xKey);
             AppearingDialogueController appearingDialogueController = InputTestTools.FindInactiveInScene<AppearingDialogueController>()[0];
-            FieldInfo writingDialogueField = appearingDialogueController.GetType().GetField("_writingDialog", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (writingDialogueField is null) // needed to satisfy Intellisense's "possible NullReferenceException" in line below conditional
-            {
-                Assert.IsNotNull(writingDialogueField);
-            }
 
-            while ((bool)writingDialogueField.GetValue(appearingDialogueController))
+            while (appearingDialogueController.PrintingText)
             {
                 yield return _inputTestTools.WaitForRepaint();
             }
@@ -91,7 +86,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             yield return _inputTestTools.PressForFrame(key.cKey);
             yield return _inputTestTools.PressForFrame(key.xKey);
 
-            while ((bool)writingDialogueField.GetValue(appearingDialogueController))
+            while (appearingDialogueController.PrintingText)
             {
                 yield return _inputTestTools.WaitForRepaint();
             }

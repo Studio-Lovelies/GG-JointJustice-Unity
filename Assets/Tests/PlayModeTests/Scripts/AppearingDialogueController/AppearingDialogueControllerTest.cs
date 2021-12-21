@@ -1,9 +1,8 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using NUnit.Framework;
+using Tests.PlayModeTests.Tools;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
@@ -20,24 +19,87 @@ public class AppearingDialogueControllerTest
     {
         yield return SceneManager.LoadSceneAsync("Inky-TestScene", LoadSceneMode.Additive);
         _appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
+        _appearingDialogueController.AutoSkip = false;
     }
 
     [UnityTest]
     public IEnumerator DialogueAppearsAtCorrectSpeed()
     {
-        const float INITIAL_CHARACTER_DELAY = 0.5f;
-        const float DELAY_DECREMENT = 0.1f;
-        const float WAIT_TIME = 5;
+        yield return TestCharacterDelay(0.7f, 0.1f, 0.5f, 5,TEST_TEXT, i => _appearingDialogueController.CharacterDelay = i);
+    }
 
-        for (float i = INITIAL_CHARACTER_DELAY; i > 0; i -= DELAY_DECREMENT)
+    [UnityTest]
+    public IEnumerator PunctuationAppearsAtCorrectSpeed()
+    {
+        yield return TestCharacterDelay(0.7f, 0.1f, 0.5f, 5, ".?!;:/.?!;:/", i => _appearingDialogueController.DefaultPunctuationDelay = i);
+    }
+
+    [UnityTest]
+    public IEnumerator SkippingCanBeDisabled()
+    {
+        _appearingDialogueController.SkippingDisabled = true;
+        InputTestTools inputTestTools = new InputTestTools();
+        inputTestTools.Press(inputTestTools.Keyboard.xKey);
+        yield return TestCharacterDelay(0.7f, 0.1f, 0.5f, 5, TEST_TEXT, i => _appearingDialogueController.CharacterDelay = i);
+    }
+
+    [UnityTest]
+    public IEnumerator DialogueCanBeContinuedWithoutClearingSpeechPanel()
+    {
+        const string TEST_TEXT_1 = "Test text 1";
+        const string TEST_TEXT_2 = "Test text 2";
+        
+        _appearingDialogueController.PrintText(TEST_TEXT_1);
+        yield return TestTools.WaitForState(() => _appearingDialogueController.Text == TEST_TEXT_1);
+        Assert.AreEqual(TEST_TEXT_1, _appearingDialogueController.Text);
+        _appearingDialogueController.ContinueDialogue = true;
+        _appearingDialogueController.PrintText(TEST_TEXT_2);
+        yield return TestTools.WaitForState(() => _appearingDialogueController.Text == $"{TEST_TEXT_1} {TEST_TEXT_2}");
+        Assert.AreEqual($"{TEST_TEXT_1} {TEST_TEXT_2}", _appearingDialogueController.Text);
+    }
+
+    [UnityTest]
+    public IEnumerator TextCanAppearInstantly()
+    {
+        _appearingDialogueController.AppearInstantly = true;
+        _appearingDialogueController.PrintText(TEST_TEXT);
+        Assert.AreEqual(TEST_TEXT, _appearingDialogueController.Text);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator TextBoxCanBeHidden()
+    {
+        var nameBox= Object.FindObjectOfType<NameBox>();
+        
+        Assert.IsTrue(nameBox.isActiveAndEnabled);
+        _appearingDialogueController.TextBoxHidden = true;
+        Assert.IsFalse(nameBox.isActiveAndEnabled);
+        yield return null;
+    }
+
+    /// <summary>
+    /// Method to test speed at which characters print.
+    /// Waits a certain amount of time, then checks to see
+    /// if the expected number of letters have been printed.
+    /// Iterates over a range of speeds down to a target speed.
+    /// </summary>
+    /// <param name="initialCharacterDelay">The initial delay between characters</param>
+    /// <param name="delayDecrement">The amount the delay decreases between each iteration</param>
+    /// <param name="minCharacterDelay">The target character delay</param>
+    /// <param name="waitTime">The time to test each iteration</param>
+    /// <param name="testString">The string to print</param>
+    /// <param name="testAction">The action to perform to update the character delay on each test</param>
+    /// <returns></returns>
+    private IEnumerator TestCharacterDelay(float initialCharacterDelay, float delayDecrement, float minCharacterDelay, float waitTime, string testString, Action<float> testAction)
+    {
+        for (float i = initialCharacterDelay; i > minCharacterDelay; i -= delayDecrement)
         {
-            _appearingDialogueController.CharacterDelay = i;
-            _appearingDialogueController.PrintText(TEST_TEXT);
+            testAction(i);
+            _appearingDialogueController.PrintText(testString);
 
-            yield return new WaitForSeconds(WAIT_TIME);
-         
-            Debug.Log(WAIT_TIME / i);
-            Assert.AreEqual(Mathf.Ceil(WAIT_TIME / i), _appearingDialogueController.MaxVisibleCharacters);
+            yield return new WaitForSeconds(waitTime);
+            Assert.AreEqual(Mathf.Ceil(waitTime / i), _appearingDialogueController.MaxVisibleCharacters);
         }
     }
 

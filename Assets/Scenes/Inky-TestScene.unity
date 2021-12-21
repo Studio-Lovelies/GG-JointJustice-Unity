@@ -453,25 +453,9 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1381546899063157008, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 1411788007532845118, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 187.09998
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400554, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2639252515008301615, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3697150471741588061, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_AnchorMax.x
@@ -827,46 +811,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
-    - target: {fileID: 4073949957937916147, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueList.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueList.Array.data[0].<ScriptType>k__BackingField
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _dialogueList.Array.data[1].<ScriptType>k__BackingField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueList.Array.data[0].<NarrativeScript>k__BackingField
       value: 
       objectReference: {fileID: 4900000, guid: 18c4a9fc6db265f42b8d438b4171dbb2, type: 3}
-    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _dialogueList.Array.data[1].<NarrativeScript>k__BackingField
-      value: 
-      objectReference: {fileID: 4900000, guid: 0c32d6e773ed15e46a4196127cc3585c, type: 3}
-    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onNewSpeakingActor.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5228303782951346618}
-    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onNewSpeakingActor.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetSpeaker
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onNewSpeakingActor.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NameBox, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: StandardInclusion
@@ -993,17 +953,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
---- !u!114 &5228303782951346618 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 966773609476897183, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-  m_PrefabInstance: {fileID: 5228303782951346616}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58def30ed0bd44d719b8c946c46d819e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7016246306410484242
 PrefabInstance:
   m_ObjectHideFlags: 0
