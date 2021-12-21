@@ -1454,8 +1454,7 @@ MonoBehaviour:
   _punctuationDelay:
   - <Item1>k__BackingField: 44
     <Item2>k__BackingField: 0.1
-  - <Item1>k__BackingField: 39
-    <Item2>k__BackingField: 0
+  _ignoredCharacters: 270028002900
   _onLineEnd:
     m_PersistentCalls:
       m_Calls:

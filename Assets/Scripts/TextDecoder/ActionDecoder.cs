@@ -142,9 +142,9 @@ public class ActionDecoder
     // ReSharper disable UnusedMember.Local
 #pragma warning disable IDE0051 // Remove unused private members
     #region AppearingDialogueController
-    private void DIALOG_SPEED(float charactersPerSecond)
+    private void DIALOGUE_SPEED(float characterDelay)
     {
-        AppearingDialogueController.CharacterDelay = charactersPerSecond;
+        AppearingDialogueController.CharacterDelay = characterDelay;
         OnActionDone?.Invoke();
     }
 
@@ -160,7 +160,7 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
 
-    private void CONTINUE_DIALOG()
+    private void CONTINUE_DIALOGUE()
     {
         AppearingDialogueController.ContinueDialogue = true;
         OnActionDone?.Invoke();

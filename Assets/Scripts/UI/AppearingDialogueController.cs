@@ -25,6 +25,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Add punctuation characters and their delay values here.")]
     [SerializeField] private Pair<char, float>[] _punctuationDelay;
 
+    [Tooltip("Add characters that should be treated like regular characters here.")]
+    [SerializeField] private char[] _ignoredCharacters;
+
     [Header("Events")]
     [SerializeField] private UnityEvent _onLineEnd;
     [SerializeField] private UnityEvent _onAutoSkip;
@@ -135,7 +138,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             return CharacterDelay;
         }
         
-        var pair = _punctuationDelay.FirstOrDefault(punctuation => punctuation.Item1 == character);
+        var pair = _punctuationDelay.FirstOrDefault(charFloatPair => charFloatPair.Item1 == character && !_ignoredCharacters.Contains(charFloatPair.Item1));
         return pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2;
     }
 }
