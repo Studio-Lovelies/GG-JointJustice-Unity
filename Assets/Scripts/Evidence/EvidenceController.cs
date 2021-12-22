@@ -47,7 +47,12 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
 
         if (_evidenceInventory == null)
         {
-            Debug.LogError("EvidenceDictionary has not been assigned to evidence controller.");
+            Debug.LogError("EvidenceInventory has not been assigned to evidence controller.");
+        }
+        
+        if (_actorInventory== null)
+        {
+            Debug.LogError("ActorInventory has not been assigned to evidence controller.");
         }
     }
 
