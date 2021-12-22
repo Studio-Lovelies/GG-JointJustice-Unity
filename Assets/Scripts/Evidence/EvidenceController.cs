@@ -13,10 +13,12 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
 
     [Tooltip("This event is called when a piece of evidence is clicked")]
     [SerializeField] private UnityEvent<ICourtRecordObject> _onPresentEvidence;
-
-    [FormerlySerializedAs("_evidenceDictionary")]
-    [Tooltip("Drag an EvidenceDictionary component here.")]
+    
+    [Tooltip("Drag an EvidenceInventory component here.")]
     [SerializeField] public EvidenceInventory _evidenceInventory;
+
+    [Tooltip("Drag an ActorInventory component here.")]
+    [SerializeField] public ActorInventory _actorInventory;
 
     [Tooltip("Drag an EvidenceMenu component here, which will updated when the game state (i.e. ability to present evidence) changes.")]
     [SerializeField] public EvidenceMenu _evidenceMenu;
@@ -56,11 +58,6 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidence">The name of the evidence to add.</param>
     public void AddEvidence(string evidence)
     {
-        if (!HasEvidenceDictionary())
-        {
-            return;
-        }
-
         _evidenceInventory.AddObject(evidence);
     }
 
@@ -70,17 +67,16 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidence">The name of the evidence to remove.</param>
     public void RemoveEvidence(string evidence)
     {
-        if (!HasEvidenceDictionary())
-        {
-            return;
-        }
-
         _evidenceInventory.RemoveObject(evidence);
     }
 
-    public void AddToCourtRecord(string actor)
+    /// <summary>
+    /// Adds an actor to the court record.
+    /// </summary>
+    /// <param name="actorName">The name of the actor to add.</param>
+    public void AddToCourtRecord(string actorName)
     {
-        Debug.LogWarning("AddToCourtRecord not implemented");
+        _actorInventory.AddObject(actorName);
     }
 
     /// <summary>
@@ -99,28 +95,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidence"></param>
     public void SubstituteEvidenceWithAlt(string evidence)
     {
-        if (!HasEvidenceDictionary())
-        {
-            return;
-        }
-
         _evidenceInventory.SubstituteEvidenceWithAlt(evidence);
-    }
-
-    /// <summary>
-    /// Checks if an evidence dictionary has been assigned.
-    /// Should be called before accessing the evidence dictionary.
-    /// </summary>
-    /// <returns></returns>
-    public bool HasEvidenceDictionary()
-    {
-        if (_evidenceInventory == null)
-        {
-            Debug.LogError("EvidenceDictionary has not been assigned to evidence controller.");
-            return false;
-        }
-
-        return true;
     }
 
     /// <summary>
