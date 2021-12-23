@@ -84,7 +84,6 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             }
 
             yield return _inputTestTools.PressForFrame(key.cKey);
-            yield return _inputTestTools.PressForFrame(key.xKey);
 
             while (appearingDialogueController.PrintingText)
             {
