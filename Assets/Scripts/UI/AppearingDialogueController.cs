@@ -111,10 +111,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             _onLetterAppear.Invoke();
             char currentCharacter = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1].character;
             float speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
-            if (currentCharacter == '\'')
-            {
-                Debug.Log(GetDelay(currentCharacter));
-            }
             yield return new WaitForSeconds(GetDelay(currentCharacter) / speedMultiplier);
         }
         _onLineEnd.Invoke();
