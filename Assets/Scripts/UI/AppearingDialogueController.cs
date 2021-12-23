@@ -111,6 +111,10 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             _onLetterAppear.Invoke();
             char currentCharacter = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1].character;
             float speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
+            if (currentCharacter == '\'')
+            {
+                Debug.Log(GetDelay(currentCharacter));
+            }
             yield return new WaitForSeconds(GetDelay(currentCharacter) / speedMultiplier);
         }
         _onLineEnd.Invoke();
@@ -133,12 +137,17 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <returns>The time to wait.</returns>
     public float GetDelay(char character)
     {
-        if (!char.IsPunctuation(character))
+        if (!char.IsPunctuation(character) || _ignoredCharacters.Contains(character))
         {
             return CharacterDelay;
         }
+
+        if (_textBox.maxVisibleCharacters == _textInfo.characterCount)
+        {
+            return 0;
+        }
         
-        var pair = _punctuationDelay.FirstOrDefault(charFloatPair => charFloatPair.Item1 == character && !_ignoredCharacters.Contains(charFloatPair.Item1));
+        var pair = _punctuationDelay.FirstOrDefault(charFloatPair => charFloatPair.Item1 == character);
         return pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2;
     }
 }
