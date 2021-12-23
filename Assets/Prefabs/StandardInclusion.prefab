@@ -1378,6 +1378,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _evidenceInventory: {fileID: 4951557165338670209}
+  _actorInventory: {fileID: 844180367432201528}
   _evidenceMenu: {fileID: 4864517766780460}
 --- !u!1 &5228303784783594412
 GameObject:
