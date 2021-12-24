@@ -93,6 +93,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             _textBox.maxVisibleCharacters = Int32.MaxValue;
             AppearInstantly = false;
+            _onLineEnd.Invoke();
             return;
         }
         

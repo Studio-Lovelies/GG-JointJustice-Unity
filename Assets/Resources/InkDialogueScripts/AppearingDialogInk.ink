@@ -11,6 +11,10 @@ and this text is fast
 &DIALOGUE_SPEED:0.1
 &AUTO_SKIP:False
 and this text is slow again
+
+&APPEAR_INSTANTLY
+This text appears instantly
+
 Hey Dan, look at this!
 
 &SPEAK:Dan

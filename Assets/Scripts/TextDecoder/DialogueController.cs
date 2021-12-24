@@ -262,6 +262,7 @@ public class DialogueController : MonoBehaviour
                 return;
             }
 
+            IsBusy = true;
             _onNewSpokenLine.Invoke(currentLine);
         }
     }
