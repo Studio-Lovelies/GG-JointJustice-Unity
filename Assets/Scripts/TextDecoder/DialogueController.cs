@@ -300,6 +300,7 @@ public class DialogueController : MonoBehaviour
             }
             else
             {
+                SetBusy(true);
                 _onNewSpokenLine.Invoke(currentLine);
             }
         }
