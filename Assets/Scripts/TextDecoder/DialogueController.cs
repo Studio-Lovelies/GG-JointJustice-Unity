@@ -261,8 +261,7 @@ public class DialogueController : MonoBehaviour
                 HandleNextLineDialogue();
                 return;
             }
-
-            IsBusy = true;
+            
             _onNewSpokenLine.Invoke(currentLine);
         }
     }
@@ -300,7 +299,6 @@ public class DialogueController : MonoBehaviour
             }
             else
             {
-                SetBusy(true);
                 _onNewSpokenLine.Invoke(currentLine);
             }
         }
