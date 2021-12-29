@@ -11,7 +11,7 @@ INCLUDE ../Colors.ink
 &SPEAK:Dan
 KSST.
 &PLAY_SFX:chug
-*glug...glug...*
+\*glug...glug...*
 Ah... this can of La Croix is as refreshing as that victory...!
 &SET_POSE:Happy
 You did it Arin! I can't believe we won that!
@@ -70,7 +70,7 @@ Wait, 10 minute power hour? What the hell do you mean?
 
 &SPEAK:Ross
 Yeah, of course! Why else would we all go along with that ridiculous crap?
-&SET_POSE:Sweaty
+&SET_POSE:SweatyNoHelmet
 You mean you guys didn't know? I thought you were in on it.
 
 &ACTOR:Dan
@@ -90,7 +90,7 @@ Huh... so who's idea was all this? Brent?
 No way, he's way too responsible. Maybe it was that tutorial guy. He's the only variable here.
 
 &ACTOR:Dan
-&SET_POSE:Normal
+&SET_POSE:NormalNoHelmet
 &SPEAK:dan
 Huh. Yeah, that's right. He's still here right?
 
@@ -171,9 +171,9 @@ Let's go look for that Tutorial Boy and find out what's going on here.
 Right. I don't know about you, but there might be more to this than just being 'a bit'.
 
 &SPEAK:Dan
-&CONTINUE_DIALOGUE
+&AUTOSKIP:true
 Guess we'll have to find out --
-
+&AUTOSKIP:false
 &SPEAK:Arin
 With some sweet Joint Justice?"
 
@@ -186,7 +186,7 @@ Arin, you're a man after my own heart.
 &HIDE_TEXTBOX
 &SET_POSE:Laugh
 
-&FADE_TO_BLACK:3
+&FADE_OUT:3
 &WAIT:2
 
 -> END
