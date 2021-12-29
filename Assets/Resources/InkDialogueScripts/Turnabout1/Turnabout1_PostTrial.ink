@@ -6,6 +6,8 @@ INCLUDE ../Colors.ink
 &PLAY_SONG:objectsOfVictory
 &SCENE:TMPH_Lobby
 &ACTOR:Dan
+&FADE_IN:2
+
 &SPEAK:Dan
 KSST.
 &PLAY_SFX:chug
