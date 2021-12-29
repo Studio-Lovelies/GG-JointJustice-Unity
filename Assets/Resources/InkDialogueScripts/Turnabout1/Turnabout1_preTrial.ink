@@ -62,7 +62,7 @@ By what?
 &SPEAK:Arin
 Well,
 &CONTINUE_DIALOGUE
-&DIALOGUE_SPEED:0.4
+&DIALOGUE_SPEED:0.08
 I got the invoice for the bathrooms today.
 The plumbers just finished fixing the toilets in the north end of the building, and that got me thinking...
 
@@ -181,8 +181,7 @@ The problem is...<br>apparently they were found in <color=\#990a1d>MY backpack</
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:damage1
 &ACTOR:Dan
-# &PLAY_EMOTION:Shocked_ani
-WAIT(1)
+&PLAY_EMOTION:Shocked_ani
 &DIALOGUE_SPEED:0.02
 &SPEAK:Dan
 What?
@@ -360,7 +359,7 @@ Let me see that!
 ...<br>Wow, he's right! We should hold on to this, I think it might be important later...
 
 &PLAY_SFX:evidenceding
-ADD_EVIDENCE:Jory_Srs_Letter
+&ADD_EVIDENCE:Jory_Srs_Letter
 &SHOW_ITEM:Jory_Srs_Letter,Left
 &DIALOGUE_SPEED:0.06
 &SPEAK:None
@@ -437,7 +436,7 @@ That's a lot of P.
 &HIDE_TEXTBOX
 &ACTOR:Jory
 &SET_POSE:Sweaty
-WAIT(2)
+&WAIT:2
 
 &SPEAK:Arin
 ...
@@ -476,10 +475,10 @@ They turned the Power Hour room into a makeshift courtroom just for this.
 So uh, see you there.
 
 &HIDE_TEXTBOX
-&SHOWACTOR:False
+&SHOW_ACTOR:False
 &PLAY_SFX:doorOpens
-WAIT(2)
-&SHOWACTOR:True
+&WAIT:2
+&SHOW_ACTOR:True
 
 &ACTOR:Dan
 &SET_POSE:Surprised
@@ -501,7 +500,9 @@ Yeah, trust and love and whatever.<br>What do you think Jory Sr. is going to giv
 Arin!
 
 &SPEAK:Arin
-WHAT? We're helping him, aren't we?<br<That's the whole point, right?!
+WHAT? We're helping him, aren't we?
+&CONTINUE_DIALOGUE
+That's the whole point, right?!
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Dan
@@ -524,7 +525,9 @@ BELIEVEABLE!
 &DIALOGUE_SPEED:0.04
 &SPEAK:Arin
 Ok, ok, no need to yell... Let's just get ready.<br>I kind of want to look sharp for this.
-And I just got a new suit that I think will be perfect.<br>You're gonna love it.
+And I just got a new suit that I think will be perfect.
+&CONTINUE_DIALOGUE
+You're gonna love it.
 
 &FADE_OUT:2
 &PLAY_SONG:None
