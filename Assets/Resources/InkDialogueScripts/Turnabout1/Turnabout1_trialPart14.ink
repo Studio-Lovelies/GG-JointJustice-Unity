@@ -37,7 +37,7 @@ What are you talking about, Dan?
 Roll with me, Arin, I got this one.
 
 &HIDE_TEXTBOX
-&PLAY_EMOTION:SideObjection
+// &PLAY_EMOTION:SideObjection
 What I mean is this!
 
 &PLAY_SONG:ninjaSexPursuit
@@ -90,7 +90,7 @@ Your Honor! I request for Dan...
 
 === Choice ===
 &HIDE_TEXTBOX
-+ [Taste them."]
++ [Taste them.]
     -> Taste
 + [Smell them.]
     -> Smell
@@ -270,6 +270,7 @@ No! I don't... I... it's...
 &SCENE:TMPH_Judge
 &PLAY_EMOTION:HeadShake
 &SET_POSE:Angry
+&SPEAK:Brent_Judge
 The prosecution will refrain from objecting without purpose.
 
 &HIDE_TEXTBOX
@@ -292,7 +293,7 @@ The defense has proven its point. Mr. Avidan will be permitted to conduct his, e
 (Okay, now we're getting somewhere. It's all on you Dan...)
 
 &PLAY_SFX:slurp
-&SCENE:TMPH_Court
+&SCENE:TMPH_Assistant
 &SET_POSE:SideLean
 &SPEAK:Dan
 ...
@@ -345,7 +346,7 @@ It's actually just regular milk! Whole milk, to be exact!
 &SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
 &PLAY_SFX:stab
-&PLAY_ANIMATION:DamageNoHelmet
+&PLAY_EMOTION:DamageNoHelmet
 &SET_POSE:MadMilk
 &SPEAK:Ross
 OH NO!
@@ -355,7 +356,7 @@ OH NO!
 &SPEAK:Tutorial_Boy
 You can't be serious! How does that prove anything?
 
-&JUMP_TO_POSTION
+&JUMP_TO_POSTION:1
 &SET_POSE:Thinking
 &THINK:Arin
 (Yeah, how does that prove anything?)
@@ -499,11 +500,12 @@ And since Dan has proven that the stains are in fact milk, that makes it impossi
 &PLAY_EMOTION:DeskSlamAnimation
 No one else likes milk like Ross does, and that makes him our real culprit!
 
+&HIDE_TEXTBOX
 &STOP_SONG
 &JUMP_TO_POSITION:2
 &PLAY_SFX:stab
 &SHAKE_SCREEN:0.25,0.25
-&PLAY_ANIMATION:Breakdown
+&PLAY_EMOTION:Breakdown
 &PLAY_SFX:wham
 &SHAKE_SCREEN:0.25,0.25
 &WAIT:1
