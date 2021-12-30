@@ -1,15 +1,8 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
+INCLUDE ../SceneInitialization.ink
 
-&FADE_OUT:0
-&SCENE:TMPH_Assistant
-&ACTOR:Dan
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
-&SCENE:TMPH_Court
-&SET_ACTOR_POSITION:1,Arin
-&SET_ACTOR_POSITION:2,Ross
-&SET_ACTOR_POSITION:3,Tutorial_Boy
+<- COURT.TMPH
 
 &JUMP_TO_POSITION:2
 &FADE_IN:1
@@ -34,7 +27,7 @@ That's when I saw it! He had taken the dinos and stuffed them into his backpack!
 &HIDE_TEXTBOX
 &PLAY_SONG:None
 &FADE_OUT:3
-&WAIT:3
+&WAIT:1
 
 &SCENE:TMPH_Judge
 &SET_POSE:Thinking
@@ -54,6 +47,7 @@ We -- er, I mean, my witness, wanted to keep it a surprise.
 &SET_POSE:Angry
 I hope the defense is happy with themselves for ruining Ross' great gesture!
 
+&HIDE_TEXTBOX
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
@@ -98,7 +92,7 @@ Who knows? I mean, it's worked for everything else I've ever done...
 
 &SCENE:TMPH_Assistant
 &SPEAK:Dan
-"If you say so...
+If you say so...
 &SET_POSE:Angry
 &AUTO_SKIP:true
 Wait, what do you mean every--
@@ -127,7 +121,7 @@ Very well. The defense may begin their cross-examination.
 &HIDE_TEXTBOX
 &PLAY_SONG:None
 &FADE_OUT:3
-&WAIT:3
+&WAIT:1
 
 -> END
 
