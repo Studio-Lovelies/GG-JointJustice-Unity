@@ -1,6 +1,7 @@
 === COURT ===
 
 = TMPH
+&HIDE_TEXTBOX
 &SCENE:TMPH_Assistant
 &ACTOR:Dan
 &SCENE:TMPH_Judge

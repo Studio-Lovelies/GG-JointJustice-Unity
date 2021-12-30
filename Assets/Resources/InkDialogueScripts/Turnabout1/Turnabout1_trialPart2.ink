@@ -1,18 +1,10 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
+INCLUDE ../SceneInitialization.ink
 
-&FADE_OUT:0
+<- COURT.TMPH
 
-&SCENE:TMPH_Assistant
-&ACTOR:Dan
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
-&SCENE:TMPH_Court
-&SET_ACTOR_POSITION:1,Arin
 &SET_ACTOR_POSITION:2,Jory
-&SET_ACTOR_POSITION:3,Tutorial_Boy
-&HIDE_TEXTBOX
-
 &JUMP_TO_POSITION:2
 &SET_POSE:Nervous
 

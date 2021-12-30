@@ -1,15 +1,10 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
+INCLUDE ../SceneInitialization.ink
 
-&FADE_OUT:0
-&SCENE:TMPH_Court
-&SET_ACTOR_POSITION:1,Arin
+<- COURT.TMPH
+
 &SET_ACTOR_POSITION:2,Jory
-&SET_ACTOR_POSITION:3,Tutorial_Boy
-&SCENE:TMPH_Assistant
-&ACTOR:Dan
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
 
 &DIALOGUE_SPEED:0.08
 &SPEAK:None

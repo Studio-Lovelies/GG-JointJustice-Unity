@@ -1,16 +1,9 @@
 INCLUDE ../Colors.ink
+INCLUDE ../SceneInitialization.ink
 
-&HIDE_TEXTBOX
-&SCENE:TMPH_Assistant
-&ACTOR:Dan
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
-&SCENE:TMPH_Court
-&SET_ACTOR_POSITION:1,Arin
-&SET_ACTOR_POSITION:2,Ross
-&SET_ACTOR_POSITION:3,Tutorial_Boy
+<- COURT.TMPH
+
 &JUMP_TO_POSITION:2
-
 &FADE_OUT:0
 &PLAY_SONG:aBoyAndHisTrial
 &FADE_IN:1
