@@ -1,14 +1,8 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
+INCLUDE ../SceneInitialization.ink
 
-&SCENE:TMPH_Assistant
-&ACTOR:Dan
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
-&SCENE:TMPH_Court
-&SET_ACTOR_POSITION:1,Arin
-&SET_ACTOR_POSITION:2,Ross
-&SET_ACTOR_POSITION:3,Tutorial_Boy
+<- COURT.TMPH
 
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
