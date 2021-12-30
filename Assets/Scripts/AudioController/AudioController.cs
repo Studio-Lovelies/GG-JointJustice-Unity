@@ -92,7 +92,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySFX(string soundEffectName)
     {
-        AudioClip soundEffectClip = Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
+        AudioClip soundEffectClip = GetSFXResource(soundEffectName);
         _sfxAudioSource.PlayOneShot(soundEffectClip);
     }
 
@@ -144,5 +144,10 @@ public class AudioController : MonoBehaviour, IAudioController
         _musicAudioSource.clip = Resources.Load("Audio/Music/" + songName) as AudioClip;
         _musicAudioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
         _musicAudioSource.Play();
+    }
+
+    public static AudioClip GetSFXResource(string soundEffectName)
+    {
+        return Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
     }
 }
