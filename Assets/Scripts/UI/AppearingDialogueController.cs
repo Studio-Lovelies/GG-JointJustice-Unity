@@ -41,6 +41,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
     private TMP_TextInfo _textInfo;
     private Coroutine _printCoroutine;
+    private AudioClip _defaultDialogueChirpSfx;
 
     public float SpeedMultiplier { get; set; } = 1;
     public bool SkippingDisabled { get; set; }
@@ -60,6 +61,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         _textInfo = _textBox.textInfo;
         _directorActionDecoder.Decoder.AppearingDialogueController = this;
+        this._defaultDialogueChirpSfx = AudioController.GetSfxResource("maleTalk");
     }
 
     /// <summary>
@@ -145,7 +147,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
                 var chirp = currentActor.DialogueChirp;
                 if (chirp == null)
                 {
-                    chirp = AudioController.GetSfxResource("maleTalk");
+                    chirp = this._defaultDialogueChirpSfx;
                 }
                 _audioController.PlaySFX(chirp);
             }
