@@ -408,8 +408,10 @@ We have evidence that connects Jory to the crime, and...
 &SET_POSE:Angry
 We have a witness to Jory's crime!
 
+&HIDE_TEXTBOX
 &SCENE:TMPH_WideShot
-&WAIT(2)
+&WAIT:2
+&PLAY_SFX:gavel
 &PLAY_ANIMATION:GavelHit
 
 &SCENE:TMPH_Judge

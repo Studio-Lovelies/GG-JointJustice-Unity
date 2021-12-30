@@ -1,2 +1,2 @@
-VAR panTime = 1
-VAR doublePanTime = 2
+VAR panTime = 0.25
+VAR doublePanTime = 0.5
