@@ -571,7 +571,7 @@ Why, the only other person who wasn't at the livestream other than Jory!
 &SET_POSE:Point
 ROSS O'DIDITVAN!
 
-&SCENE:TMPH_Wideshot
+&SCENE:TMPH_WideShot
 &PLAY_SFX:mutter
 &WAIT:2
 
