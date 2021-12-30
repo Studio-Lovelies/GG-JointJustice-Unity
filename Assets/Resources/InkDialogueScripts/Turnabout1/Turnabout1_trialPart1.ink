@@ -266,7 +266,7 @@ Yes, Your Honor. I would now like to call said defendant, Jory Griffis, to the s
 
 # &OBJECTION
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:1,{doublePanTime}
 &SPEAK:Arin
 Wait, you can't do that! It violates the Fifth Amendment!
 
