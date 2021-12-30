@@ -1,5 +1,6 @@
 INCLUDE ../Colors.ink
 
+&HIDE_TEXTBOX
 &SCENE:TMPH_Assistant
 &ACTOR:Dan
 &SCENE:TMPH_Judge
@@ -80,7 +81,7 @@ What do you mean? Even WE don't know if Jory is innocent!
 
 &SET_POSE:Normal
 &SPEAK:Dan
-Arin, have you learned nothing from the Penix Wright(tm) playthrough?
+Arin, have you learned nothing from the Penix Wright<sup>(tm)</sup> playthrough?
 
 &SPEAK:Arin
 That a gavel, lubed properly, has many uses?
