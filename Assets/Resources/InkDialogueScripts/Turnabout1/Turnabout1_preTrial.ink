@@ -2,7 +2,7 @@
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
 <color=\#2c81c1>(It started out just like every time after our livestream.)
-<color=\#2c81c1>(We had just finished a session playing Penix Wright: Facial Attorney(tm).)
+<color=\#2c81c1>(We had just finished a session playing Penix Wright: Facial Attorney<sup>(tm)</sup>.)
 <color=\#2c81c1>(Dan and I were discussing some very important matters...)
 
 &HIDE_TEXTBOX
