@@ -93,6 +93,15 @@ public class AudioController : MonoBehaviour, IAudioController
     public void PlaySFX(string soundEffectName)
     {
         AudioClip soundEffectClip = AudioController.GetSfxResource(soundEffectName);
+        PlaySFX(soundEffectClip);
+    }
+
+    /// <summary>
+    /// Play given audio clip immediately
+    /// </summary>
+    /// <param name="soundEffectClip">Clip to play</param>
+    public void PlaySFX(AudioClip soundEffectClip)
+    {
         _sfxAudioSource.PlayOneShot(soundEffectClip);
     }
 
