@@ -131,13 +131,23 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         PrintingText = false;
     }
 
+    /// <summary>
+    /// Play dialogue chirp sound effect for current actor, if it exists
+    /// </summary>
+    /// <param name="currentActor">Speaker actor</param>
+    /// <param name="currentCharacter">Character to play chirp on (skipped if punctuation or ignored)</param>
     private void PlayDialogueChirp(ActorData currentActor, char currentCharacter)
     {
         if (currentActor != null)
         {
             if (!IsPunctuationOrIgnored(currentCharacter))
             {
-                _audioController.PlaySFX("maleTalk");
+                var chirp = currentActor.DialogueChirp;
+                if (chirp == null)
+                {
+                    chirp = AudioController.GetSfxResource("maleTalk");
+                }
+                _audioController.PlaySFX(chirp);
             }
         }
     }
