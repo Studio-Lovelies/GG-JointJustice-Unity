@@ -6,7 +6,7 @@ INCLUDE ../SceneInitialization.ink
 
 &SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
-&SET_POSE:SweatyNoHelm
+&SET_POSE:SweatyNoHelmet
 &FADE_IN:1
 &PLAY_SONG:fyiIWannaXYourExaminationAllegro
 &PLAY_ANIMATION:WitnessTestimony
@@ -40,7 +40,7 @@ Arin, you may cross examine the witness now.
 Man! What do we do now?
 
 &SPEAK:Arin
-I'm not sure, but there's something fishy about this whole thing, and I'm gonna change his tun-a!
+I'm not sure, but there's something fishy about this whole thing, and I'm gonna change his tun—a!
 
 &SET_POSE:SideNormalTurned
 &SPEAK:Dan
