@@ -1,15 +1,8 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
+INCLUDE ../SceneInitialization.ink
 
-&FADE_OUT:0
-&SCENE:TMPH_Assistant
-&ACTOR:Dan
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
-&SCENE:TMPH_Court
-&SET_ACTOR_POSITION:1,Arin
-&SET_ACTOR_POSITION:2,Ross
-&SET_ACTOR_POSITION:3,Tutorial_Boy
+<- COURT.TMPH
 
 &JUMP_TO_POSITION:2
 &FADE_IN:1
@@ -281,6 +274,7 @@ I was actually working on a secret level for you guys.
 &JUMP_TO_POSITION:1
 &PLAY_SFX:stab
 &SET_POSE:Sweaty
+&SPEAK:Arin
 What...?
 
 &JUMP_TO_POSITION:2
