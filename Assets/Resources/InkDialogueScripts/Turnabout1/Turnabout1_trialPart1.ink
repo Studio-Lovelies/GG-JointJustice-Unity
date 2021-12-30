@@ -56,7 +56,7 @@ So I will preside over this case for you all today.
 &SPEAK:Dan
 Well, I suppose that's fine. I mean, Brent is pretty fair in general.
 
-&SHAKESCREEN:0.25,0.2
+&SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:smack
 &DIALOGUE_SPEED:0.1
 &SPEAK:Unknown
@@ -90,7 +90,7 @@ Wait, doesn't he kind of look like...
 T- Trivia Boy?!
 
 &HIDE_TEXTBOX
-&SHAKESCREEN:0.25,0.2
+&SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:damage1
 &JUMP_TO_POSITION:3
 &PLAY_EMOTION:HeadSlam
@@ -127,12 +127,13 @@ Yeap, uh-huh, got it, tragic backstory tutorial blah blah blah. Can we get this 
 Don't you dare skip me! I'm the-
 
 &JUMP_TO_POSITION:1
+&SPEAK:Arin
 Man, if the artists drew me yawning, that's what you'd be seeing right now.
 &SET_POSE:Normal
 When the heck is this trial going to start?
 
 &PLAY_SONG:aBoyAndHisTrial
-&SHAKESCREEN:0.25,0.2
+&SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:damage2
 &SCENE:TMPH_Judge
 &SET_POSE:Warning
