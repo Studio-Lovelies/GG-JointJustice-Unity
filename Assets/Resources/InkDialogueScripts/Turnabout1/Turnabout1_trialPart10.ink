@@ -81,7 +81,7 @@ Hell yea dude, check this shit out!
 &PRESENT_EVIDENCE
 + [Wrong]
     -> PresentEvidence
-+ [Ross]
++ [Bent_Coins]
     -> Continue
 
 === Continue ===
@@ -95,6 +95,7 @@ Notice how they're bent and scuffed now? Don't you realize what that means?
 &PLAY_SFX:recordScratch
 &SCENE:TMPH_Assistant
 &SET_POSE:SideNormal
+&SPEAK:Dan
 That we're cheap bastards making coins out of cardboard?
 
 &SCENE:TMPH_Court
@@ -141,6 +142,7 @@ GUH!
 &HIDE_TEXTBOX
 &JUMP_TO_POSITION:3
 &PLAY_EMOTION:HeadSlam
+&PLAY_SFX:damage1
 &SET_POSE:Normal
 &SPEAK:Tutorial_Boy
 RIDICULOUS! I don't believe a word of that! There's no way someone would be so careful around such pointless coins.
@@ -165,12 +167,11 @@ We've already heard evidence that proves Jory cared about those coins, and I've 
 &PRESENT_EVIDENCE
 + [Wrong]
     -> PresentLivestreamRecording
-+ [Ross]
++ [Livestream_Recording]
     -> Continue2
 
 === Continue2 ===
-
-&TAKE_THAT:Arin
+// &TAKE_THAT:Arin
 &SET_POSE:PaperSlap
 &SPEAK:Arin
 Recall Jory's testimony, how he was noted to be taking care of those coins carefully!
@@ -331,6 +332,6 @@ You got this, dude. We can't give up now!
 
 &HIDE_TEXTBOX
 &FADE_OUT:3
-&WAIT:2
+&WAIT:1
 
 -> END
