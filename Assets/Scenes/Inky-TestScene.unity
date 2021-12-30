@@ -834,7 +834,7 @@ PrefabInstance:
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueList.Array.data[0].<NarrativeScript>k__BackingField
       value: 
-      objectReference: {fileID: 4900000, guid: 72d8df4aeffe149949d07771194aaaac, type: 3}
+      objectReference: {fileID: 4900000, guid: 18c4a9fc6db265f42b8d438b4171dbb2, type: 3}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: StandardInclusion

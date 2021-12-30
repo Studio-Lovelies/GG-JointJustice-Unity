@@ -18,11 +18,18 @@ public class NameBox : MonoBehaviour
     /// Sets the text and color of the name box to that of the specified actor
     /// </summary>
     /// <param name="actorData">An ActorData object to get the name and color from</param>
-    public void SetSpeaker(ActorData actorData)
+    /// <param name="speakingType">The speaking type that is in use</param>
+    public void SetSpeaker(ActorData actorData, SpeakingType speakingType)
     {
         gameObject.SetActive(actorData.DisplayName != "");
+        var nameToDisplay = actorData.DisplayName;
 
-        _text.text = actorData.DisplayName;
+        if (speakingType == SpeakingType.SpeakingWithUnknownName)
+        {
+            nameToDisplay = "???";
+        }
+
+        _text.text = nameToDisplay;
         _image.color = actorData.DisplayColor;
     }
 }

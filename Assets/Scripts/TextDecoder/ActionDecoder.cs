@@ -342,6 +342,11 @@ public class ActionDecoder
     {
         SetSpeaker(actor, SpeakingType.Speaking);
     }
+    
+    private void SPEAK_UNKNOWN(string actor)
+    {
+        SetSpeaker(actor, SpeakingType.SpeakingWithUnknownName);
+    }
 
     private void THINK(string actor)
     {
@@ -350,7 +355,7 @@ public class ActionDecoder
 
     private void SetSpeaker(string actor, SpeakingType speakingType)
     {
-        ActorController.SetActiveSpeaker(actor);
+        ActorController.SetActiveSpeaker(actor, speakingType);
         ActorController.SetSpeakingType(speakingType);
         OnActionDone?.Invoke();
     }

@@ -1,3 +1,15 @@
+&SPEAK_UNKNOWN:Arin
+Who is speaking right now?
+
+&SPEAK_UNKNOWN:Dan
+I don't know, Arin, who?
+
+&SPEAK:Arin
+Aww! Dan, you ruined it!
+
+&SPEAK:Dan
+Sorry, Big Cat.
+
 &SPEAK:Arin
 &AUTO_SKIP:True
 &DIALOGUE_SPEED:0.1

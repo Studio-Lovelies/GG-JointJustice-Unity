@@ -1,13 +1,14 @@
 public enum SpeakingType
 {
     Speaking,
-    Thinking
+    Thinking,
+    SpeakingWithUnknownName
 }
 
 public interface IActorController
 {
     void SetActiveActor(string actor);
-    void SetActiveSpeaker(string actor);
+    void SetActiveSpeaker(string actor, SpeakingType speakingType);
 
     void SetPose(string pose, string actorName = null);
     void PlayEmotion(string emotion, string actorName = null);

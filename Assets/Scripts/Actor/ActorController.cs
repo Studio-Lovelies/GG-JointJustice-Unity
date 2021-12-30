@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,10 +13,13 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
     [SerializeField] private ActorInventory _actorInventory;
 
+    [Tooltip("Attach the NameBox here")]
+    [SerializeField] private NameBox _nameBox;
+    
     private Actor _activeActor;
     private BGScene _activeScene;
 
-    [SerializeField] private UnityEvent<ActorData> _onNewSpeakingActor;
+    private event Action<ActorData, SpeakingType> _onNewSpeakingActor;
     [SerializeField] private UnityEvent _onAnimationStarted;
     [SerializeField] private UnityEvent _onAnimationComplete;
 
@@ -37,6 +41,8 @@ public class ActorController : MonoBehaviour, IActorController
         }
 
         _directorActionDecoder.Decoder.ActorController = this;
+        
+        _onNewSpeakingActor += _nameBox.SetSpeaker;
     }
 
     /// <summary>
@@ -186,12 +192,12 @@ public class ActorController : MonoBehaviour, IActorController
     /// Sets the active speaker in the scene, changing the name shown.
     /// </summary>
     /// <param name="actor">Target actor. This gets the correct name and color from the list of existing actors.</param>
-    public void SetActiveSpeaker(string actor)
+    public void SetActiveSpeaker(string actor, SpeakingType speakingType)
     {
         try
         {
             _currentSpeakingActor = _actorInventory[actor];
-            _onNewSpeakingActor.Invoke(_currentSpeakingActor);
+            _onNewSpeakingActor?.Invoke(_currentSpeakingActor, speakingType);
         }
         catch (KeyNotFoundException exception)
         {
