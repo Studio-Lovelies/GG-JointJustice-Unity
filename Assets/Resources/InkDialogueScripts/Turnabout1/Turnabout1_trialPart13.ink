@@ -118,6 +118,7 @@ Holy jeeez, man! What's in this thing? It's so heavy.
 &PLAY_EMOTION:ShockAnimation
 &WAIT:1
 &PLAY_SFX:realization
+&PLAY_SFX:deskSlam
 &PLAY_EMOTION:DeskSlamAnimation
 &SPEAK:Arin
 That's it! I got it! I know how he's lying!
@@ -308,7 +309,7 @@ All of those are lies made up by the defense to distract you from the story the 
 &SCENE:TMPH_WideShot
 &PLAY_SFX:mutter
 &WAIT:2
-&PLAY_SFX:gavel
+&PLAY_SFX:tripleGavel
 &PLAY_ANIMATION:TripleGavelHit
 
 &SCENE:TMPH_Judge
