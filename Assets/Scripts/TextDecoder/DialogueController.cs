@@ -261,7 +261,7 @@ public class DialogueController : MonoBehaviour
                 HandleNextLineDialogue();
                 return;
             }
-
+            
             _onNewSpokenLine.Invoke(currentLine);
         }
     }

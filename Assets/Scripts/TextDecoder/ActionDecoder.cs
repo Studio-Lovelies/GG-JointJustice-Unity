@@ -142,50 +142,45 @@ public class ActionDecoder
     // ReSharper disable UnusedMember.Local
 #pragma warning disable IDE0051 // Remove unused private members
     #region AppearingDialogueController
-    private void DIALOG_SPEED(float seconds)
+    private void DIALOGUE_SPEED(float characterDelay)
     {
-        AppearingDialogueController.SetTimerValue(WaiterType.Dialog, seconds);
-    }
-
-    private void OVERALL_SPEED(float seconds)
-    {
-        AppearingDialogueController.SetTimerValue(WaiterType.Overall, seconds);
+        AppearingDialogueController.CharacterDelay = characterDelay;
+        OnActionDone?.Invoke();
     }
 
     private void PUNCTUATION_SPEED(float seconds)
     {
-        AppearingDialogueController.SetTimerValue(WaiterType.Punctuation, seconds);
-    }
-
-    private void CLEAR_SPEED()
-    {
-        AppearingDialogueController.ClearAllWaiters();
+        AppearingDialogueController.DefaultPunctuationDelay = seconds;
+        OnActionDone?.Invoke();
     }
 
     private void DISABLE_SKIPPING(bool value)
     {
-        AppearingDialogueController.ToggleDisableTextSkipping(value);
+        AppearingDialogueController.SkippingDisabled = value;
+        OnActionDone?.Invoke();
     }
 
-    private void CONTINUE_DIALOG()
+    private void CONTINUE_DIALOGUE()
     {
-        AppearingDialogueController.ContinueDialog();
+        AppearingDialogueController.ContinueDialogue = true;
+        OnActionDone?.Invoke();
     }
 
     private void AUTO_SKIP(bool value)
     {
-        AppearingDialogueController.AutoSkipDialog(value);
+        AppearingDialogueController.AutoSkip = value;
+        OnActionDone?.Invoke();
     }
 
     private void APPEAR_INSTANTLY()
     {
-        AppearingDialogueController.PrintTextInstantly = true;
+        AppearingDialogueController.AppearInstantly = true;
         OnActionDone?.Invoke();
     }
 
     private void HIDE_TEXTBOX()
     {
-        AppearingDialogueController.HideTextbox();
+        AppearingDialogueController.TextBoxHidden = true;
         OnActionDone?.Invoke();
     }
     #endregion
