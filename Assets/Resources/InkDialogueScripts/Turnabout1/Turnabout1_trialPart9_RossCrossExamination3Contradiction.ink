@@ -72,8 +72,16 @@ Impossible! There's no way you can prove such a thing!
 &SPEAK:Arin
 I CAN prove it... with THIS!
 
-&PRESENT_EVIDENCE
+-> PresentEvidence
 
+=== PresentEvidence ===
+&PRESENT_EVIDENCE
++ [Wrong]
+    -> PresentEvidence
++ [Switch]
+    -> PresentSwitch
+    
+=== PresentSwitch ===
 // &TAKE_THAT:Arin
 &SHOW_ITEM:Switch,Right
 
@@ -123,7 +131,7 @@ Oh right, my mistake.
 &SET_POSE:Angry
 This is a complete waste of time, Your Honor!
 Not only is there no proof that Switch belongs to Ross...
-... but there's no proof this is even the Switch Jory brought back!
+...but there's no proof this is even the Switch Jory brought back!
 
 // &OBJECTION:Arin
 &PAN_TO_POSITION:1,{doublePanTime}
@@ -380,7 +388,7 @@ Yes, let me see.
 &PLAY_SONG:ninjaSexPursuit
 &PLAY_SFX:realization
 &SET_POSE:Surprised
-Penix Wright: Facial Attorney(tm)?!
+Penix Wright: Facial Attorney<sup>(tm)</sup>?!
 &HIDE_ITEM
 
 &HIDE_TEXTBOX
@@ -432,7 +440,7 @@ OWWW-WUH!
 &JUMP_TO_POSITION:2
 &SET_POSE:MadMilk
 &SPEAK:Ross
-You...guys...
+You... guys...
 &PLAY_SFX:stab
 &PLAY_SONG:ninjaSexPursuit
 Grrr!!! You're all lying!
@@ -526,7 +534,7 @@ Your Honor! There is one other person who could have done the deed!
 &HIDE_TEXTBOX
 &JUMP_TO_POSITION:2
 &PLAY_SFX:stab
-&PLAY_EMOTION:Damage
+&PLAY_EMOTION:DamageNoHelmet
 &SET_POSE:MadMilk
 &SPEAK:Ross
 !!!
