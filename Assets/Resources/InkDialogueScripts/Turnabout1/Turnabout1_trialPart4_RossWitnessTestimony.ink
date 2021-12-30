@@ -1,6 +1,7 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 
+&HIDE_TEXTBOX
 &FADE_OUT:0
 &SCENE:TMPH_Assistant
 &ACTOR:Dan
