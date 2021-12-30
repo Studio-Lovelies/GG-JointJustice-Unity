@@ -9,6 +9,12 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 {
     [Tooltip("Drag a DirectorActionDecoder component here.")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+
+    [Tooltip("Drag a AudioController here.")]
+    [SerializeField] private AudioController _audioController;
+    
+    [Tooltip("Drag a NameBox component here.")]
+    [SerializeField] private NameBox _namebox;
     
     [Tooltip("Drag a TextMeshProUGUI component here.")]
     [SerializeField] private TextMeshProUGUI _textBox;
@@ -112,6 +118,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             _onLetterAppear.Invoke();
             char currentCharacter = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1].character;
             float speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
+            PlayDialogueChirp(_namebox.CurrentActor, currentCharacter);
             yield return new WaitForSeconds(GetDelay(currentCharacter) / speedMultiplier);
         }
         _onLineEnd.Invoke();
@@ -124,6 +131,17 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         PrintingText = false;
     }
 
+    private void PlayDialogueChirp(ActorData currentActor, char currentCharacter)
+    {
+        if (currentActor != null)
+        {
+            if (!IsPunctuationOrIgnored(currentCharacter))
+            {
+                _audioController.PlaySFX("maleTalk");
+            }
+        }
+    }
+
     /// <summary>
     /// Return a time to wait for a given character.
     /// If character is not found in the punctuation array
@@ -134,7 +152,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <returns>The time to wait.</returns>
     public float GetDelay(char character)
     {
-        if (!char.IsPunctuation(character) || _ignoredCharacters.Contains(character))
+        if (!IsPunctuationOrIgnored(character))
         {
             return CharacterDelay;
         }
@@ -146,6 +164,16 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         
         var pair = _punctuationDelay.FirstOrDefault(charFloatPair => charFloatPair.Item1 == character);
         return pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2;
+    }
+
+    /// <summary>
+    /// Helper method, does what it says.
+    /// </summary>
+    /// <param name="character"></param>
+    /// <returns></returns>
+    private bool IsPunctuationOrIgnored(char character)
+    {
+        return char.IsPunctuation(character) || _ignoredCharacters.Contains(character);
     }
 }
 
