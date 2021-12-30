@@ -92,7 +92,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySFX(string soundEffectName)
     {
-        AudioClip soundEffectClip = GetSFXResource(soundEffectName);
+        AudioClip soundEffectClip = AudioController.GetSfxResource(soundEffectName);
         _sfxAudioSource.PlayOneShot(soundEffectClip);
     }
 
@@ -146,7 +146,7 @@ public class AudioController : MonoBehaviour, IAudioController
         _musicAudioSource.Play();
     }
 
-    public static AudioClip GetSFXResource(string soundEffectName)
+    public static AudioClip GetSfxResource(string soundEffectName)
     {
         return Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
     }
