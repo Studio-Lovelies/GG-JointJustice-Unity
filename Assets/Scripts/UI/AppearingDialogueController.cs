@@ -143,7 +143,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         if (currentActor != null)
         {
-            if (!IsPunctuationOrIgnored(currentCharacter))
+            if (!CharShouldBeTreatedAsPunctuation(currentCharacter))
             {
                 var chirp = currentActor.DialogueChirp;
                 if (chirp == null)
@@ -165,7 +165,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <returns>The time to wait.</returns>
     public float GetDelay(char character)
     {
-        if (!IsPunctuationOrIgnored(character))
+        if (!CharShouldBeTreatedAsPunctuation(character))
         {
             return CharacterDelay;
         }
@@ -181,9 +181,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     
     /// <param name="character">Char to be tested</param>
     /// <returns>True if character is ignorable</returns>
-    private bool IsPunctuationOrIgnored(char character)
+    private bool CharShouldBeTreatedAsPunctuation(char character)
     {
-        return char.IsPunctuation(character) || _ignoredCharacters.Contains(character);
+        return char.IsPunctuation(character) && !_ignoredCharacters.Contains(character);
     }
 }
 
