@@ -481,7 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _directorActionDecoder: {fileID: 5228303783986964379}
   _settingsMusicVolume: 0.5
-  _settingsSFXVolume: 0.5
+  _settingsSfxVolume: 0.5
   _transitionDuration: 2
 --- !u!82 &5228303783052357478
 AudioSource:
@@ -1458,6 +1458,7 @@ MonoBehaviour:
   - <Item1>k__BackingField: 44
     <Item2>k__BackingField: 0.1
   _ignoredCharacters: 2700280029002d00
+  _defaultDialogueChirpSfx: {fileID: 8300000, guid: bec396ecc7b7242499dbad1326715317, type: 3}
   _onLineEnd:
     m_PersistentCalls:
       m_Calls:

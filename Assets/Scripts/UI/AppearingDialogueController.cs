@@ -34,6 +34,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Add characters that should be treated like regular characters here.")]
     [SerializeField] private char[] _ignoredCharacters;
 
+    [Tooltip("Add an AudioClip for the default dialogue chirp here")]
+    [SerializeField] private AudioClip _defaultDialogueChirpSfx;
+    
     [Header("Events")]
     [SerializeField] private UnityEvent _onLineEnd;
     [SerializeField] private UnityEvent _onAutoSkip;
@@ -41,7 +44,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
     private TMP_TextInfo _textInfo;
     private Coroutine _printCoroutine;
-    private AudioClip _defaultDialogueChirpSfx;
 
     public float SpeedMultiplier { get; set; } = 1;
     public bool SkippingDisabled { get; set; }
@@ -61,7 +63,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         _textInfo = _textBox.textInfo;
         _directorActionDecoder.Decoder.AppearingDialogueController = this;
-        this._defaultDialogueChirpSfx = AudioController.GetSfxResource("maleTalk");
     }
 
     /// <summary>
