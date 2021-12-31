@@ -178,12 +178,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         var pair = _punctuationDelay.FirstOrDefault(charFloatPair => charFloatPair.Item1 == character);
         return pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2;
     }
-
-    /// <summary>
-    /// Helper method, does what it says.
-    /// </summary>
-    /// <param name="character"></param>
-    /// <returns></returns>
+    
+    /// <param name="character">Char to be tested</param>
+    /// <returns>True if character is ignorable</returns>
     private bool IsPunctuationOrIgnored(char character)
     {
         return char.IsPunctuation(character) || _ignoredCharacters.Contains(character);
