@@ -9,6 +9,11 @@ public class NameBox : MonoBehaviour
 
     private Image _image;
 
+    /// <summary>
+    /// The most recently set ActorData, reflects the name currently shown in the NameBox.
+    /// </summary>
+    public ActorData CurrentActor { get; private set; }
+    
     private void Awake()
     {
         _image = GetComponent<Image>();
@@ -26,9 +31,4 @@ public class NameBox : MonoBehaviour
         _text.text = actorData.DisplayName;
         _image.color = actorData.DisplayColor;
     }
-
-    /// <summary>
-    /// The most recently set ActorData, reflects the name currently shown in the NameBox.
-    /// </summary>
-    public ActorData CurrentActor { get; private set; }
 }
