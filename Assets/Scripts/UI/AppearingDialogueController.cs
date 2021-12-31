@@ -149,7 +149,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
                 {
                     chirp = this._defaultDialogueChirpSfx;
                 }
-                _audioController.PlaySFX(chirp);
+                _audioController.PlaySfx(chirp);
             }
         }
     }

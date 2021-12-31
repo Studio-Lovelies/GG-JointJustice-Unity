@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
@@ -17,8 +18,9 @@ public class AudioController : MonoBehaviour, IAudioController
     /// One day this will come from the "Settings," but for now it lives on a field
     /// </summary>
     [Tooltip("SFX Volume level set by player")]
+    [FormerlySerializedAs("_settingsSFXVolume")]
     [Range(0f, 1f)]
-    [SerializeField] private float _settingsSFXVolume = 0.5f;
+    [SerializeField] private float _settingsSfxVolume = 0.5f;
 
     [Tooltip("Total duration of fade out + fade in")]
     [Range(0f, 4f)]
@@ -58,7 +60,7 @@ public class AudioController : MonoBehaviour, IAudioController
             _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
 
         if (_sfxAudioSource != null)
-            _sfxAudioSource.volume = _settingsSFXVolume;
+            _sfxAudioSource.volume = this._settingsSfxVolume;
     }
 
     /// <summary>
@@ -90,17 +92,17 @@ public class AudioController : MonoBehaviour, IAudioController
     /// Plays sound effect of desired name.
     /// </summary>
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
-    public void PlaySFX(string soundEffectName)
+    public void PlaySfx(string soundEffectName)
     {
         AudioClip soundEffectClip = AudioController.GetSfxResource(soundEffectName);
-        PlaySFX(soundEffectClip);
+        PlaySfx(soundEffectClip);
     }
 
     /// <summary>
     /// Play given audio clip immediately
     /// </summary>
     /// <param name="soundEffectClip">Clip to play</param>
-    public void PlaySFX(AudioClip soundEffectClip)
+    public void PlaySfx(AudioClip soundEffectClip)
     {
         _sfxAudioSource.PlayOneShot(soundEffectClip);
     }

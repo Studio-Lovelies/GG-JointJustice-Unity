@@ -219,7 +219,7 @@ public class ActionDecoder
     #region AudioController
     private void PLAY_SFX(string sfx)
     {
-        AudioController.PlaySFX(sfx);
+        AudioController.PlaySfx(sfx);
         OnActionDone?.Invoke();
     }
 
