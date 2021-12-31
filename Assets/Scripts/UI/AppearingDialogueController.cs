@@ -10,7 +10,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Drag a DirectorActionDecoder component here.")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
-    [Tooltip("Drag a AudioController here.")]
+    [Tooltip("Drag an AudioController here.")]
     [SerializeField] private AudioController _audioController;
     
     [Tooltip("Drag a NameBox component here.")]
