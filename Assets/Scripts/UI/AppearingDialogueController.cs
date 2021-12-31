@@ -141,18 +141,17 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <param name="currentCharacter">Character to play chirp on (skipped if punctuation or ignored)</param>
     private void PlayDialogueChirp(ActorData currentActor, char currentCharacter)
     {
-        if (currentActor != null)
+        if (currentActor == null || CharShouldBeTreatedAsPunctuation(currentCharacter))
         {
-            if (!CharShouldBeTreatedAsPunctuation(currentCharacter))
-            {
-                var chirp = currentActor.DialogueChirp;
-                if (chirp == null)
-                {
-                    chirp = this._defaultDialogueChirpSfx;
-                }
-                _audioController.PlaySfx(chirp);
-            }
+            return;
         }
+        
+        var chirp = currentActor.DialogueChirp;
+        if (chirp == null)
+        {
+            chirp = this._defaultDialogueChirpSfx;
+        }
+        _audioController.PlaySfx(chirp);
     }
 
     /// <summary>
