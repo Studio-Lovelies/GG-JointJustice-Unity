@@ -152,13 +152,13 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     private void SetCurrentTrack(string songName)
     {
-        _musicAudioSource.clip = Resources.Load("Audio/Music/" + songName) as AudioClip;
+        _musicAudioSource.clip = Resources.Load<AudioClip>("Audio/Music/" + songName);
         _musicAudioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
         _musicAudioSource.Play();
     }
 
     public static AudioClip GetSfxResource(string soundEffectName)
     {
-        return Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
+        return Resources.Load<AudioClip>("Audio/SFX/" + soundEffectName);
     }
 }
