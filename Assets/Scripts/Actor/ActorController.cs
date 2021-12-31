@@ -188,6 +188,15 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
+    /// Sets the active speaker to the Narrator (which has no visible name / NameBox)
+    /// </summary>
+    public void SetActiveSpeakerToNarrator()
+    {
+        _currentSpeakingActor = null;
+        _nameBox.SetSpeakerToNarrator();
+    }
+
+    /// <summary>
     /// Sets the active speaker in the scene, changing the name shown.
     /// </summary>
     /// <param name="actorName">Target actor. This gets the correct name and color from the list of existing actors.</param>
@@ -196,16 +205,8 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            if (actorName == NarratorActorName)
-            {
-                _currentSpeakingActor = null;
-                _nameBox.SetSpeakerToNarrator();
-            }
-            else
-            {
-                _currentSpeakingActor = _actorInventory[actorName];
-                _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
-            }
+            _currentSpeakingActor = _actorInventory[actorName];
+            _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
         }
         catch (KeyNotFoundException exception)
         {

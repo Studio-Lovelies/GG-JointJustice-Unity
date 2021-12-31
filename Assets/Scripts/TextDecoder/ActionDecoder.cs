@@ -350,7 +350,9 @@ public class ActionDecoder
     
     private void NARRATE()
     {
-        SetSpeaker(ActorController.NarratorActorName, SpeakingType.Speaking);
+        ActorController.SetActiveSpeakerToNarrator();
+        ActorController.SetSpeakingType(SpeakingType.Speaking);
+        OnActionDone?.Invoke();
     }
 
     private void THINK(string actor)
