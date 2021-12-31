@@ -149,7 +149,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         var chirp = currentActor.DialogueChirp;
         if (chirp == null)
         {
-            chirp = this._defaultDialogueChirpSfx;
+            chirp = _defaultDialogueChirpSfx;
         }
         _audioController.PlaySfx(chirp);
     }
