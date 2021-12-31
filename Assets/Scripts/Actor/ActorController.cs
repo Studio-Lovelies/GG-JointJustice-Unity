@@ -19,8 +19,6 @@ public class ActorController : MonoBehaviour, IActorController
     private Actor _activeActor;
     private BGScene _activeScene;
 
-    private event Action<ActorData, SpeakingType> _onNewSpeakingActor;
-    private event Action _onNarrate;
     [SerializeField] private UnityEvent _onAnimationStarted;
     [SerializeField] private UnityEvent _onAnimationComplete;
 
@@ -44,9 +42,6 @@ public class ActorController : MonoBehaviour, IActorController
         }
 
         _directorActionDecoder.Decoder.ActorController = this;
-        
-        _onNewSpeakingActor += _nameBox.SetSpeaker;
-        _onNarrate += _nameBox.SetSpeakerToNarrator;
     }
 
     /// <summary>
@@ -204,12 +199,12 @@ public class ActorController : MonoBehaviour, IActorController
             if (actorName == NarratorActorName)
             {
                 _currentSpeakingActor = null;
-                _onNarrate?.Invoke();
+                _nameBox.SetSpeakerToNarrator();
             }
             else
             {
                 _currentSpeakingActor = _actorInventory[actorName];
-                _onNewSpeakingActor?.Invoke(_currentSpeakingActor, speakingType);
+                _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
             }
         }
         catch (KeyNotFoundException exception)
