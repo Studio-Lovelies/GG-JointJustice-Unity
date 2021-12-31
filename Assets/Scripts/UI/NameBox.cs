@@ -21,7 +21,7 @@ public class NameBox : MonoBehaviour
     /// <param name="speakingType">The speaking type that is in use</param>
     public void SetSpeaker(ActorData actorData, SpeakingType speakingType)
     {
-        gameObject.SetActive(actorData.DisplayName != "");
+        gameObject.SetActive(true);
         var nameToDisplay = actorData.DisplayName;
 
         if (speakingType == SpeakingType.SpeakingWithUnknownName)
