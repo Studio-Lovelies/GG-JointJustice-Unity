@@ -157,6 +157,11 @@ public class AudioController : MonoBehaviour, IAudioController
         _musicAudioSource.Play();
     }
 
+    /// <summary>
+    /// Acquires the Sfx Resource from Audio/SFX/*
+    /// </summary>
+    /// <param name="soundEffectName">Name of sound effect asset you want</param>
+    /// <returns></returns>
     private static AudioClip GetSfxResource(string soundEffectName)
     {
         return Resources.Load<AudioClip>("Audio/SFX/" + soundEffectName);
