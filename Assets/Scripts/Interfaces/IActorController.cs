@@ -17,4 +17,5 @@ public interface IActorController
     void OnAnimationDone();
     void SetSpeakingType(SpeakingType speakingType);
     void AssignActorToSlot(string actor, int oneBasedSlotIndex);
+    string NarratorActorName { get; }
 }

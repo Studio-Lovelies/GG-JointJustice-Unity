@@ -347,6 +347,11 @@ public class ActionDecoder
     {
         SetSpeaker(actor, SpeakingType.SpeakingWithUnknownName);
     }
+    
+    private void NARRATE()
+    {
+        SetSpeaker(ActorController.NarratorActorName, SpeakingType.Speaking);
+    }
 
     private void THINK(string actor)
     {

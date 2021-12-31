@@ -32,4 +32,9 @@ public class NameBox : MonoBehaviour
         _text.text = nameToDisplay;
         _image.color = actorData.DisplayColor;
     }
+
+    public void SetSpeakerToNarrator()
+    {
+        gameObject.SetActive(false);
+    }
 }

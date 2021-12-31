@@ -20,6 +20,7 @@ public class ActorController : MonoBehaviour, IActorController
     private BGScene _activeScene;
 
     private event Action<ActorData, SpeakingType> _onNewSpeakingActor;
+    private event Action _onNarrate;
     [SerializeField] private UnityEvent _onAnimationStarted;
     [SerializeField] private UnityEvent _onAnimationComplete;
 
@@ -29,6 +30,8 @@ public class ActorController : MonoBehaviour, IActorController
     private ActorData _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
 
+    public string NarratorActorName { get; } = "None";
+    
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
@@ -43,6 +46,7 @@ public class ActorController : MonoBehaviour, IActorController
         _directorActionDecoder.Decoder.ActorController = this;
         
         _onNewSpeakingActor += _nameBox.SetSpeaker;
+        _onNarrate += _nameBox.SetSpeakerToNarrator;
     }
 
     /// <summary>
@@ -191,18 +195,27 @@ public class ActorController : MonoBehaviour, IActorController
     /// <summary>
     /// Sets the active speaker in the scene, changing the name shown.
     /// </summary>
-    /// <param name="actor">Target actor. This gets the correct name and color from the list of existing actors.</param>
-    public void SetActiveSpeaker(string actor, SpeakingType speakingType)
+    /// <param name="actorName">Target actor. This gets the correct name and color from the list of existing actors.</param>
+    /// <param name="speakingType">SpeakingType of the speaker.</param>
+    public void SetActiveSpeaker(string actorName, SpeakingType speakingType)
     {
         try
         {
-            _currentSpeakingActor = _actorInventory[actor];
-            _onNewSpeakingActor?.Invoke(_currentSpeakingActor, speakingType);
+            if (actorName == NarratorActorName)
+            {
+                _currentSpeakingActor = null;
+                _onNarrate?.Invoke();
+            }
+            else
+            {
+                _currentSpeakingActor = _actorInventory[actorName];
+                _onNewSpeakingActor?.Invoke(_currentSpeakingActor, speakingType);
+            }
         }
         catch (KeyNotFoundException exception)
         {
             _currentSpeakingActor = null;
-            Debug.Log($"{exception.GetType().Name}: Actor {actor} was not found in actor dictionary");
+            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in actor dictionary");
         }
     }
 
