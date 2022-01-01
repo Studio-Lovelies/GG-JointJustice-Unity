@@ -27,8 +27,6 @@ public class ActorController : MonoBehaviour, IActorController
     private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
     private ActorData _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
-
-    public string NarratorActorName { get; } = "None";
     
     /// <summary>
     /// Called when the object is initialized
