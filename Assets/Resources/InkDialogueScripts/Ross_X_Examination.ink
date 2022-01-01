@@ -17,7 +17,7 @@
 &ACTOR:Dan
 
 &SCENE:TMPH_Witness
-&PLAYSONG:fyiIWannaXYourExaminationAllegro
+&PLAYSONG:FyiIWannaXYourExaminationAllegro
 //Set up done
 
 &FADE_IN:1
