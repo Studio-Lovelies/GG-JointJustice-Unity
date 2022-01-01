@@ -463,8 +463,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 160785081537499211, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160785081537499211, guid: ef7dd0dd7a380264d90181b3a106c435,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160785081537499211, guid: ef7dd0dd7a380264d90181b3a106c435,
+        type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -760
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 844180367432201528, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
@@ -500,21 +510,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 187.09998
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400552, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963507969312400554, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2639252515008301615, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3697150471741588061, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
@@ -958,25 +953,15 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
-    - target: {fileID: 4073949957937916147, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: _dialogueMode
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _narrativeScript
-      value: 
-      objectReference: {fileID: 4900000, guid: e3873bd7ef43b4365ae235f06626026e, type: 3}
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: _dialogueList.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
@@ -985,24 +970,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
-      propertyPath: _dialogueList.Array.data[1].<ScriptType>k__BackingField
+      propertyPath: _dialogueList.Array.data[0].<NarrativeScript>k__BackingField
+      value: 
+      objectReference: {fileID: 4900000, guid: 18c4a9fc6db265f42b8d438b4171dbb2, type: 3}
+    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435,
+        type: 3}
+      propertyPath: _narrativeScript
+      value: 
+      objectReference: {fileID: 4900000, guid: e3873bd7ef43b4365ae235f06626026e, type: 3}
+    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
+        type: 3}
+      propertyPath: _dialogueList.Array.data[0].<ScriptType>k__BackingField
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: _dialogueList.Array.data[0].<NarrativeScript>k__BackingField
       value: 
-      objectReference: {fileID: 4900000, guid: 72d8df4aeffe149949d07771194aaaac, type: 3}
-    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _dialogueList.Array.data[0].<NarrativeScript>k__BackingField
-      value: 
       objectReference: {fileID: 4900000, guid: e3873bd7ef43b4365ae235f06626026e, type: 3}
-    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
-        type: 3}
-      propertyPath: _dialogueList.Array.data[1].<NarrativeScript>k__BackingField
-      value: 
-      objectReference: {fileID: 4900000, guid: 0c32d6e773ed15e46a4196127cc3585c, type: 3}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: m_Name
@@ -1062,6 +1047,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784783594412, guid: ef7dd0dd7a380264d90181b3a106c435,
+        type: 3}
+      propertyPath: m_Name
+      value: AppearingDialogueController
       objectReference: {fileID: 0}
     - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
@@ -1153,8 +1143,7 @@ PrefabInstance:
       propertyPath: _duration
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
 --- !u!1001 &7016246306410484242
 PrefabInstance:

@@ -9,7 +9,7 @@ public class ActorData : ScriptableObject, ICourtRecordObject
         Guess,
         Unknown
     }
-    
+
     [field: SerializeField, Tooltip("The actor's sprite that will appear in the profiles menu.")]
     public Sprite Profile { get; private set; }
 
@@ -34,6 +34,9 @@ public class ActorData : ScriptableObject, ICourtRecordObject
     [field: SerializeField, Tooltip("Drag sprites for any shout variations this actor has here.")]
     public SpriteAudioClipPair[] ShoutVariants { get; private set; }
     
+    [field: SerializeField, Tooltip("The sound that plays when this actor talks.")]
+    public AudioClip DialogueChirp { get; private set; }
+
     public string InstanceName => name;
     public string CourtRecordName => GenerateNameWithAge();
     public Sprite Icon => Profile;

@@ -146,6 +146,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _panToPositionCoroutine = null;
+        _onWaitComplete.Invoke();
     }
 
     /// <summary>

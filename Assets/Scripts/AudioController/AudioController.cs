@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
@@ -17,8 +18,9 @@ public class AudioController : MonoBehaviour, IAudioController
     /// One day this will come from the "Settings," but for now it lives on a field
     /// </summary>
     [Tooltip("SFX Volume level set by player")]
+    [FormerlySerializedAs("_settingsSFXVolume")]
     [Range(0f, 1f)]
-    [SerializeField] private float _settingsSFXVolume = 0.5f;
+    [SerializeField] private float _settingsSfxVolume = 0.5f;
 
     [Tooltip("Total duration of fade out + fade in")]
     [Range(0f, 4f)]
@@ -58,7 +60,7 @@ public class AudioController : MonoBehaviour, IAudioController
             _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
 
         if (_sfxAudioSource != null)
-            _sfxAudioSource.volume = _settingsSFXVolume;
+            _sfxAudioSource.volume = this._settingsSfxVolume;
     }
 
     /// <summary>
@@ -90,9 +92,18 @@ public class AudioController : MonoBehaviour, IAudioController
     /// Plays sound effect of desired name.
     /// </summary>
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
-    public void PlaySFX(string soundEffectName)
+    public void PlaySfx(string soundEffectName)
     {
-        AudioClip soundEffectClip = Resources.Load("Audio/SFX/" + soundEffectName) as AudioClip;
+        AudioClip soundEffectClip = GetSfxResource(soundEffectName);
+        PlaySfx(soundEffectClip);
+    }
+
+    /// <summary>
+    /// Play given audio clip immediately
+    /// </summary>
+    /// <param name="soundEffectClip">Clip to play</param>
+    public void PlaySfx(AudioClip soundEffectClip)
+    {
         _sfxAudioSource.PlayOneShot(soundEffectClip);
     }
     
@@ -150,8 +161,18 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     private void SetCurrentTrack(string songName)
     {
-        _musicAudioSource.clip = Resources.Load("Audio/Music/" + songName) as AudioClip;
+        _musicAudioSource.clip = Resources.Load<AudioClip>("Audio/Music/" + songName);
         _musicAudioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
         _musicAudioSource.Play();
+    }
+
+    /// <summary>
+    /// Acquires the Sfx Resource from Audio/SFX/*
+    /// </summary>
+    /// <param name="soundEffectName">Name of sound effect asset you want</param>
+    /// <returns></returns>
+    private static AudioClip GetSfxResource(string soundEffectName)
+    {
+        return Resources.Load<AudioClip>("Audio/SFX/" + soundEffectName);
     }
 }
