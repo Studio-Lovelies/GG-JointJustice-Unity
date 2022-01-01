@@ -9,6 +9,12 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 {
     [Tooltip("Drag a DirectorActionDecoder component here.")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+
+    [Tooltip("Drag an AudioController here.")]
+    [SerializeField] private AudioController _audioController;
+    
+    [Tooltip("Drag a NameBox component here.")]
+    [SerializeField] private NameBox _namebox;
     
     [Tooltip("Drag a TextMeshProUGUI component here.")]
     [SerializeField] private TextMeshProUGUI _textBox;
@@ -28,6 +34,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Add characters that should be treated like regular characters here.")]
     [SerializeField] private char[] _ignoredCharacters;
 
+    [Tooltip("Add an AudioClip for the default dialogue chirp here")]
+    [SerializeField] private AudioClip _defaultDialogueChirpSfx;
+    
     [Header("Events")]
     [SerializeField] private UnityEvent _onLineEnd;
     [SerializeField] private UnityEvent _onAutoSkip;
@@ -112,6 +121,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             _onLetterAppear.Invoke();
             char currentCharacter = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1].character;
             float speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
+            PlayDialogueChirp(_namebox.CurrentActor, currentCharacter);
             yield return new WaitForSeconds(GetDelay(currentCharacter) / speedMultiplier);
         }
         _onLineEnd.Invoke();
@@ -125,6 +135,26 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     }
 
     /// <summary>
+    /// Play dialogue chirp sound effect for current actor, if it exists
+    /// </summary>
+    /// <param name="currentActor">Speaker actor</param>
+    /// <param name="currentCharacter">Character to play chirp on (skipped if punctuation or ignored)</param>
+    private void PlayDialogueChirp(ActorData currentActor, char currentCharacter)
+    {
+        if (currentActor == null || CharShouldBeTreatedAsPunctuation(currentCharacter))
+        {
+            return;
+        }
+        
+        var chirp = currentActor.DialogueChirp;
+        if (chirp == null)
+        {
+            chirp = _defaultDialogueChirpSfx;
+        }
+        _audioController.PlaySfx(chirp);
+    }
+
+    /// <summary>
     /// Return a time to wait for a given character.
     /// If character is not found in the punctuation array
     /// (i.e. the default null character is returned from FirstOrDefault)
@@ -134,7 +164,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <returns>The time to wait.</returns>
     public float GetDelay(char character)
     {
-        if (!char.IsPunctuation(character) || _ignoredCharacters.Contains(character))
+        if (!CharShouldBeTreatedAsPunctuation(character))
         {
             return CharacterDelay;
         }
@@ -146,6 +176,13 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         
         var pair = _punctuationDelay.FirstOrDefault(charFloatPair => charFloatPair.Item1 == character);
         return pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2;
+    }
+    
+    /// <param name="character">Char to be tested</param>
+    /// <returns>True if character is ignorable</returns>
+    private bool CharShouldBeTreatedAsPunctuation(char character)
+    {
+        return char.IsPunctuation(character) && !_ignoredCharacters.Contains(character);
     }
 }
 
