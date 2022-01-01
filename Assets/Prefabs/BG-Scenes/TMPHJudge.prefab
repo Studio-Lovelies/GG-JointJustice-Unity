@@ -153,7 +153,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 37d11f23eccfa4cd6ac746f92b226f12, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 311378799cf68455abc0971c07e01ffa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -173,9 +173,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6276402831480686355}
-  - component: {fileID: 4795137393859335847}
+  - component: {fileID: 3237908030242876857}
   m_Layer: 0
-  m_Name: TMPH_Assistant
+  m_Name: TMPHJudge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4795137393859335847
+--- !u!114 &3237908030242876857
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -1,6 +1,6 @@
 &SCENE:TMPHJudge
-&ACTOR:Brent_Judge
-&SPEAK:Brent_Judge
+&ACTOR:BrentJudge
+&SPEAK:BrentJudge
 Arin! Demonstrate the screenshake effect!
 
 &HIDE_TEXTBOX
@@ -12,8 +12,8 @@ Arin! Demonstrate the screenshake effect!
 Was that good enough, your honour?
 
 &SCENE:TMPHJudge
-&SPEAK:Brent_Judge
-&ACTOR:Brent_Judge
+&SPEAK:BrentJudge
+&ACTOR:BrentJudge
 &SET_POSE:HeadShake
 &SHAKE_SCREEN:0.5,0.25
 No!

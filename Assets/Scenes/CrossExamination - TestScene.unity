@@ -176,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7497109962289728323, guid: ba051a1745ca9df40845054bf2e42823, type: 3}
       propertyPath: m_Name
-      value: TMPH_Judge
+      value: TMPHJudge
       objectReference: {fileID: 0}
     - target: {fileID: 7497109962289728323, guid: ba051a1745ca9df40845054bf2e42823, type: 3}
       propertyPath: m_IsActive
@@ -242,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8092316712924599043, guid: 6a76445d659e2db4baf7ee7ff4a2133c, type: 3}
       propertyPath: m_Name
-      value: TMPH_Court
+      value: TMPHCourt
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a76445d659e2db4baf7ee7ff4a2133c, type: 3}
@@ -353,7 +353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7497109962289728323, guid: 0820a283beb805d4d9939e8cc6457f22, type: 3}
       propertyPath: m_Name
-      value: TMPH_Prosecution
+      value: TMPHProsecution
       objectReference: {fileID: 0}
     - target: {fileID: 7497109962289728323, guid: 0820a283beb805d4d9939e8cc6457f22, type: 3}
       propertyPath: m_IsActive
@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7497109962289728323, guid: 10cbdef6ea18e6d49a2ddaaecbb78e45, type: 3}
       propertyPath: m_Name
-      value: TMPH_Assistant
+      value: TMPHAssistant
       objectReference: {fileID: 0}
     - target: {fileID: 7497109962289728323, guid: 10cbdef6ea18e6d49a2ddaaecbb78e45, type: 3}
       propertyPath: m_IsActive
@@ -496,7 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7497109962289728323, guid: d9e89f6f42e34f444b9306d3129fbc47, type: 3}
       propertyPath: m_Name
-      value: TMPH_Defense
+      value: TMPHDefense
       objectReference: {fileID: 0}
     - target: {fileID: 7497109962289728323, guid: d9e89f6f42e34f444b9306d3129fbc47, type: 3}
       propertyPath: m_IsActive
@@ -573,7 +573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7497109962289728323, guid: 13163000f2470564599c4b3f7d2038b4, type: 3}
       propertyPath: m_Name
-      value: TMPH_Witness
+      value: TMPHWitness
       objectReference: {fileID: 0}
     - target: {fileID: 7497109962289728323, guid: 13163000f2470564599c4b3f7d2038b4, type: 3}
       propertyPath: m_IsActive

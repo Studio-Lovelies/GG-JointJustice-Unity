@@ -18,7 +18,7 @@ After all the work I put into those levels...
 
 &HIDE_TEXTBOX
 &FADE_OUT:1
-&SCENE:TMPHRoss_With_Dinos
+&SCENE:TMPHRossWithDinos
 &CAMERA_SET:0,0 //x, y
 &FADE_IN:1
 

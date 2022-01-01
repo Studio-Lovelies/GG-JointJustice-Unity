@@ -3,7 +3,7 @@
 &WAIT:1
 
 &SCENE:TMPHJudge
-&ACTOR:Brent_Judge
+&ACTOR:BrentJudge
 
 &SCENE:TMPHAssistant
 &ACTOR:Dan
@@ -12,7 +12,7 @@
 Bruh, wtf was that Arin?
 
 &SCENE:TMPHJudge
-&SPEAK:Brent_Judge
+&SPEAK:BrentJudge
 Regarding the lack of evidence in the favor of the accused, Mr. Jory Griffis, I must find him..."
 
 &HIDE_TEXTBOX
