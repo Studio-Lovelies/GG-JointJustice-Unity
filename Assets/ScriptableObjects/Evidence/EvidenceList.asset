@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80a63ee1f62a944469346f2d053baa9e, type: 3}
-  m_Name: Evidence_List
+  m_Name: EvidenceList
   m_EditorClassIdentifier: 
   <ObjectArray>k__BackingField:
   - {fileID: 11400000, guid: 8e1c11b76c9554d91970538b25659af3, type: 2}
