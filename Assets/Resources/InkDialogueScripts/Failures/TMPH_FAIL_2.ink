@@ -1,7 +1,7 @@
 &SCENE:TMPH_Court
 &JUMP_TO_POSITION:3
-&ACTOR:Tutorial_Boy
-&SPEAK:Tutorial_Boy
+&ACTOR:TutorialBoy
+&SPEAK:TutorialBoy
 Wow you're terrible at this.
 
 &JUMP_TO_POSITION:1

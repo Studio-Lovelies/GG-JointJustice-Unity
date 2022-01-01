@@ -8,8 +8,8 @@ Wow, bent coins!
 
 &HIDE_ITEM
 &SCENE:TMPH_Prosecution
-&ACTOR:Tutorial_Boy
-&SPEAK:Tutorial_Boy
+&ACTOR:TutorialBoy
+&SPEAK:TutorialBoy
 That's nothing, look at this!
 
 &SHOW_ITEM:Stolen_Dinos, Left

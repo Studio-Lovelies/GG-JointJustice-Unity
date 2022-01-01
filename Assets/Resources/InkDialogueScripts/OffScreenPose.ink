@@ -9,7 +9,7 @@
 &SCENE:TMPH_Court
 &SET_ACTOR_POSITION:1,Arin
 &SET_ACTOR_POSITION:2,Ross
-&SET_ACTOR_POSITION:3,Tutorial_Boy
+&SET_ACTOR_POSITION:3,TutorialBoy
 
 &SET_POSE:Normal
 Normal pose.
@@ -20,7 +20,7 @@ Arin.big = true
 &SET_POSE:CloseUp,Arin
 I'm big now, switch to Scene view to see
 
-&SET_POSE:Angry,Tutorial_Boy
+&SET_POSE:Angry,TutorialBoy
 This makes Tutorial Boy angry.
 
 ANGERY!

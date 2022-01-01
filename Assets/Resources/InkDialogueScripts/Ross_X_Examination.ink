@@ -8,7 +8,7 @@
 &ACTOR:Arin
 
 &SCENE:TMPH_Prosecution
-&ACTOR:Tutorial_Boy
+&ACTOR:TutorialBoy
 
 &SCENE:TMPH_Judge
 &ACTOR:Brent_Judge
@@ -76,7 +76,7 @@
 What were you animating?
 
 &SCENE:TMPH_Prosecution
-&SPEAK:Tutorial_Boy
+&SPEAK:TutorialBoy
 Your Honor, this is clearly irrelevant to the case.
 
 &SCENE:TMPH_Judge
@@ -84,7 +84,7 @@ Your Honor, this is clearly irrelevant to the case.
 I agree. Arin, try being serious about this.
 
 &SCENE:TMPH_Prosecution
-&SPEAK:Tutorial_Boy
+&SPEAK:TutorialBoy
 Ross, continue your testimony.
 
 -> Line2
@@ -104,7 +104,7 @@ I'm getting to it, just be patient. I'm trying to build suspense for the viewers
 But this isn't being broadcasted...
 
 &SCENE:TMPH_Prosecution
-&SPEAK:Tutorial_Boy
+&SPEAK:TutorialBoy
 Quick! Back to the testimony before we break the fourth wall again!
 
 &SCENE:TMPH_Judge
@@ -158,7 +158,7 @@ Yet you also say you were in your office animating
 Seems very odd to me! How could you see anyone while you were focused on your work!
 
 &SCENE:TMPH_Prosecution
-&SPEAK:Tutorial_Boy
+&SPEAK:TutorialBoy
 Are you saying that my witness is a liar?
 I'm sure Ross has a very reasonable explanation for all this.
 

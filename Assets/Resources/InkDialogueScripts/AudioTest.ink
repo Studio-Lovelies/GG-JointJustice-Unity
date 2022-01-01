@@ -5,7 +5,7 @@
 This is some rad music!
 
 &STOP_SONG
-&SPEAK:Tutorial_Boy
+&SPEAK:TutorialBoy
 SILENCE!
 
 &SPEAK:Dan
