@@ -1,4 +1,4 @@
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &ACTOR:Arin
 &SPEAK:Arin
 These are my choices

@@ -1,4 +1,4 @@
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &JUMP_TO_POSITION:3
 &ACTOR:TutorialBoy
 &SPEAK:TutorialBoy

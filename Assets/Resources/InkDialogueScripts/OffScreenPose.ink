@@ -1,12 +1,12 @@
 //Do these before fading in, sets up the scene
 
-&SCENE:TMPH_Judge
+&SCENE:TMPHJudge
 &ACTOR:Brent_Judge
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &ACTOR:Dan
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &SET_ACTOR_POSITION:1,Arin
 &SET_ACTOR_POSITION:2,Ross
 &SET_ACTOR_POSITION:3,TutorialBoy

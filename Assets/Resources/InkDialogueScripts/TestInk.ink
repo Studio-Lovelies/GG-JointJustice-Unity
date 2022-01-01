@@ -5,7 +5,7 @@
 &SPEAK:Ross
 After all the work I put into those levels...
 
-&SCENE:TMPH_Ross
+&SCENE:TMPHRoss
 &CAMERA_SET:0,-204 //x, y
 &HIDE_TEXTBOX
 &FADE_IN:1
@@ -18,7 +18,7 @@ After all the work I put into those levels...
 
 &HIDE_TEXTBOX
 &FADE_OUT:1
-&SCENE:TMPH_Ross_With_Dinos
+&SCENE:TMPHRoss_With_Dinos
 &CAMERA_SET:0,0 //x, y
 &FADE_IN:1
 
@@ -32,7 +32,7 @@ Soon, I'll have all the coins!
 
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:RossGalaxyBrain
-&SCENE:TMPH_GalaxyBrain
+&SCENE:TMPHGalaxyBrain
 &SPEAK:Ross //Optional, doesn't need to be here, but can be nice for clarity
 Now this is a galaxy-brain move right here!
 &HIDE_TEXTBOX

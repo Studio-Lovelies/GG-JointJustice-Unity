@@ -1,4 +1,4 @@
-&SCENE:TMPH_Defense
+&SCENE:TMPHDefense
 &ACTOR:Arin
 &SPEAK:Arin
 Look at this item!
@@ -7,7 +7,7 @@ Look at this item!
 Wow, bent coins!
 
 &HIDE_ITEM
-&SCENE:TMPH_Prosecution
+&SCENE:TMPHProsecution
 &ACTOR:TutorialBoy
 &SPEAK:TutorialBoy
 That's nothing, look at this!
@@ -19,7 +19,7 @@ They are very nice.
 &HIDE_ITEM
 Now they are gone though.
 
-&SCENE:TMPH_Judge
+&SCENE:TMPHJudge
 &ACTOR:Brent_Judge
 &SPEAK:Brent_Judge
 Stop arguing both of you, I have the best item.
