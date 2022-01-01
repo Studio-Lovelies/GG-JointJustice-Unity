@@ -301,7 +301,6 @@ public class ActionDecoder
     private void PAN_TO_POSITION(int slotIndex, float panDuration)
     {
         SceneController.PanToActorSlot(slotIndex, panDuration);
-        OnActionDone?.Invoke();
     }
 
     private void ISSUE_PENALTY()
