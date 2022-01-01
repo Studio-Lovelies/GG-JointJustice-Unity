@@ -41,7 +41,7 @@ public class Animatable : MonoBehaviour
         }
         
         _onAnimationStart.Invoke();
-        Animator.Play(animationHash);
+        Animator.Play(animationHash, 0, 0);
     }
 
     /// <summary>
