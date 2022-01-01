@@ -1,5 +1,5 @@
 &SCENE:TMPH_Defense
-&PLAY_SONG:aKissFromARose
+&PLAY_SONG:AKissFromARose
 &ACTOR:Dan
 &SPEAK:Dan
 This is some rad music!
