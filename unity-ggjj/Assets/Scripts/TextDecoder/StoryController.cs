@@ -59,7 +59,7 @@ public class StoryController : MonoBehaviour
         }
         else
         {
-            if (_dialogueList[_currentStory].ScriptType == DialogueControllerMode.CrossExamination)
+            if (_dialogueList[_currentStory].ScriptMode == DialogueControllerMode.CrossExamination)
             {
                 _onCrossExaminationStart.Invoke();
             }

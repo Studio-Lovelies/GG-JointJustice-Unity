@@ -1,3 +1,4 @@
+&MODE:Dialogue
 &ACTOR:Arin
 &SPEAK:Arin
 Hello my name is Arin Hanson.

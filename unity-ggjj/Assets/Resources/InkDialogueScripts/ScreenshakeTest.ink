@@ -1,3 +1,4 @@
+&MODE:Dialogue
 &SCENE:TMPHJudge
 &ACTOR:JudgeBrent
 &SPEAK:JudgeBrent
