@@ -2,6 +2,6 @@
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:WitnessTestimony
 &BEGIN_WITNESS_TESTIMONY
-&NARRATE
+&SPEAK:None
 <color=orange><align=center>Witness' Testimony
 -> DONE
