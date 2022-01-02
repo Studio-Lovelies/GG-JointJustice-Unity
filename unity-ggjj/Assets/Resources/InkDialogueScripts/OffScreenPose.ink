@@ -1,4 +1,3 @@
-&MODE:Dialogue
 //Do these before fading in, sets up the scene
 
 &SCENE:TMPHJudge

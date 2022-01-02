@@ -1,4 +1,3 @@
-&MODE:Dialogue
 &ACTOR:Ross
 &SPEAK:Ross
 &SET_POSE:Normal

@@ -1,4 +1,3 @@
-&MODE:Dialogue
 &SCENE:TMPHDefense
 &ACTOR:Arin
 &SPEAK:Arin

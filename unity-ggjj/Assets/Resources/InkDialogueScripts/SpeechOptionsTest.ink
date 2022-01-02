@@ -1,4 +1,3 @@
-&MODE:Dialogue
 &ACTOR:Dan
 &SPEAK:Arin
 Hey Dan, can I ask you a question?

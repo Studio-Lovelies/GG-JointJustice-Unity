@@ -1,4 +1,3 @@
-&MODE:Dialogue
 &NARRATE
 From somewhere, a transmission...
 
