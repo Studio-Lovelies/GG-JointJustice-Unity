@@ -2,7 +2,7 @@ using System;
 using Ink.Runtime;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public struct Dialogue
 {
     /// <summary>
@@ -23,7 +23,7 @@ public struct Dialogue
         {
             const string expectedFileStart = "&MODE:";
             var firstLine = new Story(NarrativeScript.text).Continue().Trim();
-            var availableModes = ((GameMode[])Enum.GetValues(typeof(GameMode)));
+            var availableModes = (GameMode[])Enum.GetValues(typeof(GameMode));
             if (!firstLine.StartsWith("&MODE:"))
             {
                 throw new NotSupportedException($"The first line of each .ink script needs to begin with either '{expectedFileStart}{string.Join($"','{expectedFileStart}", availableModes)}'\r\nLine: {firstLine}");
