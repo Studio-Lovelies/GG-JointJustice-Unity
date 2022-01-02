@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ActionDecoder
 {
@@ -314,6 +315,18 @@ public class ActionDecoder
         SceneController.ReloadScene();
     }
 
+    private void BEGIN_WITNESS_TESTIMONY()
+    {
+        SceneController.WitnessTestimonyActive = true;
+        OnActionDone?.Invoke();
+    }
+
+    private void END_WITNESS_TESTIMONY()
+    {
+        SceneController.WitnessTestimonyActive = false;
+        OnActionDone?.Invoke();
+    }
+    
     #endregion
 
     #region ActorController
