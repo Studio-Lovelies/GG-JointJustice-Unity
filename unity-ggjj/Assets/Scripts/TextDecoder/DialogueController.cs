@@ -24,10 +24,20 @@ public class DialogueController : MonoBehaviour, IDialogueController
 
     private TextAsset _narrativeScript;
 
+    private DialogueControllerMode _dialogueMode;
     public DialogueControllerMode DialogueMode
     {
-        private get;
-        set;
+        private get => _dialogueMode;
+        set
+        {
+            if (_subStory != null)
+            {
+                _subStory.DialogueMode = value;
+                return;
+            }
+
+            _dialogueMode = value;
+        }
     }
 
     [Tooltip("Attach the action decoder object here")]
