@@ -81,7 +81,7 @@ public class DialogueController : MonoBehaviour
     {
         _narrativeScript = dialogue.NarrativeScript;
         _inkStory = new Story(dialogue.NarrativeScript.text);
-        _dialogueMode = dialogue.ScriptType;
+        _dialogueMode = dialogue.ScriptMode;
         OnContinueStory(); //Auto start
     }
 
@@ -353,7 +353,7 @@ public class DialogueController : MonoBehaviour
     {
         _subStory = Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
         _subStory.SubStoryInit(this); //RECURSION
-        _subStory.SetNewDialogue(new Dialogue(subStory, DialogueControllerMode.Dialogue));
+        _subStory.SetNewDialogue(new Dialogue(subStory));
     }
 
     /// <summary>

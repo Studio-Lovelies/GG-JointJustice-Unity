@@ -1,3 +1,4 @@
+&MODE:Dialogue
 &ACTOR:Dan
 &SHOW_ACTOR:True
 

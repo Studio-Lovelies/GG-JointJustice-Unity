@@ -1,3 +1,5 @@
+using System;
+using Ink.Runtime;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,16 +9,36 @@ public struct Dialogue
     /// Initialise values on construction.
     /// </summary>
     /// <param name="narrativeScript">An Ink narrative script</param>
-    /// <param name="type">The type of script (dialogue or cross examination</param>
-    public Dialogue(TextAsset narrativeScript, DialogueControllerMode type)
+    public Dialogue(TextAsset narrativeScript)
     {
         NarrativeScript = narrativeScript;
-        ScriptType = type;
     }
 
     [field: Tooltip("Drag an Ink narrative script here.")]
     [field: SerializeField] public TextAsset NarrativeScript { get; private set; }
     
-    [field: Tooltip("The dialogue mode the narrative script will use (dialogue or cross examination).")]
-    [field: SerializeField] public DialogueControllerMode ScriptType { get; private set; }
+    public DialogueControllerMode ScriptMode
+    {
+        get
+        {
+            const string expectedFileStart = "&MODE:";
+            var firstLine = new Story(NarrativeScript.text).Continue().Trim();
+            var availableModes = ((DialogueControllerMode[])Enum.GetValues(typeof(DialogueControllerMode)));
+            if (!firstLine.StartsWith("&MODE:"))
+            {
+                throw new NotSupportedException($"The first line of each .ink script needs to begin with either '{expectedFileStart}{string.Join($"','{expectedFileStart}", availableModes)}'\r\nLine: {firstLine}");
+            }
+
+            var modeParameter = firstLine.Substring(expectedFileStart.Length);
+            foreach (DialogueControllerMode mode in availableModes)
+            {
+                if (mode.ToString() == modeParameter)
+                {
+                    return mode;
+                }
+            }
+
+            throw new NotSupportedException($"The mode '{modeParameter}' is not supported. (Currently supported values: '{expectedFileStart}{string.Join($"','{expectedFileStart}", availableModes)}')\r\n Line: {firstLine}");
+        }
+    }
 }

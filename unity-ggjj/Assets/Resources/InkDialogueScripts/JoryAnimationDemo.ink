@@ -1,3 +1,4 @@
+&MODE:Dialogue
 &ACTOR:Jory
 &SPEAK:Jory
 &SET_POSE:Normal
