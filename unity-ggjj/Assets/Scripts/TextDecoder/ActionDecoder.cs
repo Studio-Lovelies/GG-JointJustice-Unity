@@ -14,6 +14,7 @@ public class ActionDecoder
     public IEvidenceController EvidenceController { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; }
     public IDialogueController DialogueController { get; set; }
+    public IStoryController StoryController { get; set; }
 
     /// <summary>
     ///     Parse action lines inside from inside .ink files
@@ -392,6 +393,10 @@ public class ActionDecoder
     private void MODE(GameMode mode)
     {
         DialogueController.GameMode = mode;
+        if (mode == GameMode.CrossExamination)
+        {
+            StoryController.OnCrossExaminationStart();
+        }
         OnActionDone?.Invoke();
     }
     #endregion

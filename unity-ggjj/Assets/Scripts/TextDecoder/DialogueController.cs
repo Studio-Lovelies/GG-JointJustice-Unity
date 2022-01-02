@@ -70,7 +70,6 @@ public class DialogueController : MonoBehaviour, IDialogueController
     [SerializeField] private UnityEvent<bool> _onBusySet;
 
     private Story _inkStory;
-    private bool _isBusy;
     private bool _isMenuOpen;
     private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
 
@@ -334,14 +333,12 @@ public class DialogueController : MonoBehaviour, IDialogueController
         {
             return;
         }
-        else //At choice, which means cross examination point. Maybe add sanity check to make sure we have at least 2 options?
+
+        //At choice, which means cross examination point. Maybe add sanity check to make sure we have at least 2 options?
+        if (_inkStory.currentChoices.Count > 0)
         {
-            if (_inkStory.currentChoices.Count > 0)
-            {
-                _isAtChoice = true;
-                _onCrossExaminationLoopActive.Invoke(true);
-            }
-            
+            _isAtChoice = true;
+            _onCrossExaminationLoopActive.Invoke(true);
         }
     }
 

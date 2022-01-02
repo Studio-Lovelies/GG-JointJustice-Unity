@@ -407,6 +407,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1013634498}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1285402457 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5228303783986964379, guid: ef7dd0dd7a380264d90181b3a106c435,
+    type: 3}
+  m_PrefabInstance: {fileID: 5228303782951346616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0236637ba39c2e54dbe80bb16a48408d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1521282217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -716,6 +728,16 @@ PrefabInstance:
       propertyPath: _narrativeScript
       value: 
       objectReference: {fileID: 4900000, guid: 4e358af8a547cf749b1bf60efb1926c3, type: 3}
+    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
+        type: 3}
+      propertyPath: _directorActionDecoder
+      value: 
+      objectReference: {fileID: 1285402457}
+    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435,
+        type: 3}
+      propertyPath: _dialogueList.Array.data[0].<NarrativeScript>k__BackingField
+      value: 
+      objectReference: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: m_Name
