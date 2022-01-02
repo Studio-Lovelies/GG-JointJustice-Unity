@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public enum DialogueControllerMode
+public enum GameMode
 {
     Dialogue,
     CrossExamination
@@ -24,19 +24,19 @@ public class DialogueController : MonoBehaviour, IDialogueController
 
     private TextAsset _narrativeScript;
 
-    private DialogueControllerMode _dialogueMode;
-    public DialogueControllerMode DialogueMode
+    private GameMode _gameMode;
+    public GameMode GameMode
     {
-        private get => _dialogueMode;
+        private get => _gameMode;
         set
         {
             if (_subStory != null)
             {
-                _subStory.DialogueMode = value;
+                _subStory.GameMode = value;
                 return;
             }
 
-            _dialogueMode = value;
+            _gameMode = value;
         }
     }
 
@@ -124,12 +124,12 @@ public class DialogueController : MonoBehaviour, IDialogueController
             return;
         }
 
-        switch (DialogueMode)
+        switch (GameMode)
         {
-            case DialogueControllerMode.Dialogue:
+            case GameMode.Dialogue:
                 HandleNextLineDialogue();
                 break;
-            case DialogueControllerMode.CrossExamination:
+            case GameMode.CrossExamination:
                 HandleNextLineCrossExamination();
                 break;
             default:
@@ -143,7 +143,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
     /// </summary>
     public void OnPressWitness()
     {
-        if (DialogueMode != DialogueControllerMode.CrossExamination)
+        if (GameMode != GameMode.CrossExamination)
         {
             return;
         }
@@ -200,7 +200,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
             return;
         }
 
-        if (DialogueMode != DialogueControllerMode.CrossExamination)
+        if (GameMode != GameMode.CrossExamination)
         {
             return;
         }

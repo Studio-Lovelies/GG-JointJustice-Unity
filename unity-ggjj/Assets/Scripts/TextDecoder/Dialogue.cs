@@ -17,20 +17,20 @@ public struct Dialogue
     [field: Tooltip("Drag an Ink narrative script here.")]
     [field: SerializeField] public TextAsset NarrativeScript { get; private set; }
     
-    public DialogueControllerMode ScriptMode
+    public GameMode ScriptMode
     {
         get
         {
             const string expectedFileStart = "&MODE:";
             var firstLine = new Story(NarrativeScript.text).Continue().Trim();
-            var availableModes = ((DialogueControllerMode[])Enum.GetValues(typeof(DialogueControllerMode)));
+            var availableModes = ((GameMode[])Enum.GetValues(typeof(GameMode)));
             if (!firstLine.StartsWith("&MODE:"))
             {
                 throw new NotSupportedException($"The first line of each .ink script needs to begin with either '{expectedFileStart}{string.Join($"','{expectedFileStart}", availableModes)}'\r\nLine: {firstLine}");
             }
 
             var modeParameter = firstLine.Substring(expectedFileStart.Length);
-            foreach (DialogueControllerMode mode in availableModes)
+            foreach (GameMode mode in availableModes)
             {
                 if (mode.ToString() == modeParameter)
                 {

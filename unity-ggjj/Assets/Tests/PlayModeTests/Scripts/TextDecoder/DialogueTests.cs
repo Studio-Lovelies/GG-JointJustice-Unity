@@ -11,14 +11,14 @@ namespace Tests.PlayModeTests.Scripts.TextDecoder
     {
         private const string SERIALIZED_INK_STARTING_WITH_MODE_PLACEHOLDER = "{\"inkVersion\":20,\"root\":[[\"^&MODE:__MODE__\",\"\\n\",\"^&SPEAK:Ross\",\"\\n\",\"^After all the work I put into those levels...\",\"\\n\",\"end\",[\"done\",{\"#f\":5,\"#n\":\"g-0\"}],null],\"done\",{\"#f\":1}],\"listDefs\":{}}";
 
-        private static IEnumerable<DialogueControllerMode> AllDialogueControllerModes => (DialogueControllerMode[])Enum.GetValues(typeof(DialogueControllerMode));
+        private static IEnumerable<GameMode> AllDialogueControllerModes => (GameMode[])Enum.GetValues(typeof(GameMode));
 
         [Test]
         [TestCaseSource(nameof(AllDialogueControllerModes))]
-        public void CorrectlyParsesModeFromContent(DialogueControllerMode dialogueControllerMode)
+        public void CorrectlyParsesModeFromContent(GameMode gameMode)
         {
-            global::Dialogue testDialogue = new global::Dialogue(new TextAsset(SERIALIZED_INK_STARTING_WITH_MODE_PLACEHOLDER.Replace("__MODE__", dialogueControllerMode.ToString())));
-            Assert.AreEqual(dialogueControllerMode, testDialogue.ScriptMode);
+            global::Dialogue testDialogue = new global::Dialogue(new TextAsset(SERIALIZED_INK_STARTING_WITH_MODE_PLACEHOLDER.Replace("__MODE__", gameMode.ToString())));
+            Assert.AreEqual(gameMode, testDialogue.ScriptMode);
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace Tests.PlayModeTests.Scripts.TextDecoder
                 var empty = testDialogue.ScriptMode;
             });
             StringAssert.Contains("is not supported", exception.Message);
-            foreach (DialogueControllerMode mode in AllDialogueControllerModes)
+            foreach (GameMode mode in AllDialogueControllerModes)
             {
                 StringAssert.Contains(mode.ToString(), exception.Message);
             }
@@ -46,7 +46,7 @@ namespace Tests.PlayModeTests.Scripts.TextDecoder
                 var empty = testDialogue.ScriptMode;
             });
             StringAssert.Contains("The first line of each .ink script needs to begin with either", exception.Message);
-            foreach (DialogueControllerMode mode in AllDialogueControllerModes)
+            foreach (GameMode mode in AllDialogueControllerModes)
             {
                 StringAssert.Contains(mode.ToString(), exception.Message);
             }

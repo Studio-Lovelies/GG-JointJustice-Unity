@@ -389,9 +389,9 @@ public class ActionDecoder
     #endregion
 
     #region DialogueController
-    private void MODE(DialogueControllerMode mode)
+    private void MODE(GameMode mode)
     {
-        DialogueController.DialogueMode = mode;
+        DialogueController.GameMode = mode;
         OnActionDone?.Invoke();
     }
     #endregion
