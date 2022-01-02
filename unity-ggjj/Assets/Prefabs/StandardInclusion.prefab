@@ -797,9 +797,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogueList:
-  - <NarrativeScript>k__BackingField: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b,
+  - <NarrativeScript>k__BackingField: {fileID: 4900000, guid: 18c4a9fc6db265f42b8d438b4171dbb2,
       type: 3}
   _nextSceneName: 
+  _penaltyManager: {fileID: 2742639565556443572}
   _onNextDialogueScript:
     m_PersistentCalls:
       m_Calls:
@@ -811,21 +812,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onCrossExaminationStart:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2742639565556443572}
-        m_TargetAssemblyTypeName: PenaltyManager, GG-JointJustice
-        m_MethodName: Initialize
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
