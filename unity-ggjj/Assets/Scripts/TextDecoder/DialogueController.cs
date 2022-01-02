@@ -16,7 +16,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
 
     private TextAsset _narrativeScript;
 
-    private GameMode _gameMode;
+    private GameMode _gameMode = GameMode.Dialogue;
     public GameMode GameMode
     {
         private get => _gameMode;

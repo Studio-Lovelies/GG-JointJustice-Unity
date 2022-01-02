@@ -1,4 +1,3 @@
-&MODE:Dialogue
 &SCENE:TMPH_Defense
 &PLAY_SONG:aKissFromARose
 &ACTOR:Dan

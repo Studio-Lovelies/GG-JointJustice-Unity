@@ -1,4 +1,3 @@
-&MODE:Dialogue
 &FADE_OUT:0
 &SHOW_ACTOR:False
 &PLAY_SONG:PrologueInPMinor

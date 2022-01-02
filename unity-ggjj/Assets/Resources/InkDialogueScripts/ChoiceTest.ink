@@ -1,4 +1,3 @@
-&MODE:Dialogue
 &SCENE:TMPHCourt
 &ACTOR:Arin
 &SPEAK:Arin
