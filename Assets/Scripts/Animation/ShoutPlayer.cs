@@ -19,9 +19,6 @@ public class ShoutPlayer : MonoBehaviour
     [Tooltip("The probability that a shout will be replaced by a variation."), Range(0, 1)]
     [SerializeField] private float _randomShoutChance;
 
-    [Tooltip("Drag the audio controller here.")]
-    [SerializeField] private AudioController _audioController;
-    
     private SpriteRenderer _spriteRenderer;
     private ObjectShaker _objectShaker;
 
@@ -38,14 +35,11 @@ public class ShoutPlayer : MonoBehaviour
     /// Enables and sets the sprite renderer sprite to the correct sprite.
     /// Calls the shaker components Shake method to shake the sprite.
     /// </summary>
-    /// <param name="shoutVariant">An array of alternate sprites
-    /// that have a chance to randomly appear instead. Set this to null to disable random variations.</param>
-    /// <param name="canPlayRandomShout"></param>
-    public void PlayShout(SpriteAudioClipPair shoutVariant)
+    /// <param name="shoutSprite">The sprite of the shout to play</param>
+    public void PlayShout(Sprite shoutSprite)
     {
         _spriteRenderer.enabled = true;
-        _spriteRenderer.sprite = shoutVariant.Sprite;
-        _audioController.PlaySFX(shoutVariant.AudioClip);
+        _spriteRenderer.sprite = shoutSprite;
         _objectShaker.Shake(_frequency, _amplitude, _duration, true);
     }
 
@@ -53,8 +47,8 @@ public class ShoutPlayer : MonoBehaviour
     /// Checks if a shout variant should be played.
     /// </summary>
     /// <returns>Whether or not a shout variant should be played.</returns>
-    public bool ShouldPlayShoutVariant()
+    public bool ShouldPlayShoutVariant(int shoutVariantsLength)
     {
-        return Random.Range(0f, 1f) < _randomShoutChance;
+        return shoutVariantsLength > 3 && Random.Range(0f, 1f) < _randomShoutChance;
     }
 }

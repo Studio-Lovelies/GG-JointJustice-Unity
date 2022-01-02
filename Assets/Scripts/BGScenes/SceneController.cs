@@ -33,9 +33,14 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
-    [Tooltip("Attach the screenshaker object here")]
+    [Tooltip("Attach the AudioController here")]
+    [SerializeField] private AudioController _audioController;
 
+    [Tooltip("Attach the screenshaker object here")]
     [SerializeField] private ObjectShaker _objectShaker;
+
+    [Tooltip("Drag the speech panel here")]
+    [SerializeField] private GameObject _speechPanel;
 
     [Tooltip("Drag a Shout component here.")]
     [SerializeField] private ShoutPlayer _shoutPlayer;
@@ -387,17 +392,17 @@ public class SceneController : MonoBehaviour, ISceneController
     
     /// <summary>
     /// Gets a shout variant and passes it to the ShoutPlayer so it can be played.
-    /// Sometimes replaced the shout with a random variant.
+    /// Sometimes replaces the shout with a random variant.
     /// </summary>
     /// <param name="index">The index of the shout to get.</param>
     /// <param name="actorName">The name of the actor to get shouts from.</param>
     private void PlayShout(int index, string actorName)
     {
         SpriteAudioClipPair[] shoutVariants = _actorInventory[actorName].ShoutVariants;
-        SpriteAudioClipPair shout = _shoutPlayer.ShouldPlayShoutVariant()
-            ? shoutVariants[Random.Range(2, shoutVariants.Length)]
+        SpriteAudioClipPair shout = _shoutPlayer.ShouldPlayShoutVariant(shoutVariants.Length)
+            ? shoutVariants[Random.Range(3, shoutVariants.Length)]
             : _actorInventory[actorName].ShoutVariants[index];
-        _shoutPlayer.PlayShout(shout);
+        PlayShout(shout);
     }
 
     /// <summary>
@@ -408,7 +413,18 @@ public class SceneController : MonoBehaviour, ISceneController
     public void Shout(string actorName, string shoutName)
     {
         SpriteAudioClipPair[] shoutVariants = _actorInventory[actorName].ShoutVariants;
-        _shoutPlayer.PlayShout(shoutVariants.Single(variant => variant.Sprite.name == shoutName));
+        PlayShout(shoutVariants.Single(variant => variant.Sprite.name == shoutName));
+    }
+    
+    /// <summary>
+    /// Plays a shout and its associated audio clip
+    /// </summary>
+    /// <param name="shout">The shout to play</param>
+    private void PlayShout(SpriteAudioClipPair shout)
+    {
+        _shoutPlayer.PlayShout(shout.Sprite);
+        _speechPanel.SetActive(false);
+        _audioController.PlaySfx(shout.AudioClip);
     }
 
     /// <summary>
