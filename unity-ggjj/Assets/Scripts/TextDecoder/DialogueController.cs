@@ -10,14 +10,6 @@ public enum GameMode
     CrossExamination
 }
 
-[System.Serializable]
-public enum CrossExaminationChoice
-{
-    Continue,
-    Press,
-    Evidence
-}
-
 public class DialogueController : MonoBehaviour, IDialogueController
 {
     private const char ACTION_TOKEN = '&';
