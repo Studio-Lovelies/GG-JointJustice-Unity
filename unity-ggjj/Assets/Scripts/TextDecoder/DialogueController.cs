@@ -18,13 +18,20 @@ public enum CrossExaminationChoice
     Evidence
 }
 
-public class DialogueController : MonoBehaviour
+public class DialogueController : MonoBehaviour, IDialogueController
 {
     private const char ACTION_TOKEN = '&';
 
     private TextAsset _narrativeScript;
 
-    [SerializeField] private DialogueControllerMode _dialogueMode = DialogueControllerMode.Dialogue;
+    public DialogueControllerMode DialogueMode
+    {
+        private get;
+        set;
+    }
+
+    [Tooltip("Attach the action decoder object here")]
+    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
     [SerializeField] private FailureStoryList _failureList;
 
@@ -60,13 +67,19 @@ public class DialogueController : MonoBehaviour
     private bool _isAtChoice; //Possibly small state machine to handle all input?
 
     public string NarrativeScriptName => _narrativeScript.name;
-    
+
+    private void Start()
+    {
+        _directorActionDecoder.Decoder.DialogueController = this;
+    }
+
     /// <summary>
     /// Initialize a sub story by hooking the events to the parent dialogue so everything propagates down correctly
     /// </summary>
     /// <param name="parent">Parent of this dialogue to hook everything in to</param>
     void SubStoryInit(DialogueController parent)
     {
+        _directorActionDecoder = parent._directorActionDecoder;
         _onNewSpokenLine.AddListener(parent.OnSubStorySpokenLine);
         _onNewActionLine.AddListener(parent.OnSubStoryActionLine);
         _onDialogueFinished.AddListener(parent.OnSubStoryFinished);
@@ -81,7 +94,6 @@ public class DialogueController : MonoBehaviour
     {
         _narrativeScript = dialogue.NarrativeScript;
         _inkStory = new Story(dialogue.NarrativeScript.text);
-        _dialogueMode = dialogue.ScriptMode;
         OnContinueStory(); //Auto start
     }
 
@@ -102,7 +114,7 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        switch (_dialogueMode)
+        switch (DialogueMode)
         {
             case DialogueControllerMode.Dialogue:
                 HandleNextLineDialogue();
@@ -121,7 +133,7 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     public void OnPressWitness()
     {
-        if (_dialogueMode != DialogueControllerMode.CrossExamination)
+        if (DialogueMode != DialogueControllerMode.CrossExamination)
         {
             return;
         }
@@ -178,7 +190,7 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        if (_dialogueMode != DialogueControllerMode.CrossExamination)
+        if (DialogueMode != DialogueControllerMode.CrossExamination)
         {
             return;
         }
