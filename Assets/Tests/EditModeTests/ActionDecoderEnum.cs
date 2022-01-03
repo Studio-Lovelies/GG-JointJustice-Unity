@@ -27,10 +27,10 @@ public class ActionDecoderEnumTests
     {
         ActionDecoder decoder = CreateMockedActionDecoder();
         Mock<ISceneController> sceneControllerMock = new Moq.Mock<ISceneController>();
-        sceneControllerMock.Setup(controller => controller.ShowItem("a", ItemDisplayPosition.Left));
+        sceneControllerMock.Setup(controller => controller.ShowItem("A", ItemDisplayPosition.Left));
         decoder.SceneController = sceneControllerMock.Object;
 
-        const string lineToParse = " &SHOW_ITEM:a,Left \n\n\n";
+        const string lineToParse = " &SHOW_ITEM:A,Left \n\n\n";
         const string logMessage = "Attempting to parse:\n" + lineToParse;
         Debug.Log(logMessage);
         Assert.DoesNotThrow(() => { decoder.OnNewActionLine(lineToParse); });
@@ -38,7 +38,7 @@ public class ActionDecoderEnumTests
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
 
-        sceneControllerMock.Verify(controller => controller.ShowItem("a", ItemDisplayPosition.Left), Times.Once);
+        sceneControllerMock.Verify(controller => controller.ShowItem("A", ItemDisplayPosition.Left), Times.Once);
     }
 
     [Test]
