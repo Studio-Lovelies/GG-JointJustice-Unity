@@ -20,18 +20,18 @@ public class ActionDecoderTests
         })
         .SelectMany(list => list);
     private static IEnumerable<string> AvailableActionsWithNoOptionalParameters => AvailableActionMethods.Where(method => method.GetParameters().Any() && method.GetParameters().All(parameter => !parameter.IsOptional)).Select(methodInfo => methodInfo.Name);
-    private static IEnumerable<string> AvailableActionsWithNonStringParameters => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.ParameterType != typeof(string))).Select(methodInfo => methodInfo.Name);
+    private static IEnumerable<string> AvailableActionsWithInvalidParameters => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => _invalidData.Keys.Contains(parameter.ParameterType))).Select(methodInfo => methodInfo.Name);
 
     // These are example values for parameters of "Ink"-script action lines for the ActionDecoder
     private static readonly Dictionary<Type, object> _validData = new Dictionary<Type, object> {
         {typeof(string), "ValidString"},
+        {typeof(AssetName), "ValidString"},
         {typeof(bool), "true"},
         {typeof(int), "1"},
         {typeof(float), "1.0"},
         {typeof(ItemDisplayPosition), "Left"},
     };
     private static readonly Dictionary<Type, object> _invalidData = new Dictionary<Type, object> {
-        {typeof(string), "IsAlwaysValid"}, // see: TextDecoder.Parser.StringParser.Parser()
         {typeof(bool), "NotABool"},
         {typeof(int), "1.0"},
         {typeof(float), "NotAFloat"},
@@ -119,14 +119,14 @@ public class ActionDecoderTests
     }
 
     [Test]
-    [TestCaseSource(nameof(AvailableActionsWithNonStringParameters))]
+    [TestCaseSource(nameof(AvailableActionsWithInvalidParameters))]
     public void RunCommandWithIncorrectParameterTypes(string methodName)
     {
         var decoder = CreateMockedActionDecoder();
 
         var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
         Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
-        var generatedParameters = method.GetParameters().Select(parameterInfo => _invalidData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).ToList();
+        var generatedParameters = method.GetParameters().Select(parameterInfo => (_invalidData.ContainsKey(parameterInfo.ParameterType) ? _invalidData: _validData)[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).ToList();
         var lineToParse = $"&{methodName}{(generatedParameters.Any() ? ":" : "")}{string.Join(",", generatedParameters)}";
         Debug.Log("Attempting to parse:\n"+lineToParse);
         var thrownException = Assert.Throws<ScriptParsingException>(() => {
