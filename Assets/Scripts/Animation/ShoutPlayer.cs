@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,6 +5,12 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(ObjectShaker))]
 public class ShoutPlayer : MonoBehaviour
 {
+    [Tooltip("Drag the AudioController here.")]
+    [SerializeField] private AudioController _audioController;
+
+    [Tooltip("Drag the SpeechPanel game object here.")]
+    [SerializeField] private GameObject _speechPanel;
+
     [Tooltip("The duration of the shake in seconds.")]
     [SerializeField] private float _duration = 0.5f;
     
@@ -36,19 +40,15 @@ public class ShoutPlayer : MonoBehaviour
     /// Calls the shaker components Shake method to shake the sprite.
     /// </summary>
     /// <param name="shoutSprite">The sprite of the shout to play</param>
-    public void PlayShout(Sprite shoutSprite)
+    public void Shout(Pair<Sprite, AudioClip>[] shoutVariants, string shoutName)
     {
-        _spriteRenderer.enabled = true;
-        _spriteRenderer.sprite = shoutSprite;
-        _objectShaker.Shake(_frequency, _amplitude, _duration, true);
-    }
+        var shoutManager = new ShoutManager(shoutVariants, _randomShoutChance);
+        var shout = shoutManager.GetShout(shoutName);
 
-    /// <summary>
-    /// Checks if a shout variant should be played.
-    /// </summary>
-    /// <returns>Whether or not a shout variant should be played.</returns>
-    public bool ShouldPlayShoutVariant(int shoutVariantsLength)
-    {
-        return shoutVariantsLength > 3 && Random.Range(0f, 1f) < _randomShoutChance;
+        _spriteRenderer.enabled = true;
+        _spriteRenderer.sprite = shout.Item1;
+        _objectShaker.Shake(_frequency, _amplitude, _duration, true);
+        _audioController.PlaySfx(shout.Item2);
+        _speechPanel.SetActive(false);
     }
 }

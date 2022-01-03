@@ -185,13 +185,13 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         return char.IsPunctuation(character) && !_ignoredCharacters.Contains(character);
     }
 }
-
+ 
 /// <summary>
 /// Tuple that can be serialized
 /// Stores two items with different types.
 /// </summary>
 [Serializable]
-internal struct Pair<T, S>
+public struct Pair<T, S>
 {
     [field: SerializeField] public T Item1 { get; set; }
     [field: SerializeField] public S Item2 { get; set; }

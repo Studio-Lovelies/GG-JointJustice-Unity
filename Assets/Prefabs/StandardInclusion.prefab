@@ -1556,9 +1556,7 @@ MonoBehaviour:
   _actorInventory: {fileID: 844180367432201528}
   _fullscreenAnimationPlayer: {fileID: 522180359754412203}
   _directorActionDecoder: {fileID: 5228303783986964379}
-  _audioController: {fileID: 5766951243316258182}
   _objectShaker: {fileID: 8591347059487037669}
-  _speechPanel: {fileID: 3358063401309930583}
   _shoutPlayer: {fileID: 7963192264883019674}
   _penaltyManager: {fileID: 2742639565556443572}
   _sceneLoader: {fileID: 1851189106259518166}
@@ -1865,6 +1863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d86872a14ec4712a8799e1c35037ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioController: {fileID: 5766951243316258182}
+  _speechPanel: {fileID: 3358063401309930583}
   _duration: 0.5
   _frequency: 10
   _amplitude: 0.05

@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
@@ -33,14 +31,8 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
-    [Tooltip("Attach the AudioController here")]
-    [SerializeField] private AudioController _audioController;
-
     [Tooltip("Attach the screenshaker object here")]
     [SerializeField] private ObjectShaker _objectShaker;
-
-    [Tooltip("Drag the speech panel here")]
-    [SerializeField] private GameObject _speechPanel;
 
     [Tooltip("Drag a Shout component here.")]
     [SerializeField] private ShoutPlayer _shoutPlayer;
@@ -69,7 +61,6 @@ public class SceneController : MonoBehaviour, ISceneController
 
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
-
     private BGScene _activeScene;
 
     /// <summary>
@@ -85,7 +76,6 @@ public class SceneController : MonoBehaviour, ISceneController
         {
             _directorActionDecoder.Decoder.SceneController = this;
         }
-
     }
 
     /// <summary>
@@ -364,67 +354,13 @@ public class SceneController : MonoBehaviour, ISceneController
     }
 
     /// <summary>
-    /// Makes a specified actor shout "objection!"
-    /// </summary>
-    /// <param name="actorName">The name of the actor to shout.</param>
-    public void Objection(string actorName)
-    {
-        PlayShout(0, actorName);
-    }
-
-    /// <summary>
-    /// Makes a specified actor shout "hold it!"
-    /// </summary>
-    /// <param name="actorName">The name of the actor to shout.</param>
-    public void HoldIt(string actorName)
-    {
-        PlayShout(1, actorName);
-    }
-
-    /// <summary>
-    /// Makes a specified actor shout "take that!"
-    /// </summary>
-    /// <param name="actorName">The name of the actor to shout.</param>
-    public void TakeThat(string actorName)
-    {
-        PlayShout(2, actorName);
-    }
-    
-    /// <summary>
-    /// Gets a shout variant and passes it to the ShoutPlayer so it can be played.
-    /// Sometimes replaces the shout with a random variant.
-    /// </summary>
-    /// <param name="index">The index of the shout to get.</param>
-    /// <param name="actorName">The name of the actor to get shouts from.</param>
-    private void PlayShout(int index, string actorName)
-    {
-        SpriteAudioClipPair[] shoutVariants = _actorInventory[actorName].ShoutVariants;
-        SpriteAudioClipPair shout = _shoutPlayer.ShouldPlayShoutVariant(shoutVariants.Length)
-            ? shoutVariants[Random.Range(3, shoutVariants.Length)]
-            : _actorInventory[actorName].ShoutVariants[index];
-        PlayShout(shout);
-    }
-
-    /// <summary>
     /// Makes a specified actor shout a specific phrase.
     /// </summary>
     /// <param name="actorName">The name of the actor to shout.</param>
     /// <param name="shoutName">The name of the scout.</param>
     public void Shout(string actorName, string shoutName)
     {
-        SpriteAudioClipPair[] shoutVariants = _actorInventory[actorName].ShoutVariants;
-        PlayShout(shoutVariants.Single(variant => variant.Sprite.name == shoutName));
-    }
-    
-    /// <summary>
-    /// Plays a shout and its associated audio clip
-    /// </summary>
-    /// <param name="shout">The shout to play</param>
-    private void PlayShout(SpriteAudioClipPair shout)
-    {
-        _shoutPlayer.PlayShout(shout.Sprite);
-        _speechPanel.SetActive(false);
-        _audioController.PlaySfx(shout.AudioClip);
+        _shoutPlayer.Shout(_actorInventory[actorName].ShoutVariants, shoutName);
     }
 
     /// <summary>

@@ -21,9 +21,10 @@ MonoBehaviour:
     Sexbang'', ''Mr. Business.'''
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: 61d75a6dad4224b6f8e9591f88230da3, type: 2}
   <ShoutVariants>k__BackingField:
-  - <Sprite>k__BackingField: {fileID: 21300000, guid: acb9e7bf00fd28e4bbd6e2ba716692dc, type: 3}
-    <AudioClip>k__BackingField: {fileID: 8300000, guid: 5749791800682df44ba2962e157addc0, type: 3}
-  - <Sprite>k__BackingField: {fileID: 21300000, guid: d4a8875b0ee18ac4aa74b6921e9b8164, type: 3}
-    <AudioClip>k__BackingField: {fileID: 0}
-  - <Sprite>k__BackingField: {fileID: 21300000, guid: b829cea1a0d6654418a2285a9653dca1, type: 3}
-    <AudioClip>k__BackingField: {fileID: 0}
+  - <Item1>k__BackingField: {fileID: 21300000, guid: acb9e7bf00fd28e4bbd6e2ba716692dc, type: 3}
+    <Item2>k__BackingField: {fileID: 8300000, guid: 5749791800682df44ba2962e157addc0, type: 3}
+  - <Item1>k__BackingField: {fileID: 0}
+    <Item2>k__BackingField: {fileID: 0}
+  - <Item1>k__BackingField: {fileID: 0}
+    <Item2>k__BackingField: {fileID: 0}
+  <DialogueChirp>k__BackingField: {fileID: 0}

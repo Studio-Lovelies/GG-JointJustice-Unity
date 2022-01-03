@@ -316,17 +316,17 @@ public class ActionDecoder
 
     private void OBJECTION(string actorName)
     {
-        SceneController.Objection(actorName);
+        SHOUT(actorName, "Objection");
     }
 
     private void TAKE_THAT(string actorName)
     {
-        SceneController.TakeThat(actorName);
+        SHOUT(actorName, "TakeThat");
     }
 
     private void HOLD_IT(string actorName)
     {
-        SceneController.HoldIt(actorName);
+        SHOUT(actorName, "HoldIt");
     }
 
     private void SHOUT(string actorName, string shoutName)

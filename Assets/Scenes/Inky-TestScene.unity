@@ -819,6 +819,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 4724325787671409528, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _timeStep
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueMode
       value: 0

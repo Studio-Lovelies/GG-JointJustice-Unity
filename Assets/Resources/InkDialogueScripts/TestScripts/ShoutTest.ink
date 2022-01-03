@@ -1,5 +1,3 @@
-//Do these before fading in, sets up the scene
-
 &SCENE:TMPH_Judge
 &ACTOR:Brent_Judge
 
@@ -24,7 +22,7 @@ I'm gonna shout again!
 &TAKE_THAT:Arin
 This next one sounds like a regular objection, but is actually a random variant.
 
-&SHOUT:Arin,objection
+&SHOUT:Arin,Objection
 Ok, I'm done.
 
 &OBJECTION:Tutorial_Boy

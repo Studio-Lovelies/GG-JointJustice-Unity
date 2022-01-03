@@ -32,7 +32,7 @@ public class ActorData : ScriptableObject, ICourtRecordObject
     public RuntimeAnimatorController AnimatorController { get; private set; }
 
     [field: SerializeField, Tooltip("Drag sprites for any shout variations this actor has here.")]
-    public SpriteAudioClipPair[] ShoutVariants { get; private set; }
+    public Pair<Sprite, AudioClip>[] ShoutVariants { get; private set; }
     
     [field: SerializeField, Tooltip("The sound that plays when this actor talks.")]
     public AudioClip DialogueChirp { get; private set; }
@@ -58,11 +58,4 @@ public class ActorData : ScriptableObject, ICourtRecordObject
 
         return $"{DisplayName} (Age: {age})";
     }
-}
-
-[Serializable]
-public struct SpriteAudioClipPair
-{
-    [field: SerializeField] public Sprite Sprite { get; set; }
-    [field: SerializeField] public AudioClip AudioClip { get; set; }
 }
