@@ -21,5 +21,5 @@ MonoBehaviour:
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: 9ee2d8da674a44f25b37eaad51116e16, type: 2}
   <ShoutVariants>k__BackingField:
   - <Item1>k__BackingField: {fileID: 21300000, guid: acb9e7bf00fd28e4bbd6e2ba716692dc, type: 3}
-    <Item2>k__BackingField: {fileID: 8300000, guid: 5749791800682df44ba2962e157addc0, type: 3}
+    <Item2>k__BackingField: {fileID: 8300000, guid: e32639a36acafb644a08ab58833682d3, type: 3}
   <DialogueChirp>k__BackingField: {fileID: 0}
