@@ -219,7 +219,7 @@ public class ActionDecoder
     #region AudioController
     private void PLAY_SFX(string sfx)
     {
-        AudioController.PlaySFX(sfx);
+        AudioController.PlaySfx(sfx);
         OnActionDone?.Invoke();
     }
 
@@ -301,7 +301,6 @@ public class ActionDecoder
     private void PAN_TO_POSITION(int slotIndex, float panDuration)
     {
         SceneController.PanToActorSlot(slotIndex, panDuration);
-        OnActionDone?.Invoke();
     }
 
     private void ISSUE_PENALTY()
