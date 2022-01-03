@@ -1,5 +1,6 @@
 public class AssetName
 {
+    public string NormalizedName { get; }
     public static implicit operator string(AssetName assetName)
     {
         return assetName.NormalizedName;
@@ -24,5 +25,4 @@ public class AssetName
         return result;
     }
 
-    public string NormalizedName { get; set; }
 }
