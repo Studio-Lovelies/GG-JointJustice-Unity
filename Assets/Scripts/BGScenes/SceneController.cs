@@ -358,9 +358,10 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="actorName">The name of the actor to shout.</param>
     /// <param name="shoutName">The name of the scout.</param>
-    public void Shout(string actorName, string shoutName)
+    /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
+    public void Shout(string actorName, string shoutName, bool allowRandomShouts)
     {
-        _shoutPlayer.Shout(_actorInventory[actorName].ShoutVariants, shoutName);
+        _shoutPlayer.Shout(_actorInventory[actorName].ShoutVariants, shoutName, allowRandomShouts);
     }
 
     /// <summary>

@@ -20,7 +20,7 @@ I'm gonna shout again!
 ...and again!
 
 &TAKE_THAT:Arin
-This next one sounds like a regular objection, but is actually a random variant.
+This next one sounds like a regular objection, but is actually a called using the SHOUT action.
 
 &SHOUT:Arin,Objection
 Ok, I'm done.

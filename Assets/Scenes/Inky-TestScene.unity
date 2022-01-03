@@ -819,10 +819,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
-    - target: {fileID: 4724325787671409528, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _timeStep
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueMode
       value: 0
@@ -962,6 +958,10 @@ PrefabInstance:
     - target: {fileID: 7751695482869048748, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963192264883019674, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _randomShoutChance
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8591347059487037669, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _duration

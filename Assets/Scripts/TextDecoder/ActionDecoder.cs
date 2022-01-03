@@ -316,22 +316,22 @@ public class ActionDecoder
 
     private void OBJECTION(string actorName)
     {
-        SHOUT(actorName, "Objection");
+        SHOUT(actorName, "Objection", true);
     }
 
     private void TAKE_THAT(string actorName)
     {
-        SHOUT(actorName, "TakeThat");
+        SHOUT(actorName, "TakeThat", true);
     }
 
     private void HOLD_IT(string actorName)
     {
-        SHOUT(actorName, "HoldIt");
+        SHOUT(actorName, "HoldIt", true);
     }
 
-    private void SHOUT(string actorName, string shoutName)
+    private void SHOUT(string actorName, string shoutName, bool allowRandomShouts = false)
     {
-        SceneController.Shout(actorName, shoutName);
+        SceneController.Shout(actorName, shoutName, allowRandomShouts);
     }
     #endregion
 

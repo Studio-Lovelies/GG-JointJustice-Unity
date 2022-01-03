@@ -22,6 +22,10 @@ public class ShoutPlayer : MonoBehaviour
 
     [Tooltip("The probability that a shout will be replaced by a variation."), Range(0, 1)]
     [SerializeField] private float _randomShoutChance;
+    
+    private static readonly string[] NormalShoutNames = {
+        "Objection", "HoldIt", "TakeThat"
+    };
 
     private SpriteRenderer _spriteRenderer;
     private ObjectShaker _objectShaker;
@@ -39,11 +43,15 @@ public class ShoutPlayer : MonoBehaviour
     /// Enables and sets the sprite renderer sprite to the correct sprite.
     /// Calls the shaker components Shake method to shake the sprite.
     /// </summary>
-    /// <param name="shoutSprite">The sprite of the shout to play</param>
-    public void Shout(Pair<Sprite, AudioClip>[] shoutVariants, string shoutName)
+    /// <param name="shoutVariants">The array of all possible shouts to play.</param>
+    /// <param name="shoutName">The name of the shout to play</param>
+    /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
+    public void Shout(Pair<Sprite, AudioClip>[] shoutVariants, string shoutName, bool allowRandomShouts)
     {
-        var shoutManager = new ShoutManager(shoutVariants, _randomShoutChance);
-        var shout = shoutManager.GetShout(shoutName);
+        var variants = shoutVariants.Where(pair => NormalShoutNames.All(normalShoutName => normalShoutName  != pair.Item1.name)).ToArray();
+        var shout = allowRandomShouts && variants.Any() && Random.Range(0f, 1f) < _randomShoutChance
+            ? variants[Random.Range(0, variants.Length)]
+            : shoutVariants.First(pair => pair.Item1.name == shoutName);
 
         _spriteRenderer.enabled = true;
         _spriteRenderer.sprite = shout.Item1;
