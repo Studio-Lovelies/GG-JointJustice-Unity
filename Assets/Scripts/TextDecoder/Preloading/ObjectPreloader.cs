@@ -1,13 +1,31 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 public class ObjectPreloader : IActorController, ISceneController, IEvidenceController, IAudioController, IAppearingDialogueController
 {
-    public ObjectStorage<ActorData> ActorStorage { get; } = new ObjectStorage<ActorData>();
-    public ObjectStorage<Evidence> EvidenceStorage { get; } = new ObjectStorage<Evidence>();
-    public ObjectStorage<AudioClip> AudioStorage { get; } = new ObjectStorage<AudioClip>();
+    private const string ACTOR_PATH = "Actors/";
+    private const string EVIDENCE_PATH = "Evidence/";
+    private const string MUSIC_PATH = "Audio/Music/";
+    private const string SFX_PATH = "Audio/SFX/";
+    private const string BGSCENE_PATH = "BGScenes/";
 
+    private ObjectStorage _objectStorage;
+
+    public float CharacterDelay { get; set; }
+    public float DefaultPunctuationDelay { get; set; }
+    public bool SkippingDisabled { get; set; }
+    public bool ContinueDialogue { get; set; }
+    public bool AutoSkip { get; set; }
+    public bool AppearInstantly { get; set; }
+    public bool TextBoxHidden { get; set; }
+
+    public ObjectPreloader(ObjectStorage objectStorage)
+    {
+        _objectStorage = objectStorage;
+    }
+    
     public void SetActiveActor(string actor)
     {
         LoadActor(actor);
@@ -113,12 +131,12 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
     {
     }
 
-    public void AddEvidence(string evidence)
+    public void AddEvidence(string evidenceName)
     {
-        LoadEvidence(evidence);
+        LoadEvidence(evidenceName);
     }
 
-    public void RemoveEvidence(string evidence)
+    public void RemoveEvidence(string evidenceName)
     {
     }
 
@@ -131,7 +149,7 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
     {
     }
 
-    public void SubstituteEvidenceWithAlt(string evidence)
+    public void SubstituteEvidenceWithAlt(string evidenceName)
     {
     }
 
@@ -141,12 +159,12 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
     
     public void PlaySfx(string SFX)
     {
-        LoadObject(AudioStorage, $"Audio/SFX/{SFX}");
+        LoadObject($"Audio/SFX/{SFX}");
     }
 
     public void PlaySong(string songName)
     {
-        LoadObject(AudioStorage, $"Audio/Music/{songName}");
+        LoadObject($"Audio/Music/{songName}");
     }
 
     public void StopSong()
@@ -155,12 +173,12 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
 
     private void LoadActor(string actorName)
     {
-        LoadObject(ActorStorage, $"Actors/{actorName}");
+        LoadObject($"Actors/{actorName}");
     }
     
     private void LoadEvidence(string evidenceName)
     {
-        LoadObject(EvidenceStorage, $"Evidence/{evidenceName}");
+        LoadObject($"Evidence/{evidenceName}");
     }
     
     private void LoadScene(string sceneName)
@@ -168,23 +186,15 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
         
     }
 
-    private static void LoadObject<T>(ObjectStorage<T> objectStorage, string path) where T : Object
+    private void LoadObject(string path)
     {
         try
         {
-            objectStorage.Add(Resources.Load<T>(path));
+            _objectStorage.Add(Resources.Load(path));
         }
         catch (NullReferenceException exception)
         {
-            Debug.LogWarning($"{exception.GetType().Name}: {typeof(T)} at path {path} could not be loaded");
+            Debug.LogWarning($"{exception.GetType().Name}: Object at path {path} could not be loaded");
         }
     }
-
-    public float CharacterDelay { get; set; }
-    public float DefaultPunctuationDelay { get; set; }
-    public bool SkippingDisabled { get; set; }
-    public bool ContinueDialogue { get; set; }
-    public bool AutoSkip { get; set; }
-    public bool AppearInstantly { get; set; }
-    public bool TextBoxHidden { get; set; }
 }

@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class ObjectStorage<T> where T : Object
+public class ObjectStorage : IObjectStorage
 {
-    private Dictionary<string, T> _objects = new Dictionary<string, T>();
+    private Dictionary<string, Object> _objects = new Dictionary<string, Object>();
 
-    public void Add(T obj)
+    public void Add(Object obj)
     {
         try
         {
@@ -18,4 +19,14 @@ public class ObjectStorage<T> where T : Object
             Debug.LogWarning($"Obj \"{obj.name}\" has already been added to the dictionary.");
         }
     }
+    
+    public T GetObject<T>(string objectName) where T : Object
+    {
+        return (T)_objects[objectName];
+    }
+}
+
+public interface IObjectStorage
+{
+    public T GetObject<T>(string objectName) where T : Object;
 }

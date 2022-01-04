@@ -10,11 +10,12 @@ public class NarrativeScript
     
     [field: Tooltip("The dialogue mode the narrative script will use (dialogue or cross examination).")]
     [field: SerializeField] public DialogueControllerMode Type { get; private set; }
-    
-    private ScriptReader _scriptReader;
 
+    private ObjectStorage _objectStorage = new ObjectStorage();
+    
     public string Name => Script.name;
     public Story Story { get; private set; }
+    public IObjectStorage ObjectStorage => _objectStorage;
     
     /// <summary>
     /// Initialise values on construction.
@@ -29,7 +30,8 @@ public class NarrativeScript
 
     public void Initialize()
     {
+        _objectStorage = new ObjectStorage();
         Story = new Story(Script.text);
-        _scriptReader = new ScriptReader(Story);
+        ScriptReader.ReadScript(Story, new ObjectPreloader(_objectStorage));
     }
 }

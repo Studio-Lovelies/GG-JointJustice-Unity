@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
+    [Tooltip("Drag the DialogueController here")]
+    [SerializeField] private DialogueController _dialogueController;
+    
     [Tooltip("Pixels per unit of the basic ")]
     [SerializeField] private int _pixelsPerUnit = 100;
 
@@ -16,9 +19,6 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Drag an ItemDisplay component here.")]
     [SerializeField] private ItemDisplay _itemDisplay;
-
-    [Tooltip("Drag an EvidenceInventory component here")]
-    [SerializeField] private EvidenceInventory _evidenceInventory;
 
     [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
     [SerializeField] private Animatable _fullscreenAnimationPlayer;
@@ -187,18 +187,12 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="position">The position of the item's image on the screen (left, middle, right).</param>
     public void ShowItem(string item, ItemDisplayPosition position)
     {
-        if (_evidenceInventory == null)
-        {
-            Debug.LogError($"Cannot show item, no EvidenceInventory component assigned to {name}.", gameObject);
-            return;
-        }
-
         if (_itemDisplay == null)
         {
             Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
 
-        Evidence evidence = _evidenceInventory[item];
+        Evidence evidence = _dialogueController.NarrativeScript.ObjectStorage.GetObject<Evidence>(item);
         _itemDisplay.ShowItem(evidence.Icon, position);
     }
 

@@ -1,16 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class ActorController : MonoBehaviour, IActorController
 {
+    [Tooltip("Drag the DialogueController here")]
+    [SerializeField] private DialogueController _dialogueController;
+    
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
-
-    [FormerlySerializedAs("_actorDictionary")]
-    [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
-    [SerializeField] private ActorInventory _actorInventory;
 
     private Actor _activeActor;
     private BGScene _activeScene;
@@ -96,7 +94,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            return _actorInventory[actorName];
+            return _dialogueController.NarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
         }
         catch (KeyNotFoundException exception)
         {
@@ -190,7 +188,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _actorInventory[actor];
+            _currentSpeakingActor = _dialogueController.NarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
             _onNewSpeakingActor.Invoke(_currentSpeakingActor);
         }
         catch (KeyNotFoundException exception)
@@ -279,7 +277,7 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
-            var actorData = _actorInventory[actor];
+            var actorData = _dialogueController.NarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
             tempActor.SetActor(actorData);
             SetActorInLookupTable(actorData, tempActor);
         }
