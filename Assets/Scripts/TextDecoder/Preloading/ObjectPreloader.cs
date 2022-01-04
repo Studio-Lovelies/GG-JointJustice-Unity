@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class ObjectPreloader : IActorController, ISceneController, IEvidenceController, IAudioController
+public class ObjectPreloader : IActorController, ISceneController, IEvidenceController, IAudioController, IAppearingDialogueController
 {
     public ObjectStorage<ActorData> ActorStorage { get; } = new ObjectStorage<ActorData>();
     public ObjectStorage<Evidence> EvidenceStorage { get; } = new ObjectStorage<Evidence>();
@@ -179,4 +179,12 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
             Debug.LogWarning($"{exception.GetType().Name}: {typeof(T)} at path {path} could not be loaded");
         }
     }
+
+    public float CharacterDelay { get; set; }
+    public float DefaultPunctuationDelay { get; set; }
+    public bool SkippingDisabled { get; set; }
+    public bool ContinueDialogue { get; set; }
+    public bool AutoSkip { get; set; }
+    public bool AppearInstantly { get; set; }
+    public bool TextBoxHidden { get; set; }
 }

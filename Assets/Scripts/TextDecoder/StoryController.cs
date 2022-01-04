@@ -1,19 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SceneLoader))]
 public class StoryController : MonoBehaviour
 {
     [Tooltip("List of inky dialogue scripts to be played in order")]
-    [SerializeField] private List<Dialogue> _dialogueList;
+    [SerializeField] private List<NarrativeScript> _narrativeScripts;
     
     [Tooltip("Write the name of the next scene to load here.")]
     [SerializeField] private string _nextSceneName;
     
     [Header("Events")]
-    [SerializeField] private UnityEvent<Dialogue> _onNextDialogueScript;
+    [SerializeField] private UnityEvent<NarrativeScript> _onNextDialogueScript;
     [SerializeField] private UnityEvent _onCrossExaminationStart;
 
     private SceneLoader _sceneLoader;
@@ -25,6 +24,10 @@ public class StoryController : MonoBehaviour
     private void Awake()
     {
         _sceneLoader = GetComponent<SceneLoader>();
+        foreach (var narrativeScript in _narrativeScripts)
+        {
+            narrativeScript.Initialize();
+        }
     }
 
     /// <summary>
@@ -33,7 +36,7 @@ public class StoryController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        if (_dialogueList.Count == 0)
+        if (_narrativeScripts.Count == 0)
         {
             Debug.LogWarning("No narrative scripts assigned to StoryController", this);
         }
@@ -48,22 +51,22 @@ public class StoryController : MonoBehaviour
     /// </summary>
     public void RunNextDialogueScript()
     {
-        if (_dialogueList.Count <= 0)
+        if (_narrativeScripts.Count <= 0)
             return;
 
         _currentStory++;
-        if (_currentStory >= _dialogueList.Count)
+        if (_currentStory >= _narrativeScripts.Count)
         {
             if (!_sceneLoader.Busy)
                 _sceneLoader.LoadScene(_nextSceneName);
         }
         else
         {
-            if (_dialogueList[_currentStory].ScriptType == DialogueControllerMode.CrossExamination)
+            if (_narrativeScripts[_currentStory].Type == DialogueControllerMode.CrossExamination)
             {
                 _onCrossExaminationStart.Invoke();
             }
-            _onNextDialogueScript.Invoke(_dialogueList[_currentStory]);
+            _onNextDialogueScript.Invoke(_narrativeScripts[_currentStory]);
         }
     }
 }

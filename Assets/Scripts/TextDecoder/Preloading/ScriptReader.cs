@@ -14,7 +14,8 @@ public class ScriptReader
             ActorController = _objectPreloader,
             EvidenceController = _objectPreloader,
             SceneController = _objectPreloader,
-            AudioController = _objectPreloader
+            AudioController = _objectPreloader,
+            AppearingDialogueController = _objectPreloader
         };
         
         var actions = new HashSet<string>(story.BuildStringOfHierarchy().Split('"').Where(line => line[0] == '&'));

@@ -128,7 +128,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             }
 
             var dialogueControllers = Object.FindObjectsOfType<DialogueController>();
-            Assert.IsTrue(dialogueControllers.Any(controller => controller.NarrativeScriptName == "TMPH_GameOver"));
+            Assert.IsTrue(dialogueControllers.Any(controller => controller.NarrativeScript.Name == "TMPH_GameOver"));
         }
     }
 }
