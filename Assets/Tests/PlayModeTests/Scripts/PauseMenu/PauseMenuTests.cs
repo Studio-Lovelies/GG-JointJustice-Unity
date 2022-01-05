@@ -35,7 +35,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         {
             SceneManager.LoadScene("Inky-TestScene");
             yield return null;
-            PauseMenu = InputTestTools.FindInactiveInSceneByName<Menu>("PauseMenu");
+            PauseMenu = TestTools.FindInactiveInSceneByName<Menu>("PauseMenu");
             Buttons = PauseMenu.GetComponentsInChildren<Button>();
             CanvasScale = GameObject.Find("BaseCanvas").transform.localScale.x;
         }

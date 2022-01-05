@@ -24,13 +24,13 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
 
             yield return _inputTestTools.PressForFrame(key.xKey);
 
-            EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<EvidenceMenu>()[0];
+            EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(key.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
 
-            Assert.AreNotEqual(0, InputTestTools.FindInactiveInScene<DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
+            Assert.AreNotEqual(0,  TestTools.FindInactiveInScene<DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
             
             Object.Destroy(Find("SubStory(Clone)"));
         }
@@ -44,13 +44,13 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
 
             yield return _inputTestTools.PressForFrame(key.xKey);
 
-            EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<EvidenceMenu>()[0];
+            EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(key.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
 
-            int subStoryCount = InputTestTools.FindInactiveInScene<DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory"));
+            int subStoryCount = TestTools.FindInactiveInScene<DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory"));
             Assert.AreNotEqual(0, subStoryCount);
 
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
@@ -58,7 +58,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             yield return _inputTestTools.PressForFrame(key.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
 
-            Assert.AreEqual(subStoryCount, InputTestTools.FindInactiveInScene<global::DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
+            Assert.AreEqual(subStoryCount,  TestTools.FindInactiveInScene<global::DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
 
             Object.Destroy(Find("SubStory(Clone)"));
         }
@@ -70,13 +70,13 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             yield return null;
             Keyboard key = _inputTestTools.Keyboard;
 
-            int existingSubstories = InputTestTools.FindInactiveInScene<DialogueController>().Count(controller => {
+            int existingSubstories = TestTools.FindInactiveInScene<DialogueController>().Count(controller => {
                 GameObject gameObject = controller.gameObject;
                 return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
             });
 
             yield return _inputTestTools.PressForFrame(key.xKey);
-            AppearingDialogueController appearingDialogueController = InputTestTools.FindInactiveInScene<AppearingDialogueController>()[0];
+            AppearingDialogueController appearingDialogueController = TestTools.FindInactiveInScene<AppearingDialogueController>()[0];
 
             while (appearingDialogueController.PrintingText)
             {
@@ -90,13 +90,13 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 yield return _inputTestTools.WaitForRepaint();
             }
 
-            EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<EvidenceMenu>()[0];
+            EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(key.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
 
-            Assert.AreEqual(existingSubstories, InputTestTools.FindInactiveInScene<DialogueController>().Count(controller => {
+            Assert.AreEqual(existingSubstories,  TestTools.FindInactiveInScene<DialogueController>().Count(controller => {
                 GameObject gameObject = controller.gameObject;
                 return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
             }));

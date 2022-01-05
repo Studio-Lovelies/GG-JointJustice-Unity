@@ -22,7 +22,6 @@ public class ObjectStorage : IObjectStorage
     
     public T GetObject<T>(string objectName) where T : Object
     {
-        Debug.Log(objectName);
         return (T)_objects[objectName];
     }
 }
