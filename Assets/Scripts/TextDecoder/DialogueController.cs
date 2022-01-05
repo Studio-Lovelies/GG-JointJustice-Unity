@@ -215,7 +215,7 @@ public class DialogueController : MonoBehaviour
         {
             return;
         }
-
+        
         if (!NarrativeScript.Story.canContinue)
         {
             List<Choice> choiceList = NarrativeScript.Story.currentChoices;

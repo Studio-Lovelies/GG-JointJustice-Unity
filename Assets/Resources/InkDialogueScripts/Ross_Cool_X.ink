@@ -1,5 +1,6 @@
 //Do these before fading in, sets up the scene
 
+&ADD_EVIDENCE:Bent_Coins
 &SCENE:TMPH_Judge
 &ACTOR:Brent_Judge
 

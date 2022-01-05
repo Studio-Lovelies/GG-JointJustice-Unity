@@ -26,6 +26,7 @@ public class NarrativeScript
     {
         Script = script;
         Type = type;
+        Initialize();
     }
 
     public void Initialize()
