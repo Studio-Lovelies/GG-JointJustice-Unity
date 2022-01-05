@@ -13,6 +13,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
     public class EvidenceMenuKeyboardTests
     {
+        private const string SCENE_PATH = "Assets/Scenes/EvidenceMenu - Test Scene.unity";
+        
         private readonly InputTestTools _inputTestTools = new InputTestTools();
         private global::AppearingDialogueController _appearingDialogueController;
         private EvidenceController _evidenceController;
@@ -22,12 +24,18 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/EvidenceMenu - Test Scene.unity", new LoadSceneParameters(LoadSceneMode.Additive));
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters(LoadSceneMode.Additive));
             _appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
             _evidenceController = Object.FindObjectOfType<EvidenceController>();
             _dialogueController = Object.FindObjectOfType<global::DialogueController>();
             _evidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             yield return TestTools.WaitForState(() => !_dialogueController.IsBusy);
+        }
+
+        [UnityTearDown]
+        public IEnumerator TearDown()
+        {
+            yield return SceneManager.UnloadSceneAsync("Assets/Scenes/EvidenceMenu - Test Scene.unity");
         }
         
         /// <summary>
