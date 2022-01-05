@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ink.Runtime;
-using UnityEngine;
 using Object = Ink.Runtime.Object;
 
 public static class ScriptReader
@@ -17,15 +16,10 @@ public static class ScriptReader
             AppearingDialogueController = objectStorage
         };
         
-        List<string> lines = new List<string>();
+        var lines = new List<string>();
         ReadContent(story.mainContentContainer.content, lines);
         ReadContent(story.mainContentContainer.namedOnlyContent?.Values.ToList(), lines);
 
-        foreach (var line in lines.Where(line => line[0] == '&'))
-        {
-            Debug.Log(line);
-        }
-        
         var actions = new HashSet<string>(lines.Where(line => line[0] == '&'));
         foreach (var action in actions)
         {
