@@ -19,22 +19,19 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             AddEvidence();
             AddEvidence();
-            
-            Vector3 canvasScale = Vector3.right * CanvasTransform.localScale.x;
-
             yield return PressZ();
             
             // Get the menu items to test
             MenuItem[] menuItems = GetMenuItems();
             EvidenceMenuItem firstMenuItem = GetFirstMenuItem();
-            yield return _inputTestTools.SetMousePositionWorldSpace(firstMenuItem.transform.position + firstMenuItem.GetComponent<RectTransform>().rect.size.x * canvasScale);
+            yield return SelectButton(firstMenuItem.transform);
             Assert.AreEqual(firstMenuItem.CourtRecordObject.DisplayName, Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
             
             // Loop through the menu items and check if they highlight correctly
             for (int i = 1; i < menuItems.Length; i++)
             {
                 MenuItem menuItem = menuItems.First(item => item.gameObject.name == $"EvidenceMenuItem ({i})");
-                yield return _inputTestTools.SetMousePositionWorldSpace(menuItem.transform.position + (menuItem.GetComponent<RectTransform>().rect.size.x / 2) * canvasScale);
+                yield return SelectButton(menuItem.transform);
                 ICourtRecordObject evidence = Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
                 Assert.AreEqual(menuItem.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName, evidence.DisplayName);
             }
@@ -58,19 +55,19 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             EvidenceMenuItem firstMenuItem = GetFirstMenuItem();
             yield return SelectButton(firstMenuItem.transform);
             Assert.AreEqual("Attorney's Badge", firstMenuItem.CourtRecordObject.DisplayName);
-            
-            yield return _inputTestTools.SetMousePositionWorldSpace(decrementButton.transform.position);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Mouse.leftButton);
+
+            yield return SelectButton(decrementButton);
+            yield return LeftClick();
             yield return SelectButton(firstMenuItem.transform);
             Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
 
             yield return SelectButton(incrementButton);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Mouse.leftButton);
+            yield return LeftClick();
             yield return SelectButton(firstMenuItem.transform);
             Assert.AreEqual("Attorney's Badge", firstMenuItem.CourtRecordObject.DisplayName);
             
             yield return SelectButton(incrementButton);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Mouse.leftButton);
+            yield return LeftClick();
             yield return SelectButton(firstMenuItem.transform);
             Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
         }
@@ -84,18 +81,20 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             AddEvidence();
             yield return PressZ();
             var menuItems = GetMenuItems();
+            yield return PressZ();
 
             foreach (var menuItem in menuItems)
             {
-                yield return SelectButton(menuItem.transform);
-                yield return new WaitForSeconds(50);
-                Assert.IsFalse(EvidenceMenu.isActiveAndEnabled);
-                yield return PressZ();
+                EvidenceController.RequirePresentEvidence();
                 Assert.IsTrue(EvidenceMenu.isActiveAndEnabled);
+                var tf = menuItem.transform;
+                yield return SelectButton(menuItem.transform);
+                yield return LeftClick();
+                Assert.IsFalse(EvidenceMenu.isActiveAndEnabled);
             }
         }
 
-        private MenuItem[] GetMenuItems()
+        private static MenuItem[] GetMenuItems()
         {
             return GameObject.Find("EvidenceContainer").GetComponentsInChildren<MenuItem>();
         }
@@ -107,7 +106,12 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
         private IEnumerator SelectButton(Transform tf)
         {
-            yield return _inputTestTools.SetMousePositionWorldSpace(tf.position + tf.GetComponent<RectTransform>().rect.size.x * Vector3.right * CanvasTransform.localScale.x);
+            yield return _inputTestTools.SetMousePositionWorldSpace(tf.TransformPoint(tf.GetComponent<RectTransform>().rect.center));
+        }
+
+        private IEnumerator LeftClick()
+        {
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Mouse.leftButton);
         }
     }
 }
