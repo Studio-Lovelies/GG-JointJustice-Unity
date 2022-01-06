@@ -146,12 +146,12 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             return;
         }
         
-        var chirp = currentActorChirp;
-        if (chirp == null)
+        var resultChirp = currentActorChirp;
+        if (resultChirp == null)
         {
-            chirp = _defaultDialogueChirpSfx;
+            resultChirp = _defaultDialogueChirpSfx;
         }
-        _audioController.PlaySfx(chirp);
+        _audioController.PlaySfx(resultChirp);
     }
 
     /// <summary>
