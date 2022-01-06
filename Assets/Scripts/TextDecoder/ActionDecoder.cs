@@ -186,19 +186,19 @@ public class ActionDecoder
     #endregion
 
     #region EvidenceController
-    private void ADD_EVIDENCE(string evidence)
+    private void ADD_EVIDENCE(AssetName evidence)
     {
         EvidenceController.AddEvidence(evidence);
         OnActionDone?.Invoke();
     }
 
-    private void REMOVE_EVIDENCE(string evidence)
+    private void REMOVE_EVIDENCE(AssetName evidence)
     {
         EvidenceController.RemoveEvidence(evidence);
         OnActionDone?.Invoke();
     }
 
-    private void ADD_RECORD(string actor)
+    private void ADD_RECORD(AssetName actor)
     {
         EvidenceController.AddToCourtRecord(actor);
         OnActionDone?.Invoke();
@@ -209,7 +209,7 @@ public class ActionDecoder
         EvidenceController.RequirePresentEvidence();
     }
     
-    private void SUBSTITUTE_EVIDENCE(string evidence)
+    private void SUBSTITUTE_EVIDENCE(AssetName evidence)
     {
         EvidenceController.SubstituteEvidenceWithAlt(evidence);
         OnActionDone?.Invoke();
