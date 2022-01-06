@@ -152,10 +152,10 @@ public class ActionDecoderTests
     {
         var decoder = CreateMockedActionDecoder();
         var sceneControllerMock = new Moq.Mock<ISceneController>();
-        sceneControllerMock.Setup(controller => controller.SetScene("NEW_SCENE"));
+        sceneControllerMock.Setup(controller => controller.SetScene("NewScene"));
         decoder.SceneController = sceneControllerMock.Object;
 
-        var lineToParse = " &SCENE:NEW_SCENE \n\n\n";
+        var lineToParse = " &SCENE:NewScene \n\n\n";
         var logMessage = "Attempting to parse:\n" + lineToParse;
         Debug.Log(logMessage);
         Assert.DoesNotThrow(() => { decoder.OnNewActionLine(lineToParse); });
@@ -163,7 +163,7 @@ public class ActionDecoderTests
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
 
-        sceneControllerMock.Verify(controller => controller.SetScene("NEW_SCENE"));
+        sceneControllerMock.Verify(controller => controller.SetScene("NewScene"));
     }
 
 }
