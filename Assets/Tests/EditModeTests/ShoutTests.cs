@@ -44,11 +44,11 @@ public class ShoutTests
             Assert.AreEqual(i.ToString(), shout.AudioClip.name);
         }
 
-        for (int i = 0; i < Shout.NormalShoutNames.Length; i++)
+        foreach (var shoutName in Shout.NormalShoutNames)
         {
-            var shout = new Shout(Shout.NormalShoutNames[i], _shoutVariants, false, 0);
-            Assert.AreEqual(Shout.NormalShoutNames[i], shout.Sprite.name);
-            Assert.AreEqual(Shout.NormalShoutNames[i], shout.AudioClip.name);
+            var shout = new Shout(shoutName, _shoutVariants, false, 0);
+            Assert.AreEqual(shoutName, shout.Sprite.name);
+            Assert.AreEqual(shoutName, shout.AudioClip.name);
         }
     }
 
