@@ -428,6 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c1588c060bf994aa9f9fed3449e1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dialogueController: {fileID: 5228303783123296233}
   _directorActionDecoder: {fileID: 5228303783986964379}
   _settingsMusicVolume: 0.5
   _settingsSfxVolume: 0.5
