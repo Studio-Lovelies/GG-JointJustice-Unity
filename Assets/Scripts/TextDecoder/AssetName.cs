@@ -1,15 +1,15 @@
 public class AssetName
 {
-    public string NormalizedName { get; }
+    private readonly string _internalString;
     public static implicit operator string(AssetName assetName)
     {
-        return assetName.NormalizedName;
+        return assetName.ToString();
     }
 
     public AssetName(string givenName)
     {
-        NormalizedName = SplitAndCapitalize('_', givenName);
-        NormalizedName = SplitAndCapitalize(' ', NormalizedName);
+        this._internalString = SplitAndCapitalize('_', givenName);
+        this._internalString = SplitAndCapitalize(' ', this._internalString);
     }
 
     private string SplitAndCapitalize(char c, string givenName)
@@ -27,6 +27,6 @@ public class AssetName
 
     public override string ToString()
     {
-        return NormalizedName;
+        return this._internalString;
     }
 }
