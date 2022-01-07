@@ -25,6 +25,7 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
         _objectStorage = objectStorage;
     }
     
+    #region InterfaceMethods
     public void SetActiveActor(string actor)
     {
         LoadActor(actor);
@@ -169,6 +170,7 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
     public void StopSong()
     {
     }
+    #endregion
 
     private void LoadActor(string actorName)
     {

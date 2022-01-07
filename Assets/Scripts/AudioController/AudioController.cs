@@ -4,6 +4,9 @@ using UnityEngine.Serialization;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
+    [Tooltip("Attach the DialogueController here")]
+    [SerializeField] private DialogueController _dialogueController;
+    
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
@@ -94,7 +97,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySfx(string soundEffectName)
     {
-        AudioClip soundEffectClip = GetSfxResource(soundEffectName);
+        AudioClip soundEffectClip = _dialogueController.NarrativeScript.ObjectStorage.GetObject<AudioClip>(soundEffectName);
         PlaySfx(soundEffectClip);
     }
 
@@ -152,18 +155,8 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     private void SetCurrentTrack(string songName)
     {
-        _musicAudioSource.clip = Resources.Load<AudioClip>("Audio/Music/" + songName);
+        _musicAudioSource.clip = _dialogueController.NarrativeScript.ObjectStorage.GetObject<AudioClip>(songName);
         _musicAudioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
         _musicAudioSource.Play();
-    }
-
-    /// <summary>
-    /// Acquires the Sfx Resource from Audio/SFX/*
-    /// </summary>
-    /// <param name="soundEffectName">Name of sound effect asset you want</param>
-    /// <returns></returns>
-    private static AudioClip GetSfxResource(string soundEffectName)
-    {
-        return Resources.Load<AudioClip>("Audio/SFX/" + soundEffectName);
     }
 }
