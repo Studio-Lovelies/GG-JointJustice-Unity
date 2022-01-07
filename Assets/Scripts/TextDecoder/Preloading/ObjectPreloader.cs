@@ -1,7 +1,5 @@
 using System;
-using System.Linq;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 public class ObjectPreloader : IActorController, ISceneController, IEvidenceController, IAudioController, IAppearingDialogueController
 {
@@ -11,6 +9,7 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
     private const string SFX_PATH = "Audio/SFX/";
     private const string BGSCENE_PATH = "BGScenes/";
 
+    private IObjectLoader _objectLoader = new ResourceLoader();
     private ObjectStorage _objectStorage;
 
     public float CharacterDelay { get; set; }
@@ -190,7 +189,7 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
     {
         try
         {
-            _objectStorage.Add(Resources.Load(path));
+            _objectStorage.Add(_objectLoader.Load(path));
         }
         catch (NullReferenceException exception)
         {
