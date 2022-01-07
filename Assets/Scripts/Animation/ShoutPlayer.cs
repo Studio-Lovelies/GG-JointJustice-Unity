@@ -48,7 +48,7 @@ public class ShoutPlayer : MonoBehaviour
     /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
     public void Shout(Pair<Sprite, AudioClip>[] shoutVariants, string shoutName, bool allowRandomShouts)
     {
-        var variants = shoutVariants.Where(pair => NormalShoutNames.All(normalShoutName => normalShoutName  != pair.Item1.name)).ToArray();
+        var variants = GetSpecialVariants(shoutVariants);
         var shout = allowRandomShouts && variants.Any() && Random.Range(0f, 1f) < _randomShoutChance
             ? variants[Random.Range(0, variants.Length)]
             : shoutVariants.First(pair => pair.Item1.name == shoutName);
@@ -58,5 +58,15 @@ public class ShoutPlayer : MonoBehaviour
         _objectShaker.Shake(_frequency, _amplitude, _duration, true);
         _audioController.PlaySfx(shout.Item2);
         _speechPanel.SetActive(false);
+    }
+
+    /// <summary>
+    /// Returns an array of all the shout variants that are not in the NormalShoutNames array
+    /// </summary>
+    /// <param name="shoutVariants">The array to extract special variants from.</param>
+    /// <returns>The array of special variants created.</returns>
+    private static Pair<Sprite, AudioClip>[] GetSpecialVariants(Pair<Sprite, AudioClip>[] shoutVariants)
+    {
+        return shoutVariants.Where(pair => NormalShoutNames.All(normalShoutName => normalShoutName  != pair.Item1.name)).ToArray();
     }
 }
