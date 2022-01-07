@@ -184,7 +184,7 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
     
     private void LoadScene(string sceneName)
     {
-        
+        throw new NotImplementedException();
     }
 
     private void LoadObject(string path)

@@ -11,8 +11,3 @@ public class ResourceLoader : IObjectLoader
         return Resources.Load(path);
     }
 }
-
-public interface IObjectLoader
-{
-    public Object Load(string path);
-}
