@@ -25,4 +25,8 @@ public class AssetName
         return result;
     }
 
+    public override string ToString()
+    {
+        return NormalizedName;
+    }
 }
