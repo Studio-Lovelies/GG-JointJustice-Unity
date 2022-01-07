@@ -8,7 +8,7 @@ public class ShoutTests
     
     private readonly Pair<Sprite, AudioClip>[] _shoutVariants = new Pair<Sprite, AudioClip>[VARIANTS_LENGTH];
 
-    private int SpecialVariantsLength => VARIANTS_LENGTH - Shout.NormalShoutNames.Length;
+    private static int SpecialVariantsLength => VARIANTS_LENGTH - Shout.NormalShoutNames.Length;
     
     [SetUp]
     public void SetUp()
