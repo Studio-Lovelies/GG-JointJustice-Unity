@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
