@@ -1,12 +1,4 @@
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using TextDecoder.Parser;
-using UnityEngine;
-using UnityEngine.TestTools;
 
 public class AssetNameTests
 {
