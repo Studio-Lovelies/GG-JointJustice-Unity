@@ -1,16 +1,15 @@
 using System;
 using UnityEngine;
 
-public class ObjectPreloader : IActorController, ISceneController, IEvidenceController, IAudioController, IAppearingDialogueController
+/// <summary>
+/// Assigned to an ActionDecoder in place of the usual controller interfaces.
+/// Action decoder calls the methods which are used to load any required objects.
+/// Objects are then stored in the assign ObjectStorage object.
+/// </summary>
+public class ObjectPreloader : IObjectPreloader
 {
-    private const string ACTOR_PATH = "Actors/";
-    private const string EVIDENCE_PATH = "Evidence/";
-    private const string MUSIC_PATH = "Audio/Music/";
-    private const string SFX_PATH = "Audio/SFX/";
-    private const string BGSCENE_PATH = "BGScenes/";
-
-    private IObjectLoader _objectLoader = new ResourceLoader();
-    private ObjectStorage _objectStorage;
+    private readonly IObjectLoader _objectLoader = new ResourceLoader();
+    private readonly ObjectStorage _objectStorage;
 
     public float CharacterDelay { get; set; }
     public float DefaultPunctuationDelay { get; set; }
@@ -171,7 +170,7 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
     {
     }
     #endregion
-
+    
     private void LoadActor(string actorName)
     {
         LoadObject($"Actors/{actorName}");
@@ -186,6 +185,10 @@ public class ObjectPreloader : IActorController, ISceneController, IEvidenceCont
     {
     }
 
+    /// <summary>
+    /// Uses the assigned IObjectLoader to load an object and add it to the object storage
+    /// </summary>
+    /// <param name="path">The path to the object to load</param>
     private void LoadObject(string path)
     {
         try
