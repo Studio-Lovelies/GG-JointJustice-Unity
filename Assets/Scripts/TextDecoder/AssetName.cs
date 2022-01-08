@@ -8,8 +8,8 @@ public class AssetName
 
     public AssetName(string givenName)
     {
-        this._internalString = SplitAndCapitalize('_', givenName);
-        this._internalString = SplitAndCapitalize(' ', this._internalString);
+        _internalString = SplitAndCapitalize('_', givenName);
+        _internalString = SplitAndCapitalize(' ', _internalString);
     }
 
     private string SplitAndCapitalize(char c, string givenName)
@@ -27,6 +27,6 @@ public class AssetName
 
     public override string ToString()
     {
-        return this._internalString;
+        return _internalString;
     }
 }
