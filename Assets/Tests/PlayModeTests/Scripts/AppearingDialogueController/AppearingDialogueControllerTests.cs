@@ -76,11 +76,11 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
         [UnityTest]
         public IEnumerator TextBoxCanBeHidden()
         {
-            var nameBox = Object.FindObjectOfType<NameBox>();
+            var nameBox = GameObject.Find("SpeechPanel");
 
-            Assert.IsTrue(nameBox.isActiveAndEnabled);
+            Assert.IsTrue(nameBox.activeSelf);
             _appearingDialogueController.TextBoxHidden = true;
-            Assert.IsFalse(nameBox.isActiveAndEnabled);
+            Assert.IsFalse(nameBox.activeSelf);
             yield return null;
         }
 

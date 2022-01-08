@@ -1,3 +1,22 @@
+&NARRATE
+From somewhere, a transmission...
+
+&SPEAK_UNKNOWN:Arin
+Who is speaking right now?
+
+&SPEAK_UNKNOWN:Dan
+I don't know, Arin, who?
+
+&SPEAK:Arin
+Aww! Dan, you ruined it!
+
+&SPEAK:Dan
+Sorry, Big Cat.
+
+&NARRATE
+&DIALOGUE_SPEED:0.1
+And so they J.O'd into the sunset...
+
 &SPEAK:Arin
 &AUTO_SKIP:True
 &DIALOGUE_SPEED:0.1
