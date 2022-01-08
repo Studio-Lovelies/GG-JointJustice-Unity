@@ -1,4 +1,4 @@
-&SCENE:TMPH_Defense
+&SCENE:TMPHDefense
 &ACTOR:Arin
 &SPEAK:Arin
 Look at this item!
@@ -7,9 +7,9 @@ Look at this item!
 Wow, bent coins!
 
 &HIDE_ITEM
-&SCENE:TMPH_Prosecution
-&ACTOR:Tutorial_Boy
-&SPEAK:Tutorial_Boy
+&SCENE:TMPHProsecution
+&ACTOR:TutorialBoy
+&SPEAK:TutorialBoy
 That's nothing, look at this!
 
 &SHOW_ITEM:Stolen_Dinos, Left
@@ -19,9 +19,9 @@ They are very nice.
 &HIDE_ITEM
 Now they are gone though.
 
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
-&SPEAK:Brent_Judge
+&SCENE:TMPHJudge
+&ACTOR:BrentJudge
+&SPEAK:BrentJudge
 Stop arguing both of you, I have the best item.
 
 &SHOW_ITEM:Jorys_Backpack, Middle

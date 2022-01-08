@@ -1,19 +1,19 @@
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
-&SPEAK:Brent_Judge
+&SCENE:TMPHJudge
+&ACTOR:BrentJudge
+&SPEAK:BrentJudge
 Arin! Demonstrate the screenshake effect!
 
 &HIDE_TEXTBOX
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &ACTOR:Arin
 &SET_POSE:ShockAnimation
 &SHAKE_SCREEN:0.25,0.25,true
 &SPEAK:Arin
 Was that good enough, your honour?
 
-&SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
-&ACTOR:Brent_Judge
+&SCENE:TMPHJudge
+&SPEAK:BrentJudge
+&ACTOR:BrentJudge
 &SET_POSE:HeadShake
 &SHAKE_SCREEN:0.5,0.25
 No!
@@ -21,7 +21,7 @@ No!
 &SHAKE_SCREEN:0.75,0.5
 LOUDER!
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &ACTOR:Arin
 &SPEAK:Arin
 &SET_POSE:CloseUp

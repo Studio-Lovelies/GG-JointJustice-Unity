@@ -1,11 +1,11 @@
-&SCENE:TMPH_Defense
-&PLAY_SONG:aKissFromARose
+&SCENE:TMPHDefense
+&PLAY_SONG:AKissFromARose
 &ACTOR:Dan
 &SPEAK:Dan
 This is some rad music!
 
 &STOP_SONG
-&SPEAK:Tutorial_Boy
+&SPEAK:TutorialBoy
 SILENCE!
 
 &SPEAK:Dan

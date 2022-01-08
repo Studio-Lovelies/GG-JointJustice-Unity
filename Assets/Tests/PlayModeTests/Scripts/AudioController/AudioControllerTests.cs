@@ -39,7 +39,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             float settingsMusicVolume = (float)settingsMusicVolumeType.GetValue(audioController);
 
             // setup and verify steady state of music playing for a while
-            const string firstSong = "aBoyAndHisTrial";
+            const string firstSong = "ABoyAndHisTrial";
             audioController.PlaySong(firstSong);
             yield return new WaitForSeconds(transitionDuration);
 
@@ -47,7 +47,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             Assert.AreEqual(firstSong, audioSource.clip.name);
 
             // transition into new song
-            const string secondSong = "aKissFromARose";
+            const string secondSong = "AKissFromARose";
             audioController.PlaySong(secondSong);
             yield return new WaitForSeconds(transitionDuration/10f);
 
@@ -62,7 +62,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             Assert.AreEqual(secondSong, audioSource.clip.name);
 
             // transition into new song
-            const string thirdSong = "investigationJoonyer";
+            const string thirdSong = "InvestigationJoonyer";
             audioController.PlaySong(thirdSong);
             yield return new WaitForSeconds(transitionDuration/10f);
 
