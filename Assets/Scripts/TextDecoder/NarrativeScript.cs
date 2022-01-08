@@ -29,6 +29,10 @@ public class NarrativeScript
         Initialize();
     }
 
+    /// <summary>
+    /// Initialises script values that cannot be set in the Unity inspector
+    /// and begins script reading and object preloading.
+    /// </summary>
     public void Initialize()
     {
         _objectStorage = new ObjectStorage();
