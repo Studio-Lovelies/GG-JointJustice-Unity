@@ -10,4 +10,9 @@ public class ResourceLoader : IObjectLoader
     {
         return Resources.Load(path);
     }
+
+    public Object[] LoadAll(string path)
+    {
+        return Resources.LoadAll(path);
+    }
 }
