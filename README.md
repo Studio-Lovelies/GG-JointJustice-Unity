@@ -29,9 +29,9 @@ _Optional:_
 - Via GitHub CLI or Desktop, clone this repository somewhere reasonable
 - Launch Unity Hub - this should open up the Project tab by default
 - (First Time Only) Click "Add"
-  - Select your copy of "GG-JointJustice-Unity" and hit "Open"
+  - Select the `unity`-subfolder of your clone of this repository and hit "Open"
   - Once it appears in the Projects list, makes sure it's pulling in the correct Unity Version
-- Select GG-JointJustice-Unity to open the project
+- Select `unity` to open the project
 - In the "Project" tab, navigate to `Assets/Scenes/SampleScene`
 - Click on the "Game" tab in the main view
 - Hit the play button on the top!
@@ -48,16 +48,16 @@ It is also recommended to run all [PlayMode and EditMode tests](https://docs.uni
 ## Running tests locally
 Running tests ensures no existing functionality is broken by a change or - if the behavior change is intended - all existing test suites are updated accordingly.
 
-Alternatively these steps can also be used to better analyse a failed test case. While our automated deployment workflow generates callstacks of offending test cases, it sometimes may be easier to attach a debugger to the running process.
+Alternatively these steps can also be used to better analyse a failed test case. While our automated deployment workflow generates call-stacks of offending test cases, it sometimes may be easier to attach a debugger to the running process.
 
 To run tests locally:
 1. Open the project in Unity
 2. Select `Window` -> `General` -> `Test Runner` from the top menu
 3. Inside the `Test Runner`-tab/-window...
    1. Select `PlayMode`
-   2. Click on `Run All` and ensure every test is prepended with a green checkmark (✅)
+   2. Click on `Run All` and ensure every test is prepended with a green check mark (✅)
    3. Select `EditMode`
-   4. Click on `Run All` and ensure every test is prepended with a green checkmark (✅)
+   4. Click on `Run All` and ensure every test is prepended with a green check mark (✅)
 4. If any tests were unable to complete successfully...
    1. Click on the row containing the red cross (❌)
    2. Inspect the log at the bottom of the `Test Runner` window and understand which assertion can no longer be made. Either...
