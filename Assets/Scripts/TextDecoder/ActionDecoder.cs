@@ -187,19 +187,19 @@ public class ActionDecoder
     #endregion
 
     #region EvidenceController
-    private void ADD_EVIDENCE(string evidence)
+    private void ADD_EVIDENCE(AssetName evidence)
     {
         EvidenceController.AddEvidence(evidence);
         OnActionDone?.Invoke();
     }
 
-    private void REMOVE_EVIDENCE(string evidence)
+    private void REMOVE_EVIDENCE(AssetName evidence)
     {
         EvidenceController.RemoveEvidence(evidence);
         OnActionDone?.Invoke();
     }
 
-    private void ADD_RECORD(string actor)
+    private void ADD_RECORD(AssetName actor)
     {
         EvidenceController.AddToCourtRecord(actor);
         OnActionDone?.Invoke();
@@ -210,7 +210,7 @@ public class ActionDecoder
         EvidenceController.RequirePresentEvidence();
     }
     
-    private void SUBSTITUTE_EVIDENCE(string evidence)
+    private void SUBSTITUTE_EVIDENCE(AssetName evidence)
     {
         EvidenceController.SubstituteEvidenceWithAlt(evidence);
         OnActionDone?.Invoke();
@@ -218,13 +218,13 @@ public class ActionDecoder
     #endregion
 
     #region AudioController
-    private void PLAY_SFX(string sfx)
+    private void PLAY_SFX(AssetName sfx)
     {
         AudioController.PlaySfx(sfx);
         OnActionDone?.Invoke();
     }
 
-    private void PLAY_SONG(string songName)
+    private void PLAY_SONG(AssetName songName)
     {
         AudioController.PlaySong(songName);
         OnActionDone?.Invoke();
@@ -253,7 +253,7 @@ public class ActionDecoder
         SceneController.ShakeScreen(intensity, duration, isBlocking);
     }
 
-    private void SCENE(string sceneName)
+    private void SCENE(AssetName sceneName)
     {
         SceneController.SetScene(sceneName);
         OnActionDone?.Invoke();
@@ -271,7 +271,7 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
 
-    private void SHOW_ITEM(string item, ItemDisplayPosition itemPos)
+    private void SHOW_ITEM(AssetName item, ItemDisplayPosition itemPos)
     {
         SceneController.ShowItem(item, itemPos);
         OnActionDone?.Invoke();
@@ -288,7 +288,7 @@ public class ActionDecoder
         SceneController.Wait(seconds);
     }
 
-    private void PLAY_ANIMATION(string animationName)
+    private void PLAY_ANIMATION(AssetName animationName)
     {
         SceneController.PlayAnimation(animationName);
     }
@@ -330,7 +330,7 @@ public class ActionDecoder
     #endregion
 
     #region ActorController
-    private void ACTOR(string actor)
+    private void ACTOR(AssetName actor)
     {
         ActorController.SetActiveActor(actor);
         OnActionDone?.Invoke();
@@ -350,24 +350,36 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
 
-    private void SPEAK(string actor)
+    private void SPEAK(AssetName actor)
     {
         SetSpeaker(actor, SpeakingType.Speaking);
     }
+    
+    private void SPEAK_UNKNOWN(string actor)
+    {
+        SetSpeaker(actor, SpeakingType.SpeakingWithUnknownName);
+    }
+    
+    private void NARRATE()
+    {
+        ActorController.SetActiveSpeakerToNarrator();
+        ActorController.SetSpeakingType(SpeakingType.Speaking);
+        OnActionDone?.Invoke();
+    }
 
-    private void THINK(string actor)
+    private void THINK(AssetName actor)
     {
         SetSpeaker(actor, SpeakingType.Thinking);
     }
 
     private void SetSpeaker(string actor, SpeakingType speakingType)
     {
-        ActorController.SetActiveSpeaker(actor);
+        ActorController.SetActiveSpeaker(actor, speakingType);
         ActorController.SetSpeakingType(speakingType);
         OnActionDone?.Invoke();
     }
 
-    private void SET_POSE(string poseName, string optional_targetActor = null)
+    private void SET_POSE(AssetName poseName, string optional_targetActor = null)
     {
         if (optional_targetActor == null)
         {
@@ -381,7 +393,7 @@ public class ActionDecoder
         }
     }
 
-    private void PLAY_EMOTION(string poseName, string optional_targetActor = null)
+    private void PLAY_EMOTION(AssetName poseName, AssetName? optional_targetActor = null)
     {
         if (optional_targetActor == null)
         {
@@ -393,7 +405,7 @@ public class ActionDecoder
         }
     }
 
-    private void SET_ACTOR_POSITION(int oneBasedSlotIndex, string actorName)
+    private void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName)
     {
         ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
         OnActionDone?.Invoke();

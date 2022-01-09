@@ -121,7 +121,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             _onLetterAppear.Invoke();
             char currentCharacter = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1].character;
             float speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
-            PlayDialogueChirp(_namebox.CurrentActor, currentCharacter);
+            PlayDialogueChirp(_namebox.CurrentActorDialogueChirp, currentCharacter);
             yield return new WaitForSeconds(GetDelay(currentCharacter) / speedMultiplier);
         }
         _onLineEnd.Invoke();
@@ -137,21 +137,21 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <summary>
     /// Play dialogue chirp sound effect for current actor, if it exists
     /// </summary>
-    /// <param name="currentActor">Speaker actor</param>
+    /// <param name="currentActorChirp">Speaker actor's dialogue chirp</param>
     /// <param name="currentCharacter">Character to play chirp on (skipped if punctuation or ignored)</param>
-    private void PlayDialogueChirp(ActorData currentActor, char currentCharacter)
+    private void PlayDialogueChirp(AudioClip currentActorChirp, char currentCharacter)
     {
-        if (currentActor == null || CharShouldBeTreatedAsPunctuation(currentCharacter))
+        if (CharShouldBeTreatedAsPunctuation(currentCharacter))
         {
             return;
         }
         
-        var chirp = currentActor.DialogueChirp;
-        if (chirp == null)
+        var resultChirp = currentActorChirp;
+        if (resultChirp == null)
         {
-            chirp = _defaultDialogueChirpSfx;
+            resultChirp = _defaultDialogueChirpSfx;
         }
-        _audioController.PlaySfx(chirp);
+        _audioController.PlaySfx(resultChirp);
     }
 
     /// <summary>
