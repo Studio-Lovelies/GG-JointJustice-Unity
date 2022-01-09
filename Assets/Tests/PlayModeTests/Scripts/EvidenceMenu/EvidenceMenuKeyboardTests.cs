@@ -1,12 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Tests.PlayModeTests.Tools;
 using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
@@ -47,7 +43,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [UnityTest]
         public IEnumerator EvidenceCanBeSelected()
         {
-            EvidenceController.AddEvidence(Resources.Load<Evidence>("Evidence/Attorneys_Badge"));
+            EvidenceController.AddEvidence(Resources.Load<Evidence>("Evidence/AttorneysBadge"));
             yield return PressZ();
             Assert.True(EvidenceMenu.isActiveAndEnabled);
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey);

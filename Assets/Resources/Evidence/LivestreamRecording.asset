@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01c953ab3999141bd9d06e427dbad13d, type: 3}
-  m_Name: Livestream_Recording
+  m_Name: LivestreamRecording
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Livestream Recording
   <Icon>k__BackingField: {fileID: 21300000, guid: 07423da0c5846b246b5aeb9129962819, type: 3}
