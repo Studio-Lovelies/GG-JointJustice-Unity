@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc981f29381844a991ebe930492451f, type: 3}
   m_Name: Jory
   m_EditorClassIdentifier: 
-  <Profile>k__BackingField: {fileID: 0}
-  <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: 26a9c8485eebf984398ac2094b0fcdc7, type: 3}
+  <Profile>k__BackingField: {fileID: 21300000, guid: 9baced19c655c164584aefb3b5a70460, type: 3}
   <DisplayName>k__BackingField: Jory
   <Age>k__BackingField: 30
   _ageCertainty: 1
@@ -21,3 +20,4 @@ MonoBehaviour:
   <Bio>k__BackingField: 'Game developer for Dream Daddy. Previous job: P.P.I.S.S
     machine.'
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: cfd482816b6674280a326432f76ac73b, type: 2}
+  <DialogueChirp>k__BackingField: {fileID: 0}
