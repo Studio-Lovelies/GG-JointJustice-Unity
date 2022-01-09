@@ -30,6 +30,15 @@ public class ObjectPreloader : IObjectPreloader
         LoadActor(actor);
     }
 
+    public void SetActiveSpeaker(string actor, SpeakingType speakingType)
+    {
+        LoadActor(actor);
+    }
+
+    public void SetActiveSpeakerToNarrator()
+    {
+    }
+
     public void SetActiveSpeaker(string actor)
     {
         LoadActor(actor);

@@ -11,10 +11,6 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
-    [FormerlySerializedAs("_actorDictionary")]
-    [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
-    [SerializeField] private ActorInventory _actorInventory;
-
     [Tooltip("Attach the NameBox here")]
     [SerializeField] private NameBox _nameBox;
     
@@ -205,8 +201,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _dialogueController.NarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
-            _onNewSpeakingActor.Invoke(_currentSpeakingActor);
+            _currentSpeakingActor = _dialogueController.NarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
         }
         catch (KeyNotFoundException exception)

@@ -15,16 +15,16 @@ public class NarrativeScriptTests
                                         "&SPEAK:Arin\n" +
                                         "&SET_ACTOR_POSITION:1,Jory\n" +
                                         "&SET_ACTOR_POSITION:1,Jory\n" +
-                                        "&SCENE:TMPH_Court\n" +
-                                        "&SCENE:TMPH_Court\n" +
+                                        "&SCENE:TMPHCourt\n" +
+                                        "&SCENE:TMPHCourt\n" +
                                         "&SHOW_ITEM:Bent_Coins,Right\n" +
                                         "-> NamedContainer\n" +
                                         "=== NamedContainer ===\n" +
                                         "&SHOW_ITEM:Bent_Coins,Right\n" +
-                                        "&ADD_EVIDENCE:Stolen_Dinos\n" +
-                                        "&ADD_EVIDENCE:Stolen_Dinos\n" +
-                                        "&ADD_RECORD:Tutorial_Boy\n" +
-                                        "&ADD_RECORD:Tutorial_Boy\n" +
+                                        "&ADD_EVIDENCE:StolenDinos\n" +
+                                        "&ADD_EVIDENCE:StolenDinos\n" +
+                                        "&ADD_RECORD:TutorialBoy\n" +
+                                        "&ADD_RECORD:TutorialBoy\n" +
                                         "&PLAY_SFX:damage1\n" +
                                         "&PLAY_SFX:damage1\n" +
                                         "&PLAY_SONG:aBoyAndHisTrial\n" +
@@ -54,7 +54,7 @@ public class NarrativeScriptTests
             .Callback(() => methodCalls[1]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .SetActiveSpeaker("Arin"))
+                .SetActiveSpeaker("Arin", SpeakingType.Speaking))
             .Callback(() => methodCalls[2]++);
         
         objectPreloaderMock.Setup(mock => mock
@@ -62,30 +62,30 @@ public class NarrativeScriptTests
             .Callback(() => methodCalls[3]++);
 
         objectPreloaderMock.Setup(mock => mock
-                .SetScene("TMPH_Court"))
+                .SetScene("TMPHCourt"))
             .Callback(() => methodCalls[4]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .ShowItem("Bent_Coins", ItemDisplayPosition.Right))
+                .ShowItem("BentCoins", ItemDisplayPosition.Right))
             .Callback(() => methodCalls[5]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .AddEvidence("Stolen_Dinos"))
+                .AddEvidence("StolenDinos"))
             .Callback(() => methodCalls[6]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .AddToCourtRecord("Tutorial_Boy"))
+                .AddToCourtRecord("TutorialBoy"))
             .Callback(() => methodCalls[7]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .PlaySfx("damage1"))
+                .PlaySfx("Damage1"))
             .Callback(() => methodCalls[8]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .PlaySong("aBoyAndHisTrial"))
+                .PlaySong("ABoyAndHisTrial"))
             .Callback(() => methodCalls[9]++);
         
-        var narrativeScript = new NarrativeScript(new TextAsset(story.ToJson()), DialogueControllerMode.Dialogue, objectPreloaderMock.Object);
+        new NarrativeScript(new TextAsset(story.ToJson()), DialogueControllerMode.Dialogue, objectPreloaderMock.Object);
 
         foreach (var pair in methodCalls)
         {
