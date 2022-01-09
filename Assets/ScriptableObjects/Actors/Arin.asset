@@ -27,6 +27,4 @@ MonoBehaviour:
     <Item2>k__BackingField: {fileID: 8300000, guid: ce1fce4a6857b4e478e0d450dadc7750, type: 3}
   - <Item1>k__BackingField: {fileID: 21300000, guid: b829cea1a0d6654418a2285a9653dca1, type: 3}
     <Item2>k__BackingField: {fileID: 8300000, guid: 2d664a5ebfdd03b44b7399265e302fcb, type: 3}
-  - <Item1>k__BackingField: {fileID: 21300000, guid: 71a9b5e7da5734463be46d877c8e94d9, type: 3}
-    <Item2>k__BackingField: {fileID: 8300000, guid: ef74e29f35d5bc640af0ad553e92699d, type: 3}
   <DialogueChirp>k__BackingField: {fileID: 8300000, guid: bec396ecc7b7242499dbad1326715317, type: 3}
