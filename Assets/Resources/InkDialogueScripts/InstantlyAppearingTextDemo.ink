@@ -1,4 +1,4 @@
-&SCENE:TMPH_Defense
+&SCENE:TMPHDefense
 &ACTOR:Arin
 &SPEAK:Arin
 The following text will appear instantly.
@@ -12,7 +12,7 @@ This text too.
 &PLAY_EMOTION:Objection
 Textboxes can now be hidden!
 &HIDE_TEXTBOX
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &ACTOR:Dan
 &SPEAK:Dan
 &PLAY_EMOTION:AirGuitar

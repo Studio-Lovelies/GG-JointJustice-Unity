@@ -1,0 +1,80 @@
+&NARRATE
+From somewhere, a transmission...
+
+&SPEAK_UNKNOWN:Arin
+Who is speaking right now?
+
+&SPEAK_UNKNOWN:Dan
+I don't know, Arin, who?
+
+&SPEAK:Arin
+Aww! Dan, you ruined it!
+
+&SPEAK:Dan
+Sorry, Big Cat.
+
+&NARRATE
+&DIALOGUE_SPEED:0.1
+And so they J.O'd into the sunset...
+
+&SPEAK:Arin
+&AUTO_SKIP:True
+&DIALOGUE_SPEED:0.1
+This text is slow 
+
+&CONTINUE_DIALOGUE
+&DIALOGUE_SPEED:0.01
+and this text is fast 
+
+&CONTINUE_DIALOGUE
+&DIALOGUE_SPEED:0.1
+&AUTO_SKIP:False
+and this text is slow again
+
+&APPEAR_INSTANTLY
+This text appears instantly
+
+Hey Dan, look at this!
+
+&SPEAK:Dan
+&DIALOGUE_SPEED:0.05
+Arin...
+
+&CONTINUE_DIALOGUE
+&DIALOGUE_SPEED:0.1
+&PUNCTUATION_SPEED:0.5
+&SPEAK:Dan
+That's your hedgehog...
+
+&SPEAK:Arin
+Yeeees. And?
+
+&DIALOGUE_SPEED:0.02
+&SPEAK:Dan
+DON'T JUST GO FLASHING YOUR HEDGEHOG AROUND!
+
+&SPEAK:Arin
+BUT I DON'T WANNA WEAR PANTS!
+
+&DIALOGUE_SPEED:0.075
+&AUTO_SKIP:True
+&SPEAK:Dan
+I DON'T CARE IF YOU DON'T WANNA WEAR PANTS JUST WEAR SOMETHING.
+
+&SPEAK:Arin
+&DIALOGUE_SPEED:0.01
+FUCK YOU YOU'RE NOT MY REAL MOM!
+
+&SPEAK:Dan
+GOOD BECAUSE IF I WAS, I WOULD MAKE YOU GO TO BED WITHOUT ANY SHNITZEL!
+
+&AUTO_SKIP:False
+&DISABLE_SKIPPING:TRUE
+&DIALOGUE_SPEED:0.1
+................
+
+&SPEAK:Dan
+I'm sorry.
+
+    -> END
+

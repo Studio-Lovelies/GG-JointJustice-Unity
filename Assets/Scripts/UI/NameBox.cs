@@ -10,9 +10,9 @@ public class NameBox : MonoBehaviour
     private Image _image;
 
     /// <summary>
-    /// The most recently set ActorData, reflects the name currently shown in the NameBox.
+    /// The dialogue chirp of the actor whose name is currently shown in the NameBox.
     /// </summary>
-    public ActorData CurrentActor { get; private set; }
+    public AudioClip CurrentActorDialogueChirp { get; private set; }
     
     private void Awake()
     {
@@ -23,12 +23,26 @@ public class NameBox : MonoBehaviour
     /// Sets the text and color of the name box to that of the specified actor
     /// </summary>
     /// <param name="actorData">An ActorData object to get the name and color from</param>
-    public void SetSpeaker(ActorData actorData)
+    /// <param name="speakingType">The speaking type that is in use</param>
+    public void SetSpeaker(ActorData actorData, SpeakingType speakingType)
     {
-        gameObject.SetActive(actorData.DisplayName != "");
+        gameObject.SetActive(true);
+        var nameToDisplay = actorData.DisplayName;
 
-        CurrentActor = actorData;
-        _text.text = actorData.DisplayName;
+        if (speakingType == SpeakingType.SpeakingWithUnknownName)
+        {
+            nameToDisplay = "???";
+        }
+
+        _text.text = nameToDisplay;
+        CurrentActorDialogueChirp = actorData.DialogueChirp;
         _image.color = actorData.DisplayColor;
+    }
+
+    public void SetSpeakerToNarrator()
+    {
+        // For now the Narrator will always have the "default" chirp sound.
+        CurrentActorDialogueChirp = null;
+        gameObject.SetActive(false);
     }
 }
