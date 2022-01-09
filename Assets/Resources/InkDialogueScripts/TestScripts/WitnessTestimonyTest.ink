@@ -5,18 +5,18 @@ INCLUDE ../Macros.ink
 &JUMP_TO_POSITION:2
 
 <- WitnessTestimony
--> Testimony ->
+-> RossTestimony ->
 &END_WITNESS_TESTIMONY
 
 &NARRATE
 The witness testimony sign should now be gone.
 
 <- CrossExamination
--> Testimony ->
+-> RossTestimony ->
 
 -> END
 
-=== Testimony
+=== RossTestimony
 &SPEAK:Ross
 I was animating by myself over in my room at the office.
 But then... I saw someone taking the dinos!!
