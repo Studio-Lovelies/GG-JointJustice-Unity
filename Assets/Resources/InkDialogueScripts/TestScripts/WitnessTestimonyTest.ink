@@ -14,5 +14,6 @@ Now that I know they were stolen, that means the culprit must be Jory!
 
 &END_WITNESS_TESTIMONY
 
+&NARRATE
 The witness testimony sign should now be gone.
 
