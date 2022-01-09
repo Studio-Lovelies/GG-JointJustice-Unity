@@ -30,3 +30,38 @@ public class AssetName
         return _internalString;
     }
 }
+
+public class FullscreenAnimationAssetName : AssetName
+{
+    public FullscreenAnimationAssetName(string givenName) : base(givenName) { }
+}
+
+public class SceneAssetName : AssetName
+{
+    public SceneAssetName(string givenName) : base(givenName) { }
+}
+
+public class SfxAssetName : AssetName
+{
+    public SfxAssetName(string givenName) : base(givenName) { }
+}
+
+public class SongAssetName : AssetName
+{
+    public SongAssetName(string givenName) : base(givenName) { }
+}
+
+public class EvidenceAssetName : AssetName
+{
+    public EvidenceAssetName(string givenName) : base(givenName) { }
+}
+
+public class ActorPoseAssetName : AssetName
+{
+    public ActorPoseAssetName(string givenName) : base(givenName) { }
+}
+
+public class ActorAssetName : AssetName
+{
+    public ActorAssetName(string givenName) : base(givenName) { }
+}
