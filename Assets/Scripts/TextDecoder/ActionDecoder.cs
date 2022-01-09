@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class ActionDecoder
 {
+
     public event Action OnActionDone;
     public IActorController ActorController { get; set; }
     public ISceneController SceneController { get; set; }
@@ -57,7 +58,7 @@ public class ActionDecoder
         var optionalParameters = methodParameters.Count(parameter => parameter.IsOptional);
         if (parameters.Length < (methodParameters.Length - optionalParameters) || parameters.Length > (methodParameters.Length))
         {
-            throw new TextDecoder.Parser.ScriptParsingException($"'{action}' requires {(optionalParameters == 0 ? "exactly" : "between")} {(optionalParameters == 0 ? methodParameters.Length.ToString() : $"{methodParameters.Length-optionalParameters} and {methodParameters.Length}")} parameters (has {parameters.Length} instead)");
+            throw new TextDecoder.Parser.ScriptParsingException($"'{action}' requires {(optionalParameters == 0 ? "exactly" : "between")} {(optionalParameters == 0 ? methodParameters.Length.ToString() : $"{methodParameters.Length - optionalParameters} and {methodParameters.Length}")} parameters (has {parameters.Length} instead)");
         }
 
         List<object> parsedMethodParameters = new List<object>();
@@ -86,7 +87,7 @@ public class ActionDecoder
                     Match match = pattern.Match(e.Message);
                     if (match.Groups.Count > 0)
                     {
-                        throw new TextDecoder.Parser.ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '{match.Groups[1].Captures[0]}' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a=>a.ToString()))}')");
+                        throw new TextDecoder.Parser.ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '{match.Groups[1].Captures[0]}' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a => a.ToString()))}')");
                     }
                     throw;
                 }
@@ -143,42 +144,73 @@ public class ActionDecoder
     // ReSharper disable UnusedMember.Local
 #pragma warning disable IDE0051 // Remove unused private members
     #region AppearingDialogueController
+    /// <summary>Makes regular letters take the given amount of seconds before showing the next letter in dialogue.</summary>
+    /// <param name="characterDelay">Time in seconds, use `.` (not `,`) for decimal places.</param>
+    /// <example>&amp;DIALOGUE_SPEED:1.05</example>
+    /// <example>&amp;DIALOGUE_SPEED:0.2</example>
+    /// <example>&amp;DIALOGUE_SPEED:0.05</example>
+    /// <category>Dialogue</category>
     private void DIALOGUE_SPEED(float characterDelay)
     {
         AppearingDialogueController.CharacterDelay = characterDelay;
         OnActionDone?.Invoke();
     }
 
+    /// <summary>Makes punctuation take the given amount of seconds before showing the next letter in dialogue.</summary>
+    /// <param name="seconds">Time in seconds, use `.` (not `,`) for decimal places.</param>
+    /// <example>&amp;PUNCTUATION_SPEED:1.05</example>
+    /// <example>&amp;PUNCTUATION_SPEED:0.2</example>
+    /// <example>&amp;PUNCTUATION_SPEED:0.05</example>
+    /// <category>Dialogue</category>
     private void PUNCTUATION_SPEED(float seconds)
     {
         AppearingDialogueController.DefaultPunctuationDelay = seconds;
         OnActionDone?.Invoke();
     }
 
-    private void DISABLE_SKIPPING(bool value)
-    {
-        AppearingDialogueController.SkippingDisabled = value;
-        OnActionDone?.Invoke();
-    }
-
-    private void CONTINUE_DIALOGUE()
-    {
-        AppearingDialogueController.ContinueDialogue = true;
-        OnActionDone?.Invoke();
-    }
-
+    /// <summary>Starts or stops autoskipping of dialogue, where it automatically continues after it is done.</summary>
+    /// <param name="value">Set to either `true` or `false` to enable or disable automatic dialogue skipping respectively.</param>
+    /// <example>&amp;AUTO_SKIP:true</example>
+    /// <example>&amp;AUTO_SKIP:false</example>
+    /// <category>Dialogue</category>
     private void AUTO_SKIP(bool value)
     {
         AppearingDialogueController.AutoSkip = value;
         OnActionDone?.Invoke();
     }
 
+    /// <summary>Disables or enables text speedup. Enabled by default.</summary>
+    /// <param name="value">Set to either `true` or `false` to not speedup or speedup text respectively.</param>
+    /// <example>&amp;DISABLE_SKIPPING:true</example>
+    /// <example>&amp;DISABLE_SKIPPING:false</example>
+    /// <category>Dialogue</category>
+    private void DISABLE_SKIPPING(bool value)
+    {
+        AppearingDialogueController.SkippingDisabled = value;
+        OnActionDone?.Invoke();
+    }
+
+    /// <summary>Makes the next dialogue add to the current one instead of replacing it.</summary>
+    /// <example>&amp;CONTINUE_DIALOGUE</example>
+    /// <category>Dialogue</category>
+    private void CONTINUE_DIALOGUE()
+    {
+        AppearingDialogueController.ContinueDialogue = true;
+        OnActionDone?.Invoke();
+    }
+
+    /// <summary>Makes the next line of dialogue appear all at once, instead of character by character.</summary>
+    /// <category>Dialogue</category>
+    /// <example>&amp;APPEAR_INSTANTLY</example>
     private void APPEAR_INSTANTLY()
     {
         AppearingDialogueController.AppearInstantly = true;
         OnActionDone?.Invoke();
     }
 
+    /// <summary>Hides the dialogue textbox until the next line of dialogue.</summary>
+    /// <category>Dialogue</category>
+    /// <example>&amp;HIDE_TEXTBOX</example>
     private void HIDE_TEXTBOX()
     {
         AppearingDialogueController.TextBoxHidden = true;
@@ -187,30 +219,49 @@ public class ActionDecoder
     #endregion
 
     #region EvidenceController
-    private void ADD_EVIDENCE(AssetName evidence)
+    /// <summary>Adds the provided evidence to the court record.</summary>
+    /// <param name="evidence" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of evidence to add</param>
+    /// <example>&amp;ADD_EVIDENCE:Bent_Coins</example>
+    /// <category>Evidence</category>
+    private void ADD_EVIDENCE(EvidenceAssetName evidence)
     {
         EvidenceController.AddEvidence(evidence);
         OnActionDone?.Invoke();
     }
 
-    private void REMOVE_EVIDENCE(AssetName evidence)
+    /// <summary>Removes the provided evidence from the court record.</summary>
+    /// <param name="evidence" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of evidence to remove</param>
+    /// <example>&amp;REMOVE_EVIDENCE:Bent_Coins</example>
+    /// <category>Evidence</category>
+    private void REMOVE_EVIDENCE(EvidenceAssetName evidence)
     {
         EvidenceController.RemoveEvidence(evidence);
         OnActionDone?.Invoke();
     }
 
-    private void ADD_RECORD(AssetName actor)
+    /// <summary>Adds the provided actor to the court record.</summary>
+    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor to add to the court record</param>
+    /// <example>&amp;ADD_RECORD:Jory</example>
+    /// <category>Evidence</category>
+    private void ADD_RECORD(ActorAssetName actor)
     {
         EvidenceController.AddToCourtRecord(actor);
         OnActionDone?.Invoke();
     }
-    
+
+    /// <summary>Forces the evidence menu open and doesn't continue the story until the player presents evidence.</summary>
+    /// <example>&amp;PRESENT_EVIDENCE</example>
+    /// <category>Evidence</category>
     private void PRESENT_EVIDENCE()
     {
         EvidenceController.RequirePresentEvidence();
     }
-    
-    private void SUBSTITUTE_EVIDENCE(AssetName evidence)
+
+    /// <summary>Substitutes the provided evidence for their substitute.</summary>
+    /// <param name="evidence" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of evidence to replace with their substitute</param>
+    /// <example>&amp;SUBSTITUTE_EVIDENCE:Plumber_Invoice</example>
+    /// <category>Evidence</category>
+    private void SUBSTITUTE_EVIDENCE(EvidenceAssetName evidence)
     {
         EvidenceController.SubstituteEvidenceWithAlt(evidence);
         OnActionDone?.Invoke();
@@ -218,18 +269,29 @@ public class ActionDecoder
     #endregion
 
     #region AudioController
-    private void PLAY_SFX(AssetName sfx)
+    /// <summary>Plays provided SFX.</summary>
+    /// <param name="sfx" validFiles="Assets/Resources/Audio/SFX/*.wav">Filename of a sound effect</param>
+    /// <example>&amp;PLAY_SFX:evidenceShoop</example>
+    /// <category>Audio</category>
+    private void PLAY_SFX(SfxAssetName sfx)
     {
         AudioController.PlaySfx(sfx);
         OnActionDone?.Invoke();
     }
 
-    private void PLAY_SONG(AssetName songName)
+    /// <summary>Plays the provided song. Stops the current one. Loops infinitely.</summary>
+    /// <param name="songName" validFiles="Assets/Resources/Audio/Music/*.mp3">Filename of a song</param>
+    /// <example>&amp;PLAY_SONG:turnaboutGrumpsters</example>
+    /// <category>Audio</category>
+    private void PLAY_SONG(SongAssetName songName)
     {
         AudioController.PlaySong(songName);
         OnActionDone?.Invoke();
     }
 
+    /// <summary>If music is currently playing, stop it.</summary>
+    /// <example>&amp;STOP_SONG</example>
+    /// <category>Audio</category>
     private void STOP_SONG()
     {
         AudioController.StopSong();
@@ -238,109 +300,190 @@ public class ActionDecoder
     #endregion
 
     #region SceneController
-    private void FADE_IN(float timeInSeconds)
-    {
-        SceneController.FadeIn(timeInSeconds);
-    }
-
+    /// <summary>Fades the screen to black, only works if not faded out.</summary>
+    /// <param name="timeInSeconds">number of seconds for the fade out to take. Decimal numbers allowed</param>
+    /// <example>&amp;FADE_OUT:1</example>
+    /// <category>Scene</category>
     private void FADE_OUT(float timeInSeconds)
     {
         SceneController.FadeOut(timeInSeconds);
     }
 
-    private void SHAKE_SCREEN(float intensity, float duration, bool isBlocking = false)
+    /// <summary>Fades the screen in from black, only works if faded out.</summary>
+    /// <param name="timeInSeconds">number of seconds for the fade in to take. Decimal numbers allowed</param>
+    /// <example>&amp;FADE_IN:1</example>
+    /// <category>Scene</category>
+    private void FADE_IN(float timeInSeconds)
     {
-        SceneController.ShakeScreen(intensity, duration, isBlocking);
+        SceneController.FadeIn(timeInSeconds);
     }
 
-    private void SCENE(AssetName sceneName)
-    {
-        SceneController.SetScene(sceneName);
-        OnActionDone?.Invoke();
-    }
-
-    private void CAMERA_SET(int x, int y)
-    {
-        SceneController.SetCameraPos(new Vector2Int(x, y));
-        OnActionDone?.Invoke();
-    }
-
+    /// <summary>Pans the camera over a given amount of time to a given position in a straight line. Continues story after starting. Use WAIT to add waiting for completion.</summary>
+    /// <param name="duration">number of seconds for the fade in to take. Decimal numbers allowed</param>
+    /// <param name="x">x axis position to pan to (0 is the default position)</param>
+    /// <param name="y">x axis position to pan to (0 is the default position)</param>
+    /// <example>&amp;CAMERA_PAN:2,0,-204</example>
+    /// <category>Scene</category>
     private void CAMERA_PAN(float duration, int x, int y)
     {
         SceneController.PanCamera(duration, new Vector2Int(x, y));
         OnActionDone?.Invoke();
     }
 
-    private void SHOW_ITEM(AssetName item, ItemDisplayPosition itemPos)
+    /// <summary>Sets the camera to a given position.</summary>
+    /// <param name="x">x axis position to pan to (0 is the default position)</param>
+    /// <param name="y">x axis position to pan to (0 is the default position)</param>
+    /// <example>&amp;CAMERA_SET:0,-204</example>
+    /// <category>Scene</category>
+    private void CAMERA_SET(int x, int y)
     {
-        SceneController.ShowItem(item, itemPos);
+        SceneController.SetCameraPos(new Vector2Int(x, y));
         OnActionDone?.Invoke();
     }
 
+    /// <summary>Shakes the screen.</summary>
+    /// <param name="intensity">Decimal number representing the intensity of the screen shake</param>
+    /// <param name="duration">Decimal number representing the duration of the shake in seconds</param>
+    /// <param name="isBlocking">(Optional, `false` by default) `true` or `false` for whether the narrative script should continue immediately (`false`) or wait for the shake to finish (`true`)</param>
+    /// <example>&amp;SHAKE_SCREEN:1,0.5,true</example>
+    /// <category>Scene</category>
+    private void SHAKE_SCREEN(float intensity, float duration, bool isBlocking = false)
+    {
+        SceneController.ShakeScreen(intensity, duration, isBlocking);
+    }
+
+    /// <summary>Sets the scene. If an actor was already attached to target scene, it will show up as well.</summary>
+    /// <param name="sceneName" validFiles="Assets/Scenes/*.unity">Name of a scene</param>
+    /// <example>&amp;SCENE:TMPH_Court</example>
+    /// <category>Scene</category>
+    private void SCENE(SceneAssetName sceneName)
+    {
+        SceneController.SetScene(sceneName);
+        OnActionDone?.Invoke();
+    }
+    /// <summary>Shows the given evidence on the screen in the given position.</summary>
+    /// <param name="evidence" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of evidence to show</param>
+    /// <param name="itemPos">`Left`, `Right` or `Middle`</param>
+    /// <example>&amp;SHOW_ITEM:Switch,Left</example>
+    /// <category>Scene</category>
+    private void SHOW_ITEM(EvidenceAssetName evidence, ItemDisplayPosition itemPos)
+    {
+        SceneController.ShowItem(evidence, itemPos);
+        OnActionDone?.Invoke();
+    }
+
+    /// <summary>Hides the item shown when using SHOW_ITEM.</summary>
+    /// <example>&amp;HIDE_ITEM</example>
+    /// <category>Scene</category>
     private void HIDE_ITEM()
     {
         SceneController.HideItem();
         OnActionDone?.Invoke();
     }
 
-    private void WAIT(float seconds)
-    {
-        SceneController.Wait(seconds);
-    }
-
-    private void PLAY_ANIMATION(AssetName animationName)
+    /// <summary>Plays a fullscreen animation.</summary>
+    /// <param name="animationName" validFiles="Assets/Animations/FullscreenAnimations/*.anim">Name of a fullscreen animation to play</param>
+    /// <example>&amp;PLAY_ANIMATION:GavelHit</example>
+    /// <category>Scene</category>
+    private void PLAY_ANIMATION(FullscreenAnimationAssetName animationName)
     {
         SceneController.PlayAnimation(animationName);
     }
 
+    /// <summary>Makes the camera jump to focus on the target sub-position of the currently active scene.</summary>
+    /// <param name="slotIndex">Whole number representing the target sub-position of the currently active scene</param>
+    /// <example>&amp;JUMP_TO_POSITION:1</example>
+    /// <category>Scene</category>
     private void JUMP_TO_POSITION(int slotIndex)
     {
         SceneController.JumpToActorSlot(slotIndex);
         OnActionDone?.Invoke();
     }
 
+    /// <summary>Makes the camera pan to focus on the target sub-position of the currently active scene. Takes the provided amount of time to complete. If you want the system to wait for completion, call WAIT with the appropriate amount of seconds afterwards.</summary>
+    /// <param name="slotIndex">Whole number representing the target sub-position of the currently active scene</param>
+    /// <param name="panDuration">Decimal number representing the amount of time the pan should take in seconds</param>
+    /// <example>&amp;PAN_TO_POSITION:1,1</example>
+    /// <category>Scene</category>
     private void PAN_TO_POSITION(int slotIndex, float panDuration)
     {
         SceneController.PanToActorSlot(slotIndex, panDuration);
     }
 
+    /// <summary>Restarts the currently playing script from the beginning.</summary>
+    /// <example>&amp;RELOAD_SCENE</example>
+    /// <category>Scene</category>
+    private void RELOAD_SCENE()
+    {
+        SceneController.ReloadScene();
+    }
+
+    /// <summary>Issues a penalty / deducts one of the attempts available to a player to find the correct piece of evidence or actor during a cross examinaton.</summary>
+    /// <example>&amp;ISSUE_PENALTY</example>
+    /// <category>Cross Examination</category>
     private void ISSUE_PENALTY()
     {
         SceneController.IssuePenalty();
         OnActionDone?.Invoke();
     }
 
-    private void RELOAD_SCENE()
+    /// <summary>Waits for the specified amount of seconds before continuing automatically.</summary>
+    /// <param name="seconds">Time in seconds to wait</param>
+    /// <example>&amp;WAIT:1</example>
+    /// <category>Other</category>
+    private void WAIT(float seconds)
     {
-        SceneController.ReloadScene();
+        SceneController.Wait(seconds);
     }
 
-    private void OBJECTION(string actorName)
+    /// <summary>Plays an "Objection!" animation and soundeffect for the specified actor.</summary>
+    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <example>&amp;OBJECTION:Arin</example>
+    /// <category>dialogue</category>
+    private void OBJECTION(ActorAssetName actorName)
     {
         SHOUT(actorName, "Objection", true);
     }
 
-    private void TAKE_THAT(string actorName)
+    /// <summary>Plays a "Take that!" animation and soundeffect for the specified actor.</summary>
+    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <example>&amp;TAKE_THAT:Arin</example>
+    /// <category>dialogue</category>
+    private void TAKE_THAT(ActorAssetName actorName)
     {
         SHOUT(actorName, "TakeThat", true);
     }
 
-    private void HOLD_IT(string actorName)
+    /// <summary>Plays a "Hold it!" animation and soundeffect for the specified actor.</summary>
+    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <example>&amp;HOLD_IT:Arin</example>
+    /// <category>dialogue</category>
+    private void HOLD_IT(ActorAssetName actorName)
     {
         SHOUT(actorName, "HoldIt", true);
     }
 
-    private void SHOUT(string actorName, string shoutName, bool allowRandomShouts = false)
+    /// <summary>Sets the current shown actor on screen to the one provided. Starts it in the normal pose.</summary>
+    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <example>&amp;SHOUT:Arin,OBJECTION,false</example>
+    /// <category>actor</category>
+    private void SHOUT(ActorAssetName actorName, string shoutName, bool allowRandomShouts = false)
     {
         SceneController.Shout(actorName, shoutName, allowRandomShouts);
     }
 
+    /// <summary>Enables the flashing witness testimony sign in the upper left corner of the screen.</summary>
+    /// <example>&amp;BEGIN_WITNESS_TESTIMONY</example>
+    /// <category>Cross Examination</category>
     private void BEGIN_WITNESS_TESTIMONY()
     {
         SceneController.WitnessTestimonyActive = true;
         OnActionDone?.Invoke();
     }
 
+    /// <summary>Disables the flashing witness testimony sign in the upper left corner of the screen.</summary>
+    /// <example>&amp;BEGIN_WITNESS_TESTIMONY</example>
+    /// <category>Cross Examination</category>
     private void END_WITNESS_TESTIMONY()
     {
         SceneController.WitnessTestimonyActive = false;
@@ -349,12 +492,21 @@ public class ActionDecoder
     #endregion
 
     #region ActorController
-    private void ACTOR(AssetName actor)
+    /// <summary>Sets the current shown actor on screen to the one provided. Starts it in the normal pose.</summary>
+    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <example>&amp;ACTOR:Arin</example>
+    /// <category>actor</category>
+    private void ACTOR(ActorAssetName actor)
     {
         ActorController.SetActiveActor(actor);
         OnActionDone?.Invoke();
     }
 
+    /// <summary>Shows or hides the actor on the screen. Has to be re-done after switching a scene.</summary>
+    /// <param name="shouldShow">whether to show (`true`) or not show (`false`) an actor</param>
+    /// <example>&amp;SHOW_ACTOR:true</example>
+    /// <example>&amp;SHOW_ACTOR:false</example>
+    /// <category>actor</category>
     private void SHOW_ACTOR(bool shouldShow)
     {
         if (shouldShow)
@@ -369,16 +521,36 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
 
-    private void SPEAK(AssetName actor)
+    /// <summary>Makes the next non-action line spoken by the provided actor. If the speaking actor matches the actor on screen, it makes their mouth move when speaking.</summary>
+    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <example>&amp;SPEAK:Arin</example>
+    /// <category>actor</category>
+    private void SPEAK(ActorAssetName actor)
     {
         SetSpeaker(actor, SpeakingType.Speaking);
     }
-    
-    private void SPEAK_UNKNOWN(string actor)
+
+    /// <summary>Makes the next non-action line spoken by the provided actor. Doesn't make the actor's mouth.</summary>
+    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <example>&amp;THINK:Arin</example>
+    /// <category>actor</category>
+    private void THINK(ActorAssetName actor)
+    {
+        SetSpeaker(actor, SpeakingType.Thinking);
+    }
+
+    /// <summary>Makes the next non-action line spoken by the provided actor but hides the name.</summary>
+    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <example>&amp;SPEAK_UNKNOWN:Arin</example>
+    /// <category>actor</category>
+    private void SPEAK_UNKNOWN(ActorAssetName actor)
     {
         SetSpeaker(actor, SpeakingType.SpeakingWithUnknownName);
     }
-    
+
+    /// <summary>Makes the next non-action line spoken by a "narrator" actor.</summary>
+    /// <example>&amp;NARRATE:Arin</example>
+    /// <category>actor</category>
     private void NARRATE()
     {
         ActorController.SetActiveSpeakerToNarrator();
@@ -386,19 +558,19 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
 
-    private void THINK(AssetName actor)
-    {
-        SetSpeaker(actor, SpeakingType.Thinking);
-    }
-
-    private void SetSpeaker(string actor, SpeakingType speakingType)
+    private void SetSpeaker(ActorAssetName actor, SpeakingType speakingType)
     {
         ActorController.SetActiveSpeaker(actor, speakingType);
         ActorController.SetSpeakingType(speakingType);
         OnActionDone?.Invoke();
     }
 
-    private void SET_POSE(AssetName poseName, string optional_targetActor = null)
+    /// <summary>Makes the currently shown actor switch to target pose. Plays any animation associated with target pose / emotion, but doesn't wait until it is finished before continuing.</summary>
+    /// <param name="poseName" validFiles="Assets/Animations/{ActorAssetName}/*.anim">Poses defined per Actor</param>
+    /// <param name="optional_targetActor" validFiles="Assets/ScriptableObjects/Actors/*.asset">(optional) ame of the actor</param>
+    /// <example>&amp;SET_POSE:Normal</example>
+    /// <category>actor</category>
+    private void SET_POSE(ActorPoseAssetName poseName, ActorAssetName optional_targetActor = null)
     {
         if (optional_targetActor == null)
         {
@@ -412,7 +584,12 @@ public class ActionDecoder
         }
     }
 
-    private void PLAY_EMOTION(AssetName poseName, AssetName? optional_targetActor = null)
+    /// <summary>Makes the currently shown actor perform target emotion (fancy word animation on an actor). Practically does the same as SET_POSE, but waits for the emotion to complete. Doesn't work on all poses, possible ones are flagged.</summary>
+    /// <param name="poseName" validFiles="Assets/Animations/{ActorAssetName}/*.anim">Poses defined per Actor</param>
+    /// <param name="optional_targetActor" validFiles="Assets/ScriptableObjects/Actors/*.asset">(optional) name of the actor</param>
+    /// <example>&amp;PLAY_EMOTION:Nodding</example>
+    /// <category>actor</category>
+    private void PLAY_EMOTION(ActorPoseAssetName poseName, ActorAssetName? optional_targetActor = null)
     {
         if (optional_targetActor == null)
         {
@@ -424,7 +601,12 @@ public class ActionDecoder
         }
     }
 
-    private void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName)
+    /// <summary>Sets the target sub-position of the current bg-scene to have the target actor.</summary>
+    /// <param name="oneBasedSlotIndex">Whole number representing the target sub-position of the currently active scene</param>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of an actor</param>
+    /// <example>&amp;SET_ACTOR_POSITION:1,Arin</example>
+    /// <category>actor</category>
+    private void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
     {
         ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
         OnActionDone?.Invoke();

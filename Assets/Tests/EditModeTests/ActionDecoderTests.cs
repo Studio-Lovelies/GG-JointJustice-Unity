@@ -26,6 +26,13 @@ public class ActionDecoderTests
     private static readonly Dictionary<Type, object> _validData = new Dictionary<Type, object> {
         {typeof(string), "ValidString"},
         {typeof(AssetName), "ValidString"},
+        {typeof(FullscreenAnimationAssetName), "ValidString"},
+        {typeof(SceneAssetName), "ValidString"},
+        {typeof(SfxAssetName), "ValidString"},
+        {typeof(SongAssetName), "ValidString"},
+        {typeof(EvidenceAssetName), "ValidString"},
+        {typeof(ActorPoseAssetName), "ValidString"},
+        {typeof(ActorAssetName), "ValidString"},
         {typeof(bool), "true"},
         {typeof(int), "1"},
         {typeof(float), "1.0"},
