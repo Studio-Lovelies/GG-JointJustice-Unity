@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Ink;
 using Moq;
 using NUnit.Framework;
+using UnityEngine;
 
-
-public class ScriptReaderTests
+public class NarrativeScriptTests
 {
     public readonly string TestScript = "This is a test script" +
                                         "&ACTOR:Arin\n" +
@@ -32,7 +32,7 @@ public class ScriptReaderTests
                                         "-> END";
     
     [Test]
-    public void ScriptReaderRunsCorrectNumberOfActions()
+    public void ReadScriptRunsCorrectNumberOfActions()
     {
         var parser = new InkParser(TestScript);
         var story = parser.Parse().ExportRuntime();
@@ -43,50 +43,50 @@ public class ScriptReaderTests
             methodCalls.Add(i, 0);
         }
 
-        var objectLoaderMock = new Mock<IObjectPreloader>();
+        var objectPreloaderMock = new Mock<IObjectPreloader>();
         
-        objectLoaderMock.Setup(mock => mock
+        objectPreloaderMock.Setup(mock => mock
             .SetActiveActor("Arin"))
             .Callback(() => methodCalls[0]++);
         
-        objectLoaderMock.Setup(mock => mock
+        objectPreloaderMock.Setup(mock => mock
                 .SetActiveActor("Dan"))
             .Callback(() => methodCalls[1]++);
         
-        objectLoaderMock.Setup(mock => mock
+        objectPreloaderMock.Setup(mock => mock
                 .SetActiveSpeaker("Arin"))
             .Callback(() => methodCalls[2]++);
         
-        objectLoaderMock.Setup(mock => mock
+        objectPreloaderMock.Setup(mock => mock
                 .AssignActorToSlot("Jory",1))
             .Callback(() => methodCalls[3]++);
 
-        objectLoaderMock.Setup(mock => mock
+        objectPreloaderMock.Setup(mock => mock
                 .SetScene("TMPH_Court"))
             .Callback(() => methodCalls[4]++);
         
-        objectLoaderMock.Setup(mock => mock
+        objectPreloaderMock.Setup(mock => mock
                 .ShowItem("Bent_Coins", ItemDisplayPosition.Right))
             .Callback(() => methodCalls[5]++);
         
-        objectLoaderMock.Setup(mock => mock
+        objectPreloaderMock.Setup(mock => mock
                 .AddEvidence("Stolen_Dinos"))
             .Callback(() => methodCalls[6]++);
         
-        objectLoaderMock.Setup(mock => mock
+        objectPreloaderMock.Setup(mock => mock
                 .AddToCourtRecord("Tutorial_Boy"))
             .Callback(() => methodCalls[7]++);
         
-        objectLoaderMock.Setup(mock => mock
+        objectPreloaderMock.Setup(mock => mock
                 .PlaySfx("damage1"))
             .Callback(() => methodCalls[8]++);
         
-        objectLoaderMock.Setup(mock => mock
+        objectPreloaderMock.Setup(mock => mock
                 .PlaySong("aBoyAndHisTrial"))
             .Callback(() => methodCalls[9]++);
-
-        ScriptReader.ReadScript(story, objectLoaderMock.Object);
         
+        var narrativeScript = new NarrativeScript(new TextAsset(story.ToJson()), DialogueControllerMode.Dialogue, objectPreloaderMock.Object);
+
         foreach (var pair in methodCalls)
         {
             Assert.AreEqual(1, pair.Value);
