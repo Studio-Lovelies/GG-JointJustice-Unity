@@ -21,11 +21,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator SetUp()
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters(LoadSceneMode.Additive));
+            
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu = EvidenceMenu.GetComponent<Menu>();
             CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
             var dialogueController = Object.FindObjectOfType<global::DialogueController>();
+            
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
         }
 
