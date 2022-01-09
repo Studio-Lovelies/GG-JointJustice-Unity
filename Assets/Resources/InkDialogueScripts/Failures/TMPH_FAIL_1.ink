@@ -1,29 +1,29 @@
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &ACTOR:Dan
 &SPEAK:Dan
 Arin...
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
 What? It's the right answer, right?
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SPEAK:Dan
 ...
 &SET_POSE:Angry
 No arin, we're getting a penalty for that one.
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &SPEAK:Arin
 Wait, really?
 
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
-&SPEAK:Brent_Judge
+&SCENE:TMPHJudge
+&ACTOR:BrentJudge
+&SPEAK:BrentJudge
 Yes!
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &ACTOR:Arin
 &PLAY_EMOTION:ShockAnimation
 &WAIT:0.5

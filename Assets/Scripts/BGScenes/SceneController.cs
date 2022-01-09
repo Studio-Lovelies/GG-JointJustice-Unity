@@ -142,7 +142,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="background">Target bg-scene</param>
     public void SetScene(string background)
     {
-        _activeScene = _sceneList.SetScene(background);
+        _activeScene = _sceneList.SetScene(new AssetName(background));
         if (_panToPositionCoroutine != null)
         {
             StopCoroutine(_panToPositionCoroutine);

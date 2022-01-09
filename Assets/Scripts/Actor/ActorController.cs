@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,10 +11,16 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
+    [FormerlySerializedAs("_actorDictionary")]
+    [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
+    [SerializeField] private ActorInventory _actorInventory;
+
+    [Tooltip("Attach the NameBox here")]
+    [SerializeField] private NameBox _nameBox;
+    
     private Actor _activeActor;
     private BGScene _activeScene;
 
-    [SerializeField] private UnityEvent<ActorData> _onNewSpeakingActor;
     [SerializeField] private UnityEvent _onAnimationStarted;
     [SerializeField] private UnityEvent _onAnimationComplete;
 
@@ -22,7 +29,7 @@ public class ActorController : MonoBehaviour, IActorController
     private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
     private ActorData _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
-
+    
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
@@ -181,20 +188,31 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
+    /// Sets the active speaker to the Narrator (which has no visible name / NameBox)
+    /// </summary>
+    public void SetActiveSpeakerToNarrator()
+    {
+        _currentSpeakingActor = null;
+        _nameBox.SetSpeakerToNarrator();
+    }
+
+    /// <summary>
     /// Sets the active speaker in the scene, changing the name shown.
     /// </summary>
-    /// <param name="actor">Target actor. This gets the correct name and color from the list of existing actors.</param>
-    public void SetActiveSpeaker(string actor)
+    /// <param name="actorName">Target actor. This gets the correct name and color from the list of existing actors.</param>
+    /// <param name="speakingType">SpeakingType of the speaker.</param>
+    public void SetActiveSpeaker(string actorName, SpeakingType speakingType)
     {
         try
         {
             _currentSpeakingActor = _dialogueController.NarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
             _onNewSpeakingActor.Invoke(_currentSpeakingActor);
+            _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
         }
         catch (KeyNotFoundException exception)
         {
             _currentSpeakingActor = null;
-            Debug.Log($"{exception.GetType().Name}: Actor {actor} was not found in actor dictionary");
+            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in actor dictionary");
         }
     }
 

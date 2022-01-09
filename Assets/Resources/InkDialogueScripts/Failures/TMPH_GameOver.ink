@@ -2,18 +2,18 @@
 &FADE_OUT:3
 &WAIT:1
 
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
+&SCENE:TMPHJudge
+&ACTOR:BrentJudge
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &ACTOR:Dan
 &FADE_IN:3
 &SPEAK:Dan
 Bruh, wtf was that Arin?
 
-&SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
-"Regarding the lack of evidence in the favor of the accused, Mr. Jory Griffis, I must find him..."
+&SCENE:TMPHJudge
+&SPEAK:BrentJudge
+Regarding the lack of evidence in the favor of the accused, Mr. Jory Griffis, I must find him...
 
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:BadBoy

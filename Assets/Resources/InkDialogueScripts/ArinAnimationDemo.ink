@@ -1,4 +1,4 @@
-&SCENE:TMPH_Defense
+&SCENE:TMPHDefense
 &ACTOR:Arin
 &SPEAK:Arin
 &SET_POSE:Normal
