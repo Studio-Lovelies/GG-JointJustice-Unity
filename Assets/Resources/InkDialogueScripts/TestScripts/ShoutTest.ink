@@ -7,7 +7,7 @@
 &SCENE:TMPH_Court
 &SET_ACTOR_POSITION:1,Arin
 &SET_ACTOR_POSITION:2,Ross
-&SET_ACTOR_POSITION:3,Tutorial_Boy
+&SET_ACTOR_POSITION:3,TutorialBoy
 
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
@@ -25,13 +25,13 @@ This next one sounds like a regular objection, but is actually a called using th
 &SHOUT:Arin,Objection
 Ok, I'm done.
 
-&OBJECTION:Tutorial_Boy
+&OBJECTION:TutorialBoy
 &PAN_TO_POSITION:3,1
-&SPEAK:Tutorial_Boy
+&SPEAK:TutorialBoy
 I would also like to say a few words.
 
 &OBJECTION:Dan
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SPEAK:Dan
 No! We're done!
 
