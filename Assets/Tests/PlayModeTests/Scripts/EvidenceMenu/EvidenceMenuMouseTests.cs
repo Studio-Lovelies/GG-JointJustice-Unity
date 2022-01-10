@@ -24,14 +24,14 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             // Get the menu items to test
             MenuItem[] menuItems = GetMenuItems();
             EvidenceMenuItem firstMenuItem = GetFirstMenuItem();
-            yield return SelectButton(firstMenuItem.transform);
+            yield return HoverOverButton(firstMenuItem.transform);
             Assert.AreEqual(firstMenuItem.CourtRecordObject.DisplayName, Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
             
             // Loop through the menu items and check if they highlight correctly
             for (int i = 1; i < menuItems.Length; i++)
             {
                 MenuItem menuItem = menuItems.First(item => item.gameObject.name == $"EvidenceMenuItem ({i})");
-                yield return SelectButton(menuItem.transform);
+                yield return HoverOverButton(menuItem.transform);
                 ICourtRecordObject evidence = Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
                 Assert.AreEqual(menuItem.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName, evidence.DisplayName);
             }
@@ -53,22 +53,22 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             Transform incrementButton = GameObject.Find("IncrementButton").GetComponent<MenuItem>().transform;
             
             EvidenceMenuItem firstMenuItem = GetFirstMenuItem();
-            yield return SelectButton(firstMenuItem.transform);
+            yield return HoverOverButton(firstMenuItem.transform);
             Assert.AreEqual("Attorney's Badge", firstMenuItem.CourtRecordObject.DisplayName);
 
-            yield return SelectButton(decrementButton);
+            yield return HoverOverButton(decrementButton);
             yield return LeftClick();
-            yield return SelectButton(firstMenuItem.transform);
+            yield return HoverOverButton(firstMenuItem.transform);
             Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
 
-            yield return SelectButton(incrementButton);
+            yield return HoverOverButton(incrementButton);
             yield return LeftClick();
-            yield return SelectButton(firstMenuItem.transform);
+            yield return HoverOverButton(firstMenuItem.transform);
             Assert.AreEqual("Attorney's Badge", firstMenuItem.CourtRecordObject.DisplayName);
             
-            yield return SelectButton(incrementButton);
+            yield return HoverOverButton(incrementButton);
             yield return LeftClick();
-            yield return SelectButton(firstMenuItem.transform);
+            yield return HoverOverButton(firstMenuItem.transform);
             Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
         }
 
@@ -87,8 +87,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             {
                 EvidenceController.RequirePresentEvidence();
                 Assert.IsTrue(EvidenceMenu.isActiveAndEnabled);
-                var tf = menuItem.transform;
-                yield return SelectButton(menuItem.transform);
+                yield return HoverOverButton(menuItem.transform);
                 yield return LeftClick();
                 Assert.IsFalse(EvidenceMenu.isActiveAndEnabled);
             }
@@ -104,7 +103,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             return GetMenuItems().First(menuItem => menuItem.gameObject.name == "EvidenceMenuItem").GetComponent<EvidenceMenuItem>();
         }
 
-        private IEnumerator SelectButton(Transform tf)
+        private IEnumerator HoverOverButton(Transform tf)
         {
             yield return _inputTestTools.SetMousePositionWorldSpace(tf.TransformPoint(tf.GetComponent<RectTransform>().rect.center));
         }
