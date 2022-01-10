@@ -9,6 +9,9 @@ on:
 
 jobs:
   buildDocsGenerator:
+    outputs:
+      currentDocs_hash: ${{ steps.currentDocs.outputs.hash }}
+      newDocs_hash: ${{ steps.newDocs.outputs.hash }}
     name: Build docs generator
     runs-on: ubuntu-latest
     steps:
@@ -24,8 +27,9 @@ jobs:
         run: cd docs_generator && dotnet build Scanner.csproj
 
       - name: Current state of docs
-        run: ls docs && find docs/ -type f -exec md5sum {} \; | md5sum
-       
+        id: currentDocs
+        run: ls docs && echo "::set-output name=hash::$(find docs/ -type f -exec md5sum {} \; | md5sum)" && echo ${{ steps.currentDocs.outputs.hash }}
+        
       - name: Clear /docs folder
         run: rm -rf docs/* 
        
@@ -33,15 +37,23 @@ jobs:
         run: cd unity && ../docs_generator/bin/Debug/net6.0/Scanner
 
       - name: New state of docs
-        run: ls docs && find docs/ -type f -exec md5sum {} \; | md5sum
-
+        id: newDocs
+        run: ls docs && echo "::set-output name=hash::$(find docs/ -type f -exec md5sum {} \; | md5sum)" && echo ${{ steps.currentDocs.outputs.hash }}
+        
       - name: Upload '/dodcs' artifact
         uses: actions/upload-artifact@v2
+
         with:
           name: docs-v${{ github.run_number }}
           path: docs
 
-      - name: Commit report
+  pushCommits:
+    name: Push commits
+    needs: [buildDocsGenerator]
+    if: needs.buildDocsGenerator.outputs.currentDocs_hash != needs.buildDocsGenerator.outputs.newDocs_hash
+    runs-on: ubuntu-latest
+    steps:
+      - name: Commit generated documentation
         run: |
           git config --global user.name 'Vincent Mahnke'
           git config --global user.email 'vimaster@users.noreply.github.com'
