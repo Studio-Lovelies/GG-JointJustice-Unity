@@ -495,7 +495,7 @@ public class ActionDecoder
     /// <summary>Sets the current shown actor on screen to the one provided. Starts it in the normal pose.</summary>
     /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;ACTOR:Arin</example>
-    /// <category>actor</category>
+    /// <category>Actor</category>
     private void ACTOR(ActorAssetName actor)
     {
         ActorController.SetActiveActor(actor);
@@ -506,7 +506,7 @@ public class ActionDecoder
     /// <param name="shouldShow">whether to show (`true`) or not show (`false`) an actor</param>
     /// <example>&amp;SHOW_ACTOR:true</example>
     /// <example>&amp;SHOW_ACTOR:false</example>
-    /// <category>actor</category>
+    /// <category>Actor</category>
     private void SHOW_ACTOR(bool shouldShow)
     {
         if (shouldShow)
@@ -524,33 +524,36 @@ public class ActionDecoder
     /// <summary>Makes the next non-action line spoken by the provided actor. If the speaking actor matches the actor on screen, it makes their mouth move when speaking.</summary>
     /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;SPEAK:Arin</example>
-    /// <category>actor</category>
+    /// <category>Actor</category>
     private void SPEAK(ActorAssetName actor)
     {
         SetSpeaker(actor, SpeakingType.Speaking);
+        OnActionDone?.Invoke();
     }
 
     /// <summary>Makes the next non-action line spoken by the provided actor. Doesn't make the actor's mouth.</summary>
     /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;THINK:Arin</example>
-    /// <category>actor</category>
+    /// <category>Actor</category>
     private void THINK(ActorAssetName actor)
     {
         SetSpeaker(actor, SpeakingType.Thinking);
+        OnActionDone?.Invoke();
     }
 
     /// <summary>Makes the next non-action line spoken by the provided actor but hides the name.</summary>
     /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;SPEAK_UNKNOWN:Arin</example>
-    /// <category>actor</category>
+    /// <category>Actor</category>
     private void SPEAK_UNKNOWN(ActorAssetName actor)
     {
         SetSpeaker(actor, SpeakingType.SpeakingWithUnknownName);
+        OnActionDone?.Invoke();
     }
 
     /// <summary>Makes the next non-action line spoken by a "narrator" actor.</summary>
     /// <example>&amp;NARRATE:Arin</example>
-    /// <category>actor</category>
+    /// <category>Actor</category>
     private void NARRATE()
     {
         ActorController.SetActiveSpeakerToNarrator();
@@ -562,33 +565,31 @@ public class ActionDecoder
     {
         ActorController.SetActiveSpeaker(actor, speakingType);
         ActorController.SetSpeakingType(speakingType);
-        OnActionDone?.Invoke();
     }
 
     /// <summary>Makes the currently shown actor switch to target pose. Plays any animation associated with target pose / emotion, but doesn't wait until it is finished before continuing.</summary>
     /// <param name="poseName" validFiles="Assets/Animations/{ActorAssetName}/*.anim">Poses defined per Actor</param>
     /// <param name="optional_targetActor" validFiles="Assets/ScriptableObjects/Actors/*.asset">(optional) ame of the actor</param>
     /// <example>&amp;SET_POSE:Normal</example>
-    /// <category>actor</category>
+    /// <category>Actor</category>
     private void SET_POSE(ActorPoseAssetName poseName, ActorAssetName optional_targetActor = null)
     {
         if (optional_targetActor == null)
         {
             ActorController.SetPose(poseName);
-            OnActionDone?.Invoke();
         }
         else
         {
             ActorController.SetPose(poseName, optional_targetActor);
-            OnActionDone?.Invoke();
         }
+        OnActionDone?.Invoke();
     }
 
     /// <summary>Makes the currently shown actor perform target emotion (fancy word animation on an actor). Practically does the same as SET_POSE, but waits for the emotion to complete. Doesn't work on all poses, possible ones are flagged.</summary>
     /// <param name="poseName" validFiles="Assets/Animations/{ActorAssetName}/*.anim">Poses defined per Actor</param>
     /// <param name="optional_targetActor" validFiles="Assets/ScriptableObjects/Actors/*.asset">(optional) name of the actor</param>
     /// <example>&amp;PLAY_EMOTION:Nodding</example>
-    /// <category>actor</category>
+    /// <category>Actor</category>
     private void PLAY_EMOTION(ActorPoseAssetName poseName, ActorAssetName? optional_targetActor = null)
     {
         if (optional_targetActor == null)
@@ -605,7 +606,7 @@ public class ActionDecoder
     /// <param name="oneBasedSlotIndex">Whole number representing the target sub-position of the currently active scene</param>
     /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of an actor</param>
     /// <example>&amp;SET_ACTOR_POSITION:1,Arin</example>
-    /// <category>actor</category>
+    /// <category>Actor</category>
     private void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
     {
         ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);

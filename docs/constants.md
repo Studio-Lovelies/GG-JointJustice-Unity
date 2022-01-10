@@ -1,0 +1,235 @@
+# Available constants
+## EvidenceAssetName
+  - AttorneysBadge
+  - BentCoins
+  - EvidenceList
+  - JorysBackpack
+  - JorySrsLetter
+  - LivestreamRecording
+  - PlumberInvoice
+  - StolenDinos
+  - Switch
+
+## ActorAssetName
+  - Arin
+  - Dan
+  - Jory
+  - JudgeBrent
+  - Ross
+  - TutorialBoy
+
+## SfxAssetName
+  - AirGuitar
+  - Bleep
+  - Cancel
+  - Chug
+  - CrowdCheer
+  - Damage1
+  - Damage2
+  - DeskSlam
+  - DoorOpens
+  - DramaPound
+  - EvidenceDing
+  - EvidenceShoop
+  - Fart
+  - FemaleTalk
+  - GalleryCheer
+  - Gavel
+  - GotchaArin
+  - HoldItArin
+  - Lightbulb
+  - LongWoosh
+  - MaleTalk
+  - MorphTimeUp
+  - Mutter
+  - NoSale
+  - ObjectionArin
+  - ObjectionClean
+  - ObjectionDan
+  - ObjectionTutorialBoy
+  - PageTurn
+  - Potatoes
+  - Potatoes2
+  - Realization
+  - Scroll
+  - SelectBlip
+  - SelectBlip2
+  - SelectJingle
+  - Sfx-pichoop
+  - Sfx-saveblip
+  - Shock2
+  - Shoomp
+  - Slurp
+  - Smack
+  - Stab
+  - Stab2
+  - Supershock
+  - TakeThatArin
+  - Testimony
+  - Thud
+  - Thud2
+  - Thud3
+  - Thud4
+  - Thump
+  - Thump2
+  - Thump3
+  - Triplegavel
+  - TutorialBoyWrong
+  - Typewriter
+  - Wham
+  - Whoops
+
+## SongAssetName
+  - ABoyAndHisTrial
+  - AKissFromARose
+  - AnnouncePatrol
+  - ConfessionPatrol
+  - CongratulationsInTheShower
+  - DragonObjection
+  - FightThroughRhinoOrPumaForTheTruth
+  - FyiIWannaXYourExaminationModerato
+  - GyiIWannaXYourExaminationAllegro
+  - HuffPuffPursuit
+  - InvestigationJoonyer
+  - InvestigationUniCore
+  - LogicAndTrains
+  - MisunderstoodCreativity
+  - NinjaSexPursuit
+  - ObjectsOfVictory
+  - Prelude6969
+  - PrologueInPMinor
+  - Ross
+  - SimplePlotOfInvestigation
+  - StarlightObjection
+  - TurnaboutGrumpsters
+  - TutorialBoysTragicallyGenericReminiscence
+
+## SceneAssetName
+  - Actor- TestScene
+  - AppearingDialog-TestScene
+  - AudioController - Test Scene
+  - BaseScene
+  - CrossExamination - TestScene
+  - EvidenceMenu - Test Scene
+  - Inky-TestScene
+  - MainMenu
+  - OffScreenPose - Test Scene
+  - Transition - Test Scene
+
+## FullscreenAnimationAssetName
+  - BadBoy
+  - CrossExamination
+  - GavelHit
+  - GoodBoy
+  - RossGalaxyBrain
+  - WitnessTestimony
+
+## ActorPoseAssetName
+### Arin
+  - Annoyed
+  - AnnoyedTalking
+  - CloseUp
+  - CloseUpTalking
+  - Confident
+  - ConfidentTalking
+  - DeskSlam
+  - DeskSlamAnimation
+  - DeskSlamTalking
+  - Embarrassed
+  - EmbarrassedTalking
+  - HelmetHit
+  - Nodding
+  - Normal
+  - NormalTalking
+  - Objection
+  - PaperSlap
+  - PaperSlapTalking
+  - Point
+  - PointTalking
+  - ShakingHead
+  - Shock
+  - ShockAnimation
+  - Sweaty
+  - SweatyBlinking
+  - SweatyBlinkingTalking
+  - SweatyTalking
+  - Thinking
+  - ThinkingBlinking
+  - ThinkingTalking
+### Dan
+  - AirGuitar
+  - Angry
+  - AngryTalking
+  - DanNormal
+  - Lean
+  - Normal
+  - NormalTalking
+### Jory
+  - Nervous
+  - NervousTalking
+  - Normal
+  - NormalTalking
+  - Sweaty
+  - SweatyTalking
+  - Thinking
+  - ThinkingTalking
+  - ThumbsUp
+  - ThumbsUpTalking
+### JudgeBrent
+  - Angry
+  - AngryTalking
+  - HeadShake
+  - Nodding
+  - Normal
+  - NormalTalking
+  - Surprised
+  - SurprisedTalking
+  - Thinking
+  - ThinkingTalking
+  - Warning
+  - WarningTalking
+### Ross
+  - Breakdown
+  - Damage
+  - DamageNoHelmet
+  - Glaring (uncropped)
+  - Glaring
+  - GlaringNoHelmet (uncropped)
+  - GlaringNoHelmet
+  - GlaringTalking (uncropped)
+  - GlaringTalking
+  - GlaringTalkingNoHelmet (uncropped)
+  - GlaringTalkingNoHelmet
+  - HelmetThrow
+  - MadMilk
+  - MadmilkTalking
+  - Normal
+  - NormalNoHelmet
+  - NormalTalking
+  - NormalTalkingNoHelmet
+  - Sad
+  - SadNoHelmet
+  - SadNoHelmetTalking
+  - SadTalking
+  - Sweaty
+  - SweatyNoHelmet
+  - SweatyNoHelmetTalking
+  - SweatyTalking
+### TutorialBoy
+  - Angry
+  - AngryTalking
+  - AngryTalkingAlt
+  - Confident
+  - ConfidentTalking
+  - HeadSlam
+  - Normal
+  - NormalTalking
+  - NormalTalkingAlt
+  - Objection
+  - Point
+  - PointTalking
+  - PointTalkingAlt
+  - Sweaty
+  - SweatyTalking
+  - Yeeta
+
