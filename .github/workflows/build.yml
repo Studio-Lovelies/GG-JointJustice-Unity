@@ -2,14 +2,14 @@ name: Generate game builds
 on: 
   push:
     paths:
-      - 'unity'
+      - 'unity-ggjj'
     branches:
       - develop
       - master
       - releasecandidate/*
   pull_request:
     paths:
-      - 'unity'
+      - 'unity-ggjj'
     branches:
       - develop
       - master
@@ -34,7 +34,7 @@ jobs:
 
       - name: Attempt extraction  
         id: extractVersionNumber_job
-        working-directory: unity/
+        working-directory: unity-ggjj/
         run: |
             version_number=$(grep 'bundleVersion: ' ./ProjectSettings/ProjectSettings.asset)
             version_number=${version_number:17}
@@ -48,7 +48,7 @@ jobs:
     outputs:
       is_unity_license_set: ${{ steps.checkLicense_job.outputs.is_unity_license_set }}
     steps:
-      - name: Check whether unity activation requests should be done
+      - name: Check whether Unity activation requests should be done
         id: checkLicense_job
         run: |
             echo "Skip activation job: ${{ secrets.UNITY_LICENSE != '' }}"
@@ -110,7 +110,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-${{ hashFiles('unity/Assets/**', 'unity/Packages/**', 'unity/ProjectSettings/**') }}
+          key: Library-${{ hashFiles('unity-ggjj/Assets/**', 'unity-ggjj/Packages/**', 'unity-ggjj/ProjectSettings/**') }}
           restore-keys: |
             Library-
 
@@ -119,7 +119,7 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          projectPath: unity/
+          projectPath: unity-ggjj/
           targetPlatform: ${{ matrix.targetPlatform.unityPlatform }}
           buildName: 'Game Grumps - Joint Justice'
 

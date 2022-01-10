@@ -29,9 +29,9 @@ _Optional:_
 - Via GitHub CLI or Desktop, clone this repository somewhere reasonable
 - Launch Unity Hub - this should open up the Project tab by default
 - (First Time Only) Click "Add"
-  - Select the `unity`-subfolder of your clone of this repository and hit "Open"
+  - Select the `unity-ggjj`-subfolder of your clone of this repository and hit "Open"
   - Once it appears in the Projects list, makes sure it's pulling in the correct Unity Version
-- Select `unity` to open the project
+- Select `unity-ggjj` to open the project
 - In the "Project" tab, navigate to `Assets/Scenes/SampleScene`
 - Click on the "Game" tab in the main view
 - Hit the play button on the top!
