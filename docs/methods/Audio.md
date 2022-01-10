@@ -7,7 +7,7 @@ Instant
 Plays provided SFX.
 
 Examples: 
-  - `&PLAY_SFX:evidenceShoop`
+  - `&PLAY_SFX:EvidenceShoop`
 
 ## PLAY_SONG
 Values: 
@@ -18,7 +18,7 @@ Instant
 Plays the provided song. Stops the current one. Loops infinitely.
 
 Examples: 
-  - `&PLAY_SONG:turnaboutGrumpsters`
+  - `&PLAY_SONG:TurnaboutGrumpsters`
 
 ## STOP_SONG
 

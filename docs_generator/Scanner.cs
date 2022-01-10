@@ -4,10 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -20,7 +17,7 @@ public class Scanner
         var tree = SyntaxFactory.ParseCompilationUnit(sourceCode);
         var members = tree.Members;
         var classMember = (ClassDeclarationSyntax)members[0];
-        var syntaxToken = (SyntaxToken)classMember.Identifier;
+        var syntaxToken = classMember.Identifier;
         var className = (string)syntaxToken.Value;
         Debug.Assert(className == "ActionDecoder");
         var methodName = new Regex("^[A-Z_]+$");
@@ -34,7 +31,7 @@ public class Scanner
                     return ("", null, false);
                 }
                 var fullComment = comments.ToFullString();
-                return (string.Join(Environment.NewLine, fullComment.Split(Environment.NewLine).Select(line => line.Replace("///", "").Trim())), ((MethodDeclarationSyntax)relevantMethod).ParameterList.Parameters.ToList(), ((MethodDeclarationSyntax)relevantMethod).Body.GetText(Encoding.UTF8).ToString().Contains("OnActionDone?.Invoke()"));
+                return (string.Join("\n", fullComment.Split("\n").Select(line => line.Replace("///", "").Trim())), ((MethodDeclarationSyntax)relevantMethod).ParameterList.Parameters.ToList(), ((MethodDeclarationSyntax)relevantMethod).Body!.GetText(Encoding.UTF8).ToString().Contains("OnActionDone?.Invoke()"));
             });
     }
 
@@ -70,7 +67,7 @@ public class Scanner
 
     private static string GenerateFileForMethods(List<MethodInfo> methods, IEnumerable<string> complexTypes)
     {
-        return string.Join(Environment.NewLine+Environment.NewLine, methods.Select(method => GenerateTextForMethod(method, complexTypes)));
+        return string.Join("\n\n", methods.Select(method => GenerateTextForMethod(method, complexTypes)));
     }
 
     private static string GenerateTextForMethod(MethodInfo methodInfo, IEnumerable<string> complexTypes)
@@ -83,10 +80,10 @@ public class Scanner
             }
             return $"  - {pair.Value.parameterComment}";
         }).ToList();
-        var values = parameterInfo.Any() ? $"Values: {Environment.NewLine}{string.Join(Environment.NewLine, parameterInfo)}" + Environment.NewLine : "";
-        var example = $"Examples: {Environment.NewLine}{string.Join(Environment.NewLine, methodInfo.Examples.Select(example => $"  - `{example}`"))}";
-        var description = $"{(methodInfo.IsInstant ? "Instant" : "Waits for completion")}{Environment.NewLine}{Environment.NewLine}{methodInfo.Summary}";
-        return string.Join(Environment.NewLine, methodName, values, description, "", example);
+        var values = parameterInfo.Any() ? $"Values: \n{string.Join("\n", parameterInfo)}" + "\n" : "";
+        var example = $"Examples: \n{string.Join("\n", methodInfo.Examples.Select(example => $"  - `{example}`"))}";
+        var description = $"{(methodInfo.IsInstant ? "Instant" : "Waits for completion")}\n\n{methodInfo.Summary}";
+        return string.Join("\n", methodName, values, description, "", example);
     }
 
     private static string GenerateAssetDocument(Dictionary<string, IEnumerable<PathItem>> info)
@@ -100,26 +97,26 @@ public class Scanner
             return new KeyValuePair<string, IEnumerable<PathItem>>(key, value.OrderBy(entry => entry.Item));
         });
 
-        var constantsOutput = "# Available constants" + Environment.NewLine;
+        var constantsOutput = "# Available constants" + "\n";
 
         foreach (var (constant, value) in nestedValues)
         {
-            constantsOutput += $"## {constant}{Environment.NewLine}";
-            constantsOutput += string.Join(Environment.NewLine, value.Select(v => $"  - {v.Item}"));
-            constantsOutput += Environment.NewLine;
-            constantsOutput += Environment.NewLine;
+            constantsOutput += $"## {constant}\n";
+            constantsOutput += string.Join("\n", value.Select(v => $"  - {v.Item}"));
+            constantsOutput += "\n";
+            constantsOutput += "\n";
         }
 
         foreach (var (constant, value) in regularValues)
         {
-            constantsOutput += $"## {constant}{Environment.NewLine}";
+            constantsOutput += $"## {constant}\n";
             foreach (var character in value)
             {
-                constantsOutput += $"### {character.Item}{Environment.NewLine}";
+                constantsOutput += $"### {character.Item}\n";
                 constantsOutput = character.Children.Aggregate(constantsOutput, (current, pose) => current + $"  - {pose.Item}\n");
             }
 
-            constantsOutput += Environment.NewLine;
+            constantsOutput += "\n";
         }
 
         return constantsOutput;
