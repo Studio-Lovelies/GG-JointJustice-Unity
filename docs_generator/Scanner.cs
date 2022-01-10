@@ -82,7 +82,7 @@ public class Scanner
                 return $"  - [{pair.Value.parameterComment}](../constants.md#{pair.Value.parameterType})";
             }
             return $"  - {pair.Value.parameterComment}";
-        });
+        }).ToList();
         var values = parameterInfo.Any() ? $"Values: {Environment.NewLine}{string.Join(Environment.NewLine, parameterInfo)}" + Environment.NewLine : "";
         var example = $"Examples: {Environment.NewLine}{string.Join(Environment.NewLine, methodInfo.Examples.Select(example => $"  - `{example}`"))}";
         var description = $"{(methodInfo.IsInstant ? "Instant" : "Waits for completion")}{Environment.NewLine}{Environment.NewLine}{methodInfo.Summary}";
@@ -91,8 +91,14 @@ public class Scanner
 
     private static string GenerateAssetDocument(Dictionary<string, IEnumerable<PathItem>> info)
     {
-        var regularValues = info.Where(entry => entry.Value.First().Children != null).OrderBy(entry => entry.Value);
-        var nestedValues = info.Where(entry => entry.Value.First().Children == null).OrderBy(entry => entry.Value).ToList();
+        var regularValues = info.Where(entry => entry.Value.First().Children != null).OrderBy(entry => entry.Value).Select(store => {
+            var (key, value) = store;
+            return new KeyValuePair<string, IEnumerable<PathItem>>(key, value.OrderBy(entry => entry.Item));
+        });
+        var nestedValues = info.Where(entry => entry.Value.First().Children == null).OrderBy(entry => entry.Value).Select(store => {
+            var (key, value) = store;
+            return new KeyValuePair<string, IEnumerable<PathItem>>(key, value.OrderBy(entry => entry.Item));
+        });
 
         var constantsOutput = "# Available constants" + Environment.NewLine;
 
