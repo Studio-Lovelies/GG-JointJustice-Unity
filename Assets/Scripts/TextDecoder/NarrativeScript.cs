@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ink.Runtime;
+using TextDecoder.Parser;
 using Object = Ink.Runtime.Object;
 using UnityEngine;
 
@@ -64,7 +65,14 @@ public class NarrativeScript
         var actions = new HashSet<string>(lines.Where(line => line[0] == '&'));
         foreach (var action in actions)
         {
-            actionDecoder.OnNewActionLine(action);
+            try
+            {
+                actionDecoder.OnNewActionLine(action);
+            }
+            catch (ScriptParsingException exception)
+            {
+                
+            }
         }
     }
 
