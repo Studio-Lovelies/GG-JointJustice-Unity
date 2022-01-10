@@ -41,7 +41,6 @@ namespace Tests.PlayModeTests.Scripts.DialogueController
             onNewLineFieldInfo?.SetValue(dialogueController, new UnityEvent());
 
             global::Dialogue testDialogue = new global::Dialogue(new TextAsset(ActionFollowedByScriptSerializedInk));
-            Assert.AreEqual(DialogueControllerMode.Dialogue, testDialogue.ScriptMode);
             dialogueController.SetNewDialogue(testDialogue);
 
             // Run both lines
