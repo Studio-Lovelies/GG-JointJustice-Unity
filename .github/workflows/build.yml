@@ -30,6 +30,7 @@ jobs:
 
       - name: Attempt extraction  
         id: extractVersionNumber_job
+        working-directory: unity/
         run: |
             version_number=$(grep 'bundleVersion: ' ./ProjectSettings/ProjectSettings.asset)
             version_number=${version_number:17}
@@ -105,15 +106,17 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          key: Library-${{ hashFiles('unity/Assets/**', 'unity/Packages/**', 'unity/ProjectSettings/**') }}
           restore-keys: |
             Library-
 
       - name: Build project
         uses: game-ci/unity-builder@v2
+        working-directory: 
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          projectPath: unity/
           targetPlatform: ${{ matrix.targetPlatform.unityPlatform }}
           buildName: 'Game Grumps - Joint Justice'
 
