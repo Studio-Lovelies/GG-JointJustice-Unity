@@ -270,7 +270,7 @@ public class ActionDecoder
     #region AudioController
     /// <summary>Plays provided SFX.</summary>
     /// <param name="sfx" validFiles="Assets/Resources/Audio/SFX/*.wav">Filename of a sound effect</param>
-    /// <example>&amp;PLAY_SFX:evidenceShoop</example>
+    /// <example>&amp;PLAY_SFX:EvidenceShoop</example>
     /// <category>Audio</category>
     private void PLAY_SFX(SfxAssetName sfx)
     {
@@ -280,7 +280,7 @@ public class ActionDecoder
 
     /// <summary>Plays the provided song. Stops the current one. Loops infinitely.</summary>
     /// <param name="songName" validFiles="Assets/Resources/Audio/Music/*.mp3">Filename of a song</param>
-    /// <example>&amp;PLAY_SONG:turnaboutGrumpsters</example>
+    /// <example>&amp;PLAY_SONG:TurnaboutGrumpsters</example>
     /// <category>Audio</category>
     private void PLAY_SONG(SongAssetName songName)
     {
