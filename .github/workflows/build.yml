@@ -116,7 +116,6 @@ jobs:
 
       - name: Build project
         uses: game-ci/unity-builder@v2
-        working-directory: 
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
