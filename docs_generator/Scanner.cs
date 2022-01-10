@@ -91,11 +91,11 @@ public class Scanner
 
     private static string GenerateAssetDocument(Dictionary<string, IEnumerable<PathItem>> info)
     {
-        var regularValues = info.Where(entry => entry.Value.First().Children != null).OrderBy(entry => entry.Value).Select(store => {
+        var regularValues = info.Where(entry => entry.Value.First().Children != null).Select(store => {
             var (key, value) = store;
             return new KeyValuePair<string, IEnumerable<PathItem>>(key, value.OrderBy(entry => entry.Item));
         });
-        var nestedValues = info.Where(entry => entry.Value.First().Children == null).OrderBy(entry => entry.Value).Select(store => {
+        var nestedValues = info.Where(entry => entry.Value.First().Children == null).Select(store => {
             var (key, value) = store;
             return new KeyValuePair<string, IEnumerable<PathItem>>(key, value.OrderBy(entry => entry.Item));
         });
