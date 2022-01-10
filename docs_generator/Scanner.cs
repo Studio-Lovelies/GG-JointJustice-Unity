@@ -91,8 +91,8 @@ public class Scanner
 
     private static string GenerateAssetDocument(Dictionary<string, IEnumerable<PathItem>> info)
     {
-        var regularValues = info.Where(entry => entry.Value.First().Children != null);
-        var nestedValues = info.Where(entry => entry.Value.First().Children == null).ToList();
+        var regularValues = info.Where(entry => entry.Value.First().Children != null).OrderBy(entry => entry.Value);
+        var nestedValues = info.Where(entry => entry.Value.First().Children == null).OrderBy(entry => entry.Value).ToList();
 
         var constantsOutput = "# Available constants" + Environment.NewLine;
 
