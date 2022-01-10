@@ -71,7 +71,7 @@ public class ObjectShaker : MonoBehaviour
             _onShakeStart.Invoke();
         }
 
-        var objectshakeCalculator = new ObjectshakeCalculator(duration, frequency, amplitude, _noiseScale, _noiseOffset, _animationCurve);
+        var objectshakeCalculator = new ObjectShakeCalculator(duration, frequency, amplitude, _noiseScale, _noiseOffset, _animationCurve);
         while (objectshakeCalculator.IsShaking)
         {
             _transform.position = objectshakeCalculator.Calculate(_timeStep) + _cameraOffset;

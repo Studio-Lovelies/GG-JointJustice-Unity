@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ObjectshakeCalculator
+public class ObjectShakeCalculator
 {
     private const float WAVELENGTH_TO_RADIANS = 2 * Mathf.PI;
     
@@ -24,7 +24,7 @@ public class ObjectshakeCalculator
     /// <param name="noiseScale">How much the noise should be scaled on each axis. Bigger numbers mean a faster shake.</param>
     /// <param name="noiseOffset">The position that noise should begin calculating from.</param>
     /// <param name="animationCurve">An animation curve used to add smoothing to the camera shake.</param>
-    public ObjectshakeCalculator(float duration, float frequency, float amplitude, Vector2 noiseScale, Vector2 noiseOffset, AnimationCurve animationCurve = null)
+    public ObjectShakeCalculator(float duration, float frequency, float amplitude, Vector2 noiseScale, Vector2 noiseOffset, AnimationCurve animationCurve = null)
     {
         _duration = duration;
         _frequency = frequency;

@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
-public class ObjectshakeCalculatorTests
+public class ObjectShakeCalculatorTests
 {
     private const float DELTA_TIME = 0.02f;
     private const float FREQUENCY = 10;
@@ -11,21 +11,21 @@ public class ObjectshakeCalculatorTests
     private const int NUMBER_OF_POSITIONS = (int)(SHAKE_DURATION / DELTA_TIME);
     private const float AMPLITUDE = 0.1f;
 
-    private ObjectshakeCalculator _objectshakeCalculator;
+    private ObjectShakeCalculator _objectShakeCalculator;
     private Vector3[] _shakePositions;
 
     /// <summary>
-    /// Create a new Objectshake calculator and array to store positions before each test.
+    /// Create a new ObjectShakeCalculator and array to store positions before each test.
     /// </summary>
     [SetUp]
     public void Setup()
     {
-        _objectshakeCalculator = CreateObjectshakeCalculator();
+        _objectShakeCalculator = CreateObjectShakeCalculator();
         _shakePositions = new Vector3[NUMBER_OF_POSITIONS];
     }
 
     /// <summary>
-    /// Tests if a Objectshake runs for the correct amount of time by looping the
+    /// Tests if a ObjectShake runs for the correct amount of time by looping the
     /// number of times it would expect to run for then checking if ObjectshakeCalculator's
     /// IsShaking property is false.
     /// </summary>
@@ -34,33 +34,33 @@ public class ObjectshakeCalculatorTests
     {
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
-            _objectshakeCalculator.Calculate(DELTA_TIME);
+            _objectShakeCalculator.Calculate(DELTA_TIME);
             if (i != NUMBER_OF_POSITIONS - 1)
             {
-                Assert.IsTrue(_objectshakeCalculator.IsShaking);
+                Assert.IsTrue(_objectShakeCalculator.IsShaking);
             }
         }
 
-        Assert.IsFalse(_objectshakeCalculator.IsShaking);
+        Assert.IsFalse(_objectShakeCalculator.IsShaking);
     }
 
     /// <summary>
-    /// If the same input is inputted, the ObjectshakeCalculator should output the same positions every time.
-    /// Runs the ObjectshakeCalculator twice and checks if the outputted positions are equal.
+    /// If the same input is inputted, the ObjectShakeCalculator should output the same positions every time.
+    /// Runs the ObjectShakeCalculator twice and checks if the outputted positions are equal.
     /// </summary>
     [Test]
     public void ObjectShakesWithTheSameValuesAreIdentical()
     {
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
-            _shakePositions[i] = _objectshakeCalculator.Calculate(DELTA_TIME);
+            _shakePositions[i] = _objectShakeCalculator.Calculate(DELTA_TIME);
         }
 
-        var ObjectShakeCalculatorComparison = CreateObjectshakeCalculator();
+        var objectShakeCalculatorComparison = CreateObjectShakeCalculator();
         
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
-            Assert.AreEqual(_shakePositions[i], ObjectShakeCalculatorComparison.Calculate(DELTA_TIME));
+            Assert.AreEqual(_shakePositions[i], objectShakeCalculatorComparison.Calculate(DELTA_TIME));
         }
     }
 
@@ -73,10 +73,10 @@ public class ObjectshakeCalculatorTests
     public void ShakeIsConstrainedWithinSpecifiedAmplitude()
     {
         var animationKeys = new [] { new Keyframe(0, 1), new Keyframe(1, 1) };
-        var ObjectshakeCalculator = CreateObjectshakeCalculator(animationCurve: new AnimationCurve(animationKeys));
+        var objectShakeCalculator = CreateObjectShakeCalculator(animationCurve: new AnimationCurve(animationKeys));
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
-            _shakePositions[i] = ObjectshakeCalculator.Calculate(DELTA_TIME);
+            _shakePositions[i] = objectShakeCalculator.Calculate(DELTA_TIME);
         }
         
         Assert.IsTrue(_shakePositions.All(position1 => _shakePositions.Any(position2 => position1 == position2)));
@@ -89,11 +89,11 @@ public class ObjectshakeCalculatorTests
     [Test]
     public void NoShakeWhenAmplitudeIsZero()
     {
-        var ObjectshakeCalculator = CreateObjectshakeCalculator(amplitude: 0);
+        var objectShakeCalculator = CreateObjectShakeCalculator(amplitude: 0);
         for (int i = 0; i < NUMBER_OF_POSITIONS; i++)
         {
             
-            _shakePositions[i] = ObjectshakeCalculator.Calculate(DELTA_TIME);
+            _shakePositions[i] = objectShakeCalculator.Calculate(DELTA_TIME);
         }
         
         Assert.IsTrue(_shakePositions.All(position => position == Vector3.zero));
@@ -108,12 +108,12 @@ public class ObjectshakeCalculatorTests
     public void NumberOfOscillationsMatchesFrequency()
     {
         var animationKeys = new [] { new Keyframe(0, 1), new Keyframe(1, 1) };
-        var ObjectshakeCalculator = CreateObjectshakeCalculator(noiseScaleX: 0, noiseScaleY: 0, animationCurve: new AnimationCurve(animationKeys));
-        int previousSign = Math.Sign(ObjectshakeCalculator.Calculate(DELTA_TIME).x);
+        var objectshakeCalculator = CreateObjectShakeCalculator(noiseScaleX: 0, noiseScaleY: 0, animationCurve: new AnimationCurve(animationKeys));
+        int previousSign = Math.Sign(objectshakeCalculator.Calculate(DELTA_TIME).x);
         int halfOscillationCount = 0;
         for (int i = 1; i < NUMBER_OF_POSITIONS; i++)
         {
-            int currentSign = Math.Sign(ObjectshakeCalculator.Calculate(DELTA_TIME).x);
+            int currentSign = Math.Sign(objectshakeCalculator.Calculate(DELTA_TIME).x);
             if (currentSign != previousSign && currentSign != 0)
             {
                 halfOscillationCount++;
@@ -135,9 +135,9 @@ public class ObjectshakeCalculatorTests
     /// <param name="noiseOffsetX">How much the noise should be offset on the X axis.</param>
     /// <param name="noiseOffsetY">How much the noise should be offset on the Y axis.</param>
     /// <param name="animationCurve">The animation curve used to calculate the falloff of the shake.</param>
-    /// <returns>The ObjectshakeCalculator object created.</returns>
-    private static ObjectshakeCalculator CreateObjectshakeCalculator(float shakeDuration = SHAKE_DURATION, float frequency = FREQUENCY, float amplitude = AMPLITUDE, float noiseScaleX = 1, float noiseScaleY = 1, float noiseOffsetX = 0, float noiseOffsetY = 1, AnimationCurve animationCurve = null)
+    /// <returns>The ObjectShakeCalculator object created.</returns>
+    private static ObjectShakeCalculator CreateObjectShakeCalculator(float shakeDuration = SHAKE_DURATION, float frequency = FREQUENCY, float amplitude = AMPLITUDE, float noiseScaleX = 1, float noiseScaleY = 1, float noiseOffsetX = 0, float noiseOffsetY = 1, AnimationCurve animationCurve = null)
     {
-        return new ObjectshakeCalculator(shakeDuration, frequency, amplitude, new Vector2(noiseScaleX, noiseScaleY), new Vector2(noiseOffsetX, noiseOffsetY), animationCurve);
+        return new ObjectShakeCalculator(shakeDuration, frequency, amplitude, new Vector2(noiseScaleX, noiseScaleY), new Vector2(noiseOffsetX, noiseOffsetY), animationCurve);
     }
 }
