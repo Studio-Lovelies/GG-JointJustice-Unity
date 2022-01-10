@@ -2,7 +2,7 @@
   "profiles": {
     "scanner": {
       "commandName": "Project",
-      "workingDirectory": "../unity"
+      "workingDirectory": "../unity-ggjj"
     }
   }
 }
