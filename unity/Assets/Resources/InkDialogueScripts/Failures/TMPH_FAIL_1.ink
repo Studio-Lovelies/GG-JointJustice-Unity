@@ -19,8 +19,8 @@ No arin, we're getting a penalty for that one.
 Wait, really?
 
 &SCENE:TMPHJudge
-&ACTOR:BrentJudge
-&SPEAK:BrentJudge
+&ACTOR:JudgeBrent
+&SPEAK:JudgeBrent
 Yes!
 
 &SCENE:TMPHCourt

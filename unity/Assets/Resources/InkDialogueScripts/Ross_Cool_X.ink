@@ -1,7 +1,7 @@
 //Do these before fading in, sets up the scene
 
 &SCENE:TMPHJudge
-&ACTOR:BrentJudge
+&ACTOR:JudgeBrent
 
 &SCENE:TMPHAssistant
 &ACTOR:Dan
@@ -67,7 +67,7 @@ What were you animating?
 Your Honor, this is clearly irrelevant to the case.
 
 &SCENE:TMPHJudge
-&SPEAK:BrentJudge
+&SPEAK:JudgeBrent
 I agree. Arin, try being serious about this.
 
 &SCENE:TMPHCourt
@@ -99,7 +99,7 @@ But this isn't being broadcasted...
 Quick! Back to the testimony before we break the fourth wall again!
 
 &SCENE:TMPHJudge
-&SPEAK:BrentJudge
+&SPEAK:JudgeBrent
 Witness, carry on.
 -> Line3
 
@@ -116,7 +116,7 @@ What makes you so sure that the dinos were stolen, anyways!?
 ...
 
 &SCENE:TMPHJudge
-&SPEAK:BrentJudge
+&SPEAK:JudgeBrent
 ...
 
 &SCENE:TMPHAssistant
@@ -129,7 +129,7 @@ Arin, that's literally the reason we're all here.
 ...
 
 &SCENE:TMPHJudge
-&SPEAK:BrentJudge
+&SPEAK:JudgeBrent
 I'll just pretend that didn't happen.
 -> Line1
 
@@ -196,7 +196,7 @@ Uh-huh...
 Your Honor, I believe this needs to be added to the witness's testimony.
 
 &SCENE:TMPHJudge
-&SPEAK:BrentJudge
+&SPEAK:JudgeBrent
 Agreed. Witness, add your poop story to your testimony.
 
 &SCENE:TMPHCourt
