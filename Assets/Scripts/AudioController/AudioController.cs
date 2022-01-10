@@ -106,15 +106,6 @@ public class AudioController : MonoBehaviour, IAudioController
     {
         _sfxAudioSource.PlayOneShot(soundEffectClip);
     }
-    
-    /// <summary>
-    /// Overload for PlaySFX that plays sound using an audio clip rather than a name.
-    /// </summary>
-    /// <param name="soundEffect">The audio clip to play.</param>
-    public void PlaySFX(AudioClip soundEffect)
-    {
-        _sfxAudioSource.PlayOneShot(soundEffect);
-    }
 
     /// <summary>
     /// Coroutine to fade to a new song.
