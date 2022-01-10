@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(SceneLoader))]
 public class StoryController : MonoBehaviour
@@ -10,10 +9,6 @@ public class StoryController : MonoBehaviour
     
     [Tooltip("Write the name of the next scene to load here.")]
     [SerializeField] private string _nextSceneName;
-    
-    [Header("Events")]
-    [SerializeField] private UnityEvent<NarrativeScript> _onNextDialogueScript;
-    [SerializeField] private UnityEvent _onCrossExaminationStart;
 
     private SceneLoader _sceneLoader;
     private int _narrativeScriptIndex = -1;
