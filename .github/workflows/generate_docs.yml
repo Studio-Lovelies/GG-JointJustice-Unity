@@ -1,6 +1,6 @@
 name: Generate documentation
 on: 
-  push:
+  pull_request:
     branches:
       - develop
       - master
@@ -40,3 +40,10 @@ jobs:
         with:
           name: docs-v${{ github.run_number }}
           path: docs
+
+      - name: Commit report
+        run: |
+          git config --global user.name 'Vincent Mahnke'
+          git config --global user.email 'vimaster@users.noreply.github.com'
+          git commit -am "Update /docs"
+          git push
