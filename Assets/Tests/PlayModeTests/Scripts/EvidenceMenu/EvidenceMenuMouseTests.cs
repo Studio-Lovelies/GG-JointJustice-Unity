@@ -103,9 +103,9 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             return GetMenuItems().First(menuItem => menuItem.gameObject.name == "EvidenceMenuItem").GetComponent<EvidenceMenuItem>();
         }
 
-        private IEnumerator HoverOverButton(Transform tf)
+        private IEnumerator HoverOverButton(Transform transform)
         {
-            yield return _inputTestTools.SetMousePositionWorldSpace(tf.TransformPoint(tf.GetComponent<RectTransform>().rect.center));
+            yield return _inputTestTools.SetMousePositionWorldSpace(transform.TransformPoint(transform.GetComponent<RectTransform>().rect.center));
         }
 
         private IEnumerator LeftClick()
