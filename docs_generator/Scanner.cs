@@ -113,7 +113,7 @@ public class Scanner
             foreach (var character in value)
             {
                 constantsOutput += $"### {character.Item}\n";
-                constantsOutput = character.Children.Aggregate(constantsOutput, (current, pose) => current + $"  - {pose.Item}\n");
+                constantsOutput = character.Children.OrderBy(entry => entry.Item).Aggregate(constantsOutput, (current, pose) => current + $"  - {pose.Item}\n");
             }
 
             constantsOutput += "\n";
