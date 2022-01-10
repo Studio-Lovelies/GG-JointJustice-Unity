@@ -6,177 +6,70 @@ using UnityEngine;
 /// Action decoder calls the methods which are used to load any required objects.
 /// Objects are then stored in the assign ObjectStorage object.
 /// </summary>
-public class ObjectPreloader : IObjectPreloader
+public class ObjectPreloader : ActionDecoderBase
 {
     private readonly IObjectLoader _objectLoader = new ResourceLoader();
     private readonly ObjectStorage _objectStorage;
-
-    public float CharacterDelay { get; set; }
-    public float DefaultPunctuationDelay { get; set; }
-    public bool SkippingDisabled { get; set; }
-    public bool ContinueDialogue { get; set; }
-    public bool AutoSkip { get; set; }
-    public bool AppearInstantly { get; set; }
-    public bool TextBoxHidden { get; set; }
 
     public ObjectPreloader(ObjectStorage objectStorage)
     {
         _objectStorage = objectStorage;
     }
-    
-    #region InterfaceMethods
-    public void SetActiveActor(string actor)
-    {
-        LoadActor(actor);
-    }
 
-    public void SetActiveSpeaker(string actor, SpeakingType speakingType)
-    {
-        LoadActor(actor);
-    }
-
-    public void SetActiveSpeakerToNarrator()
-    {
-    }
-
-    public void SetActiveSpeaker(string actor)
-    {
-        LoadActor(actor);
-    }
-
-    public void SetPose(string pose, string actorName = null)
-    {
-    }
-
-    public void PlayEmotion(string emotion, string actorName = null)
-    {
-    }
-
-    public void StartTalking()
-    {
-    }
-
-    public void StopTalking()
-    {
-    }
-
-    public void OnAnimationDone()
-    {
-    }
-
-    public void SetSpeakingType(SpeakingType speakingType)
-    {
-    }
-
-    public void AssignActorToSlot(string actor, int oneBasedSlotIndex)
-    {
-        LoadActor(actor);
-    }
-
-    public void FadeIn(float seconds)
-    {
-    }
-
-    public void FadeOut(float seconds)
-    {
-    }
-
-    public void ShakeScreen(float intensity, float duration, bool isBlocking)
-    {
-    }
-
-    public void SetScene(string background)
-    {
-        LoadScene(background);
-    }
-
-    public void SetCameraPos(Vector2Int position)
-    {
-    }
-
-    public void PanCamera(float seconds, Vector2Int finalPosition)
-    {
-    }
-
-    public void PanToActorSlot(int oneBasedSlotIndex, float seconds)
-    {
-    }
-
-    public void JumpToActorSlot(int oneBasedSlotIndex)
-    {
-    }
-
-    public void ShowItem(string item, ItemDisplayPosition position)
-    {
-        LoadEvidence(item);
-    }
-
-    public void ShowActor()
-    {
-    }
-
-    public void HideActor()
-    {
-    }
-
-    public void Wait(float seconds)
-    {
-    }
-
-    public void HideItem()
-    {
-    }
-
-    public void PlayAnimation(string animationName)
-    {
-    }
-
-    public void IssuePenalty()
-    {
-    }
-
-    public void ReloadScene()
-    {
-    }
-
-    public void AddEvidence(string evidenceName)
+    #region Actions
+    protected override void ADD_EVIDENCE(AssetName evidenceName)
     {
         LoadEvidence(evidenceName);
     }
 
-    public void RemoveEvidence(string evidenceName)
-    {
-    }
-
-    public void AddToCourtRecord(string actorName)
+    protected override void ADD_RECORD(AssetName actorName)
     {
         LoadActor(actorName);
     }
 
-    public void RequirePresentEvidence()
+    protected override void PLAY_SFX(AssetName sfx)
     {
+        LoadObject($"Audio/SFX/{sfx}");
     }
 
-    public void SubstituteEvidenceWithAlt(string evidenceName)
-    {
-    }
-
-    public void OnPresentEvidence(ICourtRecordObject evidence)
-    {
-    }
-    
-    public void PlaySfx(string SFX)
-    {
-        LoadObject($"Audio/SFX/{SFX}");
-    }
-
-    public void PlaySong(string songName)
+    protected override void PLAY_SONG(AssetName songName)
     {
         LoadObject($"Audio/Music/{songName}");
     }
 
-    public void StopSong()
+    protected override void SCENE(AssetName sceneName)
     {
+        LoadScene(sceneName);
+    }
+
+    protected override void SHOW_ITEM(AssetName itemName, ItemDisplayPosition itemPos)
+    {
+        LoadEvidence(itemName);
+    }
+
+    protected override void ACTOR(AssetName actorName)
+    {
+        LoadActor(actorName);
+    }
+
+    protected override void SPEAK(AssetName actorName)
+    {
+        LoadActor(actorName);
+    }
+
+    protected override void SPEAK_UNKNOWN(AssetName actorName)
+    {
+        LoadActor(actorName);
+    }
+
+    protected override void THINK(AssetName actorName)
+    {
+        LoadActor(actorName);
+    }
+
+    protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName)
+    {
+        LoadActor(actorName);
     }
     #endregion
     

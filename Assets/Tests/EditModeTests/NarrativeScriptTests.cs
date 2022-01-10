@@ -17,7 +17,7 @@ public class NarrativeScriptTests
                                         "&SET_ACTOR_POSITION:1,Jory\n" +
                                         "&SCENE:TMPHCourt\n" +
                                         "&SCENE:TMPHCourt\n" +
-                                        "&SHOW_ITEM:Bent_Coins,Right\n" +
+                                        "&SHOW_ITEM:BentCoins,Right\n" +
                                         "-> NamedContainer\n" +
                                         "=== NamedContainer ===\n" +
                                         "&SHOW_ITEM:Bent_Coins,Right\n" +
@@ -25,10 +25,10 @@ public class NarrativeScriptTests
                                         "&ADD_EVIDENCE:StolenDinos\n" +
                                         "&ADD_RECORD:TutorialBoy\n" +
                                         "&ADD_RECORD:TutorialBoy\n" +
-                                        "&PLAY_SFX:damage1\n" +
-                                        "&PLAY_SFX:damage1\n" +
-                                        "&PLAY_SONG:aBoyAndHisTrial\n" +
-                                        "&PLAY_SONG:aBoyAndHisTrial\n" +
+                                        "&PLAY_SFX:Damage1\n" +
+                                        "&PLAY_SFX:Damage1\n" +
+                                        "&PLAY_SONG:ABoyAndHisTrial\n" +
+                                        "&PLAY_SONG:ABoyAndHisTrial\n" +
                                         "-> END";
     
     [Test]
@@ -43,46 +43,46 @@ public class NarrativeScriptTests
             methodCalls.Add(i, 0);
         }
 
-        var objectPreloaderMock = new Mock<IObjectPreloader>();
+        var objectPreloaderMock = new Mock<IActionDecoder>();
         
         objectPreloaderMock.Setup(mock => mock
-            .SetActiveActor("Arin"))
+            .OnNewActionLine("&ACTOR:Arin"))
             .Callback(() => methodCalls[0]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .SetActiveActor("Dan"))
+                .OnNewActionLine("&ACTOR:Dan"))
             .Callback(() => methodCalls[1]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .SetActiveSpeaker("Arin", SpeakingType.Speaking))
+                .OnNewActionLine("&SPEAK:Arin"))
             .Callback(() => methodCalls[2]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .AssignActorToSlot("Jory",1))
+                .OnNewActionLine("&SET_ACTOR_POSITION:1,Jory"))
             .Callback(() => methodCalls[3]++);
 
         objectPreloaderMock.Setup(mock => mock
-                .SetScene("TMPHCourt"))
+                .OnNewActionLine("&SCENE:TMPHCourt"))
             .Callback(() => methodCalls[4]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .ShowItem("BentCoins", ItemDisplayPosition.Right))
+                .OnNewActionLine("&SHOW_ITEM:BentCoins,Right"))
             .Callback(() => methodCalls[5]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .AddEvidence("StolenDinos"))
+                .OnNewActionLine("&ADD_EVIDENCE:StolenDinos"))
             .Callback(() => methodCalls[6]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .AddToCourtRecord("TutorialBoy"))
+                .OnNewActionLine("&ADD_RECORD:TutorialBoy"))
             .Callback(() => methodCalls[7]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .PlaySfx("Damage1"))
+                .OnNewActionLine("&PLAY_SFX:Damage1"))
             .Callback(() => methodCalls[8]++);
         
         objectPreloaderMock.Setup(mock => mock
-                .PlaySong("ABoyAndHisTrial"))
+                .OnNewActionLine("&PLAY_SONG:ABoyAndHisTrial"))
             .Callback(() => methodCalls[9]++);
         
         new NarrativeScript(new TextAsset(story.ToJson()), DialogueControllerMode.Dialogue, objectPreloaderMock.Object);

@@ -35,7 +35,7 @@ public class ObjectStorageTests
     public void ObjectsCanBeRetrievedFromObjectStorage()
     {
         const string ARIN = "Arin";
-        const string BENT_COINS = "Bent_Coins";
+        const string BENT_COINS = "BentCoins";
         
         _objectStorage.Add(_resourceLoader.Load($"Actors/{ARIN}"));
         var storedActorData = _objectStorage.GetObject<ActorData>(ARIN);
