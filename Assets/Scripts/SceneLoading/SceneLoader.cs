@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,7 +30,12 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void LoadScene(string sceneName)
     {
-        if (!Busy)
+        if (Busy)
+        {
+            return;
+        }
+        
+        if (SceneManager.GetSceneByName(sceneName).IsValid())
         {
             _sceneLoadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
             if (_sceneLoadOperation != null)
@@ -37,6 +43,10 @@ public class SceneLoader : MonoBehaviour
                 Busy = true;
                 Transition();
             }
+        }
+        else
+        {
+            Debug.LogWarning($"Could not load scene. Scene name {sceneName} is invalid.");
         }
     }
 

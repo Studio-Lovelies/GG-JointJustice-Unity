@@ -22,6 +22,9 @@ public class DialogueController : MonoBehaviour
 {
     private const char ACTION_TOKEN = '&';
 
+    [Tooltip("Drag the StoryController here")]
+    [SerializeField] private StoryController _storyController;
+    
     [SerializeField] private FailureStoryList _failureList;
 
     [SerializeField] private DialogueController _dialogueControllerPrefab;
@@ -50,11 +53,19 @@ public class DialogueController : MonoBehaviour
     
     private bool _isBusy;
     private bool _isMenuOpen;
+    private bool _isSubStory;
     private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
-
     private bool _isAtChoice; //Possibly small state machine to handle all input?
     
-    public NarrativeScript NarrativeScript { get; private set; }
+    public NarrativeScript ActiveNarrativeScript { get; private set; }
+
+    private void Start()
+    {
+        if (!_isSubStory)
+        {
+            SetNewDialogue(_storyController.GetNextNarrativeScript());
+        }
+    }
     
     /// <summary>
     /// Initialize a sub story by hooking the events to the parent dialogue so everything propagates down correctly
@@ -66,15 +77,20 @@ public class DialogueController : MonoBehaviour
         _onNewActionLine.AddListener(parent.OnSubStoryActionLine);
         _onDialogueFinished.AddListener(parent.OnSubStoryFinished);
         _onChoicePresented.AddListener(parent.OnSubStoryChoicesPresented);
+        _isSubStory = true;
     }
 
     /// <summary>
     /// Used to start a new narrative script, set the correct dialogue mode, and start it.
     /// </summary>
-    /// <param name="narrativeScriptgue to switch to</param>
+    /// <param name="narrativeScript">The narrative script to switch to</param>
     public void SetNewDialogue(NarrativeScript narrativeScript)
     {
-        NarrativeScript = narrativeScript;
+        ActiveNarrativeScript = narrativeScript;
+        if (ActiveNarrativeScript == null)
+        {
+            return;
+        }
         OnContinueStory(); //Auto start
     }
 
@@ -95,7 +111,7 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        switch (NarrativeScript.Type)
+        switch (ActiveNarrativeScript.Type)
         {
             case DialogueControllerMode.Dialogue:
                 HandleNextLineDialogue();
@@ -114,7 +130,7 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     public void OnPressWitness()
     {
-        if (NarrativeScript.Type != DialogueControllerMode.CrossExamination)
+        if (ActiveNarrativeScript.Type != DialogueControllerMode.CrossExamination)
         {
             return;
         }
@@ -131,13 +147,13 @@ public class DialogueController : MonoBehaviour
         if (!_isAtChoice || IsBusy || _isMenuOpen)
             return;
 
-        if (choice > NarrativeScript.Story.currentChoices.Count)
+        if (choice > ActiveNarrativeScript.Story.currentChoices.Count)
         {
             Debug.LogError("choice index out of range");
         }
         else
         {
-            NarrativeScript.Story.ChooseChoiceIndex(choice);
+            ActiveNarrativeScript.Story.ChooseChoiceIndex(choice);
             _isAtChoice = false;
             OnContinueStory();
         }        
@@ -171,14 +187,14 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        if (NarrativeScript.Type != DialogueControllerMode.CrossExamination)
+        if (ActiveNarrativeScript.Type != DialogueControllerMode.CrossExamination)
         {
             return;
         }
 
         _onCrossExaminationLoopActive.Invoke(false);
 
-        List<Choice> choiceList = NarrativeScript.Story.currentChoices;
+        List<Choice> choiceList = ActiveNarrativeScript.Story.currentChoices;
 
         if (choiceList.Count <= 2)
         {
@@ -216,12 +232,12 @@ public class DialogueController : MonoBehaviour
             return;
         }
         
-        if (!NarrativeScript.Story.canContinue)
+        if (!ActiveNarrativeScript.Story.canContinue)
         {
-            List<Choice> choiceList = NarrativeScript.Story.currentChoices;
+            List<Choice> choiceList = ActiveNarrativeScript.Story.currentChoices;
             if (choiceList.Count <= 0)
             {
-                _onDialogueFinished.Invoke();
+                EndDialogue();
                 return;
             }
 
@@ -230,7 +246,7 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        string currentLine = NarrativeScript.Story.Continue();
+        string currentLine = ActiveNarrativeScript.Story.Continue();
         if (currentLine.Length == 0) //0 should never happen
         {
             Debug.LogError("Line-length was 0, should never happen");
@@ -271,9 +287,9 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        if (NarrativeScript.Story.canContinue)
+        if (ActiveNarrativeScript.Story.canContinue)
         {
-            string currentLine = NarrativeScript.Story.Continue();
+            string currentLine = ActiveNarrativeScript.Story.Continue();
             if (currentLine.Length == 0) //0 should never happen
             {
                 Debug.LogError("Line-length was 0, should never happen");
@@ -298,16 +314,16 @@ public class DialogueController : MonoBehaviour
         else
         {
             //Story has ended because any choices would have been handled before this is reached
-            _onDialogueFinished.Invoke();
+            EndDialogue();
         }
 
-        if (NarrativeScript.Story.canContinue)
+        if (ActiveNarrativeScript.Story.canContinue)
         {
             return;
         }
         else //At choice, which means cross examination point. Maybe add sanity check to make sure we have at least 2 options?
         {
-            if (NarrativeScript.Story.currentChoices.Count > 0)
+            if (ActiveNarrativeScript.Story.currentChoices.Count > 0)
             {
                 _isAtChoice = true;
                 _onCrossExaminationLoopActive.Invoke(true);
@@ -384,5 +400,22 @@ public class DialogueController : MonoBehaviour
         Destroy(_subStory.gameObject);
         _subStory = null;
         OnContinueStory();
+    }
+
+    /// <summary>
+    /// Ends the current dialogue being played.
+    /// If this is a sub-story then the parent narrative script is called.
+    /// Otherwise, the next NarrativeScript is retrieved
+    /// from the StoryController and played.
+    /// </summary>
+    private void EndDialogue()
+    {
+        if (_isSubStory)
+        {
+            _onDialogueFinished.Invoke();
+            return;
+        }
+
+        SetNewDialogue(_storyController.GetNextNarrativeScript());
     }
 }

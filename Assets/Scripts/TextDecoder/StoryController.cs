@@ -16,7 +16,9 @@ public class StoryController : MonoBehaviour
     [SerializeField] private UnityEvent _onCrossExaminationStart;
 
     private SceneLoader _sceneLoader;
-    private int _currentStory = -1;
+    private int _narrativeScriptIndex = -1;
+
+    public NarrativeScript NarrativeScript => _narrativeScripts[_narrativeScriptIndex];
 
     /// <summary>
     /// Initializes variables
@@ -31,42 +33,19 @@ public class StoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts the first dialogue script.
-    /// This script should always be last in the run order in order for this to work properly.
+    /// Increments the narrative script index and returns the
+    /// corresponding script in the narrative scripts array
     /// </summary>
-    private void Start()
+    /// <returns>The next narrative script in the array</returns>
+    public NarrativeScript GetNextNarrativeScript()
     {
-        if (_narrativeScripts.Count == 0)
+        _narrativeScriptIndex++;
+        if (_narrativeScriptIndex < _narrativeScripts.Count)
         {
-            Debug.LogWarning("No narrative scripts assigned to StoryController", this);
+            return _narrativeScripts[_narrativeScriptIndex];
         }
-        else
-        {
-            RunNextDialogueScript();
-        }
-    }
-
-    /// <summary>
-    /// Loads the next dialogue script. If it doesn't exist, loads the next unity scene.
-    /// </summary>
-    public void RunNextDialogueScript()
-    {
-        if (_narrativeScripts.Count <= 0)
-            return;
-
-        _currentStory++;
-        if (_currentStory >= _narrativeScripts.Count)
-        {
-            if (!_sceneLoader.Busy)
-                _sceneLoader.LoadScene(_nextSceneName);
-        }
-        else
-        {
-            if (_narrativeScripts[_currentStory].Type == DialogueControllerMode.CrossExamination)
-            {
-                _onCrossExaminationStart.Invoke();
-            }
-            _onNextDialogueScript.Invoke(_narrativeScripts[_currentStory]);
-        }
+        
+        _sceneLoader.LoadScene(_nextSceneName);
+        return null;
     }
 }
