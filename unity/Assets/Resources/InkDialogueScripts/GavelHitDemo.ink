@@ -6,8 +6,8 @@ Your honour! Bang that gavel!
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:GavelHit
 &SCENE:TMPHJudge
-&ACTOR:BrentJudge
-&SPEAK:BrentJudge
+&ACTOR:JudgeBrent
+&SPEAK:JudgeBrent
 Request granted!
 
 &HIDE_TEXTBOX
