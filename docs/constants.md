@@ -192,14 +192,14 @@
   - Breakdown
   - Damage
   - DamageNoHelmet
-  - Glaring (uncropped)
   - Glaring
-  - GlaringNoHelmet (uncropped)
+  - Glaring (uncropped)
   - GlaringNoHelmet
-  - GlaringTalking (uncropped)
+  - GlaringNoHelmet (uncropped)
   - GlaringTalking
-  - GlaringTalkingNoHelmet (uncropped)
+  - GlaringTalking (uncropped)
   - GlaringTalkingNoHelmet
+  - GlaringTalkingNoHelmet (uncropped)
   - HelmetThrow
   - MadMilk
   - MadmilkTalking
