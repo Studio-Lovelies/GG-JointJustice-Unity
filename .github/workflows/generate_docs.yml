@@ -27,7 +27,7 @@ jobs:
         working-directory: ./docs_generator
         run: dotnet build Scanner.csproj
 
-      - name: Current state of docs
+      - name: Generate current state of docs
         id: currentDocs
         run: echo "::set-output name=hash::$(find docs/ -type f -exec md5sum {} \; | md5sum)"
         
@@ -39,11 +39,11 @@ jobs:
         working-directory: ./unity
         run: ../docs_generator/bin/Debug/net6.0/Scanner
 
-      - name: New state of docs
+      - name: Generate new state of docs
         id: newDocs
         run: echo "::set-output name=hash::$(find docs/ -type f -exec md5sum {} \; | md5sum)"
 
-      - name: New state of docs
+      - name: Check if current and new state of docs are different
         run: echo "Current '${{ steps.currentDocs.outputs.hash }}' - New '${{ steps.newDocs.outputs.hash }}'"
         
       - name: Upload '/docs' artifact
@@ -64,7 +64,6 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Clear /docs folder
-        working-directory: ./
         run: rm -rf docs/* 
         
       - name: Download ${{ matrix.platforms.outputName }}
