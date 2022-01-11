@@ -69,9 +69,10 @@ public class NarrativeScript
             {
                 actionDecoder.OnNewActionLine(action);
             }
-            catch (ScriptParsingException exception)
+            catch (MethodNotFoundScriptParsingException)
             {
-                
+                // these types of exceptions are fine, as only actions
+                // with resources need to be handled by the ObjectPreloader
             }
         }
     }
