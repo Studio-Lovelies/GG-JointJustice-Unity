@@ -42,7 +42,7 @@ public abstract class ActionDecoderBase : IActionDecoder
         MethodInfo method = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
         if (method == null)
         {
-            throw new TextDecoder.Parser.ScriptParsingException($"DirectorActionDecoder contains no method named '{action}'");
+            throw new TextDecoder.Parser.MethodNotFoundScriptParsingException(GetType().FullName, action);
         }
 
         ParameterInfo[] methodParameters = method.GetParameters();

@@ -54,6 +54,79 @@ public class ActionDecoderTests
         };
     }
 
+    private class RawActionDecoder : ActionDecoderBase
+    {
+        protected override void ADD_EVIDENCE(AssetName evidenceName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ADD_RECORD(AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void PLAY_SFX(AssetName sfx)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void PLAY_SONG(AssetName songName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SCENE(AssetName sceneName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SHOW_ITEM(AssetName itemName, ItemDisplayPosition itemPos)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ACTOR(AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SPEAK(AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SPEAK_UNKNOWN(AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void THINK(AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    [Test]
+    public void ThrowsIfMethodIsNotImplemented()
+    {
+        const string missingMethodName = "MISSING_METHOD";
+        var decoder = new RawActionDecoder();
+        
+        var lineToParse = $"&{missingMethodName}";
+        Debug.Log("Attempting to parse:\n" + lineToParse);
+        var expectedException = Assert.Throws<MethodNotFoundScriptParsingException>(() => {
+            decoder.OnNewActionLine(lineToParse);
+        });
+        StringAssert.Contains(missingMethodName, expectedException.Message);
+        StringAssert.Contains(decoder.GetType().FullName, expectedException.Message);
+    }
+
     [Test]
     [TestCaseSource(nameof(AllAvailableActionsWithoutOptionalParameters))]
     public void RunValidCommandWithoutOptionalParameters(string methodName)
