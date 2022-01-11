@@ -34,20 +34,21 @@ public class SceneLoader : MonoBehaviour
         {
             return;
         }
-        
-        if (SceneManager.GetSceneByName(sceneName).IsValid())
-        {
-            _sceneLoadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-            if (_sceneLoadOperation != null)
-            {
-                Busy = true;
-                Transition();
-            }
-        }
-        else
+
+        if (!SceneManager.GetSceneByName(sceneName).IsValid())
         {
             Debug.LogWarning($"Could not load scene. Scene name {sceneName} is invalid.");
+            return;
         }
+
+        _sceneLoadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        if (_sceneLoadOperation == null)
+        {
+            return;
+        }
+
+        Busy = true;
+        Transition();
     }
 
     /// <summary>
