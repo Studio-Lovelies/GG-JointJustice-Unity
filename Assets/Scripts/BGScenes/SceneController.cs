@@ -41,6 +41,9 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag a SceneLoader object here.")]
     [SerializeField] private SceneLoader _sceneLoader;
 
+    [Tooltip("Drag the witness testimony sign here.")]
+    [SerializeField] private GameObject _witnessTestimonySign;
+    
     [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
     [SerializeField] private UnityEvent _onWaitStart;
@@ -60,6 +63,11 @@ public class SceneController : MonoBehaviour, ISceneController
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
     private BGScene _activeScene;
+
+    public bool WitnessTestimonyActive
+    {
+        set => _witnessTestimonySign.SetActive(value);
+    }
 
     /// <summary>
     /// Called when the object is initialized
