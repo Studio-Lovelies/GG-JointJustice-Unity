@@ -1,11 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
     [Tooltip("Attach the StoryController here")]
-    [SerializeField] private StoryController _storyController;
+    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
@@ -21,7 +20,6 @@ public class AudioController : MonoBehaviour, IAudioController
     /// One day this will come from the "Settings," but for now it lives on a field
     /// </summary>
     [Tooltip("SFX Volume level set by player")]
-    [FormerlySerializedAs("_settingsSFXVolume")]
     [Range(0f, 1f)]
     [SerializeField] private float _settingsSfxVolume = 0.5f;
 
@@ -72,7 +70,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     public void PlaySong(string songName)
     {
-        AudioClip song = _storyController.NarrativeScript.ObjectStorage.GetObject<AudioClip>(songName);
+        AudioClip song = _narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<AudioClip>(songName);
         PlaySong(song);
     }
 
@@ -107,7 +105,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySfx(string soundEffectName)
     {
-        AudioClip soundEffectClip = _storyController.NarrativeScript.ObjectStorage.GetObject<AudioClip>(soundEffectName);
+        AudioClip soundEffectClip = _narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<AudioClip>(soundEffectName);
         PlaySfx(soundEffectClip);
     }
 

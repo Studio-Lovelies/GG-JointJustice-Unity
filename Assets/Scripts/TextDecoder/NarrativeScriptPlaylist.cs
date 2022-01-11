@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SceneLoader))]
-public class StoryController : MonoBehaviour
+public class NarrativeScriptPlaylist : MonoBehaviour
 {
     [Tooltip("List of inky dialogue scripts to be played in order")]
     [SerializeField] private List<NarrativeScript> _narrativeScripts;

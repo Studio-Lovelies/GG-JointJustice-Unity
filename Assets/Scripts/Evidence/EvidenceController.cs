@@ -1,18 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class EvidenceController : MonoBehaviour, IEvidenceController
 {
     [Tooltip("Drag the StoryController here")]
-    [SerializeField] private StoryController _storyController;
+    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
     [Tooltip("This event is called when the PRESENT_EVIDENCE action is called.")]
-    [FormerlySerializedAs("_onOpenEvidenceMenu")]
     [SerializeField] private UnityEvent _onRequirePresentEvidence;
 
     [Tooltip("This event is called when a piece of evidence is clicked")]
@@ -54,7 +52,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidenceName">The name of the evidence to add.</param>
     public void AddEvidence(string evidenceName)
     {
-        CurrentEvidence.Add(_storyController.NarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
+        CurrentEvidence.Add(_narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
     }
 
     /// <summary>
@@ -72,7 +70,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidenceName">The name of the evidence to remove.</param>
     public void RemoveEvidence(string evidenceName)
     {
-        CurrentEvidence.Remove(_storyController.NarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
+        CurrentEvidence.Remove(_narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
     }
 
     /// <summary>
@@ -81,7 +79,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="actorName">The name of the actor to add.</param>
     public void AddToCourtRecord(string actorName)
     {
-        CurrentProfiles.Add(_storyController.NarrativeScript.ObjectStorage.GetObject<ActorData>(actorName));
+        CurrentProfiles.Add(_narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<ActorData>(actorName));
     }
     
     /// <summary>
@@ -109,7 +107,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidenceName">The name of the evidence to be substituted with its alt</param>
     public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-        int evidenceIndex = CurrentEvidence.IndexOf(_storyController.NarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
+        int evidenceIndex = CurrentEvidence.IndexOf(_narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
         CurrentEvidence[evidenceIndex] = CurrentEvidence[evidenceIndex].AltEvidence;
     }
 

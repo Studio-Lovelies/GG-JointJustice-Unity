@@ -21,9 +21,9 @@ public enum CrossExaminationChoice
 public class DialogueController : MonoBehaviour
 {
     private const char ACTION_TOKEN = '&';
-
+    
     [Tooltip("Drag the StoryController here")]
-    [SerializeField] private StoryController _storyController;
+    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     
     [SerializeField] private FailureStoryList _failureList;
 
@@ -63,7 +63,7 @@ public class DialogueController : MonoBehaviour
     {
         if (!_isSubStory)
         {
-            SetNewDialogue(_storyController.GetNextNarrativeScript());
+            SetNewDialogue(_narrativeScriptPlaylist.GetNextNarrativeScript());
         }
     }
     
@@ -416,6 +416,6 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        SetNewDialogue(_storyController.GetNextNarrativeScript());
+        SetNewDialogue(_narrativeScriptPlaylist.GetNextNarrativeScript());
     }
 }

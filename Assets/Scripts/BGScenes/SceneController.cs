@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour, ISceneController
 {
     [Tooltip("Drag the DialogueController here")]
-    [SerializeField] private StoryController _storyController;
+    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     
     [Tooltip("Pixels per unit of the basic ")]
     [SerializeField] private int _pixelsPerUnit = 100;
@@ -192,7 +192,7 @@ public class SceneController : MonoBehaviour, ISceneController
             Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
 
-        Evidence evidence = _storyController.NarrativeScript.ObjectStorage.GetObject<Evidence>(item);
+        Evidence evidence = _narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<Evidence>(item);
         _itemDisplay.ShowItem(evidence.Icon, position);
     }
 
