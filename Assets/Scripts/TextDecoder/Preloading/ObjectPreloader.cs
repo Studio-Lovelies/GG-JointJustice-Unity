@@ -8,7 +8,6 @@ using UnityEngine;
 /// </summary>
 public class ObjectPreloader : ActionDecoderBase
 {
-    private readonly IObjectLoader _objectLoader = new ResourceLoader();
     private readonly ObjectStorage _objectStorage;
 
     public ObjectPreloader(ObjectStorage objectStorage)
@@ -95,7 +94,7 @@ public class ObjectPreloader : ActionDecoderBase
     {
         try
         {
-            _objectStorage.Add(_objectLoader.Load(path));
+            _objectStorage.Add(Resources.Load(path));
         }
         catch (NullReferenceException exception)
         {

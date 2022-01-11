@@ -13,8 +13,6 @@ namespace Tests.PlayModeTests.Scripts.AudioController
     public class AudioControllerTests
     {
         private const string MUSIC_PATH = "Audio/Music/";
-        
-        private readonly IObjectLoader _objectLoader = new ResourceLoader();
 
         [UnityTest]
         public IEnumerator AudioController_PlaySong_FadesBetweenSongs()
@@ -43,7 +41,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             float settingsMusicVolume = (float)settingsMusicVolumeType.GetValue(audioController);
 
             // setup and verify steady state of music playing for a while
-            var firstSong = (AudioClip)_objectLoader.Load($"{MUSIC_PATH}aBoyAndHisTrial");
+            var firstSong = Resources.Load<AudioClip>($"{MUSIC_PATH}aBoyAndHisTrial");
             audioController.PlaySong(firstSong);
             yield return new WaitForSeconds(transitionDuration);
 
@@ -51,7 +49,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             Assert.AreEqual(firstSong.name, audioSource.clip.name);
 
             // transition into new song
-            var secondSong = (AudioClip)_objectLoader.Load($"{MUSIC_PATH}aKissFromARose");
+            var secondSong = Resources.Load<AudioClip>($"{MUSIC_PATH}aKissFromARose");
             audioController.PlaySong(secondSong);
             yield return new WaitForSeconds(transitionDuration/10f);
 
@@ -66,7 +64,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             Assert.AreEqual(secondSong.name, audioSource.clip.name);
 
             // transition into new song
-            var thirdSong = (AudioClip)_objectLoader.Load($"{MUSIC_PATH}investigationJoonyer");
+            var thirdSong = Resources.Load<AudioClip>($"{MUSIC_PATH}investigationJoonyer");
             audioController.PlaySong(thirdSong);
             yield return new WaitForSeconds(transitionDuration/10f);
 

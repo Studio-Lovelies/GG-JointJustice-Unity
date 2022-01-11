@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,7 +10,6 @@ public class ObjectPreloaderTests
 {
     private ObjectStorage _objectStorage;
     private ObjectPreloader _objectPreloader;
-    private ResourceLoader _resourceLoader = new ResourceLoader();
 
     private static IEnumerable<MethodInfo> AvailableActionMethods => typeof(ActionDecoderBase).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Where(method => new Regex("^[A-Z_]+$").IsMatch(method.Name)).ToArray();
     private static IEnumerable<string> ActorLoadingActions => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.Name.Contains("actor"))).Select(methodInfo => methodInfo.Name);
@@ -64,7 +62,7 @@ public class ObjectPreloaderTests
     /// <typeparam name="T">The type of object to load.</typeparam>
     private void ObjectPreloaderCanLoadObjects<T>(string path, string action) where T : Object
     {
-        var objects = _resourceLoader.LoadAll(path);
+        var objects = Resources.LoadAll(path);
 
         foreach (var o in objects)
         {
