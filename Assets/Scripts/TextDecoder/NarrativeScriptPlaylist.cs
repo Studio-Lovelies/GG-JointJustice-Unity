@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Castle.Core.Internal;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -40,8 +41,12 @@ public class NarrativeScriptPlaylist : MonoBehaviour
         {
             return NarrativeScripts[_narrativeScriptIndex];
         }
-        
-        _sceneLoader.LoadScene(_nextSceneName);
+
+        if (!_nextSceneName.IsNullOrEmpty())
+        {
+            _sceneLoader.LoadScene(_nextSceneName);
+        }
+
         return null;
     }
 }
