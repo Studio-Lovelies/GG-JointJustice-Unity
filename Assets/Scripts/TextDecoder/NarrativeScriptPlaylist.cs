@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Castle.Core.Internal;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SceneLoader))]
 public class NarrativeScriptPlaylist : MonoBehaviour
@@ -42,7 +40,7 @@ public class NarrativeScriptPlaylist : MonoBehaviour
             return NarrativeScripts[_narrativeScriptIndex];
         }
 
-        if (!_nextSceneName.IsNullOrEmpty())
+        if (!string.IsNullOrEmpty(_nextSceneName))
         {
             _sceneLoader.LoadScene(_nextSceneName);
         }
