@@ -19,11 +19,12 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         [ReloadScene("Assets/Scenes/CrossExamination - TestScene.unity")]
         public IEnumerator CanPresentEvidenceDuringExamination()
         {
+            yield return new WaitForSeconds(5);
             yield return null;
             Keyboard key = _inputTestTools.Keyboard;
 
             yield return _inputTestTools.PressForFrame(key.xKey);
-
+            
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
