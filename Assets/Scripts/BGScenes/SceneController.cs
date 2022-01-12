@@ -148,9 +148,9 @@ public class SceneController : MonoBehaviour, ISceneController
     /// Sets the new bg-scene based on the provided name and changes the active actor using an event.
     /// </summary>
     /// <param name="background">Target bg-scene</param>
-    public void SetScene(AssetName background)
+    public void SetScene(string background)
     {
-        _activeScene = _sceneList.SetScene(background);
+        _activeScene = _sceneList.SetScene(new AssetName(background));
         if (_panToPositionCoroutine != null)
         {
             StopCoroutine(_panToPositionCoroutine);
