@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -36,9 +37,20 @@ public class ObjectStorage : IObjectStorage
     {
         return (T)_objects[objectName];
     }
+
+    /// <summary>
+    /// Gets all the objects of a certain type.
+    /// </summary>
+    /// <typeparam name="T">The type of object to get.</typeparam>
+    /// <returns>The objects found.</returns>
+    public IEnumerable<T> GetObjectsOfType<T>() where T : Object
+    {
+        return _objects.Values.Where(obj => obj is T).Cast<T>();
+    }
 }
 
 public interface IObjectStorage
 {
     public T GetObject<T>(string objectName) where T : Object;
+    public IEnumerable<T> GetObjectsOfType<T>() where T : Object;
 }

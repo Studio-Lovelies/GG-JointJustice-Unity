@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 /// <summary>
 /// Assigned to an ActionDecoder in place of the usual controller interfaces.
@@ -28,17 +29,17 @@ public class ObjectPreloader : ActionDecoderBase
 
     protected override void PLAY_SFX(AssetName sfx)
     {
-        LoadObject($"Audio/SFX/{sfx}");
+        LoadObject<AudioClip>($"Audio/SFX/{sfx}");
     }
 
     protected override void PLAY_SONG(AssetName songName)
     {
-        LoadObject($"Audio/Music/{songName}");
+        LoadObject<AudioClip>($"Audio/Music/{songName}");
     }
 
     protected override void SCENE(AssetName sceneName)
     {
-        LoadScene(sceneName);
+        LoadObject<BGScene>($"BGScenes/{sceneName}");
     }
 
     protected override void SHOW_ITEM(AssetName itemName, ItemDisplayPosition itemPos)
@@ -74,27 +75,23 @@ public class ObjectPreloader : ActionDecoderBase
     
     private void LoadActor(string actorName)
     {
-        LoadObject($"Actors/{actorName}");
+        LoadObject<ActorData>($"Actors/{actorName}");
     }
     
     private void LoadEvidence(string evidenceName)
     {
-        LoadObject($"Evidence/{evidenceName}");
-    }
-    
-    private void LoadScene(string sceneName)
-    {
+        LoadObject<Evidence>($"Evidence/{evidenceName}");
     }
 
     /// <summary>
     /// Uses the assigned IObjectLoader to load an object and add it to the object storage
     /// </summary>
     /// <param name="path">The path to the object to load</param>
-    private void LoadObject(string path)
+    private void LoadObject<T>(string path) where T : Object
     {
         try
         {
-            _objectStorage.Add(Resources.Load(path));
+            _objectStorage.Add(Resources.Load<T>(path));
         }
         catch (NullReferenceException exception)
         {

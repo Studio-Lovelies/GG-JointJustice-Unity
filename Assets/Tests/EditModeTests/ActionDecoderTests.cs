@@ -225,7 +225,7 @@ public class ActionDecoderTests
     {
         var decoder = CreateMockedActionDecoder();
         var sceneControllerMock = new Moq.Mock<ISceneController>();
-        sceneControllerMock.Setup(controller => controller.SetScene("NewScene"));
+        sceneControllerMock.Setup(controller => controller.SetScene(new AssetName("NewScene")));
         decoder.SceneController = sceneControllerMock.Object;
 
         var lineToParse = " &SCENE:NewScene \n\n\n";
@@ -236,7 +236,7 @@ public class ActionDecoderTests
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
 
-        sceneControllerMock.Verify(controller => controller.SetScene("NewScene"));
+        sceneControllerMock.Verify(controller => controller.SetScene(new AssetName("NewScene")));
     }
 
 }

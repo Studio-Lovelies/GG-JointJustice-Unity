@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SceneLoader))]
 public class NarrativeScriptPlaylist : MonoBehaviour
 {
-    [Tooltip("List of inky dialogue scripts to be played in order")]
-    [SerializeField] private List<NarrativeScript> _narrativeScripts;
+    [field: Tooltip("List of inky dialogue scripts to be played in order")]
+    [field: SerializeField] public List<NarrativeScript> NarrativeScripts { get; private set; }
     
     [Tooltip("Write the name of the next scene to load here.")]
     [SerializeField] private string _nextSceneName;
@@ -13,7 +14,7 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     private SceneLoader _sceneLoader;
     private int _narrativeScriptIndex = -1;
 
-    public NarrativeScript NarrativeScript => _narrativeScripts[_narrativeScriptIndex];
+    public NarrativeScript NarrativeScript => NarrativeScripts[_narrativeScriptIndex];
 
     /// <summary>
     /// Initializes variables
@@ -21,7 +22,7 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     private void Awake()
     {
         _sceneLoader = GetComponent<SceneLoader>();
-        foreach (var narrativeScript in _narrativeScripts)
+        foreach (var narrativeScript in NarrativeScripts)
         {
             narrativeScript.Initialize();
         }
@@ -35,9 +36,9 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     public NarrativeScript GetNextNarrativeScript()
     {
         _narrativeScriptIndex++;
-        if (_narrativeScriptIndex < _narrativeScripts.Count)
+        if (_narrativeScriptIndex < NarrativeScripts.Count)
         {
-            return _narrativeScripts[_narrativeScriptIndex];
+            return NarrativeScripts[_narrativeScriptIndex];
         }
         
         _sceneLoader.LoadScene(_nextSceneName);

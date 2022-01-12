@@ -22,7 +22,7 @@ public class DialogueController : MonoBehaviour
 {
     private const char ACTION_TOKEN = '&';
     
-    [Tooltip("Drag the StoryController here")]
+    [Tooltip("Drag a NarrativeScriptPlaylist here")]
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     
     [SerializeField] private FailureStoryList _failureList;

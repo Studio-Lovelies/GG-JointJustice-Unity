@@ -14,7 +14,7 @@ public interface ISceneController
     void FadeIn(float seconds);
     void FadeOut(float seconds);
     void ShakeScreen(float intensity, float duration, bool isBlocking);
-    void SetScene(string background);
+    void SetScene(AssetName background);
     void SetCameraPos(Vector2Int position);
     void PanCamera(float seconds, Vector2Int finalPosition);
     void PanToActorSlot(int oneBasedSlotIndex, float seconds);

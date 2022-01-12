@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
-    [Tooltip("Drag the DialogueController here")]
+    [Tooltip("Drag a NarrativeScriptPlaylist here")]
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     
     [Tooltip("Pixels per unit of the basic ")]
@@ -148,9 +148,9 @@ public class SceneController : MonoBehaviour, ISceneController
     /// Sets the new bg-scene based on the provided name and changes the active actor using an event.
     /// </summary>
     /// <param name="background">Target bg-scene</param>
-    public void SetScene(string background)
+    public void SetScene(AssetName background)
     {
-        _activeScene = _sceneList.SetScene(new AssetName(background));
+        _activeScene = _sceneList.SetScene(background);
         if (_panToPositionCoroutine != null)
         {
             StopCoroutine(_panToPositionCoroutine);

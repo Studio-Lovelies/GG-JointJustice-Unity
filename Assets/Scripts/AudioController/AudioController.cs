@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
-    [Tooltip("Attach the StoryController here")]
+    [Tooltip("Drag a NarrativeScriptPlaylist here")]
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     
     [Tooltip("Attach the action decoder object here")]
