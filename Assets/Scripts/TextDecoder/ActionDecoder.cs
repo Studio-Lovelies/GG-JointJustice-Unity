@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ActionDecoder : ActionDecoderBase
 {
@@ -187,6 +188,18 @@ public class ActionDecoder : ActionDecoderBase
         SceneController.ReloadScene();
     }
 
+    private void BEGIN_WITNESS_TESTIMONY()
+    {
+        SceneController.WitnessTestimonyActive = true;
+        OnActionDone?.Invoke();
+    }
+
+    private void END_WITNESS_TESTIMONY()
+    {
+        SceneController.WitnessTestimonyActive = false;
+        OnActionDone?.Invoke();
+    }
+    
     #endregion
 
     #region ActorController
