@@ -15,7 +15,7 @@ namespace Tests.PlayModeTests.Scripts
         [UnityTest]
         public IEnumerator FullScreenAnimationsCannotBeSkipped()
         {
-            EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/TestScenes/FullScreenAnimation - Test Scene.unity", new LoadSceneParameters());
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/FullScreenAnimation - Test Scene.unity", new LoadSceneParameters(LoadSceneMode.Additive));
             var speechPanel = TestTools.FindInactiveInSceneByName<GameObject>("SpeechPanel");
             var dialogueController = Object.FindObjectOfType<global::DialogueController>();
             yield return null; 
@@ -25,6 +25,7 @@ namespace Tests.PlayModeTests.Scripts
             Assert.IsFalse(speechPanel.activeInHierarchy);
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
             Assert.IsTrue(speechPanel.activeInHierarchy);
+            yield return SceneManager.UnloadSceneAsync("Assets/Scenes/TestScenes/FullScreenAnimation - Test Scene.unity");
         }
     }
 }

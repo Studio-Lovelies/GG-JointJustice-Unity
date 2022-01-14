@@ -20,7 +20,7 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/AppearingDialogueController - Test Scene.unity",  new LoadSceneParameters());
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/AppearingDialogueController - Test Scene.unity",  new LoadSceneParameters(LoadSceneMode.Additive));
             _appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
             _appearingDialogueController.AutoSkip = false;
         }
@@ -109,6 +109,12 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
                 yield return new WaitForSeconds(waitTime);
                 Assert.AreEqual(Mathf.Ceil(waitTime / i), _appearingDialogueController.MaxVisibleCharacters);
             }
+        }
+
+        [UnityTearDown]
+        public IEnumerator TearDown()
+        {
+            yield return SceneManager.UnloadSceneAsync("AppearingDialogueController - Test Scene");
         }
     }
 }
