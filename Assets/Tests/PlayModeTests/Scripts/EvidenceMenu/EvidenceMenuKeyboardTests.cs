@@ -18,7 +18,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// Attempts to open and close the menu and checks if the menu is active after each attempt.
         /// </summary>
         [UnityTest, Order(0)]
-        [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator EvidenceMenuOpensAndCloses()
         {
             yield return null;
@@ -37,7 +37,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// presented then asserts that the menu is still open.
         /// </summary>
         [UnityTest, Order(1)]
-        [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator EvidenceMenuCannotBeClosedWhenPresentingEvidence()
         {
             yield return EvidenceMenuOpensAndCloses();
@@ -53,7 +53,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// Selects evidence and asserts that the menu has closed.
         /// </summary>
         [UnityTest, Order(2)]
-        [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator EvidenceCanBeSelected()
         {
             yield return EvidenceMenuCannotBeClosedWhenPresentingEvidence();
@@ -67,7 +67,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// Attempts to navigate left and right then asserts that the correct item is selected.
         /// </summary>
         [UnityTest, Order(3)]
-        [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator CanNavigateWithLeftAndRightArrows()
         {
             yield return EvidenceCanBeSelected();
@@ -89,7 +89,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// that the selected item is selected.
         /// </summary>
         [UnityTest, Order(4)]
-        [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator CanNavigateToMultiplePages()
         {
             yield return CanNavigateWithLeftAndRightArrows();
@@ -139,7 +139,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// Closes profile menu at the end and checks something is selected.
         /// </summary>
         [UnityTest, Order(5)]
-        [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator ProfileMenuCanBeAccessed()
         {
             yield return CanNavigateToMultiplePages();
@@ -176,7 +176,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// Checks evidence is correctly substituted with its designated alternate evidence.
         /// </summary>
         [UnityTest, Order(6)]
-        [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator EvidenceCanBeSubstitutedWithAltEvidence()
         {
             yield return ProfileMenuCanBeAccessed();

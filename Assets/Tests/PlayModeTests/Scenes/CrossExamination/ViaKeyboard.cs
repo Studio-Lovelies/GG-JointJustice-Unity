@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Linq;
-using System.Reflection;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         private readonly InputTestTools _inputTestTools = new InputTestTools();
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/CrossExamination - TestScene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity")]
         public IEnumerator CanPresentEvidenceDuringExamination()
         {
             yield return null;
@@ -36,7 +35,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         }
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/CrossExamination - TestScene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity")]
         public IEnumerator CantPresentEvidenceDuringExaminationDialogue()
         {
             yield return null;
@@ -58,13 +57,13 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             yield return _inputTestTools.PressForFrame(key.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
 
-            Assert.AreEqual(subStoryCount,  TestTools.FindInactiveInScene<global::DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
+            Assert.AreEqual(subStoryCount,  TestTools.FindInactiveInScene<DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
 
             Object.Destroy(Find("SubStory(Clone)"));
         }
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/CrossExamination - TestScene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity")]
         public IEnumerator CantPresentEvidenceDuringPressingDialogue()
         {
             yield return null;
@@ -105,7 +104,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         }
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/CrossExamination - TestScene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity")]
         public IEnumerator GameOverPlaysOnNoLivesLeft()
         {
             var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
