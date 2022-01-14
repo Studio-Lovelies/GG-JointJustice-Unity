@@ -1,0 +1,4 @@
+&HIDE_TEXTBOX
+&PLAY_SFX:Triplegavel
+&PLAY_ANIMATION:TripleGavelHit
+-> END

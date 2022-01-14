@@ -245,7 +245,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7783855356803529081}
+  - component: {fileID: 3603172742026514714}
   - component: {fileID: 9088852514991569890}
   - component: {fileID: 7044453106230890998}
   - component: {fileID: 522180359754412203}
@@ -256,8 +256,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &7783855356803529081
-RectTransform:
+--- !u!4 &3603172742026514714
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -270,11 +270,6 @@ RectTransform:
   m_Father: {fileID: 5228303783942753771}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3.2, y: 1.6}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &9088852514991569890
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1142,7 +1137,7 @@ Transform:
   - {fileID: 5228303784783594413}
   - {fileID: 650829537}
   - {fileID: 3285783841525555693}
-  - {fileID: 7783855356803529081}
+  - {fileID: 3603172742026514714}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
