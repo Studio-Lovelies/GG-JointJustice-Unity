@@ -842,6 +842,10 @@ PrefabInstance:
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueList.Array.data[0].<NarrativeScript>k__BackingField
       value: 
+      objectReference: {fileID: 4900000, guid: 480c6cae1d71d411aaceb07d0cbe652a, type: 3}
+    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _dialogueList.Array.data[1].<NarrativeScript>k__BackingField
+      value: 
       objectReference: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name

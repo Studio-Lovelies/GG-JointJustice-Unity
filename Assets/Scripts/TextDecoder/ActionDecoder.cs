@@ -265,10 +265,9 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
 
-    private void CAMERA_PAN(float duration, int x, int y)
+    private void CAMERA_PAN(float duration, int x, int y, bool isBlocking = false)
     {
         SceneController.PanCamera(duration, new Vector2Int(x, y));
-        OnActionDone?.Invoke();
     }
 
     private void SHOW_ITEM(AssetName item, ItemDisplayPosition itemPos)
