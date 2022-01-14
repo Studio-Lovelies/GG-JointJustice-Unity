@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Ross
   m_EditorClassIdentifier: 
   <Profile>k__BackingField: {fileID: 21300000, guid: 54752dc9ae7593c4f8516d411bb6ffdd, type: 3}
-  <DefaultSprite>k__BackingField: {fileID: 0}
   <DisplayName>k__BackingField: Ross
   <Age>k__BackingField: 33
   _ageCertainty: 0
@@ -21,3 +20,5 @@ MonoBehaviour:
   <Bio>k__BackingField: Animator and self-described sadist. Also really loves milk
     for some reason.
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: fe3fd78ce64a446c0bb135d09a8a7fb0, type: 2}
+  <ShoutVariants>k__BackingField: []
+  <DialogueChirp>k__BackingField: {fileID: 0}

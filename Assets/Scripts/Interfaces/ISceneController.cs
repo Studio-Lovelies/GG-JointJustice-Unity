@@ -25,6 +25,7 @@ public interface ISceneController
     void Wait(float seconds);
     void HideItem();
     void PlayAnimation(string animationName);
+    void Shout(string actorName, string shoutName, bool allowRandomShouts);
     void IssuePenalty();
     void ReloadScene();
 }

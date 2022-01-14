@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Dan
   m_EditorClassIdentifier: 
   <Profile>k__BackingField: {fileID: 21300000, guid: ed609b8fe4846d14bad6bb5f2b3677e4, type: 3}
-  <DefaultSprite>k__BackingField: {fileID: 9095853184155359625, guid: 44a8b7dc9ea23e947a628cc07bb63832, type: 3}
   <DisplayName>k__BackingField: Dan
   <Age>k__BackingField: 41
   _ageCertainty: 0
@@ -21,3 +20,7 @@ MonoBehaviour:
   <Bio>k__BackingField: 'The other half of the Game Grumps. Known aliases: ''Danny
     Sexbang'', ''Mr. Business.'''
   <AnimatorController>k__BackingField: {fileID: 9100000, guid: 61d75a6dad4224b6f8e9591f88230da3, type: 2}
+  <ShoutVariants>k__BackingField:
+  - <Item1>k__BackingField: {fileID: 21300000, guid: acb9e7bf00fd28e4bbd6e2ba716692dc, type: 3}
+    <Item2>k__BackingField: {fileID: 8300000, guid: 5749791800682df44ba2962e157addc0, type: 3}
+  <DialogueChirp>k__BackingField: {fileID: 0}

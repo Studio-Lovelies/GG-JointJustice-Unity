@@ -315,6 +315,26 @@ public class ActionDecoder
         SceneController.ReloadScene();
     }
 
+    private void OBJECTION(string actorName)
+    {
+        SHOUT(actorName, "Objection", true);
+    }
+
+    private void TAKE_THAT(string actorName)
+    {
+        SHOUT(actorName, "TakeThat", true);
+    }
+
+    private void HOLD_IT(string actorName)
+    {
+        SHOUT(actorName, "HoldIt", true);
+    }
+
+    private void SHOUT(string actorName, string shoutName, bool allowRandomShouts = false)
+    {
+        SceneController.Shout(actorName, shoutName, allowRandomShouts);
+    }
+
     private void BEGIN_WITNESS_TESTIMONY()
     {
         SceneController.WitnessTestimonyActive = true;
@@ -326,7 +346,6 @@ public class ActionDecoder
         SceneController.WitnessTestimonyActive = false;
         OnActionDone?.Invoke();
     }
-    
     #endregion
 
     #region ActorController

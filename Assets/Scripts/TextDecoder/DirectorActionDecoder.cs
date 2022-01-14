@@ -32,6 +32,5 @@ public class DirectorActionDecoder : MonoBehaviour
             _onActionDone.Invoke();
         }
     }
-
     #endregion
 }

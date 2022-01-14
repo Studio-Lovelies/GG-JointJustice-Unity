@@ -31,6 +31,9 @@ public class ActorData : ScriptableObject, ICourtRecordObject
     [field: SerializeField, Tooltip("The animator controllers that this actor uses.")]
     public RuntimeAnimatorController AnimatorController { get; private set; }
 
+    [field: SerializeField, Tooltip("Drag sprites for any shout variations this actor has here.")]
+    public Pair<Sprite, AudioClip>[] ShoutVariants { get; private set; }
+    
     [field: SerializeField, Tooltip("The sound that plays when this actor talks.")]
     public AudioClip DialogueChirp { get; private set; }
 
