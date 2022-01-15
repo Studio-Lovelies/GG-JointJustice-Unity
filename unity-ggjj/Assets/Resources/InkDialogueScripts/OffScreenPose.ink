@@ -1,7 +1,7 @@
 //Do these before fading in, sets up the scene
 
 &SCENE:TMPHJudge
-&ACTOR:JudgeBrent
+&ACTOR:BrentJudge
 
 &SCENE:TMPHAssistant
 &ACTOR:Dan

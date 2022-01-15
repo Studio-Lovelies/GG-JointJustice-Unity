@@ -20,8 +20,8 @@ They are very nice.
 Now they are gone though.
 
 &SCENE:TMPHJudge
-&ACTOR:JudgeBrent
-&SPEAK:JudgeBrent
+&ACTOR:BrentJudge
+&SPEAK:BrentJudge
 Stop arguing both of you, I have the best item.
 
 &SHOW_ITEM:Jorys_Backpack, Middle

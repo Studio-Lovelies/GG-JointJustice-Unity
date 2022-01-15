@@ -20,6 +20,9 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag an EvidenceInventory component here")]
     [SerializeField] private EvidenceInventory _evidenceInventory;
 
+    [Tooltip("Drag an ActorInventory component here.")]
+    [SerializeField] private ActorInventory _actorInventory;
+
     [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
     [SerializeField] private Animatable _fullscreenAnimationPlayer;
 
@@ -27,14 +30,20 @@ public class SceneController : MonoBehaviour, ISceneController
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
     [Tooltip("Attach the screenshaker object here")]
-    [SerializeField] private ScreenShaker _screenShaker;
-    
+    [SerializeField] private ObjectShaker _objectShaker;
+
+    [Tooltip("Drag a Shout component here.")]
+    [SerializeField] private ShoutPlayer _shoutPlayer;
+
     [Tooltip("Drag a PenaltyManager object here.")]
     [SerializeField] private PenaltyManager _penaltyManager;
 
     [Tooltip("Drag a SceneLoader object here.")]
     [SerializeField] private SceneLoader _sceneLoader;
 
+    [Tooltip("Drag the witness testimony sign here.")]
+    [SerializeField] private GameObject _witnessTestimonySign;
+    
     [Header("Events")]
     [Tooltip("This event is called when a wait action is started.")]
     [SerializeField] private UnityEvent _onWaitStart;
@@ -53,8 +62,12 @@ public class SceneController : MonoBehaviour, ISceneController
 
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
-
     private BGScene _activeScene;
+
+    public bool WitnessTestimonyActive
+    {
+        set => _witnessTestimonySign.SetActive(value);
+    }
 
     /// <summary>
     /// Called when the object is initialized
@@ -69,7 +82,6 @@ public class SceneController : MonoBehaviour, ISceneController
         {
             _directorActionDecoder.Decoder.SceneController = this;
         }
-
     }
 
     /// <summary>
@@ -80,7 +92,8 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         if (_imageFader == null)
         {
-            Debug.LogError($"Could not begin fade in. {name} does not have a FadeToImageTransition component attached.");
+            Debug.LogError(
+                $"Could not begin fade in. {name} does not have a FadeToImageTransition component attached.");
             return;
         }
 
@@ -96,7 +109,8 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         if (_imageFader == null)
         {
-            Debug.LogError($"Could not begin fade out. {name} does not have a FadeToImageTransition component attached.");
+            Debug.LogError(
+                $"Could not begin fade out. {name} does not have a FadeToImageTransition component attached.");
             return;
         }
 
@@ -142,7 +156,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="background">Target bg-scene</param>
     public void SetScene(string background)
     {
-        _activeScene = _sceneList.SetScene(new SceneAssetName(background));
+        _activeScene = _sceneList.SetScene(new AssetName(background));
         if (_panToPositionCoroutine != null)
         {
             StopCoroutine(_panToPositionCoroutine);
@@ -172,7 +186,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="isBlocking">Whether the system waits for the shake to complete before continuing.</param>
     public void ShakeScreen(float intensity, float duration, bool isBlocking)
     {
-        _screenShaker.Shake(intensity, duration, isBlocking);
+        _objectShaker.Shake(intensity * 10f, intensity / 10f, duration, isBlocking);
 
         if (!isBlocking)
         {
@@ -341,7 +355,19 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <returns>Unit position from pixel position</returns>
     public Vector2 PixelPositionToUnitPosition(Vector2Int pixelPosition)
     {
-        return new Vector2((float)(pixelPosition.x * -1) / _pixelsPerUnit, (float)(pixelPosition.y * -1) / _pixelsPerUnit);
+        return new Vector2((float)(pixelPosition.x * -1) / _pixelsPerUnit,
+            (float)(pixelPosition.y * -1) / _pixelsPerUnit);
+    }
+
+    /// <summary>
+    /// Makes a specified actor shout a specific phrase.
+    /// </summary>
+    /// <param name="actorName">The name of the actor to shout.</param>
+    /// <param name="shoutName">The name of the scout.</param>
+    /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
+    public void Shout(string actorName, string shoutName, bool allowRandomShouts)
+    {
+        _shoutPlayer.Shout(_actorInventory[actorName].ShoutVariants, shoutName, allowRandomShouts);
     }
 
     /// <summary>

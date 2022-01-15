@@ -15,7 +15,7 @@ public class BGSceneList : MonoBehaviour
         _scenesInChildren = new Dictionary<string, BGScene>();
         foreach (BGScene scene in GetComponentsInChildren<BGScene>(true))
         {
-            _scenesInChildren.Add(new SceneAssetName(scene.gameObject.name), scene);
+            _scenesInChildren.Add(new AssetName(scene.gameObject.name), scene);
         }
     }
 
@@ -24,7 +24,7 @@ public class BGSceneList : MonoBehaviour
     /// </summary>
     /// <param name="sceneName">name of the target scene</param>
     /// <returns>The new active scene. Can be null if an error occurred.</returns>
-    public BGScene SetScene(SceneAssetName sceneName) //TODO: Change this when making file names universal
+    public BGScene SetScene(AssetName sceneName) //TODO: Change this when making file names universal
     {
         if (!_scenesInChildren.ContainsKey(sceneName))
         {

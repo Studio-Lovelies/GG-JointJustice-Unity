@@ -9,6 +9,8 @@ public enum ItemDisplayPosition
 
 public interface ISceneController
 {
+    bool WitnessTestimonyActive { set; }
+    
     void FadeIn(float seconds);
     void FadeOut(float seconds);
     void ShakeScreen(float intensity, float duration, bool isBlocking);
@@ -23,6 +25,7 @@ public interface ISceneController
     void Wait(float seconds);
     void HideItem();
     void PlayAnimation(string animationName);
+    void Shout(string actorName, string shoutName, bool allowRandomShouts);
     void IssuePenalty();
     void ReloadScene();
 }
