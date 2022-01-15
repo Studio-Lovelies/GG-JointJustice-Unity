@@ -1,15 +1,11 @@
 name: Generate game builds
 on: 
   push:
-    paths:
-      - 'unity-ggjj'
     branches:
       - develop
       - master
       - releasecandidate/*
   pull_request:
-    paths:
-      - 'unity-ggjj'
     branches:
       - develop
       - master
@@ -20,6 +16,10 @@ on:
         description: 'Upload to GitHub Releases and itch.io?'
         required: true
         default: 'false'
+        
+concurrency: 
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
 
 jobs:
   # Get version number from ProjectSettings/ProjectSettings.asset -> PlayerSettings/bundleVersion
