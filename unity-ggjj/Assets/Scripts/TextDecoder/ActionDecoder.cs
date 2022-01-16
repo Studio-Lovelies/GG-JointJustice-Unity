@@ -243,9 +243,9 @@ public class ActionDecoder
     /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor to add to the court record</param>
     /// <example>&amp;ADD_RECORD:Jory</example>
     /// <category>Evidence</category>
-    private void ADD_RECORD(ActorAssetName actor)
+    private void ADD_RECORD(ActorAssetName actorName)
     {
-        EvidenceController.AddToCourtRecord(actor);
+        EvidenceController.AddToCourtRecord(actorName);
         OnActionDone?.Invoke();
     }
 
@@ -437,36 +437,36 @@ public class ActionDecoder
     }
 
     /// <summary>Plays an "Objection!" animation and soundeffect for the specified actor.</summary>
-    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;OBJECTION:Arin</example>
-    /// <category>dialogue</category>
+    /// <category>Dialogue</category>
     private void OBJECTION(ActorAssetName actorName)
     {
         SHOUT(actorName, "Objection", true);
     }
 
     /// <summary>Plays a "Take that!" animation and soundeffect for the specified actor.</summary>
-    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;TAKE_THAT:Arin</example>
-    /// <category>dialogue</category>
+    /// <category>Dialogue</category>
     private void TAKE_THAT(ActorAssetName actorName)
     {
         SHOUT(actorName, "TakeThat", true);
     }
 
     /// <summary>Plays a "Hold it!" animation and soundeffect for the specified actor.</summary>
-    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;HOLD_IT:Arin</example>
-    /// <category>dialogue</category>
+    /// <category>Dialogue</category>
     private void HOLD_IT(ActorAssetName actorName)
     {
         SHOUT(actorName, "HoldIt", true);
     }
 
     /// <summary>Sets the current shown actor on screen to the one provided. Starts it in the normal pose.</summary>
-    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actorName</param>
     /// <example>&amp;SHOUT:Arin,OBJECTION,false</example>
-    /// <category>actor</category>
+    /// <category>Dialogue</category>
     private void SHOUT(ActorAssetName actorName, string shoutName, bool allowRandomShouts = false)
     {
         SceneController.Shout(actorName, shoutName, allowRandomShouts);
@@ -493,12 +493,12 @@ public class ActionDecoder
 
     #region ActorController
     /// <summary>Sets the current shown actor on screen to the one provided. Starts it in the normal pose.</summary>
-    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;ACTOR:Arin</example>
     /// <category>Actor</category>
-    private void ACTOR(ActorAssetName actor)
+    private void ACTOR(ActorAssetName actorName)
     {
-        ActorController.SetActiveActor(actor);
+        ActorController.SetActiveActor(actorName);
         OnActionDone?.Invoke();
     }
 
@@ -522,32 +522,32 @@ public class ActionDecoder
     }
 
     /// <summary>Makes the next non-action line spoken by the provided actor. If the speaking actor matches the actor on screen, it makes their mouth move when speaking.</summary>
-    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;SPEAK:Arin</example>
     /// <category>Actor</category>
-    private void SPEAK(ActorAssetName actor)
+    private void SPEAK(ActorAssetName actorName)
     {
-        SetSpeaker(actor, SpeakingType.Speaking);
+        SetSpeaker(actorName, SpeakingType.Speaking);
         OnActionDone?.Invoke();
     }
 
     /// <summary>Makes the next non-action line spoken by the provided actor. Doesn't make the actor's mouth.</summary>
-    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;THINK:Arin</example>
     /// <category>Actor</category>
-    private void THINK(ActorAssetName actor)
+    private void THINK(ActorAssetName actorName)
     {
-        SetSpeaker(actor, SpeakingType.Thinking);
+        SetSpeaker(actorName, SpeakingType.Thinking);
         OnActionDone?.Invoke();
     }
 
     /// <summary>Makes the next non-action line spoken by the provided actor but hides the name.</summary>
-    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;SPEAK_UNKNOWN:Arin</example>
     /// <category>Actor</category>
-    private void SPEAK_UNKNOWN(ActorAssetName actor)
+    private void SPEAK_UNKNOWN(ActorAssetName actorName)
     {
-        SetSpeaker(actor, SpeakingType.SpeakingWithUnknownName);
+        SetSpeaker(actorName, SpeakingType.SpeakingWithUnknownName);
         OnActionDone?.Invoke();
     }
 
@@ -561,15 +561,15 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
 
-    private void SetSpeaker(ActorAssetName actor, SpeakingType speakingType)
+    private void SetSpeaker(ActorAssetName actorName, SpeakingType speakingType)
     {
-        ActorController.SetActiveSpeaker(actor, speakingType);
+        ActorController.SetActiveSpeaker(actorName, speakingType);
         ActorController.SetSpeakingType(speakingType);
     }
 
     /// <summary>Makes the currently shown actor switch to target pose. Plays any animation associated with target pose / emotion, but doesn't wait until it is finished before continuing.</summary>
     /// <param name="poseName" validFiles="Assets/Animations/{ActorAssetName}/*.anim">Poses defined per Actor</param>
-    /// <param name="optional_targetActor" validFiles="Assets/ScriptableObjects/Actors/*.asset">(optional) ame of the actor</param>
+    /// <param name="optional_targetActor" validFiles="Assets/ScriptableObjects/Actors/*.asset">(optional) Name of the actor</param>
     /// <example>&amp;SET_POSE:Normal</example>
     /// <category>Actor</category>
     private void SET_POSE(ActorPoseAssetName poseName, ActorAssetName optional_targetActor = null)
@@ -587,7 +587,7 @@ public class ActionDecoder
 
     /// <summary>Makes the currently shown actor perform target emotion (fancy word animation on an actor). Practically does the same as SET_POSE, but waits for the emotion to complete. Doesn't work on all poses, possible ones are flagged.</summary>
     /// <param name="poseName" validFiles="Assets/Animations/{ActorAssetName}/*.anim">Poses defined per Actor</param>
-    /// <param name="optional_targetActor" validFiles="Assets/ScriptableObjects/Actors/*.asset">(optional) name of the actor</param>
+    /// <param name="optional_targetActor" validFiles="Assets/ScriptableObjects/Actors/*.asset">(optional) Name of the actor</param>
     /// <example>&amp;PLAY_EMOTION:Nodding</example>
     /// <category>Actor</category>
     private void PLAY_EMOTION(ActorPoseAssetName poseName, ActorAssetName? optional_targetActor = null)
