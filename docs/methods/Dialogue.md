@@ -106,7 +106,7 @@ Examples:
 
 Waits for completion
 
-Sets the current shown actor on screen to the one provided. Starts it in the normal pose.
+Uses the specified actor to play the specified shout.
 
 Examples: 
   - `&SHOUT:Arin,OBJECTION,false`
