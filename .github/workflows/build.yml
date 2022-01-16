@@ -109,10 +109,10 @@ jobs:
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
-          path: Library
+          path: unity-ggjj/Library
           key: Library-${{ hashFiles('unity-ggjj/Assets/**', 'unity-ggjj/Packages/**', 'unity-ggjj/ProjectSettings/**') }}
           restore-keys: |
-            Library-
+            unity-ggjj/Library-
 
       - name: Build project
         uses: game-ci/unity-builder@v2
