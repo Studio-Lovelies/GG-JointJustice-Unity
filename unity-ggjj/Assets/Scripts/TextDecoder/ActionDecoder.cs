@@ -482,7 +482,7 @@ public class ActionDecoder
     }
 
     /// <summary>Disables the flashing witness testimony sign in the upper left corner of the screen.</summary>
-    /// <example>&amp;BEGIN_WITNESS_TESTIMONY</example>
+    /// <example>&amp;END_WITNESS_TESTIMONY</example>
     /// <category>Cross Examination</category>
     private void END_WITNESS_TESTIMONY()
     {
