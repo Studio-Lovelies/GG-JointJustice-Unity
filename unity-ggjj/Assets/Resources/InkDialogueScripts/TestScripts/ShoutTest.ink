@@ -1,5 +1,5 @@
 &SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
+&ACTOR:JudgeBrent
 
 &SCENE:TMPH_Assistant
 &ACTOR:Dan
