@@ -74,3 +74,39 @@ Hides the dialogue textbox until the next line of dialogue.
 
 Examples: 
   - `&HIDE_TEXTBOX`
+
+## OBJECTION
+
+Waits for completion
+
+Plays an "Objection!" animation and soundeffect for the specified actor.
+
+Examples: 
+  - `&OBJECTION:Arin`
+
+## TAKE_THAT
+
+Waits for completion
+
+Plays a "Take that!" animation and soundeffect for the specified actor.
+
+Examples: 
+  - `&TAKE_THAT:Arin`
+
+## HOLD_IT
+
+Waits for completion
+
+Plays a "Hold it!" animation and soundeffect for the specified actor.
+
+Examples: 
+  - `&HOLD_IT:Arin`
+
+## SHOUT
+
+Waits for completion
+
+Sets the current shown actor on screen to the one provided. Starts it in the normal pose.
+
+Examples: 
+  - `&SHOUT:Arin,OBJECTION,false`
