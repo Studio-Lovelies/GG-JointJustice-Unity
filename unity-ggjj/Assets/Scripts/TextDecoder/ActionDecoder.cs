@@ -240,7 +240,7 @@ public class ActionDecoder
     }
 
     /// <summary>Adds the provided actor to the court record.</summary>
-    /// <param name="actor" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor to add to the court record</param>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor to add to the court record</param>
     /// <example>&amp;ADD_RECORD:Jory</example>
     /// <category>Evidence</category>
     private void ADD_RECORD(ActorAssetName actorName)
