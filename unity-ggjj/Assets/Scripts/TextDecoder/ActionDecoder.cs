@@ -463,8 +463,9 @@ public class ActionDecoder
         SHOUT(actorName, "HoldIt", true);
     }
 
-    /// <summary>Sets the current shown actor on screen to the one provided. Starts it in the normal pose.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actorName</param>
+    /// <summary>Uses the specified actor to play the specified shout.</summary>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor to use</param>
+    /// <param name="shoutName" validFiles="Assets/Images/Shouts/*.png">Name of the shout to play</param>
     /// <example>&amp;SHOUT:Arin,OBJECTION,false</example>
     /// <category>Dialogue</category>
     private void SHOUT(ActorAssetName actorName, string shoutName, bool allowRandomShouts = false)
