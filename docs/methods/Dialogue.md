@@ -110,3 +110,39 @@ Uses the specified actor to play the specified shout.
 
 Examples: 
   - `&SHOUT:Arin,OBJECTION,false`
+
+## SPEAK
+
+⏲ Instant
+
+Makes the next non-action line spoken by the provided actor. If the speaking actor matches the actor on screen, it makes their mouth move when speaking.
+
+Examples: 
+  - `&SPEAK:Arin`
+
+## THINK
+
+⏲ Instant
+
+Makes the next non-action line spoken by the provided actor. Doesn't make the actor's mouth.
+
+Examples: 
+  - `&THINK:Arin`
+
+## SPEAK_UNKNOWN
+
+⏲ Instant
+
+Makes the next non-action line spoken by the provided actor but hides the name.
+
+Examples: 
+  - `&SPEAK_UNKNOWN:Arin`
+
+## NARRATE
+
+⏲ Instant
+
+Makes the next non-action line spoken by a "narrator" actor.
+
+Examples: 
+  - `&NARRATE:Arin`
