@@ -321,7 +321,7 @@ public class ActionDecoder
     /// <summary>Pans the camera over a given amount of time to a given position in a straight line. Continues story after starting. Use WAIT to add waiting for completion.</summary>
     /// <param name="duration">number of seconds for the fade in to take. Decimal numbers allowed</param>
     /// <param name="x">x axis position to pan to (0 is the default position)</param>
-    /// <param name="y">x axis position to pan to (0 is the default position)</param>
+    /// <param name="y">y axis position to pan to (0 is the default position)</param>
     /// <example>&amp;CAMERA_PAN:2,0,-204</example>
     /// <category>Scene</category>
     private void CAMERA_PAN(float duration, int x, int y)
@@ -332,7 +332,7 @@ public class ActionDecoder
 
     /// <summary>Sets the camera to a given position.</summary>
     /// <param name="x">x axis position to pan to (0 is the default position)</param>
-    /// <param name="y">x axis position to pan to (0 is the default position)</param>
+    /// <param name="y">y axis position to pan to (0 is the default position)</param>
     /// <example>&amp;CAMERA_SET:0,-204</example>
     /// <category>Scene</category>
     private void CAMERA_SET(int x, int y)
