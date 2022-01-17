@@ -525,7 +525,7 @@ public class ActionDecoder
     /// <summary>Makes the next non-action line spoken by the provided actor. If the speaking actor matches the actor on screen, it makes their mouth move when speaking.</summary>
     /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;SPEAK:Arin</example>
-    /// <category>Actor</category>
+    /// <category>Dialogue</category>
     private void SPEAK(ActorAssetName actorName)
     {
         SetSpeaker(actorName, SpeakingType.Speaking);
@@ -535,7 +535,7 @@ public class ActionDecoder
     /// <summary>Makes the next non-action line spoken by the provided actor. Doesn't make the actor's mouth.</summary>
     /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;THINK:Arin</example>
-    /// <category>Actor</category>
+    /// <category>Dialogue</category>
     private void THINK(ActorAssetName actorName)
     {
         SetSpeaker(actorName, SpeakingType.Thinking);
@@ -545,7 +545,7 @@ public class ActionDecoder
     /// <summary>Makes the next non-action line spoken by the provided actor but hides the name.</summary>
     /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;SPEAK_UNKNOWN:Arin</example>
-    /// <category>Actor</category>
+    /// <category>Dialogue</category>
     private void SPEAK_UNKNOWN(ActorAssetName actorName)
     {
         SetSpeaker(actorName, SpeakingType.SpeakingWithUnknownName);
@@ -554,7 +554,7 @@ public class ActionDecoder
 
     /// <summary>Makes the next non-action line spoken by a "narrator" actor.</summary>
     /// <example>&amp;NARRATE:Arin</example>
-    /// <category>Actor</category>
+    /// <category>Dialogue</category>
     private void NARRATE()
     {
         ActorController.SetActiveSpeakerToNarrator();
