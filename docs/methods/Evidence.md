@@ -2,7 +2,7 @@
 Values: 
   - [Name of evidence to add](../constants.md#EvidenceAssetName)
 
-Instant
+⏲ Instant
 
 Adds the provided evidence to the court record.
 
@@ -11,7 +11,7 @@ Examples:
 
 ## REMOVE_EVIDENCE
 
-Instant
+⏲ Instant
 
 Removes the provided evidence from the court record.
 
@@ -22,7 +22,7 @@ Examples:
 Values: 
   - [Name of the actor to add to the court record](../constants.md#ActorAssetName)
 
-Instant
+⏲ Instant
 
 Adds the provided actor to the court record.
 
@@ -31,7 +31,7 @@ Examples:
 
 ## PRESENT_EVIDENCE
 
-Waits for completion
+⏳ Waits for completion
 
 Forces the evidence menu open and doesn't continue the story until the player presents evidence.
 
@@ -40,7 +40,7 @@ Examples:
 
 ## SUBSTITUTE_EVIDENCE
 
-Instant
+⏲ Instant
 
 Substitutes the provided evidence for their substitute.
 

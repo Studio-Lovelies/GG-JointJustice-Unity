@@ -2,7 +2,7 @@
 Values: 
   - number of seconds for the fade out to take. Decimal numbers allowed
 
-Waits for completion
+⏳ Waits for completion
 
 Fades the screen to black, only works if not faded out.
 
@@ -13,7 +13,7 @@ Examples:
 Values: 
   - number of seconds for the fade in to take. Decimal numbers allowed
 
-Waits for completion
+⏳ Waits for completion
 
 Fades the screen in from black, only works if faded out.
 
@@ -24,9 +24,9 @@ Examples:
 Values: 
   - number of seconds for the fade in to take. Decimal numbers allowed
   - x axis position to pan to (0 is the default position)
-  - x axis position to pan to (0 is the default position)
+  - y axis position to pan to (0 is the default position)
 
-Instant
+⏲ Instant
 
 Pans the camera over a given amount of time to a given position in a straight line. Continues story after starting. Use WAIT to add waiting for completion.
 
@@ -36,9 +36,9 @@ Examples:
 ## CAMERA_SET
 Values: 
   - x axis position to pan to (0 is the default position)
-  - x axis position to pan to (0 is the default position)
+  - y axis position to pan to (0 is the default position)
 
-Instant
+⏲ Instant
 
 Sets the camera to a given position.
 
@@ -51,7 +51,7 @@ Values:
   - Decimal number representing the duration of the shake in seconds
   - (Optional, `false` by default) `true` or `false` for whether the narrative script should continue immediately (`false`) or wait for the shake to finish (`true`)
 
-Waits for completion
+⏳ Waits for completion
 
 Shakes the screen.
 
@@ -62,7 +62,7 @@ Examples:
 Values: 
   - [Name of a scene](../constants.md#SceneAssetName)
 
-Instant
+⏲ Instant
 
 Sets the scene. If an actor was already attached to target scene, it will show up as well.
 
@@ -71,7 +71,7 @@ Examples:
 
 ## SHOW_ITEM
 
-Instant
+⏲ Instant
 
 Shows the given evidence on the screen in the given position.
 
@@ -80,7 +80,7 @@ Examples:
 
 ## HIDE_ITEM
 
-Instant
+⏲ Instant
 
 Hides the item shown when using SHOW_ITEM.
 
@@ -91,7 +91,7 @@ Examples:
 Values: 
   - [Name of a fullscreen animation to play](../constants.md#FullscreenAnimationAssetName)
 
-Waits for completion
+⏳ Waits for completion
 
 Plays a fullscreen animation.
 
@@ -102,7 +102,7 @@ Examples:
 Values: 
   - Whole number representing the target sub-position of the currently active scene
 
-Instant
+⏲ Instant
 
 Makes the camera jump to focus on the target sub-position of the currently active scene.
 
@@ -114,7 +114,7 @@ Values:
   - Whole number representing the target sub-position of the currently active scene
   - Decimal number representing the amount of time the pan should take in seconds
 
-Waits for completion
+⏳ Waits for completion
 
 Makes the camera pan to focus on the target sub-position of the currently active scene. Takes the provided amount of time to complete. If you want the system to wait for completion, call WAIT with the appropriate amount of seconds afterwards.
 
@@ -123,7 +123,7 @@ Examples:
 
 ## RELOAD_SCENE
 
-Waits for completion
+⏳ Waits for completion
 
 Restarts the currently playing script from the beginning.
 

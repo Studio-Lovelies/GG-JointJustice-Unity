@@ -1,6 +1,6 @@
 ## ISSUE_PENALTY
 
-Instant
+⏲ Instant
 
 Issues a penalty / deducts one of the attempts available to a player to find the correct piece of evidence or actor during a cross examinaton.
 
@@ -9,7 +9,7 @@ Examples:
 
 ## BEGIN_WITNESS_TESTIMONY
 
-Instant
+⏲ Instant
 
 Enables the flashing witness testimony sign in the upper left corner of the screen.
 
@@ -18,7 +18,7 @@ Examples:
 
 ## END_WITNESS_TESTIMONY
 
-Instant
+⏲ Instant
 
 Disables the flashing witness testimony sign in the upper left corner of the screen.
 

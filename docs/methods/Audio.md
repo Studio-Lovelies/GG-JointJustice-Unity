@@ -2,7 +2,7 @@
 Values: 
   - [Filename of a sound effect](../constants.md#SfxAssetName)
 
-Instant
+⏲ Instant
 
 Plays provided SFX.
 
@@ -13,7 +13,7 @@ Examples:
 Values: 
   - [Filename of a song](../constants.md#SongAssetName)
 
-Instant
+⏲ Instant
 
 Plays the provided song. Stops the current one. Loops infinitely.
 
@@ -22,7 +22,7 @@ Examples:
 
 ## STOP_SONG
 
-Instant
+⏲ Instant
 
 If music is currently playing, stop it.
 
