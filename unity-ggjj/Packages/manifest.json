@@ -13,6 +13,7 @@
     "com.unity.ide.vscode": "1.2.3",
     "com.unity.inputsystem": "1.0.2",
     "com.unity.test-framework": "1.1.27",
+    "com.unity.testtools.codecoverage": "1.1.1",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.4.8",
     "com.unity.ugui": "1.0.0",
@@ -57,5 +58,7 @@
       ]
     }
   ],
-  "testables": [ "com.unity.inputsystem" ] 
+  "testables": [
+    "com.unity.inputsystem"
+  ]
 }

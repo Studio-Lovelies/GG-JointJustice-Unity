@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Savefiles;
 using UnityEngine;
 
 public class ActionDecoder
@@ -83,6 +84,7 @@ public class ActionDecoder
                 }
                 catch (ArgumentException e)
                 {
+<<<<<<< HEAD
                     var pattern = new Regex(@"Requested value '(.*)' was not found\.");
                     var match = pattern.Match(e.Message);
                     if (match.Success)
@@ -91,6 +93,11 @@ public class ActionDecoder
                     }
 
                     if (e.Message == "Must specify valid information for parsing in the string.")
+=======
+                    Regex pattern = new Regex(@"Requested value '(.*)' was not found\.");
+                    Match match = pattern.Match(e.Message);
+                    if (match.Success)
+>>>>>>> 9f660eb8 (Added save file management (via C# and UNLOCK_CHAPTER action line))
                     {
                         throw new TextDecoder.Parser.ScriptParsingException($"'' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a => a.ToString()))}')");
                     }
@@ -617,6 +624,19 @@ public class ActionDecoder
     private void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
     {
         ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
+        OnActionDone?.Invoke();
+    }
+
+    /// <summary>Unlocks a new chapter inside the chapter select. **(This is persistent, even when the game is restarted!)**</summary>
+    /// <param name="chapter">Name of the chapter to unlock</param>
+    /// <example>&amp;UNLOCK_CHAPTER:CHAPTER_2</example>
+    /// <example>&amp;UNLOCK_CHAPTER:BONUS_CHAPTER_2</example>
+    /// <category>Progression</category>
+    private void UNLOCK_CHAPTER(Savefiles.SaveData.Progression.Chapters chapter)
+    {
+        _savefileProxy.UpdateCurrentSaveData((ref SaveData data) => {
+            data.GameProgression.UnlockedChapters.AddChapter(chapter);
+        });
         OnActionDone?.Invoke();
     }
     #endregion
