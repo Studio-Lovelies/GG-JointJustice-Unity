@@ -2,7 +2,7 @@
 Values: 
   - Time in seconds, use `.` (not `,`) for decimal places.
 
-Instant
+⏲ Instant
 
 Makes regular letters take the given amount of seconds before showing the next letter in dialogue.
 
@@ -15,7 +15,7 @@ Examples:
 Values: 
   - Time in seconds, use `.` (not `,`) for decimal places.
 
-Instant
+⏲ Instant
 
 Makes punctuation take the given amount of seconds before showing the next letter in dialogue.
 
@@ -28,7 +28,7 @@ Examples:
 Values: 
   - Set to either `true` or `false` to enable or disable automatic dialogue skipping respectively.
 
-Instant
+⏲ Instant
 
 Starts or stops autoskipping of dialogue, where it automatically continues after it is done.
 
@@ -40,7 +40,7 @@ Examples:
 Values: 
   - Set to either `true` or `false` to not speedup or speedup text respectively.
 
-Instant
+⏲ Instant
 
 Disables or enables text speedup. Enabled by default.
 
@@ -50,7 +50,7 @@ Examples:
 
 ## CONTINUE_DIALOGUE
 
-Instant
+⏲ Instant
 
 Makes the next dialogue add to the current one instead of replacing it.
 
@@ -59,7 +59,7 @@ Examples:
 
 ## APPEAR_INSTANTLY
 
-Instant
+⏲ Instant
 
 Makes the next line of dialogue appear all at once, instead of character by character.
 
@@ -68,7 +68,7 @@ Examples:
 
 ## HIDE_TEXTBOX
 
-Instant
+⏲ Instant
 
 Hides the dialogue textbox until the next line of dialogue.
 
@@ -77,7 +77,7 @@ Examples:
 
 ## OBJECTION
 
-Waits for completion
+⏳ Waits for completion
 
 Plays an "Objection!" animation and soundeffect for the specified actor.
 
@@ -86,7 +86,7 @@ Examples:
 
 ## TAKE_THAT
 
-Waits for completion
+⏳ Waits for completion
 
 Plays a "Take that!" animation and soundeffect for the specified actor.
 
@@ -95,7 +95,7 @@ Examples:
 
 ## HOLD_IT
 
-Waits for completion
+⏳ Waits for completion
 
 Plays a "Hold it!" animation and soundeffect for the specified actor.
 
@@ -104,7 +104,7 @@ Examples:
 
 ## SHOUT
 
-Waits for completion
+⏳ Waits for completion
 
 Uses the specified actor to play the specified shout.
 
