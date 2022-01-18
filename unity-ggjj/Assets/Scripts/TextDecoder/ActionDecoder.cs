@@ -508,21 +508,15 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
 
-    /// <summary>Shows or hides the actor on the screen. Has to be re-done after switching a scene.</summary>
-    /// <param name="shouldShow">whether to show (`true`) or not show (`false`) an actor</param>
-    /// <example>&amp;SHOW_ACTOR:true</example>
-    /// <example>&amp;SHOW_ACTOR:false</example>
+    /// <summary>Shows or hides all actors in the scene. Has to be re-done after switching a scene.</summary>
+    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="shouldShow">whether to show (`true`) or not show (`false`) all actors</param>
+    /// <example>&amp;SHOW_ACTOR:Arin,true</example>
+    /// <example>&amp;SHOW_ACTOR:Arin,false</example>
     /// <category>Actor</category>
-    private void SHOW_ACTOR(bool shouldShow)
+    private void SHOW_ACTOR(ActorAssetName actorName, bool shouldShow)
     {
-        if (shouldShow)
-        {
-            SceneController.ShowActor();
-        }
-        else
-        {
-            SceneController.HideActor();
-        }
+        ActorController.SetVisibility(actorName, shouldShow);
 
         OnActionDone?.Invoke();
     }

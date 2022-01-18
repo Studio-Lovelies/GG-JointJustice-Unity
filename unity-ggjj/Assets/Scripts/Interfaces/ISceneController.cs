@@ -20,8 +20,6 @@ public interface ISceneController
     void PanToActorSlot(int oneBasedSlotIndex, float seconds);
     void JumpToActorSlot(int oneBasedSlotIndex);
     void ShowItem(string item, ItemDisplayPosition position);
-    void ShowActor();
-    void HideActor();
     void Wait(float seconds);
     void HideItem();
     void PlayAnimation(string animationName);

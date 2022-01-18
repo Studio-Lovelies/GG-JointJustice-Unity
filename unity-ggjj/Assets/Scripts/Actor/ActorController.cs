@@ -37,8 +37,7 @@ public class ActorController : MonoBehaviour, IActorController
         }
 
         _directorActionDecoder.Decoder.ActorController = this;
-    }
-
+    } 
     /// <summary>
     /// Connect to an event that exposes the active scene when it changes.
     /// </summary>
@@ -60,6 +59,7 @@ public class ActorController : MonoBehaviour, IActorController
             actor.AttachController(this);
         }
     }
+
 
     /// <summary>
     /// Retrieves actor data from the actor dictionary and uses it set the active actor.
@@ -298,5 +298,10 @@ public class ActorController : MonoBehaviour, IActorController
             tempActor.SetActor(null);
             Debug.Log($"{exception.GetType().Name}: Actor {actor} was not found in actor dictionary");
         }
+    }
+
+    public void SetVisibility(string actorName, bool shouldShow)
+    {
+        _actorDataToActor[_actorInventory[actorName]].GetComponent<Renderer>().enabled = shouldShow;
     }
 }
