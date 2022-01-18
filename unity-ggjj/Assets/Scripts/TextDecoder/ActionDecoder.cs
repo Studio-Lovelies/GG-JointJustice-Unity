@@ -263,12 +263,13 @@ public class ActionDecoder
     }
 
     /// <summary>Substitutes the provided evidence for their substitute.</summary>
-    /// <param name="evidence" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of evidence to replace with their substitute</param>
-    /// <example>&amp;SUBSTITUTE_EVIDENCE:Plumber_Invoice</example>
+    /// <param name="initialEvidenceName" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of evidence to replace with the substitute</param>
+    /// <param name="substituteEvidenceName" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of the substitute evidence</param>
+    /// <example>&amp;SUBSTITUTE_EVIDENCE:Plumber_Invoice,Bent_Coins_1</example>
     /// <category>Evidence</category>
-    private void SUBSTITUTE_EVIDENCE(EvidenceAssetName evidence)
+    private void SUBSTITUTE_EVIDENCE(EvidenceAssetName initialEvidenceName, EvidenceAssetName substituteEvidenceName)
     {
-        EvidenceController.SubstituteEvidenceWithAlt(evidence);
+        EvidenceController.SubstituteEvidence(initialEvidenceName, substituteEvidenceName);
         OnActionDone?.Invoke();
     }
     #endregion
