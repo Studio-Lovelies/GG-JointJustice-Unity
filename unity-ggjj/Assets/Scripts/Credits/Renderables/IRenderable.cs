@@ -1,7 +1,9 @@
-﻿namespace Credits.Renderables
+﻿using UnityEngine;
+
+namespace Credits.Renderables
 {
     public interface IRenderable
     {
-        public void Render();
+        public GameObject Render(GameObject prefab);
     }
 }

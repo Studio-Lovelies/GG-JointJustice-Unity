@@ -1,8 +1,8 @@
-Game Grumps: Joint Justice
+# Game Grumps: Joint Justice
 
-A Game By
-![studio logo not game logo](studiolovelies.png)
+# A Game By
 
+![studio logo not game logo](Credits/studio-lovelies-logo)
 
 
 # Project Founder
@@ -267,4 +267,4 @@ little passion project a shot. We hope you enjoyed it!
 
 
 
-![game logo not studio logo](main-logo-flipped.png)
+![game logo not studio logo](Credits/game-grumps-joint-justice-logo)

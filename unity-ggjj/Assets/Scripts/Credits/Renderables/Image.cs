@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Credits.Renderables
 {
@@ -20,9 +21,14 @@ namespace Credits.Renderables
             }
         }
 
-        public void Render()
+        public GameObject Render(GameObject prefab)
         {
-            throw new System.NotImplementedException();
+            var instance = Object.Instantiate(prefab);
+            var imageComponent = instance.GetComponent<UnityEngine.UI.Image>();
+            imageComponent.sprite = image;
+            var rectTransform = instance.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = new Vector2(image.texture.width / image.pixelsPerUnit, image.texture.height / image.pixelsPerUnit);
+            return instance;
         }
     }
 }
