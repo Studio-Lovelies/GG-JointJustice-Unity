@@ -72,16 +72,19 @@ CreatrixTiara
 Eliot "BabyChunks" Laquerre
 Evan "HyperTurtle77" Hall
 Flamryn
+
 Gof / King Peggy
 Hollie "Koda NootNoot" (@kodaplanetearth)
 Joshua "Fatalismus" (@SFatalismus)
 JunkratsPegleg
 JustChad (@JustChadTweets)
+
 MaddCat
 Marker
 Megasaurus
 Peter
 Phil71X
+
 Pi on my Cake
 SpookTroop
 Theta
@@ -264,7 +267,6 @@ and mystery and for inspiring our game.
 
 Finally, to YOU, the player. Thank you for giving our
 little passion project a shot. We hope you enjoyed it!
-
 
 
 ![game logo not studio logo](Credits/game-grumps-joint-justice-logo)
