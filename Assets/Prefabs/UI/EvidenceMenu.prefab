@@ -2623,6 +2623,7 @@ MonoBehaviour:
   _evidenceIcon: {fileID: 9162846178544409735}
   _menuLabel: {fileID: 2674505899918704708}
   _profilesMenuLabel: {fileID: 21300000, guid: 13548d0fe222cd04cb495b127d27b5d9, type: 3}
+  _profilesToggleText: {fileID: 2942569728503895264}
   _evidenceMenuItems:
   - {fileID: 5020426716776722563}
   - {fileID: 2663230014282143627}
@@ -2633,7 +2634,9 @@ MonoBehaviour:
   - {fileID: 8899076232205376421}
   - {fileID: 5946502058700881750}
   - {fileID: 3921010900330373722}
-  _navigationButtons: []
+  _navigationButtons:
+  - {fileID: 2787741540604910014}
+  - {fileID: 4887824604345865577}
   _onEvidenceClicked:
     m_PersistentCalls:
       m_Calls:

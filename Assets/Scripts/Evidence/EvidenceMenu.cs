@@ -31,6 +31,9 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag the sprite used for the profiles menu label.")]
     private Sprite _profilesMenuLabel;
 
+    [SerializeField, Tooltip("Drag the 'Profiles' text from the controls bar here")]
+    private TextMeshProUGUI _profilesToggleText;
+
     [SerializeField, Tooltip("The boxes used to represent menu items.")]
     private EvidenceMenuItem[] _evidenceMenuItems;
     
@@ -244,12 +247,14 @@ public class EvidenceMenu : MonoBehaviour
             _profileMenuActive = false;
             _activeDictionary = _evidenceInventory;
             _menuLabel.sprite = _evidenceMenuLabel;
+            _profilesToggleText.text = "Profiles";
         }
         else
         {
             _profileMenuActive = true;
             _activeDictionary = _actorInventory;
             _menuLabel.sprite = _profilesMenuLabel;
+            _profilesToggleText.text = "Evidence";
         }
         
         UpdateEvidenceMenu();
