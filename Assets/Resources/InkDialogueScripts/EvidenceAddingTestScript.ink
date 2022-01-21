@@ -3,7 +3,7 @@
 &SPEAK:Arin
 I'm going to add evidence to the menu.
 
-&ADD_EVIDENCE:Bent_Coins
+&ADD_EVIDENCE:BentCoins
 
 There, I added coins.
 
@@ -20,7 +20,7 @@ Have a look.
 
 Now I'm going to remove the coins.
 
-&REMOVE_EVIDENCE:Bent_Coins
+&REMOVE_EVIDENCE:BentCoins
 
 Now they are gone.
 See?
@@ -29,19 +29,19 @@ See?
 
 Now I'm going to add a lot of stuff to showcase the page functionality.
 
-&ADD_EVIDENCE:Bent_Coins
-&ADD_EVIDENCE:Jorys_Backpack
-&ADD_EVIDENCE:Jory_Srs_Letter
-&ADD_EVIDENCE:Livestream_Recording
-&ADD_EVIDENCE:Plumber_Invoice
-&ADD_EVIDENCE:Stolen_Dinos
-&ADD_EVIDENCE:Bent_Coins_1
-&ADD_EVIDENCE:Attorneys_Badge_1
-&ADD_EVIDENCE:Jorys_Backpack_1
-&ADD_EVIDENCE:Jory_Srs_Letter_1
-&ADD_EVIDENCE:Livestream_Recording_1
-&ADD_EVIDENCE:Plumber_Invoice_1
-&ADD_EVIDENCE:Stolen_Dinos_1
+&ADD_EVIDENCE:BentCoins
+&ADD_EVIDENCE:JorysBackpack
+&ADD_EVIDENCE:JorySrsLetter
+&ADD_EVIDENCE:LivestreamRecording
+&ADD_EVIDENCE:PlumberInvoice
+&ADD_EVIDENCE:StolenDinos
+&ADD_EVIDENCE:BentCoins1
+&ADD_EVIDENCE:AttorneysBadge1
+&ADD_EVIDENCE:JorysBackpack1
+&ADD_EVIDENCE:JorySrsLetter1
+&ADD_EVIDENCE:LivestreamRecording1
+&ADD_EVIDENCE:PlumberInvoice1
+&ADD_EVIDENCE:StolenDinos1
 
 Take a look now.
 
@@ -49,13 +49,13 @@ Take a look now.
 
 Now let's remove it all.
 
-&REMOVE_EVIDENCE:Bent_Coins_1
-&REMOVE_EVIDENCE:Attorneys_Badge_1
-&REMOVE_EVIDENCE:Jorys_Backpack_1
-&REMOVE_EVIDENCE:Jory_Srs_Letter_1
-&REMOVE_EVIDENCE:Livestream_Recording_1
-&REMOVE_EVIDENCE:Plumber_Invoice_1
-&REMOVE_EVIDENCE:Stolen_Dinos_1
+&REMOVE_EVIDENCE:BentCoins1
+&REMOVE_EVIDENCE:AttorneysBadge1
+&REMOVE_EVIDENCE:JorysBackpack1
+&REMOVE_EVIDENCE:JorySrsLetter1
+&REMOVE_EVIDENCE:LivestreamRecording1
+&REMOVE_EVIDENCE:PlumberInvoice1
+&REMOVE_EVIDENCE:StolenDinos1
 
 It is done.
 
@@ -65,22 +65,22 @@ So much stuff.
 
 Now I'm going to turn things into other things.
 
-&SUBSTITUTE_EVIDENCE:Bent_Coins
+&SUBSTITUTE_EVIDENCE:BentCoins
 &SUBSTITUTE_EVIDENCE:Switch
-&SUBSTITUTE_EVIDENCE:Attorneys_Badge
-&SUBSTITUTE_EVIDENCE:Jorys_Backpack
-&SUBSTITUTE_EVIDENCE:Jory_Srs_Letter
-&SUBSTITUTE_EVIDENCE:Livestream_Recording
-&SUBSTITUTE_EVIDENCE:Plumber_Invoice
-&SUBSTITUTE_EVIDENCE:Stolen_Dinos
+&SUBSTITUTE_EVIDENCE:AttorneysBadge
+&SUBSTITUTE_EVIDENCE:JorysBackpack
+&SUBSTITUTE_EVIDENCE:JorySrsLetter
+&SUBSTITUTE_EVIDENCE:LivestreamRecording
+&SUBSTITUTE_EVIDENCE:PlumberInvoice
+&SUBSTITUTE_EVIDENCE:StolenDinos
 
 Ta-da!
 
 &PRESENT_EVIDENCE
 
 I'm going to remove evidence that isn't in the menu.
-&REMOVE_EVIDENCE:Bent_Coins_1
-&REMOVE_EVIDENCE:Stolen_Dinos
-&REMOVE_EVIDENCE:Stolen_Dinos
+&REMOVE_EVIDENCE:BentCoins1
+&REMOVE_EVIDENCE:StolenDinos
+&REMOVE_EVIDENCE:StolenDinos
 
 -> END

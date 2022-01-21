@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Linq;
 using NUnit.Framework;
-using Tests.PlayModeTests.Scenes.MainMenu;
 using Tests.PlayModeTests.Tools;
 using TMPro;
 using UnityEngine;
@@ -43,6 +42,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return EvidenceMenuOpensAndCloses();
 
             global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
+            Debug.Log(evidenceMenu);
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, _inputTestTools.Keyboard.xKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
