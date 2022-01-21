@@ -1,4 +1,4 @@
-&SCENE:TMPHDefense
+&SCENE:TMPH_Defense
 &ACTOR:Arin
 &SPEAK:Arin
 I'm going to fade to black.
