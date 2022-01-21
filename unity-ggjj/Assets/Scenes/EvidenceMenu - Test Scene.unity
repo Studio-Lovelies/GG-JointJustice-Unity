@@ -644,10 +644,6 @@ PrefabInstance:
       propertyPath: _evidenceMenu
       value: 
       objectReference: {fileID: 358699613}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _sceneList
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6181739301280788300, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Navigation.m_Mode
       value: 2
@@ -694,8 +690,12 @@ PrefabInstance:
       objectReference: {fileID: 234110975}
     - target: {fileID: 6872788438136668481, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: <NarrativeScripts>k__BackingField.Array.data[0].<Script>k__BackingField
+      value: 
+      objectReference: {fileID: 4900000, guid: 72d8df4aeffe149949d07771194aaaac, type: 3}
     - target: {fileID: 7459855669607129928, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_IsActive
       value: 0

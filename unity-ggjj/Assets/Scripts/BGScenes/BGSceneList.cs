@@ -20,7 +20,7 @@ public class BGSceneList : MonoBehaviour
             var backgroundScenes = narrativeScript.ObjectStorage.GetObjectsOfType<BGScene>();
             foreach (var bgScene in backgroundScenes)
             {
-                var bgSceneClone = Instantiate(bgScene);
+                var bgSceneClone = Instantiate(bgScene, transform);
                 bgSceneClone.name = bgScene.name;
                 bgSceneClone.gameObject.SetActive(false);
                 if (!_bgScenes.Keys.Contains(bgScene.name))

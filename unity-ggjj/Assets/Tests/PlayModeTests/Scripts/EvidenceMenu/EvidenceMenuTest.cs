@@ -27,7 +27,6 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             Menu = EvidenceMenu.GetComponent<Menu>();
             CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
             var dialogueController = Object.FindObjectOfType<global::DialogueController>();
-            
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
         }
 
