@@ -65,7 +65,7 @@ public class ActionDecoderTests
             AudioController = new Moq.Mock<IAudioController>().Object,
             EvidenceController = new Moq.Mock<IEvidenceController>().Object,
             SceneController = new Moq.Mock<ISceneController>().Object,
-            StoryController = new Moq.Mock<IStoryController>().Object
+            PenaltyManager = new Moq.Mock<IPenaltyManager>().Object
         };
     }
 

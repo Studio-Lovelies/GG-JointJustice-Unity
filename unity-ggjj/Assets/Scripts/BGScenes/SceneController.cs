@@ -32,9 +32,6 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag a Shout component here.")]
     [SerializeField] private ShoutPlayer _shoutPlayer;
 
-    [Tooltip("Drag a PenaltyManager object here.")]
-    [SerializeField] private PenaltyManager _penaltyManager;
-
     [Tooltip("Drag a SceneLoader object here.")]
     [SerializeField] private SceneLoader _sceneLoader;
 
@@ -53,9 +50,6 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Event that gets called when the active bg-scene changes")]
     [SerializeField] private UnityEvent<BGScene> _onSceneChanged;
-
-    [Tooltip("Event that is called when player runs out of lives.")]
-    [SerializeField] private UnityEvent _onGameOver;
 
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
@@ -358,20 +352,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
     public void Shout(string actorName, string shoutName, bool allowRandomShouts)
     {
-        _shoutPlayer.Shout(_actorInventory[actorName].ShoutVariants, shoutName, allowRandomShouts);
-    }
-
-    /// <summary>
-    /// Issues a penalty to the player, decrementing their lives by one.
-    /// If their lives are zero the game over event is called.
-    /// </summary>
-    public void IssuePenalty()
-    {
-        _penaltyManager.Decrement();
-        if (_penaltyManager.PenaltiesLeft <= 0)
-        {
-            _onGameOver.Invoke();
-        }
+        _shoutPlayer.Shout(_narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
     }
 
     /// <summary>

@@ -85,7 +85,7 @@ public class NarrativeScriptTests
                 .OnNewActionLine("&PLAY_SONG:ABoyAndHisTrial"))
             .Callback(() => methodCalls[9]++);
         
-        new NarrativeScript(new TextAsset(story.ToJson()), DialogueControllerMode.Dialogue, objectPreloaderMock.Object);
+        new NarrativeScript(new TextAsset(story.ToJson()), objectPreloaderMock.Object);
 
         foreach (var pair in methodCalls)
         {

@@ -14,7 +14,7 @@ public class ActionDecoder
     public IEvidenceController EvidenceController { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; }
     public IDialogueController DialogueController { get; set; }
-    public IStoryController StoryController { get; set; }
+    public IPenaltyManager PenaltyManager { get; set; }
 
     /// <summary>
     ///     Parse action lines inside from inside .ink files
@@ -428,7 +428,7 @@ public class ActionDecoder
     /// <category>Cross Examination</category>
     private void ISSUE_PENALTY()
     {
-        SceneController.IssuePenalty();
+        PenaltyManager.Decrement();
         OnActionDone?.Invoke();
     }
 
@@ -627,10 +627,19 @@ public class ActionDecoder
     private void MODE(GameMode mode)
     {
         DialogueController.GameMode = mode;
-        if (mode == GameMode.CrossExamination)
+        switch (mode)
         {
-            StoryController.OnCrossExaminationStart();
+            case GameMode.Dialogue:
+                PenaltyManager.OnCrossExaminationEnd();
+                break;
+            case GameMode.CrossExamination:
+                PenaltyManager.OnCrossExaminationStart();
+                break;
+            default:
+                Debug.LogError($"Invalid GameMode: {mode}");
+                break;
         }
+
         OnActionDone?.Invoke();
     }
 #endregion

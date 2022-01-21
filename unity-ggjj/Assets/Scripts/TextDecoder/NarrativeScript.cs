@@ -11,9 +11,6 @@ public class NarrativeScript
 {
     [field: Tooltip("Drag an Ink narrative script here.")]
     [field: SerializeField] public TextAsset Script { get; private set; }
-    
-    [field: Tooltip("The dialogue mode the narrative script will use (dialogue or cross examination).")]
-    [field: SerializeField] public DialogueControllerMode Type { get; private set; }
 
     private ObjectStorage _objectStorage = new ObjectStorage();
 
@@ -27,10 +24,9 @@ public class NarrativeScript
     /// <param name="script">An Ink narrative script</param>
     /// <param name="type">The type of script (dialogue or cross examination)</param>
     /// <param name="actionDecoder">An optional action decoder, used for testing</param>
-    public NarrativeScript(TextAsset script, DialogueControllerMode type, IActionDecoder actionDecoder = null)
+    public NarrativeScript(TextAsset script, IActionDecoder actionDecoder = null)
     {
         Script = script;
-        Type = type;
         Initialize(actionDecoder);
     }
 

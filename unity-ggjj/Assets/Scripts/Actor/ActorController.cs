@@ -100,7 +100,7 @@ public class ActorController : MonoBehaviour, IActorController
         }
         catch (KeyNotFoundException exception)
         {
-            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in actor dictionary");
+            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in the actor dictionary");
             return null;
         }
     }

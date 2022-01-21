@@ -127,7 +127,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
             return;
         }
 
-        switch (ActiveNarrativeScript.Type)
+        switch (GameMode) 
         {
             case GameMode.Dialogue:
                 HandleNextLineDialogue();
@@ -146,7 +146,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
     /// </summary>
     public void OnPressWitness()
     {
-        if (ActiveNarrativeScript.Type != DialogueControllerMode.CrossExamination)
+        if (GameMode != GameMode.CrossExamination)
         {
             return;
         }
@@ -203,7 +203,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
             return;
         }
 
-        if (ActiveNarrativeScript.Type != DialogueControllerMode.CrossExamination)
+        if (GameMode != GameMode.CrossExamination)
         {
             return;
         }
@@ -339,7 +339,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
         }
 
         //At choice, which means cross examination point. Maybe add sanity check to make sure we have at least 2 options?
-        if (_inkStory.currentChoices.Count > 0)
+        if (ActiveNarrativeScript.Story.currentChoices.Count > 0)
         {
             if (ActiveNarrativeScript.Story.currentChoices.Count > 0)
             {
@@ -379,7 +379,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
     {
         _subStory = Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
         _subStory.SubStoryInit(this); //RECURSION
-        _subStory.SetNewDialogue(new NarrativeScript(subStory, DialogueControllerMode.Dialogue));
+        _subStory.SetNewDialogue(new NarrativeScript(subStory));
     }
 
     /// <summary>
