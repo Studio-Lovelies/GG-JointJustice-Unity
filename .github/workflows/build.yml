@@ -16,6 +16,10 @@ on:
         description: 'Upload to GitHub Releases and itch.io?'
         required: true
         default: 'false'
+        
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   # Get version number from ProjectSettings/ProjectSettings.asset -> PlayerSettings/bundleVersion
@@ -30,6 +34,7 @@ jobs:
 
       - name: Attempt extraction  
         id: extractVersionNumber_job
+        working-directory: unity-ggjj/
         run: |
             version_number=$(grep 'bundleVersion: ' ./ProjectSettings/ProjectSettings.asset)
             version_number=${version_number:17}
@@ -43,7 +48,7 @@ jobs:
     outputs:
       is_unity_license_set: ${{ steps.checkLicense_job.outputs.is_unity_license_set }}
     steps:
-      - name: Check whether unity activation requests should be done
+      - name: Check whether Unity activation requests should be done
         id: checkLicense_job
         run: |
             echo "Skip activation job: ${{ secrets.UNITY_LICENSE != '' }}"
@@ -104,16 +109,17 @@ jobs:
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
-          path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          path: unity-ggjj/Library
+          key: Library-${{ hashFiles('unity-ggjj/Assets/**', 'unity-ggjj/Packages/**', 'unity-ggjj/ProjectSettings/**') }}
           restore-keys: |
-            Library-
+            unity-ggjj/Library-
 
       - name: Build project
         uses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          projectPath: unity-ggjj/
           targetPlatform: ${{ matrix.targetPlatform.unityPlatform }}
           buildName: 'Game Grumps - Joint Justice'
 
