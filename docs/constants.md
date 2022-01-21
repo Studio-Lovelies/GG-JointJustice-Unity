@@ -108,16 +108,8 @@
   - TutorialBoysTragicallyGenericReminiscence
 
 ## SceneAssetName
-  - Actor- TestScene
-  - AppearingDialog-TestScene
-  - AudioController - Test Scene
   - BaseScene
-  - CrossExamination - TestScene
-  - EvidenceMenu - Test Scene
-  - Inky-TestScene
   - MainMenu
-  - OffScreenPose - Test Scene
-  - Transition - Test Scene
 
 ## FullscreenAnimationAssetName
   - BadBoy
@@ -125,6 +117,7 @@
   - GavelHit
   - GoodBoy
   - RossGalaxyBrain
+  - TripleGavelHit
   - WitnessTestimony
 
 ## ActorPoseAssetName
