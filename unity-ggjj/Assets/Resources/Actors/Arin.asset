@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc981f29381844a991ebe930492451f, type: 3}
+  m_Name: Arin
+  m_EditorClassIdentifier: 
+  <Profile>k__BackingField: {fileID: 21300000, guid: 04b0eedfbca19d84cb4db63538ba6241, type: 3}
+  <DisplayName>k__BackingField: Arin
+  <Age>k__BackingField: 34
+  _ageCertainty: 0
+  <DisplayColor>k__BackingField: {r: 0.43921572, g: 0.1764706, b: 0.4784314, a: 1}
+  <Bio>k__BackingField: Half of the Game Grumps duo. Definitely the same height as
+    Dan.
+  <AnimatorController>k__BackingField: {fileID: 9100000, guid: 0c3d8f1233f3a49e9a3f32fab7e316af, type: 2}
+  <ShoutVariants>k__BackingField:
+  - <Item1>k__BackingField: {fileID: 21300000, guid: acb9e7bf00fd28e4bbd6e2ba716692dc, type: 3}
+    <Item2>k__BackingField: {fileID: 8300000, guid: 19b48d76ef3cdac4b85155df10b9e673, type: 3}
+  - <Item1>k__BackingField: {fileID: 21300000, guid: d4a8875b0ee18ac4aa74b6921e9b8164, type: 3}
+    <Item2>k__BackingField: {fileID: 8300000, guid: ce1fce4a6857b4e478e0d450dadc7750, type: 3}
+  - <Item1>k__BackingField: {fileID: 21300000, guid: b829cea1a0d6654418a2285a9653dca1, type: 3}
+    <Item2>k__BackingField: {fileID: 8300000, guid: 2d664a5ebfdd03b44b7399265e302fcb, type: 3}
+  <DialogueChirp>k__BackingField: {fileID: 8300000, guid: bec396ecc7b7242499dbad1326715317, type: 3}
