@@ -1,3 +1,4 @@
+&MODE:Dialogue
 &SCENE:TMPHAssistant
 &ACTOR:Dan
 &SPEAK:Dan

@@ -1,3 +1,4 @@
+&MODE:Dialogue
 &ACTOR:JudgeBrent
 &SPEAK:JudgeBrent
 &SET_POSE:Normal

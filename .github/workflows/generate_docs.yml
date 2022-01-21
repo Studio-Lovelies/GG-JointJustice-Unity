@@ -62,6 +62,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
+          token: ${{ secrets.PATDOCSGEN }}
 
       - name: Clear /docs folder
         run: rm -rf docs/* 

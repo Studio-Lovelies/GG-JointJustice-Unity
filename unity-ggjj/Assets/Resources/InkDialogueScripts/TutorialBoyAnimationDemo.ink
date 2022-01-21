@@ -1,3 +1,4 @@
+&MODE:Dialogue
 &ACTOR:TutorialBoy
 &SPEAK:TutorialBoy
 &SET_POSE:Normal
