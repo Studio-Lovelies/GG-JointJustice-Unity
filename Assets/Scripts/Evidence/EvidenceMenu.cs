@@ -40,6 +40,9 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag all buttons used to navigate the menu here so they can be disabled when necessary.")]
     private Button[] _navigationButtons;
 
+    [SerializeField, Tooltip("Drag the PageBar component here")]
+    private PageBar _pageBar;
+
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent _onEvidenceClicked;
 
@@ -109,6 +112,7 @@ public class EvidenceMenu : MonoBehaviour
         CalculatePages();
         SetNavigationButtonsActive();
         DrawMenuItems();
+        _pageBar.SetPage(_currentPage);
     }
 
     /// <summary>
@@ -120,6 +124,7 @@ public class EvidenceMenu : MonoBehaviour
         _numberOfPages = Mathf.CeilToInt((float)_activeDictionary.Count / _evidenceMenuItems.Length);
         _currentPage = Mathf.Clamp(_currentPage, 0,_numberOfPages == 0 ? 0 : _numberOfPages - 1); // Max value must always be positive 
         _startIndex = _currentPage * _evidenceMenuItems.Length;
+        _pageBar.SetPageCount(_numberOfPages);
     }
     
     /// <summary>
