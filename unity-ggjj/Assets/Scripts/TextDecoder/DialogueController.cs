@@ -4,27 +4,36 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public enum DialogueControllerMode
+public enum GameMode
 {
     Dialogue,
     CrossExamination
 }
 
-[System.Serializable]
-public enum CrossExaminationChoice
-{
-    Continue,
-    Press,
-    Evidence
-}
-
-public class DialogueController : MonoBehaviour
+public class DialogueController : MonoBehaviour, IDialogueController
 {
     private const char ACTION_TOKEN = '&';
 
     private TextAsset _narrativeScript;
 
-    [SerializeField] private DialogueControllerMode _dialogueMode = DialogueControllerMode.Dialogue;
+    private GameMode _gameMode = GameMode.Dialogue;
+    public GameMode GameMode
+    {
+        private get => _gameMode;
+        set
+        {
+            if (_subStory != null)
+            {
+                _subStory.GameMode = value;
+                return;
+            }
+
+            _gameMode = value;
+        }
+    }
+
+    [Tooltip("Attach the action decoder object here")]
+    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
     [SerializeField] private FailureStoryList _failureList;
 
@@ -53,20 +62,25 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private UnityEvent<bool> _onBusySet;
 
     private Story _inkStory;
-    private bool _isBusy;
     private bool _isMenuOpen;
     private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
 
     private bool _isAtChoice; //Possibly small state machine to handle all input?
 
     public string NarrativeScriptName => _narrativeScript.name;
-    
+
+    private void Start()
+    {
+        _directorActionDecoder.Decoder.DialogueController = this;
+    }
+
     /// <summary>
     /// Initialize a sub story by hooking the events to the parent dialogue so everything propagates down correctly
     /// </summary>
     /// <param name="parent">Parent of this dialogue to hook everything in to</param>
     void SubStoryInit(DialogueController parent)
     {
+        _directorActionDecoder = parent._directorActionDecoder;
         _onNewSpokenLine.AddListener(parent.OnSubStorySpokenLine);
         _onNewActionLine.AddListener(parent.OnSubStoryActionLine);
         _onDialogueFinished.AddListener(parent.OnSubStoryFinished);
@@ -81,7 +95,6 @@ public class DialogueController : MonoBehaviour
     {
         _narrativeScript = dialogue.NarrativeScript;
         _inkStory = new Story(dialogue.NarrativeScript.text);
-        _dialogueMode = dialogue.ScriptType;
         OnContinueStory(); //Auto start
     }
 
@@ -102,12 +115,12 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        switch (_dialogueMode)
+        switch (GameMode)
         {
-            case DialogueControllerMode.Dialogue:
+            case GameMode.Dialogue:
                 HandleNextLineDialogue();
                 break;
-            case DialogueControllerMode.CrossExamination:
+            case GameMode.CrossExamination:
                 HandleNextLineCrossExamination();
                 break;
             default:
@@ -121,7 +134,7 @@ public class DialogueController : MonoBehaviour
     /// </summary>
     public void OnPressWitness()
     {
-        if (_dialogueMode != DialogueControllerMode.CrossExamination)
+        if (GameMode != GameMode.CrossExamination)
         {
             return;
         }
@@ -178,7 +191,7 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        if (_dialogueMode != DialogueControllerMode.CrossExamination)
+        if (GameMode != GameMode.CrossExamination)
         {
             return;
         }
@@ -312,14 +325,12 @@ public class DialogueController : MonoBehaviour
         {
             return;
         }
-        else //At choice, which means cross examination point. Maybe add sanity check to make sure we have at least 2 options?
+
+        //At choice, which means cross examination point. Maybe add sanity check to make sure we have at least 2 options?
+        if (_inkStory.currentChoices.Count > 0)
         {
-            if (_inkStory.currentChoices.Count > 0)
-            {
-                _isAtChoice = true;
-                _onCrossExaminationLoopActive.Invoke(true);
-            }
-            
+            _isAtChoice = true;
+            _onCrossExaminationLoopActive.Invoke(true);
         }
     }
 
@@ -353,7 +364,7 @@ public class DialogueController : MonoBehaviour
     {
         _subStory = Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
         _subStory.SubStoryInit(this); //RECURSION
-        _subStory.SetNewDialogue(new Dialogue(subStory, DialogueControllerMode.Dialogue));
+        _subStory.SetNewDialogue(new Dialogue(subStory));
     }
 
     /// <summary>

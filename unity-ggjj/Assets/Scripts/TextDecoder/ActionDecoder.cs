@@ -4,17 +4,17 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ActionDecoder
 {
-
     public event Action OnActionDone;
     public IActorController ActorController { get; set; }
     public ISceneController SceneController { get; set; }
     public IAudioController AudioController { get; set; }
     public IEvidenceController EvidenceController { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; }
+    public IDialogueController DialogueController { get; set; }
+    public IStoryController StoryController { get; set; }
 
     /// <summary>
     ///     Parse action lines inside from inside .ink files
@@ -37,33 +37,33 @@ public class ActionDecoder
         const char actionSideSeparator = ':';
         const char actionParameterSeparator = ',';
 
-        string[] actionNameAndParameters = actionLine.Substring(1, actionLine.Length - 1).Trim().Split(actionSideSeparator);
+        var actionNameAndParameters = actionLine.Substring(1, actionLine.Length - 1).Trim().Split(actionSideSeparator);
 
         if (actionNameAndParameters.Length > 2)
         {
             throw new TextDecoder.Parser.ScriptParsingException($"More than one '{actionSideSeparator}' detected in line '{actionLine}'");
         }
 
-        string action = actionNameAndParameters[0];
-        string[] parameters = (actionNameAndParameters.Length == 2) ? actionNameAndParameters[1].Split(actionParameterSeparator) : Array.Empty<string>();
+        var action = actionNameAndParameters[0];
+        var parameters = (actionNameAndParameters.Length == 2) ? actionNameAndParameters[1].Split(actionParameterSeparator) : Array.Empty<string>();
 
         // Find method with exact same name as action inside script
-        MethodInfo method = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
+        var method = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
         if (method == null)
         {
             throw new TextDecoder.Parser.ScriptParsingException($"DirectorActionDecoder contains no method named '{action}'");
         }
 
-        ParameterInfo[] methodParameters = method.GetParameters();
+        var methodParameters = method.GetParameters();
         var optionalParameters = methodParameters.Count(parameter => parameter.IsOptional);
         if (parameters.Length < (methodParameters.Length - optionalParameters) || parameters.Length > (methodParameters.Length))
         {
-            throw new TextDecoder.Parser.ScriptParsingException($"'{action}' requires {(optionalParameters == 0 ? "exactly" : "between")} {(optionalParameters == 0 ? methodParameters.Length.ToString() : $"{methodParameters.Length - optionalParameters} and {methodParameters.Length}")} parameters (has {parameters.Length} instead)");
+            throw new TextDecoder.Parser.ScriptParsingException($"'{action}' requires {(optionalParameters == 0 ? "exactly" : "between")} {(optionalParameters == 0 ? methodParameters.Length.ToString() : $"{methodParameters.Length-optionalParameters} and {methodParameters.Length}")} parameters (has {parameters.Length} instead)");
         }
 
-        List<object> parsedMethodParameters = new List<object>();
+        var parsedMethodParameters = new List<object>();
         // For each supplied parameter of that action...
-        for (int index = 0; index < parameters.Length; index++)
+        for (var index = 0; index < parameters.Length; index++)
         {
             if (parameters.Length <= index && methodParameters[index].IsOptional)
             {
@@ -71,7 +71,7 @@ public class ActionDecoder
             }
 
             // Determine it's type
-            ParameterInfo methodParameter = methodParameters[index];
+            var methodParameter = methodParameters[index];
 
             // Edge-case for enums
             if (methodParameter.ParameterType.BaseType == typeof(Enum))
@@ -83,25 +83,30 @@ public class ActionDecoder
                 }
                 catch (ArgumentException e)
                 {
-                    Regex pattern = new Regex(@"Requested value '(.*)' was not found\.");
-                    Match match = pattern.Match(e.Message);
-                    if (match.Groups.Count > 0)
+                    var pattern = new Regex(@"Requested value '(.*)' was not found\.");
+                    var match = pattern.Match(e.Message);
+                    if (match.Success)
                     {
-                        throw new TextDecoder.Parser.ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '{match.Groups[1].Captures[0]}' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a => a.ToString()))}')");
+                        throw new TextDecoder.Parser.ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '{match.Groups[1].Captures[0]}' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a=>a.ToString()))}')");
+                    }
+
+                    if (e.Message == "Must specify valid information for parsing in the string.")
+                    {
+                        throw new TextDecoder.Parser.ScriptParsingException($"'' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a => a.ToString()))}')");
                     }
                     throw;
                 }
             }
 
             // Construct a parser for it
-            Type parser = GetType().Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
+            var parser = GetType().Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
             if (parser == null)
             {
                 Debug.LogError($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
                 return;
             }
 
-            ConstructorInfo parserConstructor = parser.GetConstructor(Type.EmptyTypes);
+            var parserConstructor = parser.GetConstructor(Type.EmptyTypes);
             if (parserConstructor == null)
             {
                 Debug.LogError($"TextDecoder.Parser for type {methodParameter.ParameterType} has no constructor without parameters");
@@ -109,7 +114,7 @@ public class ActionDecoder
             }
 
             // Find the 'Parse' method on that parser
-            MethodInfo parseMethod = parser.GetMethod("Parse");
+            var parseMethod = parser.GetMethod("Parse");
             if (parseMethod == null)
             {
                 Debug.LogError($"TextDecoder.Parser for type {methodParameter.ParameterType} has no 'Parse' method");
@@ -117,7 +122,7 @@ public class ActionDecoder
             }
 
             // Create a parser and call the 'Parse' method
-            object parserInstance = parserConstructor.Invoke(Array.Empty<object>());
+            var parserInstance = parserConstructor.Invoke(Array.Empty<object>());
             object[] parseMethodParameters = { parameters[index], null };
 
             // If we received an error attempting to parse a parameter to the type, expose it to the user
@@ -131,7 +136,7 @@ public class ActionDecoder
         }
 
         // If the method supports optional parameters, fill the remaining parameters based on the default value of the method
-        for (int suppliedParameterCount = parameters.Length; suppliedParameterCount < methodParameters.Length; suppliedParameterCount++)
+        for (var suppliedParameterCount = parameters.Length; suppliedParameterCount < methodParameters.Length; suppliedParameterCount++)
         {
             parsedMethodParameters.Add(methodParameters[suppliedParameterCount].DefaultValue);
         }
@@ -614,7 +619,22 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
     #endregion
+    #region DialogueController
+    /// <summary>Changes the game mode. (This decides how the user is able to progress with the story.)</summary>
+    /// <param name="mode">Name of game mode to put the player in</param>
+    /// <example>&amp;MODE:CrossExamination</example>
+    /// <category>Gameplay</category>
+    private void MODE(GameMode mode)
+    {
+        DialogueController.GameMode = mode;
+        if (mode == GameMode.CrossExamination)
+        {
+            StoryController.OnCrossExaminationStart();
+        }
+        OnActionDone?.Invoke();
+    }
+#endregion
 #pragma warning restore IDE0051 // Remove unused private members
-    // ReSharper restore UnusedMember.Local
+// ReSharper restore UnusedMember.Local
     // ReSharper restore InconsistentNaming
 }
