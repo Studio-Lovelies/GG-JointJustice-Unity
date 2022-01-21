@@ -1,4 +1,3 @@
-&MODE:Dialogue
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:3
 &ACTOR:TutorialBoy

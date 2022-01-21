@@ -71,7 +71,6 @@ public class DialogueController : MonoBehaviour, IDialogueController
     private bool _isAtChoice; //Possibly small state machine to handle all input?
     
     public NarrativeScript ActiveNarrativeScript { get; private set; }
-    public string NarrativeScriptName => _narrativeScript.name;
 
     private void Start()
     {

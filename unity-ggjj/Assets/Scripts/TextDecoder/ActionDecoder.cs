@@ -642,7 +642,19 @@ public class ActionDecoder
 
         OnActionDone?.Invoke();
     }
-#endregion
+
+    /// <summary>
+    /// Resets the number of penalties the player has left.
+    /// </summary>
+    /// <example>&amp;RESET_PENALTIES</example>
+    /// <category>Gameplay</category>
+    private void RESET_PENALTIES()
+    {
+        PenaltyManager.ResetPenalties();
+        OnActionDone?.Invoke();
+    }
+    
+    #endregion
 #pragma warning restore IDE0051 // Remove unused private members
 // ReSharper restore UnusedMember.Local
     // ReSharper restore InconsistentNaming

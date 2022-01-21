@@ -2392,6 +2392,10 @@ PrefabInstance:
       propertyPath: _directorActionDecoder
       value: 
       objectReference: {fileID: 5228303783986964379}
+    - target: {fileID: 7962780514542778033, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _onPenaltiesDepleted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5228303783123296233}
     - target: {fileID: 8072484017964742646, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: m_RootOrder
       value: 8

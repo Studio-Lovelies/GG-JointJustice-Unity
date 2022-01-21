@@ -29,22 +29,35 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     /// </summary>
     public void OnCrossExaminationStart()
     {
-        for (int i = 0; i < _penaltyCount; i++)
+        gameObject.SetActive(true);
+        if (_penaltyObjects.Count == 0)
         {
-            _penaltyObjects.Enqueue(Instantiate(_penaltyObject, transform));
+            for (int i = 0; i < _penaltyCount; i++)
+            {
+                _penaltyObjects.Enqueue(Instantiate(_penaltyObject, transform));
+            }
         }
     }
 
     /// <summary>
-    /// Destroy all penalty objects on examination end
+    /// Hide the penalty UI objects on cross examination end
     /// </summary>
     public void OnCrossExaminationEnd()
+    {
+        gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Destroy all penalty objects
+    /// </summary>
+    public void ResetPenalties()
     {
         for (int i = 0; i < _penaltyObjects.Count; i++)
         {
             var penalty = _penaltyObjects.Dequeue();
             Destroy(penalty.gameObject);
         }
+        OnCrossExaminationStart();
     }
 
     /// <summary>
@@ -63,7 +76,8 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     /// </summary>
     private void CheckGameOver()
     {
-        if (_penaltyCount <= 0)
+        Debug.Log(_penaltyObjects.Count);
+        if (_penaltyObjects.Count == 0)
         {
             _onPenaltiesDepleted.Invoke();
         }

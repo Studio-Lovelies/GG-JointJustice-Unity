@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Linq;
-using System.Reflection;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
@@ -19,7 +18,6 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         [ReloadScene("Assets/Scenes/CrossExamination - TestScene.unity")]
         public IEnumerator CanPresentEvidenceDuringExamination()
         {
-            yield return new WaitForSeconds(5);
             yield return null;
             Keyboard key = _inputTestTools.Keyboard;
 
@@ -128,7 +126,13 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);
             }
 
+            yield return new WaitForSeconds(5);
+            
             var dialogueControllers = Object.FindObjectsOfType<DialogueController>();
+            foreach (var d in dialogueControllers)
+            {
+                Debug.Log(d.ActiveNarrativeScript.Name);
+            }
             Assert.IsTrue(dialogueControllers.Any(controller => controller.ActiveNarrativeScript.Name == "TMPH_GameOver"));
         }
     }

@@ -147,17 +147,6 @@ MonoBehaviour:
   _onMenuClosed:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &313025254 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5228303784376185822, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-  m_PrefabInstance: {fileID: 2090021864}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c1242c864c49aa4ba2cfe2614a039d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &358699613 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
@@ -527,30 +516,6 @@ PrefabInstance:
     - target: {fileID: 4073949957937916147, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onCrossExaminationLoopActive.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onCrossExaminationLoopActive.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 313025254}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onCrossExaminationLoopActive.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onCrossExaminationLoopActive.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetCanPresentEvidence
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onCrossExaminationLoopActive.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EvidenceController, GG-JointJustice
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onCrossExaminationLoopActive.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueList.Array.size
