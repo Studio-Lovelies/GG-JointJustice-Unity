@@ -620,8 +620,8 @@ public class ActionDecoder
     }
     #endregion
     #region DialogueController
-    /// <summary>Changes the game mode. (This decides how the user is able ot progress with the story.)</summary>
-    /// <param name="mode">Name of game mode to put the plazer in</param>
+    /// <summary>Changes the game mode. (This decides how the user is able to progress with the story.)</summary>
+    /// <param name="mode">Name of game mode to put the player in</param>
     /// <example>&amp;MODE:CrossExamination</example>
     /// <category>Gameplay</category>
     private void MODE(GameMode mode)
