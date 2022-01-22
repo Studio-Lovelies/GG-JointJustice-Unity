@@ -510,7 +510,7 @@ public class ActionDecoder
 
     /// <summary>Shows or hides all actors in the scene. Has to be re-done after switching a scene.</summary>
     /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
-    /// <param name="shouldShow">whether to show (`true`) or not show (`false`) all actors</param>
+    /// <param name="shouldShow">Whether to show (`true`) or not show (`false`) all actors</param>
     /// <example>&amp;SHOW_ACTOR:Arin,true</example>
     /// <example>&amp;SHOW_ACTOR:Arin,false</example>
     /// <category>Actor</category>
@@ -613,6 +613,7 @@ public class ActionDecoder
         OnActionDone?.Invoke();
     }
     #endregion
+
     #region DialogueController
     /// <summary>Changes the game mode. (This decides how the user is able to progress with the story.)</summary>
     /// <param name="mode">Name of game mode to put the player in</param>
