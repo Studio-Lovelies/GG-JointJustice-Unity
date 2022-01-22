@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: e284f312d553e436bb12847cc8ad82ee
+  - enabled: 1
+    path: Assets/Scenes/Visibility - TestScene.unity
+    guid: fbce994828ed14547a11e0f533526ad7
+  - enabled: 1
+    path: Assets/Scenes/Visibility - TestScene.unity
+    guid: fbce994828ed14547a11e0f533526ad7
   m_configObjects: {}
