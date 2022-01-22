@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-namespace Savefiles
+namespace SaveFiles
 {
     public class Proxy
     {
@@ -54,7 +54,7 @@ namespace Savefiles
         /// <summary>
         /// Public interface to use when making changes to the current SaveData
         /// </summary>
-        /// <param name="operation"></param>
+        /// <param name="operation">Method that makes changes to the currently saved data by modifying a SaveData object</param>
         public void UpdateCurrentSaveData(OperationOnCurrentSaveData operation)
         {
             if (!HasExistingSaveData())
