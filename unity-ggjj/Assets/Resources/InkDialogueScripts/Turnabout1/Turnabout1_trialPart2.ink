@@ -259,7 +259,7 @@ THESE!?!?
 &SHOW_ITEM:Bent_Coins,Left
 &DIALOGUE_SPEED:0.06
 &SPEAK:None
-<align=center><color={green}>The Bent Coins have been added to the Court Record.
+<align=center><color={lightBlue}>The Bent Coins have been added to the Court Record.
 &PLAY_SFX:evidenceShoop
 &HIDE_ITEM
 &WAIT:0.1

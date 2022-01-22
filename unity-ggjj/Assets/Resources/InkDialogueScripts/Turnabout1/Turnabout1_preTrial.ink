@@ -1,9 +1,11 @@
+INCLUDE ../Colors.ink
+
 &PLAY_SONG:turnaboutGrumpsters
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
-<color=\#2c81c1>(It started out just like every time after our livestream.)
-<color=\#2c81c1>(We had just finished a session playing Penix Wright: Facial Attorney<sup>(tm)</sup>.)
-<color=\#2c81c1>(Dan and I were discussing some very important matters...)
+<color={blue}>(It started out just like every time after our livestream.)
+<color={blue}>(We had just finished a session playing Penix Wright: Facial Attorney<sup>(tm)</sup>.)
+<color={blue}>(Dan and I were discussing some very important matters...)
 
 &HIDE_TEXTBOX
 &SCENE:TMPH_Lobby
@@ -84,7 +86,7 @@ Yeah, yeah, you do like poopin'.
 &SHOW_ITEM:Plumber_Invoice,Left
 &DIALOGUE_SPEED:0.06
 &SPEAK:None
-<align="center"><color=\#2c81c1>Plumber Invoice has been added to the Court Record.
+<align="center"><color={lightBlue}>Plumber Invoice has been added to the Court Record.
 &PLAY_SFX:evidenceShoop
 &HIDE_ITEM
 &WAIT:0.1

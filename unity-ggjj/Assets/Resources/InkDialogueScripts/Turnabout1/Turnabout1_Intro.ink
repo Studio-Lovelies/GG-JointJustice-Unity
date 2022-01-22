@@ -38,6 +38,8 @@ Now this is a galaxy-brain move right here!
 &HIDE_TEXTBOX
 &WAIT:1
 &FADE_OUT:0
+&PLAY_SFX:RossEvilLaugh
+&WAIT:2
 
     -> END
 

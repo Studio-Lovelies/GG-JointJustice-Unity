@@ -123,12 +123,12 @@ Oh god what now?
 &PLAY_SFX:pageTurn
 
 &SPEAK:Arin
-<color={green}>"Hello again Grumps, I've already heard tale of your valiant defense of my boy Jory."
-<color={green}>"As a matter of fact, I think you two are naturals at this lawyer business."
-<color={green}>"I was a hot shot lawyer in Attitude City before I changed to a career with the Merchant Marines."
-<color={green}>"After defending that albino whale from that crazy peg-legged stalker, I guess I felt the call of the ocean."
-<color={green}>"But I still have contacts at the Attitude City courthouse if you ever decide to have a career change of your own!"
-<color={green}>"Thank you again for saving my beloved Jory Jr. Sincerely, Jory Sr."
+<color=green>"Hello again Grumps, I've already heard tale of your valiant defense of my boy Jory."
+<color=green>"As a matter of fact, I think you two are naturals at this lawyer business."
+<color=green>"I was a hot shot lawyer in Attitude City before I changed to a career with the Merchant Marines."
+<color=green>"After defending that albino whale from that crazy peg-legged stalker, I guess I felt the call of the ocean."
+<color=green>"But I still have contacts at the Attitude City courthouse if you ever decide to have a career change of your own!"
+<color=green>"Thank you again for saving my beloved Jory Jr. Sincerely, Jory Sr."
 
 &SET_POSE:Normal
 &SPEAK:Dan

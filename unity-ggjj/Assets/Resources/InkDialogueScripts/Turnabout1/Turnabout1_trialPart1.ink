@@ -170,7 +170,7 @@ W-Well, you don't have to be so rude about it! Fine, it's been added to the cour
 &SHOW_ITEM:Livestream_Recording,Left
 &DIALOGUE_SPEED:0.06
 &SPEAK:None
-<align=center><color={green}>The Livestream Recording has been added to the Court Record.
+<align=center><color={lightBlue}>The Livestream Recording has been added to the Court Record.
 &PLAY_SFX:evidenceShoop
 &HIDE_ITEM
 &WAIT:0.1
@@ -191,7 +191,7 @@ A quick search and a few minutes later, they were suspiciously found in THIS bac
 &SHOW_ITEM:Jorys_Backpack,Left
 &DIALOGUE_SPEED:0.06
 &SPEAK:None
-<align=center><color={green}>Jory's Backpack has been added to the Court Record.
+<align=center><color={lightBlue}>Jory's Backpack has been added to the Court Record.
 &PLAY_SFX:evidenceShoop
 &HIDE_ITEM
 &WAIT:0.1
@@ -233,7 +233,7 @@ I have been informed that recording cannot begin without them. As such they are 
 &SHOW_ITEM:Stolen_Dinos,Left
 &SPEAK:None
 &DIALOGUE_SPEED:0.06
-<align=center><color={green}>The Stolen Dinos have been added to the Court Record
+<align=center><color={lightBlue}>The Stolen Dinos have been added to the Court Record
 &PLAY_SFX:evidenceShoop
 &HIDE_ITEM
 &WAIT:0.1
