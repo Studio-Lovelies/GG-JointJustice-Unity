@@ -12,7 +12,7 @@ namespace SaveFiles
         public int Version;
 
         /// !!!!! IMPORTANT !!!!!
-        /// Increase the value below by one and update <see cref="Proxy.UpgradeSaveData"/>
+        /// Increase the value below by one and update <see cref="PlayerPrefsProxy.UpgradeSaveData"/>
         /// to ensure an upgrade path from the previous version to the new version exists,
         /// if you make ANY changes to this class
         /// !!!!! IMPORTANT !!!!!
