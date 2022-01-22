@@ -14,7 +14,7 @@ public class SaveFileWatcher : MonoBehaviour
     private void Start()
     {
         // make sure a saveFile exists
-        SaveFiles.Proxy.UpdateCurrentSaveData((ref SaveData _) => {});
+        SaveFiles.PlayerPrefsProxy.UpdateCurrentSaveData((ref SaveData _) => {});
 
         _text = GetComponent<Text>();
         StartCoroutine(Loop());
@@ -22,7 +22,7 @@ public class SaveFileWatcher : MonoBehaviour
 
     IEnumerator Loop()
     {
-        var currentSave = SaveFiles.Proxy.Load();
+        var currentSave = SaveFiles.PlayerPrefsProxy.Load();
 
         var chapters = (SaveFiles.SaveData.Progression.Chapters[])Enum.GetValues(typeof(SaveFiles.SaveData.Progression.Chapters));
         string currentState = string.Join("\n", chapters.Select(chapter => $"{chapter}: {currentSave.GameProgression.UnlockedChapters.HasFlag(chapter)}"));

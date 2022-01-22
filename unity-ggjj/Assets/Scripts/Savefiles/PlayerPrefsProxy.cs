@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SaveFiles
 {
-    public static class Proxy
+    public static class PlayerPrefsProxy
     {
         public static bool HasExistingSaveData()
         {

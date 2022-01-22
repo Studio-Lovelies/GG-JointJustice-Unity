@@ -14,6 +14,6 @@ public class ClearSaveDataButton : MonoBehaviour
         }
 
         Debug.LogWarning("Save Data has been successfully deleted!");
-        Proxy.DeleteSaveData();
+        PlayerPrefsProxy.DeleteSaveData();
     }
 }
