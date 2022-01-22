@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "scanner": {
+      "commandName": "Project",
+      "workingDirectory": "../unity-ggjj"
+    }
+  }
+}

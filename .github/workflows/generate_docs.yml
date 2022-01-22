@@ -1,0 +1,82 @@
+name: Generate documentation
+on: 
+  pull_request:
+    branches:
+      - develop
+      - master
+      - releasecandidate/*
+  workflow_dispatch:
+
+jobs:
+  buildDocsGenerator:
+    outputs:
+      currentDocs_hash: ${{ steps.currentDocs.outputs.hash }}
+      newDocs_hash: ${{ steps.newDocs.outputs.hash }}
+    name: Build docs generator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+      
+      - name: Build docs generator
+        working-directory: ./docs_generator
+        run: dotnet build Scanner.csproj
+
+      - name: Generate current state of docs
+        id: currentDocs
+        run: echo "::set-output name=hash::$(find docs/ -type f -exec md5sum {} \; | md5sum)"
+        
+      - name: Clear /docs folder
+        working-directory: ./
+        run: rm -rf docs/* 
+       
+      - name: Execute docs runner 
+        working-directory: ./unity-ggjj
+        run: ../docs_generator/bin/Debug/net6.0/Scanner
+
+      - name: Generate new state of docs
+        id: newDocs
+        run: echo "::set-output name=hash::$(find docs/ -type f -exec md5sum {} \; | md5sum)"
+
+      - name: Check if current and new state of docs are different
+        run: echo "Current '${{ steps.currentDocs.outputs.hash }}' - New '${{ steps.newDocs.outputs.hash }}'"
+        
+      - name: Upload '/docs' artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: docs-v${{ github.run_number }}
+          path: ./docs
+
+  pushCommits:
+    name: Push commits
+    needs: [buildDocsGenerator]
+    if: needs.buildDocsGenerator.outputs.currentDocs_hash != needs.buildDocsGenerator.outputs.newDocs_hash
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.PATDOCSGEN }}
+
+      - name: Clear /docs folder
+        run: rm -rf docs/* 
+        
+      - name: Download ${{ matrix.platforms.outputName }}
+        uses: actions/download-artifact@v2
+        with:
+          name: docs-v${{ github.run_number }}
+          path: ./docs
+
+      - name: Commit generated documentation
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email 'github-actions@github.com'
+          git add docs/*
+          git commit -am "Update /docs"
+          git push
