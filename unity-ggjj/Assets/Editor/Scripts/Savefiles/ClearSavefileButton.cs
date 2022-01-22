@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using Savefiles;
+using SaveFiles;
 using UnityEngine;
 
 using UnityEditor;
-using UnityEngine;
+
 public class ClearSaveDataButton : MonoBehaviour
 {
     [UnityEditor.MenuItem("Edit/Delete Save Data %#d")]

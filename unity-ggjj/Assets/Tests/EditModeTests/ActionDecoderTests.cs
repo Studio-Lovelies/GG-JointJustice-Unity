@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Moq;
+using SaveFiles;
 using TextDecoder.Parser;
 using UnityEngine;
 using UnityEngine.TestTools;

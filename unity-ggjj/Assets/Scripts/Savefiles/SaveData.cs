@@ -1,6 +1,6 @@
 using System;
 
-namespace Savefiles
+namespace SaveFiles
 {
     /// <summary>
     /// Passive data structure of all available settings of the game

@@ -1,21 +1,21 @@
 using System;
 using System.Collections;
 using System.Linq;
-using Savefiles;
+using SaveFiles;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
 public class SaveFileWatcher : MonoBehaviour
 {
-    private readonly Savefiles.Proxy _savefileProxy = new Savefiles.Proxy();
+    private readonly SaveFiles.Proxy _saveFileProxy = new SaveFiles.Proxy();
     private Text _text;
 
     // Start is called before the first frame update
     private void Start()
     {
-        // make sure a savefile exists
-        _savefileProxy.UpdateCurrentSaveData((ref SaveData _) => {});
+        // make sure a saveFile exists
+        _saveFileProxy.UpdateCurrentSaveData((ref SaveData _) => {});
 
         _text = GetComponent<Text>();
         StartCoroutine(Loop());
@@ -23,9 +23,9 @@ public class SaveFileWatcher : MonoBehaviour
 
     IEnumerator Loop()
     {
-        var currentSave = _savefileProxy.Load();
+        var currentSave = _saveFileProxy.Load();
 
-        var chapters = (Savefiles.SaveData.Progression.Chapters[])Enum.GetValues(typeof(Savefiles.SaveData.Progression.Chapters));
+        var chapters = (SaveFiles.SaveData.Progression.Chapters[])Enum.GetValues(typeof(SaveFiles.SaveData.Progression.Chapters));
         string currentState = string.Join("\n", chapters.Select(chapter => $"{chapter}: {currentSave.GameProgression.UnlockedChapters.HasFlag(chapter)}"));
 
         _text.text = "Checking for new state in 3.\n\n" + currentState;

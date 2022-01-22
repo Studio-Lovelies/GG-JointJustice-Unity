@@ -1,4 +1,4 @@
-namespace Savefiles
+namespace SaveFiles
 {
     public static class ChapterExtensions
     {
