@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SaveFiles
 {
-    public class Proxy
+    public static class Proxy
     {
         public static bool HasExistingSaveData()
         {
@@ -18,7 +18,7 @@ namespace SaveFiles
             PlayerPrefs.DeleteKey("SaveData");
         }
 
-        public SaveData Load()
+        public static SaveData Load()
         {
             if (!PlayerPrefs.HasKey("SaveData"))
             {
@@ -55,7 +55,7 @@ namespace SaveFiles
         /// Public interface to use when making changes to the current SaveData
         /// </summary>
         /// <param name="operation">Method that makes changes to the currently saved data by modifying a SaveData object</param>
-        public void UpdateCurrentSaveData(OperationOnCurrentSaveData operation)
+        public static void UpdateCurrentSaveData(OperationOnCurrentSaveData operation)
         {
             if (!HasExistingSaveData())
             {

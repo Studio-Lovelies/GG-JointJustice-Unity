@@ -11,37 +11,55 @@ using static System.Int32;
 /// </remarks>
 public class SaveDataTests
 {
-    private readonly Proxy _proxy = new Proxy();
+    private SaveData _previouslyStoredSaveData;
 
     [SetUp]
-    [OneTimeTearDown]
     public void EnsureDefaultSaveFileExists()
     {
         // Force creation of a new default SaveData object
         Proxy.DeleteSaveData();
-        _proxy.UpdateCurrentSaveData((ref SaveData saveData) => saveData = new SaveData(SaveData.LatestVersion));
+        Proxy.UpdateCurrentSaveData((ref SaveData saveData) => saveData = new SaveData(SaveData.LatestVersion));
     }
 
+    [OneTimeTearDown]
+    public void RestorePreviouslyExistingSaveFile()
+    {
+        Proxy.DeleteSaveData();
+        if (_previouslyStoredSaveData != null)
+        {
+            Proxy.UpdateCurrentSaveData((ref SaveData data) => data = _previouslyStoredSaveData);
+        }
+    }
+
+    [OneTimeSetUp]
+    public void BackupPreviouslyExistingSaveFile()
+    {
+        if (!Proxy.HasExistingSaveData())
+        {
+            return;
+        }
+        _previouslyStoredSaveData = Proxy.Load();
+    }
 
     [Test]
     public void LoadReturnsUpdatedSaveData()
     {
-        var initialSaveData = _proxy.Load();
+        var initialSaveData = Proxy.Load();
         // unlock a chapter
-        _proxy.UpdateCurrentSaveData((ref SaveData data) => {
+        Proxy.UpdateCurrentSaveData((ref SaveData data) => {
             data.GameProgression.UnlockedChapters.AddChapter(SaveData.Progression.Chapters.Chapter2);
         });
-        var firstSaveDataUpdate = _proxy.Load();
+        var firstSaveDataUpdate = Proxy.Load();
 
         Assert.IsFalse(initialSaveData.GameProgression.UnlockedChapters.HasFlag(SaveData.Progression.Chapters.Chapter2));
         Assert.IsTrue(firstSaveDataUpdate.GameProgression.UnlockedChapters.HasFlag(SaveData.Progression.Chapters.Chapter2));
 
         // unlock another chapter
-        _proxy.UpdateCurrentSaveData((ref SaveData data) => {
+        Proxy.UpdateCurrentSaveData((ref SaveData data) => {
             data.GameProgression.UnlockedChapters.AddChapter(SaveData.Progression.Chapters.BonusChapter1);
         });
 
-        var secondSaveDataUpdate = _proxy.Load();
+        var secondSaveDataUpdate = Proxy.Load();
         Assert.IsFalse(initialSaveData.GameProgression.UnlockedChapters.HasFlag(SaveData.Progression.Chapters.Chapter2));
         Assert.IsFalse(initialSaveData.GameProgression.UnlockedChapters.HasFlag(SaveData.Progression.Chapters.BonusChapter1));
         Assert.IsTrue(firstSaveDataUpdate.GameProgression.UnlockedChapters.HasFlag(SaveData.Progression.Chapters.Chapter2));
@@ -62,7 +80,7 @@ public class SaveDataTests
         StringAssert.AreEqualIgnoringCase(saveDataAtVersionZero, PlayerPrefs.GetString("SaveData", saveDataAtVersionZero));
 
         // loading is successful and SaveData is set to the current version
-        var saveData = _proxy.Load();
+        var saveData = Proxy.Load();
         Assert.AreEqual(saveData.Version, SaveData.LatestVersion);
     }
 
@@ -79,7 +97,7 @@ public class SaveDataTests
         StringAssert.AreEqualIgnoringCase(saveDataAtMaxBounds, PlayerPrefs.GetString("SaveData", saveDataAtMaxBounds));
 
         var exception = Assert.Throws<NotSupportedException>(() => {
-            var _ = _proxy.Load();
+            var _ = Proxy.Load();
         });
         StringAssert.Contains($"'{absurdlyHighVersionNumber}'", exception.Message);
         StringAssert.Contains($"'{SaveData.LatestVersion}'", exception.Message);
@@ -91,7 +109,7 @@ public class SaveDataTests
         Proxy.DeleteSaveData();
 
         Assert.Throws<KeyNotFoundException>(() => {
-            var _ = _proxy.Load();
+            var _ = Proxy.Load();
         });
     }
 
@@ -102,7 +120,7 @@ public class SaveDataTests
 
         Assert.IsFalse(Proxy.HasExistingSaveData());
         
-        _proxy.UpdateCurrentSaveData((ref SaveData saveData) => saveData = new SaveData(SaveData.LatestVersion));
+        Proxy.UpdateCurrentSaveData((ref SaveData saveData) => saveData = new SaveData(SaveData.LatestVersion));
         
         Assert.IsTrue(Proxy.HasExistingSaveData());
     }
