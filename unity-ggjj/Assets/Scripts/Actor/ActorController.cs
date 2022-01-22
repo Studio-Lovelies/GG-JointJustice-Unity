@@ -300,6 +300,13 @@ public class ActorController : MonoBehaviour, IActorController
         }
     }
 
+    /// <summary>
+    /// Change the visibility of the sprite of the specified actor
+    /// </summary>
+    /// <param name="actorName">Name of the actor to change the visibility of</param>
+    /// <param name="shouldShow">Whether to show (`true`) or hide `false` the actor</param>
+    /// <exception cref="KeyNotFoundException">Thrown, if no actor with the specified name exists in this scene</exception>
+    /// <exception cref="NullReferenceException">Thrown, if no Renderer exists on the actor with the specified name</exception>
     public void SetVisibility(string actorName, bool shouldShow)
     {
         _actorDataToActor[_actorInventory[actorName]].GetComponent<Renderer>().enabled = shouldShow;
