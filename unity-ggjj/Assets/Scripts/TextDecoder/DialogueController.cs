@@ -37,9 +37,8 @@ public class DialogueController : MonoBehaviour, IDialogueController
 
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
-
-    [SerializeField] private FailureStoryList _failureList;
-
+    
+    [Tooltip("Drag a prefab containing a DialogueController here")]
     [SerializeField] private DialogueController _dialogueControllerPrefab;
 
     public bool IsBusy { get; private set; }
@@ -214,7 +213,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
         if (choiceList.Count <= 2)
         {
             //Deal with bad consequences, spawn sub story and continue that
-            StartSubStory(_failureList.GetRandomFailurestate());
+            StartSubStory(_narrativeScriptPlaylist.GetRandomFailureScript());
             return;
         }
 
@@ -234,7 +233,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
         }
 
         //Deal with bad consequences, spawn sub story and continue that
-        StartSubStory(_failureList.GetRandomFailurestate());
+        StartSubStory(_narrativeScriptPlaylist.GetRandomFailureScript());
     }
 
     /// <summary>
@@ -374,11 +373,11 @@ public class DialogueController : MonoBehaviour, IDialogueController
     /// Starts a new sub story based on the provided inky dialogue script. The sub story always goes before the main story. When the sub story is finished, the main story continues on the line after the one it left off on.
     /// </summary>
     /// <param name="subStory">Inky dialogue script to be set as the sub story</param>
-    public void StartSubStory(TextAsset subStory)
+    public void StartSubStory(NarrativeScript subStory)
     {
         _subStory = Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
         _subStory.SubStoryInit(this); //RECURSION
-        _subStory.SetNewDialogue(new NarrativeScript(subStory));
+        _subStory.SetNewDialogue(subStory);
     }
 
     /// <summary>

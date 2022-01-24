@@ -618,7 +618,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _narrativeScriptPlaylist: {fileID: 7074748356020451406}
   _directorActionDecoder: {fileID: 5228303783986964379}
-  _failureList: {fileID: 11400000, guid: 5bc1f8e947a0c174097bbf8169c7299d, type: 2}
   _dialogueControllerPrefab: {fileID: 8494501069996666820, guid: 455e7eb71973e5c4fa9b886d5f8a5a63, type: 3}
   _onNewSpokenLine:
     m_PersistentCalls:
@@ -793,6 +792,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <NarrativeScripts>k__BackingField:
   - <Script>k__BackingField: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
+  _failureScripts: []
+  <GameOverScript>k__BackingField:
+    <Script>k__BackingField: {fileID: 4900000, guid: f5d892d04ca1b4437909602a18ec1bf7, type: 3}
   _nextSceneName: 
 --- !u!1 &5228303783288880050
 GameObject:
@@ -2392,6 +2394,10 @@ PrefabInstance:
       propertyPath: _directorActionDecoder
       value: 
       objectReference: {fileID: 5228303783986964379}
+    - target: {fileID: 7962780514542778033, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _narrativeScriptPlaylist
+      value: 
+      objectReference: {fileID: 7074748356020451406}
     - target: {fileID: 7962780514542778033, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onPenaltiesDepleted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

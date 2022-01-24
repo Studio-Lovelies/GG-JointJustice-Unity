@@ -1,11 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SceneLoader))]
 public class NarrativeScriptPlaylist : MonoBehaviour
 {
-    [field: Tooltip("List of inky dialogue scripts to be played in order")]
+    [field: Tooltip("List of narrative scripts to be played in order")]
     [field: SerializeField] public List<NarrativeScript> NarrativeScripts { get; private set; }
+
+    [FormerlySerializedAs("_penaltyScripts")]
+    [Tooltip("List of narrative scripts to be used when taking penalties")]
+    [SerializeField] private List<NarrativeScript> _failureScripts;
+    
+    [field: Tooltip("A narrative script to be played on game over")]
+    [field: SerializeField] public NarrativeScript GameOverScript { get; private set; }
     
     [Tooltip("Write the name of the next scene to load here.")]
     [SerializeField] private string _nextSceneName;
@@ -21,7 +29,18 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     private void Awake()
     {
         _sceneLoader = GetComponent<SceneLoader>();
-        foreach (var narrativeScript in NarrativeScripts)
+        InitializeNarrativeScripts(NarrativeScripts);
+        InitializeNarrativeScripts(_failureScripts);
+        GameOverScript.Initialize();
+    }
+
+    /// <summary>
+    /// Loops through a collection of narrative scripts and initialises each one
+    /// </summary>
+    /// <param name="narrativeScripts">The collection of narrative scripts to initialise</param>
+    private static void InitializeNarrativeScripts(IEnumerable<NarrativeScript> narrativeScripts)
+    {
+        foreach (var narrativeScript in narrativeScripts)
         {
             narrativeScript.Initialize();
         }
@@ -46,5 +65,14 @@ public class NarrativeScriptPlaylist : MonoBehaviour
         }
 
         return null;
+    }
+    
+    /// <summary>
+    /// Gets a random failure state from the list.
+    /// </summary>
+    /// <returns>Inky dialogue script containing a failure sub-story.</returns>
+    public NarrativeScript GetRandomFailureScript()
+    {
+        return _failureScripts.Count == 0 ? null : _failureScripts[Random.Range(0, _failureScripts.Count)];
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ink.Runtime;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,6 +7,9 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
 {
     [Tooltip("Drag a DirectorActionDecoder here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+
+    [Tooltip("Drag a NarrativeScriptPlaylist here")]
+    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     
     [Tooltip("Drag the prefab for the penalty UI object here.")]
     [SerializeField]private Animator _penaltyObject;
@@ -13,7 +17,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     [SerializeField] private int _penaltyCount = 5;
 
     [Header("Events")]
-    [SerializeField] private UnityEvent _onPenaltiesDepleted;
+    [SerializeField] private UnityEvent<NarrativeScript> _onPenaltiesDepleted;
     
     private readonly Queue<Animator> _penaltyObjects = new Queue<Animator>();
 
@@ -79,7 +83,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
         Debug.Log(_penaltyObjects.Count);
         if (_penaltyObjects.Count == 0)
         {
-            _onPenaltiesDepleted.Invoke();
+            _onPenaltiesDepleted.Invoke(_narrativeScriptPlaylist.GameOverScript);
         }
     }
 }
