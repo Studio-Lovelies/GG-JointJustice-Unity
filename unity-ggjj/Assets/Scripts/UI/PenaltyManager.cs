@@ -80,7 +80,6 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     /// </summary>
     private void CheckGameOver()
     {
-        Debug.Log(_penaltyObjects.Count);
         if (_penaltyObjects.Count == 0)
         {
             _onPenaltiesDepleted.Invoke(_narrativeScriptPlaylist.GameOverScript);

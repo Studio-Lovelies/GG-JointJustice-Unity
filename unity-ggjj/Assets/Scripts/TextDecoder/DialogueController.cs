@@ -209,7 +209,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
         _onCrossExaminationLoopActive.Invoke(false);
 
         List<Choice> choiceList = ActiveNarrativeScript.Story.currentChoices;
-
+        
         if (choiceList.Count <= 2)
         {
             //Deal with bad consequences, spawn sub story and continue that
@@ -376,6 +376,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
     public void StartSubStory(NarrativeScript subStory)
     {
         _subStory = Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
+        Debug.Log(subStory);
         _subStory.SubStoryInit(this); //RECURSION
         _subStory.SetNewDialogue(subStory);
     }
@@ -412,6 +413,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
     /// </summary>
     public void OnSubStoryFinished()
     {
+        _subStory.ActiveNarrativeScript.Story.ResetState();
         Destroy(_subStory.gameObject);
         _subStory = null;
         OnContinueStory();

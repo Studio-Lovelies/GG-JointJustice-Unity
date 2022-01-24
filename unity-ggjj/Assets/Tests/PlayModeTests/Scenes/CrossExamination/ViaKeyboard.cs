@@ -126,13 +126,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);
             }
 
-            yield return new WaitForSeconds(5);
-            
             var dialogueControllers = Object.FindObjectsOfType<DialogueController>();
-            foreach (var d in dialogueControllers)
-            {
-                Debug.Log(d.ActiveNarrativeScript.Name);
-            }
             Assert.IsTrue(dialogueControllers.Any(controller => controller.ActiveNarrativeScript.Name == "TMPH_GameOver"));
         }
     }

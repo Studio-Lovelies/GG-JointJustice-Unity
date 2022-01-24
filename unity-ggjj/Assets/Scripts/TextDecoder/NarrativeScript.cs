@@ -22,7 +22,6 @@ public class NarrativeScript
     /// Initialise values on construction.
     /// </summary>
     /// <param name="script">An Ink narrative script</param>
-    /// <param name="type">The type of script (dialogue or cross examination)</param>
     /// <param name="actionDecoder">An optional action decoder, used for testing</param>
     public NarrativeScript(TextAsset script, IActionDecoder actionDecoder = null)
     {
