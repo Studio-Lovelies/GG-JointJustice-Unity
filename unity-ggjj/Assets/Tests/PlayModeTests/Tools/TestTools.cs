@@ -33,12 +33,7 @@ namespace Tests.PlayModeTests.Tools
                     return false;
                 }
 
-                if (PrefabUtility.GetPrefabAssetType(o) == PrefabAssetType.Regular)
-                {
-                    return false;
-                }
-
-                return true;
+                return PrefabUtility.GetPrefabAssetType(o) != PrefabAssetType.Regular;
             }).ToArray();
         }
 
