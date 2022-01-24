@@ -380,7 +380,6 @@ public class DialogueController : MonoBehaviour, IDialogueController
     /// <param name="subStory">Inky dialogue script to be set as the sub story</param>
     public void StartSubStory(NarrativeScript subStory)
     {
-        Debug.Log("here");
         _subStory = Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
         _subStory.SubStoryInit(this); //RECURSION
         _subStory.SetNewDialogue(subStory);

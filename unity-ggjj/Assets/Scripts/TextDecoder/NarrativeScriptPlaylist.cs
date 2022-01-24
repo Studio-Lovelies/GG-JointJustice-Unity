@@ -30,16 +30,6 @@ public class NarrativeScriptPlaylist : MonoBehaviour
         _sceneLoader = GetComponent<SceneLoader>();
         InitializeNarrativeScripts(NarrativeScripts);
         InitializeNarrativeScripts(FailureScripts);
-
-        foreach (var script in FailureScripts)
-        {
-            var a = script.ObjectStorage.GetObjectsOfType<ActorData>();
-            foreach (var b in a)
-            {
-                Debug.Log(b + " " + script.Script.name);
-            }
-        }
-        
         GameOverScript.Initialize();
     }
 
@@ -51,7 +41,6 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     {
         foreach (var narrativeScript in narrativeScripts)
         {
-            Debug.Log(narrativeScript.Script.name);
             narrativeScript.Initialize();
         }
     }
