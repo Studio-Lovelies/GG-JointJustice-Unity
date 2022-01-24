@@ -598,6 +598,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 4487481529544884689, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_Name
+      value: PenaltyBar
+      objectReference: {fileID: 0}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueMode
       value: 0

@@ -195,7 +195,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
             _subStory.HandlePresenting(presentedObject);
             return;
         }
-
+        
         if (!_isAtChoice)
         {
             return;
