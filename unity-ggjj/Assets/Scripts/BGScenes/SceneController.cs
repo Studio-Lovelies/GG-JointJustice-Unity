@@ -114,6 +114,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="position">Target position in pixels</param>
     /// <param name="seconds">Time for the pan to take in seconds</param>
+    /// <param name="isBlocking">Whether the script should continue after the pan has completed (true) or immediately (false)</param>
     public void PanCamera(float seconds, Vector2Int position, bool isBlocking = false)
     {
         _panToPositionCoroutine = StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds, isBlocking));
@@ -129,6 +130,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="targetPos">Target position</param>
     /// <param name="timeInSeconds">Time for the pan to take in seconds</param>
+    /// <param name="isBlocking">Whether the script should continue after the pan has completed (true) or immediately (false)</param>
     /// <returns>IEnumerator stuff for coroutine</returns>
     private IEnumerator PanToPosition(Vector2 targetPos, float timeInSeconds, bool isBlocking)
     {
