@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 public class ObjectStorage : IObjectStorage
 {
-    private Dictionary<string, Object> _objects = new Dictionary<string, Object>();
+    private readonly Dictionary<string, Object> _objects = new Dictionary<string, Object>();
 
     public int Count => _objects.Count;
 
@@ -46,6 +46,16 @@ public class ObjectStorage : IObjectStorage
     public IEnumerable<T> GetObjectsOfType<T>() where T : Object
     {
         return _objects.Values.Where(obj => obj is T).Cast<T>();
+    }
+
+    /// <summary>
+    /// Method to check if an object is currently in storage
+    /// </summary>
+    /// <param name="obj">The object to look for</param>
+    /// <returns>Whether the object was in storage (true) or not (false)</returns>
+    public bool Contains(Object obj)
+    {
+        return _objects.ContainsValue(obj);
     }
 }
 

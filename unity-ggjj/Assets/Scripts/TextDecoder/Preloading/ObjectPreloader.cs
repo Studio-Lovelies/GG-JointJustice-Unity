@@ -91,7 +91,11 @@ public class ObjectPreloader : ActionDecoderBase
     {
         try
         {
-            _objectStorage.Add(Resources.Load<T>(path));
+            var obj = Resources.Load<T>(path);
+            if (!_objectStorage.Contains(obj))
+            {
+                _objectStorage.Add(obj);
+            }
         }
         catch (NullReferenceException exception)
         {
