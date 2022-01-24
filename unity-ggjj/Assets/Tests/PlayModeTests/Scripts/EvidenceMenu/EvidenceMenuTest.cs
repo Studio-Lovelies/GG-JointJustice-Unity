@@ -9,7 +9,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
     public class EvidenceMenuTest
     {
-        private const string SCENE_PATH = "Assets/Scenes/EvidenceMenu - Test Scene.unity";
+        private const string SCENE_PATH = "Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity";
         
         protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
@@ -33,7 +33,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [UnityTearDown]
         public IEnumerator TearDown()
         {
-            yield return SceneManager.UnloadSceneAsync("Assets/Scenes/EvidenceMenu - Test Scene.unity");
+            yield return SceneManager.UnloadSceneAsync("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity");
         }
         
         protected ActorData[] AddProfiles()
