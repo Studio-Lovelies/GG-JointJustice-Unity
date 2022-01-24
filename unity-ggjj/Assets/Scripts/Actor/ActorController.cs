@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class ActorController : MonoBehaviour, IActorController
 {
     [Tooltip("Drag a NarrativeScriptPlaylist here")]
-    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
+    [SerializeField] private DialogueController _dialogueController;
     
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
@@ -96,7 +96,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            return _narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            return _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
         }
         catch (KeyNotFoundException exception)
         {
@@ -200,7 +200,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            _currentSpeakingActor = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
         }
         catch (KeyNotFoundException exception)
@@ -289,7 +289,7 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
-            var actorData = _narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
+            var actorData = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
             tempActor.SetActor(actorData);
             SetActorInLookupTable(actorData, tempActor);
         }

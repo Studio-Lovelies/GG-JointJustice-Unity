@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c1588c060bf994aa9f9fed3449e1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScriptPlaylist: {fileID: 7074748356020451406}
+  _dialogueController: {fileID: 5228303783123296233}
   _directorActionDecoder: {fileID: 5228303783986964379}
   _settingsMusicVolume: 0.5
   _settingsSfxVolume: 0.5
@@ -792,7 +792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <NarrativeScripts>k__BackingField:
   - <Script>k__BackingField: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
-  _failureScripts:
+  <FailureScripts>k__BackingField:
   - <Script>k__BackingField: {fileID: 4900000, guid: 3bbbc8ea4e3979648a13c4d73b62b60f, type: 3}
   - <Script>k__BackingField: {fileID: 4900000, guid: e154d70fe5b856b489fc97fab7a97ff2, type: 3}
   <GameOverScript>k__BackingField:
@@ -999,7 +999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee61125277f12cc4984a391ebfa39680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScriptPlaylist: {fileID: 7074748356020451406}
+  _dialogueController: {fileID: 5228303783123296233}
   _directorActionDecoder: {fileID: 5228303783986964379}
   _nameBox: {fileID: 966773609476897183}
   _onAnimationStarted:
@@ -1312,7 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1242c864c49aa4ba2cfe2614a039d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScriptPlaylist: {fileID: 7074748356020451406}
+  _dialogueController: {fileID: 5228303783123296233}
   _directorActionDecoder: {fileID: 5228303783986964379}
   _onRequirePresentEvidence:
     m_PersistentCalls:
@@ -1512,7 +1512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807debe146340f740ad2389ba3d71179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScriptPlaylist: {fileID: 7074748356020451406}
+  _dialogueController: {fileID: 5228303783123296233}
   _pixelsPerUnit: 100
   _sceneList: {fileID: 3940572709450816862}
   _imageFader: {fileID: 4556455853982734098}

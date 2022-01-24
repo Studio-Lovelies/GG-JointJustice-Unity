@@ -7,10 +7,9 @@ public class NarrativeScriptPlaylist : MonoBehaviour
 {
     [field: Tooltip("List of narrative scripts to be played in order")]
     [field: SerializeField] public List<NarrativeScript> NarrativeScripts { get; private set; }
-
-    [FormerlySerializedAs("_penaltyScripts")]
-    [Tooltip("List of narrative scripts to be used when taking penalties")]
-    [SerializeField] private List<NarrativeScript> _failureScripts;
+    
+    [field: Tooltip("List of narrative scripts to be used when taking penalties")]
+    [field: SerializeField] public List<NarrativeScript> FailureScripts { get; private set; }
     
     [field: Tooltip("A narrative script to be played on game over")]
     [field: SerializeField] public NarrativeScript GameOverScript { get; private set; }
@@ -30,7 +29,17 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     {
         _sceneLoader = GetComponent<SceneLoader>();
         InitializeNarrativeScripts(NarrativeScripts);
-        InitializeNarrativeScripts(_failureScripts);
+        InitializeNarrativeScripts(FailureScripts);
+
+        foreach (var script in FailureScripts)
+        {
+            var a = script.ObjectStorage.GetObjectsOfType<ActorData>();
+            foreach (var b in a)
+            {
+                Debug.Log(b + " " + script.Script.name);
+            }
+        }
+        
         GameOverScript.Initialize();
     }
 
@@ -42,6 +51,7 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     {
         foreach (var narrativeScript in narrativeScripts)
         {
+            Debug.Log(narrativeScript.Script.name);
             narrativeScript.Initialize();
         }
     }
@@ -58,9 +68,10 @@ public class NarrativeScriptPlaylist : MonoBehaviour
         {
             return NarrativeScripts[_narrativeScriptIndex];
         }
-
+        
         if (!string.IsNullOrEmpty(_nextSceneName))
         {
+            Debug.Log("NOW");
             _sceneLoader.LoadScene(_nextSceneName);
         }
 
@@ -73,6 +84,6 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     /// <returns>Inky dialogue script containing a failure sub-story.</returns>
     public NarrativeScript GetRandomFailureScript()
     {
-        return _failureScripts.Count == 0 ? null : _failureScripts[Random.Range(0, _failureScripts.Count)];
+        return FailureScripts.Count == 0 ? null : FailureScripts[Random.Range(0, FailureScripts.Count)];
     }
 }

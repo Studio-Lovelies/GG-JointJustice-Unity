@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Ink.Runtime;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -56,7 +55,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     /// </summary>
     public void ResetPenalties()
     {
-        for (int i = 0; i < _penaltyObjects.Count; i++)
+        while (_penaltyObjects.Count > 0)
         {
             var penalty = _penaltyObjects.Dequeue();
             Destroy(penalty.gameObject);

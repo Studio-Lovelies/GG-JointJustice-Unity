@@ -68,8 +68,13 @@ public class DialogueController : MonoBehaviour, IDialogueController
     private bool _isSubStory;
     private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
     private bool _isAtChoice; //Possibly small state machine to handle all input?
+    private NarrativeScript _activeNarrativeScript;
     
-    public NarrativeScript ActiveNarrativeScript { get; private set; }
+    public NarrativeScript ActiveNarrativeScript
+    {
+        get => _subStory == null ? _activeNarrativeScript : _subStory.ActiveNarrativeScript;
+        private set => _activeNarrativeScript = value;
+    }
 
     private void Start()
     {
@@ -375,8 +380,8 @@ public class DialogueController : MonoBehaviour, IDialogueController
     /// <param name="subStory">Inky dialogue script to be set as the sub story</param>
     public void StartSubStory(NarrativeScript subStory)
     {
+        Debug.Log("here");
         _subStory = Instantiate(_dialogueControllerPrefab); //Returns the DialogueController component attached to the instantiated gameobject
-        Debug.Log(subStory);
         _subStory.SubStoryInit(this); //RECURSION
         _subStory.SetNewDialogue(subStory);
     }

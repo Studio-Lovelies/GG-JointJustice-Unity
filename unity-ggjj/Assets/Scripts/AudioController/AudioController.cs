@@ -4,7 +4,7 @@ using UnityEngine;
 public class AudioController : MonoBehaviour, IAudioController
 {
     [Tooltip("Drag a NarrativeScriptPlaylist here")]
-    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
+    [SerializeField] private DialogueController _dialogueController;
     
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
@@ -70,7 +70,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     public void PlaySong(string songName)
     {
-        AudioClip song = _narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<AudioClip>(songName);
+        AudioClip song = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(songName);
         PlaySong(song);
     }
 
@@ -105,7 +105,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySfx(string soundEffectName)
     {
-        AudioClip soundEffectClip = _narrativeScriptPlaylist.NarrativeScript.ObjectStorage.GetObject<AudioClip>(soundEffectName);
+        AudioClip soundEffectClip = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(soundEffectName);
         PlaySfx(soundEffectClip);
     }
 
