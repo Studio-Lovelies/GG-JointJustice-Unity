@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -19,7 +20,7 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return SceneManager.LoadSceneAsync("Inky-TestScene", LoadSceneMode.Additive);
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/AppearingDialogueController - Test Scene.unity",  new LoadSceneParameters(LoadSceneMode.Additive));
             _appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
             _appearingDialogueController.AutoSkip = false;
         }
@@ -113,7 +114,7 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
         [UnityTearDown]
         public IEnumerator TearDown()
         {
-            yield return SceneManager.UnloadSceneAsync("Inky-TestScene");
+            yield return SceneManager.UnloadSceneAsync("AppearingDialogueController - Test Scene");
         }
     }
 }

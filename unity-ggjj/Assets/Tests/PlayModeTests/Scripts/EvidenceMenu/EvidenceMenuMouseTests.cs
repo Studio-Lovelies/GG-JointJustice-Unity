@@ -16,7 +16,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// Places mouse over each menu item and asserts it is highlighted.
         /// </summary>
         [UnityTest, Order(0)]
-        [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator MouseShouldHighlightEvidenceMenuItems()
         {
             yield return null;
@@ -24,7 +24,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
             Transform canvasTransform = Object.FindObjectOfType<Canvas>().transform;
             Vector3 canvasScale = Vector3.right * canvasTransform.localScale.x;
-            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
         
             // Get to required point in scene
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, _inputTestTools.Keyboard.xKey);
@@ -57,12 +57,12 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// the first menu item is the same as the one that the menu thinks is selected.
         /// </summary>
         [UnityTest, Order(1)]
-        [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator NavigationButtonsCanBeClicked()
         {
             yield return MouseShouldHighlightEvidenceMenuItems();
 
-            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Transform canvasTransform = Object.FindObjectOfType<Canvas>().transform;
             Vector3 canvasScale = Vector3.right * canvasTransform.localScale.x;
 
@@ -87,12 +87,12 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         /// Attempts to click a menu item and asserts the menu is closed.
         /// </summary>
         [UnityTest, Order(2)]
-        [ReloadScene("Assets/Scenes/EvidenceMenu - Test Scene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity")]
         public IEnumerator MenuItemsCanBeClickedWithMouse()
         {
             yield return NavigationButtonsCanBeClicked();
 
-            global::EvidenceMenu evidenceMenu = InputTestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
+            global::EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Mouse.leftButton);
             Assert.False(evidenceMenu.isActiveAndEnabled);
