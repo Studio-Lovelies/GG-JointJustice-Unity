@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
-    [Tooltip("Drag a NarrativeScriptPlaylist here")]
+    [Tooltip("Drag a DialogueController here")]
     [SerializeField] private DialogueController _dialogueController;
     
     [Tooltip("Pixels per unit of the basic ")]
