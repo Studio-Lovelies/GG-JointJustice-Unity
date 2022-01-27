@@ -17,22 +17,22 @@ public class BGSceneList : MonoBehaviour
     {
         foreach (var narrativeScript in _narrativeScriptPlaylist.NarrativeScripts)
         {
-            InstantiateBgScenes(narrativeScript);
+            InstantiateBGScenes(narrativeScript);
         }
 
         foreach (var narrativeScript in _narrativeScriptPlaylist.FailureScripts)
         {
-            InstantiateBgScenes(narrativeScript);
+            InstantiateBGScenes(narrativeScript);
         }
         
-        InstantiateBgScenes(_narrativeScriptPlaylist.GameOverScript);
+        InstantiateBGScenes(_narrativeScriptPlaylist.GameOverScript);
     }
 
     /// <summary>
     /// Instantiates BGScenes from a given narrative script and adds them to the dictionary
     /// </summary>
     /// <param name="narrativeScript">The narrative script to get BGScenes from</param>
-    private void InstantiateBgScenes(NarrativeScript narrativeScript)
+    private void InstantiateBGScenes(NarrativeScript narrativeScript)
     {
         var backgroundScenes = narrativeScript.ObjectStorage.GetObjectsOfType<BGScene>();
         foreach (var bgScene in backgroundScenes)
