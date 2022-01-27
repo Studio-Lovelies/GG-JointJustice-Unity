@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class BGSceneList : MonoBehaviour
@@ -37,7 +36,7 @@ public class BGSceneList : MonoBehaviour
         var backgroundScenes = narrativeScript.ObjectStorage.GetObjectsOfType<BGScene>();
         foreach (var bgScene in backgroundScenes)
         {
-            if (_bgScenes.Keys.Contains(bgScene.name))
+            if (_bgScenes.ContainsKey(bgScene.name))
             {
                 continue;
             }
