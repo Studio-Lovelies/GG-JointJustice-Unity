@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 public class EvidenceController : MonoBehaviour, IEvidenceController
 {
-    [Tooltip("Drag a NarrativeScriptPlaylist here")]
+    [Tooltip("Drag a DialogueController here")]
     [SerializeField] private DialogueController _dialogueController;
     
     [Tooltip("Attach the action decoder object here")]
