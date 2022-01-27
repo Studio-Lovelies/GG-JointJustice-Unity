@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class NarrativeScriptTests
 {
-    public const string TestScript =    "This is a test script" +
+    public const string TEST_SCRIPT =    "This is a test script" +
                                         "&ACTOR:Arin\n" +
                                         "&ACTOR:Arin\n" +
                                         "&ACTOR:Dan\n" +
@@ -34,7 +34,7 @@ public class NarrativeScriptTests
     [Test]
     public void ReadScriptRunsCorrectNumberOfActions()
     {
-        var parser = new InkParser(TestScript);
+        var parser = new InkParser(TEST_SCRIPT);
         var story = parser.Parse().ExportRuntime();
 
         var methodCalls = new Dictionary<int, int>();
