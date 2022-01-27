@@ -13,7 +13,7 @@ public class BGSceneList : MonoBehaviour
     /// <summary>
     /// Gets all available BGScenes and instantiates them.
     /// </summary>
-    public void Start()
+    private void Start()
     {
         foreach (var narrativeScript in _narrativeScriptPlaylist.NarrativeScripts)
         {
