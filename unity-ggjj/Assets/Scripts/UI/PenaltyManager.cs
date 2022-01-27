@@ -33,12 +33,15 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     public void OnCrossExaminationStart()
     {
         gameObject.SetActive(true);
-        if (_penaltyObjects.Count == 0)
+        
+        if (_penaltyObjects.Count != 0)
         {
-            for (int i = 0; i < _penaltyCount; i++)
-            {
-                _penaltyObjects.Enqueue(Instantiate(_penaltyObject, transform));
-            }
+            return;
+        }
+        
+        for (int i = 0; i < _penaltyCount; i++)
+        {
+            _penaltyObjects.Enqueue(Instantiate(_penaltyObject, transform));
         }
     }
 
