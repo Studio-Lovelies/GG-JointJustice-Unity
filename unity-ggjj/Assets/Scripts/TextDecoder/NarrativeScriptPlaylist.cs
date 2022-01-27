@@ -26,21 +26,9 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     private void Awake()
     {
         _sceneLoader = GetComponent<SceneLoader>();
-        InitializeNarrativeScripts(NarrativeScripts);
-        InitializeNarrativeScripts(FailureScripts);
+        NarrativeScripts.ForEach(script => script.Initialize());
+        FailureScripts.ForEach(script => script.Initialize());
         GameOverScript.Initialize();
-    }
-
-    /// <summary>
-    /// Loops through a collection of narrative scripts and initialises each one
-    /// </summary>
-    /// <param name="narrativeScripts">The collection of narrative scripts to initialise</param>
-    private static void InitializeNarrativeScripts(IEnumerable<NarrativeScript> narrativeScripts)
-    {
-        foreach (var narrativeScript in narrativeScripts)
-        {
-            narrativeScript.Initialize();
-        }
     }
 
     /// <summary>
