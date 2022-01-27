@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class NarrativeScriptTests
 {
-    public readonly string TestScript = "This is a test script" +
+    public const string TestScript =    "This is a test script" +
                                         "&ACTOR:Arin\n" +
                                         "&ACTOR:Arin\n" +
                                         "&ACTOR:Dan\n" +
