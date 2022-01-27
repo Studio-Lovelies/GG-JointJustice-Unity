@@ -73,6 +73,5 @@ public class ObjectPreloaderTests
             var storedActor = _objectStorage.GetObject<T>(typeSpecificResource.name);
             Assert.AreEqual(storedActor, typeSpecificResource);
         }
-        }
     }
 }
