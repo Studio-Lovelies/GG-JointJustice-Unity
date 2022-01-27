@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Actor : Animatable
 {
     private ActorData _actorData;
