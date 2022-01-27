@@ -93,8 +93,8 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <returns>The AudioSource of the new child object</returns>
     private AudioSource CreateAudioSource(string gameObjectName)
     {
-        var gameObject = new GameObject(gameObjectName);
-        gameObject.transform.parent = this.transform;
+        var newGameObject = new GameObject(gameObjectName);
+        newGameObject.transform.parent = transform;
         return gameObject.AddComponent<AudioSource>();
     }
 
