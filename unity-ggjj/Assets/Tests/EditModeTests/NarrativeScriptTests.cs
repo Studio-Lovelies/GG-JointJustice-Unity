@@ -6,31 +6,31 @@ using UnityEngine;
 
 public class NarrativeScriptTests
 {
-    public const string TEST_SCRIPT =    "This is a test script" +
-                                        "&ACTOR:Arin\n" +
-                                        "&ACTOR:Arin\n" +
-                                        "&ACTOR:Dan\n" +
-                                        "&ACTOR:Dan\n" +
-                                        "&SPEAK:Arin\n" +
-                                        "&SPEAK:Arin\n" +
-                                        "&SET_ACTOR_POSITION:1,Jory\n" +
-                                        "&SET_ACTOR_POSITION:1,Jory\n" +
-                                        "&SCENE:TMPHCourt\n" +
-                                        "&SCENE:TMPHCourt\n" +
-                                        "&SHOW_ITEM:BentCoins,Right\n" +
-                                        "-> NamedContainer\n" +
-                                        "=== NamedContainer ===\n" +
-                                        "&SHOW_ITEM:Bent_Coins,Right\n" +
-                                        "&ADD_EVIDENCE:StolenDinos\n" +
-                                        "&ADD_EVIDENCE:StolenDinos\n" +
-                                        "&ADD_RECORD:TutorialBoy\n" +
-                                        "&ADD_RECORD:TutorialBoy\n" +
-                                        "&PLAY_SFX:Damage1\n" +
-                                        "&PLAY_SFX:Damage1\n" +
-                                        "&PLAY_SONG:ABoyAndHisTrial\n" +
-                                        "&PLAY_SONG:ABoyAndHisTrial\n" +
-                                        "-> END";
-    
+    public const string TEST_SCRIPT = "This is a test script" +
+                                      "&ACTOR:Arin\n" +
+                                      "&ACTOR:Arin\n" +
+                                      "&ACTOR:Dan\n" +
+                                      "&ACTOR:Dan\n" +
+                                      "&SPEAK:Arin\n" +
+                                      "&SPEAK:Arin\n" +
+                                      "&SET_ACTOR_POSITION:1,Jory\n" +
+                                      "&SET_ACTOR_POSITION:1,Jory\n" +
+                                      "&SCENE:TMPHCourt\n" +
+                                      "&SCENE:TMPHCourt\n" +
+                                      "&SHOW_ITEM:BentCoins,Right\n" +
+                                      "-> NamedContainer\n" +
+                                      "=== NamedContainer ===\n" +
+                                      "&SHOW_ITEM:Bent_Coins,Right\n" +
+                                      "&ADD_EVIDENCE:StolenDinos\n" +
+                                      "&ADD_EVIDENCE:StolenDinos\n" +
+                                      "&ADD_RECORD:TutorialBoy\n" +
+                                      "&ADD_RECORD:TutorialBoy\n" +
+                                      "&PLAY_SFX:Damage1\n" +
+                                      "&PLAY_SFX:Damage1\n" +
+                                      "&PLAY_SONG:ABoyAndHisTrial\n" +
+                                      "&PLAY_SONG:ABoyAndHisTrial\n" +
+                                      "-> END";
+
     [Test]
     public void ReadScriptRunsCorrectNumberOfActions()
     {
@@ -44,19 +44,19 @@ public class NarrativeScriptTests
         }
 
         var objectPreloaderMock = new Mock<IActionDecoder>();
-        
+
         objectPreloaderMock.Setup(mock => mock
-            .OnNewActionLine("&ACTOR:Arin"))
+                .OnNewActionLine("&ACTOR:Arin"))
             .Callback(() => methodCalls[0]++);
-        
+
         objectPreloaderMock.Setup(mock => mock
                 .OnNewActionLine("&ACTOR:Dan"))
             .Callback(() => methodCalls[1]++);
-        
+
         objectPreloaderMock.Setup(mock => mock
                 .OnNewActionLine("&SPEAK:Arin"))
             .Callback(() => methodCalls[2]++);
-        
+
         objectPreloaderMock.Setup(mock => mock
                 .OnNewActionLine("&SET_ACTOR_POSITION:1,Jory"))
             .Callback(() => methodCalls[3]++);
@@ -64,27 +64,27 @@ public class NarrativeScriptTests
         objectPreloaderMock.Setup(mock => mock
                 .OnNewActionLine("&SCENE:TMPHCourt"))
             .Callback(() => methodCalls[4]++);
-        
+
         objectPreloaderMock.Setup(mock => mock
                 .OnNewActionLine("&SHOW_ITEM:BentCoins,Right"))
             .Callback(() => methodCalls[5]++);
-        
+
         objectPreloaderMock.Setup(mock => mock
                 .OnNewActionLine("&ADD_EVIDENCE:StolenDinos"))
             .Callback(() => methodCalls[6]++);
-        
+
         objectPreloaderMock.Setup(mock => mock
                 .OnNewActionLine("&ADD_RECORD:TutorialBoy"))
             .Callback(() => methodCalls[7]++);
-        
+
         objectPreloaderMock.Setup(mock => mock
                 .OnNewActionLine("&PLAY_SFX:Damage1"))
             .Callback(() => methodCalls[8]++);
-        
+
         objectPreloaderMock.Setup(mock => mock
                 .OnNewActionLine("&PLAY_SONG:ABoyAndHisTrial"))
             .Callback(() => methodCalls[9]++);
-        
+
         new NarrativeScript(new TextAsset(story.ToJson()), objectPreloaderMock.Object);
 
         foreach (var pair in methodCalls)
