@@ -15,9 +15,6 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
 
     [SerializeField] private int _penaltyCount = 5;
 
-    [Header("Events")]
-    [SerializeField] private UnityEvent<NarrativeScript> _onPenaltiesDepleted;
-    
     private readonly Queue<Animator> _penaltyObjects = new Queue<Animator>();
 
     public int PenaltiesLeft => _penaltyObjects.Count;
@@ -84,7 +81,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     {
         if (_penaltyObjects.Count == 0)
         {
-            _onPenaltiesDepleted.Invoke(_narrativeScriptPlaylist.GameOverScript);
+            _directorActionDecoder.Decoder.DialogueController.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
         }
     }
 }
