@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Ink;
 using Moq;
 using NUnit.Framework;
@@ -37,59 +38,21 @@ public class NarrativeScriptTests
         var parser = new InkParser(TEST_SCRIPT);
         var story = parser.Parse().ExportRuntime();
 
-        var methodCalls = new Dictionary<int, int>();
-        for (int i = 0; i < 10; i++)
-        {
-            methodCalls.Add(i, 0);
-        }
+        var uniqueActionLines = TEST_SCRIPT.Split('\n')
+            .Distinct()
+            .Where(line => line.StartsWith("&"))
+            .ToList();
+        var methodCalls = new List<string>();
 
         var objectPreloaderMock = new Mock<IActionDecoder>();
+        objectPreloaderMock.Setup(mock => mock.OnNewActionLine(It.IsAny<string>()))
+            .Callback<string>(line => methodCalls.Add(line));
 
-        objectPreloaderMock.Setup(mock => mock
-                .OnNewActionLine("&ACTOR:Arin"))
-            .Callback(() => methodCalls[0]++);
-
-        objectPreloaderMock.Setup(mock => mock
-                .OnNewActionLine("&ACTOR:Dan"))
-            .Callback(() => methodCalls[1]++);
-
-        objectPreloaderMock.Setup(mock => mock
-                .OnNewActionLine("&SPEAK:Arin"))
-            .Callback(() => methodCalls[2]++);
-
-        objectPreloaderMock.Setup(mock => mock
-                .OnNewActionLine("&SET_ACTOR_POSITION:1,Jory"))
-            .Callback(() => methodCalls[3]++);
-
-        objectPreloaderMock.Setup(mock => mock
-                .OnNewActionLine("&SCENE:TMPHCourt"))
-            .Callback(() => methodCalls[4]++);
-
-        objectPreloaderMock.Setup(mock => mock
-                .OnNewActionLine("&SHOW_ITEM:BentCoins,Right"))
-            .Callback(() => methodCalls[5]++);
-
-        objectPreloaderMock.Setup(mock => mock
-                .OnNewActionLine("&ADD_EVIDENCE:StolenDinos"))
-            .Callback(() => methodCalls[6]++);
-
-        objectPreloaderMock.Setup(mock => mock
-                .OnNewActionLine("&ADD_RECORD:TutorialBoy"))
-            .Callback(() => methodCalls[7]++);
-
-        objectPreloaderMock.Setup(mock => mock
-                .OnNewActionLine("&PLAY_SFX:Damage1"))
-            .Callback(() => methodCalls[8]++);
-
-        objectPreloaderMock.Setup(mock => mock
-                .OnNewActionLine("&PLAY_SONG:ABoyAndHisTrial"))
-            .Callback(() => methodCalls[9]++);
-
-        new NarrativeScript(new TextAsset(story.ToJson()), objectPreloaderMock.Object);
-
-        foreach (var pair in methodCalls)
+        _ = new NarrativeScript(new TextAsset(story.ToJson()), objectPreloaderMock.Object);
+        
+        foreach (var uniqueActionLine in uniqueActionLines)
         {
-            Assert.AreEqual(1, pair.Value);
+            Assert.AreEqual(1, methodCalls.Count(line => line == uniqueActionLine));
         }
     }
 }
