@@ -17,7 +17,6 @@ public class ObjectPreloaderTests
     private static IEnumerable<string> MusicLoadingActions => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.Name.Contains("song"))).Select(methodInfo => methodInfo.Name);
     private static IEnumerable<string> SfxLoadingActions => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.Name.Contains("sfx"))).Select(methodInfo => methodInfo.Name);
 
-    
     [SetUp]
     public void SetUp()
     {
