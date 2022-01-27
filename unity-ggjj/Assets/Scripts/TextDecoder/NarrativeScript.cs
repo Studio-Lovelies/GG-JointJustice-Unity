@@ -30,7 +30,7 @@ public class NarrativeScript
     }
 
     /// <summary>
-    /// Initialises script values that cannot be set in the Unity inspector
+    /// Initializes script values that cannot be set in the Unity inspector
     /// and begins script reading and object preloading.
     /// </summary>
     /// <param name="actionDecoder">An optional action decoder, used for testing</param>

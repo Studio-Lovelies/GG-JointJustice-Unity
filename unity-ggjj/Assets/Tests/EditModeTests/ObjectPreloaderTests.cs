@@ -62,16 +62,17 @@ public class ObjectPreloaderTests
     /// <typeparam name="T">The type of object to load.</typeparam>
     private void ObjectPreloaderCanLoadObjects<T>(string path, string action) where T : Object
     {
-        var objects = Resources.LoadAll(path);
+        var resourcesInsidePath = Resources.LoadAll(path);
 
-        foreach (var o in objects)
+        foreach (var genericResource in resourcesInsidePath)
         {
             var actorPositionParameter = action == "SET_ACTOR_POSITION" ? "1," : "";
             
-            var obj = (T)o;
-            _objectPreloader.OnNewActionLine($"&{action}:{actorPositionParameter}{obj.name}");
-            var storedActor = _objectStorage.GetObject<T>(obj.name);
-            Assert.AreEqual(storedActor, obj);
+            var typeSpecificResource = (T)genericResource;
+            _objectPreloader.OnNewActionLine($"&{action}:{actorPositionParameter}{typeSpecificResource.name}");
+            var storedActor = _objectStorage.GetObject<T>(typeSpecificResource.name);
+            Assert.AreEqual(storedActor, typeSpecificResource);
+        }
         }
     }
 }
