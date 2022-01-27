@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class ActorController : MonoBehaviour, IActorController
 {
-    [Tooltip("Drag a NarrativeScriptPlaylist here")]
+    [Tooltip("Drag a DialogueController here")]
     [SerializeField] private DialogueController _dialogueController;
     
     [Tooltip("Attach the action decoder object here")]
