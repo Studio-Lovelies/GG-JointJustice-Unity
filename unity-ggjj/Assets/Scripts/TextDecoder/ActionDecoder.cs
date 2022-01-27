@@ -636,8 +636,7 @@ public class ActionDecoder
                 PenaltyManager.OnCrossExaminationStart();
                 break;
             default:
-                Debug.LogError($"Invalid GameMode: {mode}");
-                break;
+                throw new NotSupportedException($"Switching to game mode '{mode}' is not supported");
         }
 
         OnActionDone?.Invoke();
