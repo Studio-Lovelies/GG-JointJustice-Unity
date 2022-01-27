@@ -26,7 +26,6 @@ public class AudioController : MonoBehaviour, IAudioController
     [Tooltip("Total duration of fade out + fade in")]
     [Range(0f, 4f)]
     [SerializeField] private float _transitionDuration = 2f;
-    private bool _isTransitioningMusicTracks;
     private AudioSource _musicAudioSource;
     private AudioSource _sfxAudioSource;
     private Coroutine _currentFadeCoroutine;
@@ -124,7 +123,6 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="song">The song to fade to</param>
     public IEnumerator FadeToNewSong(AudioClip song)
     {
-        _isTransitioningMusicTracks = true;
         if (IsCurrentlyPlayingMusic())
         {
             yield return _musicFader.FadeOut(_transitionDuration / 2f);
@@ -132,8 +130,6 @@ public class AudioController : MonoBehaviour, IAudioController
 
         SetCurrentTrack(song);
         yield return _musicFader.FadeIn(_transitionDuration / 2f);
-
-        _isTransitioningMusicTracks = false;
     }
 
     /// <summary>
