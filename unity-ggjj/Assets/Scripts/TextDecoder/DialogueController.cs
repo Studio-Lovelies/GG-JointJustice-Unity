@@ -63,7 +63,6 @@ public class DialogueController : MonoBehaviour, IDialogueController
     [Tooltip("This event is called when the _isBusy field is set.")]
     [SerializeField] private UnityEvent<bool> _onBusySet;
     
-    private bool _isBusy;
     private bool _isMenuOpen;
     private bool _isSubStory;
     private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
