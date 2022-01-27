@@ -55,11 +55,11 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     /// </summary>
     public void ResetPenalties()
     {
-        while (_penaltyObjects.Count > 0)
+        foreach (var penaltyAnimator in _penaltyObjects)
         {
-            var penalty = _penaltyObjects.Dequeue();
-            Destroy(penalty.gameObject);
+            Destroy(penaltyAnimator.gameObject);
         }
+        _penaltyObjects.Clear();
         OnCrossExaminationStart();
     }
 
