@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SceneLoader))]
 public class NarrativeScriptPlaylist : MonoBehaviour
