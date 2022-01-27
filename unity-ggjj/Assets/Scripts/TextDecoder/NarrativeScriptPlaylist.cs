@@ -32,7 +32,7 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     }
 
     /// <summary>
-    /// Loops through a collection of narrative scripts and initialises each one
+    /// Loops through a collection of narrative scripts and initializes each one
     /// </summary>
     /// <param name="narrativeScripts">The collection of narrative scripts to initialise</param>
     private static void InitializeNarrativeScripts(IEnumerable<NarrativeScript> narrativeScripts)
