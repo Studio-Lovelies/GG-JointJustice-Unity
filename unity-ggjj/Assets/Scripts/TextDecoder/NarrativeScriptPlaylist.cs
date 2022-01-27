@@ -20,8 +20,6 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     private SceneLoader _sceneLoader;
     private int _narrativeScriptIndex = -1;
 
-    public NarrativeScript NarrativeScript => NarrativeScripts[_narrativeScriptIndex];
-
     /// <summary>
     /// Initializes variables
     /// </summary>

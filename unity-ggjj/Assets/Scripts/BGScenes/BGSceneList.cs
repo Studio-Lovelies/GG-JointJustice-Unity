@@ -13,7 +13,7 @@ public class BGSceneList : MonoBehaviour
     /// <summary>
     /// Gets all available BGScenes and instantiates them.
     /// </summary>
-    public void Start()
+    private void Start()
     {
         foreach (var narrativeScript in _narrativeScriptPlaylist.NarrativeScripts)
         {
@@ -54,7 +54,7 @@ public class BGSceneList : MonoBehaviour
     /// </summary>
     /// <param name="sceneName">name of the target scene</param>
     /// <returns>The new active scene. Can be null if an error occurred.</returns>
-    public BGScene SetScene(SceneAssetName sceneName) //TODO: Change this when making file names universal
+    public BGScene SetScene(SceneAssetName sceneName)
     {
         if (!_bgScenes.ContainsKey(sceneName))
         {
