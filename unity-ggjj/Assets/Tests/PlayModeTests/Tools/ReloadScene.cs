@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
 namespace Tests.PlayModeTests.Tools
@@ -17,12 +18,12 @@ namespace Tests.PlayModeTests.Tools
 
         public void BeforeTest(ITest test)
         {
-            SceneManager.LoadScene(_absoluteScenePath, LoadSceneMode.Additive);
+            EditorSceneManager.LoadSceneInPlayMode(_absoluteScenePath, new LoadSceneParameters(LoadSceneMode.Additive));
         }
 
         public void AfterTest(ITest test)
         {
-            SceneManager.UnloadScene(_absoluteScenePath);
+            SceneManager.UnloadSceneAsync(_absoluteScenePath);
         }
 
         public ActionTargets Targets => ActionTargets.Test;

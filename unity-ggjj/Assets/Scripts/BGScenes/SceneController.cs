@@ -123,9 +123,14 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="position">Target position in pixels</param>
     /// <param name="seconds">Time for the pan to take in seconds</param>
-    public void PanCamera(float seconds, Vector2Int position)
+    public void PanCamera(float seconds, Vector2Int position, bool isBlocking = false)
     {
-        _panToPositionCoroutine = StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds));
+        _panToPositionCoroutine = StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds, isBlocking));
+        
+        if (!isBlocking)
+        {
+            _onWaitComplete.Invoke();
+        }
     }
 
     /// <summary>
@@ -134,7 +139,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="targetPos">Target position</param>
     /// <param name="timeInSeconds">Time for the pan to take in seconds</param>
     /// <returns>IEnumerator stuff for coroutine</returns>
-    private IEnumerator PanToPosition(Vector2 targetPos, float timeInSeconds)
+    private IEnumerator PanToPosition(Vector2 targetPos, float timeInSeconds, bool isBlocking)
     {
         Vector2 startPos = _activeScene.transform.position;
         float percentagePassed = 0f;
@@ -147,7 +152,11 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _panToPositionCoroutine = null;
-        _onWaitComplete.Invoke();
+        
+        if (isBlocking)
+        {
+            _onWaitComplete.Invoke();
+        }
     }
 
     /// <summary>

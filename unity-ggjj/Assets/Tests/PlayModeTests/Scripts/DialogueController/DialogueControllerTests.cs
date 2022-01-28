@@ -9,7 +9,7 @@ namespace Tests.PlayModeTests.Scripts.DialogueController
     public class DialogueControllerTests
     {
         // This constant contains exactly one action and one spoken line
-        private const string ActionFollowedByScriptSerializedInk = "{\"inkVersion\":20,\"root\":[[\"^&SPEAK:Ross\",\"\\n\",\"^After all the work I put into those levels...\",\"\\n\",\"end\",[\"done\",{\"#f\":5,\"#n\":\"g-0\"}],null],\"done\",{\"#f\":1}],\"listDefs\":{}}";
+        private const string ActionFollowedByScriptSerializedInk = "{\"inkVersion\":20,\"root\":[[\"^&MODE:Dialogue\",\"\\n\",\"^&SPEAK:Ross\",\"\\n\",\"^After all the work I put into those levels...\",\"\\n\",\"end\",[\"done\",{\"#f\":5,\"#n\":\"g-0\"}],null],\"done\",{\"#f\":1}],\"listDefs\":{}}";
 
         [Test]
         public void DialogueController_OnNextLine_CallsCorrectEvents()
@@ -40,12 +40,13 @@ namespace Tests.PlayModeTests.Scripts.DialogueController
             FieldInfo onNewLineFieldInfo = dialogueController.GetType().GetField("_onNewLine", BindingFlags.NonPublic | BindingFlags.Instance);
             onNewLineFieldInfo?.SetValue(dialogueController, new UnityEvent());
 
-            global::Dialogue testDialogue = new global::Dialogue(new TextAsset(ActionFollowedByScriptSerializedInk), global::DialogueControllerMode.Dialogue);
+            global::Dialogue testDialogue = new global::Dialogue(new TextAsset(ActionFollowedByScriptSerializedInk));
             dialogueController.SetNewDialogue(testDialogue);
 
             // Run both lines
-            dialogueController.OnContinueStory();
-            
+            dialogueController.OnContinueStory(); // == &MODE:Dialogue;
+            dialogueController.OnContinueStory(); // == &SPEAK:Ross;
+
             // Assert their existence due to the events being called
             Assert.Contains("&SPEAK:Ross\n", actionLines);
             Assert.Contains("After all the work I put into those levels...\n", spokenLines);

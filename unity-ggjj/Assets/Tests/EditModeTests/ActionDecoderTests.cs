@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Moq;
 using TextDecoder.Parser;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -36,28 +37,35 @@ public class ActionDecoderTests
         {typeof(bool), "true"},
         {typeof(int), "1"},
         {typeof(float), "1.0"},
-        {typeof(ItemDisplayPosition), "Left"},
+        {typeof(ItemDisplayPosition), nameof(ItemDisplayPosition.Left)},
+        {typeof(GameMode), nameof(GameMode.CrossExamination)},
     };
     private static readonly Dictionary<Type, object> _invalidData = new Dictionary<Type, object> {
         {typeof(bool), "NotABool"},
         {typeof(int), "1.0"},
         {typeof(float), "NotAFloat"},
-        {typeof(ItemDisplayPosition), "Invalid"}
+        {typeof(ItemDisplayPosition), "Invalid"},
+        {typeof(GameMode), "Invalid"}
     };
-    
+
     /// <summary>
     /// Helper method to create a fully mocked ActionDecoder
     /// </summary>
     /// <returns>A fully mocked ActionDecoder</returns>
     private static ActionDecoder CreateMockedActionDecoder()
     {
+        var dialogueController = new Moq.Mock<IDialogueController>();
+        dialogueController.SetupSet(m => m.GameMode = It.IsAny<GameMode>());
+
         return new ActionDecoder()
         {
             ActorController = new Moq.Mock<IActorController>().Object,
             AppearingDialogueController = new Moq.Mock<IAppearingDialogueController>().Object,
+            DialogueController = dialogueController.Object,
             AudioController = new Moq.Mock<IAudioController>().Object,
             EvidenceController = new Moq.Mock<IEvidenceController>().Object,
             SceneController = new Moq.Mock<ISceneController>().Object,
+            StoryController = new Moq.Mock<IStoryController>().Object
         };
     }
 
