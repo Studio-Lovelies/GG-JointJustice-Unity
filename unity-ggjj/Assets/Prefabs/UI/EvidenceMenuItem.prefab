@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2062974321150016430}
   - component: {fileID: 2062974321150016435}
   - component: {fileID: 2062974321150016432}
-  - component: {fileID: 2062974321150016434}
   - component: {fileID: 7467009520762512749}
   m_Layer: 5
   m_Name: EvidenceMenuItem
@@ -149,19 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUGUI: {fileID: 0}
---- !u!114 &2062974321150016434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062974321150016428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1141b2e9e56a14f92bae9c5c396e1146, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 2062974321186341390}
 --- !u!114 &7467009520762512749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +173,7 @@ GameObject:
   - component: {fileID: 2062974321186341391}
   - component: {fileID: 2062974321186341393}
   - component: {fileID: 2062974321186341390}
+  - component: {fileID: 5608522151018636031}
   m_Layer: 5
   m_Name: Highlight
   m_TagString: Untagged
@@ -251,3 +238,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5608522151018636031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062974321186341388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1141b2e9e56a14f92bae9c5c396e1146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 0}
