@@ -25,14 +25,11 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag the Image component used for displaying the evidence's icon here.")]
     private Image _evidenceIcon;
 
-    [SerializeField, Tooltip("Drag the Image component for the menu label here.")]
-    private Image _menuLabel;
-    
-    [SerializeField, Tooltip("Drag the sprite used for the profiles menu label.")]
-    private Sprite _profilesMenuLabel;
+    [SerializeField, Tooltip("Drag the LabelSwitcher for the menu label here")]
+    private LabelSwitcher _menuLabelSwitcher;
 
-    [SerializeField, Tooltip("Drag the 'Profiles' text from the controls bar here")]
-    private TextMeshProUGUI _profilesToggleText;
+    [SerializeField, Tooltip("Drag the LabelSwitcher for the 'Profiles' text from the controls bar here")]
+    private LabelSwitcher _controlsLabelSwitcher;
 
     [SerializeField, Tooltip("The boxes used to represent menu items.")]
     private EvidenceMenuItem[] _evidenceMenuItems;
@@ -65,7 +62,6 @@ public class EvidenceMenu : MonoBehaviour
     {
         _menu = GetComponent<Menu>();
         _activeDictionary = _evidenceInventory;
-        _evidenceMenuLabel = _menuLabel.sprite;
     }
     
     /// <summary>
@@ -87,7 +83,7 @@ public class EvidenceMenu : MonoBehaviour
     private void OnEnable()
     {
         _activeDictionary = _evidenceInventory;
-        _menuLabel.sprite = _evidenceMenuLabel;
+        _menuLabelSwitcher.SetDefault();
         _profileMenuActive = false;
 
         if (!_menu.DontResetSelectedOnClose)
@@ -251,15 +247,15 @@ public class EvidenceMenu : MonoBehaviour
         {
             _profileMenuActive = false;
             _activeDictionary = _evidenceInventory;
-            _menuLabel.sprite = _evidenceMenuLabel;
-            _profilesToggleText.text = "Profiles";
+            _menuLabelSwitcher.SetDefault();
+            _controlsLabelSwitcher.SetDefault();
         }
         else
         {
             _profileMenuActive = true;
             _activeDictionary = _actorInventory;
-            _menuLabel.sprite = _profilesMenuLabel;
-            _profilesToggleText.text = "Evidence";
+            _menuLabelSwitcher.SetAlternate();
+            _menuLabelSwitcher.SetAlternate();
         }
         
         UpdateEvidenceMenu();
