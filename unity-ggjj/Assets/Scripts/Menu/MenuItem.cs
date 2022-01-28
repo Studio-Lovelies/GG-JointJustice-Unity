@@ -53,11 +53,8 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
             enabled = interactable;
             _highlight.SetHighlighted(_menu.SelectedButton == Selectable);
         });
-
-        if (!TryGetComponent<IHighlight>(out _highlight))
-        {
-            Debug.LogWarning($"{name} was unable to find component with IHighlight interface on {gameObject.name}.");
-        }
+        
+        _highlight = GetComponentInChildren<IHighlight>();
     }
 
     /// <summary>
