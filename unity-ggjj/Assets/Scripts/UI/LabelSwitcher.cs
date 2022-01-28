@@ -5,13 +5,11 @@ using UnityEngine;
 public class LabelSwitcher : MonoBehaviour
 {
     [SerializeField] private string _defaultText;
-    [SerializeField] private string _alternateText;
-
-    private TextMeshProUGUI _text;
+    [SerializeField] private string _alternateText; 
+    [SerializeField] private TextMeshProUGUI _text;
     
     private void Awake()
     {
-        _text = GetComponent<TextMeshProUGUI>();
         SetDefault();
     }
 

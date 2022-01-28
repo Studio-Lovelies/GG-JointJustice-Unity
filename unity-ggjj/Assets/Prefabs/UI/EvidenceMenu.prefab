@@ -995,6 +995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultText: Evidence
   _alternateText: Profiles
+  _text: {fileID: 2804848272715738362}
 --- !u!1 &3850381841216743105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,6 +1220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultText: Profiles
   _alternateText: Evidence
+  _text: {fileID: 2942569728503895264}
 --- !u!1 &4204534048818269556
 GameObject:
   m_ObjectHideFlags: 0
