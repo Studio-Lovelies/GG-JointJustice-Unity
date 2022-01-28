@@ -254,7 +254,7 @@ public class EvidenceMenu : MonoBehaviour
             _profileMenuActive = true;
             _activeDictionary = _actorInventory;
             _menuLabelSwitcher.SetAlternate();
-            _menuLabelSwitcher.SetAlternate();
+            _controlsLabelSwitcher.SetAlternate();
         }
         
         UpdateEvidenceMenu();
