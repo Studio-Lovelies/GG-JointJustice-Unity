@@ -44,7 +44,6 @@ public class EvidenceMenu : MonoBehaviour
     private UnityEvent _onEvidenceClicked;
 
     private bool _profileMenuActive;
-    private Sprite _evidenceMenuLabel;
     private ICourtRecordObjectInventory _activeDictionary;
     private int _currentPage;
     private int _numberOfPages;
