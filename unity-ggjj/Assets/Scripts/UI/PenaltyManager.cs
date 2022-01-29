@@ -84,4 +84,15 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
             _directorActionDecoder.Decoder.DialogueController.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
         }
     }
+
+    /// <summary>
+    /// Sets the number of penalties the player has left
+    /// Used for testing
+    /// </summary>
+    /// <param name="penaltyCount">The number of penalties to give the player</param>
+    public void SetPenaltyCount(int penaltyCount)
+    {
+        _penaltyCount = penaltyCount;
+        ResetPenalties();
+    }
 }
