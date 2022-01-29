@@ -54,16 +54,17 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
             {
                 yield return _inputTestTools.PressForFrame(Keyboard.xKey);
             }
-
+            
             yield return _inputTestTools.PressForFrame(Keyboard.zKey);
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
 
             var subStory = GameObject.Find("SubStory(Clone)");
 
-            while (subStory != null)
+            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
+            yield return TestTools.WaitForState(() => subStory == null, action: delegate
             {
-                yield return _inputTestTools.PressForFrame(Keyboard.xKey);
-            }
+                dialogueController.StartCoroutine(_inputTestTools.ProgressStory(dialogueController));
+            });
             
             Assert.AreEqual(4, _penaltyManager.PenaltiesLeft);
             yield return _inputTestTools.PressForFrame(Keyboard.xKey);
