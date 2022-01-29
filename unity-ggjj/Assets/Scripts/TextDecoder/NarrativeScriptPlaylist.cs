@@ -45,6 +45,10 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     /// <returns>Inky dialogue script containing a failure sub-story.</returns>
     public NarrativeScript GetRandomFailureScript()
     {
-        return FailureScripts.Count == 0 ? null : FailureScripts[Random.Range(0, FailureScripts.Count)];
+        if (FailureScripts.Count <= 0)
+        {
+            throw new NotSupportedException("This playlist contains no failure scripts");
+        }
+        return FailureScripts[Random.Range(0, FailureScripts.Count)];
     }
 }
