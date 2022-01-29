@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SceneLoader))]
 public class NarrativeScriptPlaylist : MonoBehaviour
 {
     [field: Tooltip("List of narrative scripts to be played in order")]
@@ -13,10 +12,6 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     [field: Tooltip("A narrative script to be played on game over")]
     [field: SerializeField] public NarrativeScript GameOverScript { get; private set; }
     
-    [Tooltip("Write the name of the next scene to load here.")]
-    [SerializeField] private string _nextSceneName;
-
-    private SceneLoader _sceneLoader;
     private int _narrativeScriptIndex = -1;
 
     /// <summary>
@@ -24,7 +19,6 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        _sceneLoader = GetComponent<SceneLoader>();
         NarrativeScripts.ForEach(script => script.Initialize());
         FailureScripts.ForEach(script => script.Initialize());
         GameOverScript.Initialize();
@@ -38,18 +32,7 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     public NarrativeScript GetNextNarrativeScript()
     {
         _narrativeScriptIndex++;
-        if (_narrativeScriptIndex < NarrativeScripts.Count)
-        {
-            return NarrativeScripts[_narrativeScriptIndex];
-        }
-        
-        if (!string.IsNullOrEmpty(_nextSceneName))
-        {
-            Debug.Log("NOW");
-            _sceneLoader.LoadScene(_nextSceneName);
-        }
-
-        return null;
+        return _narrativeScriptIndex < NarrativeScripts.Count ? NarrativeScripts[_narrativeScriptIndex] : null;
     }
     
     /// <summary>
