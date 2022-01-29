@@ -50,6 +50,8 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
         [UnityTest]
         public IEnumerator NumberOfPenaltiesCanBeReset()
         {
+            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
+
             for (int i = 0; i < 3; i++)
             {
                 yield return _inputTestTools.PressForFrame(Keyboard.xKey);
@@ -59,12 +61,7 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
 
             var subStory = GameObject.Find("SubStory(Clone)");
-
-            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
-            yield return TestTools.WaitForState(() => subStory == null, action: delegate
-            {
-                dialogueController.StartCoroutine(_inputTestTools.ProgressStory(dialogueController));
-            });
+            yield return TestTools.WaitForState(() => subStory == null, action: () => _inputTestTools.ProgressStory(dialogueController));
             
             Assert.AreEqual(4, _penaltyManager.PenaltiesLeft);
             yield return _inputTestTools.PressForFrame(Keyboard.xKey);

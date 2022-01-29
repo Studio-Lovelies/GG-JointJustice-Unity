@@ -130,11 +130,9 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="dialogueController">The dialogue controller to wait for</param>
         public IEnumerator ProgressStory(DialogueController dialogueController)
         {
-            Debug.Log("here");
             Press(Keyboard.xKey);
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
             Release(Keyboard.xKey);
-            Debug.Log("now");
         }
     }
 }

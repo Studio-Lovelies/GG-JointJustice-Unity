@@ -1,6 +1,7 @@
 // Script to test whether penatlies are enabled and disabled at the correct times
 &ADD_EVIDENCE:AttorneysBadge
 &SCENE:TMPHCourt
+&SET_ACTOR_POSITION:1,Arin
 &APPEAR_INSTANTLY
 Penalties are disabled
 &MODE:CrossExamination
