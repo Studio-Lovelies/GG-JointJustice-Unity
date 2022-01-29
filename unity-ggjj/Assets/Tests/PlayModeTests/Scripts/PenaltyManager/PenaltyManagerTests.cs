@@ -67,5 +67,17 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
             yield return _inputTestTools.PressForFrame(Keyboard.xKey);
             Assert.AreEqual(5, _penaltyManager.PenaltiesLeft);
         }
+
+        [UnityTest]
+        public IEnumerator NumberOfPenaltiesCanBeSet()
+        {
+            for (int i = 1; i < 6; i++)
+            {
+                _penaltyManager.SetPenaltyCount(i);
+                Assert.AreEqual(i, _penaltyManager.PenaltiesLeft);
+                yield return null;
+                Assert.AreEqual(i, _penaltyManager.transform.childCount);
+            }
+        }
     }
 }
