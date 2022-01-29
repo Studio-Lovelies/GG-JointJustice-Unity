@@ -120,7 +120,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 var subStory = Find("SubStory(Clone)");
                 while (subStory != null && penaltyManager.PenaltiesLeft > 0)
                 {
-                    yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+                    yield return _inputTestTools.ProgressStory(dialogueController);
                 }
 
                 Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);
