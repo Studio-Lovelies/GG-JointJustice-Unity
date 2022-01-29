@@ -32,7 +32,11 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     public NarrativeScript GetNextNarrativeScript()
     {
         _narrativeScriptIndex++;
-        return _narrativeScriptIndex < NarrativeScripts.Count ? NarrativeScripts[_narrativeScriptIndex] : null;
+        if (_narrativeScriptIndex >= NarrativeScripts.Count)
+        {
+            throw new NotSupportedException("This playlist is on its last script already");
+        }
+        return NarrativeScripts[_narrativeScriptIndex];
     }
     
     /// <summary>
