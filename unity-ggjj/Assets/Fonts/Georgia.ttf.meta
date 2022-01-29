@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6aec5c548cc8f4e6596b5fcb8a3ce516
+guid: 7fd5f1565f7a24773967b5d1e744f5e1
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -10,7 +10,8 @@ TrueTypeFontImporter:
   includeFontData: 1
   fontNames:
   - Georgia
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6aec5c548cc8f4e6596b5fcb8a3ce516, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
