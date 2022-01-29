@@ -107,8 +107,6 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         {
             var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
             var dialogueController = Object.FindObjectOfType<DialogueController>();
-
-            penaltyManager.SetPenaltyCount(1);
             
             for (int i = penaltyManager.PenaltiesLeft; i > 0; i--)
             {
