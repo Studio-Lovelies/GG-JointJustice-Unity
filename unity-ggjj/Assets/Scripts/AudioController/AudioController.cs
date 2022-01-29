@@ -95,7 +95,7 @@ public class AudioController : MonoBehaviour, IAudioController
     {
         var newGameObject = new GameObject(gameObjectName);
         newGameObject.transform.parent = transform;
-        return gameObject.AddComponent<AudioSource>();
+        return newGameObject.AddComponent<AudioSource>();
     }
 
     /// <summary>
