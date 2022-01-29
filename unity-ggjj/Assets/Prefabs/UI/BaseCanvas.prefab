@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 5176293044028871328}
   - component: {fileID: 7962780514542778033}
   m_Layer: 5
-  m_Name: TopBar
+  m_Name: PenaltyBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -747,21 +747,6 @@ MonoBehaviour:
   _narrativeScriptPlaylist: {fileID: 0}
   _penaltyObject: {fileID: 2935643627197535036, guid: 033e03543217049bb931fd21ed61c8b7, type: 3}
   _penaltyCount: 5
-  _onPenaltiesDepleted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: StartSubStory
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1001 &1271492229566288399
 PrefabInstance:
   m_ObjectHideFlags: 0
