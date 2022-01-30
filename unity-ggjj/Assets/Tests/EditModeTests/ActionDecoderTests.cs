@@ -65,8 +65,81 @@ public class ActionDecoderTests
             AudioController = new Moq.Mock<IAudioController>().Object,
             EvidenceController = new Moq.Mock<IEvidenceController>().Object,
             SceneController = new Moq.Mock<ISceneController>().Object,
-            StoryController = new Moq.Mock<IStoryController>().Object
+            PenaltyManager = new Moq.Mock<IPenaltyManager>().Object
         };
+    }
+
+    private class RawActionDecoder : ActionDecoderBase
+    {
+        protected override void ADD_EVIDENCE(AssetName evidenceName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ADD_RECORD(AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void PLAY_SFX(AssetName sfx)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void PLAY_SONG(AssetName songName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SCENE(AssetName sceneName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SHOW_ITEM(AssetName itemName, ItemDisplayPosition itemPos)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ACTOR(AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SPEAK(AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SPEAK_UNKNOWN(AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void THINK(AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    [Test]
+    public void ThrowsIfMethodIsNotImplemented()
+    {
+        const string missingMethodName = "MISSING_METHOD";
+        var decoder = new RawActionDecoder();
+        
+        var lineToParse = $"&{missingMethodName}";
+        Debug.Log("Attempting to parse:\n" + lineToParse);
+        var expectedException = Assert.Throws<MethodNotFoundScriptParsingException>(() => {
+            decoder.OnNewActionLine(lineToParse);
+        });
+        StringAssert.Contains(missingMethodName, expectedException.Message);
+        StringAssert.Contains(decoder.GetType().FullName, expectedException.Message);
     }
 
     [Test]
@@ -167,7 +240,7 @@ public class ActionDecoderTests
     {
         var decoder = CreateMockedActionDecoder();
         var sceneControllerMock = new Moq.Mock<ISceneController>();
-        sceneControllerMock.Setup(controller => controller.SetScene("NewScene"));
+        sceneControllerMock.Setup(controller => controller.SetScene(new AssetName("NewScene")));
         decoder.SceneController = sceneControllerMock.Object;
 
         var lineToParse = " &SCENE:NewScene \n\n\n";
@@ -178,7 +251,7 @@ public class ActionDecoderTests
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
 
-        sceneControllerMock.Verify(controller => controller.SetScene("NewScene"));
+        sceneControllerMock.Verify(controller => controller.SetScene(new AssetName("NewScene")));
     }
 
 }

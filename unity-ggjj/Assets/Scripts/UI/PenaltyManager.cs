@@ -1,27 +1,68 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class PenaltyManager : MonoBehaviour
+public class PenaltyManager : MonoBehaviour, IPenaltyManager
 {
+    [Tooltip("Drag a DirectorActionDecoder here")]
+    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+
+    [Tooltip("Drag a NarrativeScriptPlaylist here")]
+    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
+    
     [Tooltip("Drag the prefab for the penalty UI object here.")]
     [SerializeField]private Animator _penaltyObject;
+
+    [SerializeField] private int _penaltyCount = 5;
 
     private readonly Queue<Animator> _penaltyObjects = new Queue<Animator>();
 
     public int PenaltiesLeft => _penaltyObjects.Count;
 
-    /// <summary>
-    /// Creates a specified number of penalties.
-    /// </summary>
-    /// <param name="penaltyCount">The number of penalties to create.</param>
-    public void Initialize(int penaltyCount)
+    private void Awake()
     {
-        for (int i = 0; i < penaltyCount; i++)
+        _directorActionDecoder.Decoder.PenaltyManager = this;
+    }
+    
+    /// <summary>
+    /// Creates penalty UI objects on examination start
+    /// </summary>
+    public void OnCrossExaminationStart()
+    {
+        gameObject.SetActive(true);
+        
+        if (_penaltyObjects.Count != 0)
+        {
+            return;
+        }
+        
+        for (int i = 0; i < _penaltyCount; i++)
         {
             _penaltyObjects.Enqueue(Instantiate(_penaltyObject, transform));
         }
     }
-    
+
+    /// <summary>
+    /// Hide the penalty UI objects on cross examination end
+    /// </summary>
+    public void OnCrossExaminationEnd()
+    {
+        gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Destroy all penalty objects
+    /// </summary>
+    public void ResetPenalties()
+    {
+        foreach (var penaltyAnimator in _penaltyObjects)
+        {
+            Destroy(penaltyAnimator.gameObject);
+        }
+        _penaltyObjects.Clear();
+        OnCrossExaminationStart();
+    }
+
     /// <summary>
     /// Decreases the number of penalties available to the player by one.
     /// </summary>
@@ -30,5 +71,17 @@ public class PenaltyManager : MonoBehaviour
     {
         Debug.Assert(PenaltiesLeft > 0, "Decrement must not be called with 0 or fewer penalty lifelines left");
         _penaltyObjects.Dequeue().Play("Explosion");
+        CheckGameOver();
+    }
+
+    /// <summary>
+    /// Checks if all penalties are depleted and calls the onPenaltiesDepleted event if so.
+    /// </summary>
+    private void CheckGameOver()
+    {
+        if (_penaltyObjects.Count == 0)
+        {
+            _directorActionDecoder.Decoder.DialogueController.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
+        }
     }
 }
