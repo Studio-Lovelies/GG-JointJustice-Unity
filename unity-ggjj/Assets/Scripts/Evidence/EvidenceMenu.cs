@@ -102,7 +102,7 @@ public class EvidenceMenu : MonoBehaviour
 
         CalculatePages(objects.Length);
         SetNavigationButtonsActive();
-        DrawMenuItems();
+        DrawMenuItems(objects);
         _pageBar.SetPage(_currentPage);
     }
 

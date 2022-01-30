@@ -1031,7 +1031,6 @@ GameObject:
   - component: {fileID: 3969768999777622385}
   - component: {fileID: 6716023830339534219}
   - component: {fileID: 6860187372590101849}
-  - component: {fileID: 6377852625833130407}
   m_Layer: 5
   m_Name: IncrementButton
   m_TagString: Untagged
@@ -1166,18 +1165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUGUI: {fileID: 0}
---- !u!114 &6377852625833130407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6746237118820938379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eefbfe2021884bcc833678d0177ec99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8310034454861671579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,9 +1395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebf593d67c2846bda7a4e4142032787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dialogueController: {fileID: 0}
   _evidenceController: {fileID: 0}
-  _evidenceInventory: {fileID: 0}
-  _actorInventory: {fileID: 0}
   _evidenceName: {fileID: 3614776950220335292}
   _evidenceDescription: {fileID: 4920443823172292890}
   _evidenceIcon: {fileID: 1723387483521946277}
@@ -1609,7 +1595,6 @@ GameObject:
   - component: {fileID: 4200107204072315849}
   - component: {fileID: 7029802279498682950}
   - component: {fileID: 2869285286474978653}
-  - component: {fileID: 5120432444122635071}
   m_Layer: 5
   m_Name: DecrementButton
   m_TagString: Untagged
@@ -1744,18 +1729,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUGUI: {fileID: 0}
---- !u!114 &5120432444122635071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8912384495648754972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eefbfe2021884bcc833678d0177ec99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &168905426408130832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1861,11 +1834,6 @@ PrefabInstance:
       objectReference: {fileID: 6429695122436053798}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
---- !u!224 &2231879549968675519 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
-  m_PrefabInstance: {fileID: 168905426408130832}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7347683332944243837 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7467009520762512749, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
@@ -1877,6 +1845,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aefc29aae8a4f46898e32f0e0732a56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2231879549968675519 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+  m_PrefabInstance: {fileID: 168905426408130832}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2066655021980603179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2684,6 +2657,11 @@ PrefabInstance:
       objectReference: {fileID: 6429695122436053798}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+--- !u!224 &3483349040875270174 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+  m_PrefabInstance: {fileID: 3239916930411744177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5428626253084438236 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7467009520762512749, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
@@ -2695,11 +2673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aefc29aae8a4f46898e32f0e0732a56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &3483349040875270174 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
-  m_PrefabInstance: {fileID: 3239916930411744177}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3520677180075911352
 PrefabInstance:
   m_ObjectHideFlags: 0
