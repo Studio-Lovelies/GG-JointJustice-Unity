@@ -146,7 +146,6 @@ public class EvidenceMenu : MonoBehaviour
             }
             else
             {
-                Debug.Log(objects[i]);
                 _evidenceMenuItems[i].gameObject.SetActive(true);
                 _evidenceMenuItems[i].CourtRecordObject = objects[_startIndex + i];
             }
