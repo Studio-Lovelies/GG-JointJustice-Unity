@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -9,9 +7,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Menu))]
 public class EvidenceMenu : MonoBehaviour
 {
-    [Tooltip("Drag the DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
-    
     [SerializeField, Tooltip("Drag the evidence controller here")]
     private EvidenceController _evidenceController;
 
@@ -136,6 +131,13 @@ public class EvidenceMenu : MonoBehaviour
     /// </summary>
     private void DrawMenuItems(ICourtRecordObject[] objects)
     {
+        if (objects.Length == 0)
+        {
+            _evidenceName.text = string.Empty;
+            _evidenceDescription.text = string.Empty;
+            _evidenceIcon.sprite = null;
+        }
+        
         for (int i = 0; i < _evidenceMenuItems.Length; i++)
         {
             if (i + _startIndex > objects.Length - 1)
@@ -144,6 +146,7 @@ public class EvidenceMenu : MonoBehaviour
             }
             else
             {
+                Debug.Log(objects[i]);
                 _evidenceMenuItems[i].gameObject.SetActive(true);
                 _evidenceMenuItems[i].CourtRecordObject = objects[_startIndex + i];
             }
