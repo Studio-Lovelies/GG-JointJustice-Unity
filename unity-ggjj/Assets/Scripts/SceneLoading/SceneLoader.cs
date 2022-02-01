@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,15 +30,19 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void LoadScene(string sceneName)
     {
-        if (!Busy)
+        if (Busy)
         {
-            _sceneLoadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-            if (_sceneLoadOperation != null)
-            {
-                Busy = true;
-                Transition();
-            }
+            return;
         }
+
+        _sceneLoadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        if (_sceneLoadOperation == null)
+        {
+            return;
+        }
+
+        Busy = true;
+        Transition();
     }
 
     /// <summary>

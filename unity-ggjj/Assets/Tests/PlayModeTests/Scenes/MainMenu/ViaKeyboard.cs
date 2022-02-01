@@ -2,6 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -18,7 +19,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            Menu[] menus = InputTestTools.FindInactiveInScene<Menu>();
+            Menu[] menus = TestTools.FindInactiveInScene<Menu>();
             Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
             Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
             Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
@@ -64,7 +65,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            Menu[] menus = InputTestTools.FindInactiveInScene<Menu>();
+            Menu[] menus = TestTools.FindInactiveInScene<Menu>();
             Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
             Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
             Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");

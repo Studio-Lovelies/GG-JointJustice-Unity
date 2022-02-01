@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -33,9 +34,8 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnitySetUp]
         protected IEnumerator SetUp()
         {
-            SceneManager.LoadScene("Inky-TestScene");
-            yield return null;
-            PauseMenu = InputTestTools.FindInactiveInSceneByName<Menu>("PauseMenu");
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/AppearingDialogueController - Test Scene.unity",  new LoadSceneParameters());
+            PauseMenu = TestTools.FindInactiveInSceneByName<Menu>("PauseMenu");
             Buttons = PauseMenu.GetComponentsInChildren<Button>();
             CanvasScale = GameObject.Find("BaseCanvas").transform.localScale.x;
         }

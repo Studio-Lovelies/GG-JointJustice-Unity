@@ -1,17 +1,14 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class ActorController : MonoBehaviour, IActorController
 {
+    [Tooltip("Drag a DialogueController here")]
+    [SerializeField] private DialogueController _dialogueController;
+    
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
-
-    [FormerlySerializedAs("_actorDictionary")]
-    [Tooltip("Drag an ActorDictionary instance here, containing every required character")]
-    [SerializeField] private ActorInventory _actorInventory;
 
     [Tooltip("Attach the NameBox here")]
     [SerializeField] private NameBox _nameBox;
@@ -99,11 +96,11 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            return _actorInventory[actorName];
+            return _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
         }
         catch (KeyNotFoundException exception)
         {
-            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in actor dictionary");
+            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in the actor dictionary");
             return null;
         }
     }
@@ -203,7 +200,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _actorInventory[actorName];
+            _currentSpeakingActor = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
         }
         catch (KeyNotFoundException exception)
@@ -292,7 +289,7 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
-            var actorData = _actorInventory[actor];
+            var actorData = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
             tempActor.SetActor(actorData);
             SetActorInLookupTable(actorData, tempActor);
         }

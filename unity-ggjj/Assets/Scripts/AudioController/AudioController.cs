@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
+    [Tooltip("Drag a DialogueController here")]
+    [SerializeField] private DialogueController _dialogueController;
+    
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
@@ -18,14 +20,12 @@ public class AudioController : MonoBehaviour, IAudioController
     /// One day this will come from the "Settings," but for now it lives on a field
     /// </summary>
     [Tooltip("SFX Volume level set by player")]
-    [FormerlySerializedAs("_settingsSFXVolume")]
     [Range(0f, 1f)]
     [SerializeField] private float _settingsSfxVolume = 0.5f;
 
     [Tooltip("Total duration of fade out + fade in")]
     [Range(0f, 4f)]
     [SerializeField] private float _transitionDuration = 2f;
-    private bool _isTransitioningMusicTracks;
     private AudioSource _musicAudioSource;
     private AudioSource _sfxAudioSource;
     private Coroutine _currentFadeCoroutine;
@@ -44,7 +44,7 @@ public class AudioController : MonoBehaviour, IAudioController
         {
             _directorActionDecoder.Decoder.AudioController = this;
         }
-
+        
         _musicFader = new MusicFader();
         _musicAudioSource = CreateAudioSource("Music Player");
         _sfxAudioSource = CreateAudioSource("SFX Player");
@@ -69,12 +69,22 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     public void PlaySong(string songName)
     {
+        AudioClip song = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(songName);
+        PlaySong(song);
+    }
+
+    /// <summary>
+    /// Overload for PlaySong which allows songs to be played using a direct reference.
+    /// </summary>
+    /// <param name="song">The song to play.</param>
+    public void PlaySong(AudioClip song)
+    {
         if (_currentFadeCoroutine != null)
         {
             StopCoroutine(_currentFadeCoroutine);
         }
 
-        _currentFadeCoroutine = StartCoroutine(FadeToNewSong(songName));
+        _currentFadeCoroutine = StartCoroutine(FadeToNewSong(song));
     }
 
     /// <summary>
@@ -83,9 +93,9 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <returns>The AudioSource of the new child object</returns>
     private AudioSource CreateAudioSource(string gameObjectName)
     {
-        var gameObject = new GameObject(gameObjectName);
-        gameObject.transform.parent = this.transform;
-        return gameObject.AddComponent<AudioSource>();
+        var newGameObject = new GameObject(gameObjectName);
+        newGameObject.transform.parent = transform;
+        return newGameObject.AddComponent<AudioSource>();
     }
 
     /// <summary>
@@ -94,7 +104,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySfx(string soundEffectName)
     {
-        AudioClip soundEffectClip = GetSfxResource(soundEffectName);
+        AudioClip soundEffectClip = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(soundEffectName);
         PlaySfx(soundEffectClip);
     }
 
@@ -110,20 +120,16 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <summary>
     /// Coroutine to fade to a new song.
     /// </summary>
-    /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
-    /// <returns></returns>
-    public IEnumerator FadeToNewSong(string songName)
+    /// <param name="song">The song to fade to</param>
+    public IEnumerator FadeToNewSong(AudioClip song)
     {
-        _isTransitioningMusicTracks = true;
         if (IsCurrentlyPlayingMusic())
         {
             yield return _musicFader.FadeOut(_transitionDuration / 2f);
         }
 
-        SetCurrentTrack(songName);
+        SetCurrentTrack(song);
         yield return _musicFader.FadeIn(_transitionDuration / 2f);
-
-        _isTransitioningMusicTracks = false;
     }
 
     /// <summary>
@@ -149,21 +155,11 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <summary>
     /// Assigns the music player to a given song with 0 volume, intending to fade it in.
     /// </summary>
-    /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
-    private void SetCurrentTrack(string songName)
+    /// <param name="song">The song to fade to</param>
+    private void SetCurrentTrack(AudioClip song)
     {
-        _musicAudioSource.clip = Resources.Load<AudioClip>("Audio/Music/" + songName);
+        _musicAudioSource.clip = song;
         _musicAudioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
         _musicAudioSource.Play();
-    }
-
-    /// <summary>
-    /// Acquires the Sfx Resource from Audio/SFX/*
-    /// </summary>
-    /// <param name="soundEffectName">Name of sound effect asset you want</param>
-    /// <returns></returns>
-    private static AudioClip GetSfxResource(string soundEffectName)
-    {
-        return Resources.Load<AudioClip>("Audio/SFX/" + soundEffectName);
     }
 }

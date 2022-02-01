@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
+    [Tooltip("Drag a DialogueController here")]
+    [SerializeField] private DialogueController _dialogueController;
+    
     [Tooltip("Pixels per unit of the basic ")]
     [SerializeField] private int _pixelsPerUnit = 100;
 
@@ -17,12 +20,6 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag an ItemDisplay component here.")]
     [SerializeField] private ItemDisplay _itemDisplay;
 
-    [Tooltip("Drag an EvidenceInventory component here")]
-    [SerializeField] private EvidenceInventory _evidenceInventory;
-
-    [Tooltip("Drag an ActorInventory component here.")]
-    [SerializeField] private ActorInventory _actorInventory;
-
     [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
     [SerializeField] private Animatable _fullscreenAnimationPlayer;
 
@@ -34,9 +31,6 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Drag a Shout component here.")]
     [SerializeField] private ShoutPlayer _shoutPlayer;
-
-    [Tooltip("Drag a PenaltyManager object here.")]
-    [SerializeField] private PenaltyManager _penaltyManager;
 
     [Tooltip("Drag a SceneLoader object here.")]
     [SerializeField] private SceneLoader _sceneLoader;
@@ -56,9 +50,6 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Event that gets called when the active bg-scene changes")]
     [SerializeField] private UnityEvent<BGScene> _onSceneChanged;
-
-    [Tooltip("Event that is called when player runs out of lives.")]
-    [SerializeField] private UnityEvent _onGameOver;
 
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
@@ -123,9 +114,15 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="position">Target position in pixels</param>
     /// <param name="seconds">Time for the pan to take in seconds</param>
-    public void PanCamera(float seconds, Vector2Int position)
+    /// <param name="isBlocking">Whether the script should continue after the pan has completed (true) or immediately (false)</param>
+    public void PanCamera(float seconds, Vector2Int position, bool isBlocking = false)
     {
-        _panToPositionCoroutine = StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds));
+        _panToPositionCoroutine = StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds, isBlocking));
+        
+        if (!isBlocking)
+        {
+            _onWaitComplete.Invoke();
+        }
     }
 
     /// <summary>
@@ -133,8 +130,9 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="targetPos">Target position</param>
     /// <param name="timeInSeconds">Time for the pan to take in seconds</param>
+    /// <param name="isBlocking">Whether the script should continue after the pan has completed (true) or immediately (false)</param>
     /// <returns>IEnumerator stuff for coroutine</returns>
-    private IEnumerator PanToPosition(Vector2 targetPos, float timeInSeconds)
+    private IEnumerator PanToPosition(Vector2 targetPos, float timeInSeconds, bool isBlocking)
     {
         Vector2 startPos = _activeScene.transform.position;
         float percentagePassed = 0f;
@@ -147,7 +145,11 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _panToPositionCoroutine = null;
-        _onWaitComplete.Invoke();
+        
+        if (isBlocking)
+        {
+            _onWaitComplete.Invoke();
+        }
     }
 
     /// <summary>
@@ -201,18 +203,12 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="position">The position of the item's image on the screen (left, middle, right).</param>
     public void ShowItem(string item, ItemDisplayPosition position)
     {
-        if (_evidenceInventory == null)
-        {
-            Debug.LogError($"Cannot show item, no EvidenceInventory component assigned to {name}.", gameObject);
-            return;
-        }
-
         if (_itemDisplay == null)
         {
             Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
 
-        Evidence evidence = _evidenceInventory[item];
+        Evidence evidence = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(item);
         _itemDisplay.ShowItem(evidence.Icon, position);
     }
 
@@ -367,20 +363,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
     public void Shout(string actorName, string shoutName, bool allowRandomShouts)
     {
-        _shoutPlayer.Shout(_actorInventory[actorName].ShoutVariants, shoutName, allowRandomShouts);
-    }
-
-    /// <summary>
-    /// Issues a penalty to the player, decrementing their lives by one.
-    /// If their lives are zero the game over event is called.
-    /// </summary>
-    public void IssuePenalty()
-    {
-        _penaltyManager.Decrement();
-        if (_penaltyManager.PenaltiesLeft <= 0)
-        {
-            _onGameOver.Invoke();
-        }
+        _shoutPlayer.Shout(_dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
     }
 
     /// <summary>

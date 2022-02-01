@@ -16,7 +16,7 @@ public interface ISceneController
     void ShakeScreen(float intensity, float duration, bool isBlocking);
     void SetScene(string background);
     void SetCameraPos(Vector2Int position);
-    void PanCamera(float seconds, Vector2Int finalPosition);
+    void PanCamera(float seconds, Vector2Int finalPosition, bool isBlocking = false);
     void PanToActorSlot(int oneBasedSlotIndex, float seconds);
     void JumpToActorSlot(int oneBasedSlotIndex);
     void ShowItem(string item, ItemDisplayPosition position);
@@ -26,6 +26,5 @@ public interface ISceneController
     void HideItem();
     void PlayAnimation(string animationName);
     void Shout(string actorName, string shoutName, bool allowRandomShouts);
-    void IssuePenalty();
     void ReloadScene();
 }
