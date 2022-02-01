@@ -10,7 +10,7 @@ namespace Tests.PlayModeTests.Scripts
 {
     public class FullScreenAnimation
     {
-        private InputTestTools _inputTestTools = new InputTestTools();
+        private readonly InputTestTools _inputTestTools = new InputTestTools();
         
         [UnityTest]
         public IEnumerator FullScreenAnimationsCannotBeSkipped()

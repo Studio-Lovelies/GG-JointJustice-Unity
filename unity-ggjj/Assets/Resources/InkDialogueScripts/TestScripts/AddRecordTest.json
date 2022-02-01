@@ -1,1 +1,1 @@
-﻿{"inkVersion":20,"root":[["^This script tests the &ADD_RECORD action which adds an actor to the court","\n","^&ADD_RECORD:Ross","\n","^Ross has been added to the court record","\n","end",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}
+﻿{"inkVersion":20,"root":[["^&APPEAR_INSTANTLY","\n","^This script tests the &ADD_RECORD action which adds an actor to the court","\n","^&ADD_RECORD:Ross","\n","^Ross has been added to the court record","\n","end",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}

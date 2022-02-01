@@ -1,12 +1,12 @@
-&MODE:Dialogue
 &SCENE:TMPHCourt
+&SET_ACTOR_POSITION:3,TutorialBoy
+&SET_ACTOR_POSITION:1,Arin
 &JUMP_TO_POSITION:3
-&ACTOR:TutorialBoy
 &SPEAK:TutorialBoy
 Wow you're terrible at this.
 
 &JUMP_TO_POSITION:1
-&ACTOR:Arin
+
 &PLAY_EMOTION:ShockAnimation
 &WAIT:0.5
 &SET_POSE:Sweaty
