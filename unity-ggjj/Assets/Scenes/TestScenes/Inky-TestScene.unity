@@ -123,11 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &523970293 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5228303784376185821, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+--- !u!114 &904972589 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3940572709450816862, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
   m_PrefabInstance: {fileID: 5228303782951346616}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb22b3340afa7d54ba8eba8387a5ac39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1753085032 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3697150473782156849, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
@@ -200,34 +206,6 @@ PrefabInstance:
     - target: {fileID: 650829536, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: orthographic size
       value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onEvidenceClicked.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onEvidenceClicked.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onEvidenceClicked.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 523970293}
-    - target: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onEvidenceClicked.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onEvidenceClicked.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onEvidenceClicked.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MenuOpener, GG-JointJustice
-      objectReference: {fileID: 0}
-    - target: {fileID: 4864517766780460, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _onEvidenceClicked.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 160785081537499211, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_SizeDelta.x
@@ -631,10 +609,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
-    - target: {fileID: 4487481529544884689, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: m_Name
-      value: PenaltyBar
-      objectReference: {fileID: 0}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueMode
       value: 0
@@ -644,13 +618,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4900000, guid: e3873bd7ef43b4365ae235f06626026e, type: 3}
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _dialogueList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _dialogueList.Array.data[0].<ScriptType>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueList.Array.data[0].<NarrativeScript>k__BackingField
       value: 
-      objectReference: {fileID: 4900000, guid: 480c6cae1d71d411aaceb07d0cbe652a, type: 3}
-    - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _dialogueList.Array.data[1].<NarrativeScript>k__BackingField
-      value: 
-      objectReference: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
+      objectReference: {fileID: 4900000, guid: a94c9392d84404ad09e14f6ea428df50, type: 3}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: StandardInclusion
@@ -699,10 +677,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5228303784028554600, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784028554601, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_Size.x
+      value: 3.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784028554601, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_Size.y
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784028554601, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5228303784783594412, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: AppearingDialogueController
       objectReference: {fileID: 0}
+    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _sceneList
+      value: 
+      objectReference: {fileID: 904972589}
     - target: {fileID: 5979690604451775322, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _menuToOpen
       value: 
@@ -747,6 +745,10 @@ PrefabInstance:
       propertyPath: m_Navigation.m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: <NarrativeScripts>k__BackingField.Array.data[0].<Script>k__BackingField
+      value: 
+      objectReference: {fileID: 4900000, guid: a94c9392d84404ad09e14f6ea428df50, type: 3}
     - target: {fileID: 7459855669607129931, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 34.833313
