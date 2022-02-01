@@ -43,9 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edea055d8c3131428c88f22698e8a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScript: {fileID: 0}
-  _dialogueMode: 0
-  _dialogueControllerPrefab: {fileID: 5570224489643181960}
+  _narrativeScriptPlaylist: {fileID: 0}
+  _directorActionDecoder: {fileID: 0}
+  _dialogueControllerPrefab: {fileID: 8494501069996666820}
   _onNewSpokenLine:
     m_PersistentCalls:
       m_Calls: []
@@ -56,5 +56,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _onChoicePresented:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCrossExaminationLoopActive:
+    m_PersistentCalls:
+      m_Calls: []
+  _onBusySet:
     m_PersistentCalls:
       m_Calls: []

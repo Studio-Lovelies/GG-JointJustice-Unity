@@ -1,3 +1,4 @@
+&MODE:Dialogue
 &HIDE_TEXTBOX
 &FADE_OUT:3
 &WAIT:1

@@ -22,7 +22,6 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             Keyboard key = _inputTestTools.Keyboard;
 
             yield return _inputTestTools.PressForFrame(key.xKey);
-
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
@@ -56,7 +55,6 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(key.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-
             Assert.AreEqual(subStoryCount,  TestTools.FindInactiveInScene<DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
 
             Object.Destroy(Find("SubStory(Clone)"));
@@ -109,8 +107,8 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         {
             var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
             var dialogueController = Object.FindObjectOfType<DialogueController>();
-
-            for (int i = 5; i > 0; i--)
+            
+            for (int i = penaltyManager.PenaltiesLeft; i > 0; i--)
             {
                 yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
 
@@ -120,14 +118,14 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 var subStory = Find("SubStory(Clone)");
                 while (subStory != null && penaltyManager.PenaltiesLeft > 0)
                 {
-                    yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+                    yield return _inputTestTools.ProgressStory(dialogueController);
                 }
 
                 Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);
             }
 
             var dialogueControllers = Object.FindObjectsOfType<DialogueController>();
-            Assert.IsTrue(dialogueControllers.Any(controller => controller.NarrativeScriptName == "TMPH_GameOver"));
+            Assert.IsTrue(dialogueControllers.Any(controller => controller.ActiveNarrativeScript.Name == "TMPH_GameOver"));
         }
     }
 }
