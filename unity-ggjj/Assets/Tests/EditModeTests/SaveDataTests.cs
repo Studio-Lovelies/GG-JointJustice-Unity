@@ -11,6 +11,7 @@ using static System.Int32;
 /// </remarks>
 public class SaveDataTests
 {
+    private const string PLAYER_PREFS_KEY = "SaveData";
     private SaveData _previouslyStoredSaveData;
 
     [SetUp]
@@ -72,12 +73,12 @@ public class SaveDataTests
     public void LoadingOutdatedSaveDataGetsUpgraded()
     {
         // deliberately overwrite the current SaveData version to 0
-        var currentInternalSaveData = PlayerPrefs.GetString("SaveData");
+        var currentInternalSaveData = PlayerPrefs.GetString(PLAYER_PREFS_KEY);
         var saveDataAtVersionZero = new Regex("\"Version\":\\d+").Replace(currentInternalSaveData, "version:0");
         StringAssert.AreNotEqualIgnoringCase(currentInternalSaveData, saveDataAtVersionZero);
-        PlayerPrefs.SetString("SaveData", saveDataAtVersionZero);
+        PlayerPrefs.SetString(PLAYER_PREFS_KEY, saveDataAtVersionZero);
         PlayerPrefs.Save();
-        StringAssert.AreEqualIgnoringCase(saveDataAtVersionZero, PlayerPrefs.GetString("SaveData", saveDataAtVersionZero));
+        StringAssert.AreEqualIgnoringCase(saveDataAtVersionZero, PlayerPrefs.GetString(PLAYER_PREFS_KEY, saveDataAtVersionZero));
 
         // loading is successful and SaveData is set to the current version
         var saveData = PlayerPrefsProxy.Load();
@@ -89,12 +90,12 @@ public class SaveDataTests
     {
         const int absurdlyHighVersionNumber = MaxValue - 1;
         // deliberately overwrite the current SaveData version to be close to Int32 maximum
-        var currentInternalSaveData = PlayerPrefs.GetString("SaveData");
+        var currentInternalSaveData = PlayerPrefs.GetString(PLAYER_PREFS_KEY);
         var saveDataAtMaxBounds = new Regex("\"Version\":\\d+").Replace(currentInternalSaveData, $"version:{absurdlyHighVersionNumber}");
         StringAssert.AreNotEqualIgnoringCase(currentInternalSaveData, saveDataAtMaxBounds);
-        PlayerPrefs.SetString("SaveData", saveDataAtMaxBounds);
+        PlayerPrefs.SetString(PLAYER_PREFS_KEY, saveDataAtMaxBounds);
         PlayerPrefs.Save();
-        StringAssert.AreEqualIgnoringCase(saveDataAtMaxBounds, PlayerPrefs.GetString("SaveData", saveDataAtMaxBounds));
+        StringAssert.AreEqualIgnoringCase(saveDataAtMaxBounds, PlayerPrefs.GetString(PLAYER_PREFS_KEY, saveDataAtMaxBounds));
 
         var exception = Assert.Throws<NotSupportedException>(() => {
             var _ = PlayerPrefsProxy.Load();
