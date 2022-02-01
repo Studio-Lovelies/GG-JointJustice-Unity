@@ -8,25 +8,26 @@ namespace SaveFiles
 {
     public static class PlayerPrefsProxy
     {
+        private const string PLAYER_PREFS_KEY = "SaveData";
         public static bool HasExistingSaveData()
         {
-            return PlayerPrefs.HasKey("SaveData");
+            return PlayerPrefs.HasKey(PLAYER_PREFS_KEY);
         }
 
         public static void DeleteSaveData()
         {
-            PlayerPrefs.DeleteKey("SaveData");
+            PlayerPrefs.DeleteKey(PLAYER_PREFS_KEY);
         }
 
         public static SaveData Load()
         {
-            if (!PlayerPrefs.HasKey("SaveData"))
+            if (!PlayerPrefs.HasKey(PLAYER_PREFS_KEY))
             {
                 throw new KeyNotFoundException($"No previously saved game settings available to load - call {nameof(HasExistingSaveData)}() first, to make sure there is SaveData available to load");
             }
 
             // store this, as loading PlayerPrefs can be slow on certain platforms
-            var saveDataFromPlayerPrefs = PlayerPrefs.GetString("SaveData");
+            var saveDataFromPlayerPrefs = PlayerPrefs.GetString(PLAYER_PREFS_KEY);
 
             var currentlyStoredSaveData = JsonConvert.DeserializeObject<SaveData>(saveDataFromPlayerPrefs);
 
@@ -40,13 +41,13 @@ namespace SaveFiles
             // we need to upgrade them to the current format
             if (currentlyStoredSaveData.Version < SaveData.LatestVersion)
             {
-                UpgradeSaveData(currentlyStoredSaveData.Version, JObject.Parse(saveDataFromPlayerPrefs), ref currentlyStoredSaveData);
+                currentlyStoredSaveData = CreateUpgradedSaveData(currentlyStoredSaveData.Version, JObject.Parse(saveDataFromPlayerPrefs));
                 Save(currentlyStoredSaveData);
                 return currentlyStoredSaveData;
             }
 
-            // otherwise simply parse the stored SaveData JSON blob
-            return JsonConvert.DeserializeObject<SaveData>(saveDataFromPlayerPrefs);
+            // otherwise simply pass the data currently present
+            return currentlyStoredSaveData;
         }
 
         public delegate void OperationOnCurrentSaveData(ref SaveData saveData);
@@ -73,18 +74,28 @@ namespace SaveFiles
         /// If attempting to `Load()` encounters data where <see cref="SaveData.Version"/>
         /// is lower than <see cref="SaveData.LatestVersion"/>, we need to migrate this object from the old format to the current one
         /// </remarks>
-        /// <param name="outdatedVersion">The version the <see cref="outdatedSettingsJSON"/> is based on</param>
-        /// <param name="outdatedSettingsJSON">A JObject representing the outdated JSON-blob of the loaded settings</param>
-        /// <param name="upgradedSaveData">Reference to a <see cref="SaveData"/> instance which needs to contain the final, upgraded object</param>
-        private static void UpgradeSaveData(int outdatedVersion, JObject outdatedSettingsJSON, ref SaveData upgradedSaveData)
+        /// <param name="outdatedVersion">Version <see cref="outdatedSettingsJSON"/> is based on</param>
+        /// <param name="outdatedSettingsJSON">A JObject containing the currently stored and outdated save data</param>
+        /// <returns>A new <see cref="SaveData"/> instance which represents the upgraded SaveData</returns>
+        private static SaveData CreateUpgradedSaveData(int outdatedVersion, JToken outdatedSettingsJSON)
         {
+            // start by attempting to migrate all fields that still fit the new layout
+            var newSaveFile = outdatedSettingsJSON.ToObject<SaveData>();
+
+            //////////
             // currently void, as there is only SaveData of version 1 at this time
-            upgradedSaveData.Version = SaveData.LatestVersion;
+            // if the layout of SaveData is changed, manually grab old fields from `outdatedSettingsJSON`
+            // here and assign them to their new location
+            //////////
+
+            newSaveFile.Version = SaveData.LatestVersion;
+
+            return newSaveFile;
         }
 
         private static void Save(SaveData saveData)
         {
-            PlayerPrefs.SetString("SaveData", JsonConvert.SerializeObject(saveData));
+            PlayerPrefs.SetString(PLAYER_PREFS_KEY, JsonConvert.SerializeObject(saveData));
             PlayerPrefs.Save();
         }
     }
