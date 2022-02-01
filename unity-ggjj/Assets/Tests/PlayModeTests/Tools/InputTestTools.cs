@@ -36,34 +36,6 @@ namespace Tests.PlayModeTests.Tools
             }
         }
 
-        public static T[] FindInactiveInScene<T>() where T : Object
-        {
-            return Resources.FindObjectsOfTypeAll<T>().Where(o => {
-                if (o.hideFlags != HideFlags.None)
-                {
-                    return false;
-                }
-
-                if (PrefabUtility.GetPrefabAssetType(o) == PrefabAssetType.Regular)
-                {
-                    return false;
-                }
-
-                return true;
-            }).ToArray();
-        }
-
-        /// <summary>
-        /// Gets an inactive object from the scene using its name in the hierarchy
-        /// </summary>
-        /// <param name="name">The name of the game object the object is attached to</param>
-        /// <typeparam name="T">The type of object to search for.</typeparam>
-        /// <returns>The object found, or null if none are found.</returns>
-        public static T FindInactiveInSceneByName<T>(string name) where T : Object
-        {
-            return FindInactiveInScene<T>().SingleOrDefault(obj => obj.name == name);
-        }
-
         /// <summary>
         /// Waits for the editor "GameView"-tab to repaint
         /// </summary>
