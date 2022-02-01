@@ -39,7 +39,7 @@ You said it had something to do with the 10 Minute Power Hour we were doing toda
 Oh yeah, that's right, I remember now!
 Do you know what we're doing for the Power Hour today?
 
-&SHAKE_SCREEN:0.25,0.5
+&SHAKE_SCREEN:0.25,0.25
 &PLAY_SFX:stab
 &SET_POSE:Angry
 &DIALOGUE_SPEED:0.02
@@ -85,7 +85,7 @@ Yeah, yeah, you do like poopin'.
 &ADD_EVIDENCE:Plumber_Invoice
 &SHOW_ITEM:Plumber_Invoice,Left
 &DIALOGUE_SPEED:0.06
-&SPEAK:None
+&NARRATE
 <align="center"><color={lightBlue}>Plumber Invoice has been added to the Court Record.
 &PLAY_SFX:evidenceShoop
 &HIDE_ITEM
@@ -110,7 +110,7 @@ You don't mean...?
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Arin
-Yeah, dude! We're going to give people a glimpse into what it means to be a Ninja Sex Party Dude(tm)!
+Yeah, dude! We're going to give people a glimpse into what it means to be a Ninja Sex Party Dude<sup>(tm)</sup>!
 
 &DIALOGUE_SPEED:0.02
 &SPEAK:Dan
@@ -126,14 +126,14 @@ This is no time for hilarious jokes, Arin, we have some tanks to set up!
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Arin
-Hell yeah, dude. Let me just grab the <color=\#990a1d>backup switch</color> we borrowed so we can put it back where Jory got it.
+Hell yeah, dude. Let me just grab the <color=\#990a1d>backup Switch</color> we borrowed so we can put it back where Jory got it.
 
-&PLAY_SFX:evidenceding
+&PLAY_SFX:EvidenceDing
 &ADD_EVIDENCE:Switch
 &SHOW_ITEM:Switch,Left
 &DIALOGUE_SPEED:0.06
-&SPEAK:None
-<align="center"><color=\#2c81c1>The Nintendo Switch has been added to the Court Record.
+&NARRATE
+<align="center"><color={lightBlue}>The Nintendo Switch has been added to the Court Record.
 &PLAY_SFX:evidenceShoop
 &HIDE_ITEM
 &WAIT:0.1
@@ -147,7 +147,7 @@ Good thinking. Let's get going then!
 
 &PLAY_SFX:doorOpens
 &DIALOGUE_SPEED:0.06
-&SPEAK:Unknown
+&SPEAK_UNKNOWN:Jory
 Actually, guys, we've got a problem...
 
 &DIALOGUE_SPEED:0.08
@@ -183,7 +183,7 @@ The problem is...<br>apparently they were found in <color=\#990a1d>MY backpack</
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:damage1
 &ACTOR:Dan
-&PLAY_EMOTION:Shocked_ani
+&SET_POSE:Shocked_ani
 &DIALOGUE_SPEED:0.02
 &SPEAK:Dan
 What?
@@ -292,7 +292,7 @@ Sorry dude, but Arin's right.<br>We'd probably just screw it up.
 We're not lawyers.
 
 &SET_POSE:Normal
-The closest thing we've been to being lawyers is playing that Penix Wright(tm) game.
+The closest thing we've been to being lawyers is playing that Penix Wright<sup>(tm)</sup> game.
 &DIALOGUE_SPEED:0.02
 And that's just a stupid game that totally exists and isn't changed for copyright purposes!
 
@@ -308,7 +308,7 @@ Yeah, I understand guys.
 &PLAY_SFX:pageTurn
 &WAIT:1
 
-&PLAY_SFX:realization:
+&PLAY_SFX:realization
 &SET_POSE:Normal
 Hey... someone just slipped a letter under the door.
 
@@ -318,7 +318,7 @@ A letter? Who's it from?
 &SET_POSE:thinking
 &DIALOGUE_SPEED:0.06
 &SPEAK:Jory
-t's from...<br>My dad?
+It's from...<br>My dad?
 
 &PLAY_SFX:realization
 &ACTOR:Dan
@@ -338,7 +338,7 @@ Open it up, what does it say?
 
 &PLAY_SFX:realization
 &SPEAK:Arin
-Us? Like... Dan and I?
+Us? Like... me and Dan?
 
 &ACTOR:Dan
 &SET_POSE:Hair
@@ -360,12 +360,12 @@ Let me see that!
 &DIALOGUE_SPEED:0.04
 ...<br>Wow, he's right! We should hold on to this, I think it might be important later...
 
-&PLAY_SFX:evidenceding
+&PLAY_SFX:EvidenceDing
 &ADD_EVIDENCE:Jory_Srs_Letter
 &SHOW_ITEM:Jory_Srs_Letter,Left
 &DIALOGUE_SPEED:0.06
-&SPEAK:None
-<align="center"><color=\#2c81c1>Jory Sr's Letter has been added to the Court Record.
+&NARRATE
+<align="center"><color={lightBlue}>Jory Sr's Letter has been added to the Court Record.
 &PLAY_SFX:evidenceShoop
 &HIDE_ITEM
 &WAIT:0.1
@@ -376,9 +376,9 @@ Let me see that!
 So? What does it say?
 
 &SPEAK:Arin
-\*ahem\*
+<sup>\*</sup>ahem<sup>\*</sup>
 &DIALOGUE_SPEED:0.06
-<color=green>“Hello Grumps, first of all I want to thank you for all the hard work you've done taking care of Jory Jr.”</color>
+<color=green>"Hello Grumps, first of all I want to thank you for all the hard work you've done taking care of Jory Jr."</color>
 
 &SET_POSE:Surprised
 &DIALOGUE_SPEED:0.04
@@ -398,10 +398,10 @@ Don't think about it too hard, Dan. Anyways...
 
 &SET_POSE:Normal
 &DIALOGUE_SPEED:0.06
-<color=green>“While I know it looks bad, I know my son is a good boy who only does good things.”</color>
-<color=green>“I know you know that too.<br>So please, defend him in court.”</color>
-<color=green>“Show the world he is innocent of such a heinous and despicable crime and find out who the real culprit is.”</color>
-<color=green>“P.S. Remember, the second most important thing to winning this case is love and trust!”</color>
+<color=green>"While I know it looks bad, I know my son is a good boy who only does good things."</color>
+<color=green>"I know you know that too.<br>So please, defend him in court."</color>
+<color=green>"Show the world he is innocent of such a heinous and despicable crime and find out who the real culprit is.”</color>
+<color=green>"P.S. Remember, the second most important thing to winning this case is love and trust!"</color>
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Dan
@@ -409,8 +409,8 @@ Wow, that was beautiful.
 
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
-<color=green>“And the most important thing is payment!”</color>
-<color=green>“I have something for you if you win!”</color>
+<color=green>"And the most important thing is payment!"</color>
+<color=green>"I have something for you if you win!"</color>
 
 &SET_POSE:Surprised
 &SPEAK:Dan
@@ -514,9 +514,9 @@ You are just... UN...
 &SPEAK:Arin
 ...<br>...<br>...
 &DIALOGUE_SPEED:0.06
-&AUTOSKIP:True
+&AUTO_SKIP:True
 I'm wha---
-&AUTOSKIP:False
+&AUTO_SKIP:False
 
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:smack

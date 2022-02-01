@@ -23,7 +23,7 @@ public class BGSceneList : MonoBehaviour
         {
             InstantiateBGScenes(narrativeScript);
         }
-        
+
         InstantiateBGScenes(_narrativeScriptPlaylist.GameOverScript);
     }
 
