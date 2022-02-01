@@ -172,6 +172,7 @@
   - ThinkingTalking
   - ThumbsUp
   - ThumbsUpTalking
+  - WideShot
 ### JudgeBrent
   - Angry
   - AngryTalking
@@ -212,6 +213,7 @@
   - SweatyNoHelmet
   - SweatyNoHelmetTalking
   - SweatyTalking
+  - WideShot
 ### TutorialBoy
   - Angry
   - AngryTalking
