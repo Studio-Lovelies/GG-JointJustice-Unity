@@ -184,17 +184,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <returns>True if character is ignorable</returns>
     private bool CharShouldBeTreatedAsPunctuation(TMP_CharacterInfo characterInfo)
     {
-        foreach (var link in _textInfo.linkInfo)
-        {
-            Debug.Log(_textInfo.characterInfo[link.linkTextfirstCharacterIndex] + " " + characterInfo);
-        }
-        if (_textInfo.linkInfo.Where(info => info.GetLinkID() == "character").Any(linkInfo => linkInfo.linkTextfirstCharacterIndex == characterInfo.index))
-        {
-            
-            return false;
-        }
-
-        return char.IsPunctuation(characterInfo.character) && !_ignoredCharacters.Contains(characterInfo.character);
+        return char.IsPunctuation(characterInfo.character) && 
+               !_ignoredCharacters.Contains(characterInfo.character) &&
+               !_textInfo.linkInfo.Where(info => info.GetLinkID() == "character").Any(linkInfo => _textInfo.characterInfo[linkInfo.linkTextfirstCharacterIndex].Equals(characterInfo));
     }
 }
  
