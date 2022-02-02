@@ -43,10 +43,8 @@ namespace SaveFiles
             {
                 currentlyStoredSaveData = CreateUpgradedSaveData(currentlyStoredSaveData.Version, JObject.Parse(saveDataFromPlayerPrefs));
                 Save(currentlyStoredSaveData);
-                return currentlyStoredSaveData;
             }
 
-            // otherwise simply pass the data currently present
             return currentlyStoredSaveData;
         }
 
