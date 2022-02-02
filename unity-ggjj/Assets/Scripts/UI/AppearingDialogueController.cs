@@ -119,10 +119,10 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             _textBox.maxVisibleCharacters++;
             _onLetterAppear.Invoke();
-            char currentCharacter = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1].character;
+            var currentCharacterInfo = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1];
             float speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
-            PlayDialogueChirp(_namebox.CurrentActorDialogueChirp, currentCharacter);
-            yield return new WaitForSeconds(GetDelay(currentCharacter) / speedMultiplier);
+            PlayDialogueChirp(_namebox.CurrentActorDialogueChirp, currentCharacterInfo);
+            yield return new WaitForSeconds(GetDelay(currentCharacterInfo) / speedMultiplier);
         }
         _onLineEnd.Invoke();
 
@@ -138,10 +138,10 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// Play dialogue chirp sound effect for current actor, if it exists
     /// </summary>
     /// <param name="currentActorChirp">Speaker actor's dialogue chirp</param>
-    /// <param name="currentCharacter">Character to play chirp on (skipped if punctuation or ignored)</param>
-    private void PlayDialogueChirp(AudioClip currentActorChirp, char currentCharacter)
+    /// <param name="characterInfo">CharacterInfo for the character to play chirp on (skipped if punctuation or ignored)</param>
+    private void PlayDialogueChirp(AudioClip currentActorChirp, TMP_CharacterInfo characterInfo)
     {
-        if (CharShouldBeTreatedAsPunctuation(currentCharacter))
+        if (CharShouldBeTreatedAsPunctuation(characterInfo))
         {
             return;
         }
@@ -160,11 +160,13 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// (i.e. the default null character is returned from FirstOrDefault)
     /// then the default punctuation delay is returned.
     /// </summary>
-    /// <param name="character">The character to get the wait time for.</param>
+    /// <param name="characterInfo">Character info for the character to get the delay for</param>
     /// <returns>The time to wait.</returns>
-    public float GetDelay(char character)
+    public float GetDelay(TMP_CharacterInfo characterInfo)
     {
-        if (!CharShouldBeTreatedAsPunctuation(character))
+        var character = characterInfo.character;
+        
+        if (!CharShouldBeTreatedAsPunctuation(characterInfo))
         {
             return CharacterDelay;
         }
@@ -178,11 +180,21 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         return pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2;
     }
     
-    /// <param name="character">Char to be tested</param>
+    /// <param name="characterInfo">Char to be tested</param>
     /// <returns>True if character is ignorable</returns>
-    private bool CharShouldBeTreatedAsPunctuation(char character)
+    private bool CharShouldBeTreatedAsPunctuation(TMP_CharacterInfo characterInfo)
     {
-        return char.IsPunctuation(character) && !_ignoredCharacters.Contains(character);
+        foreach (var link in _textInfo.linkInfo)
+        {
+            Debug.Log(_textInfo.characterInfo[link.linkTextfirstCharacterIndex] + " " + characterInfo);
+        }
+        if (_textInfo.linkInfo.Where(info => info.GetLinkID() == "character").Any(linkInfo => linkInfo.linkTextfirstCharacterIndex == characterInfo.index))
+        {
+            
+            return false;
+        }
+
+        return char.IsPunctuation(characterInfo.character) && !_ignoredCharacters.Contains(characterInfo.character);
     }
 }
  
