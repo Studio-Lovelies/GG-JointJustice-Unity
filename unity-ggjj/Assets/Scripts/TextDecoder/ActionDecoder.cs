@@ -626,10 +626,10 @@ public class ActionDecoder
     /// <example>&amp;UNLOCK_CHAPTER:CHAPTER_2</example>
     /// <example>&amp;UNLOCK_CHAPTER:BONUS_CHAPTER_2</example>
     /// <category>Progression</category>
-    private void UNLOCK_CHAPTER(SaveFiles.SaveData.Progression.Chapters chapter)
+    private void UNLOCK_CHAPTER(SaveData.Progression.Chapters chapter)
     {
-        SaveFiles.PlayerPrefsProxy.UpdateCurrentSaveData((ref SaveData data) => {
-            data.GameProgression.UnlockedChapters.AddChapter(chapter);
+        PlayerPrefsProxy.UpdateCurrentSaveData((ref SaveData data) => {
+            data.GameProgression.UnlockedChapters |= chapter;
         });
         OnActionDone?.Invoke();
     }

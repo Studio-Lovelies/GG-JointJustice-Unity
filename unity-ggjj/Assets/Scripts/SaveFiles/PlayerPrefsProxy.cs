@@ -56,13 +56,9 @@ namespace SaveFiles
         /// <param name="operation">Method that makes changes to the currently saved data by modifying a SaveData object</param>
         public static void UpdateCurrentSaveData(OperationOnCurrentSaveData operation)
         {
-            if (!HasExistingSaveData())
-            {
-                Save(new SaveData(SaveData.LatestVersion));
-            }
-            var currentData = Load();
-            operation(ref currentData);
-            Save(currentData);
+            var currentSaveData = HasExistingSaveData() ? Load() : new SaveData(SaveData.LatestVersion);
+            operation(ref currentSaveData);
+            Save(currentSaveData);
         }
 
         /// <summary>
@@ -95,6 +91,17 @@ namespace SaveFiles
         {
             PlayerPrefs.SetString(PLAYER_PREFS_KEY, JsonConvert.SerializeObject(saveData));
             PlayerPrefs.Save();
+        }
+
+        public static void EnsureSaveDataExists()
+        {
+            if (HasExistingSaveData())
+            {
+                return;
+            }
+
+            // create a new save file with default values
+            UpdateCurrentSaveData((ref SaveData _) => {});
         }
     }
 }
