@@ -1,6 +1,5 @@
 using SaveFiles;
 using UnityEngine;
-
 using UnityEditor;
 
 public class ClearSaveDataButton : MonoBehaviour

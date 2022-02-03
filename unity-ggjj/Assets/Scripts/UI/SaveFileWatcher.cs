@@ -13,18 +13,17 @@ public class SaveFileWatcher : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        // make sure a saveFile exists
-        SaveFiles.PlayerPrefsProxy.UpdateCurrentSaveData((ref SaveData _) => {});
+        PlayerPrefsProxy.EnsureSaveDataExists();
 
         _text = GetComponent<Text>();
         StartCoroutine(Loop());
     }
 
-    IEnumerator Loop()
+    private IEnumerator Loop()
     {
-        var currentSave = SaveFiles.PlayerPrefsProxy.Load();
+        var currentSave = PlayerPrefsProxy.Load();
 
-        var chapters = (SaveFiles.SaveData.Progression.Chapters[])Enum.GetValues(typeof(SaveFiles.SaveData.Progression.Chapters));
+        var chapters = (SaveData.Progression.Chapters[])Enum.GetValues(typeof(SaveData.Progression.Chapters));
         string currentState = string.Join("\n", chapters.Select(chapter => $"{chapter}: {currentSave.GameProgression.UnlockedChapters.HasFlag(chapter)}"));
 
         _text.text = "Checking for new state in 3.\n\n" + currentState;
