@@ -21,5 +21,5 @@
         <color=orange><align=center>Witness' Testimony
         -> DONE
         
-=== function char(x) ===
+=== function char(x)
     ~ return "<link=character>{x}</link>"
