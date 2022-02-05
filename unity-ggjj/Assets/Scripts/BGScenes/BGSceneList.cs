@@ -3,28 +3,23 @@ using UnityEngine;
 
 public class BGSceneList : MonoBehaviour
 {
-    [Tooltip("Drag a NarrativeScriptPlaylist here")]
-    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
-    
     private readonly Dictionary<string, BGScene> _bgScenes = new Dictionary<string, BGScene>();
     private BGScene _activeScene;
 
+    private void Awake()
+    {
+        GetComponentInParent<Game>().BGSceneList = this;
+    }
+    
     /// <summary>
     /// Gets all available BGScenes and instantiates them.
     /// </summary>
-    private void Start()
+    public void InstantiateBGSceneFromPlaylist(NarrativeScriptPlaylist narrativeScriptPlaylist)
     {
-        foreach (var narrativeScript in _narrativeScriptPlaylist.NarrativeScripts)
+        foreach (var narrativeScript in narrativeScriptPlaylist.GetAllNarrativeScripts())
         {
             InstantiateBGScenes(narrativeScript);
         }
-
-        foreach (var narrativeScript in _narrativeScriptPlaylist.FailureScripts)
-        {
-            InstantiateBGScenes(narrativeScript);
-        }
-        
-        InstantiateBGScenes(_narrativeScriptPlaylist.GameOverScript);
     }
 
     /// <summary>

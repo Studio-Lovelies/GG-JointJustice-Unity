@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,11 +16,16 @@ public class NarrativeScriptPlaylist : MonoBehaviour
     [field: SerializeField] public NarrativeScript GameOverScript { get; private set; }
     
     private int _narrativeScriptIndex = -1;
+    
+    private void Awake()
+    {
+        GetComponentInParent<Game>().NarrativeScriptPlaylist = this;
+    }
 
     /// <summary>
-    /// Initializes variables
+    /// Call the initialise method on all narrative scripts in this playlist
     /// </summary>
-    private void Awake()
+    public void InitializeNarrativeScripts()
     {
         NarrativeScripts.ForEach(script => script.Initialize());
         FailureScripts.ForEach(script => script.Initialize());
@@ -52,5 +58,15 @@ public class NarrativeScriptPlaylist : MonoBehaviour
             throw new NotSupportedException("This playlist contains no failure scripts");
         }
         return FailureScripts[Random.Range(0, FailureScripts.Count)];
+    }
+
+    /// <summary>
+    /// Returns all the narrative scripts in this playlist
+    /// Includes FailureStates and GameOverScript
+    /// </summary>
+    /// <returns>A collection of all narrative scripts in the playlist</returns>
+    public IEnumerable<NarrativeScript> GetAllNarrativeScripts()
+    {
+        return NarrativeScripts.Concat(FailureScripts).Concat(new List<NarrativeScript>{GameOverScript});
     }
 }

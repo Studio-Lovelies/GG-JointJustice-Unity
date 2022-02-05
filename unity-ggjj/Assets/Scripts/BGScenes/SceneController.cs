@@ -59,20 +59,10 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         set => _witnessTestimonySign.SetActive(value);
     }
-
-    /// <summary>
-    /// Called when the object is initialized
-    /// </summary>
-    private void Start()
+    
+    private void Awake()
     {
-        if (_directorActionDecoder == null)
-        {
-            Debug.LogError("Scene Controller doesn't have a action decoder to attach to");
-        }
-        else
-        {
-            _directorActionDecoder.Decoder.SceneController = this;
-        }
+        _directorActionDecoder.Decoder.SceneController = this;
     }
 
     /// <summary>

@@ -34,17 +34,10 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
-    void Start()
+    private void Awake()
     {
-        if (_directorActionDecoder == null)
-        {
-            Debug.LogError("Audio Controller doesn't have an action decoder to attach to");
-        }
-        else
-        {
-            _directorActionDecoder.Decoder.AudioController = this;
-        }
-        
+        _directorActionDecoder.Decoder.AudioController = this;
+
         _musicFader = new MusicFader();
         _musicAudioSource = CreateAudioSource("Music Player");
         _sfxAudioSource = CreateAudioSource("SFX Player");
@@ -54,13 +47,13 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <summary>
     /// Called every rendered frame
     /// </summary>
-    void Update()
+    private void Update()
     {
         if (_musicAudioSource != null && _musicFader != null)
             _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
 
         if (_sfxAudioSource != null)
-            _sfxAudioSource.volume = this._settingsSfxVolume;
+            _sfxAudioSource.volume = _settingsSfxVolume;
     }
 
     /// <summary>

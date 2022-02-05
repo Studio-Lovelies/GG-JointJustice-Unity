@@ -25,17 +25,8 @@ public class ActorController : MonoBehaviour, IActorController
     private ActorData _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
     
-    /// <summary>
-    /// Called when the object is initialized
-    /// </summary>
-    private void Start()
+    private void Awake()
     {
-        if (_directorActionDecoder == null)
-        {
-            Debug.LogError("Actor Controller doesn't have an action decoder to attach to");
-            return;
-        }
-
         _directorActionDecoder.Decoder.ActorController = this;
     }
 

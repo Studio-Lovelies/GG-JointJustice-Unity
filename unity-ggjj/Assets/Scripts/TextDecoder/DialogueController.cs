@@ -13,9 +13,6 @@ public enum GameMode
 public class DialogueController : MonoBehaviour, IDialogueController
 {
     private const char ACTION_TOKEN = '&';
-    
-    [Tooltip("Drag a NarrativeScriptPlaylist here")]
-    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
 
     private TextAsset _narrativeScript;
 
@@ -62,7 +59,8 @@ public class DialogueController : MonoBehaviour, IDialogueController
 
     [Tooltip("This event is called when the _isBusy field is set.")]
     [SerializeField] private UnityEvent<bool> _onBusySet;
-    
+
+    private Game _game;
     private bool _isMenuOpen;
     private bool _isSubStory;
     private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
@@ -75,13 +73,10 @@ public class DialogueController : MonoBehaviour, IDialogueController
         private set => _activeNarrativeScript = value;
     }
 
-    private void Start()
+    private void Awake()
     {
+        GetComponentInParent<Game>().DialogueController = this;
         _directorActionDecoder.Decoder.DialogueController = this;
-        if (!_isSubStory)
-        {
-            SetNewDialogue(_narrativeScriptPlaylist.GetNextNarrativeScript());
-        }
     }
 
     /// <summary>
@@ -217,7 +212,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
         if (choiceList.Count <= 2)
         {
             //Deal with bad consequences, spawn sub story and continue that
-            StartSubStory(_narrativeScriptPlaylist.GetRandomFailureScript());
+            StartSubStory(_game.NarrativeScriptPlaylist.GetRandomFailureScript());
             return;
         }
 
@@ -237,7 +232,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
         }
 
         //Deal with bad consequences, spawn sub story and continue that
-        StartSubStory(_narrativeScriptPlaylist.GetRandomFailureScript());
+        StartSubStory(_game.NarrativeScriptPlaylist.GetRandomFailureScript());
     }
 
     /// <summary>
@@ -436,6 +431,6 @@ public class DialogueController : MonoBehaviour, IDialogueController
             return;
         }
 
-        SetNewDialogue(_narrativeScriptPlaylist.GetNextNarrativeScript());
+        SetNewDialogue(_game.NarrativeScriptPlaylist.GetNextNarrativeScript());
     }
 }
