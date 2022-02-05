@@ -13,7 +13,7 @@ public class ActionDecoder
     public IAudioController AudioController { get; set; }
     public IEvidenceController EvidenceController { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; }
-    public NarrativeScriptPlayer NarrativeScriptPlayer { get; set; }
+    public StoryPlayer StoryPlayer { get; set; }
     public IPenaltyManager PenaltyManager { get; set; }
 
     /// <summary>
@@ -626,7 +626,7 @@ public class ActionDecoder
     /// <category>Gameplay</category>
     private void MODE(GameMode mode)
     {
-        NarrativeScriptPlayer.GameMode = mode;
+        StoryPlayer.GameMode = mode;
         switch (mode)
         {
             case GameMode.Dialogue:

@@ -4,16 +4,17 @@ public class DirectorActionDecoder : MonoBehaviour
 {
     public const char ACTION_TOKEN = '&';
 
-    private Game _game;
+    private NarrativeScriptPlayer _narrativeScriptPlayer;
     
     public ActionDecoder Decoder { get; } = new ActionDecoder();
 
     private void Awake()
     {
-        _game = GetComponentInParent<Game>();
-        _game.DirectorActionDecoder = this;
+        var game = GetComponentInParent<Game>();
+        game.DirectorActionDecoder = this;
+        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
         // We wrap this in an Action so we have no ties to UnityEngine in the ActionDecoder
-        Decoder.OnActionDone += () => _game.NarrativeScriptPlayer.Continue();
+        Decoder.OnActionDone += () => _narrativeScriptPlayer.Continue();
     }
 
     #region API
@@ -30,7 +31,7 @@ public class DirectorActionDecoder : MonoBehaviour
         catch (TextDecoder.Parser.ScriptParsingException exception)
         {
             Debug.LogError(exception);
-            _game.NarrativeScriptPlayer.Continue();
+            _narrativeScriptPlayer.Continue();
         }
     }
 

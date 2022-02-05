@@ -1,8 +1,9 @@
+using System.ComponentModel;
 using Ink.Runtime;
 
-public class NarrativeScriptPlayer
+public class StoryPlayer
 {
-    private NarrativeScriptPlayer _subStory;
+    private StoryPlayer _subStory;
     private readonly AppearingDialogueController _appearingDialogueController;
     private readonly DirectorActionDecoder _directorActionDecoder;
     private readonly ChoiceMenu _choiceMenu;
@@ -13,11 +14,11 @@ public class NarrativeScriptPlayer
     public NarrativeScript ActiveNarrativeScript { get; set; }
     public GameMode GameMode { get; set; } = GameMode.Dialogue;
 
-    public NarrativeScriptPlayer(AppearingDialogueController appearingDialogueController, DirectorActionDecoder directorActionDecoder, ChoiceMenu choiceMenu)
+    public StoryPlayer(AppearingDialogueController appearingDialogueController, DirectorActionDecoder directorActionDecoder, ChoiceMenu choiceMenu)
     {
         _appearingDialogueController = appearingDialogueController;
         _directorActionDecoder = directorActionDecoder;
-        _directorActionDecoder.Decoder.NarrativeScriptPlayer = this;
+        _directorActionDecoder.Decoder.StoryPlayer = this;
         _choiceMenu = choiceMenu;
     }
 
@@ -31,9 +32,21 @@ public class NarrativeScriptPlayer
         
         if (!Story.canContinue)
         {
-            if (IsAtChoice)
+            if (!IsAtChoice)
             {
-                _choiceMenu.Initialise(Story.currentChoices);
+                return;
+            }
+            
+            switch (GameMode)
+            {
+                case GameMode.Dialogue:
+                    _choiceMenu.Initialise(Story.currentChoices);
+                    break;
+                case GameMode.CrossExamination:
+                    HandleChoice(0);
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException($"{GameMode} is an invalid GameMode");
             }
 
             return;
@@ -58,7 +71,7 @@ public class NarrativeScriptPlayer
 
     public void StartSubStory(NarrativeScript narrativeScript)
     {
-        _subStory = new NarrativeScriptPlayer(_appearingDialogueController, _directorActionDecoder, _choiceMenu);
+        _subStory = new StoryPlayer(_appearingDialogueController, _directorActionDecoder, _choiceMenu);
         _subStory.Continue();
     }
 }

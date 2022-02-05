@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    public NarrativeScriptPlayer NarrativeScriptPlayer { get; private set; }
+    public NarrativeScriptPlayer NarrativeScriptPlayer { get; set; }
     public IDialogueController DialogueController { get; set; }
     public AppearingDialogueController AppearingDialogueController { get; set; }
     public DirectorActionDecoder DirectorActionDecoder { get; set; }
@@ -15,7 +15,7 @@ public class Game : MonoBehaviour
         NarrativeScriptPlaylist.InitializeNarrativeScripts();
         BGSceneList.InstantiateBGSceneFromPlaylist(NarrativeScriptPlaylist);
         
-        NarrativeScriptPlayer = new NarrativeScriptPlayer(AppearingDialogueController, DirectorActionDecoder, ChoiceMenu)
+        NarrativeScriptPlayer.StoryPlayer = new StoryPlayer(AppearingDialogueController, DirectorActionDecoder, ChoiceMenu)
         {
             ActiveNarrativeScript = NarrativeScriptPlaylist.GetNextNarrativeScript()
         };

@@ -15,16 +15,14 @@ public class ChoiceMenu : MonoBehaviour
     
     [Tooltip("Drag a menu opener component here.")]
     [SerializeField] private MenuOpener _menuOpener;
-
-    [Tooltip("This event is called when an choice is clicked.")]
-    [SerializeField] private UnityEvent<int> _onChoiceClicked;
-
-    private Game _game;
+    
+    private NarrativeScriptPlayer _narrativeScriptPlayer;
 
     private void Awake()
     {
-        _game = GetComponentInParent<Game>();
-        _game.ChoiceMenu = this;
+        var game = GetComponentInParent<Game>();
+        game.ChoiceMenu = this;
+        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
         gameObject.SetActive(false);
     }
     
@@ -68,7 +66,7 @@ public class ChoiceMenu : MonoBehaviour
     private void OnChoiceClicked(int choiceIndex)
     {
         DeactivateChoiceMenu();
-        _game.NarrativeScriptPlayer.HandleChoice(choiceIndex);
+        _narrativeScriptPlayer.HandleChoice(choiceIndex);
     }
 
     /// <summary>

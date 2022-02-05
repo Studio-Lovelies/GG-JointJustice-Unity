@@ -840,9 +840,9 @@ MonoBehaviour:
   _onContinueStory:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5228303783123296233}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: OnContinueStory
+      - m_Target: {fileID: 5243244756182725799}
+        m_TargetAssemblyTypeName: NarrativeScriptPlayer, GG-JointJustice
+        m_MethodName: Continue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -855,9 +855,9 @@ MonoBehaviour:
   _onPressWitness:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5228303783123296233}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: OnPressWitness
+      - m_Target: {fileID: 5243244756182725799}
+        m_TargetAssemblyTypeName: NarrativeScriptPlayer, GG-JointJustice
+        m_MethodName: PressWitness
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1049,6 +1049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5228303783942753771}
   - component: {fileID: 6802366024134600853}
+  - component: {fileID: 5243244756182725799}
   m_Layer: 0
   m_Name: StandardInclusion
   m_TagString: Untagged
@@ -1098,6 +1099,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30ac672519c94660a4d7673924b0e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5243244756182725799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5228303783942753770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf7b24dc672a4ae9bd3838c760a81d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5228303783986964377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,21 +1154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0236637ba39c2e54dbe80bb16a48408d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onActionDone:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5228303783123296233}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: OnContinueStory
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &5228303784028554613
 GameObject:
   m_ObjectHideFlags: 0
