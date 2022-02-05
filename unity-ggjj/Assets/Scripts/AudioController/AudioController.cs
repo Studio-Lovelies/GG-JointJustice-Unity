@@ -36,12 +36,11 @@ public class AudioController : MonoBehaviour, IAudioController
     /// </summary>
     private void Awake()
     {
-        _directorActionDecoder.Decoder.AudioController = this;
-
         _musicFader = new MusicFader();
         _musicAudioSource = CreateAudioSource("Music Player");
         _sfxAudioSource = CreateAudioSource("SFX Player");
         _musicAudioSource.loop = true;
+        _directorActionDecoder.Decoder.AudioController = this;
     }
 
     /// <summary>
