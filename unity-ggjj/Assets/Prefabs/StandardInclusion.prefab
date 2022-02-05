@@ -703,7 +703,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8457434445234389370}
         m_TargetAssemblyTypeName: ChoiceMenu, GG-JointJustice
-        m_MethodName: InitialiseChoiceMenu
+        m_MethodName: Initialise
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -19,13 +19,22 @@ public class ChoiceMenu : MonoBehaviour
     [Tooltip("This event is called when an choice is clicked.")]
     [SerializeField] private UnityEvent<int> _onChoiceClicked;
 
+    private Game _game;
+
+    private void Awake()
+    {
+        _game = GetComponentInParent<Game>();
+        _game.ChoiceMenu = this;
+        gameObject.SetActive(false);
+    }
+    
     /// <summary>
     /// Creates a choice menu using a choice list.
     /// Opens the menu, instantiates the correct number of buttons and
     /// assigns their text and onClick events.
     /// </summary>
     /// <param name="choiceList">The list of choices in the choice menu.</param>
-    public void InitialiseChoiceMenu(List<Choice> choiceList)
+    public void Initialise(List<Choice> choiceList)
     {
         if (gameObject.activeInHierarchy)
         {
@@ -52,8 +61,14 @@ public class ChoiceMenu : MonoBehaviour
                 _menu.SelectInitialButton();
             }
             menuItem.Text = choice.text;
-            ((Button)menuItem.Selectable).onClick.AddListener(() => _onChoiceClicked.Invoke(choice.index));
+            ((Button)menuItem.Selectable).onClick.AddListener(() => OnChoiceClicked(choice.index));
         }
+    }
+
+    private void OnChoiceClicked(int choiceIndex)
+    {
+        DeactivateChoiceMenu();
+        _game.NarrativeScriptPlayer.HandleChoice(choiceIndex);
     }
 
     /// <summary>
