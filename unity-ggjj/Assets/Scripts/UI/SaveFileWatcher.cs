@@ -19,6 +19,10 @@ public class SaveFileWatcher : MonoBehaviour
         StartCoroutine(Loop());
     }
 
+    /// <summary>
+    /// Loads the currently save data, displays which chapters are currently unlocked, waits for 3 seconds and restarts
+    /// </summary>
+    /// <returns>An enumerator to run this as a Coroutine</returns>
     private IEnumerator Loop()
     {
         var currentSave = PlayerPrefsProxy.Load();
