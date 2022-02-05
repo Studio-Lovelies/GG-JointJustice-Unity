@@ -62,6 +62,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private void Awake()
     {
         _textInfo = _textBox.textInfo;
+        GetComponentInParent<Game>().AppearingDialogueController = this;
         _directorActionDecoder.Decoder.AppearingDialogueController = this;
     }
 

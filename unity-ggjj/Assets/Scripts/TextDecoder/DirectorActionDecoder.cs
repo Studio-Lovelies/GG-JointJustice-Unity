@@ -1,18 +1,19 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class DirectorActionDecoder : MonoBehaviour
 {
-    [Header("Events")]
-    [Tooltip("Event that gets called when the system is done processing the action")]
-    [SerializeField] private UnityEvent _onActionDone;
+    public const char ACTION_TOKEN = '&';
 
+    private Game _game;
+    
     public ActionDecoder Decoder { get; } = new ActionDecoder();
 
     private void Awake()
     {
+        _game = GetComponentInParent<Game>();
+        _game.DirectorActionDecoder = this;
         // We wrap this in an Action so we have no ties to UnityEngine in the ActionDecoder
-        Decoder.OnActionDone += () => _onActionDone.Invoke();
+        Decoder.OnActionDone += () => _game.NarrativeScriptPlayer.Continue();
     }
 
     #region API
@@ -29,8 +30,18 @@ public class DirectorActionDecoder : MonoBehaviour
         catch (TextDecoder.Parser.ScriptParsingException exception)
         {
             Debug.LogError(exception);
-            _onActionDone.Invoke();
+            _game.NarrativeScriptPlayer.Continue();
         }
+    }
+
+    /// <summary>
+    /// Determines if a line of dialogue is an action.
+    /// </summary>
+    /// <param name="line">The line to check.</param>
+    /// <returns>If the line is an action (true) or not (false)</returns>
+    public bool IsAction(string line)
+    {
+        return line[0] == ACTION_TOKEN;
     }
     #endregion
 }

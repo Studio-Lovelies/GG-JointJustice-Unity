@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public NarrativeScriptPlayer NarrativeScriptPlayer { get; private set; }
     public IDialogueController DialogueController { get; set; }
+    public AppearingDialogueController AppearingDialogueController { get; set; }
+    public DirectorActionDecoder DirectorActionDecoder { get; set; }
     public NarrativeScriptPlaylist NarrativeScriptPlaylist { get; set; }
     public BGSceneList BGSceneList { get; set; }
 
@@ -10,6 +13,11 @@ public class Game : MonoBehaviour
     {
         NarrativeScriptPlaylist.InitializeNarrativeScripts();
         BGSceneList.InstantiateBGSceneFromPlaylist(NarrativeScriptPlaylist);
-        DialogueController.SetNewDialogue(NarrativeScriptPlaylist.GetNextNarrativeScript());
+        
+        NarrativeScriptPlayer = new NarrativeScriptPlayer(AppearingDialogueController, DirectorActionDecoder)
+        {
+            ActiveNarrativeScript = NarrativeScriptPlaylist.GetNextNarrativeScript()
+        };
+        NarrativeScriptPlayer.Continue();
     }
 }

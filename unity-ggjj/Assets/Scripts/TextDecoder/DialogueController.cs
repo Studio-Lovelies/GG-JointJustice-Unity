@@ -66,16 +66,22 @@ public class DialogueController : MonoBehaviour, IDialogueController
     private DialogueController _subStory; //TODO: Substory needs to remember state to come back to (probably?)
     private bool _isAtChoice; //Possibly small state machine to handle all input?
     private NarrativeScript _activeNarrativeScript;
-    
-    public NarrativeScript ActiveNarrativeScript
-    {
-        get => _subStory == null ? _activeNarrativeScript : _subStory.ActiveNarrativeScript;
-        private set => _activeNarrativeScript = value;
-    }
+
+    public NarrativeScript ActiveNarrativeScript => _game.NarrativeScriptPlayer.ActiveNarrativeScript;
+    // {
+    //     get => _subStory == null ? _activeNarrativeScript : _subStory.ActiveNarrativeScript;
+    //     private set => _activeNarrativeScript = value;
+    // }
 
     private void Awake()
     {
-        GetComponentInParent<Game>().DialogueController = this;
+        if (_isSubStory)
+        {
+            return;
+        }
+        
+        _game = GetComponentInParent<Game>();
+        _game.DialogueController = this;
         _directorActionDecoder.Decoder.DialogueController = this;
     }
 
@@ -86,6 +92,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
     void SubStoryInit(DialogueController parent)
     {
         _directorActionDecoder = parent._directorActionDecoder;
+        _game = parent._game;
         _onNewSpokenLine.AddListener(parent.OnSubStorySpokenLine);
         _onNewActionLine.AddListener(parent.OnSubStoryActionLine);
         _onDialogueFinished.AddListener(parent.OnSubStoryFinished);
@@ -99,7 +106,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
     /// <param name="narrativeScript">The narrative script to switch to</param>
     public void SetNewDialogue(NarrativeScript narrativeScript)
     {
-        ActiveNarrativeScript = narrativeScript;
+        // ActiveNarrativeScript = narrativeScript;
         if (ActiveNarrativeScript == null)
         {
             return;
