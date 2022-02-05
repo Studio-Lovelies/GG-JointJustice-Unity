@@ -103,9 +103,9 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return PressRight();
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey, 101);
             yield return PressLeft();
-            
-            // After all this Switch should be selected
-            Assert.AreEqual("Switch",Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
+
+            // After all this "Stolen Dinos" should be selected
+            Assert.AreEqual("Stolen Dinos",Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
         }
 
         /// <summary>

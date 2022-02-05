@@ -70,7 +70,7 @@ So much stuff.
 Now I'm going to turn things into other things.
 
 &ADD_EVIDENCE:Bent_Coins
-&SUBSTITUTE_EVIDENCE:Bent_Coins
+&SUBSTITUTE_EVIDENCE:Bent_Coins,Jorys_Backpack
 
 Ta-da!
 
