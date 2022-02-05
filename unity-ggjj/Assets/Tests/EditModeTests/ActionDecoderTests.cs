@@ -61,7 +61,7 @@ public class ActionDecoderTests
         {
             ActorController = new Moq.Mock<IActorController>().Object,
             AppearingDialogueController = new Moq.Mock<IAppearingDialogueController>().Object,
-            DialogueController = dialogueController.Object,
+            // NarrativeScriptPlayer = dialogueController.Object,
             AudioController = new Moq.Mock<IAudioController>().Object,
             EvidenceController = new Moq.Mock<IEvidenceController>().Object,
             SceneController = new Moq.Mock<ISceneController>().Object,

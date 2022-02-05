@@ -82,7 +82,7 @@ public class DialogueController : MonoBehaviour, IDialogueController
         
         _game = GetComponentInParent<Game>();
         _game.DialogueController = this;
-        _directorActionDecoder.Decoder.DialogueController = this;
+        // _directorActionDecoder.Decoder.NarrativeScriptPlayer = this;
     }
 
     /// <summary>

@@ -11,11 +11,13 @@ public class NarrativeScriptPlayer
     private Story Story => ActiveNarrativeScript.Story;
     
     public NarrativeScript ActiveNarrativeScript { get; set; }
-    
+    public GameMode GameMode { get; set; } = GameMode.Dialogue;
+
     public NarrativeScriptPlayer(AppearingDialogueController appearingDialogueController, DirectorActionDecoder directorActionDecoder, ChoiceMenu choiceMenu)
     {
         _appearingDialogueController = appearingDialogueController;
         _directorActionDecoder = directorActionDecoder;
+        _directorActionDecoder.Decoder.NarrativeScriptPlayer = this;
         _choiceMenu = choiceMenu;
     }
 
@@ -52,5 +54,11 @@ public class NarrativeScriptPlayer
     {
         Story.ChooseChoiceIndex(choiceIndex);
         Continue();
+    }
+
+    public void StartSubStory(NarrativeScript narrativeScript)
+    {
+        _subStory = new NarrativeScriptPlayer(_appearingDialogueController, _directorActionDecoder, _choiceMenu);
+        _subStory.Continue();
     }
 }
