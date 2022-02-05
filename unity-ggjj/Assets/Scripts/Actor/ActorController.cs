@@ -48,9 +48,9 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
-    /// Set the target gameobject to be considered the active actor to manipulate when actions are triggered in  the dialogue script
+    /// Set the target GameObject to be considered the active actor to manipulate when actions are triggered in  the dialogue script
     /// </summary>
-    /// <param name="actor">Actor MonoBehaviour attached to the gameobject to be set as the active actor</param>
+    /// <param name="actor">Actor MonoBehaviour attached to the GameObject to be set as the active actor</param>
     public void SetActiveActorObject(Actor actor)
     {
         _activeActor = actor;
@@ -108,46 +108,40 @@ public class ActorController : MonoBehaviour, IActorController
     /// <summary>
     /// Find Actor based on ActorData in ActorInventory
     /// </summary>
-    /// <param name="actorName"></param>
-    /// <returns></returns>
+    /// <param name="actorName">Name of the ActorData object to find the actor by</param>
+    /// <returns>Instance of <see cref="Actor"/> the actor is currently assigned to</returns>
     private Actor FindActorInInventory(string actorName)
     {
         var actorData = FindActorDataInInventory(actorName);
-        if (actorData != null && _actorDataToActor.ContainsKey(actorData))
+        if (actorData == null || !_actorDataToActor.ContainsKey(actorData))
         {
-            return _actorDataToActor[actorData];
+            throw new KeyNotFoundException($"No actor with the name '{actorName}' could be found; make sure both ");
         }
-
-        return null;
+        return _actorDataToActor[actorData];
     }
 
     /// <summary>
     /// Sets the pose of the active actor.
     /// In working this is mostly the same as PlayEmotion without calling OnAnimationStarted so the system can continue without waiting for the animation to end.
     /// </summary>
-    /// <param name="pose"></param>
+    /// <param name="pose">Name of the post to execute</param>
+    /// <param name="actorName">Optionally name of another actor to run this animation on (defaults to <see cref="_activeActor"/> if not set)</param>
     public void SetPose(string pose, string actorName = null)
     {
-        if (string.IsNullOrEmpty(actorName) || FindActorInInventory(actorName) == _activeActor)
-        {
-            if (_activeActor == null)
-            {
-                Debug.LogError("Actor has not been assigned");
-                return;
-            }
-            _activeActor.PlayAnimation(pose);
-        }
-        else
+        if (!string.IsNullOrEmpty(actorName) && FindActorInInventory(actorName) != _activeActor)
         {
             var actor = FindActorInInventory(actorName);
-
-            if (actor == null)
-            {
-                Debug.LogError($"Actor not found: {actorName}");
-                return;
-            }
             actor.PlayAnimation(pose);
+            return;
         }
+
+        if (_activeActor == null)
+        {
+            Debug.LogError("Actor has not been assigned");
+            return;
+        }
+
+        _activeActor.PlayAnimation(pose);
     }
 
     /// <summary>
@@ -155,6 +149,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// Flags the system as busy so it waits for the animation to end.
     /// </summary>
     /// <param name="emotion">The emotion to play.</param>
+    /// <param name="actorName">Optionally name of another actor to run this animation on (defaults to <see cref="_activeActor"/> if not set)</param>
     public void PlayEmotion(string emotion, string actorName = null)
     {
         if (string.IsNullOrEmpty(actorName) || FindActorInInventory(actorName) == _activeActor)
@@ -172,12 +167,6 @@ public class ActorController : MonoBehaviour, IActorController
         else
         {
             var actor = FindActorInInventory(actorName);
-
-            if (actor == null)
-            {
-                Debug.LogError($"Actor not found: {actorName}");
-                return;
-            }
             actor.PlayAnimation(emotion);
         }
     }
@@ -285,7 +274,7 @@ public class ActorController : MonoBehaviour, IActorController
             return;
         }
 
-        Actor tempActor = _activeScene.GetActorAtSlot(oneBasedSlotIndex);
+        var tempActor = _activeScene.GetActorAtSlot(oneBasedSlotIndex);
 
         try
         {
@@ -306,9 +295,9 @@ public class ActorController : MonoBehaviour, IActorController
     /// <param name="actorName">Name of the actor to change the visibility of</param>
     /// <param name="shouldShow">Whether to show (`true`) or hide `false` the actor</param>
     /// <exception cref="KeyNotFoundException">Thrown, if no actor with the specified name exists in this scene</exception>
-    /// <exception cref="NullReferenceException">Thrown, if no Renderer exists on the actor with the specified name</exception>
+    /// <exception cref="System.NullReferenceException">Thrown, if no Renderer exists on the actor with the specified name</exception>
     public void SetVisibility(string actorName, bool shouldShow)
     {
-        _actorDataToActor[_actorInventory[actorName]].GetComponent<Renderer>().enabled = shouldShow;
+        FindActorInInventory(actorName).GetComponent<Renderer>().enabled = shouldShow;
     }
 }

@@ -1,12 +1,7 @@
 ﻿using System.Collections;
-using System.Linq;
-using System.Reflection;
-using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
-using static UnityEngine.GameObject;
 using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scenes.VisibilityTest
@@ -16,52 +11,51 @@ namespace Tests.PlayModeTests.Scenes.VisibilityTest
         private readonly InputTestTools _inputTestTools = new InputTestTools();
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/Visibility - TestScene.unity")]
+        [ReloadScene("Assets/Scenes/TestScenes/Visibility - TestScene.unity")]
         public IEnumerator RendererChangesVisibility()
         {
-
             yield return null;
-            Keyboard key = _inputTestTools.Keyboard;
+            var keyboard = _inputTestTools.Keyboard;
 
             var dialogueController = Object.FindObjectOfType<DialogueController>();
-            var arinSprite = InputTestTools.FindInactiveInSceneByName<Renderer>("Defense_Actor");
-            var rossSprite = InputTestTools.FindInactiveInSceneByName<Renderer>("Witness_Actor");
+            var arinSprite = TestTools.FindInactiveInSceneByName<Renderer>("Defense_Actor");
+            var rossSprite = TestTools.FindInactiveInSceneByName<Renderer>("Witness_Actor");
 
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
-            yield return _inputTestTools.PressForFrame(key.xKey);
+            yield return _inputTestTools.PressForFrame(keyboard.xKey);
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
 
             yield return TestTools.WaitForState(() => arinSprite.enabled);
             yield return TestTools.WaitForState(() => rossSprite.enabled);
 
-            yield return _inputTestTools.PressForFrame(key.xKey);
+            yield return _inputTestTools.PressForFrame(keyboard.xKey);
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
 
             yield return TestTools.WaitForState(() => arinSprite.enabled);
             yield return TestTools.WaitForState(() => !rossSprite.enabled);
 
-            yield return _inputTestTools.PressForFrame(key.xKey);
+            yield return _inputTestTools.PressForFrame(keyboard.xKey);
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
 
-            yield return _inputTestTools.PressForFrame(key.xKey);
+            yield return _inputTestTools.PressForFrame(keyboard.xKey);
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
 
-            yield return _inputTestTools.PressForFrame(key.xKey);
+            yield return _inputTestTools.PressForFrame(keyboard.xKey);
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
 
             yield return TestTools.WaitForState(() => !arinSprite.enabled);
             yield return TestTools.WaitForState(() => !rossSprite.enabled);
 
-            yield return _inputTestTools.PressForFrame(key.xKey);
+            yield return _inputTestTools.PressForFrame(keyboard.xKey);
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
 
-            yield return _inputTestTools.PressForFrame(key.xKey);
+            yield return _inputTestTools.PressForFrame(keyboard.xKey);
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
 
             yield return TestTools.WaitForState(() => !arinSprite.enabled);
             yield return TestTools.WaitForState(() => rossSprite.enabled);
 
-            yield return _inputTestTools.PressForFrame(key.xKey);
+            yield return _inputTestTools.PressForFrame(keyboard.xKey);
             yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
 
             yield return TestTools.WaitForState(() => arinSprite.enabled);
