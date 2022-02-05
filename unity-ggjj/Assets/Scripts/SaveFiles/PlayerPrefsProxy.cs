@@ -9,16 +9,28 @@ namespace SaveFiles
     public static class PlayerPrefsProxy
     {
         private const string PLAYER_PREFS_KEY = "SaveData";
+
+        /// <summary>
+        /// Returns a boolean value indicating whether or not save data has already been saved at least once
+        /// </summary>
+        /// <returns>True, if save data already exists, false if not</returns>
         public static bool HasExistingSaveData()
         {
             return PlayerPrefs.HasKey(PLAYER_PREFS_KEY);
         }
 
+        /// <summary>
+        /// Deletes all currently stored save-data
+        /// </summary>
         public static void DeleteSaveData()
         {
             PlayerPrefs.DeleteKey(PLAYER_PREFS_KEY);
         }
 
+        /// <summary>
+        /// Returns (and implicitly upgrades outdated) currently save data
+        /// </summary>
+        /// <returns>A <see cref="SaveData"/> representing the currently saved data</returns>
         public static SaveData Load()
         {
             if (!PlayerPrefs.HasKey(PLAYER_PREFS_KEY))
@@ -87,12 +99,19 @@ namespace SaveFiles
             return newSaveFile;
         }
 
+        /// <summary>
+        /// Persists the supplied <see cref="SaveData"/> object by serializing it to JSON and storing it using PlayerPrefs
+        /// </summary>
+        /// <param name="saveData">Instance of <see cref="SaveData"/> to serialize to JSON and store using PlayerPrefs</param>
         private static void Save(SaveData saveData)
         {
             PlayerPrefs.SetString(PLAYER_PREFS_KEY, JsonConvert.SerializeObject(saveData));
             PlayerPrefs.Save();
         }
 
+        /// <summary>
+        /// If no save data has been persisted yet, this method creates a <see cref="SaveData"/> instance with the default configuration and saves it
+        /// </summary>
         public static void EnsureSaveDataExists()
         {
             if (HasExistingSaveData())
