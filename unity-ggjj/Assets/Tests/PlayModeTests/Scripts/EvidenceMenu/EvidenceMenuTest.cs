@@ -14,6 +14,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
+        protected global::DialogueController DialogueController { get; private set; }
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
@@ -24,6 +25,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters(LoadSceneMode.Additive));
             
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
+            DialogueController = Object.FindObjectOfType<global::DialogueController>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu = EvidenceMenu.GetComponent<Menu>();
             CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
@@ -51,14 +53,13 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected Evidence[] AddEvidence()
         {
-            Evidence[] evidence = Resources.LoadAll<Evidence>("Evidence").Where(evidence => !evidence.DisplayName.Contains("1")).ToArray();
-
-            foreach (var item in evidence)
+            var evidenceOfCurrentScript = DialogueController.ActiveNarrativeScript.ObjectStorage.GetObjectsOfType<Evidence>().ToArray();
+            foreach (var evidence in evidenceOfCurrentScript)
             {
-                EvidenceController.AddEvidence(item);
+                EvidenceController.AddEvidence(evidence);
             }
 
-            return evidence;
+            return evidenceOfCurrentScript;
         }
         
         protected IEnumerator PressZ()
