@@ -104,7 +104,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey, 101);
             yield return PressLeft();
             
-            // After all this Jory Sr's Letter should be selected
+            // After all this Switch should be selected
             Assert.AreEqual("Switch",Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
         }
 

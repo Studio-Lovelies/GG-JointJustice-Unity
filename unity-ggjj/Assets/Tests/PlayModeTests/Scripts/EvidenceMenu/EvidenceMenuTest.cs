@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using Tests.PlayModeTests.Tools;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -50,7 +51,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected Evidence[] AddEvidence()
         {
-            Evidence[] evidence = Resources.LoadAll<Evidence>("Evidence");
+            Evidence[] evidence = Resources.LoadAll<Evidence>("Evidence").Where(evidence => !evidence.DisplayName.Contains("1")).ToArray();
 
             foreach (var item in evidence)
             {
