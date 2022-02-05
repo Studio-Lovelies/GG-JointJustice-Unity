@@ -34,13 +34,6 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Drag the witness testimony sign here.")]
     [SerializeField] private GameObject _witnessTestimonySign;
-    
-    [Header("Events")]
-    [Tooltip("This event is called when a wait action is started.")]
-    [SerializeField] private UnityEvent _onWaitStart;
-
-    [Tooltip("This event is called when a wait action is finished.")]
-    [SerializeField] private UnityEvent _onWaitComplete;
 
     [Tooltip("Event that gets called when the actor displayed on screen changes")]
     [SerializeField] private UnityEvent<Actor> _onActorChanged;
@@ -57,7 +50,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         set => _witnessTestimonySign.SetActive(value);
     }
-    
+
     private void Awake()
     {
         _directorActionDecoder.Decoder.SceneController = this;
@@ -77,8 +70,8 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _onWaitStart.Invoke();
-        _imageFader.StartFade(1, 0, seconds, _onWaitComplete);
+        _narrativeScriptPlayer.Waiting = true;
+        _imageFader.StartFade(1, 0, seconds, () => WaitComplete());
     }
 
     /// <summary>
@@ -94,8 +87,8 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _onWaitStart.Invoke();
-        _imageFader.StartFade(0, 1, seconds, _onWaitComplete);
+        _narrativeScriptPlayer.Waiting = true;
+        _imageFader.StartFade(0, 1, seconds, () => WaitComplete());
     }
 
     /// <summary>
@@ -106,11 +99,12 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="isBlocking">Whether the script should continue after the pan has completed (true) or immediately (false)</param>
     public void PanCamera(float seconds, Vector2Int position, bool isBlocking = false)
     {
-        _panToPositionCoroutine = StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds, isBlocking));
-        
+        _panToPositionCoroutine =
+            StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds, isBlocking));
+
         if (!isBlocking)
         {
-            _onWaitComplete.Invoke();
+            WaitComplete();
         }
     }
 
@@ -134,10 +128,10 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _panToPositionCoroutine = null;
-        
+
         if (isBlocking)
         {
-            _onWaitComplete.Invoke();
+            WaitComplete();
         }
     }
 
@@ -181,7 +175,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (!isBlocking)
         {
-            _onWaitComplete.Invoke();
+            WaitComplete();
         }
     }
 
@@ -313,9 +307,9 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The time to wait in seconds.</param>
     private IEnumerator WaitCoroutine(float seconds)
     {
-        _onWaitStart.Invoke();
+        _narrativeScriptPlayer.Waiting = true;
         yield return new WaitForSeconds(seconds);
-        _onWaitComplete?.Invoke();
+        WaitComplete();
     }
 
     /// <summary>
@@ -352,7 +346,9 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
     public void Shout(string actorName, string shoutName, bool allowRandomShouts)
     {
-        _shoutPlayer.Shout(_narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
+        _shoutPlayer.Shout(
+            _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants,
+            shoutName, allowRandomShouts);
     }
 
     /// <summary>
@@ -362,5 +358,15 @@ public class SceneController : MonoBehaviour, ISceneController
     public void ReloadScene()
     {
         _sceneLoader.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    /// <summary>
+    /// Sets NarrativeScriptPlayer to no longer wait,
+    /// and continues the story
+    /// </summary>
+    private void WaitComplete()
+    {
+        _narrativeScriptPlayer.Waiting = false;
+        _narrativeScriptPlayer.Continue();
     }
 }

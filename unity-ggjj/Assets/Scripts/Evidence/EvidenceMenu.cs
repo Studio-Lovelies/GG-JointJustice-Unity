@@ -49,7 +49,7 @@ public class EvidenceMenu : MonoBehaviour
 
     // when set to false, this menu can only be toggled
     // when set to true, this menu can be closed by presenting evidence and thereby following a different path of the active ink script
-    public bool CanPresentEvidence => _narrativeScriptPlayer.CanPresentEvidence;
+    public bool CanPresentEvidence => _narrativeScriptPlayer.CanPressWitness;
 
     /// <summary>
     /// Get the menu on awake to access its DontResetSelectedOnClose property

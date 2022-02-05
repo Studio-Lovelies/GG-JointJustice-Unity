@@ -9,7 +9,8 @@ public class Game : MonoBehaviour
     public NarrativeScriptPlaylist NarrativeScriptPlaylist { get; set; }
     public BGSceneList BGSceneList { get; set; }
     public ChoiceMenu ChoiceMenu { get; set; }
-
+    public SceneController SceneController { get; set; }
+    
     private void Start()
     {
         NarrativeScriptPlaylist.InitializeNarrativeScripts();

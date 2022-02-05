@@ -5,8 +5,14 @@ public class NarrativeScriptPlayer : MonoBehaviour
     public StoryPlayer StoryPlayer { private get; set; }
     public NarrativeScript ActiveNarrativeScript => StoryPlayer.ActiveNarrativeScript;
 
-    public bool CanPresentEvidence => StoryPlayer.IsAtChoice && StoryPlayer.GameMode == GameMode.CrossExamination;
-    
+    public bool Waiting
+    {
+        private get => StoryPlayer.Waiting;
+        set => StoryPlayer.Waiting = value;
+    }
+    public bool CanPressWitness => StoryPlayer.CanPressWitness && !Waiting;
+    public bool HasSubStory => StoryPlayer.HasSubStory;
+
     private void Awake()
     {
         GetComponent<Game>().NarrativeScriptPlayer = this;
@@ -24,7 +30,10 @@ public class NarrativeScriptPlayer : MonoBehaviour
 
     public void PressWitness()
     {
-        StoryPlayer.HandleChoice(1);
+        if (CanPressWitness)
+        {
+            StoryPlayer.HandleChoice(1);
+        }
     }
 
     public void PresentEvidence(ICourtRecordObject courtRecordObject)

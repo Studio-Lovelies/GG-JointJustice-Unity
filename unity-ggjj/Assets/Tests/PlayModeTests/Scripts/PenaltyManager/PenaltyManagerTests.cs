@@ -50,7 +50,7 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
         [UnityTest]
         public IEnumerator NumberOfPenaltiesCanBeReset()
         {
-            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
+            var dialogueController = Object.FindObjectOfType<NarrativeScriptPlayer>();
 
             for (int i = 0; i < 3; i++)
             {

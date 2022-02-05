@@ -20,9 +20,13 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     [SerializeField] private UnityEvent _onSpeedupTextStart;
     [SerializeField] private UnityEvent _onSpeedupTextEnd;
     [SerializeField] private UnityEvent _onCaseMenuOpened;
-
     [SerializeField] private UnityEvent _onPauseMenuOpened;
 
+    private void Awake()
+    {
+        
+    }
+    
     /// <summary>
     /// Called when the object is enabled
     /// </summary>

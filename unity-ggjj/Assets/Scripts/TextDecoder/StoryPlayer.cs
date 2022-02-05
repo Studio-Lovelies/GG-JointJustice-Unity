@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
-using UnityEngine;
 
 public class StoryPlayer
 {
@@ -12,17 +11,61 @@ public class StoryPlayer
     private NarrativeScript _activeNarrativeScript;
     private StoryPlayer _parent;
     private StoryPlayer _subStory;
+    private GameMode _gameMode = GameMode.Dialogue;
+    private bool _waiting = false;
 
-    private bool HasSubStory => _subStory != null;
     private Story Story => ActiveNarrativeScript.Story;
+    private bool IsAtChoice => ActiveNarrativeScript.Story.currentChoices.Count > 0;
 
-    public bool IsAtChoice => ActiveNarrativeScript.Story.currentChoices.Count > 0;
+    public bool Waiting
+    {
+        get => HasSubStory ? _subStory.Waiting : _waiting;
+        set
+        {
+            if (HasSubStory)
+            {
+                _subStory.Waiting = value;
+            }
+
+            _waiting = value;
+        }
+    }
+    public bool HasSubStory => _subStory != null;
+
+    public bool CanPressWitness
+    {
+        get
+        {
+            if (HasSubStory)
+            {
+                return _subStory.CanPressWitness;
+            }
+
+            return IsAtChoice && GameMode == GameMode.CrossExamination;
+        }
+    }
+
     public NarrativeScript ActiveNarrativeScript
     {
         get => HasSubStory ? _subStory.ActiveNarrativeScript : _activeNarrativeScript;
         set => _activeNarrativeScript = value;
     }
-    public GameMode GameMode { get; set; } = GameMode.Dialogue;
+    
+    public GameMode GameMode
+    {
+        get => HasSubStory ? _subStory.GameMode : _gameMode;
+        set
+        {
+            if (HasSubStory)
+            {
+                _subStory.GameMode = value;
+            }
+            else
+            {
+                _gameMode = value;
+            }
+        }
+    }
 
     public StoryPlayer(NarrativeScriptPlaylist narrativeScriptPlaylist, AppearingDialogueController appearingDialogueController, DirectorActionDecoder directorActionDecoder, ChoiceMenu choiceMenu)
     {
@@ -35,13 +78,18 @@ public class StoryPlayer
 
     public void Continue()
     {
+        if (_appearingDialogueController.PrintingText)
+        {
+            return;
+        }
+        
         if (_subStory != null)
         {
             _subStory.Continue();
             return;
         }
 
-        if (HandleCannotContinue())
+        if (HandleCannotContinue() || Waiting)
         {
             return;
         }
