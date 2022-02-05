@@ -45,10 +45,11 @@ public class EvidenceMenu : MonoBehaviour
     private int _numberOfPages;
     private int _startIndex;
     private Menu _menu;
+    private NarrativeScriptPlayer _narrativeScriptPlayer;
 
     // when set to false, this menu can only be toggled
     // when set to true, this menu can be closed by presenting evidence and thereby following a different path of the active ink script
-    public bool CanPresentEvidence { private get; set; }
+    public bool CanPresentEvidence => _narrativeScriptPlayer.CanPresentEvidence;
 
     /// <summary>
     /// Get the menu on awake to access its DontResetSelectedOnClose property
@@ -57,6 +58,7 @@ public class EvidenceMenu : MonoBehaviour
     {
         _menu = GetComponent<Menu>();
         _evidenceMenuLabel = _menuLabel.sprite;
+        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
     }
     
     /// <summary>
@@ -208,7 +210,7 @@ public class EvidenceMenu : MonoBehaviour
             return;
         }
         _onEvidenceClicked.Invoke();
-        _evidenceController.OnPresentEvidence(evidence);
+        _narrativeScriptPlayer.PresentEvidence(evidence);
     }
 
     /// <summary>

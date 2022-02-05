@@ -134,6 +134,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb22b3340afa7d54ba8eba8387a5ac39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1145920835 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5243244756182725799, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+  m_PrefabInstance: {fileID: 5228303782951346616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf7b24dc672a4ae9bd3838c760a81d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1753085032 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3697150473782156849, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
@@ -696,6 +707,34 @@ PrefabInstance:
     - target: {fileID: 5228303784028554601, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784376185822, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPresentEvidence.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784376185822, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPresentEvidence.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784376185822, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPresentEvidence.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1145920835}
+    - target: {fileID: 5228303784376185822, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPresentEvidence.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784376185822, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPresentEvidence.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PresentEvidence
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784376185822, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPresentEvidence.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NarrativeScriptPlayer, GG-JointJustice
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303784376185822, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onPresentEvidence.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5228303784783594412, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name

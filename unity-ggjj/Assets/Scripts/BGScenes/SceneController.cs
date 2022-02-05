@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
-    [Tooltip("Drag a DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
-    
     [Tooltip("Pixels per unit of the basic ")]
     [SerializeField] private int _pixelsPerUnit = 100;
 
@@ -54,6 +51,7 @@ public class SceneController : MonoBehaviour, ISceneController
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
     private BGScene _activeScene;
+    private NarrativeScriptPlayer _narrativeScriptPlayer;
 
     public bool WitnessTestimonyActive
     {
@@ -63,6 +61,7 @@ public class SceneController : MonoBehaviour, ISceneController
     private void Awake()
     {
         _directorActionDecoder.Decoder.SceneController = this;
+        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
     }
 
     /// <summary>
@@ -198,7 +197,7 @@ public class SceneController : MonoBehaviour, ISceneController
             Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
 
-        Evidence evidence = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(item);
+        Evidence evidence = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(item);
         _itemDisplay.ShowItem(evidence.Icon, position);
     }
 
@@ -353,7 +352,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
     public void Shout(string actorName, string shoutName, bool allowRandomShouts)
     {
-        _shoutPlayer.Shout(_dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
+        _shoutPlayer.Shout(_narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
     }
 
     /// <summary>

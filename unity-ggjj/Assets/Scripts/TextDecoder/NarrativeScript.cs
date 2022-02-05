@@ -100,4 +100,12 @@ public class NarrativeScript
             }
         }
     }
+
+    /// <summary>
+    /// Resets the state of a story
+    /// </summary>
+    public void Reset()
+    {
+        Story.ResetState();
+    }
 }

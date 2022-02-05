@@ -57,7 +57,9 @@ public class NarrativeScriptPlaylist : MonoBehaviour
         {
             throw new NotSupportedException("This playlist contains no failure scripts");
         }
-        return FailureScripts[Random.Range(0, FailureScripts.Count)];
+        var failureScript = FailureScripts[Random.Range(0, FailureScripts.Count)];
+        failureScript.Reset();
+        return failureScript;
     }
 
     /// <summary>

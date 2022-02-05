@@ -1,21 +1,32 @@
 using System.ComponentModel;
+using System.Linq;
 using Ink.Runtime;
+using UnityEngine;
 
 public class StoryPlayer
 {
-    private StoryPlayer _subStory;
     private readonly AppearingDialogueController _appearingDialogueController;
     private readonly DirectorActionDecoder _directorActionDecoder;
     private readonly ChoiceMenu _choiceMenu;
+    private readonly NarrativeScriptPlaylist _narrativeScriptPlaylist;
+    private NarrativeScript _activeNarrativeScript;
+    private StoryPlayer _parent;
+    private StoryPlayer _subStory;
 
-    private bool IsAtChoice => ActiveNarrativeScript.Story.currentChoices.Count > 0;
+    private bool HasSubStory => _subStory != null;
     private Story Story => ActiveNarrativeScript.Story;
-    
-    public NarrativeScript ActiveNarrativeScript { get; set; }
+
+    public bool IsAtChoice => ActiveNarrativeScript.Story.currentChoices.Count > 0;
+    public NarrativeScript ActiveNarrativeScript
+    {
+        get => HasSubStory ? _subStory.ActiveNarrativeScript : _activeNarrativeScript;
+        set => _activeNarrativeScript = value;
+    }
     public GameMode GameMode { get; set; } = GameMode.Dialogue;
 
-    public StoryPlayer(AppearingDialogueController appearingDialogueController, DirectorActionDecoder directorActionDecoder, ChoiceMenu choiceMenu)
+    public StoryPlayer(NarrativeScriptPlaylist narrativeScriptPlaylist, AppearingDialogueController appearingDialogueController, DirectorActionDecoder directorActionDecoder, ChoiceMenu choiceMenu)
     {
+        _narrativeScriptPlaylist = narrativeScriptPlaylist;
         _appearingDialogueController = appearingDialogueController;
         _directorActionDecoder = directorActionDecoder;
         _directorActionDecoder.Decoder.StoryPlayer = this;
@@ -29,26 +40,9 @@ public class StoryPlayer
             _subStory.Continue();
             return;
         }
-        
-        if (!Story.canContinue)
-        {
-            if (!IsAtChoice)
-            {
-                return;
-            }
-            
-            switch (GameMode)
-            {
-                case GameMode.Dialogue:
-                    _choiceMenu.Initialise(Story.currentChoices);
-                    break;
-                case GameMode.CrossExamination:
-                    HandleChoice(0);
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException($"{GameMode} is an invalid GameMode");
-            }
 
+        if (HandleCannotContinue())
+        {
             return;
         }
 
@@ -63,6 +57,34 @@ public class StoryPlayer
         }
     }
 
+    private bool HandleCannotContinue()
+    {
+        if (Story.canContinue)
+        {
+            return false;
+        }
+        
+        if (!IsAtChoice)
+        {
+            _parent?.EndSubStory();
+            return true;
+        }
+
+        switch (GameMode)
+        {
+            case GameMode.Dialogue:
+                _choiceMenu.Initialise(Story.currentChoices);
+                break;
+            case GameMode.CrossExamination:
+                HandleChoice(0);
+                break;
+            default:
+                throw new InvalidEnumArgumentException($"{GameMode} is an invalid GameMode");
+        }
+
+        return true;
+    }
+
     public void HandleChoice(int choiceIndex)
     {
         Story.ChooseChoiceIndex(choiceIndex);
@@ -71,7 +93,42 @@ public class StoryPlayer
 
     public void StartSubStory(NarrativeScript narrativeScript)
     {
-        _subStory = new StoryPlayer(_appearingDialogueController, _directorActionDecoder, _choiceMenu);
+        _subStory = new StoryPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _directorActionDecoder, _choiceMenu)
+        {
+            ActiveNarrativeScript = narrativeScript,
+            _parent = this
+        };
         _subStory.Continue();
+    }
+
+    private void EndSubStory()
+    {
+        _subStory = null;
+        Continue();
+    }
+
+    public void PresentEvidence(ICourtRecordObject courtRecordObject)
+    {
+        if (_subStory != null)
+        {
+            _subStory.PresentEvidence(courtRecordObject);
+            return;
+        }
+
+        if (!IsAtChoice || GameMode != GameMode.CrossExamination)
+        {
+            return;
+        }
+
+        var currentChoices = Story.currentChoices;
+        var choice = currentChoices.FirstOrDefault(choice => choice.text == courtRecordObject.InstanceName);
+        if (choice != null)
+        {
+            HandleChoice(choice.index);
+        }
+        else
+        {
+            StartSubStory(_narrativeScriptPlaylist.GetRandomFailureScript());
+        }
     }
 }

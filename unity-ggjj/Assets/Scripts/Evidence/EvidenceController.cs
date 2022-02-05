@@ -5,9 +5,6 @@ using UnityEngine.Serialization;
 
 public class EvidenceController : MonoBehaviour, IEvidenceController
 {
-    [Tooltip("Drag a DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
-    
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
@@ -18,32 +15,17 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [SerializeField] private UnityEvent<ICourtRecordObject> _onPresentEvidence;
 
     [Tooltip("Drag an EvidenceMenu component here, which will updated when the game state (i.e. ability to present evidence) changes.")]
-    [SerializeField] public EvidenceMenu _evidenceMenu;
+    [SerializeField] private EvidenceMenu _evidenceMenu;
 
+    private NarrativeScriptPlayer _narrativeScriptPlayer;
+    
     public List<Evidence> CurrentEvidence { get; } = new List<Evidence>();
     public List<ActorData> CurrentProfiles { get; } = new List<ActorData>();
-
-    /// <summary>
-    /// Called either when invoking <see cref="DialogueController._onCrossExaminationLoopActive" />
-    /// or when a `PRESENT_EVIDENCE`-action has been encountered
-    /// </summary>
-    /// <param name="canPresentEvidence">Set to true, if evidence can be presented, set to false if presenting evidence is currently disabled</param>
-    public void SetCanPresentEvidence(bool canPresentEvidence)
-    {
-        _evidenceMenu.CanPresentEvidence = canPresentEvidence;
-    }
-
-    // Start is called before the first frame update
+    
     void Awake()
     {
-        if (_directorActionDecoder == null)
-        {
-            Debug.LogError("Evidence Controller doesn't have an action decoder to attach to");
-        }
-        else
-        {
-            _directorActionDecoder.Decoder.EvidenceController = this;
-        }
+        _directorActionDecoder.Decoder.EvidenceController = this;
+        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
     }
 
     /// <summary>
@@ -53,7 +35,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidenceName">The name of the evidence to add.</param>
     public void AddEvidence(string evidenceName)
     {
-        CurrentEvidence.Add(_dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
+        CurrentEvidence.Add(_narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
     }
 
     /// <summary>
@@ -71,7 +53,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidenceName">The name of the evidence to remove.</param>
     public void RemoveEvidence(string evidenceName)
     {
-        CurrentEvidence.Remove(_dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
+        CurrentEvidence.Remove(_narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
     }
 
     /// <summary>
@@ -80,7 +62,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="actorName">The name of the actor to add.</param>
     public void AddToCourtRecord(string actorName)
     {
-        CurrentProfiles.Add(_dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName));
+        CurrentProfiles.Add(_narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName));
     }
     
     /// <summary>
@@ -98,7 +80,6 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// </summary>
     public void RequirePresentEvidence()
     {
-        SetCanPresentEvidence(true);
         _onRequirePresentEvidence.Invoke();
     }
 
@@ -108,7 +89,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidenceName">The name of the evidence to be substituted with its alt</param>
     public void SubstituteEvidenceWithAlt(string evidenceName)
     {
-        int evidenceIndex = CurrentEvidence.IndexOf(_dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
+        int evidenceIndex = CurrentEvidence.IndexOf(_narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
         CurrentEvidence[evidenceIndex] = CurrentEvidence[evidenceIndex].AltEvidence;
     }
 
@@ -120,15 +101,5 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     {
         int evidenceIndex = CurrentEvidence.IndexOf(evidence);
         CurrentEvidence[evidenceIndex] = CurrentEvidence[evidenceIndex].AltEvidence;
-    }
-
-    /// <summary>
-    /// This method is called by the EvidenceMenu when evidence has been
-    /// clicked and needs to be presented.
-    /// </summary>
-    /// <param name="evidence">The evidence to present.</param>
-    public void OnPresentEvidence(ICourtRecordObject evidence)
-    {
-        _onPresentEvidence.Invoke(evidence);
     }
 }

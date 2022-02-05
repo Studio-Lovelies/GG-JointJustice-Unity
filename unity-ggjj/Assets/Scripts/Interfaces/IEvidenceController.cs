@@ -4,6 +4,5 @@ public interface IEvidenceController
     void RemoveEvidence(string evidenceName);
     void AddToCourtRecord(string actorName);
     void RequirePresentEvidence();
-    void SubstituteEvidenceWithAlt(string evidenceName);
-    void OnPresentEvidence(ICourtRecordObject evidence);
+    void SubstituteEvidenceWithAlt(string evidenceName); 
 }
