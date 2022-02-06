@@ -104,7 +104,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
                 while (_game.NarrativeScriptPlayer.HasSubStory && penaltyManager.PenaltiesLeft > 0)
                 {
-                    yield return _inputTestTools.ProgressStory(_game.NarrativeScriptPlayer);
+                    yield return _inputTestTools.ProgressStory(_game.AppearingDialogueController);
                 }
 
                 Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);

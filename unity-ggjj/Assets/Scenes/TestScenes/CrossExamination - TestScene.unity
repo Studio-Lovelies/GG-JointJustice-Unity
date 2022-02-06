@@ -287,7 +287,7 @@ PrefabInstance:
     - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: <NarrativeScripts>k__BackingField.Array.data[0].<Script>k__BackingField
       value: 
-      objectReference: {fileID: 4900000, guid: 0c9c11c0f97d4468382ac6f9fd036740, type: 3}
+      objectReference: {fileID: 4900000, guid: 72d8df4aeffe149949d07771194aaaac, type: 3}
     - target: {fileID: 7751695482869048748, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

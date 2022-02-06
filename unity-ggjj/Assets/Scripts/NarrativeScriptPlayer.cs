@@ -23,7 +23,7 @@ public class NarrativeScriptPlayer : MonoBehaviour
     {
         GetComponent<Game>().NarrativeScriptPlayer = this;
     }
-    
+
     public void Continue()
     {
         StoryPlayer.Continue();
