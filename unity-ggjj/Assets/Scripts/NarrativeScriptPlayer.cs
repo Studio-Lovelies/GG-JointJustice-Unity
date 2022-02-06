@@ -13,7 +13,7 @@ public class NarrativeScriptPlayer : MonoBehaviour
 
     public bool Waiting
     {
-        private get => StoryPlayer.Waiting;
+        get => StoryPlayer.Waiting;
         set => StoryPlayer.Waiting = value;
     }
     public bool CanPressWitness => StoryPlayer.CanPressWitness && !Waiting;

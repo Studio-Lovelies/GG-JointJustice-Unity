@@ -208,6 +208,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 522180359754412203, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStart.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 522180359754412203, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStart.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 522180359754412203, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStart.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 522180359754412203, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStart.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 522180359754412203, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStart.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: DialogueController, GG-JointJustice
+      objectReference: {fileID: 0}
+    - target: {fileID: 522180359754412203, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStart.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 522180359754412203, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStart.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 844180367432201528, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _currentObjectList.Array.size
       value: 5

@@ -333,9 +333,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5228303783123296233}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: SetBusy
+      - m_Target: {fileID: 5243244756182725799}
+        m_TargetAssemblyTypeName: NarrativeScriptPlayer, GG-JointJustice
+        m_MethodName: set_Waiting
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -348,9 +348,9 @@ MonoBehaviour:
   _onAnimationComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5228303783123296233}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: SetBusy
+      - m_Target: {fileID: 5243244756182725799}
+        m_TargetAssemblyTypeName: NarrativeScriptPlayer, GG-JointJustice
+        m_MethodName: set_Waiting
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

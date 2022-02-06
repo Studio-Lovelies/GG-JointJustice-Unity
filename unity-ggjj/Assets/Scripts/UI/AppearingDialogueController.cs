@@ -72,11 +72,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <param name="text">The text to print.</param>
     public void PrintText(string text)
     {
-        if (_printCoroutine != null)
-        {
-            StopPrintingText();
-        }
-
+        StopPrintingText();
         text = text.TrimEnd('\n');
         TextBoxHidden = false;
 
@@ -110,6 +106,11 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
     public void StopPrintingText()
     {
+        if (_printCoroutine == null)
+        {
+            return;
+        }
+        
         StopCoroutine(_printCoroutine);
         _printCoroutine = null;
         PrintingText = false;
