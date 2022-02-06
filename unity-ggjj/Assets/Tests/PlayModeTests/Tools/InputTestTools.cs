@@ -127,11 +127,11 @@ namespace Tests.PlayModeTests.Tools
         /// <summary>
         /// Holds the X Key until a DialogueController is not busy
         /// </summary>
-        /// <param name="dialogueController">The DialogueController to wait for</param>
-        public IEnumerator ProgressStory(AppearingDialogueController dialogueController)
+        /// <param name="appearingDialogueController">The AppearingDialogueController to wait for</param>
+        public IEnumerator ProgressStory(AppearingDialogueController appearingDialogueController)
         {
             Press(Keyboard.xKey);
-            yield return TestTools.WaitForState(() => !dialogueController.PrintingText);
+            yield return TestTools.WaitForState(() => !appearingDialogueController.PrintingText);
             Release(Keyboard.xKey);
         }
     }

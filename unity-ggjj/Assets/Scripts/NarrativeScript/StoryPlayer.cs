@@ -4,10 +4,10 @@ using Ink.Runtime;
 
 public class StoryPlayer
 {
-    private readonly AppearingDialogueController _appearingDialogueController;
-    private readonly DirectorActionDecoder _directorActionDecoder;
-    private readonly ChoiceMenu _choiceMenu;
-    private readonly NarrativeScriptPlaylist _narrativeScriptPlaylist;
+    private readonly IAppearingDialogueController _appearingDialogueController;
+    private readonly IActionDecoder _actionDecoder;
+    private readonly IChoiceMenu _choiceMenu;
+    private readonly INarrativeScriptPlaylist _narrativeScriptPlaylist;
     private NarrativeScript _activeNarrativeScript;
     private StoryPlayer _parent;
     private StoryPlayer _subStory;
@@ -67,11 +67,11 @@ public class StoryPlayer
         }
     }
 
-    public StoryPlayer(NarrativeScriptPlaylist narrativeScriptPlaylist, AppearingDialogueController appearingDialogueController, DirectorActionDecoder directorActionDecoder, ChoiceMenu choiceMenu)
+    public StoryPlayer(INarrativeScriptPlaylist narrativeScriptPlaylist, IAppearingDialogueController appearingDialogueController, IActionDecoder actionDecoder, IChoiceMenu choiceMenu)
     {
         _narrativeScriptPlaylist = narrativeScriptPlaylist;
         _appearingDialogueController = appearingDialogueController;
-        _directorActionDecoder = directorActionDecoder;
+        _actionDecoder = actionDecoder;
         _choiceMenu = choiceMenu;
     }
 
@@ -94,9 +94,9 @@ public class StoryPlayer
         }
         
         var nextLine = Story.Continue();
-        if (_directorActionDecoder.IsAction(nextLine))
+        if (_actionDecoder.IsAction(nextLine))
         {
-            _directorActionDecoder.OnNewActionLine(nextLine);
+            _actionDecoder.OnNewActionLine(nextLine);
         }
         else
         {
@@ -140,7 +140,7 @@ public class StoryPlayer
 
     public void StartSubStory(NarrativeScript narrativeScript)
     {
-        _subStory = new StoryPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _directorActionDecoder, _choiceMenu)
+        _subStory = new StoryPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _actionDecoder, _choiceMenu)
         {
             ActiveNarrativeScript = narrativeScript,
             _parent = this

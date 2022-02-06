@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class NarrativeScriptPlaylist : MonoBehaviour
+public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
 {
     [field: Tooltip("List of narrative scripts to be played in order")]
     [field: SerializeField] public List<NarrativeScript> NarrativeScripts { get; private set; }

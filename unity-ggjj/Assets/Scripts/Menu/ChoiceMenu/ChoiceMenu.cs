@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using Ink.Runtime;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Menu))]
-public class ChoiceMenu : MonoBehaviour
+public class ChoiceMenu : MonoBehaviour, IChoiceMenu
 {
     [Tooltip("Drag the prefab for choice menu items here.")]
     [SerializeField] private MenuItem _choiceMenuItem;

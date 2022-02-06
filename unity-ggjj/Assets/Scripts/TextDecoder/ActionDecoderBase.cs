@@ -7,6 +7,10 @@ using UnityEngine;
 
 public abstract class ActionDecoderBase : IActionDecoder
 {
+    public const char ACTION_TOKEN = '&';
+
+    public NarrativeScriptPlayer NarrativeScriptPlayer { get; set; }
+    
     /// <summary>
     ///     Parse action lines inside from inside .ink files
     /// </summary>
@@ -131,15 +135,25 @@ public abstract class ActionDecoderBase : IActionDecoder
         method.Invoke(this, parsedMethodParameters.ToArray());
     }
 
-    protected abstract void ADD_EVIDENCE(AssetName evidenceName);
-    protected abstract void ADD_RECORD(AssetName actorName);
-    protected abstract void PLAY_SFX(AssetName sfx);
-    protected abstract void PLAY_SONG(AssetName songName);
-    protected abstract void SCENE(AssetName sceneName);
-    protected abstract void SHOW_ITEM(AssetName itemName, ItemDisplayPosition itemPos);
-    protected abstract void ACTOR(AssetName actorName);
-    protected abstract void SPEAK(AssetName actorName);
-    protected abstract void SPEAK_UNKNOWN(AssetName actorName);
-    protected abstract void THINK(AssetName actorName);
-    protected abstract void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName);
+    /// <summary>
+    /// Determines if a line of dialogue is an action.
+    /// </summary>
+    /// <param name="line">The line to check.</param>
+    /// <returns>If the line is an action (true) or not (false)</returns>
+    public bool IsAction(string line)
+    {
+        return line[0] == ACTION_TOKEN;
+    }
+
+    protected abstract void ADD_EVIDENCE(EvidenceAssetName evidenceName);
+    protected abstract void ADD_RECORD(ActorAssetName actorName);
+    protected abstract void PLAY_SFX(SfxAssetName sfx);
+    protected abstract void PLAY_SONG(SongAssetName songName);
+    protected abstract void SCENE(SceneAssetName sceneName);
+    protected abstract void SHOW_ITEM(EvidenceAssetName itemName, ItemDisplayPosition itemPos);
+    protected abstract void ACTOR(ActorAssetName actorName);
+    protected abstract void SPEAK(ActorAssetName actorName);
+    protected abstract void SPEAK_UNKNOWN(ActorAssetName actorName);
+    protected abstract void THINK(ActorAssetName actorName);
+    protected abstract void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName);
 }
