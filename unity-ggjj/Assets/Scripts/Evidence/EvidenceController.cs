@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -105,21 +106,13 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <summary>
     /// Substitutes a piece of evidence with its assigned alternate evidence.
     /// </summary>
-    /// <param name="evidenceName">The name of the evidence to be substituted with its alt</param>
-    public void SubstituteEvidenceWithAlt(string evidenceName)
+    /// <param name="initialEvidenceName">The name of the currently present evidence to be substituted</param>
+    /// <param name="substituteEvidenceName">The name of the evidence to substitute <see cref="initialEvidenceName"/> with</param>
+    public void SubstituteEvidence(string initialEvidenceName, string substituteEvidenceName)
     {
-        int evidenceIndex = CurrentEvidence.IndexOf(_dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
-        CurrentEvidence[evidenceIndex] = CurrentEvidence[evidenceIndex].AltEvidence;
-    }
-
-    /// <summary>
-    /// Overload which allows evidence to be substituted using a direct reference.
-    /// </summary>
-    /// <param name="evidence">The evidence that should be substituted with its alt</param>
-    public void SubstituteEvidenceWithAlt(Evidence evidence)
-    {
-        int evidenceIndex = CurrentEvidence.IndexOf(evidence);
-        CurrentEvidence[evidenceIndex] = CurrentEvidence[evidenceIndex].AltEvidence;
+        var initialEvidenceIndex = CurrentEvidence.FindIndex(evidence => evidence.name == initialEvidenceName);
+        var substituteEvidence = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(substituteEvidenceName);
+        CurrentEvidence[initialEvidenceIndex] = substituteEvidence;
     }
 
     /// <summary>
