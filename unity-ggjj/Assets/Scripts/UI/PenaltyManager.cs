@@ -81,7 +81,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     {
         if (_penaltyObjects.Count == 0)
         {
-            _directorActionDecoder.Decoder.StoryPlayer.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
+            _directorActionDecoder.Decoder.NarrativeScriptPlayer.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
         }
     }
 }

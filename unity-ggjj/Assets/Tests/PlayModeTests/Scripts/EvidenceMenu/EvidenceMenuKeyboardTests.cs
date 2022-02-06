@@ -50,6 +50,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             Assert.True(EvidenceMenu.isActiveAndEnabled);
             yield return PressZ();
             
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayer>();
+            narrativeScriptPlayer.GameMode = GameMode.CrossExamination;
             EvidenceController.RequirePresentEvidence();
             yield return PressZ();
             Assert.True(EvidenceMenu.isActiveAndEnabled);

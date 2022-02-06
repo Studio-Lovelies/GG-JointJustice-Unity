@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -24,12 +23,14 @@ public class MenuOpener : MonoBehaviour
     private Menu _parentMenu;
     private bool _menuCannotBeOpened;
     private bool _menuOpenedThisFrame;
+    private UnityInputSystemInterface _input;
 
     private void Awake()
     {
         _button = GetComponent<Button>();
         _parentMenu = GetComponentInParent<Menu>();
-        
+        _input = GetComponentInParent<UnityInputSystemInterface>();
+
         // Don't disable self when opening menu if opening menu this is part of
         if (_parentMenu == _menuToOpen)
         {
@@ -53,7 +54,13 @@ public class MenuOpener : MonoBehaviour
             Debug.LogError($"Menu has not been set on {this}", this);
             return;
         }
-        
+
+        if (_input == null)
+        {
+            _input = GetComponentInParent<UnityInputSystemInterface>();
+        }
+
+        _input.MenuOpen = true;
         _menuToOpen.gameObject.SetActive(true);
 
         if (_parentMenu != null)
@@ -92,13 +99,17 @@ public class MenuOpener : MonoBehaviour
     public void ForceCloseMenu()
     {
         if (!_menuToOpen.Active || _menuOpenedThisFrame) return;
-        
+
         _menuToOpen.gameObject.SetActive(false);
         
         if (_parentMenu != null)
         {
             _parentMenu.SetMenuInteractable(true);
             _button.Select();
+        }
+        else
+        {
+            _input.MenuOpen = false;
         }
 
         if (_menuToOpen.DontResetSelectedOnClose)

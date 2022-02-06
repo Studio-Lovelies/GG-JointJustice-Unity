@@ -5,6 +5,12 @@ public class NarrativeScriptPlayer : MonoBehaviour
     public StoryPlayer StoryPlayer { private get; set; }
     public NarrativeScript ActiveNarrativeScript => StoryPlayer.ActiveNarrativeScript;
 
+    public GameMode GameMode
+    {
+        get => StoryPlayer.GameMode;
+        set => StoryPlayer.GameMode = value;
+    }
+
     public bool Waiting
     {
         private get => StoryPlayer.Waiting;
@@ -39,5 +45,10 @@ public class NarrativeScriptPlayer : MonoBehaviour
     public void PresentEvidence(ICourtRecordObject courtRecordObject)
     {
         StoryPlayer.PresentEvidence(courtRecordObject);
+    }
+
+    public void StartSubStory(NarrativeScript narrativeScript)
+    {
+        StoryPlayer.StartSubStory(narrativeScript);
     }
 }

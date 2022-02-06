@@ -15,6 +15,7 @@ public class Game : MonoBehaviour
     {
         NarrativeScriptPlaylist.InitializeNarrativeScripts();
         BGSceneList.InstantiateBGSceneFromPlaylist(NarrativeScriptPlaylist);
+        DirectorActionDecoder.Decoder.NarrativeScriptPlayer = NarrativeScriptPlayer;
         
         NarrativeScriptPlayer.StoryPlayer = new StoryPlayer(NarrativeScriptPlaylist, AppearingDialogueController, DirectorActionDecoder, ChoiceMenu)
         {

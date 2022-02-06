@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
+using UnityEngine;
 
 public class StoryPlayer
 {
@@ -12,7 +13,7 @@ public class StoryPlayer
     private StoryPlayer _parent;
     private StoryPlayer _subStory;
     private GameMode _gameMode = GameMode.Dialogue;
-    private bool _waiting = false;
+    private bool _waiting;
 
     private Story Story => ActiveNarrativeScript.Story;
     private bool IsAtChoice => ActiveNarrativeScript.Story.currentChoices.Count > 0;
@@ -72,13 +73,12 @@ public class StoryPlayer
         _narrativeScriptPlaylist = narrativeScriptPlaylist;
         _appearingDialogueController = appearingDialogueController;
         _directorActionDecoder = directorActionDecoder;
-        _directorActionDecoder.Decoder.StoryPlayer = this;
         _choiceMenu = choiceMenu;
     }
 
-    public void Continue()
+    public void Continue(bool overridePrintingText = false)
     {
-        if (_appearingDialogueController.PrintingText)
+        if (_appearingDialogueController.PrintingText && !overridePrintingText)
         {
             return;
         }
@@ -88,12 +88,12 @@ public class StoryPlayer
             _subStory.Continue();
             return;
         }
-
+        
         if (HandleCannotContinue() || Waiting)
         {
             return;
         }
-
+        
         var nextLine = Story.Continue();
         if (_directorActionDecoder.IsAction(nextLine))
         {
@@ -146,7 +146,8 @@ public class StoryPlayer
             ActiveNarrativeScript = narrativeScript,
             _parent = this
         };
-        _subStory.Continue();
+        _appearingDialogueController.StopPrintingText();
+        _subStory.Continue(true);
     }
 
     private void EndSubStory()

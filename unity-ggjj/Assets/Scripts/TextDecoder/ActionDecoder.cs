@@ -13,7 +13,7 @@ public class ActionDecoder
     public IAudioController AudioController { get; set; }
     public IEvidenceController EvidenceController { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; }
-    public StoryPlayer StoryPlayer { get; set; }
+    public NarrativeScriptPlayer NarrativeScriptPlayer { get; set; }
     public IPenaltyManager PenaltyManager { get; set; }
 
     /// <summary>
@@ -260,6 +260,7 @@ public class ActionDecoder
     private void PRESENT_EVIDENCE()
     {
         EvidenceController.RequirePresentEvidence();
+        NarrativeScriptPlayer.GameMode = GameMode.CrossExamination;
     }
 
     /// <summary>Substitutes the provided evidence for their substitute.</summary>
@@ -626,7 +627,7 @@ public class ActionDecoder
     /// <category>Gameplay</category>
     private void MODE(GameMode mode)
     {
-        StoryPlayer.GameMode = mode;
+        NarrativeScriptPlayer.GameMode = mode;
         switch (mode)
         {
             case GameMode.Dialogue:

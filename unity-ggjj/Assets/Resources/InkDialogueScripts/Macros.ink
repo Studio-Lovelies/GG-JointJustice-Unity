@@ -20,3 +20,10 @@
     = Testimony
         <color=orange><align=center>Witness' Testimony
         -> DONE
+        
+=== Present(presentedObject)
+    &PRESENT_EVIDENCE
+    + [Wrong]
+        -> Present(presentedObject)
+    + [{presentedObject}]
+        ->->

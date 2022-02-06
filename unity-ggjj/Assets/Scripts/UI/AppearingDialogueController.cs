@@ -74,9 +74,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     {
         if (_printCoroutine != null)
         {
-            StopCoroutine(_printCoroutine);
-            _printCoroutine = null;
-            PrintingText = false;
+            StopPrintingText();
         }
 
         text = text.TrimEnd('\n');
@@ -108,6 +106,13 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         }
         
         _printCoroutine = StartCoroutine(PrintTextCoroutine(startingIndex));
+    }
+
+    public void StopPrintingText()
+    {
+        StopCoroutine(_printCoroutine);
+        _printCoroutine = null;
+        PrintingText = false;
     }
 
     /// <summary>

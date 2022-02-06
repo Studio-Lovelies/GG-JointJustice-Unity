@@ -21,12 +21,9 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     [SerializeField] private UnityEvent _onSpeedupTextEnd;
     [SerializeField] private UnityEvent _onCaseMenuOpened;
     [SerializeField] private UnityEvent _onPauseMenuOpened;
-
-    private void Awake()
-    {
-        
-    }
     
+    public bool MenuOpen { get; set; }
+
     /// <summary>
     /// Called when the object is enabled
     /// </summary>
@@ -87,6 +84,11 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     /// <param name="context"></param>
     void Controls.IPlayerActions.OnSelect(InputAction.CallbackContext context)
     {
+        if (MenuOpen)
+        {
+            return;
+        }
+
         if (context.performed)
         {
             _onContinueStory.Invoke();
