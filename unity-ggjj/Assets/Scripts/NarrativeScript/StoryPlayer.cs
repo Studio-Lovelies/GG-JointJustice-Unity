@@ -94,7 +94,6 @@ public class StoryPlayer
         }
         
         var nextLine = Story.Continue();
-
         if (nextLine == string.Empty)
         {
             Continue();
