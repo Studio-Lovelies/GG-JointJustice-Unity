@@ -10,6 +10,7 @@ public class ActionDecoder : ActionDecoderBase
     public IEvidenceController EvidenceController { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; }
     public IPenaltyManager PenaltyManager { get; set; }
+    public INarrativeScriptPlayer NarrativeScriptPlayer { get; set; }
 
     // ReSharper disable InconsistentNaming
     // ReSharper disable UnusedMember.Local

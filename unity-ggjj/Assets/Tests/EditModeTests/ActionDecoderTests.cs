@@ -54,7 +54,7 @@ public class ActionDecoderTests
     /// <returns>A fully mocked ActionDecoder</returns>
     private static ActionDecoder CreateMockedActionDecoder()
     {
-        var narrativeScriptPlayer = new Moq.Mock<NarrativeScriptPlayer>();
+        var narrativeScriptPlayer = new Moq.Mock<INarrativeScriptPlayer>();
         narrativeScriptPlayer.SetupSet(m => m.GameMode = It.IsAny<GameMode>());
 
         return new ActionDecoder()

@@ -9,8 +9,6 @@ public abstract class ActionDecoderBase : IActionDecoder
 {
     public const char ACTION_TOKEN = '&';
 
-    public NarrativeScriptPlayer NarrativeScriptPlayer { get; set; }
-    
     /// <summary>
     ///     Parse action lines inside from inside .ink files
     /// </summary>
