@@ -92,7 +92,7 @@ public class ActionDecoder : ActionDecoderBase
 
     #region EvidenceController
     /// <summary>Adds the provided evidence to the court record.</summary>
-    /// <param name="evidence" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of evidence to add</param>
+    /// <param name="evidence" validFiles="Assets/Resources/Evidence/*.asset">Name of evidence to add</param>
     /// <example>&amp;ADD_EVIDENCE:Bent_Coins</example>
     /// <category>Evidence</category>
     protected override void ADD_EVIDENCE(EvidenceAssetName evidence)
@@ -102,7 +102,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Removes the provided evidence from the court record.</summary>
-    /// <param name="evidence" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of evidence to remove</param>
+    /// <param name="evidence" validFiles="Assets/Resources/Evidence/*.asset">Name of evidence to remove</param>
     /// <example>&amp;REMOVE_EVIDENCE:Bent_Coins</example>
     /// <category>Evidence</category>
     private void REMOVE_EVIDENCE(EvidenceAssetName evidence)
@@ -112,7 +112,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Adds the provided actor to the court record.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor to add to the court record</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor to add to the court record</param>
     /// <example>&amp;ADD_RECORD:Jory</example>
     /// <category>Evidence</category>
     protected override void ADD_RECORD(ActorAssetName actorName)
@@ -131,12 +131,13 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Substitutes the provided evidence for their substitute.</summary>
-    /// <param name="evidence" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of evidence to replace with their substitute</param>
-    /// <example>&amp;SUBSTITUTE_EVIDENCE:Plumber_Invoice</example>
+    /// <param name="initialEvidenceName" validFiles="Assets/Resources/Evidence/*.asset">Name of evidence to replace with the substitute</param>
+    /// <param name="substituteEvidenceName" validFiles="Assets/Resources/Evidence/*.asset">Name of the substitute evidence</param>
+    /// <example>&amp;SUBSTITUTE_EVIDENCE:Plumber_Invoice,Bent_Coins</example>
     /// <category>Evidence</category>
-    private void SUBSTITUTE_EVIDENCE(EvidenceAssetName evidence)
+    private void SUBSTITUTE_EVIDENCE(EvidenceAssetName initialEvidenceName, EvidenceAssetName substituteEvidenceName)
     {
-        EvidenceController.SubstituteEvidenceWithAlt(evidence);
+        EvidenceController.SubstituteEvidence(initialEvidenceName, substituteEvidenceName);
         OnActionDone?.Invoke();
     }
     #endregion
@@ -235,7 +236,7 @@ public class ActionDecoder : ActionDecoderBase
         OnActionDone?.Invoke();
     }
     /// <summary>Shows the given evidence on the screen in the given position.</summary>
-    /// <param name="evidence" validFiles="Assets/ScriptableObjects/Evidence/*.asset">Name of evidence to show</param>
+    /// <param name="evidence" validFiles="Assets/Resources/Evidence/*.asset">Name of evidence to show</param>
     /// <param name="itemPos">`Left`, `Right` or `Middle`</param>
     /// <example>&amp;SHOW_ITEM:Switch,Left</example>
     /// <category>Scene</category>
@@ -310,7 +311,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Plays an "Objection!" animation and soundeffect for the specified actor.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;OBJECTION:Arin</example>
     /// <category>Dialogue</category>
     private void OBJECTION(ActorAssetName actorName)
@@ -319,7 +320,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Plays a "Take that!" animation and soundeffect for the specified actor.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;TAKE_THAT:Arin</example>
     /// <category>Dialogue</category>
     private void TAKE_THAT(ActorAssetName actorName)
@@ -328,7 +329,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Plays a "Hold it!" animation and soundeffect for the specified actor.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;HOLD_IT:Arin</example>
     /// <category>Dialogue</category>
     private void HOLD_IT(ActorAssetName actorName)
@@ -337,7 +338,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Uses the specified actor to play the specified shout.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor to use</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor to use</param>
     /// <param name="shoutName" validFiles="Assets/Images/Shouts/*.png">Name of the shout to play</param>
     /// <example>&amp;SHOUT:Arin,OBJECTION,false</example>
     /// <category>Dialogue</category>
@@ -367,7 +368,7 @@ public class ActionDecoder : ActionDecoderBase
 
     #region ActorController
     /// <summary>Sets the current shown actor on screen to the one provided. Starts it in the normal pose.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;ACTOR:Arin</example>
     /// <category>Actor</category>
     protected override void ACTOR(ActorAssetName actorName)
@@ -396,7 +397,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Makes the next non-action line spoken by the provided actor. If the speaking actor matches the actor on screen, it makes their mouth move when speaking.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;SPEAK:Arin</example>
     /// <category>Dialogue</category>
     protected override void SPEAK(ActorAssetName actorName)
@@ -406,7 +407,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Makes the next non-action line spoken by the provided actor. Doesn't make the actor's mouth.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;THINK:Arin</example>
     /// <category>Dialogue</category>
     protected override void THINK(ActorAssetName actorName)
@@ -416,7 +417,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Makes the next non-action line spoken by the provided actor but hides the name.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;SPEAK_UNKNOWN:Arin</example>
     /// <category>Dialogue</category>
     protected override void SPEAK_UNKNOWN(ActorAssetName actorName)
@@ -443,7 +444,7 @@ public class ActionDecoder : ActionDecoderBase
 
     /// <summary>Makes the currently shown actor switch to target pose. Plays any animation associated with target pose / emotion, but doesn't wait until it is finished before continuing.</summary>
     /// <param name="poseName" validFiles="Assets/Animations/{ActorAssetName}/*.anim">Poses defined per Actor</param>
-    /// <param name="optional_targetActor" validFiles="Assets/ScriptableObjects/Actors/*.asset">(optional) Name of the actor</param>
+    /// <param name="optional_targetActor" validFiles="Assets/Resources/Actors/*.asset">(optional) Name of the actor</param>
     /// <example>&amp;SET_POSE:Normal</example>
     /// <category>Actor</category>
     private void SET_POSE(ActorPoseAssetName poseName, ActorAssetName optional_targetActor = null)
@@ -461,7 +462,7 @@ public class ActionDecoder : ActionDecoderBase
 
     /// <summary>Makes the currently shown actor perform target emotion (fancy word animation on an actor). Practically does the same as SET_POSE, but waits for the emotion to complete. Doesn't work on all poses, possible ones are flagged.</summary>
     /// <param name="poseName" validFiles="Assets/Animations/{ActorAssetName}/*.anim">Poses defined per Actor</param>
-    /// <param name="optional_targetActor" validFiles="Assets/ScriptableObjects/Actors/*.asset">(optional) Name of the actor</param>
+    /// <param name="optional_targetActor" validFiles="Assets/Resources/Actors/*.asset">(optional) Name of the actor</param>
     /// <example>&amp;PLAY_EMOTION:Nodding</example>
     /// <category>Actor</category>
     private void PLAY_EMOTION(ActorPoseAssetName poseName, ActorAssetName? optional_targetActor = null)
@@ -478,7 +479,7 @@ public class ActionDecoder : ActionDecoderBase
 
     /// <summary>Sets the target sub-position of the current bg-scene to have the target actor.</summary>
     /// <param name="oneBasedSlotIndex">Whole number representing the target sub-position of the currently active scene</param>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of an actor</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of an actor</param>
     /// <example>&amp;SET_ACTOR_POSITION:1,Arin</example>
     /// <category>Actor</category>
     protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)

@@ -111,9 +111,9 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return PressRight();
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey, 101);
             yield return PressLeft();
-            
-            // After all this Jory Sr's Letter should be selected
-            Assert.AreEqual("Switch",Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
+
+            // After all this "Stolen Dinos" should be selected
+            Assert.AreEqual("Stolen Dinos",Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
         }
 
         /// <summary>
@@ -137,15 +137,9 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             var evidence = AddEvidence();
 
-            for (int i = 0; i < evidence.Length / 2; i++)
+            for (var i = 0; i < evidence.Length / 2; i++)
             {
-                EvidenceController.CurrentEvidence[i].AltEvidence =
-                    evidence[evidence.Length - 1 - i];
-            }
-
-            for (int i = 0; i < evidence.Length / 2; i++)
-            {
-                EvidenceController.SubstituteEvidenceWithAlt(EvidenceController.CurrentEvidence[i]);
+                EvidenceController.SubstituteEvidence(EvidenceController.CurrentEvidence[i].name, EvidenceController.CurrentEvidence[evidence.Length - 1 - i].name);
                 Assert.AreEqual(evidence[evidence.Length - 1 - i], EvidenceController.CurrentEvidence[i]); 
             }
 

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c953ab3999141bd9d06e427dbad13d, type: 3}
   m_Name: StolenDinos1
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: Stolen Dinos
-  <Icon>k__BackingField: {fileID: 21300000, guid: 5abd7416cf9ee644ca61b98a39d83c7f, type: 3}
+  <DisplayName>k__BackingField: Stolen Dinos1
+  <Icon>k__BackingField: {fileID: 21300000, guid: 5abd7416cf9ee644ca61b98a39d83c7f,
+    type: 3}
   <Description>k__BackingField: The classic 10 Minute Power Hour dinos. They have
     a mysterious white stain covering them.
-  <AltEvidence>k__BackingField: {fileID: 0}

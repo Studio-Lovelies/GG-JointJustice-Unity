@@ -12,9 +12,6 @@ public class Evidence : ScriptableObject, ICourtRecordObject
     [field: SerializeField, TextArea, Tooltip("Description of the evidence that will appear in the evidence menu.")]
     public string Description { get; private set; }
 
-    [field: SerializeField, Tooltip("Contains an alternate version of the evidence that this evidence can be replaced with.")]
-    public Evidence AltEvidence { get; set; }
-
     public string InstanceName => name;
     public string CourtRecordName => DisplayName;
 }
