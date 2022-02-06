@@ -85,7 +85,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     public void SubstituteEvidence(string initialEvidenceName, string substituteEvidenceName)
     {
         var initialEvidenceIndex = CurrentEvidence.FindIndex(evidence => evidence.name == initialEvidenceName);
-        var substituteEvidence = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(substituteEvidenceName);
+        var substituteEvidence = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(substituteEvidenceName);
         CurrentEvidence[initialEvidenceIndex] = substituteEvidence;
     }
 }

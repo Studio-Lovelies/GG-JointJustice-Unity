@@ -14,7 +14,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
-        protected global::DialogueController DialogueController { get; private set; }
+        protected global::NarrativeScriptPlayer DialogueController { get; private set; }
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
@@ -25,7 +25,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters());
             
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
-            DialogueController = Object.FindObjectOfType<global::DialogueController>();
+            DialogueController = Object.FindObjectOfType<global::NarrativeScriptPlayer>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu = EvidenceMenu.GetComponent<Menu>();
             CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
