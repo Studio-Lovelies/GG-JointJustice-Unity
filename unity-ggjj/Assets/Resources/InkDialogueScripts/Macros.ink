@@ -26,4 +26,5 @@
     + [Wrong]
         -> Present(presentedObject)
     + [{presentedObject}]
+        &MODE:Dialogue
         ->->
