@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NarrativeScriptPlayer : MonoBehaviour
+public class NarrativeScriptPlayer : MonoBehaviour, INarrativeScriptPlayer
 {
     public StoryPlayer StoryPlayer { private get; set; }
     public NarrativeScript ActiveNarrativeScript => StoryPlayer.ActiveNarrativeScript;

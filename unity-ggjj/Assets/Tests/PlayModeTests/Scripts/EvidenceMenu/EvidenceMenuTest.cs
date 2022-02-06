@@ -20,14 +20,14 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters(LoadSceneMode.Additive));
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters());
             
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu = EvidenceMenu.GetComponent<Menu>();
             CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
-            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
-            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
+            var dialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            yield return TestTools.WaitForState(() => !dialogueController.PrintingText);
         }
 
         [UnityTearDown]

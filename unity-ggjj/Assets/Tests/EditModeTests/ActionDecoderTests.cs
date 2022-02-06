@@ -54,14 +54,14 @@ public class ActionDecoderTests
     /// <returns>A fully mocked ActionDecoder</returns>
     private static ActionDecoder CreateMockedActionDecoder()
     {
-        var dialogueController = new Moq.Mock<IDialogueController>();
-        dialogueController.SetupSet(m => m.GameMode = It.IsAny<GameMode>());
+        var narrativeScriptPlayer = new Moq.Mock<INarrativeScriptPlayer>();
+        narrativeScriptPlayer.SetupSet(m => m.GameMode = It.IsAny<GameMode>());
 
         return new ActionDecoder()
         {
             ActorController = new Moq.Mock<IActorController>().Object,
             AppearingDialogueController = new Moq.Mock<IAppearingDialogueController>().Object,
-            // NarrativeScriptPlayer = dialogueController.Object,
+            NarrativeScriptPlayer = narrativeScriptPlayer.Object,
             AudioController = new Moq.Mock<IAudioController>().Object,
             EvidenceController = new Moq.Mock<IEvidenceController>().Object,
             SceneController = new Moq.Mock<ISceneController>().Object,

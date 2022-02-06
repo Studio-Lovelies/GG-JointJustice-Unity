@@ -9,9 +9,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Menu))]
 public class EvidenceMenu : MonoBehaviour
 {
-    [Tooltip("Drag the DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
-    
     [SerializeField, Tooltip("Drag the evidence controller here")]
     private EvidenceController _evidenceController;
 

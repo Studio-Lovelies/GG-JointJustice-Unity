@@ -13,7 +13,7 @@ public class ActionDecoder
     public IAudioController AudioController { get; set; }
     public IEvidenceController EvidenceController { get; set; }
     public IAppearingDialogueController AppearingDialogueController { get; set; }
-    public NarrativeScriptPlayer NarrativeScriptPlayer { get; set; }
+    public INarrativeScriptPlayer NarrativeScriptPlayer { get; set; }
     public IPenaltyManager PenaltyManager { get; set; }
 
     /// <summary>

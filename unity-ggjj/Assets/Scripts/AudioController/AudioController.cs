@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
-    [Tooltip("Drag a DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
-    
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] DirectorActionDecoder _directorActionDecoder;
 
@@ -30,12 +27,14 @@ public class AudioController : MonoBehaviour, IAudioController
     private AudioSource _sfxAudioSource;
     private Coroutine _currentFadeCoroutine;
     private MusicFader _musicFader;
+    private NarrativeScriptPlayer _narrativeScriptPlayer;
 
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
     private void Awake()
     {
+        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
         _musicFader = new MusicFader();
         _musicAudioSource = CreateAudioSource("Music Player");
         _sfxAudioSource = CreateAudioSource("SFX Player");
@@ -61,7 +60,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     public void PlaySong(string songName)
     {
-        AudioClip song = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(songName);
+        AudioClip song = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(songName);
         PlaySong(song);
     }
 
@@ -96,7 +95,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySfx(string soundEffectName)
     {
-        AudioClip soundEffectClip = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(soundEffectName);
+        AudioClip soundEffectClip = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(soundEffectName);
         PlaySfx(soundEffectClip);
     }
 

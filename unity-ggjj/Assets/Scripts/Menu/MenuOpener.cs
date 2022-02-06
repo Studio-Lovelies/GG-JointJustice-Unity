@@ -17,6 +17,7 @@ public class MenuOpener : MonoBehaviour
     
     [SerializeField, Tooltip("This event is called when the menu is disabled")]
     private UnityEvent _onMenuClosed;
+    
 
     private Button _button;
     private Selectable _cachedSelectedButtonAfterClose;
@@ -59,8 +60,11 @@ public class MenuOpener : MonoBehaviour
         {
             _input = GetComponentInParent<UnityInputSystemInterface>();
         }
-
-        _input.MenuOpen = true;
+        if (_input != null)
+        {
+            _input.MenuOpen = true;
+        }
+        
         _menuToOpen.gameObject.SetActive(true);
 
         if (_parentMenu != null)

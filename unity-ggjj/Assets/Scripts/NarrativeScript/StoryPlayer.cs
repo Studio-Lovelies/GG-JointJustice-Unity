@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
-using UnityEngine;
 
 public class StoryPlayer
 {
@@ -180,4 +179,10 @@ public class StoryPlayer
             StartSubStory(_narrativeScriptPlaylist.GetRandomFailureScript());
         }
     }
+}
+
+public enum GameMode
+{
+    Dialogue,
+    CrossExamination
 }

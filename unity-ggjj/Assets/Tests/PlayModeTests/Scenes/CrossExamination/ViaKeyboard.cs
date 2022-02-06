@@ -56,7 +56,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         [UnityTest]
         public IEnumerator CantPresentEvidenceDuringPressingDialogue()
         {
-            int existingSubstories = TestTools.FindInactiveInScene<DialogueController>().Count(controller => {
+            int existingSubstories = TestTools.FindInactiveInScene<NarrativeScriptPlayer>().Count(controller => {
                 GameObject gameObject = controller.gameObject;
                 return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
             });
@@ -82,7 +82,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
 
-            Assert.AreEqual(existingSubstories,  TestTools.FindInactiveInScene<DialogueController>().Count(controller => {
+            Assert.AreEqual(existingSubstories,  TestTools.FindInactiveInScene<NarrativeScriptPlayer>().Count(controller => {
                 GameObject gameObject = controller.gameObject;
                 return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
             }));

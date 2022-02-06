@@ -4,9 +4,6 @@ using UnityEngine.Events;
 
 public class ActorController : MonoBehaviour, IActorController
 {
-    [Tooltip("Drag a DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
-    
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
@@ -24,10 +21,12 @@ public class ActorController : MonoBehaviour, IActorController
     private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
     private ActorData _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
+    private NarrativeScriptPlayer _narrativeScriptPlayer;
     
     private void Awake()
     {
         _directorActionDecoder.Decoder.ActorController = this;
+        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
     }
 
     /// <summary>
@@ -87,7 +86,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            return _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            return _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
         }
         catch (KeyNotFoundException exception)
         {
@@ -191,7 +190,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            _currentSpeakingActor = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
         }
         catch (KeyNotFoundException exception)
@@ -280,7 +279,7 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
-            var actorData = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
+            var actorData = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
             tempActor.SetActor(actorData);
             SetActorInLookupTable(actorData, tempActor);
         }

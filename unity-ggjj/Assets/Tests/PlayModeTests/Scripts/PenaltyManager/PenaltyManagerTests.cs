@@ -2,7 +2,6 @@ using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEditor.SceneManagement;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -20,7 +19,7 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/Penalties - Test Scene.unity", new LoadSceneParameters(LoadSceneMode.Additive));
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/Penalties - Test Scene.unity", new LoadSceneParameters());
             _penaltyManager = Object.FindObjectOfType<global::PenaltyManager>();
         }
 
