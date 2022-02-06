@@ -145,7 +145,7 @@ public abstract class ActionDecoderBase : IActionDecoder
     /// <returns>If the line is an action (true) or not (false)</returns>
     public bool IsAction(string line)
     {
-        return line[0] == ACTION_TOKEN;
+        return line != string.Empty && line[0] == ACTION_TOKEN;
     }
 
     protected abstract void ADD_EVIDENCE(EvidenceAssetName evidenceName);

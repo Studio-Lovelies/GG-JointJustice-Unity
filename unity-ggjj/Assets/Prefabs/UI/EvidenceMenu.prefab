@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textMeshProUGUI: {fileID: 0}
 --- !u!114 &4631272833539455434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textMeshProUGUI: {fileID: 0}
 --- !u!114 &163288251867156543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,34 +883,10 @@ MonoBehaviour:
   _menuToOpen: {fileID: 7084934527531664147}
   _onMenuOpened:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: SetMenuOpen
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   _onMenuClosed:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: SetMenuOpen
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6429695122436053798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,10 +900,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _evidenceController: {fileID: 0}
-  _evidenceDictionary: {fileID: 0}
   _evidenceName: {fileID: 718440828617980491}
   _evidenceDescription: {fileID: 5482929427871141826}
   _evidenceIcon: {fileID: 9162846178544409735}
+  _menuLabel: {fileID: 0}
+  _profilesMenuLabel: {fileID: 0}
   _evidenceMenuItems:
   - {fileID: 5020426716776722563}
   - {fileID: 2663230014282143627}

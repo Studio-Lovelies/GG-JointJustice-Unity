@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class EvidenceController : MonoBehaviour, IEvidenceController
 {
@@ -10,12 +9,6 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
 
     [Tooltip("This event is called when the PRESENT_EVIDENCE action is called.")]
     [SerializeField] private UnityEvent _onRequirePresentEvidence;
-
-    [Tooltip("This event is called when a piece of evidence is clicked")]
-    [SerializeField] private UnityEvent<ICourtRecordObject> _onPresentEvidence;
-
-    [Tooltip("Drag an EvidenceMenu component here, which will updated when the game state (i.e. ability to present evidence) changes.")]
-    [SerializeField] private EvidenceMenu _evidenceMenu;
 
     private NarrativeScriptPlayer _narrativeScriptPlayer;
     

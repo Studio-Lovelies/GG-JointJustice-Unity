@@ -23,12 +23,6 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
             _penaltyManager = Object.FindObjectOfType<global::PenaltyManager>();
         }
 
-        [UnityTearDown]
-        public IEnumerator TearDown()
-        {
-            yield return SceneManager.UnloadSceneAsync("Penalties - Test Scene");
-        }
-    
         [UnityTest]
         public IEnumerator PenaltiesAreEnabledOnCrossExaminationStart()
         {

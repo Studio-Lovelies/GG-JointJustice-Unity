@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
@@ -95,6 +94,12 @@ public class StoryPlayer
         }
         
         var nextLine = Story.Continue();
+
+        if (nextLine == string.Empty)
+        {
+            Continue();
+        }
+        
         if (_actionDecoder.IsAction(nextLine))
         {
             _actionDecoder.OnNewActionLine(nextLine);
