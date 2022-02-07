@@ -20,6 +20,8 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     private IHighlight _highlight;
     
     public Selectable Selectable { get; private set; }
+    public event Action OnItemSelect;
+    public event Action OnItemDeselect;
 
     /// <summary>
     /// Use this to set the text of a menu item.
@@ -91,6 +93,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     {
         _menu.SelectedButton = Selectable;
         _highlight?.SetHighlighted(true);
+        OnItemSelect?.Invoke();
     }
 
     /// <summary>
@@ -100,5 +103,6 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     public void OnDeselect(BaseEventData eventData)
     {
         _highlight?.SetHighlighted(false);
+        OnItemDeselect?.Invoke();
     }
 }

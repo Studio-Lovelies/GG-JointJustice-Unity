@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 /// <summary>
@@ -10,8 +11,8 @@ using UnityEngine.UI;
 /// </summary>
 public class MenuOpener : MonoBehaviour
 {
-    [SerializeField, Tooltip("Drag the menu controller of the menus to open or close here.")]
-    private Menu _menuToOpen;
+    [field: FormerlySerializedAs("_menuToOpen")] [field: SerializeField, Tooltip("Drag the menu controller of the menus to open or close here.")]
+    public Menu MenuToOpen { get; set; }
     
     [SerializeField, Tooltip("This event is called when the menu is enabled")]
     private UnityEvent _onMenuOpened;
@@ -31,7 +32,7 @@ public class MenuOpener : MonoBehaviour
         _parentMenu = GetComponentInParent<Menu>();
         
         // Don't disable self when opening menu if opening menu this is part of
-        if (_parentMenu == _menuToOpen)
+        if (_parentMenu == MenuToOpen)
         {
             _parentMenu = null;
         }
@@ -48,26 +49,26 @@ public class MenuOpener : MonoBehaviour
             return;
         }
         
-        if (_menuToOpen == null)
+        if (MenuToOpen == null)
         {
             Debug.LogError($"Menu has not been set on {this}", this);
             return;
         }
         
-        _menuToOpen.gameObject.SetActive(true);
+        MenuToOpen.gameObject.SetActive(true);
 
         if (_parentMenu != null)
         {
             _parentMenu.SetMenuInteractable(false);
         }
 
-        if (_menuToOpen.DontResetSelectedOnClose && _cachedSelectedButtonAfterClose != null && _cachedSelectedButtonAfterClose.isActiveAndEnabled)
+        if (MenuToOpen.DontResetSelectedOnClose && _cachedSelectedButtonAfterClose != null && _cachedSelectedButtonAfterClose.isActiveAndEnabled)
         {
             _cachedSelectedButtonAfterClose.Select();
         }
         else
         {
-            _menuToOpen.SelectInitialButton();
+            MenuToOpen.SelectInitialButton();
         }
 
         _onMenuOpened.Invoke();
@@ -91,9 +92,9 @@ public class MenuOpener : MonoBehaviour
     /// </summary>
     public void ForceCloseMenu()
     {
-        if (!_menuToOpen.Active || _menuOpenedThisFrame) return;
+        if (!MenuToOpen.Active || _menuOpenedThisFrame) return;
         
-        _menuToOpen.gameObject.SetActive(false);
+        MenuToOpen.gameObject.SetActive(false);
         
         if (_parentMenu != null)
         {
@@ -101,9 +102,9 @@ public class MenuOpener : MonoBehaviour
             _button.Select();
         }
 
-        if (_menuToOpen.DontResetSelectedOnClose)
+        if (MenuToOpen.DontResetSelectedOnClose)
         {
-            _cachedSelectedButtonAfterClose = _menuToOpen.SelectedButton;
+            _cachedSelectedButtonAfterClose = MenuToOpen.SelectedButton;
         }
 
         _onMenuClosed.Invoke();
@@ -116,7 +117,7 @@ public class MenuOpener : MonoBehaviour
     /// </summary>
     public void ToggleMenu()
     {
-        if (_menuToOpen.Active)
+        if (MenuToOpen.Active)
         {
             CloseMenu();
         }
