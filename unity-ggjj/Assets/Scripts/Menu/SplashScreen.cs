@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SplashScreen : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class SplashScreen : MonoBehaviour
     {
         if (Random.Range(0f, 1f) < 0.05f)
         {
-            GetComponent<SpriteRenderer>().sprite = _alternateSprite;
+            GetComponent<Image>().sprite = _alternateSprite;
         }
 
         yield return new WaitForSeconds(_duration);
