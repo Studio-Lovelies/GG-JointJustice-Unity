@@ -511,8 +511,8 @@ public class ActionDecoder
     }
 
     /// <summary>Shows or hides all actors in the scene. Has to be re-done after switching a scene.</summary>
-    /// <param name="actorName" validFiles="Assets/ScriptableObjects/Actors/*.asset">Name of the actor</param>
-    /// <param name="shouldShow">Whether to show (`true`) or not show (`false`) all actors</param>
+    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
+    /// <param name="shouldShow">Whether to show (`true`) or not show (`false`) the current actor</param>
     /// <example>&amp;SHOW_ACTOR:Arin,true</example>
     /// <example>&amp;SHOW_ACTOR:Arin,false</example>
     /// <category>Actor</category>
