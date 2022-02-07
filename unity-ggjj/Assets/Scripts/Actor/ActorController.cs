@@ -115,7 +115,7 @@ public class ActorController : MonoBehaviour, IActorController
         var actorData = FindActorDataInInventory(actorName);
         if (actorData == null || !_actorDataToActor.ContainsKey(actorData))
         {
-            throw new KeyNotFoundException($"No actor with the name '{actorName}' could be found; make sure both ");
+            throw new KeyNotFoundException($"No actor with the name '{actorName}' could be found\r\nMake sure both an `Actor` ScriptableObject with that name exists and it's assigned to a slot in the currently active scene before calling this method");
         }
         return _actorDataToActor[actorData];
     }
@@ -124,8 +124,8 @@ public class ActorController : MonoBehaviour, IActorController
     /// Sets the pose of the active actor.
     /// In working this is mostly the same as PlayEmotion without calling OnAnimationStarted so the system can continue without waiting for the animation to end.
     /// </summary>
-    /// <param name="pose">Name of the post to execute</param>
-    /// <param name="actorName">Optionally name of another actor to run this animation on (defaults to <see cref="_activeActor"/> if not set)</param>
+    /// <param name="pose">Name of the pose to execute</param>
+    /// <param name="actorName">Optional name of another actor to run this animation on (defaults to <see cref="_activeActor"/> if not set)</param>
     public void SetPose(string pose, string actorName = null)
     {
         if (!string.IsNullOrEmpty(actorName) && FindActorInInventory(actorName) != _activeActor)
@@ -149,7 +149,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// Flags the system as busy so it waits for the animation to end.
     /// </summary>
     /// <param name="emotion">The emotion to play.</param>
-    /// <param name="actorName">Optionally name of another actor to run this animation on (defaults to <see cref="_activeActor"/> if not set)</param>
+    /// <param name="actorName">Optional name of another actor to run this animation on (defaults to <see cref="_activeActor"/> if not set)</param>
     public void PlayEmotion(string emotion, string actorName = null)
     {
         if (string.IsNullOrEmpty(actorName) || FindActorInInventory(actorName) == _activeActor)
@@ -293,7 +293,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// Change the visibility of the sprite of the specified actor
     /// </summary>
     /// <param name="actorName">Name of the actor to change the visibility of</param>
-    /// <param name="shouldShow">Whether to show (`true`) or hide `false` the actor</param>
+    /// <param name="shouldShow">Whether to show (`true`) or hide (`false`) the actor</param>
     /// <exception cref="KeyNotFoundException">Thrown, if no actor with the specified name exists in this scene</exception>
     /// <exception cref="System.NullReferenceException">Thrown, if no Renderer exists on the actor with the specified name</exception>
     public void SetVisibility(string actorName, bool shouldShow)
