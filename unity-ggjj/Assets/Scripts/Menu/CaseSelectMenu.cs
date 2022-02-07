@@ -10,6 +10,14 @@ public class CaseSelectMenu : MonoBehaviour
     [SerializeField] private ChapterSelectMenu _chapterSelectMenu;
     [SerializeField] private Case[] _cases;
 
+    /// <summary>
+    /// On Awake:
+    /// Subscribe back button to show and hide preview
+    /// Instantiate buttons equal to number of cases
+    /// Set button text
+    /// Subscribe instantiated buttons to update preview image
+    /// Add onClick logic to each button: either start the game or open the chapter select menu
+    /// </summary>
     private void Awake()
     {
         var backButton = GetComponentInChildren<MenuItem>();

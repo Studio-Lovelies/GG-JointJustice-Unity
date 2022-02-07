@@ -11,6 +11,12 @@ public class ChapterSelectMenu : MonoBehaviour
 
     private readonly List<MenuItem> _menuItems = new List<MenuItem>();
     
+    /// <summary>
+    /// Destroy existing buttons and instantiate buttons equal to number of chapters given.
+    /// Subscribed back button to provided menu opener so this menu can be closed properly.
+    /// </summary>
+    /// <param name="chapters">Array of chapters to create buttons for</param>
+    /// <param name="menuOpener">A menu opener to subscribe the back button to</param>
     public void Initialise(TextAsset[] chapters, MenuOpener menuOpener)
     {
         foreach (var menuItem in _menuItems)
