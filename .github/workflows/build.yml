@@ -43,21 +43,21 @@ jobs:
 
   # Unity build
   checkLicense:
-    name: Check if UNITY_LICENSE is set in github secrets
+    name: Check if UNITY_SERIAL is set in github secrets
     runs-on: ubuntu-latest
     outputs:
-      is_unity_license_set: ${{ steps.checkLicense_job.outputs.is_unity_license_set }}
+      is_unity_serial_set: ${{ steps.checkLicense_job.outputs.is_unity_serial_set }}
     steps:
       - name: Check whether Unity activation requests should be done
         id: checkLicense_job
         run: |
-            echo "Skip activation job: ${{ secrets.UNITY_LICENSE != '' }}"
-            echo "::set-output name=is_unity_license_set::${{ secrets.UNITY_LICENSE != '' }}"
+            echo "Skip activation job: ${{ secrets.UNITY_SERIAL != '' }}"
+            echo "::set-output name=is_unity_serial_set::${{ secrets.UNITY_SERIAL != '' }}"
   
   activation:
     name: Request activation file 🔑
     needs: [checkLicense]
-    if: needs.checkLicense.outputs.is_unity_license_set == 'false'
+    if: needs.checkLicense.outputs.is_unity_serial_set == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Request manual activation file
@@ -75,7 +75,7 @@ jobs:
   unityBuild:
     name: Build for ${{ matrix.targetPlatform.outputName }}
     needs: [extractVersionNumber, checkLicense]
-    if: needs.checkLicense.outputs.is_unity_license_set == 'true'
+    if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -117,7 +117,7 @@ jobs:
       - name: Build project
         uses: game-ci/unity-builder@v2
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
           projectPath: unity-ggjj/
           targetPlatform: ${{ matrix.targetPlatform.unityPlatform }}
