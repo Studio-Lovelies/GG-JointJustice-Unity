@@ -54,22 +54,22 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             
             EvidenceMenuItem firstMenuItem = GetFirstMenuItem();
             yield return HoverOverButton(firstMenuItem.transform);
-            Assert.AreEqual("Attorney's Badge", firstMenuItem.CourtRecordObject.DisplayName);
+            Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
 
             yield return HoverOverButton(decrementButton);
             yield return LeftClick();
             yield return HoverOverButton(firstMenuItem.transform);
-            Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
+            Assert.AreEqual("Livestream Recording", firstMenuItem.CourtRecordObject.DisplayName);
 
             yield return HoverOverButton(incrementButton);
             yield return LeftClick();
             yield return HoverOverButton(firstMenuItem.transform);
-            Assert.AreEqual("Attorney's Badge", firstMenuItem.CourtRecordObject.DisplayName);
+            Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
             
             yield return HoverOverButton(incrementButton);
             yield return LeftClick();
             yield return HoverOverButton(firstMenuItem.transform);
-            Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
+            Assert.AreEqual("Livestream Recording", firstMenuItem.CourtRecordObject.DisplayName);
         }
 
         /// <summary>
