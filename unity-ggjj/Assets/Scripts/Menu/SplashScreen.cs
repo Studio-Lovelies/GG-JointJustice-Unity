@@ -11,7 +11,6 @@ public class SplashScreen : MonoBehaviour
     {
         if (Random.Range(0f, 1f) < 0.05f)
         {
-            Debug.Log("random");
             GetComponent<SpriteRenderer>().sprite = _alternateSprite;
         }
 
