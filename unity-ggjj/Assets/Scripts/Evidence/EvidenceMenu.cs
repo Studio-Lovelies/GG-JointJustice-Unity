@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -9,9 +7,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Menu))]
 public class EvidenceMenu : MonoBehaviour
 {
-    [Tooltip("Drag the DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
-    
     [SerializeField, Tooltip("Drag the evidence controller here")]
     private EvidenceController _evidenceController;
 
@@ -24,11 +19,11 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag the Image component used for displaying the evidence's icon here.")]
     private Image _evidenceIcon;
 
-    [SerializeField, Tooltip("Drag the Image component for the menu label here.")]
-    private Image _menuLabel;
-    
-    [SerializeField, Tooltip("Drag the sprite used for the profiles menu label.")]
-    private Sprite _profilesMenuLabel;
+    [SerializeField, Tooltip("Drag the LabelSwitcher for the menu label here")]
+    private LabelSwitcher _menuLabelSwitcher;
+
+    [SerializeField, Tooltip("Drag the LabelSwitcher for the 'Profiles' text from the controls bar here")]
+    private LabelSwitcher _controlsLabelSwitcher;
 
     [SerializeField, Tooltip("The boxes used to represent menu items.")]
     private EvidenceMenuItem[] _evidenceMenuItems;
@@ -36,11 +31,13 @@ public class EvidenceMenu : MonoBehaviour
     [SerializeField, Tooltip("Drag all buttons used to navigate the menu here so they can be disabled when necessary.")]
     private Button[] _navigationButtons;
 
+    [SerializeField, Tooltip("Drag the PageBar component here")]
+    private PageBar _pageBar;
+
     [SerializeField, Tooltip("This event is called when a piece of evidence has been clicked.")]
     private UnityEvent _onEvidenceClicked;
 
     private bool _profileMenuActive;
-    private Sprite _evidenceMenuLabel;
     private int _currentPage;
     private int _numberOfPages;
     private int _startIndex;
@@ -56,7 +53,6 @@ public class EvidenceMenu : MonoBehaviour
     private void Awake()
     {
         _menu = GetComponent<Menu>();
-        _evidenceMenuLabel = _menuLabel.sprite;
     }
     
     /// <summary>
@@ -77,7 +73,7 @@ public class EvidenceMenu : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        _menuLabel.sprite = _evidenceMenuLabel;
+        _menuLabelSwitcher.SetDefault();
         _profileMenuActive = false;
 
         if (!_menu.DontResetSelectedOnClose)
@@ -102,6 +98,7 @@ public class EvidenceMenu : MonoBehaviour
         CalculatePages(objects.Length);
         SetNavigationButtonsActive();
         DrawMenuItems(objects);
+        _pageBar.SetPage(_currentPage);
     }
 
     /// <summary>
@@ -113,6 +110,7 @@ public class EvidenceMenu : MonoBehaviour
         _numberOfPages = Mathf.CeilToInt(objectCount / _evidenceMenuItems.Length);
         _currentPage = Mathf.Clamp(_currentPage, 0,_numberOfPages == 0 ? 0 : _numberOfPages - 1); // Max value must always be positive 
         _startIndex = _currentPage * _evidenceMenuItems.Length;
+        _pageBar.SetPageCount(_numberOfPages);
     }
 
     /// <summary>
@@ -133,6 +131,13 @@ public class EvidenceMenu : MonoBehaviour
     /// </summary>
     private void DrawMenuItems(ICourtRecordObject[] objects)
     {
+        if (objects.Length == 0)
+        {
+            _evidenceName.text = string.Empty;
+            _evidenceDescription.text = string.Empty;
+            _evidenceIcon.sprite = null;
+        }
+        
         for (int i = 0; i < _evidenceMenuItems.Length; i++)
         {
             if (i + _startIndex > objects.Length - 1)
@@ -222,12 +227,14 @@ public class EvidenceMenu : MonoBehaviour
         if (_profileMenuActive)
         {
             _profileMenuActive = false;
-            _menuLabel.sprite = _evidenceMenuLabel;
+            _menuLabelSwitcher.SetDefault();
+            _controlsLabelSwitcher.SetDefault();
         }
         else
         {
             _profileMenuActive = true;
-            _menuLabel.sprite = _profilesMenuLabel;
+            _menuLabelSwitcher.SetAlternate();
+            _controlsLabelSwitcher.SetAlternate();
         }
         
         UpdateEvidenceMenu();
