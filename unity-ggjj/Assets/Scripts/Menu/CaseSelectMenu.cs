@@ -21,14 +21,14 @@ public class CaseSelectMenu : MonoBehaviour
     private void Awake()
     {
         var backButton = GetComponentInChildren<MenuItem>();
-        backButton.OnItemSelect += () => _previewImage.color = Color.black;
-        backButton.OnItemDeselect += () => _previewImage.color = Color.white;
+        backButton.OnItemSelect.AddListener(() => _previewImage.color = Color.black);
+        backButton.OnItemDeselect.AddListener(() => _previewImage.color = Color.white);
 
         foreach (var @case in _cases)
         {
             var menuItem = Instantiate(_buttonPrefab, _buttonContainer);
             menuItem.Text = @case.Name;
-            menuItem.OnItemSelect += () => _previewImage.sprite = @case.PreviewImage;
+            menuItem.OnItemSelect.AddListener(() => _previewImage.sprite = @case.PreviewImage);
             var menuOpener = menuItem.GetComponent<MenuOpener>();
             menuOpener.MenuToOpen = _chapterSelectMenu.Menu;
             ((Button)menuItem.Selectable).onClick.AddListener(() =>
