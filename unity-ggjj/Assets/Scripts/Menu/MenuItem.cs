@@ -16,6 +16,8 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
 {
     [Tooltip("Drag the menu item's text component here.")]
     [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
+
+    [SerializeField] private bool _shouldIgnoreFirstSelectEvent;
     
     [field: SerializeField] public UnityEvent OnItemSelect { get; private set; }
     [field: SerializeField] public UnityEvent OnItemDeselect { get; private set; }
@@ -23,6 +25,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     private Menu _menu;
     private IHighlight _highlight;
     
+    public bool ShouldIgnoreNextSelectEvent { private get; set; }
     public Selectable Selectable { get; private set; }
 
     /// <summary>
@@ -64,6 +67,11 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
         }
     }
 
+    private void OnEnable()
+    {
+        ShouldIgnoreNextSelectEvent = _shouldIgnoreFirstSelectEvent;
+    }
+
     /// <summary>
     /// Remove the highlight on disable.
     /// </summary>
@@ -95,6 +103,13 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     {
         _menu.SelectedButton = Selectable;
         _highlight?.SetHighlighted(true);
+        
+        if (ShouldIgnoreNextSelectEvent)
+        {
+            ShouldIgnoreNextSelectEvent = false;
+            return;
+        }
+        
         OnItemSelect.Invoke();
     }
 

@@ -38,7 +38,7 @@ public class AudioController : MonoBehaviour, IAudioController
     {
         if (_directorActionDecoder == null)
         {
-            Debug.LogError("Audio Controller doesn't have an action decoder to attach to");
+            Debug.LogWarning("Audio Controller doesn't have an action decoder to attach to");
         }
         else
         {

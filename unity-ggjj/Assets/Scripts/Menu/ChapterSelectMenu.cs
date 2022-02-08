@@ -8,6 +8,8 @@ public class ChapterSelectMenu : MonoBehaviour
     [SerializeField] private Transform _buttonContainer;
     [SerializeField] private MenuItem _menuItemPrefab;
     [SerializeField] private Button _backButton;
+    [SerializeField] private AudioController _audioController;
+    [SerializeField] private AudioClip _buttonSelectAudioClip;
 
     private readonly List<MenuItem> _menuItems = new List<MenuItem>();
     
@@ -33,6 +35,12 @@ public class ChapterSelectMenu : MonoBehaviour
                 menuItem.Selectable.Select();
             }
             menuItem.Text = $"Part {i}";
+            menuItem.OnItemSelect.AddListener(() => _audioController.PlaySfx(_buttonSelectAudioClip));
+            ((Button)menuItem.Selectable).onClick.AddListener(() =>
+            {
+                _audioController.PlaySfx(_buttonSelectAudioClip);
+                // Game start logic here
+            });
             _menuItems.Add(menuItem);
         }
         

@@ -8,6 +8,8 @@ public class CaseSelectMenu : MonoBehaviour
     [SerializeField] private Transform _buttonContainer;
     [SerializeField] private Image _previewImage;
     [SerializeField] private ChapterSelectMenu _chapterSelectMenu;
+    [SerializeField] private AudioController _audioController;
+    [SerializeField] private AudioClip _buttonSelectAudioClip;
     [SerializeField] private Case[] _cases;
 
     /// <summary>
@@ -31,6 +33,9 @@ public class CaseSelectMenu : MonoBehaviour
             menuItem.OnItemSelect.AddListener(() => _previewImage.sprite = @case.PreviewImage);
             var menuOpener = menuItem.GetComponent<MenuOpener>();
             menuOpener.MenuToOpen = _chapterSelectMenu.Menu;
+            
+            menuItem.OnItemSelect.AddListener(() => _audioController.PlaySfx(_buttonSelectAudioClip));
+            
             ((Button)menuItem.Selectable).onClick.AddListener(() =>
             {
                 if (@case.Chapters.Length == 1)
@@ -39,6 +44,7 @@ public class CaseSelectMenu : MonoBehaviour
                 }
                 else
                 {
+                    _audioController.PlaySfx(_buttonSelectAudioClip);
                     menuOpener.OpenMenu();
                     _chapterSelectMenu.Initialise(@case.Chapters, menuOpener);
                 }
