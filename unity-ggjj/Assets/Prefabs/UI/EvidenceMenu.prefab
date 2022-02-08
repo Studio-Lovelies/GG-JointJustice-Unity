@@ -690,7 +690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuToOpen: {fileID: 6189261834601811366}
+  <MenuToOpen>k__BackingField: {fileID: 6189261834601811366}
   _onMenuOpened:
     m_PersistentCalls:
       m_Calls:
@@ -1032,6 +1032,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUGUI: {fileID: 0}
+  _shouldIgnoreFirstSelectEvent: 0
+  <OnItemSelect>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnItemDeselect>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5660075867148858786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,6 +1431,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUGUI: {fileID: 0}
+  _shouldIgnoreFirstSelectEvent: 0
+  <OnItemSelect>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnItemDeselect>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8034780813344991416
 GameObject:
   m_ObjectHideFlags: 0
@@ -2068,6 +2082,10 @@ PrefabInstance:
     - target: {fileID: 2062974321150016431, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016432, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
+      propertyPath: _shouldIgnoreFirstSelectEvent
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2062974321186341388, guid: b778bff65fd114abe8b54802ead3693c, type: 3}
       propertyPath: m_IsActive
