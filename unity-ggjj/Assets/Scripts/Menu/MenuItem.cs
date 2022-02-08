@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -16,12 +17,13 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     [Tooltip("Drag the menu item's text component here.")]
     [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
     
+    [field: SerializeField] public UnityEvent OnItemSelect { get; private set; }
+    [field: SerializeField] public UnityEvent OnItemDeselect { get; private set; }
+    
     private Menu _menu;
     private IHighlight _highlight;
     
     public Selectable Selectable { get; private set; }
-    public event Action OnItemSelect;
-    public event Action OnItemDeselect;
 
     /// <summary>
     /// Use this to set the text of a menu item.
@@ -93,7 +95,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     {
         _menu.SelectedButton = Selectable;
         _highlight?.SetHighlighted(true);
-        OnItemSelect?.Invoke();
+        OnItemSelect.Invoke();
     }
 
     /// <summary>
@@ -103,6 +105,6 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     public void OnDeselect(BaseEventData eventData)
     {
         _highlight?.SetHighlighted(false);
-        OnItemDeselect?.Invoke();
+        OnItemDeselect.Invoke();
     }
 }
