@@ -1,4 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using SaveFiles;
 using UnityEngine;
 
 public class ActionDecoder : ActionDecoderBase
@@ -485,6 +490,19 @@ public class ActionDecoder : ActionDecoderBase
     protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
     {
         ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
+        OnActionDone?.Invoke();
+    }
+
+    /// <summary>Unlocks a new chapter inside the chapter select. **(This is persistent, even when the game is restarted!)**</summary>
+    /// <param name="chapter">Name of the chapter to unlock</param>
+    /// <example>&amp;UNLOCK_CHAPTER:CHAPTER_2</example>
+    /// <example>&amp;UNLOCK_CHAPTER:BONUS_CHAPTER_2</example>
+    /// <category>Progression</category>
+    private void UNLOCK_CHAPTER(SaveData.Progression.Chapters chapter)
+    {
+        PlayerPrefsProxy.UpdateCurrentSaveData((ref SaveData data) => {
+            data.GameProgression.UnlockedChapters |= chapter;
+        });
         OnActionDone?.Invoke();
     }
     #endregion
