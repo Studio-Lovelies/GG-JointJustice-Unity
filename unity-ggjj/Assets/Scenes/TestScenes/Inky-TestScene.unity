@@ -886,7 +886,7 @@ PrefabInstance:
         type: 3}
       propertyPath: <NarrativeScripts>k__BackingField.Array.data[0].<Script>k__BackingField
       value: 
-      objectReference: {fileID: 4900000, guid: a94c9392d84404ad09e14f6ea428df50, type: 3}
+      objectReference: {fileID: 4900000, guid: 3c3e6b160e57d83428ea301c9314700c, type: 3}
     - target: {fileID: 7459855669607129931, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: m_AnchoredPosition.x

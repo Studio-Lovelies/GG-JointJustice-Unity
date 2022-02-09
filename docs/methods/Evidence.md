@@ -45,4 +45,4 @@ Examples:
 Substitutes the provided evidence for their substitute.
 
 Examples: 
-  - `&SUBSTITUTE_EVIDENCE:Plumber_Invoice`
+  - `&SUBSTITUTE_EVIDENCE:Plumber_Invoice,Bent_Coins`
