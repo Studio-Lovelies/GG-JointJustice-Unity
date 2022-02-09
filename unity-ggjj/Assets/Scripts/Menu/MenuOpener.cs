@@ -11,13 +11,16 @@ using UnityEngine.UI;
 /// </summary>
 public class MenuOpener : MonoBehaviour
 {
-    [field: SerializeField, Tooltip("Drag the menu controller of the menus to open or close here.")]
+    [field: Tooltip("Drag the menu controller of the menus to open or close here.")]
+    [field: SerializeField]
     public Menu MenuToOpen { get; set; }
     
-    [SerializeField, Tooltip("This event is called when the menu is enabled")]
+    [Tooltip("This event is called when the menu is enabled")]
+    [SerializeField]
     private UnityEvent _onMenuOpened;
     
-    [SerializeField, Tooltip("This event is called when the menu is disabled")]
+    [Tooltip("This event is called when the menu is disabled")]
+    [SerializeField]
     private UnityEvent _onMenuClosed;
 
     private Button _button;
