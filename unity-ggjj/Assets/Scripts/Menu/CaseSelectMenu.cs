@@ -35,13 +35,11 @@ public class CaseSelectMenu : MonoBehaviour
             {
                 if (narrativeCase.Chapters.Length == 1)
                 {
-                    // No need to show chapters, put logic for starting game here
+                    throw new NotImplementedException("Put logic for starting game here");
                 }
-                else
-                {
-                    menuOpener.OpenMenu();
-                    _chapterSelectMenu.Initialise(narrativeCase.Chapters, menuOpener);
-                }
+                
+                menuOpener.OpenMenu();
+                _chapterSelectMenu.Initialise(narrativeCase.Chapters, menuOpener);
             });
         }
     }
