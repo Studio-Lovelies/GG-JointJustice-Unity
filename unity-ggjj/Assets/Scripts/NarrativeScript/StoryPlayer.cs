@@ -75,6 +75,11 @@ public class StoryPlayer
         _choiceMenu = choiceMenu;
     }
 
+    /// <summary>
+    /// Continues the Ink story.
+    /// Does nothing if text is being printed.
+    /// </summary>
+    /// <param name="overridePrintingText"></param>
     public void Continue(bool overridePrintingText = false)
     {
         if (_appearingDialogueController.PrintingText && !overridePrintingText)
@@ -109,6 +114,11 @@ public class StoryPlayer
         }
     }
 
+    /// <summary>
+    /// Checks if a story can continue, and handles what happens
+    /// it cannot, depending on the current GameMode
+    /// </summary>
+    /// <returns>If the story can continue (true) or (not)</returns>
     private bool HandleCannotContinue()
     {
         if (Story.canContinue)
@@ -137,12 +147,20 @@ public class StoryPlayer
         return true;
     }
 
+    /// <summary>
+    /// Selects a choice index in the Ink story and continues the story
+    /// </summary>
+    /// <param name="choiceIndex">The index of the choice to choose</param>
     public void HandleChoice(int choiceIndex)
     {
         Story.ChooseChoiceIndex(choiceIndex);
         Continue();
     }
 
+    /// <summary>
+    /// Starts a sub-story which will run in place of the parent story until it ends or is stopped
+    /// </summary>
+    /// <param name="narrativeScript"></param>
     public void StartSubStory(NarrativeScript narrativeScript)
     {
         _subStory = new StoryPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _actionDecoder, _choiceMenu)
@@ -154,12 +172,21 @@ public class StoryPlayer
         _subStory.Continue(true);
     }
 
+    /// <summary>
+    /// Ends the current sub-story
+    /// </summary>
     private void EndSubStory()
     {
         _subStory = null;
         Continue();
     }
 
+    /// <summary>
+    /// Handles presenting of evidence.
+    /// Checks if evidence is required, then checks if the
+    /// given evidence is correct depending on the Ink story
+    /// </summary>
+    /// <param name="courtRecordObject">The court record object that is required to present</param>
     public void PresentEvidence(ICourtRecordObject courtRecordObject)
     {
         if (_subStory != null)
@@ -184,10 +211,4 @@ public class StoryPlayer
             StartSubStory(_narrativeScriptPlaylist.GetRandomFailureScript());
         }
     }
-}
-
-public enum GameMode
-{
-    Dialogue,
-    CrossExamination
 }
