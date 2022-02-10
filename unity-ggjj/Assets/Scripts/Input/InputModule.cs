@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Handles input. Add events to this class use them to communicate with the Controls instance.
 /// </summary>
-public class UnityInputSystemInterface : MonoBehaviour, Controls.IUIActions
+public class InputModule : MonoBehaviour, Controls.IUIActions
 {
     private Controls _controls;
     private bool _selectPressed;
@@ -22,8 +22,6 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IUIActions
     [SerializeField] private UnityEvent _onCaseMenuOpened;
     [SerializeField] private UnityEvent _onPauseMenuOpened;
     
-    public bool MenuOpen { get; set; }
-
     /// <summary>
     /// Called when the object is enabled
     /// </summary>
@@ -81,11 +79,6 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IUIActions
     /// <param name="context"></param>
     void Controls.IUIActions.OnSelect(InputAction.CallbackContext context)
     {
-        if (MenuOpen)
-        {
-            return;
-        }
-
         if (context.performed)
         {
             _onContinueStory.Invoke();
@@ -105,7 +98,6 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IUIActions
                 _onSpeedupTextEnd.Invoke();
                 _lastSpeedupCoroutine = null;
             }
-
         }
     }
 
