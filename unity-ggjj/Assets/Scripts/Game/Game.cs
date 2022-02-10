@@ -17,6 +17,7 @@ public class Game : MonoBehaviour
     public IObjectStorage ObjectStorage => _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
     public INarrativeScriptPlayer NarrativeScriptPlayer => _narrativeScriptPlayer;
     public IAudioController Audio => _audioController;
+    public IEvidenceController EvidenceController => _evidenceController;
     
     private void Start()
     {
