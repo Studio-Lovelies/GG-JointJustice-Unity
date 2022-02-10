@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textMeshProUGUI: {fileID: 0}
 --- !u!114 &7387902164298400912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0.4392157, g: 0.5568628, b: 0.8862745, a: 1}
-  m_EffectDistance: {x: 10, y: 10}
+  m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 1
 --- !u!1 &7387902164633582517
 GameObject:
@@ -255,7 +256,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
