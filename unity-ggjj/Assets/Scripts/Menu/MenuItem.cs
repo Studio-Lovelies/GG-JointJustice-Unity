@@ -51,7 +51,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     /// </summary>
     private void Awake()
     {
-        Button = GetComponent<Selectable>();
+        Button = GetComponent<Button>();
         _menu = GetComponentInParent<Menu>();
         _menu.OnSetInteractable.AddListener(interactable =>
         {
