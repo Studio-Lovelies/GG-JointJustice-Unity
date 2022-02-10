@@ -52,7 +52,7 @@ public class ChoiceMenu : MonoBehaviour
                 _menu.SelectInitialButton();
             }
             menuItem.Text = choice.text;
-            ((Button)menuItem.Selectable).onClick.AddListener(() => _onChoiceClicked.Invoke(choice.index));
+            ((Button)menuItem.Button).onClick.AddListener(() => _onChoiceClicked.Invoke(choice.index));
         }
     }
 

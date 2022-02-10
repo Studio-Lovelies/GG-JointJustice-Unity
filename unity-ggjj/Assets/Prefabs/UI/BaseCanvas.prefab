@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuToOpen: {fileID: 7337399535461805308}
+  <MenuToOpen>k__BackingField: {fileID: 7337399535461805308}
   _onMenuOpened:
     m_PersistentCalls:
       m_Calls:
