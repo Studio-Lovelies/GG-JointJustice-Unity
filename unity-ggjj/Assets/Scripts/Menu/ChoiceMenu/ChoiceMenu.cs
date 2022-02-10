@@ -54,6 +54,11 @@ public class ChoiceMenu : MonoBehaviour, IChoiceMenu
         }
     }
 
+    /// <summary>
+    /// Called when a choice is clicked.
+    /// Deactivates the menu and calls the HandleChoice method with the given index
+    /// </summary>
+    /// <param name="choiceIndex"></param>
     private void OnChoiceClicked(int choiceIndex)
     {
         DeactivateChoiceMenu();
