@@ -98,6 +98,9 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         _printCoroutine = StartCoroutine(PrintTextCoroutine(startingIndex));
     }
 
+    /// <summary>
+    /// Stops printing text by stopping _printCoroutine and setting PrintingText to false
+    /// </summary>
     public void StopPrintingText()
     {
         if (_printCoroutine == null)
