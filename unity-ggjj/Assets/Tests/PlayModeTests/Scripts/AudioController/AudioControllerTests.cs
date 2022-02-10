@@ -25,8 +25,6 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             audioController.enabled = true;
 
             // expect error due to missing DirectorActionDecoder
-            LogAssert.Expect(LogType.Exception, "NullReferenceException: Object reference not set to an instance of an object");
-            yield return new WaitForSeconds(1);
             AudioSource audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
 
             FieldInfo type = audioController.GetType().GetField("_transitionDuration", BindingFlags.NonPublic | BindingFlags.Instance);
