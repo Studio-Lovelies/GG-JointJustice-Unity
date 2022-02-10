@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuToOpen: {fileID: 2714227482403401107}
+  <MenuToOpen>k__BackingField: {fileID: 2714227482403401107}
   _onMenuOpened:
     m_PersistentCalls:
       m_Calls: []
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuToOpen: {fileID: 0}
+  <MenuToOpen>k__BackingField: {fileID: 0}
   _onMenuOpened:
     m_PersistentCalls:
       m_Calls: []
