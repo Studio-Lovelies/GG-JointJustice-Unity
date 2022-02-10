@@ -251,58 +251,10 @@ MonoBehaviour:
   _menuToOpen: {fileID: 7337399535461805308}
   _onMenuOpened:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: SetMenuOpen
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 5126768634469768299}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-        m_MethodName: SetMenuCannotBeOpened
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   _onMenuClosed:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: SetMenuOpen
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2156551771264601347}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-        m_MethodName: SetMenuCannotBeOpened
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &4454197773906763391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,36 +267,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e789411aea6446bae39500df0e60eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _game: {fileID: 0}
   _choiceMenuItem: {fileID: 1562864731871381253, guid: df86e027ee393427aa99cd5b869d9660, type: 3}
   _menu: {fileID: 7337399535461805308}
   _menuOpener: {fileID: 2156551771264601347}
-  _onChoiceClicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4454197773906763391}
-        m_TargetAssemblyTypeName: ChoiceMenu, GG-JointJustice
-        m_MethodName: DeactivateChoiceMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 0
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: HandleChoice
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 0
 --- !u!1 &4898658874430892737
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2ee456eabd848e58621c5999c806c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _directorActionDecoder: {fileID: 0}
+  _game: {fileID: 0}
   _narrativeScriptPlaylist: {fileID: 0}
   _penaltyObject: {fileID: 2935643627197535036, guid: 033e03543217049bb931fd21ed61c8b7, type: 3}
   _penaltyCount: 5
@@ -872,9 +798,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 549eb05ae5be6478dba7990718c5ebe1, type: 3}
---- !u!114 &5940307172734060390 stripped
+--- !u!114 &3969135112677542833 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4887824604345865577, guid: 549eb05ae5be6478dba7990718c5ebe1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2787741540604910014, guid: 549eb05ae5be6478dba7990718c5ebe1, type: 3}
   m_PrefabInstance: {fileID: 1271492229566288399}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -894,25 +820,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5126768634469768299 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6233210149760700004, guid: 549eb05ae5be6478dba7990718c5ebe1, type: 3}
-  m_PrefabInstance: {fileID: 1271492229566288399}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7930443329924909700 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9199630569007061131, guid: 549eb05ae5be6478dba7990718c5ebe1, type: 3}
   m_PrefabInstance: {fileID: 1271492229566288399}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3969135112677542833 stripped
+--- !u!114 &5940307172734060390 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2787741540604910014, guid: 549eb05ae5be6478dba7990718c5ebe1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4887824604345865577, guid: 549eb05ae5be6478dba7990718c5ebe1, type: 3}
   m_PrefabInstance: {fileID: 1271492229566288399}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1014,11 +929,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04efdca3b64724bafa702f36df070791, type: 3}
---- !u!224 &8896269097778892591 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7947206225536689472, guid: 04efdca3b64724bafa702f36df070791, type: 3}
-  m_PrefabInstance: {fileID: 1531153953830890095}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8132447072432950104 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7341854679993573687, guid: 04efdca3b64724bafa702f36df070791, type: 3}
@@ -1030,6 +940,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &8896269097778892591 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7947206225536689472, guid: 04efdca3b64724bafa702f36df070791, type: 3}
+  m_PrefabInstance: {fileID: 1531153953830890095}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3180161738437395883
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1563,6 +1478,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04efdca3b64724bafa702f36df070791, type: 3}
+--- !u!224 &6369797062457087272 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7947206225536689472, guid: 04efdca3b64724bafa702f36df070791, type: 3}
+  m_PrefabInstance: {fileID: 3903553634515284072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6039244325604921695 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7341854679993573687, guid: 04efdca3b64724bafa702f36df070791, type: 3}
@@ -1574,11 +1494,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &6369797062457087272 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7947206225536689472, guid: 04efdca3b64724bafa702f36df070791, type: 3}
-  m_PrefabInstance: {fileID: 3903553634515284072}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5572925929457377257
 PrefabInstance:
   m_ObjectHideFlags: 0

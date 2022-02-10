@@ -2,16 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Handles input. Add events to this class use them to communicate with the Controls instance.
 /// </summary>
 public class InputModule : MonoBehaviour, Controls.IUIActions
 {
-    private Controls _controls;
-    private bool _selectPressed;
-    private IEnumerator _lastSpeedupCoroutine;
-
     [SerializeField] private float _delayBeforeSpeedup = 0.5f; //In seconds
 
     // Add key press events here
@@ -21,6 +18,16 @@ public class InputModule : MonoBehaviour, Controls.IUIActions
     [SerializeField] private UnityEvent _onSpeedupTextEnd;
     [SerializeField] private UnityEvent _onCaseMenuOpened;
     [SerializeField] private UnityEvent _onPauseMenuOpened;
+
+    private InputManager _inputManager;
+    private Controls _controls;
+    private bool _selectPressed;
+    private IEnumerator _lastSpeedupCoroutine;
+
+    private void Awake()
+    {
+        _inputManager = GetComponentInParent<InputManager>();
+    }
     
     /// <summary>
     /// Called when the object is enabled
@@ -134,5 +141,13 @@ public class InputModule : MonoBehaviour, Controls.IUIActions
     void Controls.IUIActions.OnCursor(InputAction.CallbackContext context)
     {
         //Unused for now
+    }
+
+    /// <summary>
+    /// This is object as the active input
+    /// </summary>
+    public void SetAsActiveInput()
+    {
+        _inputManager.SetInput(this);
     }
 }

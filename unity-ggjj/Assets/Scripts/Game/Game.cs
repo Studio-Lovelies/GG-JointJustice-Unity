@@ -14,22 +14,10 @@ public class Game : MonoBehaviour
     [SerializeField] private BGSceneList _bgSceneList;
     [SerializeField] private ChoiceMenu _choiceMenu;
 
-    [Header("Input Modules")]
-    [SerializeField] private InputModule _gameInput;
-    [SerializeField] private InputModule _menuInput;
-
     public IObjectStorage ObjectStorage => _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
     public INarrativeScriptPlayer NarrativeScriptPlayer => _narrativeScriptPlayer;
     public IAudioController Audio => _audioController;
     public IEvidenceController EvidenceController => _evidenceController;
-    public bool IsUsingMenuInput
-    {
-        set
-        {
-            _gameInput.enabled = !value;
-            _menuInput.enabled = value;
-        }
-    }
 
     private void Start()
     {
