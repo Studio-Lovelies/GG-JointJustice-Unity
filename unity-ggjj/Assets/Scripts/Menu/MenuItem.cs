@@ -17,7 +17,10 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     [Tooltip("Drag the menu item's text component here.")]
     [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
     
+    [field: Tooltip("Invoked when the mouse cursor enters this element or arrow keys are used to navigate to it")]
     [field: SerializeField] public UnityEvent OnItemSelect { get; private set; }
+    
+    [field: Tooltip("Invoked when the mouse cursor leaves this element or arrow keys are used to navigate away from it")]
     [field: SerializeField] public UnityEvent OnItemDeselect { get; private set; }
     
     private Menu _menu;
