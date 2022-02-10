@@ -29,11 +29,8 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IUIActions
     /// </summary>
     private void OnEnable()
     {
-        if (_controls == null)
-        {
-            _controls = new Controls();
-            _controls.UI.SetCallbacks(this);
-        }
+        _controls ??= new Controls();
+        _controls.UI.SetCallbacks(this);
         _controls.Enable();
     }
 
