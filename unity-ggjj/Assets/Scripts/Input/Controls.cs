@@ -15,12 +15,12 @@ public class @Controls : IInputActionCollection, IDisposable
     ""name"": ""Controls"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""UI"",
             ""id"": ""de1537fe-4eb2-4289-b2fb-a49589bc443e"",
             ""actions"": [
                 {
                     ""name"": ""Left Mouse Button"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""39ed1286-0cce-4d62-b445-81e4f9eb7e5f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -67,34 +67,10 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Left"",
-                    ""type"": ""Button"",
-                    ""id"": ""8392dc8f-e364-4faf-9d27-db17cc8ada6c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Right"",
-                    ""type"": ""Button"",
-                    ""id"": ""512ba4be-fee4-4805-a122-d53b03ccc88c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Up"",
-                    ""type"": ""Button"",
-                    ""id"": ""012425ee-c031-4621-951e-761552eba222"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Down"",
-                    ""type"": ""Button"",
-                    ""id"": ""d26668dd-eee0-4e58-8fb6-433573fd79d0"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Cursor"",
+                    ""type"": ""Value"",
+                    ""id"": ""af67e4f3-2837-4590-ad59-91a7e5b12fd7"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -128,7 +104,7 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mouse and Keyboard"",
                     ""action"": ""DirectionalButtons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -139,7 +115,7 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mouse and Keyboard"",
                     ""action"": ""DirectionalButtons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -150,7 +126,7 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mouse and Keyboard"",
                     ""action"": ""DirectionalButtons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -161,7 +137,7 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mouse and Keyboard"",
                     ""action"": ""DirectionalButtons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -172,7 +148,18 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mouse and Keyboard"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""145f57c1-a2da-409c-8495-556764e484df"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and Keyboard"",
                     ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -183,52 +170,8 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mouse and Keyboard"",
                     ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8181a5a5-d23b-4662-b59d-fc442857fb69"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Left"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""07e3c38e-5b67-4367-bc29-51d3ee666184"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Right"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9fdcae5d-0d89-4c8d-b845-9d380633b272"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Up"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3632f71c-7cb8-4e8b-9224-931c1bda0111"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Down"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -249,8 +192,41 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mouse and Keyboard"",
                     ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9031f129-788a-4492-963c-d6a2ebe9bec4"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and Keyboard"",
+                    ""action"": ""Cursor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5daf2142-65e6-4957-8db6-661d429ddf07"",
+                    ""path"": ""<Pen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and Keyboard"",
+                    ""action"": ""Cursor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65075b48-59b7-4b9a-a0fa-e92556d9a914"",
+                    ""path"": ""<Touchscreen>/touch*/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""Cursor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -262,21 +238,23 @@ public class @Controls : IInputActionCollection, IDisposable
             ""name"": ""Mouse and Keyboard"",
             ""bindingGroup"": ""Mouse and Keyboard"",
             ""devices"": []
+        },
+        {
+            ""name"": ""Touch"",
+            ""bindingGroup"": ""Touch"",
+            ""devices"": []
         }
     ]
 }");
-        // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_LeftMouseButton = m_Player.FindAction("Left Mouse Button", throwIfNotFound: true);
-        m_Player_DirectionalButtons = m_Player.FindAction("DirectionalButtons", throwIfNotFound: true);
-        m_Player_Select = m_Player.FindAction("Select", throwIfNotFound: true);
-        m_Player_Press = m_Player.FindAction("Press", throwIfNotFound: true);
-        m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
-        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
-        m_Player_Left = m_Player.FindAction("Left", throwIfNotFound: true);
-        m_Player_Right = m_Player.FindAction("Right", throwIfNotFound: true);
-        m_Player_Up = m_Player.FindAction("Up", throwIfNotFound: true);
-        m_Player_Down = m_Player.FindAction("Down", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_LeftMouseButton = m_UI.FindAction("Left Mouse Button", throwIfNotFound: true);
+        m_UI_DirectionalButtons = m_UI.FindAction("DirectionalButtons", throwIfNotFound: true);
+        m_UI_Select = m_UI.FindAction("Select", throwIfNotFound: true);
+        m_UI_Press = m_UI.FindAction("Press", throwIfNotFound: true);
+        m_UI_Menu = m_UI.FindAction("Menu", throwIfNotFound: true);
+        m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
+        m_UI_Cursor = m_UI.FindAction("Cursor", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -323,74 +301,59 @@ public class @Controls : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // Player
-    private readonly InputActionMap m_Player;
-    private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_LeftMouseButton;
-    private readonly InputAction m_Player_DirectionalButtons;
-    private readonly InputAction m_Player_Select;
-    private readonly InputAction m_Player_Press;
-    private readonly InputAction m_Player_Menu;
-    private readonly InputAction m_Player_Pause;
-    private readonly InputAction m_Player_Left;
-    private readonly InputAction m_Player_Right;
-    private readonly InputAction m_Player_Up;
-    private readonly InputAction m_Player_Down;
-    public struct PlayerActions
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_LeftMouseButton;
+    private readonly InputAction m_UI_DirectionalButtons;
+    private readonly InputAction m_UI_Select;
+    private readonly InputAction m_UI_Press;
+    private readonly InputAction m_UI_Menu;
+    private readonly InputAction m_UI_Pause;
+    private readonly InputAction m_UI_Cursor;
+    public struct UIActions
     {
         private @Controls m_Wrapper;
-        public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LeftMouseButton => m_Wrapper.m_Player_LeftMouseButton;
-        public InputAction @DirectionalButtons => m_Wrapper.m_Player_DirectionalButtons;
-        public InputAction @Select => m_Wrapper.m_Player_Select;
-        public InputAction @Press => m_Wrapper.m_Player_Press;
-        public InputAction @Menu => m_Wrapper.m_Player_Menu;
-        public InputAction @Pause => m_Wrapper.m_Player_Pause;
-        public InputAction @Left => m_Wrapper.m_Player_Left;
-        public InputAction @Right => m_Wrapper.m_Player_Right;
-        public InputAction @Up => m_Wrapper.m_Player_Up;
-        public InputAction @Down => m_Wrapper.m_Player_Down;
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
+        public UIActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LeftMouseButton => m_Wrapper.m_UI_LeftMouseButton;
+        public InputAction @DirectionalButtons => m_Wrapper.m_UI_DirectionalButtons;
+        public InputAction @Select => m_Wrapper.m_UI_Select;
+        public InputAction @Press => m_Wrapper.m_UI_Press;
+        public InputAction @Menu => m_Wrapper.m_UI_Menu;
+        public InputAction @Pause => m_Wrapper.m_UI_Pause;
+        public InputAction @Cursor => m_Wrapper.m_UI_Cursor;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-        public void SetCallbacks(IPlayerActions instance)
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
         {
-            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
             {
-                @LeftMouseButton.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftMouseButton;
-                @LeftMouseButton.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftMouseButton;
-                @LeftMouseButton.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftMouseButton;
-                @DirectionalButtons.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirectionalButtons;
-                @DirectionalButtons.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirectionalButtons;
-                @DirectionalButtons.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirectionalButtons;
-                @Select.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
-                @Select.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
-                @Select.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
-                @Press.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPress;
-                @Press.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPress;
-                @Press.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPress;
-                @Menu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
-                @Menu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
-                @Menu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
-                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
-                @Left.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeft;
-                @Left.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeft;
-                @Left.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeft;
-                @Right.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRight;
-                @Right.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRight;
-                @Right.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRight;
-                @Up.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUp;
-                @Up.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUp;
-                @Up.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUp;
-                @Down.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDown;
-                @Down.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDown;
-                @Down.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDown;
+                @LeftMouseButton.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftMouseButton;
+                @LeftMouseButton.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftMouseButton;
+                @LeftMouseButton.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftMouseButton;
+                @DirectionalButtons.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDirectionalButtons;
+                @DirectionalButtons.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDirectionalButtons;
+                @DirectionalButtons.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDirectionalButtons;
+                @Select.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSelect;
+                @Press.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPress;
+                @Press.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPress;
+                @Press.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPress;
+                @Menu.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
+                @Pause.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
+                @Cursor.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCursor;
+                @Cursor.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCursor;
+                @Cursor.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCursor;
             }
-            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @LeftMouseButton.started += instance.OnLeftMouseButton;
@@ -411,22 +374,13 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
-                @Left.started += instance.OnLeft;
-                @Left.performed += instance.OnLeft;
-                @Left.canceled += instance.OnLeft;
-                @Right.started += instance.OnRight;
-                @Right.performed += instance.OnRight;
-                @Right.canceled += instance.OnRight;
-                @Up.started += instance.OnUp;
-                @Up.performed += instance.OnUp;
-                @Up.canceled += instance.OnUp;
-                @Down.started += instance.OnDown;
-                @Down.performed += instance.OnDown;
-                @Down.canceled += instance.OnDown;
+                @Cursor.started += instance.OnCursor;
+                @Cursor.performed += instance.OnCursor;
+                @Cursor.canceled += instance.OnCursor;
             }
         }
     }
-    public PlayerActions @Player => new PlayerActions(this);
+    public UIActions @UI => new UIActions(this);
     private int m_MouseandKeyboardSchemeIndex = -1;
     public InputControlScheme MouseandKeyboardScheme
     {
@@ -436,7 +390,16 @@ public class @Controls : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_MouseandKeyboardSchemeIndex];
         }
     }
-    public interface IPlayerActions
+    private int m_TouchSchemeIndex = -1;
+    public InputControlScheme TouchScheme
+    {
+        get
+        {
+            if (m_TouchSchemeIndex == -1) m_TouchSchemeIndex = asset.FindControlSchemeIndex("Touch");
+            return asset.controlSchemes[m_TouchSchemeIndex];
+        }
+    }
+    public interface IUIActions
     {
         void OnLeftMouseButton(InputAction.CallbackContext context);
         void OnDirectionalButtons(InputAction.CallbackContext context);
@@ -444,9 +407,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnPress(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnLeft(InputAction.CallbackContext context);
-        void OnRight(InputAction.CallbackContext context);
-        void OnUp(InputAction.CallbackContext context);
-        void OnDown(InputAction.CallbackContext context);
+        void OnCursor(InputAction.CallbackContext context);
     }
 }

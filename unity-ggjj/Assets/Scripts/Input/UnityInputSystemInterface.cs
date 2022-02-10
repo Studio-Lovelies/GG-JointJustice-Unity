@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Handles input. Add events to this class use them to communicate with the Controls instance.
 /// </summary>
-public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
+public class UnityInputSystemInterface : MonoBehaviour, Controls.IUIActions
 {
     private Controls _controls;
     private bool _selectPressed;
@@ -31,7 +31,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
         if (_controls == null)
         {
             _controls = new Controls();
-            _controls.Player.SetCallbacks(this);
+            _controls.UI.SetCallbacks(this);
         }
         _controls.Enable();
     }
@@ -41,7 +41,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     /// </summary>
     private void OnDisable()
     {
-        _controls.Player.SetCallbacks(null);
+        _controls.UI.SetCallbacks(null);
         _controls.Disable();
     }
 
@@ -63,7 +63,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     /// Called when the left mouse button is pressed anywhere on the screen.
     /// </summary>
     /// <param name="context"></param>
-    void Controls.IPlayerActions.OnLeftMouseButton(InputAction.CallbackContext context)
+    void Controls.IUIActions.OnLeftMouseButton(InputAction.CallbackContext context)
     {
         //Unused for now
     }
@@ -72,7 +72,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     /// Called when any of the directional buttons are pressed
     /// </summary>
     /// <param name="context"></param>
-    void Controls.IPlayerActions.OnDirectionalButtons(InputAction.CallbackContext context)
+    void Controls.IUIActions.OnDirectionalButtons(InputAction.CallbackContext context)
     {
         //Unused for now
     }
@@ -81,7 +81,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     /// Called when the select button is pressed (x)
     /// </summary>
     /// <param name="context"></param>
-    void Controls.IPlayerActions.OnSelect(InputAction.CallbackContext context)
+    void Controls.IUIActions.OnSelect(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -110,7 +110,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     /// Called when the press witness button is pressed (c)
     /// </summary>
     /// <param name="context"></param>
-    void Controls.IPlayerActions.OnPress(InputAction.CallbackContext context)
+    void Controls.IUIActions.OnPress(InputAction.CallbackContext context)
     {
         if (context.performed)
             _onPressWitness.Invoke();
@@ -120,7 +120,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     /// Called when the menu button is pressed (z)
     /// </summary>
     /// <param name="context"></param>
-    void Controls.IPlayerActions.OnMenu(InputAction.CallbackContext context)
+    void Controls.IUIActions.OnMenu(InputAction.CallbackContext context)
     {
         if (context.performed)
             _onCaseMenuOpened.Invoke();
@@ -130,44 +130,13 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IPlayerActions
     /// Called when the pause button is pressed (esc)
     /// </summary>
     /// <param name="context"></param>
-    void Controls.IPlayerActions.OnPause(InputAction.CallbackContext context)
+    void Controls.IUIActions.OnPause(InputAction.CallbackContext context)
     {
         if (context.performed)
             _onPauseMenuOpened.Invoke();
     }
 
-    /// <summary>
-    /// Called when the left button is pressed
-    /// </summary>
-    /// <param name="context"></param>
-    void Controls.IPlayerActions.OnLeft(InputAction.CallbackContext context)
-    {
-        //Unused for now
-    }
-
-    /// <summary>
-    /// Called when the right button is pressed
-    /// </summary>
-    /// <param name="context"></param>
-    void Controls.IPlayerActions.OnRight(InputAction.CallbackContext context)
-    {
-        //Unused for now
-    }
-
-    /// <summary>
-    /// Called when the up button is pressed
-    /// </summary>
-    /// <param name="context"></param>
-    void Controls.IPlayerActions.OnUp(InputAction.CallbackContext context)
-    {
-        //Unused for now
-    }
-
-    /// <summary>
-    /// Called when the down button is pressed
-    /// </summary>
-    /// <param name="context"></param>
-    void Controls.IPlayerActions.OnDown(InputAction.CallbackContext context)
+    void Controls.IUIActions.OnCursor(InputAction.CallbackContext context)
     {
         //Unused for now
     }
