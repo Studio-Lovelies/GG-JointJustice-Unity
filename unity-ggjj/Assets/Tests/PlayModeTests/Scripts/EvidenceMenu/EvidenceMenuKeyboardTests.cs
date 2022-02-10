@@ -4,7 +4,6 @@ using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
@@ -42,7 +41,12 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [UnityTest]
         public IEnumerator IncorrectEvidenceCanBePresented()
         {
-            yield return SelectEvidence("Evidence/AttorneysBadge");
+            AddEvidence();
+            var appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            yield return InputTestTools.ProgressStory(appearingDialogueController);
+            yield return InputTestTools.ProgressStory(appearingDialogueController);
+            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.rightArrowKey);
+            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey);
             var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayer>();
             Assert.IsTrue(narrativeScriptPlayer.HasSubStory);
         }
@@ -60,7 +64,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         private IEnumerator SelectEvidence(string evidencePath)
         {
             EvidenceController.AddEvidence(Resources.Load<Evidence>(evidencePath));
-            var appearingDialogueController= Object.FindObjectOfType<global::AppearingDialogueController>();
+            var appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
             yield return TestTools.DoUntilStateIsReached(() => InputTestTools.ProgressStory(appearingDialogueController), () => EvidenceMenu.isActiveAndEnabled);
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey);
         }
