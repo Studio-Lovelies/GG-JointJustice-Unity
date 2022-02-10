@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,13 +31,19 @@ public class ChapterSelectMenu : MonoBehaviour
             var menuItem = Instantiate(_menuItemPrefab, _buttonContainer);
             if (i == 1)
             {
-                menuItem.Selectable.Select();
+                menuItem.Button.Select();
             }
             menuItem.Text = $"Part {i}";
+            menuItem.Button.onClick.AddListener(StartGame);
             _menuItems.Add(menuItem);
         }
-        
+
         _backButton.onClick.RemoveAllListeners();
         _backButton.onClick.AddListener(menuOpener.CloseMenu);
+    }
+
+    private static void StartGame()
+    {
+        throw new NotImplementedException("Put logic for starting game here");
     }
 }

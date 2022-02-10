@@ -31,16 +31,25 @@ public class CaseSelectMenu : MonoBehaviour
             menuItem.OnItemSelect.AddListener(() => _previewImage.sprite = narrativeCase.PreviewImage);
             var menuOpener = menuItem.GetComponent<MenuOpener>();
             menuOpener.MenuToOpen = _chapterSelectMenu.Menu;
-            ((Button)menuItem.Selectable).onClick.AddListener(() =>
-            {
-                if (narrativeCase.Chapters.Length == 1)
-                {
-                    throw new NotImplementedException("Put logic for starting game here");
-                }
-                
-                menuOpener.OpenMenu();
-                _chapterSelectMenu.Initialise(narrativeCase.Chapters, menuOpener);
-            });
+            menuItem.Button.onClick.AddListener(() => StartGameOrShowChapterSelectionMenu(narrativeCase, menuOpener));
         }
+    }
+
+    /// <summary>
+    /// Method assigned to buttons in the case select menu
+    /// to make them either start the game, or open and initialised
+    ///  the chapter select menu with the correct number of chapter buttons.
+    /// </summary>
+    /// <param name="narrativeCase">The NarrativeCase assign to this button</param>
+    /// <param name="menuOpener">The menu opener attached to this button</param>
+    private void StartGameOrShowChapterSelectionMenu(NarrativeCase narrativeCase, MenuOpener menuOpener)
+    {
+        if (narrativeCase.Chapters.Length == 1)
+        {
+            throw new NotImplementedException("Put logic for starting game here");
+        }
+            
+        menuOpener.OpenMenu();
+        _chapterSelectMenu.Initialise(narrativeCase.Chapters, menuOpener);
     }
 }
