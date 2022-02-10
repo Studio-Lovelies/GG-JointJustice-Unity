@@ -19,11 +19,6 @@ public class NarrativeScriptPlayer : MonoBehaviour, INarrativeScriptPlayer
     public bool CanPressWitness => StoryPlayer.CanPressWitness && !Waiting;
     public bool HasSubStory => StoryPlayer.HasSubStory;
 
-    private void Awake()
-    {
-        GetComponent<Game>().NarrativeScriptPlayer = this;
-    }
-
     public void Continue()
     {
         StoryPlayer.Continue();

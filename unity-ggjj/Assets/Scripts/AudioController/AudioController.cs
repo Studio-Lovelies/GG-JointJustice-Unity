@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
-    [Tooltip("Attach the action decoder object here")]
-    [SerializeField] DirectorActionDecoder _directorActionDecoder;
+    [SerializeField] private Game _game;
 
     /// <summary>
     /// One day this will come from the "Settings," but for now it lives on a field
@@ -27,19 +26,16 @@ public class AudioController : MonoBehaviour, IAudioController
     private AudioSource _sfxAudioSource;
     private Coroutine _currentFadeCoroutine;
     private MusicFader _musicFader;
-    private NarrativeScriptPlayer _narrativeScriptPlayer;
 
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
     private void Awake()
     {
-        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
         _musicFader = new MusicFader();
         _musicAudioSource = CreateAudioSource("Music Player");
         _sfxAudioSource = CreateAudioSource("SFX Player");
         _musicAudioSource.loop = true;
-        _directorActionDecoder.Decoder.AudioController = this;
     }
 
     /// <summary>
@@ -60,7 +56,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     public void PlaySong(string songName)
     {
-        AudioClip song = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(songName);
+        AudioClip song = _game.ObjectStorage.GetObject<AudioClip>(songName);
         PlaySong(song);
     }
 
@@ -92,10 +88,10 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <summary>
     /// Plays sound effect of desired name.
     /// </summary>
-    /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
-    public void PlaySfx(string soundEffectName)
+    /// <param name="sfx">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
+    public void PlaySfx(string sfx)
     {
-        AudioClip soundEffectClip = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(soundEffectName);
+        AudioClip soundEffectClip = _game.ObjectStorage.GetObject<AudioClip>(sfx);
         PlaySfx(soundEffectClip);
     }
 

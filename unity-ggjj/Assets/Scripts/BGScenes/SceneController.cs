@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
+    [SerializeField] private Game _game;
+    
     [Tooltip("Pixels per unit of the basic ")]
     [SerializeField] private int _pixelsPerUnit = 100;
 
@@ -19,9 +21,6 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
     [SerializeField] private Animatable _fullscreenAnimationPlayer;
-
-    [Tooltip("Attach the action decoder object here")]
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
     [Tooltip("Attach the screenshaker object here")]
     [SerializeField] private ObjectShaker _objectShaker;
@@ -44,17 +43,10 @@ public class SceneController : MonoBehaviour, ISceneController
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
     private BGScene _activeScene;
-    private NarrativeScriptPlayer _narrativeScriptPlayer;
 
     public bool WitnessTestimonyActive
     {
         set => _witnessTestimonySign.SetActive(value);
-    }
-
-    private void Awake()
-    {
-        _directorActionDecoder.Decoder.SceneController = this;
-        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
     }
 
     /// <summary>
@@ -70,7 +62,7 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _narrativeScriptPlayer.Waiting = true;
+        _game.NarrativeScriptPlayer.Waiting = true;
         _imageFader.StartFade(1, 0, seconds, () => WaitComplete());
     }
 
@@ -87,7 +79,7 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _narrativeScriptPlayer.Waiting = true;
+        _game.NarrativeScriptPlayer.Waiting = true;
         _imageFader.StartFade(0, 1, seconds, () => WaitComplete());
     }
 
@@ -191,7 +183,7 @@ public class SceneController : MonoBehaviour, ISceneController
             Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
 
-        Evidence evidence = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(item);
+        Evidence evidence = _game.ObjectStorage.GetObject<Evidence>(item);
         _itemDisplay.ShowItem(evidence.Icon, position);
     }
 
@@ -307,7 +299,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The time to wait in seconds.</param>
     private IEnumerator WaitCoroutine(float seconds)
     {
-        _narrativeScriptPlayer.Waiting = true;
+        _game.NarrativeScriptPlayer.Waiting = true;
         yield return new WaitForSeconds(seconds);
         WaitComplete();
     }
@@ -346,9 +338,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
     public void Shout(string actorName, string shoutName, bool allowRandomShouts)
     {
-        _shoutPlayer.Shout(
-            _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants,
-            shoutName, allowRandomShouts);
+        _shoutPlayer.Shout(_game.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
     }
 
     /// <summary>
@@ -366,7 +356,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     private void WaitComplete()
     {
-        _narrativeScriptPlayer.Waiting = false;
-        _narrativeScriptPlayer.Continue();
+        _game.NarrativeScriptPlayer.Waiting = false;
+        _game.NarrativeScriptPlayer.Continue();
     }
 }

@@ -16,11 +16,6 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     [field: SerializeField] public NarrativeScript GameOverScript { get; private set; }
     
     private int _narrativeScriptIndex = -1;
-    
-    private void Awake()
-    {
-        GetComponentInParent<Game>().NarrativeScriptPlaylist = this;
-    }
 
     /// <summary>
     /// Call the initialise method on all narrative scripts in this playlist

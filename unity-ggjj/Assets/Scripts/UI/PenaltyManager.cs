@@ -4,9 +4,8 @@ using UnityEngine.Events;
 
 public class PenaltyManager : MonoBehaviour, IPenaltyManager
 {
-    [Tooltip("Drag a DirectorActionDecoder here")]
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
-
+    [SerializeField] private Game _game;
+    
     [Tooltip("Drag a NarrativeScriptPlaylist here")]
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     
@@ -19,11 +18,6 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
 
     public int PenaltiesLeft => _penaltyObjects.Count;
 
-    private void Awake()
-    {
-        _directorActionDecoder.Decoder.PenaltyManager = this;
-    }
-    
     /// <summary>
     /// Creates penalty UI objects on examination start
     /// </summary>
@@ -81,7 +75,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     {
         if (_penaltyObjects.Count == 0)
         {
-            _directorActionDecoder.Decoder.NarrativeScriptPlayer.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
+            _game.NarrativeScriptPlayer.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
         }
     }
 }

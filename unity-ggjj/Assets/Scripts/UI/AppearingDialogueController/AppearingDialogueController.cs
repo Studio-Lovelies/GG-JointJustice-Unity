@@ -7,12 +7,8 @@ using UnityEngine.Events;
 
 public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueController
 {
-    [Tooltip("Drag a DirectorActionDecoder component here.")]
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+    [SerializeField] private Game _game;
 
-    [Tooltip("Drag an AudioController here.")]
-    [SerializeField] private AudioController _audioController;
-    
     [Tooltip("Drag a NameBox component here.")]
     [SerializeField] private NameBox _namebox;
     
@@ -62,8 +58,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private void Awake()
     {
         _textInfo = _textBox.textInfo;
-        GetComponentInParent<Game>().AppearingDialogueController = this;
-        _directorActionDecoder.Decoder.AppearingDialogueController = this;
     }
 
     /// <summary>
@@ -158,7 +152,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             resultChirp = _defaultDialogueChirpSfx;
         }
-        _audioController.PlaySfx(resultChirp);
+        _game.Audio.PlaySfx(resultChirp);
     }
 
     /// <summary>

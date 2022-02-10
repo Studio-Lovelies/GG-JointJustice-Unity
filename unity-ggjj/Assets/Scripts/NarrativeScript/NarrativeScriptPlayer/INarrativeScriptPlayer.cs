@@ -1,11 +1,9 @@
 public interface INarrativeScriptPlayer
 {
-    StoryPlayer StoryPlayer { set; }
+    bool Waiting { get; set; }
     GameMode GameMode { get; set; }
-    bool HasSubStory { get; }
-    bool CanPressWitness { get; }
-    NarrativeScript ActiveNarrativeScript { get; }
-
+    
     void Continue();
     void StartSubStory(NarrativeScript gameOverScript);
+    void HandleChoice(int choiceIndex);
 }

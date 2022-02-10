@@ -6,11 +6,6 @@ public class BGSceneList : MonoBehaviour
     private readonly Dictionary<string, BGScene> _bgScenes = new Dictionary<string, BGScene>();
     private BGScene _activeScene;
 
-    private void Awake()
-    {
-        GetComponentInParent<Game>().BGSceneList = this;
-    }
-    
     /// <summary>
     /// Gets all available BGScenes and instantiates them.
     /// </summary>

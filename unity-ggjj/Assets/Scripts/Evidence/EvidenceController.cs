@@ -5,22 +5,13 @@ using UnityEngine.Events;
 
 public class EvidenceController : MonoBehaviour, IEvidenceController
 {
-    [Tooltip("Attach the action decoder object here")]
-    [SerializeField] DirectorActionDecoder _directorActionDecoder;
-
+    [SerializeField] private Game _game;
+    
     [Tooltip("This event is called when the PRESENT_EVIDENCE action is called.")]
     [SerializeField] private UnityEvent _onRequirePresentEvidence;
-
-    private NarrativeScriptPlayer _narrativeScriptPlayer;
     
     public List<Evidence> CurrentEvidence { get; } = new List<Evidence>();
     public List<ActorData> CurrentProfiles { get; } = new List<ActorData>();
-    
-    void Awake()
-    {
-        _directorActionDecoder.Decoder.EvidenceController = this;
-        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
-    }
 
     /// <summary>
     /// Adds a piece of evidence to the evidence menu. Gets an Evidence object
@@ -29,7 +20,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidenceName">The name of the evidence to add.</param>
     public void AddEvidence(string evidenceName)
     {
-        CurrentEvidence.Add(_narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
+        CurrentEvidence.Add(_game.ObjectStorage.GetObject<Evidence>(evidenceName));
     }
 
     /// <summary>
@@ -47,7 +38,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidenceName">The name of the evidence to remove.</param>
     public void RemoveEvidence(string evidenceName)
     {
-        CurrentEvidence.Remove(_narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(evidenceName));
+        CurrentEvidence.Remove(_game.ObjectStorage.GetObject<Evidence>(evidenceName));
     }
 
     /// <summary>
@@ -56,7 +47,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="actorName">The name of the actor to add.</param>
     public void AddToCourtRecord(string actorName)
     {
-        CurrentProfiles.Add(_narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName));
+        CurrentProfiles.Add(_game.ObjectStorage.GetObject<ActorData>(actorName));
     }
     
     /// <summary>
@@ -85,7 +76,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     public void SubstituteEvidence(string initialEvidenceName, string substituteEvidenceName)
     {
         var initialEvidenceIndex = CurrentEvidence.FindIndex(evidence => evidence.name == initialEvidenceName);
-        var substituteEvidence = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(substituteEvidenceName);
+        var substituteEvidence = _game.ObjectStorage.GetObject<Evidence>(substituteEvidenceName);
         CurrentEvidence[initialEvidenceIndex] = substituteEvidence;
     }
 }

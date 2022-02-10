@@ -8,9 +8,6 @@ public class DirectorActionDecoder : MonoBehaviour
 
     private void Awake()
     {
-        var game = GetComponentInParent<Game>();
-        game.DirectorActionDecoder = this;
-        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
         // We wrap this in an Action so we have no ties to UnityEngine in the ActionDecoder
         Decoder.OnActionDone += () => _narrativeScriptPlayer.Continue();
     }

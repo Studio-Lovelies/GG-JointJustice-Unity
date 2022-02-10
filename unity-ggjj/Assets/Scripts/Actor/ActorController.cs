@@ -4,6 +4,8 @@ using UnityEngine.Events;
 
 public class ActorController : MonoBehaviour, IActorController
 {
+    [SerializeField] private Game _game;
+    
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
@@ -21,13 +23,6 @@ public class ActorController : MonoBehaviour, IActorController
     private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
     private ActorData _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
-    private NarrativeScriptPlayer _narrativeScriptPlayer;
-    
-    private void Awake()
-    {
-        _directorActionDecoder.Decoder.ActorController = this;
-        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
-    }
 
     /// <summary>
     /// Connect to an event that exposes the active scene when it changes.
@@ -86,7 +81,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            return _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            return _game.ObjectStorage.GetObject<ActorData>(actorName);
         }
         catch (KeyNotFoundException exception)
         {
@@ -190,7 +185,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            _currentSpeakingActor = _game.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
         }
         catch (KeyNotFoundException exception)
@@ -279,7 +274,7 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
-            var actorData = _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
+            var actorData = _game.ObjectStorage.GetObject<ActorData>(actor);
             tempActor.SetActor(actorData);
             SetActorInLookupTable(actorData, tempActor);
         }

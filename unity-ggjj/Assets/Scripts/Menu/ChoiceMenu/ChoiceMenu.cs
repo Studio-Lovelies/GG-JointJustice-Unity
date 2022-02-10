@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Menu))]
 public class ChoiceMenu : MonoBehaviour, IChoiceMenu
 {
+    [SerializeField] private Game _game;
+    
     [Tooltip("Drag the prefab for choice menu items here.")]
     [SerializeField] private MenuItem _choiceMenuItem;
 
@@ -14,17 +16,7 @@ public class ChoiceMenu : MonoBehaviour, IChoiceMenu
     
     [Tooltip("Drag a menu opener component here.")]
     [SerializeField] private MenuOpener _menuOpener;
-    
-    private NarrativeScriptPlayer _narrativeScriptPlayer;
 
-    private void Awake()
-    {
-        var game = GetComponentInParent<Game>();
-        game.ChoiceMenu = this;
-        _narrativeScriptPlayer = GetComponentInParent<NarrativeScriptPlayer>();
-        gameObject.SetActive(false);
-    }
-    
     /// <summary>
     /// Creates a choice menu using a choice list.
     /// Opens the menu, instantiates the correct number of buttons and
@@ -65,7 +57,7 @@ public class ChoiceMenu : MonoBehaviour, IChoiceMenu
     private void OnChoiceClicked(int choiceIndex)
     {
         DeactivateChoiceMenu();
-        _narrativeScriptPlayer.HandleChoice(choiceIndex);
+        _game.NarrativeScriptPlayer.HandleChoice(choiceIndex);
     }
 
     /// <summary>
