@@ -33,8 +33,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Add an AudioClip for the default dialogue chirp here")]
     [SerializeField] private AudioClip _defaultDialogueChirpSfx;
     
-    [Header("Events")]
-    [SerializeField] private UnityEvent _onLineEnd;
+    [field:Header("Events")]
+    [field:SerializeField] public UnityEvent OnLineEnd { get; private set; }
     [SerializeField] private UnityEvent _onAutoSkip;
     [SerializeField] private UnityEvent _onLetterAppear;
 
@@ -55,7 +55,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         set => _speechPanel.gameObject.SetActive(!value);
     }
 
-    private void Awake()
+    private void Start()
     {
         _textInfo = _textBox.textInfo;
     }
@@ -91,7 +91,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             _textBox.maxVisibleCharacters = Int32.MaxValue;
             AppearInstantly = false;
-            _onLineEnd.Invoke();
+            OnLineEnd.Invoke();
             return;
         }
         
@@ -124,11 +124,10 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             _textBox.maxVisibleCharacters++;
             _onLetterAppear.Invoke();
             var currentCharacterInfo = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1];
-            float speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
             PlayDialogueChirp(_namebox.CurrentActorDialogueChirp, currentCharacterInfo);
-            yield return new WaitForSeconds(GetDelay(currentCharacterInfo) / speedMultiplier);
+            yield return new WaitForSeconds(GetDelay(currentCharacterInfo));
         }
-        _onLineEnd.Invoke();
+        OnLineEnd.Invoke();
 
         if (AutoSkip)
         {
@@ -168,11 +167,12 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <returns>The time to wait.</returns>
     public float GetDelay(TMP_CharacterInfo characterInfo)
     {
+        var speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
         var character = characterInfo.character;
         
         if (!CharShouldBeTreatedAsPunctuation(characterInfo))
         {
-            return CharacterDelay;
+            return CharacterDelay / speedMultiplier;
         }
 
         if (_textBox.maxVisibleCharacters == _textInfo.characterCount)
@@ -181,7 +181,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         }
         
         var pair = _punctuationDelay.FirstOrDefault(charFloatPair => charFloatPair.Item1 == character);
-        return pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2;
+        return (pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2) / speedMultiplier;
     }
     
     /// <param name="characterInfo">Char to be tested</param>

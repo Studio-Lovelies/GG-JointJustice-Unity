@@ -226,16 +226,6 @@ public class SceneController : MonoBehaviour, ISceneController
         return true;
     }
 
-    public void ShowActor()
-    {
-        Debug.LogWarning("ShowActor not implemented");
-    }
-
-    public void HideActor()
-    {
-        Debug.LogWarning("HideActor not implemented");
-    }
-
     /// <summary>
     /// Pans to the position of the specified slot index, if the bg-scene has support for actor slots.
     /// </summary>
