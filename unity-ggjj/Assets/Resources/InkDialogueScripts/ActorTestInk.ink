@@ -1,5 +1,5 @@
 &ACTOR:Dan
-&SHOW_ACTOR:True
+&SHOW_ACTOR:Dan,True
 
 &SPEAK:Dan
 Hello Jory!

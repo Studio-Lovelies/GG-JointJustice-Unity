@@ -8,16 +8,14 @@ Examples:
   - `&ACTOR:Arin`
 
 ## SHOW_ACTOR
-Values: 
-  - whether to show (`true`) or not show (`false`) an actor
 
 ⏲ Instant
 
-Shows or hides the actor on the screen. Has to be re-done after switching a scene.
+Shows or hides all actors in the scene. Has to be re-done after switching a scene.
 
 Examples: 
-  - `&SHOW_ACTOR:true`
-  - `&SHOW_ACTOR:false`
+  - `&SHOW_ACTOR:Arin,true`
+  - `&SHOW_ACTOR:Arin,false`
 
 ## SET_POSE
 Values: 
