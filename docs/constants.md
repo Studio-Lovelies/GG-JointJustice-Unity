@@ -119,6 +119,7 @@
 ## SceneAssetName
   - BaseScene
   - MainMenu
+  - Splash
 
 ## FullscreenAnimationAssetName
   - BadBoy
