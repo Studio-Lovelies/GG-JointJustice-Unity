@@ -10,7 +10,6 @@ public class CaseSelectMenu : MonoBehaviour
     [SerializeField] private ChapterSelectMenu _chapterSelectMenu;
     [SerializeField] private AudioController _audioController;
     [SerializeField] private AudioClip _buttonSelectAudioClip;
-    [SerializeField] private Case[] _cases;
     [SerializeField] private NarrativeCase[] _cases;
 
     /// <summary>
