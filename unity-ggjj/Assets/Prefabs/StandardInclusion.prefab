@@ -1415,7 +1415,7 @@ MonoBehaviour:
   _ignoredCharacters: 2700280029002d00
   _defaultDialogueChirpSfx: {fileID: 8300000, guid: bec396ecc7b7242499dbad1326715317,
     type: 3}
-  _onLineEnd:
+  <OnLineEnd>k__BackingField:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5228303783123296233}
