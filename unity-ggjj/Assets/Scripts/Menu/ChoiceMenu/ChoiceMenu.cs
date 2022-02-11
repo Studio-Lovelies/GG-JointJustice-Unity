@@ -50,7 +50,7 @@ public class ChoiceMenu : MonoBehaviour, IChoiceMenu
                 _menu.SelectInitialButton();
             }
             menuItem.Text = choice.text;
-            ((Button)menuItem.Button).onClick.AddListener(() => _onChoiceClicked.Invoke(choice.index));
+            ((Button)menuItem.Button).onClick.AddListener(() => OnChoiceClicked(choice.index));
         }
     }
 
