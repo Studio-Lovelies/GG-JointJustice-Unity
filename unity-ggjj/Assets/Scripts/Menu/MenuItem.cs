@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -19,14 +18,17 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
 
     [SerializeField] private bool _shouldIgnoreFirstSelectEvent;
     
+    [field: Tooltip("Invoked when the mouse cursor enters this element or arrow keys are used to navigate to it")]
     [field: SerializeField] public UnityEvent OnItemSelect { get; private set; }
+    
+    [field: Tooltip("Invoked when the mouse cursor leaves this element or arrow keys are used to navigate away from it")]
     [field: SerializeField] public UnityEvent OnItemDeselect { get; private set; }
     
     private Menu _menu;
     private IHighlight _highlight;
     
     public bool ShouldIgnoreNextSelectEvent { private get; set; }
-    public Selectable Selectable { get; private set; }
+    public Button Button { get; private set; }
 
     /// <summary>
     /// Use this to set the text of a menu item.
@@ -52,13 +54,13 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     /// </summary>
     private void Awake()
     {
-        Selectable = GetComponent<Selectable>();
+        Button = GetComponent<Button>();
         _menu = GetComponentInParent<Menu>();
         _menu.OnSetInteractable.AddListener(interactable =>
         {
-            Selectable.enabled = interactable;
+            Button.enabled = interactable;
             enabled = interactable;
-            _highlight.SetHighlighted(_menu.SelectedButton == Selectable);
+            _highlight.SetHighlighted(_menu.SelectedButton == Button);
         });
         
         _highlight = GetComponentInChildren<IHighlight>();
@@ -86,9 +88,9 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!Selectable.interactable) return;
+        if (!Button.interactable) return;
         
-        Selectable.Select();
+        Button.Select();
         _highlight?.SetHighlighted(true);
     }
 
@@ -98,7 +100,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     /// <param name="eventData"></param>
     public void OnSelect(BaseEventData eventData)
     {
-        _menu.SelectedButton = Selectable;
+        _menu.SelectedButton = Button;
         _highlight?.SetHighlighted(true);
         
         if (ShouldIgnoreNextSelectEvent)

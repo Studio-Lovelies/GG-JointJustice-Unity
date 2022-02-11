@@ -51,7 +51,6 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     private void Transition()
     {
-        Debug.Log("Transitioning");
         if (_transition != null)
         {
             if (_sceneLoadOperation != null)

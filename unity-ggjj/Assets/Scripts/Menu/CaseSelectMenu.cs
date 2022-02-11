@@ -11,6 +11,7 @@ public class CaseSelectMenu : MonoBehaviour
     [SerializeField] private AudioController _audioController;
     [SerializeField] private AudioClip _buttonSelectAudioClip;
     [SerializeField] private Case[] _cases;
+    [SerializeField] private NarrativeCase[] _cases;
 
     /// <summary>
     /// On Awake:
@@ -26,37 +27,34 @@ public class CaseSelectMenu : MonoBehaviour
         backButton.OnItemSelect.AddListener(() => _previewImage.color = Color.black);
         backButton.OnItemDeselect.AddListener(() => _previewImage.color = Color.white);
 
-        foreach (var @case in _cases)
+        foreach (var narrativeCase in _cases)
         {
             var menuItem = Instantiate(_buttonPrefab, _buttonContainer);
-            menuItem.Text = @case.Name;
-            menuItem.OnItemSelect.AddListener(() => _previewImage.sprite = @case.PreviewImage);
+            menuItem.Text = narrativeCase.Name;
+            menuItem.OnItemSelect.AddListener(() => _previewImage.sprite = narrativeCase.PreviewImage);
             var menuOpener = menuItem.GetComponent<MenuOpener>();
             menuOpener.MenuToOpen = _chapterSelectMenu.Menu;
             
             menuItem.OnItemSelect.AddListener(() => _audioController.PlaySfx(_buttonSelectAudioClip));
-            
-            ((Button)menuItem.Selectable).onClick.AddListener(() =>
-            {
-                if (@case.Chapters.Length == 1)
-                {
-                    // No need to show chapters, put logic for starting game here
-                }
-                else
-                {
-                    _audioController.PlaySfx(_buttonSelectAudioClip);
-                    menuOpener.OpenMenu();
-                    _chapterSelectMenu.Initialise(@case.Chapters, menuOpener);
-                }
-            });
+            menuItem.Button.onClick.AddListener(() => StartGameOrShowChapterSelectionMenu(narrativeCase, menuOpener));
         }
     }
-}
 
-[Serializable]
-public struct Case
-{
-    [field: SerializeField] public string Name { get; private set; }
-    [field: SerializeField] public Sprite PreviewImage { get; private set; }
-    [field: SerializeField] public TextAsset[] Chapters { get; private set; }
+    /// <summary>
+    /// Method assigned to buttons in the case select menu
+    /// to make them either start the game, or open and initialised
+    ///  the chapter select menu with the correct number of chapter buttons.
+    /// </summary>
+    /// <param name="narrativeCase">The NarrativeCase assign to this button</param>
+    /// <param name="menuOpener">The menu opener attached to this button</param>
+    private void StartGameOrShowChapterSelectionMenu(NarrativeCase narrativeCase, MenuOpener menuOpener)
+    {
+        if (narrativeCase.Chapters.Length == 1)
+        {
+            throw new NotImplementedException("Put logic for starting game here");
+        }
+            
+        menuOpener.OpenMenu();
+        _chapterSelectMenu.Initialise(narrativeCase.Chapters, menuOpener);
+    }
 }
