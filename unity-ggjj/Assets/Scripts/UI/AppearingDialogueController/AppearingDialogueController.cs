@@ -70,6 +70,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         text = text.TrimEnd('\n');
         TextBoxHidden = false;
 
+        _game.ActorController.StartTalking();
         int startingIndex = 0;
         if (ContinueDialogue)
         {
@@ -91,7 +92,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             _textBox.maxVisibleCharacters = Int32.MaxValue;
             AppearInstantly = false;
-            OnLineEnd.Invoke();
+            EndLine();
             return;
         }
         
@@ -127,7 +128,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             PlayDialogueChirp(_namebox.CurrentActorDialogueChirp, currentCharacterInfo);
             yield return new WaitForSeconds(GetDelay(currentCharacterInfo));
         }
-        OnLineEnd.Invoke();
+        EndLine();
 
         if (AutoSkip)
         {
@@ -192,8 +193,17 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
                !_ignoredCharacters.Contains(characterInfo.character) &&
                !_textInfo.linkInfo.Where(info => info.GetLinkID() == "character").Any(linkInfo => _textInfo.characterInfo[linkInfo.linkTextfirstCharacterIndex].Equals(characterInfo));
     }
+
+    /// <summary>
+    /// Handles what happens when a line ends
+    /// </summary>
+    private void EndLine()
+    {
+        _game.ActorController.StopTalking();
+        OnLineEnd.Invoke();
+    }
 }
- 
+
 /// <summary>
 /// Tuple that can be serialized
 /// Stores two items with different types.

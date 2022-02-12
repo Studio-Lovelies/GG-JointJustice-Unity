@@ -14,6 +14,7 @@ public class Game : MonoBehaviour
     [SerializeField] private BGSceneList _bgSceneList;
     [SerializeField] private ChoiceMenu _choiceMenu;
 
+    public IActorController ActorController => _actorController;
     public IObjectStorage ObjectStorage => _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
     public INarrativeScriptPlayer NarrativeScriptPlayer => _narrativeScriptPlayer;
     public IAudioController Audio => _audioController;
