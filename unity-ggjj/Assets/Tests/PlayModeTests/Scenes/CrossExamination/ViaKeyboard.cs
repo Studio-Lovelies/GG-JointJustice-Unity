@@ -31,10 +31,10 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         {
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(Keyboard.zKey);
-            yield return TestTools.WaitForState(() => evidenceMenu.isActiveAndEnabled);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
+            yield return TestTools.WaitForState(() => _narrativeScriptPlayer.HasSubStory);
             Assert.IsTrue(_narrativeScriptPlayer.HasSubStory);
         }
 
