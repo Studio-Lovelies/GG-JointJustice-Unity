@@ -33,7 +33,7 @@ public class FadeToImageTransition : MonoBehaviour, ITransition
     {
         if (_shouldFadeInOnAwake)
         {
-            _imageFader.StartFade(1, 0, _fadeTime, _onTransitionInComplete);
+            _imageFader.StartFade(1, 0, _fadeTime, () => _onTransitionInComplete.Invoke());
         }
     }
     
@@ -43,6 +43,6 @@ public class FadeToImageTransition : MonoBehaviour, ITransition
     /// </summary>
     public void Transition()
     {
-        _imageFader.StartFade(0, 1, _fadeTime, _onTransitionOutComplete);
+        _imageFader.StartFade(0, 1, _fadeTime, () => _onTransitionOutComplete.Invoke());
     }
 }

@@ -7,6 +7,8 @@ using UnityEngine;
 
 public abstract class ActionDecoderBase : IActionDecoder
 {
+    public const char ACTION_TOKEN = '&';
+
     /// <summary>
     ///     Parse action lines inside from inside .ink files
     /// </summary>
@@ -28,33 +30,33 @@ public abstract class ActionDecoderBase : IActionDecoder
         const char actionSideSeparator = ':';
         const char actionParameterSeparator = ',';
 
-        string[] actionNameAndParameters = actionLine.Substring(1, actionLine.Length - 1).Trim().Split(actionSideSeparator);
+        var actionNameAndParameters = actionLine.Substring(1, actionLine.Length - 1).Trim().Split(actionSideSeparator);
 
         if (actionNameAndParameters.Length > 2)
         {
             throw new TextDecoder.Parser.ScriptParsingException($"More than one '{actionSideSeparator}' detected in line '{actionLine}'");
         }
 
-        string action = actionNameAndParameters[0];
-        string[] parameters = (actionNameAndParameters.Length == 2) ? actionNameAndParameters[1].Split(actionParameterSeparator) : Array.Empty<string>();
+        var action = actionNameAndParameters[0];
+        var parameters = (actionNameAndParameters.Length == 2) ? actionNameAndParameters[1].Split(actionParameterSeparator) : Array.Empty<string>();
 
         // Find method with exact same name as action inside script
-        MethodInfo method = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
+        var method = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
         if (method == null)
         {
             throw new TextDecoder.Parser.MethodNotFoundScriptParsingException(GetType().FullName, action);
         }
 
-        ParameterInfo[] methodParameters = method.GetParameters();
+        var methodParameters = method.GetParameters();
         var optionalParameters = methodParameters.Count(parameter => parameter.IsOptional);
         if (parameters.Length < (methodParameters.Length - optionalParameters) || parameters.Length > (methodParameters.Length))
         {
             throw new TextDecoder.Parser.ScriptParsingException($"'{action}' requires {(optionalParameters == 0 ? "exactly" : "between")} {(optionalParameters == 0 ? methodParameters.Length.ToString() : $"{methodParameters.Length-optionalParameters} and {methodParameters.Length}")} parameters (has {parameters.Length} instead)");
         }
 
-        List<object> parsedMethodParameters = new List<object>();
+        var parsedMethodParameters = new List<object>();
         // For each supplied parameter of that action...
-        for (int index = 0; index < parameters.Length; index++)
+        for (var index = 0; index < parameters.Length; index++)
         {
             if (parameters.Length <= index && methodParameters[index].IsOptional)
             {
@@ -62,7 +64,7 @@ public abstract class ActionDecoderBase : IActionDecoder
             }
 
             // Determine it's type
-            ParameterInfo methodParameter = methodParameters[index];
+            var methodParameter = methodParameters[index];
 
             // Edge-case for enums
             if (methodParameter.ParameterType.BaseType == typeof(Enum))
@@ -74,25 +76,30 @@ public abstract class ActionDecoderBase : IActionDecoder
                 }
                 catch (ArgumentException e)
                 {
-                    Regex pattern = new Regex(@"Requested value '(.*)' was not found\.");
-                    Match match = pattern.Match(e.Message);
-                    if (match.Groups.Count > 0)
+                    var pattern = new Regex(@"Requested value '(.*)' was not found\.");
+                    var match = pattern.Match(e.Message);
+                    if (match.Success)
                     {
                         throw new TextDecoder.Parser.ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '{match.Groups[1].Captures[0]}' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a=>a.ToString()))}')");
+                    }
+
+                    if (e.Message == "Must specify valid information for parsing in the string.")
+                    {
+                        throw new TextDecoder.Parser.ScriptParsingException($"'' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a => a.ToString()))}')");
                     }
                     throw;
                 }
             }
 
             // Construct a parser for it
-            Type parser = GetType().Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
+            var parser = GetType().Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
             if (parser == null)
             {
                 Debug.LogError($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
                 return;
             }
 
-            ConstructorInfo parserConstructor = parser.GetConstructor(Type.EmptyTypes);
+            var parserConstructor = parser.GetConstructor(Type.EmptyTypes);
             if (parserConstructor == null)
             {
                 Debug.LogError($"TextDecoder.Parser for type {methodParameter.ParameterType} has no constructor without parameters");
@@ -100,7 +107,7 @@ public abstract class ActionDecoderBase : IActionDecoder
             }
 
             // Find the 'Parse' method on that parser
-            MethodInfo parseMethod = parser.GetMethod("Parse");
+            var parseMethod = parser.GetMethod("Parse");
             if (parseMethod == null)
             {
                 Debug.LogError($"TextDecoder.Parser for type {methodParameter.ParameterType} has no 'Parse' method");
@@ -108,7 +115,7 @@ public abstract class ActionDecoderBase : IActionDecoder
             }
 
             // Create a parser and call the 'Parse' method
-            object parserInstance = parserConstructor.Invoke(Array.Empty<object>());
+            var parserInstance = parserConstructor.Invoke(Array.Empty<object>());
             object[] parseMethodParameters = { parameters[index], null };
 
             // If we received an error attempting to parse a parameter to the type, expose it to the user
@@ -122,7 +129,7 @@ public abstract class ActionDecoderBase : IActionDecoder
         }
 
         // If the method supports optional parameters, fill the remaining parameters based on the default value of the method
-        for (int suppliedParameterCount = parameters.Length; suppliedParameterCount < methodParameters.Length; suppliedParameterCount++)
+        for (var suppliedParameterCount = parameters.Length; suppliedParameterCount < methodParameters.Length; suppliedParameterCount++)
         {
             parsedMethodParameters.Add(methodParameters[suppliedParameterCount].DefaultValue);
         }
@@ -131,15 +138,25 @@ public abstract class ActionDecoderBase : IActionDecoder
         method.Invoke(this, parsedMethodParameters.ToArray());
     }
 
-    protected abstract void ADD_EVIDENCE(AssetName evidenceName);
-    protected abstract void ADD_RECORD(AssetName actorName);
-    protected abstract void PLAY_SFX(AssetName sfx);
-    protected abstract void PLAY_SONG(AssetName songName);
-    protected abstract void SCENE(AssetName sceneName);
-    protected abstract void SHOW_ITEM(AssetName itemName, ItemDisplayPosition itemPos);
-    protected abstract void ACTOR(AssetName actorName);
-    protected abstract void SPEAK(AssetName actorName);
-    protected abstract void SPEAK_UNKNOWN(AssetName actorName);
-    protected abstract void THINK(AssetName actorName);
-    protected abstract void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName);
+    /// <summary>
+    /// Determines if a line of dialogue is an action.
+    /// </summary>
+    /// <param name="line">The line to check.</param>
+    /// <returns>If the line is an action (true) or not (false)</returns>
+    public bool IsAction(string line)
+    {
+        return line != string.Empty && line[0] == ACTION_TOKEN;
+    }
+
+    protected abstract void ADD_EVIDENCE(EvidenceAssetName evidenceName);
+    protected abstract void ADD_RECORD(ActorAssetName actorName);
+    protected abstract void PLAY_SFX(SfxAssetName sfx);
+    protected abstract void PLAY_SONG(SongAssetName songName);
+    protected abstract void SCENE(SceneAssetName sceneName);
+    protected abstract void SHOW_ITEM(EvidenceAssetName itemName, ItemDisplayPosition itemPos);
+    protected abstract void ACTOR(ActorAssetName actorName);
+    protected abstract void SPEAK(ActorAssetName actorName);
+    protected abstract void SPEAK_UNKNOWN(ActorAssetName actorName);
+    protected abstract void THINK(ActorAssetName actorName);
+    protected abstract void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName);
 }

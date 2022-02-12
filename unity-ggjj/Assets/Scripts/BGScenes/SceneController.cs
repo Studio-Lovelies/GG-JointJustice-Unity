@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
-    [Tooltip("Drag a DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
+    [SerializeField] private Game _game;
     
     [Tooltip("Pixels per unit of the basic ")]
     [SerializeField] private int _pixelsPerUnit = 100;
@@ -23,9 +22,6 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
     [SerializeField] private Animatable _fullscreenAnimationPlayer;
 
-    [Tooltip("Attach the action decoder object here")]
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
-
     [Tooltip("Attach the screenshaker object here")]
     [SerializeField] private ObjectShaker _objectShaker;
 
@@ -37,13 +33,6 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Drag the witness testimony sign here.")]
     [SerializeField] private GameObject _witnessTestimonySign;
-    
-    [Header("Events")]
-    [Tooltip("This event is called when a wait action is started.")]
-    [SerializeField] private UnityEvent _onWaitStart;
-
-    [Tooltip("This event is called when a wait action is finished.")]
-    [SerializeField] private UnityEvent _onWaitComplete;
 
     [Tooltip("Event that gets called when the actor displayed on screen changes")]
     [SerializeField] private UnityEvent<Actor> _onActorChanged;
@@ -61,21 +50,6 @@ public class SceneController : MonoBehaviour, ISceneController
     }
 
     /// <summary>
-    /// Called when the object is initialized
-    /// </summary>
-    private void Start()
-    {
-        if (_directorActionDecoder == null)
-        {
-            Debug.LogError("Scene Controller doesn't have a action decoder to attach to");
-        }
-        else
-        {
-            _directorActionDecoder.Decoder.SceneController = this;
-        }
-    }
-
-    /// <summary>
     /// Fades an image from opaque to transparent. Used to fade in to a scene from a black screen.
     /// </summary>
     /// <param name="seconds">The number of seconds it should take to fade.</param>
@@ -88,8 +62,8 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _onWaitStart.Invoke();
-        _imageFader.StartFade(1, 0, seconds, _onWaitComplete);
+        _game.NarrativeScriptPlayer.Waiting = true;
+        _imageFader.StartFade(1, 0, seconds, () => WaitComplete());
     }
 
     /// <summary>
@@ -105,8 +79,8 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _onWaitStart.Invoke();
-        _imageFader.StartFade(0, 1, seconds, _onWaitComplete);
+        _game.NarrativeScriptPlayer.Waiting = true;
+        _imageFader.StartFade(0, 1, seconds, () => WaitComplete());
     }
 
     /// <summary>
@@ -117,11 +91,12 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="isBlocking">Whether the script should continue after the pan has completed (true) or immediately (false)</param>
     public void PanCamera(float seconds, Vector2Int position, bool isBlocking = false)
     {
-        _panToPositionCoroutine = StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds, isBlocking));
-        
+        _panToPositionCoroutine =
+            StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds, isBlocking));
+
         if (!isBlocking)
         {
-            _onWaitComplete.Invoke();
+            WaitComplete();
         }
     }
 
@@ -145,10 +120,10 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _panToPositionCoroutine = null;
-        
+
         if (isBlocking)
         {
-            _onWaitComplete.Invoke();
+            WaitComplete();
         }
     }
 
@@ -192,7 +167,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (!isBlocking)
         {
-            _onWaitComplete.Invoke();
+            WaitComplete();
         }
     }
 
@@ -208,7 +183,7 @@ public class SceneController : MonoBehaviour, ISceneController
             Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
 
-        Evidence evidence = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(item);
+        Evidence evidence = _game.ObjectStorage.GetObject<Evidence>(item);
         _itemDisplay.ShowItem(evidence.Icon, position);
     }
 
@@ -314,9 +289,9 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The time to wait in seconds.</param>
     private IEnumerator WaitCoroutine(float seconds)
     {
-        _onWaitStart.Invoke();
+        _game.NarrativeScriptPlayer.Waiting = true;
         yield return new WaitForSeconds(seconds);
-        _onWaitComplete?.Invoke();
+        WaitComplete();
     }
 
     /// <summary>
@@ -353,7 +328,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
     public void Shout(string actorName, string shoutName, bool allowRandomShouts)
     {
-        _shoutPlayer.Shout(_dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
+        _shoutPlayer.Shout(_game.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
     }
 
     /// <summary>
@@ -363,5 +338,15 @@ public class SceneController : MonoBehaviour, ISceneController
     public void ReloadScene()
     {
         _sceneLoader.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    /// <summary>
+    /// Sets NarrativeScriptPlayer to no longer wait,
+    /// and continues the story
+    /// </summary>
+    private void WaitComplete()
+    {
+        _game.NarrativeScriptPlayer.Waiting = false;
+        _game.NarrativeScriptPlayer.Continue();
     }
 }

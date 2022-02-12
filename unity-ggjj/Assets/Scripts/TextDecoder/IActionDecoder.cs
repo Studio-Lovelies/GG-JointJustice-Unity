@@ -1,4 +1,5 @@
 public interface IActionDecoder
 {
-    public void OnNewActionLine(string actionLine);
+    void OnNewActionLine(string actionLine);
+    bool IsAction(string nextLine);
 }

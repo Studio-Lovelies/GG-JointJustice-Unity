@@ -2,8 +2,10 @@
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using static UnityEngine.GameObject;
 using Object = UnityEngine.Object;
@@ -13,66 +15,53 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
     public class ViaKeyboard
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
+        private NarrativeScriptPlayer _narrativeScriptPlayer;
 
+        private Keyboard Keyboard => _inputTestTools.Keyboard;
+
+        [UnitySetUp]
+        public IEnumerator SetUp()
+        {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity", new LoadSceneParameters());
+            _narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayer>();
+        }
+        
         [UnityTest]
-        [ReloadScene("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity")]
         public IEnumerator CanPresentEvidenceDuringExamination()
         {
-            yield return null;
-            Keyboard key = _inputTestTools.Keyboard;
-
-            yield return _inputTestTools.PressForFrame(key.xKey);
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
-            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _inputTestTools.PressForFrame(key.enterKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
-
-            Assert.AreNotEqual(0,  TestTools.FindInactiveInScene<DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
-            
-            Object.Destroy(Find("SubStory(Clone)"));
+            Assert.IsTrue(_narrativeScriptPlayer.HasSubStory);
         }
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity")]
         public IEnumerator CantPresentEvidenceDuringExaminationDialogue()
         {
-            yield return null;
-            Keyboard key = _inputTestTools.Keyboard;
-
-            yield return _inputTestTools.PressForFrame(key.xKey);
-
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
-            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
+            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _inputTestTools.PressForFrame(key.enterKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
+            Assert.IsTrue(_narrativeScriptPlayer.HasSubStory);
 
-            int subStoryCount = TestTools.FindInactiveInScene<DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory"));
-            Assert.AreNotEqual(0, subStoryCount);
-
-            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
+            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _inputTestTools.PressForFrame(key.enterKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            Assert.AreEqual(subStoryCount,  TestTools.FindInactiveInScene<DialogueController>().Count(controller => controller.gameObject.name.Contains("SubStory")));
-
-            Object.Destroy(Find("SubStory(Clone)"));
         }
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity")]
         public IEnumerator CantPresentEvidenceDuringPressingDialogue()
         {
-            yield return null;
-            Keyboard key = _inputTestTools.Keyboard;
-
-            int existingSubstories = TestTools.FindInactiveInScene<DialogueController>().Count(controller => {
+            int existingSubstories = TestTools.FindInactiveInScene<NarrativeScriptPlayer>().Count(controller => {
                 GameObject gameObject = controller.gameObject;
                 return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
             });
 
-            yield return _inputTestTools.PressForFrame(key.xKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.xKey);
             AppearingDialogueController appearingDialogueController = TestTools.FindInactiveInScene<AppearingDialogueController>()[0];
 
             while (appearingDialogueController.PrintingText)
@@ -80,7 +69,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 yield return _inputTestTools.WaitForRepaint();
             }
 
-            yield return _inputTestTools.PressForFrame(key.cKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.cKey);
 
             while (appearingDialogueController.PrintingText)
             {
@@ -88,12 +77,12 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             }
 
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
-            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, key.zKey);
+            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _inputTestTools.PressForFrame(key.enterKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
 
-            Assert.AreEqual(existingSubstories,  TestTools.FindInactiveInScene<DialogueController>().Count(controller => {
+            Assert.AreEqual(existingSubstories,  TestTools.FindInactiveInScene<NarrativeScriptPlayer>().Count(controller => {
                 GameObject gameObject = controller.gameObject;
                 return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
             }));
@@ -102,30 +91,29 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         }
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity")]
         public IEnumerator GameOverPlaysOnNoLivesLeft()
         {
             var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
-            var dialogueController = Object.FindObjectOfType<DialogueController>();
+            var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
             
             for (int i = penaltyManager.PenaltiesLeft; i > 0; i--)
             {
-                yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
+                yield return TestTools.WaitForState(() => _narrativeScriptPlayer.CanPressWitness);
 
                 Assert.AreEqual(i, penaltyManager.PenaltiesLeft);
                 yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
                 yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
-                var subStory = Find("SubStory(Clone)");
-                while (subStory != null && penaltyManager.PenaltiesLeft > 0)
+                while (_narrativeScriptPlayer.HasSubStory && penaltyManager.PenaltiesLeft > 0)
                 {
-                    yield return _inputTestTools.ProgressStory(dialogueController);
+                    yield return _inputTestTools.ProgressStory(appearingDialogueController);
                 }
 
                 Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);
             }
-
-            var dialogueControllers = Object.FindObjectsOfType<DialogueController>();
-            Assert.IsTrue(dialogueControllers.Any(controller => controller.ActiveNarrativeScript.Name == "TMPH_GameOver"));
+            
+            yield return new WaitForSeconds(5);
+            
+            Assert.IsTrue(new AssetName(_narrativeScriptPlayer.ActiveNarrativeScript.Script.name).ToString() == new AssetName("TMPHGameOver").ToString());
         }
     }
 }

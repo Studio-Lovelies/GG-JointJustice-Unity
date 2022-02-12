@@ -18,12 +18,11 @@ namespace Tests.PlayModeTests.Tools
 
         public void BeforeTest(ITest test)
         {
-            EditorSceneManager.LoadSceneInPlayMode(_absoluteScenePath, new LoadSceneParameters(LoadSceneMode.Additive));
+            EditorSceneManager.LoadSceneInPlayMode(_absoluteScenePath, new LoadSceneParameters());
         }
 
         public void AfterTest(ITest test)
         {
-            SceneManager.UnloadSceneAsync(_absoluteScenePath);
         }
 
         public ActionTargets Targets => ActionTargets.Test;

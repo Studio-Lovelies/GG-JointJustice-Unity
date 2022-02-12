@@ -66,7 +66,6 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
             // set private properties needed for these tests to run
             var so = new SerializedObject(_appearingDialogueController);
             so.FindProperty("_textBox").objectReferenceValue = textMesh;
-            so.FindProperty("_directorActionDecoder").objectReferenceValue = gameObjectInstance.AddComponent<DirectorActionDecoder>();
             var ignoredItemsReference = so.FindProperty("_ignoredCharacters");
             for (var i = 0; i < IgnoredCharacters.Length; i++)
             {

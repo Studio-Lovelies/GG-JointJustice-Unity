@@ -3,11 +3,7 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
-    [Tooltip("Drag a DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
-    
-    [Tooltip("Attach the action decoder object here")]
-    [SerializeField] DirectorActionDecoder _directorActionDecoder;
+    [SerializeField] private Game _game;
 
     /// <summary>
     /// One day this will come from the "Settings," but for now it lives on a field
@@ -34,17 +30,8 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
-    void Start()
+    private void Awake()
     {
-        if (_directorActionDecoder == null)
-        {
-            Debug.LogError("Audio Controller doesn't have an action decoder to attach to");
-        }
-        else
-        {
-            _directorActionDecoder.Decoder.AudioController = this;
-        }
-        
         _musicFader = new MusicFader();
         _musicAudioSource = CreateAudioSource("Music Player");
         _sfxAudioSource = CreateAudioSource("SFX Player");
@@ -54,13 +41,13 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <summary>
     /// Called every rendered frame
     /// </summary>
-    void Update()
+    private void Update()
     {
         if (_musicAudioSource != null && _musicFader != null)
             _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
 
         if (_sfxAudioSource != null)
-            _sfxAudioSource.volume = this._settingsSfxVolume;
+            _sfxAudioSource.volume = _settingsSfxVolume;
     }
 
     /// <summary>
@@ -69,7 +56,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     public void PlaySong(string songName)
     {
-        AudioClip song = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(songName);
+        AudioClip song = _game.ObjectStorage.GetObject<AudioClip>(songName);
         PlaySong(song);
     }
 
@@ -101,10 +88,10 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <summary>
     /// Plays sound effect of desired name.
     /// </summary>
-    /// <param name="soundEffectName">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
-    public void PlaySfx(string soundEffectName)
+    /// <param name="sfx">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
+    public void PlaySfx(string sfx)
     {
-        AudioClip soundEffectClip = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<AudioClip>(soundEffectName);
+        AudioClip soundEffectClip = _game.ObjectStorage.GetObject<AudioClip>(sfx);
         PlaySfx(soundEffectClip);
     }
 

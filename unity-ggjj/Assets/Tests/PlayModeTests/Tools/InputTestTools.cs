@@ -60,6 +60,7 @@ namespace Tests.PlayModeTests.Tools
                 Release(control);
                 GameViewWindow.Repaint();
                 yield return null;
+                yield return null; // Wait for two frames to wait for InputSystem to rebind if necessary
             }
         }
 
@@ -127,11 +128,11 @@ namespace Tests.PlayModeTests.Tools
         /// <summary>
         /// Holds the X Key until a DialogueController is not busy
         /// </summary>
-        /// <param name="dialogueController">The DialogueController to wait for</param>
-        public IEnumerator ProgressStory(DialogueController dialogueController)
+        /// <param name="appearingDialogueController">The AppearingDialogueController to wait for</param>
+        public IEnumerator ProgressStory(AppearingDialogueController appearingDialogueController)
         {
             Press(Keyboard.xKey);
-            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
+            yield return TestTools.WaitForState(() => !appearingDialogueController.PrintingText);
             Release(Keyboard.xKey);
         }
     }

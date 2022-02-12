@@ -4,8 +4,7 @@ using UnityEngine.Events;
 
 public class ActorController : MonoBehaviour, IActorController
 {
-    [Tooltip("Drag a DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
+    [SerializeField] private Game _game;
     
     [Tooltip("Attach the action decoder object here")]
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
@@ -24,20 +23,7 @@ public class ActorController : MonoBehaviour, IActorController
     private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
     private ActorData _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
-    
-    /// <summary>
-    /// Called when the object is initialized
-    /// </summary>
-    private void Start()
-    {
-        if (_directorActionDecoder == null)
-        {
-            Debug.LogError("Actor Controller doesn't have an action decoder to attach to");
-            return;
-        }
 
-        _directorActionDecoder.Decoder.ActorController = this;
-    } 
     /// <summary>
     /// Connect to an event that exposes the active scene when it changes.
     /// </summary>
@@ -96,7 +82,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            return _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            return _game.ObjectStorage.GetObject<ActorData>(actorName);
         }
         catch (KeyNotFoundException exception)
         {
@@ -189,7 +175,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            _currentSpeakingActor = _game.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
         }
         catch (KeyNotFoundException exception)
@@ -278,7 +264,7 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
-            var actorData = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
+            var actorData = _game.ObjectStorage.GetObject<ActorData>(actor);
             tempActor.SetActor(actorData);
             SetActorInLookupTable(actorData, tempActor);
         }

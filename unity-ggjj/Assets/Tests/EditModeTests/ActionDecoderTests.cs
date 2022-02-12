@@ -53,57 +53,57 @@ public class ActionDecoderTests
 
     private class RawActionDecoder : ActionDecoderBase
     {
-        protected override void ADD_EVIDENCE(AssetName evidenceName)
+        protected override void ADD_EVIDENCE(EvidenceAssetName evidenceName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void ADD_RECORD(AssetName actorName)
+        protected override void ADD_RECORD(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void PLAY_SFX(AssetName sfx)
+        protected override void PLAY_SFX(SfxAssetName sfx)
         {
             throw new NotImplementedException();
         }
 
-        protected override void PLAY_SONG(AssetName songName)
+        protected override void PLAY_SONG(SongAssetName songName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SCENE(AssetName sceneName)
+        protected override void SCENE(SceneAssetName sceneName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SHOW_ITEM(AssetName itemName, ItemDisplayPosition itemPos)
+        protected override void SHOW_ITEM(EvidenceAssetName itemName, ItemDisplayPosition itemPos)
         {
             throw new NotImplementedException();
         }
 
-        protected override void ACTOR(AssetName actorName)
+        protected override void ACTOR(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SPEAK(AssetName actorName)
+        protected override void SPEAK(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SPEAK_UNKNOWN(AssetName actorName)
+        protected override void SPEAK_UNKNOWN(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void THINK(AssetName actorName)
+        protected override void THINK(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName)
+        protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
@@ -116,14 +116,14 @@ public class ActionDecoderTests
     /// <returns>A fully mocked ActionDecoder</returns>
     private static ActionDecoder CreateMockedActionDecoder()
     {
-        var dialogueController = new Moq.Mock<IDialogueController>();
-        dialogueController.SetupSet(m => m.GameMode = It.IsAny<GameMode>());
+        var narrativeScriptPlayer = new Moq.Mock<INarrativeScriptPlayer>();
+        narrativeScriptPlayer.SetupSet(m => m.GameMode = It.IsAny<GameMode>());
 
         return new ActionDecoder()
         {
             ActorController = new Moq.Mock<IActorController>().Object,
             AppearingDialogueController = new Moq.Mock<IAppearingDialogueController>().Object,
-            DialogueController = dialogueController.Object,
+            NarrativeScriptPlayer = narrativeScriptPlayer.Object,
             AudioController = new Moq.Mock<IAudioController>().Object,
             EvidenceController = new Moq.Mock<IEvidenceController>().Object,
             SceneController = new Moq.Mock<ISceneController>().Object,

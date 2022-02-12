@@ -14,7 +14,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
-        protected global::DialogueController DialogueController { get; private set; }
+        protected global::NarrativeScriptPlayer DialogueController { get; private set; }
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
@@ -22,23 +22,17 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters(LoadSceneMode.Additive));
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters());
             
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
-            DialogueController = Object.FindObjectOfType<global::DialogueController>();
+            DialogueController = Object.FindObjectOfType<global::NarrativeScriptPlayer>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu = EvidenceMenu.GetComponent<Menu>();
             CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
-            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
-            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
+            var dialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            yield return TestTools.WaitForState(() => !dialogueController.PrintingText);
         }
 
-        [UnityTearDown]
-        public IEnumerator TearDown()
-        {
-            yield return SceneManager.UnloadSceneAsync("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity");
-        }
-        
         protected ActorData[] AddProfiles()
         {
             ActorData[] actors = Resources.LoadAll<ActorData>("Actors");

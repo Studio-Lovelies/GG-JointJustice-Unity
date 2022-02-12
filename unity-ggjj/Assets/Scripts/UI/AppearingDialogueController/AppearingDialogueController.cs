@@ -7,12 +7,8 @@ using UnityEngine.Events;
 
 public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueController
 {
-    [Tooltip("Drag a DirectorActionDecoder component here.")]
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+    [SerializeField] private Game _game;
 
-    [Tooltip("Drag an AudioController here.")]
-    [SerializeField] private AudioController _audioController;
-    
     [Tooltip("Drag a NameBox component here.")]
     [SerializeField] private NameBox _namebox;
     
@@ -62,7 +58,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private void Start()
     {
         _textInfo = _textBox.textInfo;
-        _directorActionDecoder.Decoder.AppearingDialogueController = this;
     }
 
     /// <summary>
@@ -71,13 +66,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <param name="text">The text to print.</param>
     public void PrintText(string text)
     {
-        if (_printCoroutine != null)
-        {
-            StopCoroutine(_printCoroutine);
-            _printCoroutine = null;
-            PrintingText = false;
-        }
-
+        StopPrintingText();
         text = text.TrimEnd('\n');
         TextBoxHidden = false;
 
@@ -107,6 +96,21 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         }
         
         _printCoroutine = StartCoroutine(PrintTextCoroutine(startingIndex));
+    }
+
+    /// <summary>
+    /// Stops printing text by stopping _printCoroutine and setting PrintingText to false
+    /// </summary>
+    public void StopPrintingText()
+    {
+        if (_printCoroutine == null)
+        {
+            return;
+        }
+        
+        StopCoroutine(_printCoroutine);
+        _printCoroutine = null;
+        PrintingText = false;
     }
 
     /// <summary>
@@ -150,7 +154,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             resultChirp = _defaultDialogueChirpSfx;
         }
-        _audioController.PlaySfx(resultChirp);
+        _game.Audio.PlaySfx(resultChirp);
     }
 
     /// <summary>

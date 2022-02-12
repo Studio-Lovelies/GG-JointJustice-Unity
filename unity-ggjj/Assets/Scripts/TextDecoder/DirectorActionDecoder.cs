@@ -1,18 +1,17 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class DirectorActionDecoder : MonoBehaviour
 {
-    [Header("Events")]
-    [Tooltip("Event that gets called when the system is done processing the action")]
-    [SerializeField] private UnityEvent _onActionDone;
-
+    [SerializeField] private Game _game;
+    
+    private NarrativeScriptPlayer _narrativeScriptPlayer;
+    
     public ActionDecoder Decoder { get; } = new ActionDecoder();
 
     private void Awake()
     {
         // We wrap this in an Action so we have no ties to UnityEngine in the ActionDecoder
-        Decoder.OnActionDone += () => _onActionDone.Invoke();
+        Decoder.OnActionDone += () => _game.NarrativeScriptPlayer.Continue();
     }
 
     #region API
@@ -29,7 +28,7 @@ public class DirectorActionDecoder : MonoBehaviour
         catch (TextDecoder.Parser.ScriptParsingException exception)
         {
             Debug.LogError(exception);
-            _onActionDone.Invoke();
+            _narrativeScriptPlayer.Continue();
         }
     }
     #endregion
