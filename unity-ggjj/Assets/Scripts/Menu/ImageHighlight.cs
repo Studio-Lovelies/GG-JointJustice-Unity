@@ -7,11 +7,14 @@ using UnityEngine.UI;
 /// </summary>
 public class ImageHighlight : MonoBehaviour, IHighlight
 {
+    [SerializeField, Tooltip("The Image component that will display the highlight sprite")]
     private Image _image;
-    
+
+    /// <summary>
+    /// Disable the highlight on awake
+    /// </summary>
     public void Awake()
     {
-        _image = GetComponent<Image>();
         _image.enabled = false;
     }
     

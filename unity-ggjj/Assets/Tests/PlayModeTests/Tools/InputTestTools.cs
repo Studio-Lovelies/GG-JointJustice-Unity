@@ -15,8 +15,8 @@ namespace Tests.PlayModeTests.Tools
     /// </summary>
     public class InputTestTools : InputTestFixture
     {
-        public Keyboard Keyboard { get; } = InputSystem.GetDevice<Keyboard>();
-        public Mouse Mouse { get; } = InputSystem.GetDevice<Mouse>();
+        public Keyboard Keyboard { get; } = InputSystem.AddDevice<Keyboard>();
+        public Mouse Mouse { get; } = InputSystem.AddDevice<Mouse>();
 
         private EditorWindow _gameViewWindow;
 

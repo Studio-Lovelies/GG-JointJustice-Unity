@@ -48,7 +48,7 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
 
             for (int i = 0; i < 3; i++)
             {
-                yield return _inputTestTools.ProgressStory(dialogueController);
+                yield return _inputTestTools.PressForFrame(Keyboard.xKey);
             }
             
             yield return _inputTestTools.PressForFrame(Keyboard.zKey);
