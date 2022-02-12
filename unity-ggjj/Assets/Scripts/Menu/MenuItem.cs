@@ -76,10 +76,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     /// </summary>
     private void OnDisable()
     {
-        if (_highlight == null)
-            return;
-
-        _highlight.SetHighlighted(false);
+        _highlight?.SetHighlighted(false);
     }
 
     /// <summary>
