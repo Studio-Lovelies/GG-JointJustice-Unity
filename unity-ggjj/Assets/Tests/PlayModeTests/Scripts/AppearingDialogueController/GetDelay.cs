@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Reflection;
 using NUnit.Framework;
 using TMPro;
 using UnityEditor;
@@ -8,7 +9,7 @@ using UnityEngine.TestTools;
 namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
 {
     /// <summary>
-    /// Tests for <see cref="global::AppearingDialogueController.GetDelay"/>
+    /// Tests for <see cref="GetDelay"/>
     /// </summary>
     public class GetDelay
     {
@@ -59,6 +60,7 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
 
             // create controller component
             _appearingDialogueController = gameObjectInstance.AddComponent<global::AppearingDialogueController>();
+            LogAssert.Expect(LogType.Exception, "NullReferenceException: Object reference not set to an instance of an object");
             _appearingDialogueController.CharacterDelay = REGULAR_CHARACTER_SPEED;
             _appearingDialogueController.DefaultPunctuationDelay = PUNCTUATION_CHARACTER_SPEED;
             _appearingDialogueController.SpeedMultiplier = SPEED_MULTIPLIER;
@@ -66,6 +68,8 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
             // set private properties needed for these tests to run
             var so = new SerializedObject(_appearingDialogueController);
             so.FindProperty("_textBox").objectReferenceValue = textMesh;
+            var textInfoField = _appearingDialogueController.GetType().GetField("_textInfo", BindingFlags.NonPublic | BindingFlags.Instance);
+            textInfoField.SetValue(_appearingDialogueController, textMesh.textInfo);
             var ignoredItemsReference = so.FindProperty("_ignoredCharacters");
             for (var i = 0; i < IgnoredCharacters.Length; i++)
             {

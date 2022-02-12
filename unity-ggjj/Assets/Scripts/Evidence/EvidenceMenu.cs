@@ -7,8 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Menu))]
 public class EvidenceMenu : MonoBehaviour
 {
-    [SerializeField, Tooltip("Drag the evidence controller here")]
-    private EvidenceController _evidenceController;
+    [SerializeField] private Game _game;
 
     [SerializeField, Tooltip("Drag the TextMeshProUGUI component used for displaying the evidence's name here")]
     private TextMeshProUGUI _evidenceName;

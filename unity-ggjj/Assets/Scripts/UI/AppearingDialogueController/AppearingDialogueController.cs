@@ -55,7 +55,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         set => _speechPanel.gameObject.SetActive(!value);
     }
 
-    private void Start()
+    private void Awake()
     {
         _textInfo = _textBox.textInfo;
     }
