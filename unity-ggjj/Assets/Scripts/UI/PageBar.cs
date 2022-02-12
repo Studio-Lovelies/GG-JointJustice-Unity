@@ -10,7 +10,7 @@ public class PageBar : MonoBehaviour
     private readonly List<Image> _pageDots = new List<Image>();
 
     /// <summary>
-    /// Creates dots used to represent each page in the menu
+    /// Creates or deletes Image instances inside <see cref="_pageDots"/> until the length matches <see cref="pageCount"/>
     /// </summary>
     /// <param name="pageCount">The number of pages to create dots for</param>
     public void SetPageCount(int pageCount)
