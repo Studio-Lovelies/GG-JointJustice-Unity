@@ -143,11 +143,10 @@ public class ActorController : MonoBehaviour, IActorController
             if (_activeActor == null)
             {
                 Debug.LogError("Actor has not been assigned");
-                _onAnimationComplete.Invoke();
+                OnAnimationDone();
                 return;
             }
-            _onAnimationStarted.Invoke();
-            Animating = true;
+            OnAnimationStarted();
             _activeActor.PlayAnimation(emotion);
         }
         else
@@ -224,12 +223,9 @@ public class ActorController : MonoBehaviour, IActorController
     /// </summary>
     public void OnAnimationDone()
     {
-        if (Animating)
-        {
-            Animating = false;
-            _onAnimationComplete.Invoke();
-        }
-
+        Animating = false;
+        _game.NarrativeScriptPlayer.Waiting = false;
+        _onAnimationComplete.Invoke();
     }
 
     /// <summary>
@@ -285,5 +281,16 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetVisibility(string actorName, bool shouldShow)
     {
         FindActorInInventory(actorName).GetComponent<Renderer>().enabled = shouldShow;
+    }
+
+    /// <summary>
+    /// Handles what happens when an animation starts
+    /// </summary>
+    private void OnAnimationStarted()
+    {
+        Animating = true;
+        _game.NarrativeScriptPlayer.Waiting = true;
+        _game.AppearingDialogueController.TextBoxHidden = true;
+        _onAnimationStarted.Invoke();
     }
 }

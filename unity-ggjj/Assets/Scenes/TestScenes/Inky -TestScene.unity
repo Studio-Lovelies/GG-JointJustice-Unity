@@ -614,6 +614,34 @@ PrefabInstance:
       propertyPath: _dialogueList.Array.data[0].<NarrativeScript>k__BackingField
       value: 
       objectReference: {fileID: 4900000, guid: a94c9392d84404ad09e14f6ea428df50, type: 3}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStarted.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStarted.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStarted.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStarted.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStarted.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: DialogueController, GG-JointJustice
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStarted.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228303783822522784, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _onAnimationStarted.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5228303783942753770, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: StandardInclusion
@@ -769,7 +797,7 @@ PrefabInstance:
     - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: <NarrativeScripts>k__BackingField.Array.data[0].<Script>k__BackingField
       value: 
-      objectReference: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
+      objectReference: {fileID: 4900000, guid: a70058d182a914bbb876608694a78f72, type: 3}
     - target: {fileID: 7459855669607129931, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 34.833313
