@@ -33,12 +33,6 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return TestTools.WaitForState(() => !dialogueController.PrintingText);
         }
 
-        [UnityTearDown]
-        public IEnumerator TearDown()
-        {
-            yield return SceneManager.UnloadSceneAsync("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity");
-        }
-        
         protected ActorData[] AddProfiles()
         {
             ActorData[] actors = Resources.LoadAll<ActorData>("Actors");
