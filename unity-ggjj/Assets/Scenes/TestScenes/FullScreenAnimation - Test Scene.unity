@@ -835,6 +835,11 @@ PrefabInstance:
       propertyPath: <MenuToOpen>k__BackingField
       value: 
       objectReference: {fileID: 2054513137}
+    - target: {fileID: 5979690604451775322, guid: ef7dd0dd7a380264d90181b3a106c435,
+        type: 3}
+      propertyPath: <MenuToOpen>k__BackingField
+      value: 
+      objectReference: {fileID: 2054513137}
     - target: {fileID: 6181739301280788300, guid: ef7dd0dd7a380264d90181b3a106c435,
         type: 3}
       propertyPath: m_Navigation.m_Mode

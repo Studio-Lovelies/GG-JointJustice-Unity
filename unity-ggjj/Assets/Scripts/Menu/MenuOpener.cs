@@ -60,7 +60,6 @@ public class MenuOpener : MonoBehaviour
 
         MenuToOpen.gameObject.SetActive(true);
 
-
         if (_parentMenu != null)
         {
             _parentMenu.SetMenuInteractable(false);
