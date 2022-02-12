@@ -21,8 +21,6 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             audioControllerGameObject.AddComponent<AudioListener>(); // required to prevent excessive warnings
             global::AudioController audioController = audioControllerGameObject.AddComponent<global::AudioController>();
 
-            // expect error due to missing DirectorActionDecoder
-            LogAssert.Expect(LogType.Error, "Audio Controller doesn't have an action decoder to attach to");
             yield return null;
             AudioSource audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
 

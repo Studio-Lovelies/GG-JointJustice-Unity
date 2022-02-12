@@ -34,7 +34,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
-    void Start()
+    void Awake()
     {
         if (_directorActionDecoder == null)
         {
