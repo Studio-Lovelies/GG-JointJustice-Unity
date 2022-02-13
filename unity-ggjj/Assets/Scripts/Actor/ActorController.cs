@@ -51,9 +51,10 @@ public class ActorController : MonoBehaviour, IActorController
     /// Set the target GameObject to be considered the active actor to manipulate when actions are triggered in  the dialogue script
     /// </summary>
     /// <param name="actor">Actor MonoBehaviour attached to the GameObject to be set as the active actor</param>
-    public void SetActiveActorObject(Actor actor)
+    private void SetActiveActorObject(Actor actor)
     {
         _activeActor = actor;
+        _currentSpeakingType = SpeakingType.Speaking;
         if (actor != null)
         {
             actor.AttachController(this);
@@ -191,6 +192,7 @@ public class ActorController : MonoBehaviour, IActorController
         {
             _currentSpeakingActor = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
+            _currentSpeakingType = speakingType;
         }
         catch (KeyNotFoundException exception)
         {
@@ -244,15 +246,6 @@ public class ActorController : MonoBehaviour, IActorController
             _onAnimationComplete.Invoke();
         }
 
-    }
-
-    /// <summary>
-    /// Sets the speaking type of the sentences shown, so the actor can react appropriately.
-    /// </summary>
-    /// <param name="speakingType">Type of speaking the next sentence is gonna be.</param>
-    public void SetSpeakingType(SpeakingType speakingType)
-    {
-        _currentSpeakingType = speakingType;
     }
 
     /// <summary>
