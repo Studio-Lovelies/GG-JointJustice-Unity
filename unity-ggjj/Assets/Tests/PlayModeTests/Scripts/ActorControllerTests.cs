@@ -24,7 +24,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity", new LoadSceneParameters());
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/ActorController - Test Scene.unity", new LoadSceneParameters());
             yield return null;
 
             _storyProgresser = new StoryProgresser();
@@ -65,14 +65,10 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         public IEnumerator ActiveSpeakerCanBeSet()
         {
             var prosecutionAnimator =  GameObject.Find("Prosecution_Actor").GetComponent<Actor>().GetComponent<Animator>();
-            var defenceAnimator = GameObject.Find("Defense_Actor").GetComponent<Actor>().GetComponent<Animator>();
-
-            yield return ProgressToTestPoint();
-            
             _actorController.SetActiveSpeaker("TutorialBoy", SpeakingType.Speaking);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
             AssertIsTalking(prosecutionAnimator);
-            AssertIsNotTalking(defenceAnimator);
+            AssertIsNotTalking(_witnessAnimator);
         }
 
         [Test]
@@ -87,26 +83,31 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator SpeakerCanBeSetToThinking()
         {
-            var defenceAnimator = GameObject.Find("Defense_Actor").GetComponent<Actor>().GetComponent<Animator>();
-            yield return ProgressToTestPoint();
-            
             _actorController.SetActiveSpeaker("Arin", SpeakingType.Thinking);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
-            AssertIsNotTalking(defenceAnimator);
+            AssertIsNotTalking(_witnessAnimator);
             AssertNameBoxCorrect();
         }
 
         [UnityTest]
         public IEnumerator SpeakerCanBeSetToNarrator()
         {
-            yield return ProgressToTestPoint();
             var nameBox = Object.FindObjectOfType<NameBox>().gameObject;
-            var defenceAnimator = GameObject.Find("Defense_Actor").GetComponent<Actor>().GetComponent<Animator>();
 
             _actorController.SetActiveSpeakerToNarrator();
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
-            AssertIsNotTalking(defenceAnimator);
+            AssertIsNotTalking(_witnessAnimator);
             Assert.IsFalse(nameBox.activeInHierarchy);
+        }
+
+        [UnityTest]
+        public IEnumerator ActorPoseCanBeSet()
+        {
+            const string POSE_NAME = "Sweaty"; 
+            Assert.AreNotEqual(POSE_NAME, _witnessAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+            _actorController.SetPose(POSE_NAME);
+            yield return null;
+            Assert.AreEqual(POSE_NAME, _witnessAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
         }
 
         private void AssertIsTalking(Animator animator)
@@ -131,18 +132,6 @@ namespace Tests.PlayModeTests.Scripts.ActorController
             var nameBoxText = nameBoxImage.GetComponentInChildren<TextMeshProUGUI>();
             Assert.AreEqual(actorData.DisplayColor, nameBoxImage.color);
             Assert.AreEqual(actorData.DisplayName, nameBoxText.text);
-        }
-
-        private IEnumerator ProgressToTestPoint()
-        {
-            yield return _storyProgresser.ProgressStory();
-            yield return _storyProgresser.ProgressStory();
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
-            yield return _storyProgresser.ProgressStory();
-            yield return _storyProgresser.ProgressStory();
-            yield return _storyProgresser.ProgressStory();
-            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
-            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
         }
     }
 }
