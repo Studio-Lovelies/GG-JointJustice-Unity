@@ -7,5 +7,6 @@
 &SPEAK:Ross
 Actor Controller test script
 Actor Controller test script
+&SPEAK:Dan
 
 -> END

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -192,7 +193,7 @@ public class ActorController : MonoBehaviour, IActorController
             ActorData actorData = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(actorData, speakingType);
             CurrentSpeakingActorData = actorData;
-            _currentSpeakingActor = _actorDataToActor[actorData];
+            _currentSpeakingActor = _actorDataToActor.ContainsKey(actorData) ? _actorDataToActor[actorData] : null;
             _currentSpeakingType = speakingType;
         }
         catch (KeyNotFoundException)
