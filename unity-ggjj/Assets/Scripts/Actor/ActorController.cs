@@ -217,8 +217,11 @@ public class ActorController : MonoBehaviour, IActorController
         {
             return;
         }
-        
-        _currentSpeakingActor.SetTalking(true);
+
+        if (_currentSpeakingActor != null)
+        {
+            _currentSpeakingActor.SetTalking(true);
+        }
     }
 
     /// <summary>

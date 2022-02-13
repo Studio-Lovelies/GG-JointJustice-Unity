@@ -96,6 +96,19 @@ namespace Tests.PlayModeTests.Scripts.ActorController
             AssertNameBoxCorrect();
         }
 
+        [UnityTest]
+        public IEnumerator SpeakerCanBeSetToNarrator()
+        {
+            yield return ProgressToTestPoint();
+            var nameBox = Object.FindObjectOfType<NameBox>().gameObject;
+            var defenceAnimator = GameObject.Find("Defense_Actor").GetComponent<Actor>().GetComponent<Animator>();
+
+            _actorController.SetActiveSpeakerToNarrator();
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            AssertIsNotTalking(defenceAnimator);
+            Assert.IsFalse(nameBox.activeInHierarchy);
+        }
+
         private void AssertIsTalking(Animator animator)
         {
             var animationName = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
