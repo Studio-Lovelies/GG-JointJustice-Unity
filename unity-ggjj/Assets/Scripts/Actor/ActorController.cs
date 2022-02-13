@@ -51,7 +51,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// Set the target GameObject to be considered the active actor to manipulate when actions are triggered in  the dialogue script
     /// </summary>
     /// <param name="actor">Actor MonoBehaviour attached to the GameObject to be set as the active actor</param>
-    private void SetActiveActorObject(Actor actor)
+    public void SetActiveActorObject(Actor actor)
     {
         _activeActor = actor;
         _currentSpeakingType = SpeakingType.Speaking;
