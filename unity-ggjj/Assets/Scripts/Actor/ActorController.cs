@@ -23,6 +23,7 @@ public class ActorController : MonoBehaviour, IActorController
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
     
     public bool Animating { get; set; }
+    public ActorData CurrentSpeakingActorData { get; private set; }
 
     /// <summary>
     /// Called when the object is initialized
@@ -191,6 +192,7 @@ public class ActorController : MonoBehaviour, IActorController
         {
             ActorData actorData = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(actorData, speakingType);
+            CurrentSpeakingActorData = actorData;
             _currentSpeakingActor = _actorDataToActor[actorData];
             _currentSpeakingType = speakingType;
         }

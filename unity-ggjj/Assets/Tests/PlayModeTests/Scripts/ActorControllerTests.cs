@@ -1,10 +1,14 @@
 using System.Collections;
+using System.Reflection;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using TMPro;
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace Tests.PlayModeTests.Scripts.ActorController
 {
@@ -78,11 +82,27 @@ namespace Tests.PlayModeTests.Scripts.ActorController
             AssertIsNotTalking(defenceAnimator);
         }
 
+        [Test]
+        public void ActiveActorCanBeSet()
+        {
+            _actorController.SetActiveActor("TutorialBoy");
+            var witnessActor = GameObject.Find("Witness_Actor").GetComponent<Actor>();
+            var objectStorage = Object.FindObjectOfType<global::DialogueController>().ActiveNarrativeScript.ObjectStorage;
+            Assert.IsTrue(witnessActor.MatchesActorData(objectStorage.GetObject<ActorData>("TutorialBoy")));
+        }
+
+        [UnityTest]
+        public void SpeakerCanBeSetToThinking()
+        {
+            
+        }
+
         private void AssertIsTalking(Animator animator)
         {
             var animationName = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
             Assert.IsTrue(animationName.Contains("Talking"));
             Assert.IsTrue(animator.GetBool(TALKING_PARAMETER_NAME));
+            AssertNameBoxCorrect();
         }
 
         private void AssertIsNotTalking(Animator animator)
@@ -90,6 +110,15 @@ namespace Tests.PlayModeTests.Scripts.ActorController
             var animationName = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
             Assert.IsFalse(animationName.Contains("Talking"));
             Assert.IsFalse(animator.GetBool(TALKING_PARAMETER_NAME));
+        }
+
+        private void AssertNameBoxCorrect()
+        {
+            var actorData = _actorController.CurrentSpeakingActorData;
+            var nameBoxImage = Object.FindObjectOfType<NameBox>().GetComponent<Image>();
+            var nameBoxText = nameBoxImage.GetComponentInChildren<TextMeshProUGUI>();
+            Assert.AreEqual(actorData.DisplayColor, nameBoxImage.color);
+            Assert.AreEqual(actorData.DisplayName, nameBoxText.text);
         }
     }
 }
