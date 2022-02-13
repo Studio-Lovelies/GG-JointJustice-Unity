@@ -64,17 +64,10 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator ActiveSpeakerCanBeSet()
         {
-            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
             var prosecutionAnimator =  GameObject.Find("Prosecution_Actor").GetComponent<Actor>().GetComponent<Animator>();
             var defenceAnimator = GameObject.Find("Defense_Actor").GetComponent<Actor>().GetComponent<Animator>();
 
-            yield return _storyProgresser.ProgressStory();
-            yield return _storyProgresser.ProgressStory();
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
-            yield return _storyProgresser.ProgressStory();
-            yield return _storyProgresser.ProgressStory();
-            yield return _storyProgresser.ProgressStory();
-            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
+            yield return ProgressToTestPoint();
             
             _actorController.SetActiveSpeaker("TutorialBoy", SpeakingType.Speaking);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
@@ -92,9 +85,15 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         }
 
         [UnityTest]
-        public void SpeakerCanBeSetToThinking()
+        public IEnumerator SpeakerCanBeSetToThinking()
         {
+            var defenceAnimator = GameObject.Find("Defense_Actor").GetComponent<Actor>().GetComponent<Animator>();
+            yield return ProgressToTestPoint();
             
+            _actorController.SetActiveSpeaker("Arin", SpeakingType.Thinking);
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            AssertIsNotTalking(defenceAnimator);
+            AssertNameBoxCorrect();
         }
 
         private void AssertIsTalking(Animator animator)
@@ -119,6 +118,18 @@ namespace Tests.PlayModeTests.Scripts.ActorController
             var nameBoxText = nameBoxImage.GetComponentInChildren<TextMeshProUGUI>();
             Assert.AreEqual(actorData.DisplayColor, nameBoxImage.color);
             Assert.AreEqual(actorData.DisplayName, nameBoxText.text);
+        }
+
+        private IEnumerator ProgressToTestPoint()
+        {
+            yield return _storyProgresser.ProgressStory();
+            yield return _storyProgresser.ProgressStory();
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
+            yield return _storyProgresser.ProgressStory();
+            yield return _storyProgresser.ProgressStory();
+            yield return _storyProgresser.ProgressStory();
+            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
+            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
         }
     }
 }
