@@ -13,18 +13,17 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Attach the NameBox here")]
     [SerializeField] private NameBox _nameBox;
     
-    private Actor _activeActor;
-    private BGScene _activeScene;
-
     [SerializeField] private UnityEvent _onAnimationStarted;
     [SerializeField] private UnityEvent _onAnimationComplete;
-
-    public bool Animating { get; set; }
-
+    
     private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
-    private ActorData _currentSpeakingActor;
+    private Actor _activeActor;
+    private BGScene _activeScene;
+    private Actor _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
     
+    public bool Animating { get; set; }
+
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
@@ -190,8 +189,9 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
-            _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
+            ActorData actorData = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            _nameBox.SetSpeaker(actorData, speakingType);
+            _currentSpeakingActor = _actorDataToActor[actorData];
             _currentSpeakingType = speakingType;
         }
         catch (KeyNotFoundException exception)
@@ -215,12 +215,8 @@ public class ActorController : MonoBehaviour, IActorController
         {
             return;
         }
-
-        if (_activeActor.MatchesActorData(_currentSpeakingActor))
-        {
-            _activeActor.SetTalking(true);
-        }
-
+        
+        _currentSpeakingActor.SetTalking(true);
     }
 
     /// <summary>

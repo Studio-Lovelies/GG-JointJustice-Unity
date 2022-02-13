@@ -60,14 +60,22 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator ActiveSpeakerCanBeSet()
         {
+            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
             var prosecutionAnimator =  GameObject.Find("Prosecution_Actor").GetComponent<Actor>().GetComponent<Animator>();
+            var defenceAnimator = GameObject.Find("Defense_Actor").GetComponent<Actor>().GetComponent<Animator>();
+
+            yield return _storyProgresser.ProgressStory();
+            yield return _storyProgresser.ProgressStory();
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey);
+            yield return _storyProgresser.ProgressStory();
+            yield return _storyProgresser.ProgressStory();
+            yield return _storyProgresser.ProgressStory();
+            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
             
-            yield return ActorsAreSetToTalkingOnDialogueStart();
             _actorController.SetActiveSpeaker("TutorialBoy", SpeakingType.Speaking);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
-            yield return new WaitForSeconds(50);
             AssertIsTalking(prosecutionAnimator);
-            AssertIsNotTalking(_witnessAnimator);
+            AssertIsNotTalking(defenceAnimator);
         }
 
         private void AssertIsTalking(Animator animator)
