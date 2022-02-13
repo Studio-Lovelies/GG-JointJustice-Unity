@@ -5,9 +5,6 @@ using UnityEngine.Events;
 public class ActorController : MonoBehaviour, IActorController
 {
     [SerializeField] private Game _game;
-    
-    [Tooltip("Attach the action decoder object here")]
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
 
     [Tooltip("Attach the NameBox here")]
     [SerializeField] private NameBox _nameBox;

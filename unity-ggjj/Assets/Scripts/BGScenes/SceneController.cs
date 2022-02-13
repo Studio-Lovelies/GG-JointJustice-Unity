@@ -34,12 +34,6 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag the witness testimony sign here.")]
     [SerializeField] private GameObject _witnessTestimonySign;
 
-    [Tooltip("Event that gets called when the actor displayed on screen changes")]
-    [SerializeField] private UnityEvent<Actor> _onActorChanged;
-
-    [Tooltip("Event that gets called when the active bg-scene changes")]
-    [SerializeField] private UnityEvent<BGScene> _onSceneChanged;
-
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
     private BGScene _activeScene;
@@ -141,8 +135,8 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (_activeScene != null)
         {
-            _onActorChanged.Invoke(_activeScene.ActiveActor);
-            _onSceneChanged.Invoke(_activeScene);
+            _game.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
+            _game.ActorController.OnSceneChanged(_activeScene);
         }
     }
 
@@ -246,7 +240,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _activeScene.SetActiveActorSlot(oneBasedSlotIndex);
-        _onActorChanged.Invoke(_activeScene.ActiveActor);
+        _game.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
         PanCamera(seconds, _activeScene.GetTargetPosition());
     }
 
@@ -269,7 +263,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _activeScene.SetActiveActorSlot(oneBasedSlotIndex);
-        _onActorChanged.Invoke(_activeScene.ActiveActor);
+        _game.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
         SetCameraPos(_activeScene.GetTargetPosition());
     }
 
