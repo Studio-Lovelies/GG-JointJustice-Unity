@@ -73,7 +73,7 @@ public class ActorController : MonoBehaviour, IActorController
         var targetActorData = FindActorDataInInventory(actor);
         if (_activeActor != null)
         {
-            _activeActor.SetActor(targetActorData);
+            _activeActor.ActorData = targetActorData;
             SetActorInLookupTable(targetActorData, _activeActor);
         }
     }
@@ -273,12 +273,12 @@ public class ActorController : MonoBehaviour, IActorController
         try
         {
             var actorData = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
-            tempActor.SetActor(actorData);
+            tempActor.ActorData = actorData;
             SetActorInLookupTable(actorData, tempActor);
         }
         catch (KeyNotFoundException exception)
         {
-            tempActor.SetActor(null);
+            tempActor.ActorData = null;
             Debug.Log($"{exception.GetType().Name}: Actor {actor} was not found in actor dictionary");
         }
     }

@@ -3,6 +3,17 @@ public class Actor : Animatable
     private ActorData _actorData;
     private IActorController _attachedController;
 
+    public ActorData ActorData
+    {
+        get => _actorData;
+        set
+        {
+            _actorData = value;
+            Animator.runtimeAnimatorController = value.AnimatorController;
+            Animator.Play("Normal");
+        }
+    }
+
     /// <summary>
     /// Call base awake method and also set animator to keep state on disable.
     /// </summary>
@@ -23,17 +34,6 @@ public class Actor : Animatable
         {
             _attachedController.OnAnimationDone();
         }
-    }
-
-    /// <summary>
-    /// Extracts required data from an ActorData object and stores it.
-    /// </summary>
-    /// <param name="actorData"></param>
-    public void SetActor(ActorData actorData)
-    {
-        _actorData = actorData;
-        Animator.runtimeAnimatorController = actorData.AnimatorController;
-        Animator.Play("Normal");
     }
 
     /// <summary>

@@ -110,6 +110,37 @@ namespace Tests.PlayModeTests.Scripts.ActorController
             Assert.AreEqual(POSE_NAME, _witnessAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
         }
 
+        [UnityTest]
+        public IEnumerator ActorEmotionsCanBePlayed()
+        {
+            const string EMOTION_NAME = "HelmetThrow";
+            _actorController.PlayEmotion(EMOTION_NAME);
+            yield return null;
+            Assert.AreEqual(EMOTION_NAME, _witnessAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+        }
+
+        [Test]
+        public void ActorsCanBeAssignedToSlots()
+        {
+            const string ACTOR_NAME = "Ross";
+            _actorController.AssignActorToSlot(ACTOR_NAME, 1);
+            _actorController.AssignActorToSlot(ACTOR_NAME, 3);
+            var actors = Object.FindObjectOfType<BGSceneList>().GetComponentsInChildren<Actor>();
+            foreach (var actor in actors)
+            {
+                Assert.AreEqual(ACTOR_NAME, actor.ActorData.InstanceName);
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator ActorNotInTheSceneCanSpeak()
+        {
+            _actorController.SetActiveSpeaker("Dan", SpeakingType.Speaking);
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            AssertIsNotTalking(_witnessAnimator);
+            AssertNameBoxCorrect();
+        }
+
         private void AssertIsTalking(Animator animator)
         {
             var animationName = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
