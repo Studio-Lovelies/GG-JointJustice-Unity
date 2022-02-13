@@ -208,20 +208,12 @@ public class ActorController : MonoBehaviour, IActorController
     /// </summary>
     public void StartTalking()
     {
-        if (_activeActor == null)
+        if (_activeActor == null || _currentSpeakingType == SpeakingType.Thinking || _currentSpeakingActor == null)
         {
             return;
         }
 
-        if (_currentSpeakingType == SpeakingType.Thinking)
-        {
-            return;
-        }
-
-        if (_currentSpeakingActor != null)
-        {
-            _currentSpeakingActor.SetTalking(true);
-        }
+        _currentSpeakingActor.SetTalking(true);
     }
 
     /// <summary>
