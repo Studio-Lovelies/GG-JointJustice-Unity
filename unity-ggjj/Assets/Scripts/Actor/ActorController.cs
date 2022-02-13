@@ -99,10 +99,9 @@ public class ActorController : MonoBehaviour, IActorController
         {
             return _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
         }
-        catch (KeyNotFoundException exception)
+        catch (KeyNotFoundException)
         {
-            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in the actor dictionary");
-            return null;
+            throw new KeyNotFoundException($"Actor {actorName} was not found in the actor dictionary");
         }
     }
 
@@ -196,10 +195,10 @@ public class ActorController : MonoBehaviour, IActorController
             _currentSpeakingActor = _actorDataToActor[actorData];
             _currentSpeakingType = speakingType;
         }
-        catch (KeyNotFoundException exception)
+        catch (KeyNotFoundException)
         {
             _currentSpeakingActor = null;
-            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in actor dictionary");
+            throw new KeyNotFoundException($"Actor {actorName} was not found in actor dictionary");
         }
     }
 
@@ -268,10 +267,10 @@ public class ActorController : MonoBehaviour, IActorController
             tempActor.ActorData = actorData;
             SetActorInLookupTable(actorData, tempActor);
         }
-        catch (KeyNotFoundException exception)
+        catch (KeyNotFoundException)
         {
             tempActor.ActorData = null;
-            Debug.Log($"{exception.GetType().Name}: Actor {actor} was not found in actor dictionary");
+            throw new KeyNotFoundException($"Actor {actor} was not found in actor dictionary");
         }
     }
 
