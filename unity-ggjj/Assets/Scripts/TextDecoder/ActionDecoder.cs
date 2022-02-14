@@ -17,12 +17,6 @@ public class ActionDecoder
     public IDialogueController DialogueController { get; set; }
     public IPenaltyManager PenaltyManager { get; set; }
 
-    public struct Method
-    {
-        public MethodInfo MethodInfo;
-        public List<object> ParsedMethodParameters;
-    }
-    
     /// <summary>
     ///     Parse action lines inside from inside .ink files
     /// </summary>
@@ -116,20 +110,20 @@ public class ActionDecoder
             var parser = typeof(ActionDecoder).Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
             if (parser == null)
             {
-                throw new NullReferenceException($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
+                throw new TextDecoder.Parser.MissingParserException($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
             }
 
             var parserConstructor = parser.GetConstructor(Type.EmptyTypes);
             if (parserConstructor == null)
             {
-                throw new NullReferenceException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no constructor without parameters");
+                throw new ArgumentException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no constructor without parameters");
             }
 
             // Find the 'Parse' method on that parser
             var parseMethod = parser.GetMethod("Parse");
             if (parseMethod == null)
             {
-                throw new NullReferenceException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no 'Parse' method");
+                throw new MissingMethodException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no 'Parse' method");
             }
 
             // Create a parser and call the 'Parse' method
