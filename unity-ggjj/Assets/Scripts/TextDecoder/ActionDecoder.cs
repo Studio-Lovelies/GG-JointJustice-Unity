@@ -45,7 +45,7 @@ public class ActionDecoder
         method.MethodInfo.Invoke(this, method.ParsedMethodParameters.ToArray());
     }
 
-    public Method GetMethod(string actionLine)
+    public static Method GetMethod(string actionLine)
     {
         actionLine = actionLine.Trim();
         const char actionSideSeparator = ':';
@@ -62,7 +62,7 @@ public class ActionDecoder
         var parameters = (actionNameAndParameters.Length == 2) ? actionNameAndParameters[1].Split(actionParameterSeparator) : Array.Empty<string>();
 
         // Find method with exact same name as action inside script
-        var methodInfo = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
+        var methodInfo = typeof(ActionDecoder).GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
         if (methodInfo == null)
         {
             throw new TextDecoder.Parser.ScriptParsingException($"DirectorActionDecoder contains no method named '{action}'");
@@ -113,7 +113,7 @@ public class ActionDecoder
             }
 
             // Construct a parser for it
-            var parser = GetType().Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
+            var parser = typeof(ActionDecoder).Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
             if (parser == null)
             {
                 throw new NullReferenceException($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");

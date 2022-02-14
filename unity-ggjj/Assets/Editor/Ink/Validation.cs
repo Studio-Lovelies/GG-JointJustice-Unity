@@ -4,33 +4,52 @@ using Ink.UnityIntegration;
 using UnityEditor;
 using UnityEngine;
 
-public class Validation : AssetPostprocessor
+namespace Editor.Ink
 {
-    private static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) {
-        foreach (var importedAssetPath in importedAssets) {
-            if (InkEditorUtils.IsInkFile(importedAssetPath))
-            {
-                ValidateNarrativeScript(importedAssetPath);
+    public class Validation : AssetPostprocessor
+    {
+        /// <summary>
+        /// Called when an Ink file is compiled after editing it
+        /// </summary>
+        private static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) {
+            foreach (var importedAssetPath in importedAssets) {
+                if (InkEditorUtils.IsInkFile(importedAssetPath))
+                {
+                    InkFile inkFile = InkLibrary.GetInkFileWithPath(importedAssetPath);
+                    ValidateNarrativeScript(inkFile);
+                }
             }
         }
-    }
 
-    private static void ValidateNarrativeScript(string importedAssetPath)
-    {
-        InkFile inkFile = InkLibrary.GetInkFileWithPath(importedAssetPath);
-        var lines = inkFile.GetFileContents().Split('\n');
-        var decoder = new ActionDecoder();
-        for (int i = 0; i < lines.Length; i++)
+        /// <summary>
+        /// Menu item to allow validation of all Ink files in the project
+        /// </summary>
+        [UnityEditor.MenuItem("Assets/Validate Narrative Scripts", false, 202)]
+        private static void ValidateAllNarrativeScripts()
         {
-            if (lines[i] != string.Empty && lines[i][0] == DialogueController.ACTION_TOKEN)
+            InkLibrary.GetMasterInkFiles().ToList().ForEach(ValidateNarrativeScript);
+        }
+
+        /// <summary>
+        /// Reads an Ink file and attempts to parse every action.
+        /// Logs any errors found to the console
+        /// </summary>
+        /// <param name="inkFile">The Ink file to read</param>
+        private static void ValidateNarrativeScript(InkFile inkFile)
+        {
+            var lines = inkFile.GetFileContents().Split('\n');
+            for (int i = 0; i < lines.Length; i++)
             {
-                try
+                if (lines[i] != string.Empty && lines[i][0] == DialogueController.ACTION_TOKEN)
                 {
-                    decoder.GetMethod(lines[i]);
-                }
-                catch (Exception exception)
-                {
-                    Debug.LogError($"Error on line {i + 1}: {exception.Message}");
+                    try
+                    {
+                        ActionDecoder.GetMethod(lines[i]);
+                    }
+                    catch (Exception exception)
+                    {
+                        Debug.LogError($"Error on line {i + 1} of {inkFile}: {exception.Message}");
+                    }
                 }
             }
         }
