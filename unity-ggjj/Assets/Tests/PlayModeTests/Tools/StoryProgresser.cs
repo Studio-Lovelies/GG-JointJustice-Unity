@@ -5,12 +5,12 @@ namespace Tests.PlayModeTests.Tools
 {
     public class StoryProgresser
     {
-        private InputTestTools _inputTestTools = new InputTestTools();
-        private DialogueController _dialogueController;
+        private readonly InputTestTools _inputTestTools = new InputTestTools();
+        private readonly AppearingDialogueController _dialogueController;
         
         public StoryProgresser()
         {
-            _dialogueController = Object.FindObjectOfType<DialogueController>();
+            _dialogueController = Object.FindObjectOfType<AppearingDialogueController>();
         }
         
         /// <summary>
@@ -19,7 +19,7 @@ namespace Tests.PlayModeTests.Tools
         public IEnumerator ProgressStory()
         {
             _inputTestTools.Press(_inputTestTools.Keyboard.xKey);
-            yield return TestTools.WaitForState(() => !_dialogueController.IsBusy);
+            yield return TestTools.WaitForState(() => !_dialogueController.IsPrintingText);
             _inputTestTools.Release(_inputTestTools.Keyboard.xKey);
         }
     }

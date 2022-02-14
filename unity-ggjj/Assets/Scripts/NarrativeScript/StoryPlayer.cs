@@ -82,7 +82,7 @@ public class StoryPlayer
     /// <param name="overridePrintingText"></param>
     public void Continue(bool overridePrintingText = false)
     {
-        if (_appearingDialogueController.PrintingText && !overridePrintingText)
+        if (_appearingDialogueController.IsPrintingText && !overridePrintingText)
         {
             return;
         }

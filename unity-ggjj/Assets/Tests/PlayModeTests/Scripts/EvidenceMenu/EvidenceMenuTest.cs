@@ -18,19 +18,21 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
+        protected StoryProgresser StoryProgresser { get; private set; }
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters());
-            
+
+            StoryProgresser = new StoryProgresser();
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
             DialogueController = Object.FindObjectOfType<global::NarrativeScriptPlayer>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu = EvidenceMenu.GetComponent<Menu>();
             CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
             var dialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
-            yield return TestTools.WaitForState(() => !dialogueController.PrintingText);
+            yield return TestTools.WaitForState(() => !dialogueController.IsPrintingText);
         }
 
         protected ActorData[] AddProfiles()

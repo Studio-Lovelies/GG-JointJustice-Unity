@@ -56,11 +56,11 @@ public class StoryPlayerTests
 
         var printingText = "";
         _appearingDialogueController.Setup(mock => mock.PrintText(TEST_LINE)).Callback<string>(line => printingText = line);
-        _appearingDialogueController.Setup(mock => mock.PrintingText).Returns(true);
+        _appearingDialogueController.Setup(mock => mock.IsPrintingText).Returns(true);
         _storyPlayer.Continue();
         Assert.AreEqual(string.Empty, printingText);
 
-        _appearingDialogueController.Setup(mock => mock.PrintingText).Returns(false);
+        _appearingDialogueController.Setup(mock => mock.IsPrintingText).Returns(false);
         _storyPlayer.Continue();
         Assert.AreEqual(TEST_LINE, printingText);
     }

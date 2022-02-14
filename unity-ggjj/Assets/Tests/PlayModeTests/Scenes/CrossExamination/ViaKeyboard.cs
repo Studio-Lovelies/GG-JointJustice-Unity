@@ -66,14 +66,14 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             yield return _inputTestTools.PressForFrame(Keyboard.xKey);
             AppearingDialogueController appearingDialogueController = TestTools.FindInactiveInScene<AppearingDialogueController>()[0];
 
-            while (appearingDialogueController.PrintingText)
+            while (appearingDialogueController.IsPrintingText)
             {
                 yield return _inputTestTools.WaitForRepaint();
             }
 
             yield return _inputTestTools.PressForFrame(Keyboard.cKey);
 
-            while (appearingDialogueController.PrintingText)
+            while (appearingDialogueController.IsPrintingText)
             {
                 yield return _inputTestTools.WaitForRepaint();
             }

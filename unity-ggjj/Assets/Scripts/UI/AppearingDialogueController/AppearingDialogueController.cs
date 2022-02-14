@@ -48,7 +48,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     public bool AppearInstantly { get; set; }
     public int MaxVisibleCharacters => _textBox.maxVisibleCharacters;
     public string Text => _textBox.GetParsedText();
-    public bool PrintingText { get; private set; }
+    public bool IsPrintingText { get; private set; }
 
     public bool TextBoxHidden
     {
@@ -111,7 +111,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         
         StopCoroutine(_printCoroutine);
         _printCoroutine = null;
-        PrintingText = false;
+        IsPrintingText = false;
     }
 
     /// <summary>
@@ -119,7 +119,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// </summary>
     private IEnumerator PrintTextCoroutine(int startingIndex)
     {
-        PrintingText = true;
+        IsPrintingText = true;
         for (int i = startingIndex; i < _textInfo.characterCount; i++)
         {
             _textBox.maxVisibleCharacters++;
@@ -135,7 +135,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             _onAutoSkip.Invoke();
         }
 
-        PrintingText = false;
+        IsPrintingText = false;
     }
 
     /// <summary>

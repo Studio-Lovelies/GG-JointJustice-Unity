@@ -42,9 +42,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator IncorrectEvidenceCanBePresented()
         {
             AddEvidence();
-            var appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
-            yield return InputTestTools.ProgressStory(appearingDialogueController);
-            yield return InputTestTools.ProgressStory(appearingDialogueController);
+            yield return StoryProgresser.ProgressStory();
+            yield return StoryProgresser.ProgressStory();
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.rightArrowKey);
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey);
             var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayer>();
@@ -55,8 +54,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator CorrectEvidenceCanBePresented()
         {
             yield return SelectEvidence("Evidence/BentCoins");
-            var appearingDialogueController= Object.FindObjectOfType<global::AppearingDialogueController>();
-            yield return InputTestTools.ProgressStory(appearingDialogueController);
+            yield return StoryProgresser.ProgressStory();
             var speechPanel = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
             Assert.IsTrue(speechPanel.text == "Correct");
         }
@@ -64,8 +62,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         private IEnumerator SelectEvidence(string evidencePath)
         {
             EvidenceController.AddEvidence(Resources.Load<Evidence>(evidencePath));
-            var appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
-            yield return TestTools.DoUntilStateIsReached(() => InputTestTools.ProgressStory(appearingDialogueController), () => EvidenceMenu.isActiveAndEnabled);
+            yield return TestTools.DoUntilStateIsReached(() => StoryProgresser.ProgressStory(), () => EvidenceMenu.isActiveAndEnabled);
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey);
         }
 

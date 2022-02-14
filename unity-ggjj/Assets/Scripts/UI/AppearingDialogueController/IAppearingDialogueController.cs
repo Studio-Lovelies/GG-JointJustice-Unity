@@ -7,7 +7,7 @@ public interface IAppearingDialogueController
     bool AutoSkip { get; set; }
     bool AppearInstantly { get; set; }
     bool TextBoxHidden { set; }
-    bool PrintingText { get; }
+    bool IsPrintingText { get; }
     
     void PrintText(string isAny);
     void StopPrintingText();
