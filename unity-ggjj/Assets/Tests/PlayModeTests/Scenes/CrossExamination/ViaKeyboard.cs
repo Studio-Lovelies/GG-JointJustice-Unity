@@ -107,6 +107,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         {
             var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
             var dialogueController = Object.FindObjectOfType<DialogueController>();
+            var storyProgresser = new StoryProgresser();
             
             for (int i = penaltyManager.PenaltiesLeft; i > 0; i--)
             {
@@ -118,7 +119,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 var subStory = Find("SubStory(Clone)");
                 while (subStory != null && penaltyManager.PenaltiesLeft > 0)
                 {
-                    yield return _inputTestTools.ProgressStory(dialogueController);
+                    yield return storyProgresser.ProgressStory();
                 }
 
                 Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);
