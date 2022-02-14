@@ -17,6 +17,12 @@ public class ActionDecoder
     public IDialogueController DialogueController { get; set; }
     public IPenaltyManager PenaltyManager { get; set; }
 
+    public struct Method
+    {
+        public MethodInfo MethodInfo;
+        public List<object> ParsedMethodParameters;
+    }
+    
     /// <summary>
     ///     Parse action lines inside from inside .ink files
     /// </summary>
@@ -34,6 +40,13 @@ public class ActionDecoder
     /// </remarks>
     public void OnNewActionLine(string actionLine)
     {
+        var method = GetMethod(actionLine);
+        // Call the method
+        method.MethodInfo.Invoke(this, method.ParsedMethodParameters.ToArray());
+    }
+
+    public Method GetMethod(string actionLine)
+    {
         actionLine = actionLine.Trim();
         const char actionSideSeparator = ':';
         const char actionParameterSeparator = ',';
@@ -49,13 +62,13 @@ public class ActionDecoder
         var parameters = (actionNameAndParameters.Length == 2) ? actionNameAndParameters[1].Split(actionParameterSeparator) : Array.Empty<string>();
 
         // Find method with exact same name as action inside script
-        var method = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
-        if (method == null)
+        var methodInfo = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
+        if (methodInfo == null)
         {
             throw new TextDecoder.Parser.ScriptParsingException($"DirectorActionDecoder contains no method named '{action}'");
         }
 
-        var methodParameters = method.GetParameters();
+        var methodParameters = methodInfo.GetParameters();
         var optionalParameters = methodParameters.Count(parameter => parameter.IsOptional);
         if (parameters.Length < (methodParameters.Length - optionalParameters) || parameters.Length > (methodParameters.Length))
         {
@@ -103,23 +116,20 @@ public class ActionDecoder
             var parser = GetType().Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
             if (parser == null)
             {
-                Debug.LogError($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
-                return;
+                throw new NullReferenceException($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
             }
 
             var parserConstructor = parser.GetConstructor(Type.EmptyTypes);
             if (parserConstructor == null)
             {
-                Debug.LogError($"TextDecoder.Parser for type {methodParameter.ParameterType} has no constructor without parameters");
-                return;
+                throw new NullReferenceException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no constructor without parameters");
             }
 
             // Find the 'Parse' method on that parser
             var parseMethod = parser.GetMethod("Parse");
             if (parseMethod == null)
             {
-                Debug.LogError($"TextDecoder.Parser for type {methodParameter.ParameterType} has no 'Parse' method");
-                return;
+                throw new NullReferenceException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no 'Parse' method");
             }
 
             // Create a parser and call the 'Parse' method
@@ -142,8 +152,10 @@ public class ActionDecoder
             parsedMethodParameters.Add(methodParameters[suppliedParameterCount].DefaultValue);
         }
 
-        // Call the method
-        method.Invoke(this, parsedMethodParameters.ToArray());
+        Method method;
+        method.MethodInfo = methodInfo;
+        method.ParsedMethodParameters = parsedMethodParameters;
+        return method;
     }
 
     // ReSharper disable InconsistentNaming
