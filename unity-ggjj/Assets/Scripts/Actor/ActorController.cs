@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ActorController : MonoBehaviour, IActorController
 {
@@ -9,10 +7,7 @@ public class ActorController : MonoBehaviour, IActorController
 
     [Tooltip("Attach the NameBox here")]
     [SerializeField] private NameBox _nameBox;
-    
-    [SerializeField] private UnityEvent _onAnimationStarted;
-    [SerializeField] private UnityEvent _onAnimationComplete;
-    
+
     private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
     private Actor _activeActor;
     private BGScene _activeScene;
@@ -217,7 +212,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         Animating = false;
         _game.NarrativeScriptPlayer.Waiting = false;
-        _onAnimationComplete.Invoke();
+        _game.NarrativeScriptPlayer.Continue();
     }
 
     /// <summary>
@@ -275,6 +270,5 @@ public class ActorController : MonoBehaviour, IActorController
         Animating = true;
         _game.NarrativeScriptPlayer.Waiting = true;
         _game.AppearingDialogueController.TextBoxHidden = true;
-        _onAnimationStarted.Invoke();
     }
 }
