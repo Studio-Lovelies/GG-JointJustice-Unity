@@ -35,7 +35,6 @@ public class ActionDecoder
     public void OnNewActionLine(string actionLine)
     {
         var method = GetMethod(actionLine);
-        // Call the method
         method.MethodInfo.Invoke(this, method.ParsedMethodParameters.ToArray());
     }
 
