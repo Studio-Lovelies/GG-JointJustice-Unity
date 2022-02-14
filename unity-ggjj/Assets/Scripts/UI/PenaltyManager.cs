@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PenaltyManager : MonoBehaviour, IPenaltyManager
 {
@@ -16,24 +15,15 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
 
     private readonly Queue<Animator> _penaltyObjects = new Queue<Animator>();
 
-    public int PenaltiesLeft => _penaltyObjects.Count;
+    public int PenaltiesLeft { get; private set; }
 
     /// <summary>
     /// Creates penalty UI objects on examination start
     /// </summary>
     public void OnCrossExaminationStart()
     {
+        ResetPenalties();
         gameObject.SetActive(true);
-        
-        if (_penaltyObjects.Count != 0)
-        {
-            return;
-        }
-        
-        for (int i = 0; i < _penaltyCount; i++)
-        {
-            _penaltyObjects.Enqueue(Instantiate(_penaltyObject, transform));
-        }
     }
 
     /// <summary>
@@ -49,12 +39,24 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     /// </summary>
     public void ResetPenalties()
     {
+        PenaltiesLeft = _penaltyCount;
         foreach (var penaltyAnimator in _penaltyObjects)
         {
             Destroy(penaltyAnimator.gameObject);
         }
         _penaltyObjects.Clear();
-        OnCrossExaminationStart();
+        CreatePenalties();
+    }
+
+    /// <summary>
+    /// Creates penalties equal to the value of _penaltyCount
+    /// </summary>
+    private void CreatePenalties()
+    {
+        for (int i = 0; i < _penaltyCount; i++)
+        {
+            _penaltyObjects.Enqueue(Instantiate(_penaltyObject, transform));
+        }
     }
 
     /// <summary>
@@ -64,6 +66,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     public void Decrement()
     {
         Debug.Assert(PenaltiesLeft > 0, "Decrement must not be called with 0 or fewer penalty lifelines left");
+        PenaltiesLeft--;
         _penaltyObjects.Dequeue().Play("Explosion");
         CheckGameOver();
     }
