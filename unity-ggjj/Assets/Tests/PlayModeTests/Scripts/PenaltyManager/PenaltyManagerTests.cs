@@ -55,8 +55,6 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
 
             yield return TestTools.DoUntilStateIsReached(() => storyProgresser.ProgressStory(), () => !narrativeScriptPlayer.HasSubStory);
-            var subStory = GameObject.Find("SubStory(Clone)");
-            yield return TestTools.DoUntilStateIsReached(() => storyProgresser.ProgressStory(), () => subStory == null);
             
             Assert.AreEqual(4, _penaltyManager.PenaltiesLeft);
             yield return _inputTestTools.PressForFrame(Keyboard.xKey);
