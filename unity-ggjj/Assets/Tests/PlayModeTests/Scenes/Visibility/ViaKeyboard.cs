@@ -19,27 +19,32 @@ namespace Tests.PlayModeTests.Scenes.VisibilityTest
             var rossSprite = TestTools.FindInactiveInSceneByName<Renderer>("Witness_Actor");
 
             yield return storyProgresser.ProgressStory();
-            
+            yield return storyProgresser.ProgressStory();
+
             Assert.IsTrue(arinSprite.enabled);
             Assert.IsTrue(rossSprite.enabled);
 
             yield return storyProgresser.ProgressStory();
-            
+            yield return storyProgresser.ProgressStory();
+
             Assert.IsTrue(arinSprite.enabled);
             Assert.IsFalse(rossSprite.enabled);
 
             yield return storyProgresser.ProgressStory();
-            
+            yield return storyProgresser.ProgressStory();
+
             Assert.IsFalse(arinSprite.enabled);
             Assert.IsFalse(rossSprite.enabled);
 
             yield return storyProgresser.ProgressStory();
-            
+            yield return storyProgresser.ProgressStory();
+
             Assert.IsFalse(arinSprite.enabled);
             Assert.IsTrue(rossSprite.enabled);
 
             yield return storyProgresser.ProgressStory();
-            
+            yield return storyProgresser.ProgressStory();
+
             Assert.IsTrue(arinSprite.enabled);
             Assert.IsTrue(rossSprite.enabled);
         }
