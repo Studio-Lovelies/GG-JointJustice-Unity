@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,17 +10,17 @@ public class ActorController : MonoBehaviour, IActorController
     [Tooltip("Attach the NameBox here")]
     [SerializeField] private NameBox _nameBox;
     
-    private Actor _activeActor;
-    private BGScene _activeScene;
-
     [SerializeField] private UnityEvent _onAnimationStarted;
     [SerializeField] private UnityEvent _onAnimationComplete;
+    
+    private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
+    private Actor _activeActor;
+    private BGScene _activeScene;
+    private Actor _currentSpeakingActor;
+    private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
 
     public bool Animating { get; set; }
-
-    private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
-    private ActorData _currentSpeakingActor;
-    private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
+    public ActorData CurrentSpeakingActorData { get; private set; }
 
     /// <summary>
     /// Connect to an event that exposes the active scene when it changes.
@@ -37,6 +38,7 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetActiveActorObject(Actor actor)
     {
         _activeActor = actor;
+        _currentSpeakingType = SpeakingType.Speaking;
         if (actor != null)
         {
             actor.AttachController(this);
@@ -55,7 +57,7 @@ public class ActorController : MonoBehaviour, IActorController
         var targetActorData = FindActorDataInInventory(actor);
         if (_activeActor != null)
         {
-            _activeActor.SetActor(targetActorData);
+            _activeActor.ActorData = targetActorData;
             SetActorInLookupTable(targetActorData, _activeActor);
         }
     }
@@ -81,10 +83,9 @@ public class ActorController : MonoBehaviour, IActorController
         {
             return _game.ObjectStorage.GetObject<ActorData>(actorName);
         }
-        catch (KeyNotFoundException exception)
+        catch (KeyNotFoundException)
         {
-            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in the actor dictionary");
-            return null;
+            throw new KeyNotFoundException($"Actor {actorName} was not found in the actor dictionary");
         }
     }
 
@@ -171,13 +172,16 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            _currentSpeakingActor = _game.ObjectStorage.GetObject<ActorData>(actorName);
-            _nameBox.SetSpeaker(_currentSpeakingActor, speakingType);
+            ActorData actorData = _game.ObjectStorage.GetObject<ActorData>(actorName);
+            _nameBox.SetSpeaker(actorData, speakingType);
+            CurrentSpeakingActorData = actorData;
+            _currentSpeakingActor = _actorDataToActor.ContainsKey(actorData) ? _actorDataToActor[actorData] : null;
+            _currentSpeakingType = speakingType;
         }
-        catch (KeyNotFoundException exception)
+        catch (KeyNotFoundException)
         {
             _currentSpeakingActor = null;
-            Debug.Log($"{exception.GetType().Name}: Actor {actorName} was not found in actor dictionary");
+            throw new KeyNotFoundException($"Actor {actorName} was not found in actor dictionary");
         }
     }
 
@@ -186,21 +190,12 @@ public class ActorController : MonoBehaviour, IActorController
     /// </summary>
     public void StartTalking()
     {
-        if (_activeActor == null)
+        if (_activeActor == null || _currentSpeakingType == SpeakingType.Thinking || _currentSpeakingActor == null)
         {
             return;
         }
 
-        if (_currentSpeakingType == SpeakingType.Thinking)
-        {
-            return;
-        }
-
-        if (_activeActor.MatchesActorData(_currentSpeakingActor))
-        {
-            _activeActor.SetTalking(true);
-        }
-
+        _currentSpeakingActor.SetTalking(true);
     }
 
     /// <summary>
@@ -226,15 +221,6 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
-    /// Sets the speaking type of the sentences shown, so the actor can react appropriately.
-    /// </summary>
-    /// <param name="speakingType">Type of speaking the next sentence is gonna be.</param>
-    public void SetSpeakingType(SpeakingType speakingType)
-    {
-        _currentSpeakingType = speakingType;
-    }
-
-    /// <summary>
     /// Sets an actor inside a slot in the scene, if the active bg-scene has support for slots.
     /// </summary>
     /// <param name="actor">Target actor</param>
@@ -257,14 +243,15 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
+
             var actorData = _game.ObjectStorage.GetObject<ActorData>(actor);
-            tempActor.SetActor(actorData);
+            tempActor.ActorData = actorData;
             SetActorInLookupTable(actorData, tempActor);
         }
-        catch (KeyNotFoundException exception)
+        catch (KeyNotFoundException)
         {
-            tempActor.SetActor(null);
-            Debug.Log($"{exception.GetType().Name}: Actor {actor} was not found in actor dictionary");
+            tempActor.ActorData = null;
+            throw new KeyNotFoundException($"Actor {actor} was not found in actor dictionary");
         }
     }
 

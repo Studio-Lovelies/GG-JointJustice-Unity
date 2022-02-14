@@ -124,16 +124,5 @@ namespace Tests.PlayModeTests.Tools
             yield return SetMousePositionWorldSpace(position);
             yield return PressForFrame(Mouse.leftButton);
         }
-
-        /// <summary>
-        /// Holds the X Key until a DialogueController is not busy
-        /// </summary>
-        /// <param name="appearingDialogueController">The AppearingDialogueController to wait for</param>
-        public IEnumerator ProgressStory(AppearingDialogueController appearingDialogueController)
-        {
-            Press(Keyboard.xKey);
-            yield return TestTools.WaitForState(() => !appearingDialogueController.PrintingText);
-            Release(Keyboard.xKey);
-        }
     }
 }

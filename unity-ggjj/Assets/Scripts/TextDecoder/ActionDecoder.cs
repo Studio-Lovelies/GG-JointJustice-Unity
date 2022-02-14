@@ -401,7 +401,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     protected override void SPEAK(ActorAssetName actorName)
     {
-        SetSpeaker(actorName, SpeakingType.Speaking);
+        ActorController.SetActiveSpeaker(actorName, SpeakingType.Speaking);
         OnActionDone?.Invoke();
     }
 
@@ -411,7 +411,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     protected override void THINK(ActorAssetName actorName)
     {
-        SetSpeaker(actorName, SpeakingType.Thinking);
+        ActorController.SetActiveSpeaker(actorName, SpeakingType.Thinking);
         OnActionDone?.Invoke();
     }
 
@@ -421,7 +421,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     protected override void SPEAK_UNKNOWN(ActorAssetName actorName)
     {
-        SetSpeaker(actorName, SpeakingType.SpeakingWithUnknownName);
+        ActorController.SetActiveSpeaker(actorName, SpeakingType.SpeakingWithUnknownName);
         OnActionDone?.Invoke();
     }
 
@@ -431,14 +431,7 @@ public class ActionDecoder : ActionDecoderBase
     private void NARRATE()
     {
         ActorController.SetActiveSpeakerToNarrator();
-        ActorController.SetSpeakingType(SpeakingType.Speaking);
         OnActionDone?.Invoke();
-    }
-
-    private void SetSpeaker(ActorAssetName actorName, SpeakingType speakingType)
-    {
-        ActorController.SetActiveSpeaker(actorName, speakingType);
-        ActorController.SetSpeakingType(speakingType);
     }
 
     /// <summary>Makes the currently shown actor switch to target pose. Plays any animation associated with target pose / emotion, but doesn't wait until it is finished before continuing.</summary>

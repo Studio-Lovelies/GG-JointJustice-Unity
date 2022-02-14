@@ -97,6 +97,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         {
             var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
             var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
+            var storyProgresser = new StoryProgresser();
             
             for (int i = penaltyManager.PenaltiesLeft; i > 0; i--)
             {
@@ -107,7 +108,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
                 while (_narrativeScriptPlayer.HasSubStory && penaltyManager.PenaltiesLeft > 0)
                 {
-                    yield return _inputTestTools.ProgressStory(appearingDialogueController);
+                    yield return storyProgresser.ProgressStory();
                 }
 
                 Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);

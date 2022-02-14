@@ -15,7 +15,6 @@ public interface IActorController
     void StartTalking();
     void StopTalking();
     void OnAnimationDone();
-    void SetSpeakingType(SpeakingType speakingType);
     void AssignActorToSlot(string actor, int oneBasedSlotIndex);
     void SetVisibility(string actorName, bool shouldShow);
     void SetActiveActorObject(Actor activeSceneActiveActor);
