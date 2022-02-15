@@ -12,12 +12,14 @@ namespace Editor.Ink
         /// Called when an Ink file is compiled after editing it
         /// </summary>
         private static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) {
-            foreach (var importedAssetPath in importedAssets) {
-                if (InkEditorUtils.IsInkFile(importedAssetPath))
+            foreach (var importedAssetPath in importedAssets)
+            {
+                if (!InkEditorUtils.IsInkFile(importedAssetPath))
                 {
-                    InkFile inkFile = InkLibrary.GetInkFileWithPath(importedAssetPath);
-                    ValidateNarrativeScript(inkFile);
+                    continue;
                 }
+                var inkFile = InkLibrary.GetInkFileWithPath(importedAssetPath);
+                ValidateNarrativeScript(inkFile);
             }
         }
 
@@ -38,18 +40,20 @@ namespace Editor.Ink
         private static void ValidateNarrativeScript(InkFile inkFile)
         {
             var lines = inkFile.GetFileContents().Split('\n');
-            for (int i = 0; i < lines.Length; i++)
+            for (var i = 0; i < lines.Length; i++)
             {
-                if (lines[i] != string.Empty && lines[i][0] == DialogueController.ACTION_TOKEN)
+                if (lines[i] == string.Empty || lines[i][0] != DialogueController.ACTION_TOKEN)
                 {
-                    try
-                    {
-                        ActionDecoder.GenerateInvocationDetails(lines[i]);
-                    }
-                    catch (Exception exception)
-                    {
-                        Debug.LogError($"Error on line {i + 1} of {inkFile}: {exception.Message}");
-                    }
+                    continue;
+                }
+                
+                try
+                {
+                    ActionDecoder.GenerateInvocationDetails(lines[i]);
+                }
+                catch (Exception exception)
+                {
+                    Debug.LogError($"Error on line {i + 1} of {inkFile}: {exception.Message}");
                 }
             }
         }
