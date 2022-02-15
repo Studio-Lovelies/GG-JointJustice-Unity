@@ -18,7 +18,7 @@ public class ActionDecoder
     public IPenaltyManager PenaltyManager { get; set; }
 
     /// <summary>
-    ///     Parse action lines inside from inside .ink files
+    ///     Parse action lines inside .ink files
     /// </summary>
     /// <param name="actionLine">Line of a .ink file that starts with &amp; (and thereby is not a "spoken dialogue" line)</param>
     /// <remarks>
@@ -26,11 +26,9 @@ public class ActionDecoder
     ///     <code>
     ///     &amp;{methodName}:{parameter1},{parameter2},...
     ///     </code>
-    ///     This method is responsible for:
-    ///         1. Finding a method inside this class, matching `methodName`
-    ///         2. Verifying the amount of parameters matches the amount of parameters needed in the method
-    ///         3. Attempting to parse each parameter into the correct type using <see cref="Parser&lt;T&gt;"/> of the type
-    ///         4. Invoking the method with the parsed parameters
+    ///     This method is responsible for...
+    ///         1. Getting a method using the GetMethod method
+    ///         2. Invoking that method with its parsed method parameters
     /// </remarks>
     public void OnNewActionLine(string actionLine)
     {
@@ -38,6 +36,14 @@ public class ActionDecoder
         method.MethodInfo.Invoke(this, method.ParsedMethodParameters.ToArray());
     }
 
+    /// <summary>
+    /// This method is responsible for:
+    ///     1. Finding a method inside this class, matching `methodName`
+    ///     2. Verifying the amount of parameters matches the amount of parameters needed in the method
+    ///     3. Attempting to parse each parameter into the correct type using <see cref="Parser&lt;T&gt;"/> of the type
+    /// </summary>
+    /// <param name="actionLine">The action line to parse</param>
+    /// <returns>A Method object with details of the found method</returns>
     public static Method GetMethod(string actionLine)
     {
         actionLine = actionLine.Trim();
