@@ -154,7 +154,7 @@ public class ActionDecoder
         return new InvocationDetails
         {
             MethodInfo = methodInfo,
-            ParsedMethodParameters = parsedMethodParameters;
+            ParsedMethodParameters = parsedMethodParameters
         };
     }
 
