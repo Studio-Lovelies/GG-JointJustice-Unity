@@ -14,12 +14,12 @@ Watch this!
 &EMOTION:Normal
 &WAIT:1
 
-&ACTOR:Jory
+&ACTOR:Jory,Test
 &SPEAK:Jory
 &EMOTION:Sweaty
 Wow that was very impressive Dan!
 
-&ACTOR:Dan
+&ACTOR:Dan:
 &SPEAK:Dan
 &EMOTION:Lean
 Thank you 
