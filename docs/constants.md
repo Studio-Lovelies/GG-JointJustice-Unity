@@ -118,6 +118,7 @@
 
 ## SceneAssetName
   - BaseScene
+  - Credits
   - MainMenu
   - Splash
 
