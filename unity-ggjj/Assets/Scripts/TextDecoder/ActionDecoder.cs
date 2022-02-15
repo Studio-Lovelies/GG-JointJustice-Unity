@@ -27,12 +27,12 @@ public class ActionDecoder
     ///     &amp;{methodName}:{parameter1},{parameter2},...
     ///     </code>
     ///     This method is responsible for...
-    ///         1. Getting a method details using the GetMethod method
-    ///         2. Invoking that method with its parsed method parameters
+    ///         1. Getting method details using the GenerateInvocationDetails method
+    ///         2. Invoking the found method with its parsed method parameters
     /// </remarks>
     public void OnNewActionLine(string actionLine)
     {
-        var method = GetMethod(actionLine);
+        var method = GenerateInvocationDetails(actionLine);
         method.MethodInfo.Invoke(this, method.ParsedMethodParameters.ToArray());
     }
 
@@ -44,7 +44,7 @@ public class ActionDecoder
     /// </summary>
     /// <param name="actionLine">The action line to parse</param>
     /// <returns>An InvocationDetails with details of the found method and its parameters</returns>
-    public static InvocationDetails GetMethod(string actionLine)
+    public static InvocationDetails GenerateInvocationDetails(string actionLine)
     {
         actionLine = actionLine.Trim();
         const char actionSideSeparator = ':';

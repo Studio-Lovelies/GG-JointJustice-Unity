@@ -44,7 +44,7 @@ namespace Editor.Ink
                 {
                     try
                     {
-                        ActionDecoder.GetMethod(lines[i]);
+                        ActionDecoder.GenerateInvocationDetails(lines[i]);
                     }
                     catch (Exception exception)
                     {
