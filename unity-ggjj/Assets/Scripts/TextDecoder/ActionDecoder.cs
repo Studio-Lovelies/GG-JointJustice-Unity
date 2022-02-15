@@ -30,7 +30,7 @@ public class ActionDecoder
     ///         1. Getting method details using the GenerateInvocationDetails method
     ///         2. Invoking the found method with its parsed method parameters
     /// </remarks>
-    public void OnNewActionLine(string actionLine)
+    public void InvokeMatchingMethod(string actionLine)
     {
         var method = GenerateInvocationDetails(actionLine);
         method.MethodInfo.Invoke(this, method.ParsedMethodParameters.ToArray());

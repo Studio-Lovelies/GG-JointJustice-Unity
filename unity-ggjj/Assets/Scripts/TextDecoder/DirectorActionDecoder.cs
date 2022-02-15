@@ -24,7 +24,7 @@ public class DirectorActionDecoder : MonoBehaviour
     {
         try
         {
-            Decoder.OnNewActionLine(line);
+            Decoder.InvokeMatchingMethod(line);
         }
         catch (TextDecoder.Parser.ScriptParsingException exception)
         {

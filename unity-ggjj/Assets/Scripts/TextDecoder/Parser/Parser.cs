@@ -3,7 +3,7 @@ namespace TextDecoder.Parser
     /// <summary>
     ///     Base class responsible for parsing parameters from .ink files
     /// </summary>
-    /// <see cref="ActionDecoder.OnNewActionLine" />
+    /// <see cref="ActionDecoder.InvokeMatchingMethod" />
     /// <typeparam name="T">The type handled in a parser derivative</typeparam>
     public abstract class Parser<T>
     {
