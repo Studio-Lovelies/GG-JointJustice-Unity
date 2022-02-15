@@ -27,7 +27,7 @@ public class ActionDecoder
     ///     &amp;{methodName}:{parameter1},{parameter2},...
     ///     </code>
     ///     This method is responsible for...
-    ///         1. Getting a method using the GetMethod method
+    ///         1. Getting a method details using the GetMethod method
     ///         2. Invoking that method with its parsed method parameters
     /// </remarks>
     public void OnNewActionLine(string actionLine)
@@ -43,8 +43,8 @@ public class ActionDecoder
     ///     3. Attempting to parse each parameter into the correct type using <see cref="Parser&lt;T&gt;"/> of the type
     /// </summary>
     /// <param name="actionLine">The action line to parse</param>
-    /// <returns>A Method object with details of the found method</returns>
-    public static Method GetMethod(string actionLine)
+    /// <returns>An InvocationDetails with details of the found method and its parameters</returns>
+    public static InvocationDetails GetMethod(string actionLine)
     {
         actionLine = actionLine.Trim();
         const char actionSideSeparator = ':';
@@ -151,10 +151,10 @@ public class ActionDecoder
             parsedMethodParameters.Add(methodParameters[suppliedParameterCount].DefaultValue);
         }
 
-        Method method;
-        method.MethodInfo = methodInfo;
-        method.ParsedMethodParameters = parsedMethodParameters;
-        return method;
+        InvocationDetails invocationDetails;
+        invocationDetails.MethodInfo = methodInfo;
+        invocationDetails.ParsedMethodParameters = parsedMethodParameters;
+        return invocationDetails;
     }
 
     // ReSharper disable InconsistentNaming
