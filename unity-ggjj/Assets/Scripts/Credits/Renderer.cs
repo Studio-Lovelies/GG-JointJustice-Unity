@@ -11,9 +11,9 @@ namespace Credits
 
         public GameObject textPrefab;
         public GameObject imagePrefab;
-        private const int yOffsetPerLineAt720p = 64;
+        private const int Y_OFFSET_PER_LINE_AT720_P = 64;
 
-        private float yOffsetPerLineAtCurrentResolution => yOffsetPerLineAt720p / 720f * Screen.height;
+        private static float YOffsetPerLineAtCurrentResolution => Y_OFFSET_PER_LINE_AT720_P / 720f * Screen.height;
         public void Start()
         {
             var linesAsGameObjects= Credits.Generator.GenerateFromMarkdown(sourceTextAsset.text).Select((renderable) => {
@@ -37,7 +37,7 @@ namespace Credits
             {
                 var rectTransform = linesAsGameObjects[i].GetComponent<RectTransform>();
                 rectTransform.SetParent(transform);
-                rectTransform.position -= new Vector3(0, yOffsetPerLineAtCurrentResolution * i, 0);
+                rectTransform.position -= new Vector3(0, YOffsetPerLineAtCurrentResolution * i, 0);
             }
         }
     }

@@ -9,7 +9,7 @@ namespace Credits.Renderables
     [DebuggerDisplay("[txt] h{style.heading}: '{text}'")]
     public class StyledString : IRenderable
     {
-        private readonly static int[] sizeAt720pForHeading = new int[]{48,64};
+        private static readonly int[] SizeAt720PForHeading = {48,64};
 
         public class Style
         {
@@ -38,7 +38,7 @@ namespace Credits.Renderables
         public Style style;
         public GameObject Render(GameObject prefab)
         {
-            if (sizeAt720pForHeading.Length <= style.heading)
+            if (SizeAt720PForHeading.Length <= style.heading)
             {
                 throw new IndexOutOfRangeException($"Size for text of heading '{style.heading}' isn't defined");
             }
@@ -46,7 +46,7 @@ namespace Credits.Renderables
             var instance = Object.Instantiate(prefab);
             var rectTransform = instance.GetComponent<RectTransform>();
             var textMeshComponent = instance.GetComponent<TextMeshProUGUI>();
-            textMeshComponent.fontSize = sizeAt720pForHeading[style.heading] / 720f * Screen.height;
+            textMeshComponent.fontSize = SizeAt720PForHeading[style.heading] / 720f * Screen.height;
             textMeshComponent.text = text;
             rectTransform.sizeDelta = new Vector3(Screen.width, textMeshComponent.fontSize, 0);
             return instance;
