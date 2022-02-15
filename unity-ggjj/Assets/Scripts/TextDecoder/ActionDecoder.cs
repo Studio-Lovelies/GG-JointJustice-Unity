@@ -151,10 +151,11 @@ public class ActionDecoder
             parsedMethodParameters.Add(methodParameters[suppliedParameterCount].DefaultValue);
         }
 
-        InvocationDetails invocationDetails;
-        invocationDetails.MethodInfo = methodInfo;
-        invocationDetails.ParsedMethodParameters = parsedMethodParameters;
-        return invocationDetails;
+        return new InvocationDetails
+        {
+            MethodInfo = methodInfo,
+            ParsedMethodParameters = parsedMethodParameters;
+        };
     }
 
     // ReSharper disable InconsistentNaming
