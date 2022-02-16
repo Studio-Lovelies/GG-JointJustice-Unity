@@ -204,6 +204,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 3677055759813406900, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _chirpEveryNthLetter
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3697150471741588061, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
