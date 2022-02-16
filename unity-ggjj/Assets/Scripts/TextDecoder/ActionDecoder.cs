@@ -372,7 +372,7 @@ public class ActionDecoder
     }
 
     /// <summary>Sets the scene. If an actor was already attached to target scene, it will show up as well.</summary>
-    /// <param name="sceneName" validFiles="Assets/Scenes/*.unity">Name of a scene</param>
+    /// <param name="sceneName" validFiles="Assets/Resources/BGScenes/*.prefab">Name of a scene</param>
     /// <example>&amp;SCENE:TMPH_Court</example>
     /// <category>Scene</category>
     private void SCENE(SceneAssetName sceneName)
