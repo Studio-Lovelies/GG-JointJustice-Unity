@@ -33,7 +33,7 @@ public class ActionDecoderEnumTests
         const string lineToParse = " &SHOW_ITEM:A,Left \n\n\n";
         const string logMessage = "Attempting to parse:\n" + lineToParse;
         Debug.Log(logMessage);
-        Assert.DoesNotThrow(() => { decoder.OnNewActionLine(lineToParse); });
+        Assert.DoesNotThrow(() => { decoder.InvokeMatchingMethod(lineToParse); });
 
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
@@ -52,7 +52,7 @@ public class ActionDecoderEnumTests
         const string lineToParse = " &SHOW_ITEM:a,Lleft \n\n\n";
         const string logMessage = "Attempting to parse:\n" + lineToParse;
         Debug.Log(logMessage);
-        Assert.Throws<ScriptParsingException>(() => { decoder.OnNewActionLine(lineToParse); }, "'Lleft' is incorrect as parameter #2 (itemPos) for action 'SHOW_ITEM': Cannot convert 'Lleft' into an ItemDisplayPosition (valid values include: 'Left, Right, Middle')");
+        Assert.Throws<ScriptParsingException>(() => { decoder.InvokeMatchingMethod(lineToParse); }, "'Lleft' is incorrect as parameter #2 (itemPos) for action 'SHOW_ITEM': Cannot convert 'Lleft' into an ItemDisplayPosition (valid values include: 'Left, Right, Middle')");
 
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();

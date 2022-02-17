@@ -176,7 +176,7 @@ public class ActionDecoderTests
         var lineToParse = $"&{methodName}{(validParametersForMethod.Any()?":":"")}{string.Join(",", validParametersForMethod)}";
         Debug.Log("Attempting to parse:\n" + lineToParse);
         Assert.DoesNotThrow(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         });
     }
 
@@ -192,7 +192,7 @@ public class ActionDecoderTests
         var lineToParse = $"&{methodName}{(validParametersForMethod.Any() ? ":" : "")}{string.Join(",", validParametersForMethod)}";
         Debug.Log("Attempting to parse:\n" + lineToParse);
         Assert.DoesNotThrow(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         });
     }
 
@@ -208,7 +208,7 @@ public class ActionDecoderTests
         var lineToParse = $"&{methodName}:{string.Join(",", validParametersPlusSuperfluousArgumentForMethod)}";
         Debug.Log("Attempting to parse:\n"+lineToParse);
         Assert.Throws<ScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         }, $"'{methodName}' requires exactly {validParametersPlusSuperfluousArgumentForMethod.Count-1} parameters (has {validParametersPlusSuperfluousArgumentForMethod.Count} instead)");
     }
 
@@ -224,7 +224,7 @@ public class ActionDecoderTests
         var lineToParse = $"&{methodName}{(generatedParameters.Count > 1 ? ":" : "")}{string.Join(",", string.Join(",", generatedParameters.Skip(1)))}";
         Debug.Log("Attempting to parse:\n"+lineToParse);
         Assert.Throws<ScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         }, $"'{methodName}' requires exactly {generatedParameters.Count + 1} parameters (has {generatedParameters.Count} instead)");
     }
 
@@ -246,7 +246,7 @@ public class ActionDecoderTests
         var lineToParse = $"&{methodName}{(generatedParameters.Any() ? ":" : "")}{string.Join(",", generatedParameters)}";
         Debug.Log("Attempting to parse:\n"+lineToParse);
         var thrownException = Assert.Throws<ScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         });
         StringAssert.Contains("is incorrect as parameter", thrownException.Message);
     }
@@ -259,7 +259,7 @@ public class ActionDecoderTests
         var lineToParse = $"&METHODNAME:PARAMETER:INVALID";
         Debug.Log("Attempting to parse:\n" + lineToParse);
         Assert.Throws<ScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         }, $"More than one ':' detected in line '{lineToParse}");
     }
 
@@ -274,7 +274,7 @@ public class ActionDecoderTests
         var lineToParse = " &SCENE:NewScene \n\n\n";
         var logMessage = "Attempting to parse:\n" + lineToParse;
         Debug.Log(logMessage);
-        Assert.DoesNotThrow(() => { decoder.OnNewActionLine(lineToParse); });
+        Assert.DoesNotThrow(() => { decoder.InvokeMatchingMethod(lineToParse); });
 
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();

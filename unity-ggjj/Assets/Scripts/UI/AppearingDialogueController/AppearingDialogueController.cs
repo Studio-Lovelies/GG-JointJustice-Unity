@@ -33,6 +33,11 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Add an AudioClip for the default dialogue chirp here")]
     [SerializeField] private AudioClip _defaultDialogueChirpSfx;
     
+    [Range(1, 10)]
+    [Tooltip("Specify how often a chirp should play here")]
+    [SerializeField] private int _chirpEveryNthLetter = 1;
+
+    
     [field:Header("Events")]
     [field:SerializeField] public UnityEvent OnLineEnd { get; private set; }
     [SerializeField] private UnityEvent _onAutoSkip;
@@ -40,6 +45,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
     private TMP_TextInfo _textInfo;
     private Coroutine _printCoroutine;
+    private int _chirpIndex;
 
     public float SpeedMultiplier { get; set; } = 1;
     public bool SkippingDisabled { get; set; }
@@ -125,7 +131,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             _textBox.maxVisibleCharacters++;
             _onLetterAppear.Invoke();
             var currentCharacterInfo = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1];
-            PlayDialogueChirp(_namebox.CurrentActorDialogueChirp, currentCharacterInfo);
+            TryPlayDialogueChirp(_namebox.CurrentActorDialogueChirp, currentCharacterInfo);
             yield return new WaitForSeconds(GetDelay(currentCharacterInfo));
         }
         EndLine();
@@ -139,14 +145,18 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     }
 
     /// <summary>
-    /// Play dialogue chirp sound effect for current actor, if it exists
+    /// Increment the chirp index and try to play dialogue chirp sound effect for current actor
+    /// - If no chirp is specified, we will play the default chirp.
+    /// - If the chirp index is not evenly divided by `_chirpEveryNthLetter` then we play no sound.
+    /// - If the character is treated as punctuation, the chirp index is reset
     /// </summary>
     /// <param name="currentActorChirp">Speaker actor's dialogue chirp</param>
     /// <param name="characterInfo">CharacterInfo for the character to play chirp on (skipped if punctuation or ignored)</param>
-    private void PlayDialogueChirp(AudioClip currentActorChirp, TMP_CharacterInfo characterInfo)
+    private void TryPlayDialogueChirp(AudioClip currentActorChirp, TMP_CharacterInfo characterInfo)
     {
         if (CharShouldBeTreatedAsPunctuation(characterInfo))
         {
+            _chirpIndex = 0;
             return;
         }
         
@@ -155,7 +165,13 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             resultChirp = _defaultDialogueChirpSfx;
         }
-        _game.Audio.PlaySfx(resultChirp);
+        
+        if (_chirpIndex % _chirpEveryNthLetter == 0)
+        {
+            _game.Audio.PlaySfx(resultChirp);
+        }
+        
+        _chirpIndex++;
     }
 
     /// <summary>
