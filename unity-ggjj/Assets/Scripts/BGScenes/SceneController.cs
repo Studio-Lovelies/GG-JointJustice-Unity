@@ -170,15 +170,14 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="item">The name of the item to show.</param>
     /// <param name="position">The position of the item's image on the screen (left, middle, right).</param>
-    public void ShowItem(string item, ItemDisplayPosition position)
+    public void ShowItem(ICourtRecordObject item, ItemDisplayPosition position)
     {
         if (_itemDisplay == null)
         {
             Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
-
-        Evidence evidence = _game.ObjectStorage.GetObject<Evidence>(item);
-        _itemDisplay.ShowItem(evidence.Icon, position);
+        
+        _itemDisplay.ShowItem(item.Icon, position);
     }
 
     /// <summary>

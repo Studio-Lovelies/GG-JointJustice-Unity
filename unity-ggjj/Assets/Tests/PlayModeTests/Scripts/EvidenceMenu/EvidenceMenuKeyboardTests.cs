@@ -140,7 +140,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
             for (var i = 0; i < evidence.Length / 2; i++)
             {
-                EvidenceController.SubstituteEvidence(EvidenceController.CurrentEvidence[i].name, EvidenceController.CurrentEvidence[evidence.Length - 1 - i].name);
+                EvidenceController.SubstituteEvidence(EvidenceController.CurrentEvidence[i].name, EvidenceController.CurrentEvidence[evidence.Length - 1 - i]);
                 Assert.AreEqual(evidence[evidence.Length - 1 - i], EvidenceController.CurrentEvidence[i]); 
             }
 

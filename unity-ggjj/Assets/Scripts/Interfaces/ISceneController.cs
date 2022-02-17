@@ -19,7 +19,7 @@ public interface ISceneController
     void PanCamera(float seconds, Vector2Int finalPosition, bool isBlocking = false);
     void PanToActorSlot(int oneBasedSlotIndex, float seconds);
     void JumpToActorSlot(int oneBasedSlotIndex);
-    void ShowItem(string item, ItemDisplayPosition position);
+    void ShowItem(ICourtRecordObject item, ItemDisplayPosition position);
     void Wait(float seconds);
     void HideItem();
     void PlayAnimation(string animationName);

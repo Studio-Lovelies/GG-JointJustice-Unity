@@ -14,17 +14,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     public List<ActorData> CurrentProfiles { get; } = new List<ActorData>();
 
     /// <summary>
-    /// Adds a piece of evidence to the evidence menu. Gets an Evidence object
-    /// from _masterEvidenceDictionary and adds it to _currentEvidenceDictionary
-    /// </summary>
-    /// <param name="evidenceName">The name of the evidence to add.</param>
-    public void AddEvidence(string evidenceName)
-    {
-        CurrentEvidence.Add(_game.ObjectStorage.GetObject<Evidence>(evidenceName));
-    }
-
-    /// <summary>
-    /// Overload which allows evidence to be added using a direct reference.
+    /// Adds a piece of evidence to the evidence menu.
     /// </summary>
     /// <param name="evidence">The evidence to add.</param>
     public void AddEvidence(Evidence evidence)
@@ -44,19 +34,10 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <summary>
     /// Adds an actor to the court record.
     /// </summary>
-    /// <param name="actorName">The name of the actor to add.</param>
-    public void AddToCourtRecord(string actorName)
+    /// <param name="actor">The actor to add.</param>
+    public void AddToCourtRecord(ActorData actor)
     {
-        CurrentProfiles.Add(_game.ObjectStorage.GetObject<ActorData>(actorName));
-    }
-    
-    /// <summary>
-    /// Overload which allows profiles to be added using a direct reference.
-    /// </summary>
-    /// <param name="actorData">The ActorData to add.</param>
-    public void AddToCourtRecord(ActorData actorData)
-    {
-        CurrentProfiles.Add(actorData);
+        CurrentProfiles.Add(actor);
     }
 
     /// <summary>
@@ -72,11 +53,10 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// Substitutes a piece of evidence with its assigned alternate evidence.
     /// </summary>
     /// <param name="initialEvidenceName">The name of the currently present evidence to be substituted</param>
-    /// <param name="substituteEvidenceName">The name of the evidence to substitute <see cref="initialEvidenceName"/> with</param>
-    public void SubstituteEvidence(string initialEvidenceName, string substituteEvidenceName)
+    /// <param name="substituteEvidence">The evidence to substitute <see cref="initialEvidence"/> with</param>
+    public void SubstituteEvidence(string initialEvidenceName, Evidence substituteEvidence)
     {
         var initialEvidenceIndex = CurrentEvidence.FindIndex(evidence => evidence.name == initialEvidenceName);
-        var substituteEvidence = _game.ObjectStorage.GetObject<Evidence>(substituteEvidenceName);
         CurrentEvidence[initialEvidenceIndex] = substituteEvidence;
     }
 }

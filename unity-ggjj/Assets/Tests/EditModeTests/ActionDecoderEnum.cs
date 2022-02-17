@@ -27,7 +27,7 @@ public class ActionDecoderEnumTests
     {
         ActionDecoder decoder = CreateMockedActionDecoder();
         Mock<ISceneController> sceneControllerMock = new Moq.Mock<ISceneController>();
-        sceneControllerMock.Setup(controller => controller.ShowItem("A", ItemDisplayPosition.Left));
+        sceneControllerMock.Setup(controller => controller.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left));
         decoder.SceneController = sceneControllerMock.Object;
 
         const string lineToParse = " &SHOW_ITEM:A,Left \n\n\n";
@@ -38,7 +38,7 @@ public class ActionDecoderEnumTests
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
 
-        sceneControllerMock.Verify(controller => controller.ShowItem("A", ItemDisplayPosition.Left), Times.Once);
+        sceneControllerMock.Verify(controller => controller.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left), Times.Once);
     }
 
     [Test]
@@ -46,7 +46,7 @@ public class ActionDecoderEnumTests
     {
         ActionDecoder decoder = CreateMockedActionDecoder();
         Mock<ISceneController> sceneControllerMock = new Moq.Mock<ISceneController>();
-        sceneControllerMock.Setup(controller => controller.ShowItem("a", ItemDisplayPosition.Left));
+        sceneControllerMock.Setup(controller => controller.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left));
         decoder.SceneController = sceneControllerMock.Object;
 
         const string lineToParse = " &SHOW_ITEM:a,Lleft \n\n\n";
@@ -57,7 +57,7 @@ public class ActionDecoderEnumTests
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
 
-        sceneControllerMock.Verify(controller => controller.ShowItem("a", ItemDisplayPosition.Left), Times.Never);
+        sceneControllerMock.Verify(controller => controller.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left), Times.Never);
     }
 
 }

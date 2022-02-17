@@ -17,6 +17,8 @@ public class ActionDecoder : ActionDecoderBase
     public IPenaltyManager PenaltyManager { get; set; }
     public INarrativeScriptPlayer NarrativeScriptPlayer { get; set; }
 
+    private IObjectStorage ObjectStorage => NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
+    
     /// <summary>
     ///     Parse action lines inside .ink files
     /// </summary>
@@ -243,7 +245,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     protected override void ADD_EVIDENCE(EvidenceAssetName evidence)
     {
-        EvidenceController.AddEvidence(evidence);
+        EvidenceController.AddEvidence(ObjectStorage.GetObject<Evidence>(evidence));
         OnActionDone?.Invoke();
     }
 
@@ -263,7 +265,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     protected override void ADD_RECORD(ActorAssetName actorName)
     {
-        EvidenceController.AddToCourtRecord(actorName);
+        EvidenceController.AddToCourtRecord(ObjectStorage.GetObject<ActorData>(actorName));
         OnActionDone?.Invoke();
     }
 
@@ -283,7 +285,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     private void SUBSTITUTE_EVIDENCE(EvidenceAssetName initialEvidenceName, EvidenceAssetName substituteEvidenceName)
     {
-        EvidenceController.SubstituteEvidence(initialEvidenceName, substituteEvidenceName);
+        EvidenceController.SubstituteEvidence(initialEvidenceName, ObjectStorage.GetObject<Evidence>(substituteEvidenceName));
         OnActionDone?.Invoke();
     }
     #endregion
@@ -295,7 +297,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Audio</category>
     protected override void PLAY_SFX(SfxAssetName sfx)
     {
-        AudioController.PlaySfx(sfx);
+        AudioController.PlaySfx(ObjectStorage.GetObject<AudioClip>(sfx));
         OnActionDone?.Invoke();
     }
 
@@ -305,7 +307,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Audio</category>
     protected override void PLAY_SONG(SongAssetName songName)
     {
-        AudioController.PlaySong(songName);
+        AudioController.PlaySong(ObjectStorage.GetObject<AudioClip>(songName));
         OnActionDone?.Invoke();
     }
 
@@ -388,7 +390,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     protected override void SHOW_ITEM(EvidenceAssetName evidence, ItemDisplayPosition itemPos)
     {
-        SceneController.ShowItem(evidence, itemPos);
+        SceneController.ShowItem(ObjectStorage.GetObject<ICourtRecordObject>(evidence), itemPos);
         OnActionDone?.Invoke();
     }
 
@@ -532,7 +534,6 @@ public class ActionDecoder : ActionDecoderBase
     private void SHOW_ACTOR(ActorAssetName actorName, bool shouldShow)
     {
         ActorController.SetVisibility(actorName, shouldShow);
-
         OnActionDone?.Invoke();
     }
 

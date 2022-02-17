@@ -5,9 +5,9 @@ public interface IEvidenceController
     List<ActorData> CurrentProfiles { get; }
     List<Evidence> CurrentEvidence { get; }
 
-    void AddEvidence(string evidenceName);
+    void AddEvidence(Evidence evidence);
     void RemoveEvidence(string evidenceName);
-    void AddToCourtRecord(string actorName);
+    void AddToCourtRecord(ActorData actor);
     void RequirePresentEvidence();
-    void SubstituteEvidence(string initialEvidenceName, string substituteEvidenceName);
+    void SubstituteEvidence(string initialEvidenceName, Evidence substituteEvidence);
 }

@@ -4,6 +4,6 @@ public interface IAudioController
 {
     void PlaySfx(string sfx);
     void PlaySfx(AudioClip sfx);
-    void PlaySong(string songName);
+    void PlaySong(AudioClip song);
     void StopSong();
 }
