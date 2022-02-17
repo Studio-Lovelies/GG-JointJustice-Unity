@@ -75,7 +75,7 @@ public class UnityInputSystemInterface : MonoBehaviour, Controls.IUIActions
     void Controls.IUIActions.OnDirectionalButtons(InputAction.CallbackContext context)
     {
         var value = context.ReadValue<Vector2>();
-        if (context.performed && value != Vector2.zero)
+        if (context.started)
         {
             _onDirectionalButtons.Invoke(value);
         }
