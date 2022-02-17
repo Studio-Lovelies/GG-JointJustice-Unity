@@ -34,7 +34,7 @@ public class Menu : MonoBehaviour
     /// <summary>
     /// If set, selects an initial button other than the first one in the hierarchy.
     /// </summary>
-    public void SelectInitialButton()
+    public void SelectInitialButton(bool shouldIgnoreNextSelectEvent = false)
     {
         if (_initiallyHighlightedButton == null || !_initiallyHighlightedButton.isActiveAndEnabled)
         {
@@ -64,6 +64,10 @@ public class Menu : MonoBehaviour
         }
         
         EventSystem.current.SetSelectedGameObject(null); // Select event is not called if selecting the game object that is already selected
+        if (shouldIgnoreNextSelectEvent)
+        {
+            _initiallyHighlightedButton.GetComponent<MenuItem>().ShouldIgnoreNextSelectEvent = true;
+        }
         _initiallyHighlightedButton.Select();
     }
 
