@@ -37,6 +37,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Add an AudioClip for the default dialogue chirp here")]
     [SerializeField] private AudioClip _defaultDialogueChirpSfx;
     
+    [Range(1, 10)]
     [Tooltip("Specify how often a chirp should play here")]
     [SerializeField] private int _chirpEveryNthLetter = 1;
 
