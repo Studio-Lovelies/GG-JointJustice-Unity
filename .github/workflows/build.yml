@@ -103,7 +103,7 @@ jobs:
 
       - name: Upload XML report to Codecov
         uses: codecov/codecov-action@v2
-        if: always()
+        if: ${{ failure() || success() }}
         with:
           name: EditMode+PlayMode
           flags: automated
@@ -112,7 +112,7 @@ jobs:
 
       - name: Store test artifacts
         uses: actions/upload-artifact@v2
-        if: always()
+        if: ${{ failure() || success() }}
         with:
           name: Test results
           path: artifacts
