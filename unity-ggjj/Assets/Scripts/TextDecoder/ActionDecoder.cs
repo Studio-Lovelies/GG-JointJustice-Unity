@@ -384,13 +384,13 @@ public class ActionDecoder : ActionDecoderBase
         OnActionDone?.Invoke();
     }
     /// <summary>Shows the given evidence on the screen in the given position.</summary>
-    /// <param name="evidence" validFiles="Assets/Resources/Evidence/*.asset">Name of evidence to show</param>
+    /// <param name="item" validFiles="Assets/Resources/Evidence/*.asset">Name of item to show</param>
     /// <param name="itemPos">`Left`, `Right` or `Middle`</param>
     /// <example>&amp;SHOW_ITEM:Switch,Left</example>
     /// <category>Scene</category>
-    protected override void SHOW_ITEM(EvidenceAssetName evidence, ItemDisplayPosition itemPos)
+    protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
     {
-        SceneController.ShowItem(ObjectStorage.GetObject<ICourtRecordObject>(evidence), itemPos);
+        SceneController.ShowItem(ObjectStorage.GetObject<ICourtRecordObject>(item), itemPos);
         OnActionDone?.Invoke();
     }
 

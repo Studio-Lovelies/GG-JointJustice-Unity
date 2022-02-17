@@ -153,7 +153,7 @@ public abstract class ActionDecoderBase : IActionDecoder
     protected abstract void PLAY_SFX(SfxAssetName sfx);
     protected abstract void PLAY_SONG(SongAssetName songName);
     protected abstract void SCENE(SceneAssetName sceneName);
-    protected abstract void SHOW_ITEM(EvidenceAssetName itemName, ItemDisplayPosition itemPos);
+    protected abstract void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos);
     protected abstract void ACTOR(ActorAssetName actorName);
     protected abstract void SPEAK(ActorAssetName actorName);
     protected abstract void SPEAK_UNKNOWN(ActorAssetName actorName);

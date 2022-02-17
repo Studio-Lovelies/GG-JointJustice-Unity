@@ -7,7 +7,7 @@ using Object = Ink.Runtime.Object;
 using UnityEngine;
 
 [Serializable]
-public class NarrativeScript
+public class NarrativeScript : INarrativeScript
 {
     [field: Tooltip("Drag an Ink narrative script here.")]
     [field: SerializeField] public TextAsset Script { get; private set; }

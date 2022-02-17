@@ -78,7 +78,7 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void SHOW_ITEM(EvidenceAssetName itemName, ItemDisplayPosition itemPos)
+        protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
         {
             throw new NotImplementedException();
         }
@@ -118,6 +118,7 @@ public class ActionDecoderTests
     {
         var narrativeScriptPlayer = new Moq.Mock<INarrativeScriptPlayer>();
         narrativeScriptPlayer.SetupSet(m => m.GameMode = It.IsAny<GameMode>());
+        narrativeScriptPlayer.Setup(mock => mock.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(""));
 
         return new ActionDecoder()
         {

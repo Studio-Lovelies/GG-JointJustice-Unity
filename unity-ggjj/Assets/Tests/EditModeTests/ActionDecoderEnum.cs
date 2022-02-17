@@ -6,45 +6,36 @@ using UnityEngine.TestTools;
 
 public class ActionDecoderEnumTests
 {
-    /// <summary>
-    /// Helper method to create a fully mocked ActionDecoder
-    /// </summary>
-    /// <returns>A fully mocked ActionDecoder</returns>
-    private static ActionDecoder CreateMockedActionDecoder()
-    {
-        return new ActionDecoder()
-        {
-            ActorController = new Moq.Mock<IActorController>().Object,
-            AppearingDialogueController = new Moq.Mock<IAppearingDialogueController>().Object,
-            AudioController = new Moq.Mock<IAudioController>().Object,
-            EvidenceController = new Moq.Mock<IEvidenceController>().Object,
-            SceneController = new Moq.Mock<ISceneController>().Object,
-        };
-    }
-
     [Test]
     public void ParseActionLineWithValidEnumValue()
     {
-        ActionDecoder decoder = CreateMockedActionDecoder();
+        const string ACTOR_DATA_NAME = "NewActorData";
+        ActionDecoder decoder = new ActionDecoder();
         Mock<ISceneController> sceneControllerMock = new Moq.Mock<ISceneController>();
-        sceneControllerMock.Setup(controller => controller.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left));
-        decoder.SceneController = sceneControllerMock.Object;
+        var narrativePlayerMock = new Mock<INarrativeScriptPlayer>();
+        var actorData = ScriptableObject.CreateInstance<ActorData>();
+        actorData.name = ACTOR_DATA_NAME;
 
-        const string lineToParse = " &SHOW_ITEM:A,Left \n\n\n";
-        const string logMessage = "Attempting to parse:\n" + lineToParse;
+        narrativePlayerMock.Setup(mock => mock.ActiveNarrativeScript.ObjectStorage.GetObject<ICourtRecordObject>(ACTOR_DATA_NAME)).Returns(actorData);
+        sceneControllerMock.Setup(controller => controller.ShowItem(actorData, ItemDisplayPosition.Left));
+
+        decoder.SceneController = sceneControllerMock.Object;
+        decoder.NarrativeScriptPlayer = narrativePlayerMock.Object;
+
+        var lineToParse = $" &SHOW_ITEM:{ACTOR_DATA_NAME},Left \n\n\n";
+        var logMessage = "Attempting to parse:\n" + lineToParse;
         Debug.Log(logMessage);
         Assert.DoesNotThrow(() => { decoder.InvokeMatchingMethod(lineToParse); });
-
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
 
-        sceneControllerMock.Verify(controller => controller.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left), Times.Once);
+        sceneControllerMock.Verify(controller => controller.ShowItem(actorData, ItemDisplayPosition.Left), Times.Once);
     }
 
     [Test]
     public void ParseActionLineWithInvalidEnumValue()
     {
-        ActionDecoder decoder = CreateMockedActionDecoder();
+        ActionDecoder decoder = new ActionDecoder();
         Mock<ISceneController> sceneControllerMock = new Moq.Mock<ISceneController>();
         sceneControllerMock.Setup(controller => controller.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left));
         decoder.SceneController = sceneControllerMock.Object;

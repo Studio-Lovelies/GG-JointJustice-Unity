@@ -42,9 +42,9 @@ public class ObjectPreloader : ActionDecoderBase
         LoadObject<BGScene>($"BGScenes/{sceneName}");
     }
 
-    protected override void SHOW_ITEM(EvidenceAssetName itemName, ItemDisplayPosition itemPos)
+    protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
     {
-        LoadEvidence(itemName);
+        LoadEvidence(item);
     }
 
     protected override void ACTOR(ActorAssetName actorName)

@@ -3,7 +3,7 @@ using UnityEngine;
 public class NarrativeScriptPlayer : MonoBehaviour, INarrativeScriptPlayer
 {
     public StoryPlayer StoryPlayer { private get; set; }
-    public NarrativeScript ActiveNarrativeScript => StoryPlayer.ActiveNarrativeScript;
+    public INarrativeScript ActiveNarrativeScript => StoryPlayer.ActiveNarrativeScript;
 
     public GameMode GameMode
     {
