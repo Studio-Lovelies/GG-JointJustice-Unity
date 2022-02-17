@@ -21,11 +21,6 @@ public class Menu : MonoBehaviour
     public Selectable SelectedButton { get; set; } // Set by child buttons when they are selected
     public bool Active => gameObject.activeInHierarchy && (SelectedButton == null || SelectedButton.enabled); // Returns true when no child menus are active ONLY if this menu is enabled
 
-    private void Start()
-    {
-        SelectInitialButton();
-    }
-
     /// <summary>
     /// Enables and disables this section of menu.
     /// Used when opening sub menus.
@@ -49,6 +44,12 @@ public class Menu : MonoBehaviour
             }
 
             Selectable selectable = GetComponentInChildren<Selectable>();
+            
+            if (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
+            {
+                Debug.Log("");
+                return;
+            }
 
             if (selectable == null)
             {
