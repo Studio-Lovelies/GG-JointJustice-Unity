@@ -22,7 +22,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters(LoadSceneMode.Additive));
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters());
             
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
             DialogueController = Object.FindObjectOfType<global::DialogueController>();

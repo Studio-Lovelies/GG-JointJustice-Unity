@@ -12,7 +12,7 @@ public enum GameMode
 
 public class DialogueController : MonoBehaviour, IDialogueController
 {
-    private const char ACTION_TOKEN = '&';
+    public const char ACTION_TOKEN = '&';
     
     [Tooltip("Drag a NarrativeScriptPlaylist here")]
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;

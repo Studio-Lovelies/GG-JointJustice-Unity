@@ -21,7 +21,7 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/AppearingDialogueController - Test Scene.unity",  new LoadSceneParameters(LoadSceneMode.Additive));
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/AppearingDialogueController - Test Scene.unity",  new LoadSceneParameters());
             _appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
             _appearingDialogueController.AutoSkip = false;
             yield return new WaitForEndOfFrame();
