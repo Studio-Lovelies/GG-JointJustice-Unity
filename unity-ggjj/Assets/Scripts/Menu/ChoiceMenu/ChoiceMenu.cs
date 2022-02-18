@@ -7,7 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Menu))]
 public class ChoiceMenu : MonoBehaviour, IChoiceMenu
 {
-    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
+    [SerializeField] private NarrativeGameState _narrativeGameState;
     
     [Tooltip("Drag the prefab for choice menu items here.")]
     [SerializeField] private MenuItem _choiceMenuItem;

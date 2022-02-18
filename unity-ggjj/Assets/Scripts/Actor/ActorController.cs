@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 public class ActorController : MonoBehaviour, IActorController
 {
-    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
+    [SerializeField] private NarrativeGameState _narrativeGameState;
 
     [Tooltip("Attach the NameBox here")]
     [SerializeField] private NameBox _nameBox;

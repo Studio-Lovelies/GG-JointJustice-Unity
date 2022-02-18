@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class EvidenceController : MonoBehaviour, IEvidenceController
 {
-    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
+    [SerializeField] private NarrativeGameState _narrativeGameState;
     
     [Tooltip("This event is called when the PRESENT_EVIDENCE action is called.")]
     [SerializeField] private UnityEvent _onRequirePresentEvidence;

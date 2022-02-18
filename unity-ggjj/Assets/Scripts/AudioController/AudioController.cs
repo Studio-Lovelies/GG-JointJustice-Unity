@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
-    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
+    [SerializeField] private NarrativeGameState _narrativeGameState;
 
     /// <summary>
     /// One day this will come from the "Settings," but for now it lives on a field
