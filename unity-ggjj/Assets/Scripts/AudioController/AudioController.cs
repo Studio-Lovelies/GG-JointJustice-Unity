@@ -52,16 +52,6 @@ public class AudioController : MonoBehaviour, IAudioController
     }
 
     /// <summary>
-    /// Fades in the song with the desired name. Cancels out of a current fade if one is in progress.
-    /// </summary>
-    /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
-    public void PlaySong(string songName)
-    {
-        AudioClip song = _narrativeGameState.ObjectStorage.GetObject<AudioClip>(songName);
-        PlaySong(song);
-    }
-
-    /// <summary>
     /// Overload for PlaySong which allows songs to be played using a direct reference.
     /// </summary>
     /// <param name="song">The song to play.</param>
