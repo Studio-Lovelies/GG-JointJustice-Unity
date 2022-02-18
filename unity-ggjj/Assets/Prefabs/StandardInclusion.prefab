@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 1174600150384605043}
   - component: {fileID: 2741042425953383750}
   m_Layer: 0
-  m_Name: Game
+  m_Name: GameState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1136,50 +1136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _game: {fileID: 2741042425953383750}
-  _directorActionDecoder: {fileID: 5228303783986964379}
   _nameBox: {fileID: 966773609476897183}
-  _onAnimationStarted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: SetBusy
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  _onAnimationComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: SetBusy
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: OnContinueStory
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &5228303783942753770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,6 +1473,7 @@ MonoBehaviour:
     <Item2>k__BackingField: 0.1
   _ignoredCharacters: 2700280029002d00
   _defaultDialogueChirpSfx: {fileID: 8300000, guid: bec396ecc7b7242499dbad1326715317, type: 3}
+  _chirpEveryNthLetter: 1
   <OnLineEnd>k__BackingField:
     m_PersistentCalls:
       m_Calls:
@@ -1626,36 +1584,6 @@ MonoBehaviour:
   _shoutPlayer: {fileID: 7963192264883019674}
   _sceneLoader: {fileID: 0}
   _witnessTestimonySign: {fileID: 825604443101836740}
-  _onActorChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5228303783822522784}
-        m_TargetAssemblyTypeName: ActorController, GG-JointJustice
-        m_MethodName: SetActiveActorObject
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onSceneChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5228303783822522784}
-        m_TargetAssemblyTypeName: ActorController, GG-JointJustice
-        m_MethodName: OnSceneChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &7228055915782335262
 GameObject:
   m_ObjectHideFlags: 0

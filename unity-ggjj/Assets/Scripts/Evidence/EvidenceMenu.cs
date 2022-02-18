@@ -2,12 +2,13 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Menu))]
 public class EvidenceMenu : MonoBehaviour
 {
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
 
     [SerializeField, Tooltip("Drag the TextMeshProUGUI component used for displaying the evidence's name here")]
     private TextMeshProUGUI _evidenceName;
@@ -44,7 +45,7 @@ public class EvidenceMenu : MonoBehaviour
     
     // when set to false, this menu can only be toggled
     // when set to true, this menu can be closed by presenting evidence and thereby following a different path of the active ink script
-    public bool CanPresentEvidence => _game.NarrativeScriptPlayer.CanPressWitness;
+    public bool CanPresentEvidence => _narrativeGameState.NarrativeScriptPlayer.CanPressWitness;
 
     /// <summary>
     /// Get the menu on awake to access its DontResetSelectedOnClose property
@@ -90,8 +91,8 @@ public class EvidenceMenu : MonoBehaviour
     public void UpdateEvidenceMenu()
     {
         var objects = _profileMenuActive
-            ? _game.EvidenceController.CurrentProfiles.Cast<ICourtRecordObject>().ToArray()
-            : _game.EvidenceController.CurrentEvidence.Cast<ICourtRecordObject>().ToArray();
+            ? _narrativeGameState.EvidenceController.CurrentProfiles.Cast<ICourtRecordObject>().ToArray()
+            : _narrativeGameState.EvidenceController.CurrentEvidence.Cast<ICourtRecordObject>().ToArray();
         
 
         CalculatePages(objects.Length);
@@ -212,7 +213,7 @@ public class EvidenceMenu : MonoBehaviour
             return;
         }
         _onEvidenceClicked.Invoke();
-        _game.NarrativeScriptPlayer.PresentEvidence(evidence);
+        _narrativeGameState.NarrativeScriptPlayer.PresentEvidence(evidence);
     }
 
     /// <summary>

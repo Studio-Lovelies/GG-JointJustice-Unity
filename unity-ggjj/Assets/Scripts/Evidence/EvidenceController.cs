@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class EvidenceController : MonoBehaviour, IEvidenceController
 {
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
     
     [Tooltip("This event is called when the PRESENT_EVIDENCE action is called.")]
     [SerializeField] private UnityEvent _onRequirePresentEvidence;
@@ -28,7 +29,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <param name="evidenceName">The name of the evidence to remove.</param>
     public void RemoveEvidence(string evidenceName)
     {
-        CurrentEvidence.Remove(_game.ObjectStorage.GetObject<Evidence>(evidenceName));
+        CurrentEvidence.Remove(_narrativeGameState.ObjectStorage.GetObject<Evidence>(evidenceName));
     }
 
     /// <summary>

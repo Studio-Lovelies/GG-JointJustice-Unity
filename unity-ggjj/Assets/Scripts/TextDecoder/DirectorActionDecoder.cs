@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DirectorActionDecoder : MonoBehaviour
 {
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
     
     private NarrativeScriptPlayer _narrativeScriptPlayer;
     
@@ -11,7 +12,7 @@ public class DirectorActionDecoder : MonoBehaviour
     private void Awake()
     {
         // We wrap this in an Action so we have no ties to UnityEngine in the ActionDecoder
-        Decoder.OnActionDone += () => _game.NarrativeScriptPlayer.Continue();
+        Decoder.OnActionDone += () => _narrativeGameState.NarrativeScriptPlayer.Continue();
     }
 
     #region API

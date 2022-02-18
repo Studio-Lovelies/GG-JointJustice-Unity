@@ -4,10 +4,11 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueController
 {
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
 
     [Tooltip("Drag a NameBox component here.")]
     [SerializeField] private NameBox _namebox;
@@ -76,7 +77,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         text = text.TrimEnd('\n');
         TextBoxHidden = false;
 
-        _game.ActorController.StartTalking();
+        _narrativeGameState.ActorController.StartTalking();
         int startingIndex = 0;
         if (ContinueDialogue)
         {
@@ -168,7 +169,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         
         if (_chirpIndex % _chirpEveryNthLetter == 0)
         {
-            _game.Audio.PlaySfx(resultChirp);
+            _narrativeGameState.Audio.PlaySfx(resultChirp);
         }
         
         _chirpIndex++;
@@ -215,7 +216,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// </summary>
     private void EndLine()
     {
-        _game.ActorController.StopTalking();
+        _narrativeGameState.ActorController.StopTalking();
         OnLineEnd.Invoke();
     }
 }

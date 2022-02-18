@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
 
     /// <summary>
     /// One day this will come from the "Settings," but for now it lives on a field
@@ -56,7 +57,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="songName">Name of song asset, must be in `Resources/Audio/Music`</param>
     public void PlaySong(string songName)
     {
-        AudioClip song = _game.ObjectStorage.GetObject<AudioClip>(songName);
+        AudioClip song = _narrativeGameState.ObjectStorage.GetObject<AudioClip>(songName);
         PlaySong(song);
     }
 
@@ -91,7 +92,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="sfx">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySfx(string sfx)
     {
-        AudioClip soundEffectClip = _game.ObjectStorage.GetObject<AudioClip>(sfx);
+        AudioClip soundEffectClip = _narrativeGameState.ObjectStorage.GetObject<AudioClip>(sfx);
         PlaySfx(soundEffectClip);
     }
 

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using Ink.Runtime;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Menu))]
 public class ChoiceMenu : MonoBehaviour, IChoiceMenu
 {
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
     
     [Tooltip("Drag the prefab for choice menu items here.")]
     [SerializeField] private MenuItem _choiceMenuItem;
@@ -62,7 +63,7 @@ public class ChoiceMenu : MonoBehaviour, IChoiceMenu
     private void OnChoiceClicked(int choiceIndex)
     {
         DeactivateChoiceMenu();
-        _game.NarrativeScriptPlayer.HandleChoice(choiceIndex);
+        _narrativeGameState.NarrativeScriptPlayer.HandleChoice(choiceIndex);
     }
 
     /// <summary>

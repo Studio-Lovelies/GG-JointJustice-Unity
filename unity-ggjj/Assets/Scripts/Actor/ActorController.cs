@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ActorController : MonoBehaviour, IActorController
 {
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
 
     [Tooltip("Attach the NameBox here")]
     [SerializeField] private NameBox _nameBox;
@@ -76,7 +77,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            return _game.ObjectStorage.GetObject<ActorData>(actorName);
+            return _narrativeGameState.ObjectStorage.GetObject<ActorData>(actorName);
         }
         catch (KeyNotFoundException)
         {
@@ -167,7 +168,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            ActorData actorData = _game.ObjectStorage.GetObject<ActorData>(actorName);
+            ActorData actorData = _narrativeGameState.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(actorData, speakingType);
             CurrentSpeakingActorData = actorData;
             _currentSpeakingActor = _actorDataToActor.ContainsKey(actorData) ? _actorDataToActor[actorData] : null;
@@ -211,8 +212,8 @@ public class ActorController : MonoBehaviour, IActorController
     public void OnAnimationDone()
     {
         Animating = false;
-        _game.NarrativeScriptPlayer.Waiting = false;
-        _game.NarrativeScriptPlayer.Continue();
+        _narrativeGameState.NarrativeScriptPlayer.Waiting = false;
+        _narrativeGameState.NarrativeScriptPlayer.Continue();
     }
 
     /// <summary>
@@ -239,7 +240,7 @@ public class ActorController : MonoBehaviour, IActorController
         try
         {
 
-            var actorData = _game.ObjectStorage.GetObject<ActorData>(actor);
+            var actorData = _narrativeGameState.ObjectStorage.GetObject<ActorData>(actor);
             tempActor.ActorData = actorData;
             SetActorInLookupTable(actorData, tempActor);
         }
@@ -268,7 +269,7 @@ public class ActorController : MonoBehaviour, IActorController
     private void OnAnimationStarted()
     {
         Animating = true;
-        _game.NarrativeScriptPlayer.Waiting = true;
-        _game.AppearingDialogueController.TextBoxHidden = true;
+        _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
+        _narrativeGameState.AppearingDialogueController.TextBoxHidden = true;
     }
 }

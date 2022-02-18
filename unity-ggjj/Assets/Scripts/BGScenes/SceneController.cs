@@ -2,10 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
     
     [Tooltip("Pixels per unit of the basic ")]
     [SerializeField] private int _pixelsPerUnit = 100;
@@ -56,7 +57,7 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _game.NarrativeScriptPlayer.Waiting = true;
+        _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
         _imageFader.StartFade(1, 0, seconds, () => WaitComplete());
     }
 
@@ -73,7 +74,7 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _game.NarrativeScriptPlayer.Waiting = true;
+        _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
         _imageFader.StartFade(0, 1, seconds, () => WaitComplete());
     }
 
@@ -135,8 +136,8 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (_activeScene != null)
         {
-            _game.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
-            _game.ActorController.OnSceneChanged(_activeScene);
+            _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
+            _narrativeGameState.ActorController.OnSceneChanged(_activeScene);
         }
     }
 
@@ -239,7 +240,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _activeScene.SetActiveActorSlot(oneBasedSlotIndex);
-        _game.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
+        _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
         PanCamera(seconds, _activeScene.GetTargetPosition());
     }
 
@@ -262,7 +263,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _activeScene.SetActiveActorSlot(oneBasedSlotIndex);
-        _game.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
+        _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
         SetCameraPos(_activeScene.GetTargetPosition());
     }
 
@@ -282,7 +283,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The time to wait in seconds.</param>
     private IEnumerator WaitCoroutine(float seconds)
     {
-        _game.NarrativeScriptPlayer.Waiting = true;
+        _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
         yield return new WaitForSeconds(seconds);
         WaitComplete();
     }
@@ -321,7 +322,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
     public void Shout(string actorName, string shoutName, bool allowRandomShouts)
     {
-        _shoutPlayer.Shout(_game.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
+        _shoutPlayer.Shout(_narrativeGameState.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
     }
 
     /// <summary>
@@ -339,7 +340,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     private void WaitComplete()
     {
-        _game.NarrativeScriptPlayer.Waiting = false;
-        _game.NarrativeScriptPlayer.Continue();
+        _narrativeGameState.NarrativeScriptPlayer.Waiting = false;
+        _narrativeGameState.NarrativeScriptPlayer.Continue();
     }
 }

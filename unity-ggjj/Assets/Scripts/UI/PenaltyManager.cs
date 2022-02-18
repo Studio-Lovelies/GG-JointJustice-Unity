@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PenaltyManager : MonoBehaviour, IPenaltyManager
 {
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
     
     [Tooltip("Drag a NarrativeScriptPlaylist here")]
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
@@ -78,7 +79,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     {
         if (_penaltyObjects.Count == 0)
         {
-            _game.NarrativeScriptPlayer.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
+            _narrativeGameState.NarrativeScriptPlayer.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
         }
     }
 }
