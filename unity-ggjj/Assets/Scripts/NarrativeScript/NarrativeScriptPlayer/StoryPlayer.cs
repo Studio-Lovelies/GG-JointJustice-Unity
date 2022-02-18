@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
@@ -195,9 +196,14 @@ public class StoryPlayer
             return;
         }
 
-        if (!IsAtChoice || GameMode != GameMode.CrossExamination)
+        if (!IsAtChoice)
         {
-            return;
+            throw new NotSupportedException("Cannot present evidence when not at choice");
+        }
+
+        if (GameMode != GameMode.CrossExamination)
+        {
+            throw new NotSupportedException("Can only present evidence during cross examination");
         }
 
         var currentChoices = Story.currentChoices;
