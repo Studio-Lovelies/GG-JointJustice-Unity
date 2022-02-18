@@ -9,15 +9,7 @@ using UnityEngine;
 public class ActionDecoder : ActionDecoderBase
 {
     public event Action OnActionDone;
-    public IActorController ActorController { get; set; }
-    public ISceneController SceneController { get; set; }
-    public IAudioController AudioController { get; set; }
-    public IEvidenceController EvidenceController { get; set; }
-    public IAppearingDialogueController AppearingDialogueController { get; set; }
-    public IPenaltyManager PenaltyManager { get; set; }
-    public INarrativeScriptPlayer NarrativeScriptPlayer { get; set; }
-
-    private IObjectStorage ObjectStorage => NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
+    public INarrativeGameState NarrativeGameState { get; set; }
     
     /// <summary>
     ///     Parse action lines inside .ink files
@@ -172,7 +164,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     private void DIALOGUE_SPEED(float characterDelay)
     {
-        AppearingDialogueController.CharacterDelay = characterDelay;
+        NarrativeGameState.AppearingDialogueController.CharacterDelay = characterDelay;
         OnActionDone?.Invoke();
     }
 
@@ -184,7 +176,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     private void PUNCTUATION_SPEED(float seconds)
     {
-        AppearingDialogueController.DefaultPunctuationDelay = seconds;
+        NarrativeGameState.AppearingDialogueController.DefaultPunctuationDelay = seconds;
         OnActionDone?.Invoke();
     }
 
@@ -195,7 +187,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     private void AUTO_SKIP(bool value)
     {
-        AppearingDialogueController.AutoSkip = value;
+        NarrativeGameState.AppearingDialogueController.AutoSkip = value;
         OnActionDone?.Invoke();
     }
 
@@ -206,7 +198,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     private void DISABLE_SKIPPING(bool value)
     {
-        AppearingDialogueController.SkippingDisabled = value;
+        NarrativeGameState.AppearingDialogueController.SkippingDisabled = value;
         OnActionDone?.Invoke();
     }
 
@@ -215,7 +207,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     private void CONTINUE_DIALOGUE()
     {
-        AppearingDialogueController.ContinueDialogue = true;
+        NarrativeGameState.AppearingDialogueController.ContinueDialogue = true;
         OnActionDone?.Invoke();
     }
 
@@ -224,7 +216,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <example>&amp;APPEAR_INSTANTLY</example>
     private void APPEAR_INSTANTLY()
     {
-        AppearingDialogueController.AppearInstantly = true;
+        NarrativeGameState.AppearingDialogueController.AppearInstantly = true;
         OnActionDone?.Invoke();
     }
 
@@ -233,7 +225,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <example>&amp;HIDE_TEXTBOX</example>
     private void HIDE_TEXTBOX()
     {
-        AppearingDialogueController.TextBoxHidden = true;
+        NarrativeGameState.AppearingDialogueController.TextBoxHidden = true;
         OnActionDone?.Invoke();
     }
     #endregion
@@ -245,7 +237,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     protected override void ADD_EVIDENCE(EvidenceAssetName evidence)
     {
-        EvidenceController.AddEvidence(ObjectStorage.GetObject<Evidence>(evidence));
+        NarrativeGameState.EvidenceController.AddEvidence(NarrativeGameState.ObjectStorage.GetObject<Evidence>(evidence));
         OnActionDone?.Invoke();
     }
 
@@ -255,7 +247,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     private void REMOVE_EVIDENCE(EvidenceAssetName evidence)
     {
-        EvidenceController.RemoveEvidence(evidence);
+        NarrativeGameState.EvidenceController.RemoveEvidence(evidence);
         OnActionDone?.Invoke();
     }
 
@@ -265,7 +257,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     protected override void ADD_RECORD(ActorAssetName actorName)
     {
-        EvidenceController.AddToCourtRecord(ObjectStorage.GetObject<ActorData>(actorName));
+        NarrativeGameState.EvidenceController.AddToCourtRecord(NarrativeGameState.ObjectStorage.GetObject<ActorData>(actorName));
         OnActionDone?.Invoke();
     }
 
@@ -274,8 +266,8 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     private void PRESENT_EVIDENCE()
     {
-        EvidenceController.RequirePresentEvidence();
-        NarrativeScriptPlayer.GameMode = GameMode.CrossExamination;
+        NarrativeGameState.EvidenceController.RequirePresentEvidence();
+        NarrativeGameState.NarrativeScriptPlayer.GameMode = GameMode.CrossExamination;
     }
 
     /// <summary>Substitutes the provided evidence for their substitute.</summary>
@@ -285,7 +277,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     private void SUBSTITUTE_EVIDENCE(EvidenceAssetName initialEvidenceName, EvidenceAssetName substituteEvidenceName)
     {
-        EvidenceController.SubstituteEvidence(initialEvidenceName, ObjectStorage.GetObject<Evidence>(substituteEvidenceName));
+        NarrativeGameState.EvidenceController.SubstituteEvidence(initialEvidenceName, NarrativeGameState.ObjectStorage.GetObject<Evidence>(substituteEvidenceName));
         OnActionDone?.Invoke();
     }
     #endregion
@@ -297,7 +289,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Audio</category>
     protected override void PLAY_SFX(SfxAssetName sfx)
     {
-        AudioController.PlaySfx(ObjectStorage.GetObject<AudioClip>(sfx));
+        NarrativeGameState.AudioController.PlaySfx(NarrativeGameState.ObjectStorage.GetObject<AudioClip>(sfx));
         OnActionDone?.Invoke();
     }
 
@@ -307,7 +299,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Audio</category>
     protected override void PLAY_SONG(SongAssetName songName)
     {
-        AudioController.PlaySong(ObjectStorage.GetObject<AudioClip>(songName));
+        NarrativeGameState.AudioController.PlaySong(NarrativeGameState.ObjectStorage.GetObject<AudioClip>(songName));
         OnActionDone?.Invoke();
     }
 
@@ -316,7 +308,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Audio</category>
     private void STOP_SONG()
     {
-        AudioController.StopSong();
+        NarrativeGameState.AudioController.StopSong();
         OnActionDone?.Invoke();
     }
     #endregion
@@ -328,7 +320,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     private void FADE_OUT(float timeInSeconds)
     {
-        SceneController.FadeOut(timeInSeconds);
+        NarrativeGameState.SceneController.FadeOut(timeInSeconds);
     }
 
     /// <summary>Fades the screen in from black, only works if faded out.</summary>
@@ -337,7 +329,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     private void FADE_IN(float timeInSeconds)
     {
-        SceneController.FadeIn(timeInSeconds);
+        NarrativeGameState.SceneController.FadeIn(timeInSeconds);
     }
 
     /// <summary>Pans the camera over a given amount of time to a given position in a straight line. Continues story after starting. Use WAIT to add waiting for completion.</summary>
@@ -348,7 +340,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     private void CAMERA_PAN(float duration, int x, int y)
     {
-        SceneController.PanCamera(duration, new Vector2Int(x, y));
+        NarrativeGameState.SceneController.PanCamera(duration, new Vector2Int(x, y));
         OnActionDone?.Invoke();
     }
 
@@ -359,7 +351,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     private void CAMERA_SET(int x, int y)
     {
-        SceneController.SetCameraPos(new Vector2Int(x, y));
+        NarrativeGameState.SceneController.SetCameraPos(new Vector2Int(x, y));
         OnActionDone?.Invoke();
     }
 
@@ -371,7 +363,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     private void SHAKE_SCREEN(float intensity, float duration, bool isBlocking = false)
     {
-        SceneController.ShakeScreen(intensity, duration, isBlocking);
+        NarrativeGameState.SceneController.ShakeScreen(intensity, duration, isBlocking);
     }
 
     /// <summary>Sets the scene. If an actor was already attached to target scene, it will show up as well.</summary>
@@ -380,7 +372,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     protected override void SCENE(SceneAssetName sceneName)
     {
-        SceneController.SetScene(sceneName);
+        NarrativeGameState.SceneController.SetScene(sceneName);
         OnActionDone?.Invoke();
     }
     /// <summary>Shows the given evidence on the screen in the given position.</summary>
@@ -390,7 +382,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
     {
-        SceneController.ShowItem(ObjectStorage.GetObject<ICourtRecordObject>(item), itemPos);
+        NarrativeGameState.SceneController.ShowItem(NarrativeGameState.ObjectStorage.GetObject<ICourtRecordObject>(item), itemPos);
         OnActionDone?.Invoke();
     }
 
@@ -399,7 +391,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     private void HIDE_ITEM()
     {
-        SceneController.HideItem();
+        NarrativeGameState.SceneController.HideItem();
         OnActionDone?.Invoke();
     }
 
@@ -409,7 +401,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     private void PLAY_ANIMATION(FullscreenAnimationAssetName animationName)
     {
-        SceneController.PlayAnimation(animationName);
+        NarrativeGameState.SceneController.PlayAnimation(animationName);
     }
 
     /// <summary>Makes the camera jump to focus on the target sub-position of the currently active scene.</summary>
@@ -418,7 +410,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     private void JUMP_TO_POSITION(int slotIndex)
     {
-        SceneController.JumpToActorSlot(slotIndex);
+        NarrativeGameState.SceneController.JumpToActorSlot(slotIndex);
         OnActionDone?.Invoke();
     }
 
@@ -429,7 +421,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     private void PAN_TO_POSITION(int slotIndex, float panDuration)
     {
-        SceneController.PanToActorSlot(slotIndex, panDuration);
+        NarrativeGameState.SceneController.PanToActorSlot(slotIndex, panDuration);
     }
 
     /// <summary>Restarts the currently playing script from the beginning.</summary>
@@ -437,7 +429,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Scene</category>
     private void RELOAD_SCENE()
     {
-        SceneController.ReloadScene();
+        NarrativeGameState.SceneController.ReloadScene();
     }
 
     /// <summary>Issues a penalty / deducts one of the attempts available to a player to find the correct piece of evidence or actor during a cross examinaton.</summary>
@@ -445,7 +437,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Cross Examination</category>
     private void ISSUE_PENALTY()
     {
-        PenaltyManager.Decrement();
+        NarrativeGameState.PenaltyManager.Decrement();
         OnActionDone?.Invoke();
     }
 
@@ -455,7 +447,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Other</category>
     private void WAIT(float seconds)
     {
-        SceneController.Wait(seconds);
+        NarrativeGameState.SceneController.Wait(seconds);
     }
 
     /// <summary>Plays an "Objection!" animation and soundeffect for the specified actor.</summary>
@@ -492,7 +484,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     private void SHOUT(ActorAssetName actorName, string shoutName, bool allowRandomShouts = false)
     {
-        SceneController.Shout(actorName, shoutName, allowRandomShouts);
+        NarrativeGameState.SceneController.Shout(actorName, shoutName, allowRandomShouts);
     }
 
     /// <summary>Enables the flashing witness testimony sign in the upper left corner of the screen.</summary>
@@ -500,7 +492,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Cross Examination</category>
     private void BEGIN_WITNESS_TESTIMONY()
     {
-        SceneController.WitnessTestimonyActive = true;
+        NarrativeGameState.SceneController.WitnessTestimonyActive = true;
         OnActionDone?.Invoke();
     }
 
@@ -509,7 +501,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Cross Examination</category>
     private void END_WITNESS_TESTIMONY()
     {
-        SceneController.WitnessTestimonyActive = false;
+        NarrativeGameState.SceneController.WitnessTestimonyActive = false;
         OnActionDone?.Invoke();
     }
     #endregion
@@ -521,7 +513,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Actor</category>
     protected override void ACTOR(ActorAssetName actorName)
     {
-        ActorController.SetActiveActor(actorName);
+        NarrativeGameState.ActorController.SetActiveActor(actorName);
         OnActionDone?.Invoke();
     }
 
@@ -533,7 +525,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Actor</category>
     private void SHOW_ACTOR(ActorAssetName actorName, bool shouldShow)
     {
-        ActorController.SetVisibility(actorName, shouldShow);
+        NarrativeGameState.ActorController.SetVisibility(actorName, shouldShow);
         OnActionDone?.Invoke();
     }
 
@@ -543,7 +535,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     protected override void SPEAK(ActorAssetName actorName)
     {
-        ActorController.SetActiveSpeaker(actorName, SpeakingType.Speaking);
+        NarrativeGameState.ActorController.SetActiveSpeaker(actorName, SpeakingType.Speaking);
         OnActionDone?.Invoke();
     }
 
@@ -553,7 +545,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     protected override void THINK(ActorAssetName actorName)
     {
-        ActorController.SetActiveSpeaker(actorName, SpeakingType.Thinking);
+        NarrativeGameState.ActorController.SetActiveSpeaker(actorName, SpeakingType.Thinking);
         OnActionDone?.Invoke();
     }
 
@@ -563,7 +555,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     protected override void SPEAK_UNKNOWN(ActorAssetName actorName)
     {
-        ActorController.SetActiveSpeaker(actorName, SpeakingType.SpeakingWithUnknownName);
+        NarrativeGameState.ActorController.SetActiveSpeaker(actorName, SpeakingType.SpeakingWithUnknownName);
         OnActionDone?.Invoke();
     }
 
@@ -572,7 +564,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Dialogue</category>
     private void NARRATE()
     {
-        ActorController.SetActiveSpeakerToNarrator();
+        NarrativeGameState.ActorController.SetActiveSpeakerToNarrator();
         OnActionDone?.Invoke();
     }
 
@@ -585,11 +577,11 @@ public class ActionDecoder : ActionDecoderBase
     {
         if (optional_targetActor == null)
         {
-            ActorController.SetPose(poseName);
+            NarrativeGameState.ActorController.SetPose(poseName);
         }
         else
         {
-            ActorController.SetPose(poseName, optional_targetActor);
+            NarrativeGameState.ActorController.SetPose(poseName, optional_targetActor);
         }
         OnActionDone?.Invoke();
     }
@@ -603,11 +595,11 @@ public class ActionDecoder : ActionDecoderBase
     {
         if (optional_targetActor == null)
         {
-            ActorController.PlayEmotion(poseName);
+            NarrativeGameState.ActorController.PlayEmotion(poseName);
         }
         else
         {
-            ActorController.PlayEmotion(poseName, optional_targetActor);
+            NarrativeGameState.ActorController.PlayEmotion(poseName, optional_targetActor);
         }
     }
 
@@ -618,7 +610,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Actor</category>
     protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
     {
-        ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
+        NarrativeGameState.ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
         OnActionDone?.Invoke();
     }
 
@@ -643,14 +635,14 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Gameplay</category>
     private void MODE(GameMode mode)
     {
-        NarrativeScriptPlayer.GameMode = mode;
+        NarrativeGameState.NarrativeScriptPlayer.GameMode = mode;
         switch (mode)
         {
             case GameMode.Dialogue:
-                PenaltyManager.OnCrossExaminationEnd();
+                NarrativeGameState.PenaltyManager.OnCrossExaminationEnd();
                 break;
             case GameMode.CrossExamination:
-                PenaltyManager.OnCrossExaminationStart();
+                NarrativeGameState.PenaltyManager.OnCrossExaminationStart();
                 break;
             default:
                 throw new NotSupportedException($"Switching to game mode '{mode}' is not supported");
@@ -666,7 +658,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Gameplay</category>
     private void RESET_PENALTIES()
     {
-        PenaltyManager.ResetPenalties();
+        NarrativeGameState.PenaltyManager.ResetPenalties();
         OnActionDone?.Invoke();
     }
     

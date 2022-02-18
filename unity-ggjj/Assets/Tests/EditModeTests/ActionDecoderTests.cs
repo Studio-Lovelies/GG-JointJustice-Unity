@@ -116,19 +116,20 @@ public class ActionDecoderTests
     /// <returns>A fully mocked ActionDecoder</returns>
     private static ActionDecoder CreateMockedActionDecoder()
     {
-        var narrativeScriptPlayer = new Moq.Mock<INarrativeScriptPlayer>();
-        narrativeScriptPlayer.SetupSet(m => m.GameMode = It.IsAny<GameMode>());
-        narrativeScriptPlayer.Setup(mock => mock.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(""));
+        var narrativeGameStateMock = new Mock<INarrativeGameState>();
+        narrativeGameStateMock.SetupSet(mock => mock.NarrativeScriptPlayer.GameMode = It.IsAny<GameMode>());
+        narrativeGameStateMock.Setup(mock => mock.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(""));
+        narrativeGameStateMock.Setup(mock => mock.SceneController.ShakeScreen(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<bool>()));
+        narrativeGameStateMock.Setup(mock => mock.ActorController.SetPose(It.IsAny<string>(), It.IsAny<string>()));
+        narrativeGameStateMock.SetupSet(mock => mock.AppearingDialogueController.CharacterDelay = It.IsAny<float>());
+        narrativeGameStateMock.Setup(mock => mock.EvidenceController.AddEvidence(It.IsAny<Evidence>()));
+        narrativeGameStateMock.Setup(mock => mock.ObjectStorage.GetObject<Evidence>(It.IsAny<string>()));
+        narrativeGameStateMock.Setup(mock => mock.AudioController.PlaySfx(It.IsAny<AudioClip>()));
+        narrativeGameStateMock.Setup(mock => mock.PenaltyManager.Decrement());
 
-        return new ActionDecoder()
+        return new ActionDecoder
         {
-            ActorController = new Moq.Mock<IActorController>().Object,
-            AppearingDialogueController = new Moq.Mock<IAppearingDialogueController>().Object,
-            NarrativeScriptPlayer = narrativeScriptPlayer.Object,
-            AudioController = new Moq.Mock<IAudioController>().Object,
-            EvidenceController = new Moq.Mock<IEvidenceController>().Object,
-            SceneController = new Moq.Mock<ISceneController>().Object,
-            PenaltyManager = new Moq.Mock<IPenaltyManager>().Object
+            NarrativeGameState = narrativeGameStateMock.Object
         };
     }
 
@@ -268,9 +269,9 @@ public class ActionDecoderTests
     public void VerifyActionDecoderTrimsExcessWhitespace()
     {
         var decoder = CreateMockedActionDecoder();
-        var sceneControllerMock = new Moq.Mock<ISceneController>();
-        sceneControllerMock.Setup(controller => controller.SetScene(new AssetName("NewScene")));
-        decoder.SceneController = sceneControllerMock.Object;
+        var narrativeGameStateMock = new Mock<INarrativeGameState>();
+        narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(new AssetName("NewScene")));
+        decoder.NarrativeGameState = narrativeGameStateMock.Object;
 
         var lineToParse = " &SCENE:NewScene \n\n\n";
         var logMessage = "Attempting to parse:\n" + lineToParse;
@@ -280,7 +281,7 @@ public class ActionDecoderTests
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
 
-        sceneControllerMock.Verify(controller => controller.SetScene(new AssetName("NewScene")));
+        narrativeGameStateMock.Verify(controller => controller.SceneController.SetScene(new AssetName("NewScene")));
     }
 
 }

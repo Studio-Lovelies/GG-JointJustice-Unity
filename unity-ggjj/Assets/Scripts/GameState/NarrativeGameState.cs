@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NarrativeGameState : MonoBehaviour
+public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 {
     [SerializeField] private NarrativeScriptPlayer _narrativeScriptPlayer;
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
@@ -18,22 +18,16 @@ public class NarrativeGameState : MonoBehaviour
     public IAppearingDialogueController AppearingDialogueController => _appearingDialogueController;
     public IObjectStorage ObjectStorage => _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
     public INarrativeScriptPlayer NarrativeScriptPlayer => _narrativeScriptPlayer;
-    public IAudioController Audio => _audioController;
+    public IAudioController AudioController => _audioController;
     public IEvidenceController EvidenceController => _evidenceController;
+    public ISceneController SceneController => _sceneController;
+    public IPenaltyManager PenaltyManager => _penaltyManager;
 
     private void Start()
     {
         _narrativeScriptPlaylist.InitializeNarrativeScripts();
         _bgSceneList.InstantiateBGSceneFromPlaylist(_narrativeScriptPlaylist);
-        _directorActionDecoder.Decoder.NarrativeScriptPlayer = _narrativeScriptPlayer;
-
-        _directorActionDecoder.Decoder.ActorController = _actorController;
-        _directorActionDecoder.Decoder.AudioController = _audioController;
-        _directorActionDecoder.Decoder.EvidenceController = _evidenceController;
-        _directorActionDecoder.Decoder.SceneController = _sceneController;
-        _directorActionDecoder.Decoder.PenaltyManager = _penaltyManager;
-        _directorActionDecoder.Decoder.AppearingDialogueController = _appearingDialogueController;
-        _directorActionDecoder.Decoder.NarrativeScriptPlayer = _narrativeScriptPlayer;
+        _directorActionDecoder.Decoder.NarrativeGameState = this;
         
         _narrativeScriptPlayer.StoryPlayer = new StoryPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _directorActionDecoder.Decoder, _choiceMenu)
         {

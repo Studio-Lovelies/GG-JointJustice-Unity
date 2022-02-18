@@ -5,8 +5,6 @@ public class DirectorActionDecoder : MonoBehaviour
 {
     [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
     
-    private NarrativeScriptPlayer _narrativeScriptPlayer;
-    
     public ActionDecoder Decoder { get; } = new ActionDecoder();
 
     private void Awake()
@@ -29,7 +27,7 @@ public class DirectorActionDecoder : MonoBehaviour
         catch (TextDecoder.Parser.ScriptParsingException exception)
         {
             Debug.LogError(exception);
-            _narrativeScriptPlayer.Continue();
+            _narrativeGameState.NarrativeScriptPlayer.Continue();
         }
     }
     #endregion

@@ -169,7 +169,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         
         if (_chirpIndex % _chirpEveryNthLetter == 0)
         {
-            _narrativeGameState.Audio.PlaySfx(resultChirp);
+            _narrativeGameState.AudioController.PlaySfx(resultChirp);
         }
         
         _chirpIndex++;
