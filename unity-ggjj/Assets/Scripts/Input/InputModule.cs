@@ -142,12 +142,4 @@ public class InputModule : MonoBehaviour, Controls.IUIActions
     {
         //Unused for now
     }
-
-    /// <summary>
-    /// This is object as the active input
-    /// </summary>
-    public void SetAsActiveInput()
-    {
-        _inputManager.SetInput(this);
-    }
 }
