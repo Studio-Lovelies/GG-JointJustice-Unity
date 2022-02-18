@@ -41,7 +41,7 @@ public class StoryPlayer
                 return _subStory.CanPressWitness;
             }
 
-            return IsAtChoice && GameMode == GameMode.CrossExamination;
+            return IsAtChoice && GameMode == GameMode.CrossExamination && !_appearingDialogueController.IsPrintingText;
         }
     }
 
