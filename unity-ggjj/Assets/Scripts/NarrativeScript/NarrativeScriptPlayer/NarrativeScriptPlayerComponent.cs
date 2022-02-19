@@ -40,7 +40,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     /// </summary>
     public void TryPressWitness()
     {
-        if (CanPressWitness)
+        if (!CanPressWitness)
         {
             return;
         }

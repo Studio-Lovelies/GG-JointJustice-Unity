@@ -61,39 +61,18 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
 
         [UnityTest]
         public IEnumerator CantPresentEvidenceDuringPressingDialogue()
-        {
-            int existingSubstories = TestTools.FindInactiveInScene<NarrativeScriptPlayerComponent>().Count(controller => {
-                GameObject gameObject = controller.gameObject;
-                return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
-            });
-
-            yield return _inputTestTools.PressForFrame(Keyboard.xKey);
-            AppearingDialogueController appearingDialogueController = TestTools.FindInactiveInScene<AppearingDialogueController>()[0];
-
-            while (appearingDialogueController.IsPrintingText)
-            {
-                yield return _inputTestTools.WaitForRepaint();
-            }
-
+        { 
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            
+            yield return _storyProgresser.ProgressStory();
             yield return _inputTestTools.PressForFrame(Keyboard.cKey);
-
-            while (appearingDialogueController.IsPrintingText)
-            {
-                yield return _inputTestTools.WaitForRepaint();
-            }
+            yield return TestTools.WaitForState(() => !narrativeScriptPlayer.Waiting);
 
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-
-            Assert.AreEqual(existingSubstories,  TestTools.FindInactiveInScene<NarrativeScriptPlayerComponent>().Count(controller => {
-                GameObject gameObject = controller.gameObject;
-                return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
-            }));
-            
-            Object.Destroy(Find("SubStory(Clone)"));
         }
 
         [UnityTest]
