@@ -10,15 +10,15 @@ public class StoryPlayerTests
 {
     private NarrativeScriptPlayer _narrativeScriptPlayer;
 
-    private readonly Mock<INarrativeScriptPlaylist> _narrativeScriptPlaylist = new Mock<INarrativeScriptPlaylist>();
-    private readonly Mock<IAppearingDialogueController> _appearingDialogueController = new Mock<IAppearingDialogueController>();
-    private readonly Mock<IActionDecoder> _actionDecoder = new Mock<IActionDecoder>();
-    private readonly Mock<IChoiceMenu> _choiceMenu = new Mock<IChoiceMenu>();
+    private readonly Mock<INarrativeGameState> _narrativeGameStateMock = new Mock<INarrativeGameState>();
 
     [SetUp]
     public void SetUp()
     {
-        _narrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeScriptPlaylist.Object, _appearingDialogueController.Object, _actionDecoder.Object, _choiceMenu.Object);
+        _narrativeGameStateMock.SetupGet(mock => mock.AppearingDialogueController).Returns(new Mock<IAppearingDialogueController>().Object);
+        _narrativeGameStateMock.SetupGet(mock => mock.ActionDecoder).Returns(new Mock<IActionDecoder>().Object);
+        _narrativeGameStateMock.SetupGet(mock => mock.ChoiceMenu).Returns(new Mock<IChoiceMenu>().Object);
+        _narrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeGameStateMock.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ public class StoryPlayerTests
         _narrativeScriptPlayer.ActiveNarrativeScript = CreateNarrativeScript(TEST_LINE);
         
         var printingText = "";
-        _appearingDialogueController.Setup(mock => mock.PrintText(TEST_LINE)).Callback<string>(line => printingText = line);
+        _narrativeGameStateMock.Setup(mock => mock.AppearingDialogueController.PrintText(TEST_LINE)).Callback<string>(line => printingText = line);
         _narrativeScriptPlayer.Continue();
         Assert.AreEqual(TEST_LINE, printingText);
     }
@@ -42,10 +42,10 @@ public class StoryPlayerTests
         _narrativeScriptPlayer.ActiveNarrativeScript = CreateNarrativeScript(TEST_LINE);
 
         var actionDecoder = new ActionDecoder();
-        _actionDecoder.Setup(mock => mock.IsAction(TEST_LINE)).Returns(actionDecoder.IsAction(TEST_LINE));
-        _actionDecoder.Setup(mock => mock.InvokeMatchingMethod(TEST_LINE)).Verifiable();
+        _narrativeGameStateMock.Setup(mock => mock.ActionDecoder.IsAction(TEST_LINE)).Returns(actionDecoder.IsAction(TEST_LINE));
+        _narrativeGameStateMock.Setup(mock => mock.ActionDecoder.InvokeMatchingMethod(TEST_LINE)).Verifiable();
         _narrativeScriptPlayer.Continue();
-        _actionDecoder.Verify(mock => mock.InvokeMatchingMethod(It.IsAny<string>()));
+        _narrativeGameStateMock.Verify(mock => mock.ActionDecoder.InvokeMatchingMethod(It.IsAny<string>()));
     }
 
     [Test]
@@ -55,12 +55,12 @@ public class StoryPlayerTests
         _narrativeScriptPlayer.ActiveNarrativeScript = CreateNarrativeScript(TEST_LINE);
 
         var printingText = "";
-        _appearingDialogueController.Setup(mock => mock.PrintText(TEST_LINE)).Callback<string>(line => printingText = line);
-        _appearingDialogueController.Setup(mock => mock.IsPrintingText).Returns(true);
+        _narrativeGameStateMock.Setup(mock => mock.AppearingDialogueController.PrintText(TEST_LINE)).Callback<string>(line => printingText = line);
+        _narrativeGameStateMock.Setup(mock => mock.AppearingDialogueController.IsPrintingText).Returns(true);
         _narrativeScriptPlayer.Continue();
         Assert.AreEqual(string.Empty, printingText);
 
-        _appearingDialogueController.Setup(mock => mock.IsPrintingText).Returns(false);
+        _narrativeGameStateMock.Setup(mock => mock.AppearingDialogueController.IsPrintingText).Returns(false);
         _narrativeScriptPlayer.Continue();
         Assert.AreEqual(TEST_LINE, printingText);
     }
@@ -71,9 +71,9 @@ public class StoryPlayerTests
         const string TEST_SCRIPT = "+ [1]\n-> DONE\n+ [2]\n-> DONE";
         _narrativeScriptPlayer.ActiveNarrativeScript = CreateNarrativeScript(TEST_SCRIPT);
 
-        _choiceMenu.Setup(mock => mock.Initialise(It.IsAny<List<Choice>>())).Verifiable();
+        _narrativeGameStateMock.Setup(mock => mock.ChoiceMenu.Initialise(It.IsAny<List<Choice>>())).Verifiable();
         _narrativeScriptPlayer.Continue();
-        _choiceMenu.Verify();
+        _narrativeGameStateMock.Verify();
     }
     
     [Test]
@@ -84,7 +84,7 @@ public class StoryPlayerTests
 
         _narrativeScriptPlayer.GameMode = GameMode.CrossExamination;
         bool callback = false;
-        _choiceMenu.Setup(mock => mock.Initialise(It.IsAny<List<Choice>>())).Callback(() => callback = true);
+        _narrativeGameStateMock.Setup(mock => mock.ChoiceMenu.Initialise(It.IsAny<List<Choice>>())).Callback(() => callback = true);
         _narrativeScriptPlayer.Continue();
         Assert.IsFalse(callback);
     }
@@ -107,7 +107,7 @@ public class StoryPlayerTests
         const string SUB_STORY = "Sub Story\n";
 
         var printedString = "";
-        _appearingDialogueController.Setup(mock => mock.PrintText(It.IsAny<string>())).Callback<string>(line => printedString = line);
+        _narrativeGameStateMock.Setup(mock => mock.AppearingDialogueController.PrintText(It.IsAny<string>())).Callback<string>(line => printedString = line);
         
         _narrativeScriptPlayer.ActiveNarrativeScript = CreateNarrativeScript(PARENT_STORY);
         _narrativeScriptPlayer.StartSubStory(CreateNarrativeScript(SUB_STORY));
@@ -123,15 +123,15 @@ public class StoryPlayerTests
         _narrativeScriptPlayer.ActiveNarrativeScript = CreateNarrativeScript(TEST_SCRIPT);
 
         var actionDecoder = new ActionDecoder();
-        _actionDecoder.Setup(mock => mock.IsAction(It.IsAny<string>())).Returns<string>(line => actionDecoder.IsAction(line));
-        _appearingDialogueController.Setup(mock => mock.PrintText("Correct\n")).Verifiable();
+        _narrativeGameStateMock.Setup(mock => mock.ActionDecoder.IsAction(It.IsAny<string>())).Returns<string>(line => actionDecoder.IsAction(line));
+        _narrativeGameStateMock.Setup(mock => mock.AppearingDialogueController.PrintText("Correct\n")).Verifiable();
 
         _narrativeScriptPlayer.Continue();
         var evidence = ScriptableObject.CreateInstance<Evidence>();
         evidence.name = "BentCoins";
         _narrativeScriptPlayer.GameMode = GameMode.CrossExamination;
         _narrativeScriptPlayer.PresentEvidence(evidence);
-        _appearingDialogueController.Verify();
+        _narrativeGameStateMock.Verify();
     }
 
     private static NarrativeScript CreateNarrativeScript(string scriptText)

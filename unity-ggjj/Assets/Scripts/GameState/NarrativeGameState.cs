@@ -22,17 +22,15 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     public IEvidenceController EvidenceController => _evidenceController;
     public ISceneController SceneController => _sceneController;
     public IPenaltyManager PenaltyManager => _penaltyManager;
+    public IActionDecoder ActionDecoder => _actionDecoderComponent.Decoder;
+    public INarrativeScriptPlaylist NarrativeScriptPlaylist => _narrativeScriptPlaylist;
+    public IChoiceMenu ChoiceMenu => _choiceMenu;
 
     private void Start()
     {
         _narrativeScriptPlaylist.InitializeNarrativeScripts();
         _bgSceneList.InstantiateBGSceneFromPlaylist(_narrativeScriptPlaylist);
         _actionDecoderComponent.Decoder.NarrativeGameState = this;
-        
-        _narrativeScriptPlayerComponent.NarrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _actionDecoderComponent.Decoder, _choiceMenu)
-        {
-            ActiveNarrativeScript = _narrativeScriptPlaylist.GetNextNarrativeScript()
-        };
         _narrativeScriptPlayerComponent.Continue();
     }
 }

@@ -11,10 +11,7 @@ using Ink.Runtime;
 /// </summary>
 public class NarrativeScriptPlayer
 {
-    private readonly IAppearingDialogueController _appearingDialogueController;
-    private readonly IActionDecoder _actionDecoder;
-    private readonly IChoiceMenu _choiceMenu;
-    private readonly INarrativeScriptPlaylist _narrativeScriptPlaylist;
+    private readonly INarrativeGameState _narrativeGameState;
     private NarrativeScript _activeNarrativeScript;
     private NarrativeScriptPlayer _parent;
     private NarrativeScriptPlayer _subNarrativeScript;
@@ -48,7 +45,7 @@ public class NarrativeScriptPlayer
                 return _subNarrativeScript.CanPressWitness;
             }
 
-            return IsAtChoice && GameMode == GameMode.CrossExamination && !_appearingDialogueController.IsPrintingText;
+            return IsAtChoice && GameMode == GameMode.CrossExamination && !_narrativeGameState.AppearingDialogueController.IsPrintingText;
         }
     }
 
@@ -74,12 +71,9 @@ public class NarrativeScriptPlayer
         }
     }
 
-    public NarrativeScriptPlayer(INarrativeScriptPlaylist narrativeScriptPlaylist, IAppearingDialogueController appearingDialogueController, IActionDecoder actionDecoder, IChoiceMenu choiceMenu)
+    public NarrativeScriptPlayer(INarrativeGameState narrativeGameState)
     {
-        _narrativeScriptPlaylist = narrativeScriptPlaylist;
-        _appearingDialogueController = appearingDialogueController;
-        _actionDecoder = actionDecoder;
-        _choiceMenu = choiceMenu;
+        _narrativeGameState = narrativeGameState;
     }
 
     /// <summary>
@@ -89,7 +83,7 @@ public class NarrativeScriptPlayer
     /// <param name="overridePrintingText"></param>
     public void Continue(bool overridePrintingText = false)
     {
-        if (_appearingDialogueController.IsPrintingText && !overridePrintingText)
+        if (_narrativeGameState.AppearingDialogueController.IsPrintingText && !overridePrintingText)
         {
             return;
         }
@@ -111,13 +105,13 @@ public class NarrativeScriptPlayer
             Continue();
         }
         
-        if (_actionDecoder.IsAction(nextLine))
+        if (_narrativeGameState.ActionDecoder.IsAction(nextLine))
         {
-            _actionDecoder.InvokeMatchingMethod(nextLine);
+            _narrativeGameState.ActionDecoder.InvokeMatchingMethod(nextLine);
         }
         else
         {
-            _appearingDialogueController.PrintText(nextLine);
+            _narrativeGameState.AppearingDialogueController.PrintText(nextLine);
         }
     }
 
@@ -142,7 +136,7 @@ public class NarrativeScriptPlayer
         switch (GameMode)
         {
             case GameMode.Dialogue:
-                _choiceMenu.Initialise(Story.currentChoices);
+                _narrativeGameState.ChoiceMenu.Initialise(Story.currentChoices);
                 break;
             case GameMode.CrossExamination:
                 HandleChoice(0);
@@ -170,12 +164,12 @@ public class NarrativeScriptPlayer
     /// <param name="narrativeScript">The narrative script used to create the sub-story</param>
     public void StartSubStory(NarrativeScript narrativeScript)
     {
-        _subNarrativeScript = new NarrativeScriptPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _actionDecoder, _choiceMenu)
+        _subNarrativeScript = new NarrativeScriptPlayer(_narrativeGameState)
         {
             ActiveNarrativeScript = narrativeScript,
             _parent = this
         };
-        _appearingDialogueController.StopPrintingText();
+        _narrativeGameState.AppearingDialogueController.StopPrintingText();
         _subNarrativeScript.Continue(true);
     }
 
@@ -216,7 +210,7 @@ public class NarrativeScriptPlayer
         var choice = currentChoices.FirstOrDefault(choice => choice.text == courtRecordObject.InstanceName);
         if (choice == null)
         {
-            StartSubStory(_narrativeScriptPlaylist.GetRandomFailureScript());
+            StartSubStory(_narrativeGameState.NarrativeScriptPlaylist.GetRandomFailureScript());
             return;
         }
         

@@ -2,29 +2,40 @@ using UnityEngine;
 
 public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPlayer
 {
-    public NarrativeScriptPlayer NarrativeScriptPlayer { private get; set; }
-    public INarrativeScript ActiveNarrativeScript => NarrativeScriptPlayer.ActiveNarrativeScript;
+    [SerializeField] private NarrativeGameState _narrativeGameState;
+    
+    private NarrativeScriptPlayer _narrativeScriptPlayer;
+    
+    public INarrativeScript ActiveNarrativeScript => _narrativeScriptPlayer.ActiveNarrativeScript;
 
     public GameMode GameMode
     {
-        get => NarrativeScriptPlayer.GameMode;
-        set => NarrativeScriptPlayer.GameMode = value;
+        get => _narrativeScriptPlayer.GameMode;
+        set => _narrativeScriptPlayer.GameMode = value;
     }
 
     public bool Waiting
     {
-        get => NarrativeScriptPlayer.Waiting;
-        set => NarrativeScriptPlayer.Waiting = value;
+        get => _narrativeScriptPlayer.Waiting;
+        set => _narrativeScriptPlayer.Waiting = value;
     }
-    public bool CanPressWitness => NarrativeScriptPlayer.CanPressWitness && !Waiting;
-    public bool HasSubStory => NarrativeScriptPlayer.HasSubStory;
+    public bool CanPressWitness => _narrativeScriptPlayer.CanPressWitness && !Waiting;
+    public bool HasSubStory => _narrativeScriptPlayer.HasSubStory;
 
+    private void Awake()
+    {
+        _narrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeGameState)
+        {
+            ActiveNarrativeScript = _narrativeGameState.NarrativeScriptPlaylist.GetNextNarrativeScript()
+        };
+    }
+    
     /// <summary>
     /// Exposes StoryPlayer's Continue method
     /// </summary>
     public void Continue()
     {
-        NarrativeScriptPlayer.Continue();
+        _narrativeScriptPlayer.Continue();
     }
 
     /// <summary>
@@ -32,7 +43,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     /// </summary>
     public void HandleChoice(int choiceIndex)
     {
-        NarrativeScriptPlayer.HandleChoice(choiceIndex);
+        _narrativeScriptPlayer.HandleChoice(choiceIndex);
     }
 
     /// <summary>
@@ -45,7 +56,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
             return;
         }
         
-        NarrativeScriptPlayer.HandleChoice(1);
+        _narrativeScriptPlayer.HandleChoice(1);
     }
 
     /// <summary>
@@ -53,7 +64,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     /// </summary>
     public void PresentEvidence(ICourtRecordObject courtRecordObject)
     {
-        NarrativeScriptPlayer.PresentEvidence(courtRecordObject);
+        _narrativeScriptPlayer.PresentEvidence(courtRecordObject);
     }
 
     /// <summary>
@@ -61,7 +72,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     /// </summary>
     public void StartSubStory(NarrativeScript narrativeScript)
     {
-        NarrativeScriptPlayer.StartSubStory(narrativeScript);
+        _narrativeScriptPlayer.StartSubStory(narrativeScript);
     }
     
     /// <summary>
@@ -69,7 +80,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     /// </summary>
     public void SetWaitingToFalseAndContinue()
     {
-        NarrativeScriptPlayer.Waiting = false;
-        NarrativeScriptPlayer.Continue();
+        _narrativeScriptPlayer.Waiting = false;
+        _narrativeScriptPlayer.Continue();
     }
 }

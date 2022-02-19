@@ -33,9 +33,9 @@ public class ObjectStorage : IObjectStorage
     /// <param name="objectName">The name of the object to get</param>
     /// <typeparam name="T">The type of the object to get</typeparam>
     /// <returns>An object with name objectName</returns>
-    public T GetObject<T>(string objectName)
+    public T GetObject<T>(string objectName) where T : class
     {
-        return (T)_objects[objectName] as T;
+        return _objects[objectName] as T;
     }
 
     /// <summary>

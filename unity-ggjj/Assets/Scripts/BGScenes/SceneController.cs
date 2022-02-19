@@ -118,7 +118,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (isBlocking)
         {
-            SetWaitingToFalseAndContinue();
+            _narrativeGameState.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
         }
     }
 
@@ -162,7 +162,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (!isBlocking)
         {
-            SetWaitingToFalseAndContinue();
+            _narrativeGameState.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
         }
     }
 
