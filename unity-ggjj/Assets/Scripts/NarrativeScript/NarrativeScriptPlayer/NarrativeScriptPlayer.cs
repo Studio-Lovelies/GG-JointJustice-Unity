@@ -165,7 +165,7 @@ public class NarrativeScriptPlayer
     }
 
     /// <summary>
-    /// Starts a sub-story which will run in place of the parent story until it ends or is stopped
+    /// Starts a sub-story which will run in place of the parent story until it ends
     /// </summary>
     /// <param name="narrativeScript">The narrative script used to create the sub-story</param>
     public void StartSubStory(NarrativeScript narrativeScript)
@@ -214,13 +214,12 @@ public class NarrativeScriptPlayer
 
         var currentChoices = Story.currentChoices;
         var choice = currentChoices.FirstOrDefault(choice => choice.text == courtRecordObject.InstanceName);
-        if (choice != null)
-        {
-            HandleChoice(choice.index);
-        }
-        else
+        if (choice == null)
         {
             StartSubStory(_narrativeScriptPlaylist.GetRandomFailureScript());
+            return;
         }
+        
+        HandleChoice(choice.index);
     }
 }
