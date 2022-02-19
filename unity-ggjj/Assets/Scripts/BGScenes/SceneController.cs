@@ -58,7 +58,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
-        _imageFader.StartFade(1, 0, seconds, () => WaitComplete());
+        _imageFader.StartFade(1, 0, seconds, () => SetWaitingToFalseAndContinue());
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
-        _imageFader.StartFade(0, 1, seconds, () => WaitComplete());
+        _imageFader.StartFade(0, 1, seconds, () => SetWaitingToFalseAndContinue());
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (!isBlocking)
         {
-            WaitComplete();
+            SetWaitingToFalseAndContinue();
         }
     }
 
@@ -118,7 +118,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (isBlocking)
         {
-            WaitComplete();
+            SetWaitingToFalseAndContinue();
         }
     }
 
@@ -162,7 +162,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (!isBlocking)
         {
-            WaitComplete();
+            SetWaitingToFalseAndContinue();
         }
     }
 
@@ -285,7 +285,7 @@ public class SceneController : MonoBehaviour, ISceneController
     {
         _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
         yield return new WaitForSeconds(seconds);
-        WaitComplete();
+        SetWaitingToFalseAndContinue();
     }
 
     /// <summary>
@@ -338,7 +338,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// Sets NarrativeScriptPlayer to no longer wait,
     /// and continues the story
     /// </summary>
-    private void WaitComplete()
+    private void SetWaitingToFalseAndContinue()
     {
         _narrativeGameState.NarrativeScriptPlayer.Waiting = false;
         _narrativeGameState.NarrativeScriptPlayer.Continue();

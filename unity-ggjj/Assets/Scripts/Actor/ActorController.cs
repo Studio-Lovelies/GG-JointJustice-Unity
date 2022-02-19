@@ -239,7 +239,6 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
-
             var actorData = _narrativeGameState.ObjectStorage.GetObject<ActorData>(actor);
             tempActor.ActorData = actorData;
             SetActorInLookupTable(actorData, tempActor);

@@ -3,6 +3,12 @@ using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
 
+/// <summary>
+/// Acts a wrapper around Ink stories, providing access to each new line in a Story
+/// while handling what should happen at choices depending on the current state of the game.
+/// Allows for sub-stories to be created and run without creating any new Unity objects,
+/// and handles returning to the main story after a sub-story has finished.
+/// </summary>
 public class NarrativeScriptPlayer
 {
     private readonly IAppearingDialogueController _appearingDialogueController;
