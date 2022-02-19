@@ -9,7 +9,6 @@ public class ActionDecoderEnumTests
     [Test]
     public void ParseActionLineWithValidEnumValue()
     {
-        var decoder = new ActionDecoder();
        
         const string ACTOR_DATA_NAME = "NewActorData";
         var actorData = ScriptableObject.CreateInstance<ActorData>();
@@ -18,7 +17,10 @@ public class ActionDecoderEnumTests
         var narrativeGameStateMock = new Mock<INarrativeGameState>();
         narrativeGameStateMock.Setup(mock => mock.ObjectStorage.GetObject<ICourtRecordObject>(ACTOR_DATA_NAME)).Returns(actorData);
         narrativeGameStateMock.Setup(mock => mock.SceneController.ShowItem(actorData, ItemDisplayPosition.Left));
-        decoder.NarrativeGameState = narrativeGameStateMock.Object;
+        var decoder = new ActionDecoder
+        {
+            NarrativeGameState = narrativeGameStateMock.Object
+        };
 
         var lineToParse = $" &SHOW_ITEM:{ACTOR_DATA_NAME},Left \n\n\n";
         var logMessage = "Attempting to parse:\n" + lineToParse;
@@ -33,10 +35,12 @@ public class ActionDecoderEnumTests
     [Test]
     public void ParseActionLineWithInvalidEnumValue()
     {
-        var decoder = new ActionDecoder();
         var narrativeGameStateMock = new Mock<INarrativeGameState>();
         narrativeGameStateMock.Setup(mock => mock.SceneController.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left));
-        decoder.NarrativeGameState = narrativeGameStateMock.Object;
+        var decoder = new ActionDecoder
+        {
+            NarrativeGameState = narrativeGameStateMock.Object
+        };
 
         const string lineToParse = " &SHOW_ITEM:a,Lleft \n\n\n";
         const string logMessage = "Attempting to parse:\n" + lineToParse;
