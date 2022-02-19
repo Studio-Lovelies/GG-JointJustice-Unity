@@ -998,7 +998,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2831046952443657085}
         m_TargetAssemblyTypeName: NarrativeScriptPlayer, GG-JointJustice
-        m_MethodName: PressWitness
+        m_MethodName: TryPressWitness
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

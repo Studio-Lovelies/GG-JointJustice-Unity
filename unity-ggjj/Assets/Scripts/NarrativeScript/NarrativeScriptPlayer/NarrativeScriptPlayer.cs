@@ -38,12 +38,14 @@ public class NarrativeScriptPlayer : MonoBehaviour, INarrativeScriptPlayer
     /// <summary>
     /// Checks if a witness can be pressed then chooses the correct choice on StoryPlayer
     /// </summary>
-    public void PressWitness()
+    public void TryPressWitness()
     {
         if (CanPressWitness)
         {
-            StoryPlayer.HandleChoice(1);
+            return;
         }
+        
+        StoryPlayer.HandleChoice(1);
     }
 
     /// <summary>
