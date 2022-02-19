@@ -107,7 +107,7 @@ public class StoryPlayer
         
         if (_actionDecoder.IsAction(nextLine))
         {
-            _actionDecoder.OnNewActionLine(nextLine);
+            _actionDecoder.InvokeMatchingMethod(nextLine);
         }
         else
         {

@@ -120,6 +120,7 @@ public class ActionDecoderTests
         narrativeGameStateMock.SetupSet(mock => mock.NarrativeScriptPlayer.GameMode = It.IsAny<GameMode>());
         narrativeGameStateMock.Setup(mock => mock.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(""));
         narrativeGameStateMock.Setup(mock => mock.SceneController.ShakeScreen(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<bool>()));
+        narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(It.IsAny<string>()));
         narrativeGameStateMock.Setup(mock => mock.ActorController.SetPose(It.IsAny<string>(), It.IsAny<string>()));
         narrativeGameStateMock.SetupSet(mock => mock.AppearingDialogueController.CharacterDelay = It.IsAny<float>());
         narrativeGameStateMock.Setup(mock => mock.EvidenceController.AddEvidence(It.IsAny<Evidence>()));
@@ -160,10 +161,9 @@ public class ActionDecoderTests
         var lineToParse = $"&{missingMethodName}";
         Debug.Log("Attempting to parse:\n" + lineToParse);
         var expectedException = Assert.Throws<MethodNotFoundScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         });
         StringAssert.Contains(missingMethodName, expectedException.Message);
-        StringAssert.Contains(decoder.GetType().FullName, expectedException.Message);
     }
 
     [Test]

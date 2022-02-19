@@ -62,7 +62,7 @@ public class NarrativeScript : INarrativeScript
         {
             try
             {
-                actionDecoder.OnNewActionLine(action);
+                actionDecoder.InvokeMatchingMethod(action);
             }
             catch (MethodNotFoundScriptParsingException)
             {

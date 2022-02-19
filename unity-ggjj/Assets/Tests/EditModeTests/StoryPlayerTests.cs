@@ -43,9 +43,9 @@ public class StoryPlayerTests
 
         var actionDecoder = new ActionDecoder();
         _actionDecoder.Setup(mock => mock.IsAction(TEST_LINE)).Returns(actionDecoder.IsAction(TEST_LINE));
-        _actionDecoder.Setup(mock => mock.OnNewActionLine(TEST_LINE)).Verifiable();
+        _actionDecoder.Setup(mock => mock.InvokeMatchingMethod(TEST_LINE)).Verifiable();
         _storyPlayer.Continue();
-        _actionDecoder.Verify(mock => mock.OnNewActionLine(It.IsAny<string>()));
+        _actionDecoder.Verify(mock => mock.InvokeMatchingMethod(It.IsAny<string>()));
     }
 
     [Test]

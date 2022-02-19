@@ -49,7 +49,7 @@ namespace Editor.Ink
                 
                 try
                 {
-                    ActionDecoder.GenerateInvocationDetails(lines[i]);
+                    ActionDecoderBase.GenerateInvocationDetails(lines[i], typeof(ActionDecoder));
                 }
                 catch (Exception exception)
                 {

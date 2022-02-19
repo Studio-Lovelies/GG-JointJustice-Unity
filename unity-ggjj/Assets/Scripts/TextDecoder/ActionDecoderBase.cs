@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using UnityEngine;
 
 public abstract class ActionDecoderBase : IActionDecoder
 {
     public const char ACTION_TOKEN = '&';
 
     /// <summary>
-    ///     Parse action lines inside from inside .ink files
+    ///     Parse action lines inside .ink files
     /// </summary>
     /// <param name="actionLine">Line of a .ink file that starts with &amp; (and thereby is not a "spoken dialogue" line)</param>
     /// <remarks>
@@ -18,13 +17,26 @@ public abstract class ActionDecoderBase : IActionDecoder
     ///     <code>
     ///     &amp;{methodName}:{parameter1},{parameter2},...
     ///     </code>
-    ///     This method is responsible for:
-    ///         1. Finding a method inside this class, matching `methodName`
-    ///         2. Verifying the amount of parameters matches the amount of parameters needed in the method
-    ///         3. Attempting to parse each parameter into the correct type using <see cref="Parser&lt;T&gt;"/> of the type
-    ///         4. Invoking the method with the parsed parameters
+    ///     This method is responsible for...
+    ///         1. Getting method details using the GenerateInvocationDetails method
+    ///         2. Invoking the found method with its parsed method parameters
     /// </remarks>
-    public void OnNewActionLine(string actionLine)
+    public void InvokeMatchingMethod(string actionLine)
+    {
+        var method = GenerateInvocationDetails(actionLine, GetType());
+        method.MethodInfo.Invoke(this, method.ParsedMethodParameters.ToArray());
+    }
+
+    /// <summary>
+    /// This method is responsible for:
+    ///     1. Finding a method inside this class, matching `methodName`
+    ///     2. Verifying the amount of parameters matches the amount of parameters needed in the method
+    ///     3. Attempting to parse each parameter into the correct type using <see cref="Parser&lt;T&gt;"/> of the type
+    /// </summary>
+    /// <param name="actionLine">The action line to parse</param>
+    /// <param name="decoderType">The type of decoder to get methods from</param>
+    /// <returns>An InvocationDetails with details of the found method and its parameters</returns>
+    public static InvocationDetails GenerateInvocationDetails(string actionLine, Type decoderType)
     {
         actionLine = actionLine.Trim();
         const char actionSideSeparator = ':';
@@ -41,13 +53,13 @@ public abstract class ActionDecoderBase : IActionDecoder
         var parameters = (actionNameAndParameters.Length == 2) ? actionNameAndParameters[1].Split(actionParameterSeparator) : Array.Empty<string>();
 
         // Find method with exact same name as action inside script
-        var method = GetType().GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
-        if (method == null)
+        var methodInfo = decoderType.GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
+        if (methodInfo == null)
         {
-            throw new TextDecoder.Parser.MethodNotFoundScriptParsingException(GetType().FullName, action);
+            throw new TextDecoder.Parser.MethodNotFoundScriptParsingException("ActionDecoder", action);
         }
 
-        var methodParameters = method.GetParameters();
+        var methodParameters = methodInfo.GetParameters();
         var optionalParameters = methodParameters.Count(parameter => parameter.IsOptional);
         if (parameters.Length < (methodParameters.Length - optionalParameters) || parameters.Length > (methodParameters.Length))
         {
@@ -92,26 +104,23 @@ public abstract class ActionDecoderBase : IActionDecoder
             }
 
             // Construct a parser for it
-            var parser = GetType().Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
+            var parser = decoderType.Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
             if (parser == null)
             {
-                Debug.LogError($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
-                return;
+                throw new TextDecoder.Parser.MissingParserException($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
             }
 
             var parserConstructor = parser.GetConstructor(Type.EmptyTypes);
             if (parserConstructor == null)
             {
-                Debug.LogError($"TextDecoder.Parser for type {methodParameter.ParameterType} has no constructor without parameters");
-                return;
+                throw new ArgumentException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no constructor without parameters");
             }
 
             // Find the 'Parse' method on that parser
             var parseMethod = parser.GetMethod("Parse");
             if (parseMethod == null)
             {
-                Debug.LogError($"TextDecoder.Parser for type {methodParameter.ParameterType} has no 'Parse' method");
-                return;
+                throw new MissingMethodException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no 'Parse' method");
             }
 
             // Create a parser and call the 'Parse' method
@@ -134,8 +143,11 @@ public abstract class ActionDecoderBase : IActionDecoder
             parsedMethodParameters.Add(methodParameters[suppliedParameterCount].DefaultValue);
         }
 
-        // Call the method
-        method.Invoke(this, parsedMethodParameters.ToArray());
+        return new InvocationDetails
+        {
+            MethodInfo = methodInfo,
+            ParsedMethodParameters = parsedMethodParameters
+        };
     }
 
     /// <summary>
