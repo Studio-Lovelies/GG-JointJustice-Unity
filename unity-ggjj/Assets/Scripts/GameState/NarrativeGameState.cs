@@ -5,7 +5,7 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 {
     [SerializeField] private NarrativeScriptPlayerComponent _narrativeScriptPlayerComponent;
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+    [SerializeField] private DirectorActionComponent _directorActionComponent;
     [SerializeField] private ActorController _actorController;
     [SerializeField] private AudioController _audioController;
     [SerializeField] private SceneController _sceneController;
@@ -28,9 +28,9 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     {
         _narrativeScriptPlaylist.InitializeNarrativeScripts();
         _bgSceneList.InstantiateBGSceneFromPlaylist(_narrativeScriptPlaylist);
-        _directorActionDecoder.Decoder.NarrativeGameState = this;
+        _directorActionComponent.Decoder.NarrativeGameState = this;
         
-        _narrativeScriptPlayerComponent.NarrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _directorActionDecoder.Decoder, _choiceMenu)
+        _narrativeScriptPlayerComponent.NarrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _directorActionComponent.Decoder, _choiceMenu)
         {
             ActiveNarrativeScript = _narrativeScriptPlaylist.GetNextNarrativeScript()
         };
