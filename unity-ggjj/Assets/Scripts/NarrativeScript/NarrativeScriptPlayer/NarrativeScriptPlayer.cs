@@ -167,7 +167,7 @@ public class NarrativeScriptPlayer
     /// <summary>
     /// Starts a sub-story which will run in place of the parent story until it ends or is stopped
     /// </summary>
-    /// <param name="narrativeScript"></param>
+    /// <param name="narrativeScript">The narrative script used to create the sub-story</param>
     public void StartSubStory(NarrativeScript narrativeScript)
     {
         _subNarrativeScript = new NarrativeScriptPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _actionDecoder, _choiceMenu)
