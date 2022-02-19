@@ -9,10 +9,10 @@ using Ink.Runtime;
 /// Allows for sub-stories to be created and run without creating any new Unity objects,
 /// and handles returning to the main story after a sub-story has finished.
 /// </summary>
-public class NarrativeScriptPlayer
+public class NarrativeScriptPlayer : INarrativeScriptPlayer
 {
     private readonly INarrativeGameState _narrativeGameState;
-    private NarrativeScript _activeNarrativeScript;
+    private INarrativeScript _activeNarrativeScript;
     private NarrativeScriptPlayer _parent;
     private NarrativeScriptPlayer _subNarrativeScript;
     private GameMode _gameMode = GameMode.Dialogue;
@@ -45,11 +45,11 @@ public class NarrativeScriptPlayer
                 return _subNarrativeScript.CanPressWitness;
             }
 
-            return IsAtChoice && GameMode == GameMode.CrossExamination && !_narrativeGameState.AppearingDialogueController.IsPrintingText;
+            return IsAtChoice && GameMode == GameMode.CrossExamination && !_narrativeGameState.AppearingDialogueController.IsPrintingText && !Waiting;;
         }
     }
-
-    public NarrativeScript ActiveNarrativeScript
+    
+    public INarrativeScript ActiveNarrativeScript
     {
         get => HasSubStory ? _subNarrativeScript.ActiveNarrativeScript : _activeNarrativeScript;
         set => _activeNarrativeScript = value;
@@ -172,7 +172,7 @@ public class NarrativeScriptPlayer
         _narrativeGameState.AppearingDialogueController.StopPrintingText();
         _subNarrativeScript.Continue(true);
     }
-
+    
     /// <summary>
     /// Ends the current sub-story
     /// </summary>
@@ -215,5 +215,27 @@ public class NarrativeScriptPlayer
         }
         
         HandleChoice(choice.index);
+    }
+    
+    /// <summary>
+    /// Sets Waiting to false and continues the story
+    /// </summary>
+    public void SetWaitingToFalseAndContinue()
+    {
+        Waiting = false;
+        Continue();
+    }
+    
+    /// <summary>
+    /// Checks if a witness can be pressed then chooses the correct choice on StoryPlayer
+    /// </summary>
+    public void TryPressWitness()
+    {
+        if (!CanPressWitness)
+        {
+            return;
+        }
+        
+        HandleChoice(1);
     }
 }

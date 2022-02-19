@@ -45,7 +45,7 @@ public class EvidenceMenu : MonoBehaviour
     
     // when set to false, this menu can only be toggled
     // when set to true, this menu can be closed by presenting evidence and thereby following a different path of the active ink script
-    public bool CanPresentEvidence => _narrativeGameState.NarrativeScriptPlayer.CanPressWitness;
+    public bool CanPresentEvidence => _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.CanPressWitness;
 
     /// <summary>
     /// Get the menu on awake to access its DontResetSelectedOnClose property
@@ -213,7 +213,7 @@ public class EvidenceMenu : MonoBehaviour
             return;
         }
         _onEvidenceClicked.Invoke();
-        _narrativeGameState.NarrativeScriptPlayer.PresentEvidence(evidence);
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.PresentEvidence(evidence);
     }
 
     /// <summary>

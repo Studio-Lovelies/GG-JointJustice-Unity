@@ -43,7 +43,7 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
         [UnityTest]
         public IEnumerator NumberOfPenaltiesCanBeReset()
         {
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponentComponent>();
             var storyProgresser = new StoryProgresser();
 
             for (int i = 0; i < 3; i++)
@@ -54,7 +54,7 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
             yield return _inputTestTools.PressForFrame(Keyboard.zKey);
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
 
-            yield return TestTools.DoUntilStateIsReached(() => storyProgresser.ProgressStory(), () => !narrativeScriptPlayer.HasSubStory);
+            yield return TestTools.DoUntilStateIsReached(() => storyProgresser.ProgressStory(), () => !narrativeScriptPlayer.NarrativeScriptPlayer.HasSubStory);
             
             Assert.AreEqual(4, _penaltyManager.PenaltiesLeft);
             yield return _inputTestTools.PressForFrame(Keyboard.xKey);

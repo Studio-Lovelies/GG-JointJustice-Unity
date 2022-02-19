@@ -72,7 +72,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     {
         if (_penaltyObjects.Count == 0)
         {
-            _narrativeGameState.NarrativeScriptPlayer.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
         }
     }
 }

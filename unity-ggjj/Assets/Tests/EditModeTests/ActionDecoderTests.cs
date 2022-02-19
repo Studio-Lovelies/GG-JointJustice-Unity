@@ -117,8 +117,8 @@ public class ActionDecoderTests
     private static ActionDecoder CreateMockedActionDecoder()
     {
         var narrativeGameStateMock = new Mock<INarrativeGameState>();
-        narrativeGameStateMock.SetupSet(mock => mock.NarrativeScriptPlayer.GameMode = It.IsAny<GameMode>());
-        narrativeGameStateMock.Setup(mock => mock.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(""));
+        narrativeGameStateMock.SetupSet(mock => mock.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.GameMode = It.IsAny<GameMode>());
+        narrativeGameStateMock.Setup(mock => mock.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(""));
         narrativeGameStateMock.Setup(mock => mock.SceneController.ShakeScreen(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<bool>()));
         narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(It.IsAny<string>()));
         narrativeGameStateMock.Setup(mock => mock.ActorController.SetPose(It.IsAny<string>(), It.IsAny<string>()));

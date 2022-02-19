@@ -212,8 +212,8 @@ public class ActorController : MonoBehaviour, IActorController
     public void OnAnimationDone()
     {
         Animating = false;
-        _narrativeGameState.NarrativeScriptPlayer.Waiting = false;
-        _narrativeGameState.NarrativeScriptPlayer.Continue();
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = false;
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
     }
 
     /// <summary>
@@ -268,7 +268,7 @@ public class ActorController : MonoBehaviour, IActorController
     private void OnAnimationStarted()
     {
         Animating = true;
-        _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = true;
         _narrativeGameState.AppearingDialogueController.TextBoxHidden = true;
     }
 }

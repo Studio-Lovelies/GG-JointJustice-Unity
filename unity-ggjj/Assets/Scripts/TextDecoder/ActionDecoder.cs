@@ -122,7 +122,7 @@ public class ActionDecoder : ActionDecoderBase
     private void PRESENT_EVIDENCE()
     {
         NarrativeGameState.EvidenceController.RequirePresentEvidence();
-        NarrativeGameState.NarrativeScriptPlayer.GameMode = GameMode.CrossExamination;
+        NarrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.GameMode = GameMode.CrossExamination;
     }
 
     /// <summary>Substitutes the provided evidence for their substitute.</summary>
@@ -490,7 +490,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Gameplay</category>
     private void MODE(GameMode mode)
     {
-        NarrativeGameState.NarrativeScriptPlayer.GameMode = mode;
+        NarrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.GameMode = mode;
         switch (mode)
         {
             case GameMode.Dialogue:

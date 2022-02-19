@@ -57,8 +57,8 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
-        _imageFader.StartFade(1, 0, seconds, () => _narrativeGameState.NarrativeScriptPlayer.SetWaitingToFalseAndContinue());
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = true;
+        _imageFader.StartFade(1, 0, seconds, () => _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue());
     }
 
     /// <summary>
@@ -74,8 +74,8 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
-        _imageFader.StartFade(0, 1, seconds, () => _narrativeGameState.NarrativeScriptPlayer.SetWaitingToFalseAndContinue());
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = true;
+        _imageFader.StartFade(0, 1, seconds, () => _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue());
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (!isBlocking)
         {
-            _narrativeGameState.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
         }
     }
 
@@ -118,7 +118,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (isBlocking)
         {
-            _narrativeGameState.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
         }
     }
 
@@ -162,7 +162,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (!isBlocking)
         {
-            _narrativeGameState.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
         }
     }
 
@@ -283,9 +283,9 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The time to wait in seconds.</param>
     private IEnumerator WaitCoroutine(float seconds)
     {
-        _narrativeGameState.NarrativeScriptPlayer.Waiting = true;
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = true;
         yield return new WaitForSeconds(seconds);
-        _narrativeGameState.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
     }
 
     /// <summary>

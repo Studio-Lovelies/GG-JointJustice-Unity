@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 {
-    [SerializeField] private NarrativeScriptPlayerComponent _narrativeScriptPlayerComponent;
+    [FormerlySerializedAs("_narrativeScriptPlayerComponent")] [SerializeField] private NarrativeScriptPlayerComponentComponent _narrativeScriptPlayerComponentComponent;
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     [SerializeField] private ActionDecoderComponent _actionDecoderComponent;
     [SerializeField] private ActorController _actorController;
@@ -16,8 +17,8 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 
     public IActorController ActorController => _actorController;
     public IAppearingDialogueController AppearingDialogueController => _appearingDialogueController;
-    public IObjectStorage ObjectStorage => _narrativeScriptPlayerComponent.ActiveNarrativeScript.ObjectStorage;
-    public INarrativeScriptPlayer NarrativeScriptPlayer => _narrativeScriptPlayerComponent;
+    public IObjectStorage ObjectStorage => _narrativeScriptPlayerComponentComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
+    public INarrativeScriptPlayerComponent NarrativeScriptPlayerComponent => _narrativeScriptPlayerComponentComponent;
     public IAudioController AudioController => _audioController;
     public IEvidenceController EvidenceController => _evidenceController;
     public ISceneController SceneController => _sceneController;
@@ -31,6 +32,6 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
         _narrativeScriptPlaylist.InitializeNarrativeScripts();
         _bgSceneList.InstantiateBGSceneFromPlaylist(_narrativeScriptPlaylist);
         _actionDecoderComponent.Decoder.NarrativeGameState = this;
-        _narrativeScriptPlayerComponent.Continue();
+        _narrativeScriptPlayerComponentComponent.NarrativeScriptPlayer.Continue();
     }
 }

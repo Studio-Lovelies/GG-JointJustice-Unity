@@ -63,7 +63,7 @@ public class ChoiceMenu : MonoBehaviour, IChoiceMenu
     private void OnChoiceClicked(int choiceIndex)
     {
         DeactivateChoiceMenu();
-        _narrativeGameState.NarrativeScriptPlayer.HandleChoice(choiceIndex);
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.HandleChoice(choiceIndex);
     }
 
     /// <summary>

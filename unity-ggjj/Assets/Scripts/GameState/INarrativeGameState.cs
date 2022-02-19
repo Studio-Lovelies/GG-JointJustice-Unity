@@ -3,7 +3,7 @@ public interface INarrativeGameState
     IActorController ActorController { get; }
     IAppearingDialogueController AppearingDialogueController { get; }
     IObjectStorage ObjectStorage { get; }
-    INarrativeScriptPlayer NarrativeScriptPlayer { get; }
+    INarrativeScriptPlayerComponent NarrativeScriptPlayerComponent { get; }
     IAudioController AudioController { get; }
     IEvidenceController EvidenceController { get; }
     ISceneController SceneController { get; }

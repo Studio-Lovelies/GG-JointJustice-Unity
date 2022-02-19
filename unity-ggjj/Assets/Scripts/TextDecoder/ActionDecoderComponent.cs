@@ -9,7 +9,7 @@ public class ActionDecoderComponent : MonoBehaviour
     private void Awake()
     {
         // We wrap this in an Action so we have no ties to UnityEngine in the ActionDecoder
-        Decoder.OnActionDone += () => _narrativeGameState.NarrativeScriptPlayer.Continue();
+        Decoder.OnActionDone += () => _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
     }
 
     #region API
@@ -26,7 +26,7 @@ public class ActionDecoderComponent : MonoBehaviour
         catch (TextDecoder.Parser.ScriptParsingException exception)
         {
             Debug.LogError(exception);
-            _narrativeGameState.NarrativeScriptPlayer.Continue();
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
         }
     }
     #endregion
