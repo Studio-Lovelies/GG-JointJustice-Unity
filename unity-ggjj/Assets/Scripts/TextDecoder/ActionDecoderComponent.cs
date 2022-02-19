@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class DirectorActionComponent : MonoBehaviour
+public class ActionDecoderComponent : MonoBehaviour
 {
-    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
+    [SerializeField] private NarrativeGameState _narrativeGameState;
     
     public ActionDecoder Decoder { get; } = new ActionDecoder();
 
