@@ -46,14 +46,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
             Destroy(penaltyAnimator.gameObject);
         }
         _penaltyObjects.Clear();
-        CreatePenalties();
-    }
-
-    /// <summary>
-    /// Creates penalties equal to the value of _penaltyCount
-    /// </summary>
-    private void CreatePenalties()
-    {
+        
         for (int i = 0; i < _penaltyCount; i++)
         {
             _penaltyObjects.Enqueue(Instantiate(_penaltyObject, transform));

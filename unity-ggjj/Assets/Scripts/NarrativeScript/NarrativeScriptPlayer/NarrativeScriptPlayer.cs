@@ -117,7 +117,7 @@ public class NarrativeScriptPlayer
 
     /// <summary>
     /// Checks if a story can continue, and handles what happens
-    /// it cannot, depending on the current GameMode
+    /// if it cannot, depending on the current GameMode
     /// </summary>
     /// <returns>If the story can continue (true) or (not)</returns>
     private bool HandleCannotContinue()

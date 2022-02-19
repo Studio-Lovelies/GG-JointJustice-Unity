@@ -587,9 +587,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30ac672519c94660a4d7673924b0e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScriptPlayerComponent: {fileID: 0}
+  _narrativeScriptPlayerComponent: {fileID: 2831046952443657085}
   _narrativeScriptPlaylist: {fileID: 7074748356020451406}
-  _directorActionComponent: {fileID: 0}
+  _actionDecoderComponent: {fileID: 5228303783986964379}
   _actorController: {fileID: 5228303783822522784}
   _audioController: {fileID: 5766951243316258182}
   _sceneController: {fileID: 5228303784977925677}
