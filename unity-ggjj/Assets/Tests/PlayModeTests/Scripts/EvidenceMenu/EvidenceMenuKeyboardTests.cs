@@ -46,7 +46,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return StoryProgresser.ProgressStory();
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.rightArrowKey);
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey);
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayer>();
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             Assert.IsTrue(narrativeScriptPlayer.HasSubStory);
         }
         

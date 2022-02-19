@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 {
-    [SerializeField] private NarrativeScriptPlayer _narrativeScriptPlayer;
+    [SerializeField] private NarrativeScriptPlayerComponent _narrativeScriptPlayerComponent;
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     [SerializeField] private DirectorActionDecoder _directorActionDecoder;
     [SerializeField] private ActorController _actorController;
@@ -16,8 +17,8 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 
     public IActorController ActorController => _actorController;
     public IAppearingDialogueController AppearingDialogueController => _appearingDialogueController;
-    public IObjectStorage ObjectStorage => _narrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
-    public INarrativeScriptPlayer NarrativeScriptPlayer => _narrativeScriptPlayer;
+    public IObjectStorage ObjectStorage => _narrativeScriptPlayerComponent.ActiveNarrativeScript.ObjectStorage;
+    public INarrativeScriptPlayer NarrativeScriptPlayer => _narrativeScriptPlayerComponent;
     public IAudioController AudioController => _audioController;
     public IEvidenceController EvidenceController => _evidenceController;
     public ISceneController SceneController => _sceneController;
@@ -29,10 +30,10 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
         _bgSceneList.InstantiateBGSceneFromPlaylist(_narrativeScriptPlaylist);
         _directorActionDecoder.Decoder.NarrativeGameState = this;
         
-        _narrativeScriptPlayer.StoryPlayer = new StoryPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _directorActionDecoder.Decoder, _choiceMenu)
+        _narrativeScriptPlayerComponent.NarrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeScriptPlaylist, _appearingDialogueController, _directorActionDecoder.Decoder, _choiceMenu)
         {
             ActiveNarrativeScript = _narrativeScriptPlaylist.GetNextNarrativeScript()
         };
-        _narrativeScriptPlayer.Continue();
+        _narrativeScriptPlayerComponent.Continue();
     }
 }

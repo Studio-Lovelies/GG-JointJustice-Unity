@@ -15,7 +15,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
     public class ViaKeyboard
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
-        private NarrativeScriptPlayer _narrativeScriptPlayer;
+        private NarrativeScriptPlayerComponent _narrativeScriptPlayerComponent;
         private StoryProgresser _storyProgresser;
 
         private Keyboard Keyboard => _inputTestTools.Keyboard;
@@ -24,7 +24,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         public IEnumerator SetUp()
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity", new LoadSceneParameters());
-            _narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayer>();
+            _narrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             _storyProgresser = new StoryProgresser();
         }
         
@@ -38,8 +38,8 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
-            yield return TestTools.WaitForState(() => _narrativeScriptPlayer.HasSubStory);
-            Assert.IsTrue(_narrativeScriptPlayer.HasSubStory);
+            yield return TestTools.WaitForState(() => _narrativeScriptPlayerComponent.HasSubStory);
+            Assert.IsTrue(_narrativeScriptPlayerComponent.HasSubStory);
         }
 
         [UnityTest]
@@ -51,7 +51,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
-            Assert.IsTrue(_narrativeScriptPlayer.HasSubStory);
+            Assert.IsTrue(_narrativeScriptPlayerComponent.HasSubStory);
 
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
@@ -62,7 +62,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         [UnityTest]
         public IEnumerator CantPresentEvidenceDuringPressingDialogue()
         {
-            int existingSubstories = TestTools.FindInactiveInScene<NarrativeScriptPlayer>().Count(controller => {
+            int existingSubstories = TestTools.FindInactiveInScene<NarrativeScriptPlayerComponent>().Count(controller => {
                 GameObject gameObject = controller.gameObject;
                 return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
             });
@@ -88,7 +88,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
 
-            Assert.AreEqual(existingSubstories,  TestTools.FindInactiveInScene<NarrativeScriptPlayer>().Count(controller => {
+            Assert.AreEqual(existingSubstories,  TestTools.FindInactiveInScene<NarrativeScriptPlayerComponent>().Count(controller => {
                 GameObject gameObject = controller.gameObject;
                 return gameObject.name.Contains("SubStory") && gameObject.activeInHierarchy;
             }));
@@ -105,12 +105,12 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             
             for (int i = penaltyManager.PenaltiesLeft; i > 0; i--)
             {
-                yield return TestTools.WaitForState(() => _narrativeScriptPlayer.CanPressWitness);
+                yield return TestTools.WaitForState(() => _narrativeScriptPlayerComponent.CanPressWitness);
 
                 Assert.AreEqual(i, penaltyManager.PenaltiesLeft);
                 yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
                 yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
-                while (_narrativeScriptPlayer.HasSubStory && penaltyManager.PenaltiesLeft > 0)
+                while (_narrativeScriptPlayerComponent.HasSubStory && penaltyManager.PenaltiesLeft > 0)
                 {
                     yield return storyProgresser.ProgressStory();
                 }
@@ -120,7 +120,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             
             yield return new WaitForSeconds(5);
             
-            Assert.IsTrue(new AssetName(_narrativeScriptPlayer.ActiveNarrativeScript.Script.name).ToString() == new AssetName("TMPHGameOver").ToString());
+            Assert.IsTrue(new AssetName(_narrativeScriptPlayerComponent.ActiveNarrativeScript.Script.name).ToString() == new AssetName("TMPHGameOver").ToString());
         }
     }
 }

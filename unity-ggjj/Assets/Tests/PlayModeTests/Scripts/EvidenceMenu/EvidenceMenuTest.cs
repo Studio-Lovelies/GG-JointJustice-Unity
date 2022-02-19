@@ -14,7 +14,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
-        protected global::NarrativeScriptPlayer DialogueController { get; private set; }
+        protected global::NarrativeScriptPlayerComponent DialogueController { get; private set; }
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
@@ -27,7 +27,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
             StoryProgresser = new StoryProgresser();
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
-            DialogueController = Object.FindObjectOfType<global::NarrativeScriptPlayer>();
+            DialogueController = Object.FindObjectOfType<global::NarrativeScriptPlayerComponent>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu = EvidenceMenu.GetComponent<Menu>();
             CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
