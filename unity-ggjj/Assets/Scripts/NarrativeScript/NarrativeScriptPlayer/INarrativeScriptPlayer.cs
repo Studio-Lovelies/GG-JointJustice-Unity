@@ -9,4 +9,5 @@ public interface INarrativeScriptPlayer
     void StartSubStory(NarrativeScript gameOverScript);
     void HandleChoice(int choiceIndex);
     void PresentEvidence(ICourtRecordObject evidence);
+    void SetWaitingToFalseAndContinue();
 }

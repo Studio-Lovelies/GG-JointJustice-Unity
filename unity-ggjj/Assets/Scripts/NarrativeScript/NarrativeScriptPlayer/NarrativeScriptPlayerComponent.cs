@@ -63,4 +63,13 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     {
         NarrativeScriptPlayer.StartSubStory(narrativeScript);
     }
+    
+    /// <summary>
+    /// Sets Waiting to false and continues the story
+    /// </summary>
+    public void SetWaitingToFalseAndContinue()
+    {
+        NarrativeScriptPlayer.Waiting = false;
+        NarrativeScriptPlayer.Continue();
+    }
 }
