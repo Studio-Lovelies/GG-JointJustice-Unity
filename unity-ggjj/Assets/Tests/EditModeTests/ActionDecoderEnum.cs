@@ -17,6 +17,7 @@ public class ActionDecoderEnumTests
         var narrativeGameStateMock = new Mock<INarrativeGameState>();
         narrativeGameStateMock.Setup(mock => mock.ObjectStorage.GetObject<ICourtRecordObject>(ACTOR_DATA_NAME)).Returns(actorData);
         narrativeGameStateMock.Setup(mock => mock.SceneController.ShowItem(actorData, ItemDisplayPosition.Left));
+        
         var decoder = new ActionDecoder
         {
             NarrativeGameState = narrativeGameStateMock.Object
@@ -37,6 +38,7 @@ public class ActionDecoderEnumTests
     {
         var narrativeGameStateMock = new Mock<INarrativeGameState>();
         narrativeGameStateMock.Setup(mock => mock.SceneController.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left));
+        
         var decoder = new ActionDecoder
         {
             NarrativeGameState = narrativeGameStateMock.Object
