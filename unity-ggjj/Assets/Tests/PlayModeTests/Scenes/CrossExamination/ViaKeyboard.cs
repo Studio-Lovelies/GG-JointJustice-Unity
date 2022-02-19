@@ -16,6 +16,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
         private NarrativeScriptPlayer _narrativeScriptPlayer;
+        private StoryProgresser _storyProgresser;
 
         private Keyboard Keyboard => _inputTestTools.Keyboard;
 
@@ -24,12 +25,14 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/CrossExamination - TestScene.unity", new LoadSceneParameters());
             _narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayer>();
+            _storyProgresser = new StoryProgresser();
         }
         
         [UnityTest]
         public IEnumerator CanPresentEvidenceDuringExamination()
         {
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
+            yield return _storyProgresser.ProgressStory();
             yield return _inputTestTools.PressForFrame(Keyboard.zKey);
             yield return TestTools.WaitForState(() => evidenceMenu.isActiveAndEnabled);
             Assert.True(evidenceMenu.isActiveAndEnabled);
@@ -43,6 +46,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         public IEnumerator CantPresentEvidenceDuringExaminationDialogue()
         {
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
+            yield return _storyProgresser.ProgressStory();
             yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
