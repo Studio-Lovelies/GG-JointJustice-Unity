@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NarrativeScriptPlayerComponent : MonoBehaviour
+public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPlayerComponent
 {
     [SerializeField] private NarrativeGameState _narrativeGameState;
     
