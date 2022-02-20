@@ -1,14 +1,14 @@
 public interface INarrativeScriptPlayer
 {
-    public INarrativeScript ActiveNarrativeScript { get; }
-    public GameMode GameMode { get; set; }
-    public bool Waiting { get; set; }
-    public bool CanPressWitness { get; }
-    public bool HasSubStory { get; }
+    INarrativeScript ActiveNarrativeScript { get; }
+    GameMode GameMode { get; set; }
+    bool Waiting { get; set; }
+    bool CanPressWitness { get; }
+    bool HasSubStory { get; }
     
-    public void Continue(bool overridePrintingText = false);
-    public void HandleChoice(int choiceIndex);
-    public void PresentEvidence(ICourtRecordObject courtRecordObject);
-    public void StartSubStory(NarrativeScript narrativeScript);
-    public void SetWaitingToFalseAndContinue();
+    void Continue(bool overridePrintingText = false);
+    void HandleChoice(int choiceIndex);
+    void PresentEvidence(ICourtRecordObject courtRecordObject);
+    void StartSubStory(NarrativeScript narrativeScript);
+    void SetWaitingToFalseAndContinue();
 }
