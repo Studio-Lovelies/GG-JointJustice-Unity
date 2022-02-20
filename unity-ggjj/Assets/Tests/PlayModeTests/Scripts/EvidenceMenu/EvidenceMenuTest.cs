@@ -14,7 +14,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
-        protected global::NarrativeScriptPlayerComponent DialogueController { get; private set; }
+        protected global::NarrativeScriptPlayerComponent NarrativeScriptPlayerComponent { get; private set; }
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
@@ -27,7 +27,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
             StoryProgresser = new StoryProgresser();
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
-            DialogueController = Object.FindObjectOfType<global::NarrativeScriptPlayerComponent>();
+            NarrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu = EvidenceMenu.GetComponent<Menu>();
             CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
@@ -49,7 +49,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected Evidence[] AddEvidence()
         {
-            var evidenceOfCurrentScript = DialogueController.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObjectsOfType<Evidence>().ToArray();
+            var evidenceOfCurrentScript = NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObjectsOfType<Evidence>().ToArray();
             foreach (var evidence in evidenceOfCurrentScript)
             {
                 EvidenceController.AddEvidence(evidence);
