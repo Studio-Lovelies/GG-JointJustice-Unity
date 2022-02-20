@@ -22,7 +22,14 @@ namespace Tests.PlayModeTests.Tools
             DateTime timeoutAt = DateTime.Now.AddSeconds(timeoutInSeconds); // we cannot rely on UnityEngine.Time inside tests
             while (DateTime.Now < timeoutAt)
             {
-                yield return action?.Invoke();
+                if (action == null)
+                {
+                    yield return null;
+                }
+                else
+                {
+                    yield return action.Invoke();
+                }
                 if (hasReachedState())
                 {
                     break;
