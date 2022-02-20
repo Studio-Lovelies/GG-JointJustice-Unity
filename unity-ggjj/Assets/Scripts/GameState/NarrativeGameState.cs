@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 {
-    [FormerlySerializedAs("_narrativeScriptPlayerComponent")] [SerializeField] private NarrativeScriptPlayerComponentComponent _narrativeScriptPlayerComponentComponent;
+    [SerializeField] private NarrativeScriptPlayerComponent _narrativeScriptPlayerComponent;
     [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     [SerializeField] private ActionDecoderComponent _actionDecoderComponent;
     [SerializeField] private ActorController _actorController;
@@ -17,8 +17,8 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 
     public IActorController ActorController => _actorController;
     public IAppearingDialogueController AppearingDialogueController => _appearingDialogueController;
-    public IObjectStorage ObjectStorage => _narrativeScriptPlayerComponentComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
-    public INarrativeScriptPlayerComponent NarrativeScriptPlayerComponent => _narrativeScriptPlayerComponentComponent;
+    public IObjectStorage ObjectStorage => _narrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
+    public INarrativeScriptPlayerComponent NarrativeScriptPlayerComponent => _narrativeScriptPlayerComponent;
     public IAudioController AudioController => _audioController;
     public IEvidenceController EvidenceController => _evidenceController;
     public ISceneController SceneController => _sceneController;
@@ -32,6 +32,6 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
         _narrativeScriptPlaylist.InitializeNarrativeScripts();
         _bgSceneList.InstantiateBGSceneFromPlaylist(_narrativeScriptPlaylist);
         _actionDecoderComponent.Decoder.NarrativeGameState = this;
-        _narrativeScriptPlayerComponentComponent.NarrativeScriptPlayer.Continue();
+        _narrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
     }
 }

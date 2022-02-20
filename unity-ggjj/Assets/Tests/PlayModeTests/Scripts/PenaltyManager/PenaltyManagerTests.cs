@@ -43,7 +43,7 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
         [UnityTest]
         public IEnumerator NumberOfPenaltiesCanBeReset()
         {
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponentComponent>();
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             var storyProgresser = new StoryProgresser();
 
             for (int i = 0; i < 3; i++)

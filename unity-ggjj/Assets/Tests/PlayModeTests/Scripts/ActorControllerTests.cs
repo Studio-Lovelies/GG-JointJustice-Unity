@@ -76,7 +76,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         {
             _actorController.SetActiveActor("TutorialBoy");
             var witnessActor = GameObject.Find("Witness_Actor").GetComponent<Actor>();
-            var objectStorage = Object.FindObjectOfType<NarrativeScriptPlayerComponentComponent>().NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
+            var objectStorage = Object.FindObjectOfType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
             Assert.IsTrue(witnessActor.MatchesActorData(objectStorage.GetObject<ActorData>("TutorialBoy")));
         }
 
