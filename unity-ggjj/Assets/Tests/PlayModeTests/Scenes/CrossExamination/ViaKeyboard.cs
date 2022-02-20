@@ -32,7 +32,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         public IEnumerator CanPresentEvidenceDuringExamination()
         {
             yield return _storyProgresser.ProgressStory();
-            EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
+            EvidenceMenu evidenceMenu = Object.FindObjectOfType<EvidenceMenu>(true);
             yield return _inputTestTools.PressForFrame(Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
