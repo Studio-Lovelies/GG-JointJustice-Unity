@@ -18,7 +18,6 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     public IActorController ActorController => _actorController;
     public IAppearingDialogueController AppearingDialogueController => _appearingDialogueController;
     public IObjectStorage ObjectStorage => _narrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
-    public INarrativeScriptPlayerComponent NarrativeScriptPlayerComponent => _narrativeScriptPlayerComponent;
     public IAudioController AudioController => _audioController;
     public IEvidenceController EvidenceController => _evidenceController;
     public ISceneController SceneController => _sceneController;
@@ -26,6 +25,7 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     public IActionDecoder ActionDecoder => _actionDecoderComponent.Decoder;
     public INarrativeScriptPlaylist NarrativeScriptPlaylist => _narrativeScriptPlaylist;
     public IChoiceMenu ChoiceMenu => _choiceMenu;
+    public NarrativeScriptPlayerComponent NarrativeScriptPlayerComponent => _narrativeScriptPlayerComponent;
 
     private void Start()
     {
