@@ -6,8 +6,8 @@ public interface IEvidenceController
     List<Evidence> CurrentEvidence { get; }
 
     void AddEvidence(Evidence evidence);
-    void RemoveEvidence(string evidenceName);
+    void RemoveEvidence(Evidence evidence);
     void AddRecord(ActorData actor);
     void RequirePresentEvidence();
-    void SubstituteEvidence(string initialEvidenceName, Evidence substituteEvidence);
+    void SubstituteEvidence(Evidence initialEvidence, Evidence substituteEvidence);
 }

@@ -102,7 +102,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     private void REMOVE_EVIDENCE(EvidenceAssetName evidence)
     {
-        NarrativeGameState.EvidenceController.RemoveEvidence(evidence);
+        NarrativeGameState.EvidenceController.RemoveEvidence(NarrativeGameState.ObjectStorage.GetObject<Evidence>(evidence));
         OnActionDone?.Invoke();
     }
 
@@ -132,7 +132,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     private void SUBSTITUTE_EVIDENCE(EvidenceAssetName initialEvidenceName, EvidenceAssetName substituteEvidenceName)
     {
-        NarrativeGameState.EvidenceController.SubstituteEvidence(initialEvidenceName, NarrativeGameState.ObjectStorage.GetObject<Evidence>(substituteEvidenceName));
+        NarrativeGameState.EvidenceController.SubstituteEvidence(NarrativeGameState.ObjectStorage.GetObject<Evidence>(initialEvidenceName), NarrativeGameState.ObjectStorage.GetObject<Evidence>(substituteEvidenceName));
         OnActionDone?.Invoke();
     }
     #endregion

@@ -26,10 +26,10 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <summary>
     /// Removes a piece of evidence from the evidence menu.
     /// </summary>
-    /// <param name="evidenceName">The name of the evidence to remove.</param>
-    public void RemoveEvidence(string evidenceName)
+    /// <param name="evidence">The evidence object to remove</param>
+    public void RemoveEvidence(Evidence evidence)
     {
-        CurrentEvidence.Remove(_narrativeGameState.ObjectStorage.GetObject<Evidence>(evidenceName));
+        CurrentEvidence.Remove(evidence);
     }
 
     /// <summary>
@@ -53,11 +53,10 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <summary>
     /// Substitutes a piece of evidence with its assigned alternate evidence.
     /// </summary>
-    /// <param name="initialEvidenceName">The name of the currently present evidence to be substituted</param>
+    /// <param name="initialEvidence">The evidence to be substituted</param>
     /// <param name="substituteEvidence">The evidence to substitute <see cref="initialEvidence"/> with</param>
-    public void SubstituteEvidence(string initialEvidenceName, Evidence substituteEvidence)
+    public void SubstituteEvidence(Evidence initialEvidence, Evidence substituteEvidence)
     {
-        var initialEvidenceIndex = CurrentEvidence.FindIndex(evidence => evidence.name == initialEvidenceName);
-        CurrentEvidence[initialEvidenceIndex] = substituteEvidence;
+        CurrentEvidence[CurrentEvidence.IndexOf(initialEvidence)] = substituteEvidence;
     }
 }
