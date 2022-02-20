@@ -45,7 +45,7 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
                 return _subNarrativeScript.CanPressWitness;
             }
 
-            return IsAtChoice && GameMode == GameMode.CrossExamination && !_narrativeGameState.AppearingDialogueController.IsPrintingText && !Waiting;;
+            return IsAtChoice && GameMode == GameMode.CrossExamination && !_narrativeGameState.AppearingDialogueController.IsPrintingText && !Waiting;
         }
     }
     
