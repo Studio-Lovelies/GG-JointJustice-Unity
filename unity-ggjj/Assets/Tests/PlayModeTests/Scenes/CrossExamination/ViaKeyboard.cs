@@ -77,7 +77,6 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         public IEnumerator GameOverPlaysOnNoLivesLeft()
         {
             var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
-            var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
             var storyProgresser = new StoryProgresser();
             
             for (int i = penaltyManager.PenaltiesLeft; i > 0; i--)
