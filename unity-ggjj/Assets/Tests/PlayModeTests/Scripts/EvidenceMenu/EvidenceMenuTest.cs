@@ -41,7 +41,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
             foreach (var actorData in actors)
             {
-                EvidenceController.AddToCourtRecord(actorData);
+                EvidenceController.AddRecord(actorData);
             }
 
             return actors;

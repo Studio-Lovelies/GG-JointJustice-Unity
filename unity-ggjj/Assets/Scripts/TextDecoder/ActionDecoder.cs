@@ -112,7 +112,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     protected override void ADD_RECORD(ActorAssetName actorName)
     {
-        NarrativeGameState.EvidenceController.AddToCourtRecord(NarrativeGameState.ObjectStorage.GetObject<ActorData>(actorName));
+        NarrativeGameState.EvidenceController.AddRecord(NarrativeGameState.ObjectStorage.GetObject<ActorData>(actorName));
         OnActionDone?.Invoke();
     }
 

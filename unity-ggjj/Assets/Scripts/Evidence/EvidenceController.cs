@@ -36,7 +36,7 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// Adds an actor to the court record.
     /// </summary>
     /// <param name="actor">The actor to add.</param>
-    public void AddToCourtRecord(ActorData actor)
+    public void AddRecord(ActorData actor)
     {
         CurrentProfiles.Add(actor);
     }

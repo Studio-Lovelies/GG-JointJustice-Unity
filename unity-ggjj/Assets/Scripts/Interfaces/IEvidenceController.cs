@@ -7,7 +7,7 @@ public interface IEvidenceController
 
     void AddEvidence(Evidence evidence);
     void RemoveEvidence(string evidenceName);
-    void AddToCourtRecord(ActorData actor);
+    void AddRecord(ActorData actor);
     void RequirePresentEvidence();
     void SubstituteEvidence(string initialEvidenceName, Evidence substituteEvidence);
 }
