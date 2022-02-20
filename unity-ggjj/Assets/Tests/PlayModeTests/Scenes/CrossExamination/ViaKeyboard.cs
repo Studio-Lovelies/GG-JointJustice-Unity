@@ -31,8 +31,8 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         [UnityTest]
         public IEnumerator CanPresentEvidenceDuringExamination()
         {
-            EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _storyProgresser.ProgressStory();
+            EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _inputTestTools.PressForFrame(Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
