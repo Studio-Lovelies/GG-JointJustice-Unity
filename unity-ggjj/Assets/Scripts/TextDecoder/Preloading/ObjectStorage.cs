@@ -43,7 +43,7 @@ public class ObjectStorage : IObjectStorage
     /// </summary>
     /// <typeparam name="T">The type of object to get.</typeparam>
     /// <returns>The objects found.</returns>
-    public IEnumerable<T> GetObjectsOfType<T>()
+    public IEnumerable<T> GetObjectsOfType<T>() where T : class
     {
         return _objects.Values.Where(obj => obj is T).Cast<T>();
     }
