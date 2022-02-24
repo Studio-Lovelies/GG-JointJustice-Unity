@@ -123,191 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &93676771
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 93676772}
-  - component: {fileID: 93676775}
-  - component: {fileID: 93676773}
-  - component: {fileID: 93676774}
-  - component: {fileID: 93676776}
-  m_Layer: 5
-  m_Name: Content
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &93676772
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93676771}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1034012644}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1280, y: 0}
-  m_Pivot: {x: 0.5, y: 1}
---- !u!111 &93676773
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93676771}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 2d328fb95c622694d972b4164a3ebf61, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 2d328fb95c622694d972b4164a3ebf61, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
---- !u!114 &93676774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93676771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 1
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 1
-  m_ReverseArrangement: 0
---- !u!114 &93676775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93676771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c39f96ca13f17e042875e1676a64d24b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sourceTextAsset: {fileID: 4900000, guid: 23036996c010ce74e91691d1d4006e57, type: 3}
-  textPrefab: {fileID: 1127632333949087497, guid: 54d195116c09e384d91a7a7998b869e2, type: 3}
-  imagePrefab: {fileID: 5462990350589936174, guid: a6c582f64964c08418adc9a818700413, type: 3}
---- !u!114 &93676776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93676771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 2
---- !u!1 &107790047
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 107790048}
-  - component: {fileID: 107790050}
-  - component: {fileID: 107790049}
-  m_Layer: 5
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &107790048
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107790047}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1034012644}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &107790049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107790047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &107790050
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107790047}
-  m_CullTransparentMesh: 1
 --- !u!1 &172781146
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +197,631 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &995006764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 995006765}
+  - component: {fileID: 995006767}
+  - component: {fileID: 995006766}
+  m_Layer: 5
+  m_Name: CreditsText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &995006765
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995006764}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1034012644}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 1080}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &995006766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995006764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '<style=h1>Game Grumps: Joint Justice</style>
+
+
+    A Game By</style>
+
+
+    ![studio
+    logo not game logo](Credits/studio-lovelies-logo)
+
+
+
+    <style=h1>Project Founder</style>
+
+
+    Creatrixtiara
+    (creatrixtiara.com)
+
+
+
+    <style=h1>Big Brother, always watching</style>
+
+    (Lead
+    Project Management)
+
+
+    Anasthera (Anasthera#8523)
+
+
+
+    <style=h1>Discord
+    Overlord and Cult Leader</style>
+
+
+    Manuel "Epik" Guevara (@WatashiWaEpik)
+
+
+
+    <style=h1>Merch
+    Manager</style>
+
+
+    Xavier "Savior of the Eggs" Greene
+
+    flow.page/savioroftheeggs/
+
+
+
+    <style=h1>Graphic
+    Design God</style>
+
+
+    gof / King Peggy
+
+
+
+
+    <style=h1>Programming Team
+
+
+    Lead
+    Technomancers</style>
+
+    (Lead Programmers)
+
+
+    Averlyth
+
+    Isaac "cunt"
+    Laquerre (cunt#4811)
+
+
+
+    <style=h1>Keyboard Jockeys</style>
+
+    (Programmers)
+
+
+    CounterfeitLlama
+
+    Grob
+
+    Jimjams
+
+    Katlyco
+
+    Lara
+
+    Splintor
+
+    UsernameInUse
+
+
+
+
+    <style=h1>Writing
+    Team
+
+
+    Storytelling Savants</style>
+
+    (Lead Writers)
+
+
+    Anasthera
+
+
+
+    <style=h1>Travelling
+    Tale Tellers</style>
+
+    (Writers)
+
+
+    Alistair
+
+    Coda-Bishop
+
+    CreatrixTiara
+
+    Eliot
+    "BabyChunks" Laquerre
+
+    Evan "HyperTurtle77" Hall
+
+    Flamryn
+
+
+    Gof /
+    King Peggy
+
+    Hollie "Koda NootNoot" (@kodaplanetearth)
+
+    Joshua "Fatalismus"
+    (@SFatalismus)
+
+    JunkratsPegleg
+
+    JustChad (@JustChadTweets)
+
+
+    MaddCat
+
+    Marker
+
+    Megasaurus
+
+    Peter
+
+    Phil71X
+
+
+    Pi
+    on my Cake
+
+    SpookTroop
+
+    Theta
+
+    Xavier "Savior of the Eggs" Greene
+
+    Xorama
+
+
+
+
+    <style=h1>Art
+    Team
+
+
+    Came out the pussy drawing fuckin'' Mozart</style>
+
+    (Lead Artists)
+
+
+    Discodur0
+
+    Gof
+
+
+
+    <style=h1>Bob
+    Ross'' Happy Little Friends</style>
+
+    (Artists)
+
+
+    Andy
+
+    Cinammon
+
+    Lion_soul
+
+    Xorama
+
+    @SariaArts
+    (title menu background)
+
+
+
+
+    <style=h1>Music Team
+
+
+    Mixing Maestros</style>
+
+    (Composers)
+
+
+    Akkelby
+
+    Benudi
+
+    Finn
+    Cohen (CriminalSquid#7575)
+
+    James Spencer
+
+    Jape_falcon
+
+    Jeeebbus
+
+    SavestateCorrupted
+
+    Theta
+
+
+
+    <style=h1>Quality
+    Assurance?!?!</style>
+
+
+    Evan "HyperTurtle77" Hall
+
+    Gof
+
+    Jape Falcon
+
+    Lazyrex
+
+    MaddCat
+
+    Manuel
+    "Epik" Guevara (@WatashiWaEpik)
+
+    Xavier "Savior of the Eggs" Greene
+
+
+
+    <style=h1>Social
+    Media and ways to reach us
+
+
+    Check out our YouTube Channel!</style>
+
+    (Thanks
+    to Koda NootNoot for making the trailer!)
+
+
+    <style=h1>Studio Lovelies
+
+
+    Also
+    find our community Discord <br /> on our YouTube channel!
+
+
+    Have a look at
+    our website!
+
+    studiolovelies.com
+
+
+    Finally, our Twitter
+
+
+    @StudioLovelies
+
+
+    Ask
+    around on either if you want <br /> to be part of the project!
+
+
+
+    Special
+    Thanks</style>
+
+
+    To Creatrixtiara, for making the
+
+    original Reddit post
+    and inspiring
+
+    all of us to make this game a reality.
+
+    - Epik
+
+
+
+    To
+    Specious, for bringing actual
+
+    administrative knowledge to the table
+
+    and
+    being a sweetheart. - Epik
+
+
+
+    To Anasthera, for keeping the team
+
+    together
+    when it was difficult to
+
+    stay motivated.
+
+    - Savior of the Eggs and cunt
+
+
+
+    To
+    Epik, for helping us maintain the
+
+    team''s sense of community and friendship.
+
+    -
+    Savior of the Eggs
+
+
+
+    To Averlyth, for being one of the main
+
+    programmers
+    during the first few months,
+
+    for putting in a lot of work into this
+
+    project
+    and for being someone I''m proud
+
+    to call a friend. - Epik
+
+
+
+    To Lewis
+    P, thanks for keeping me
+
+    motivated and for always being in my
+
+    corner,
+    love you tons! - Hollie
+
+
+
+    To Kai Something, for designing games
+
+    with
+    me and teaching me what I know.
+
+    - Savior of the Eggs
+
+
+
+    To SavestateCorrupted,
+    for providing
+
+    "Trivia Boy" a delicious voice. - Epik
+
+
+    To cunt, for
+    having a very family-friendly
+
+    username, and for doing a huge bulk of
+
+    the
+    programming throughout the project,
+
+    especially towards the end! - Da team
+
+
+
+    To
+    my brother, BabyChunks, for showing me
+
+    this amazing project. - cunt
+
+
+    To
+    ferb from the GameDev League discord server,
+
+    for being a great help with
+    the programming.
+
+    - cunt and Anasthera
+
+
+
+    To Chad, for making the discord
+    server we
+
+    all call "the office". (nobody calls it that)
+
+    - Epik
+
+
+
+    To
+    Brad Cunningham, for letting me work on
+
+    this project during classtime.
+
+    -
+    Savior of the Eggs
+
+
+
+    To The Hivemind, for keeping us sane.
+
+    - Savior
+    of the Eggs
+
+
+
+    To Capcom and the Ace Attorney team, for
+
+    providing us
+    with years of entertainment
+
+    and mystery and for inspiring our game.
+
+
+
+    <style=h1>To
+    Dan, Arin and the whole
+
+    Game Grumps team:
+
+
+
+    For bringing all of us
+
+
+    many
+    years of laughs, tears of joy
+
+
+    and a sense of belonging.
+
+
+    You have
+    served as a great inspiration
+
+
+    for many of our members
+
+
+    and as a beacon
+    of hope
+
+
+    for those passing through a dark time.
+
+
+    We love what you do
+    and hope
+
+
+    you can keep doing it for
+
+
+    many years to come.
+
+
+    Hopefully
+    one day in the future
+
+
+    we can all jam Liquid Game Grumps
+
+
+    up our collective
+    peeholes.
+
+
+
+    Finally, to YOU, the player. Thank you for giving our
+
+    little
+    passion project a shot. We hope you enjoyed it!
+
+
+
+    ![game logo not studio
+    logo](Credits/game-grumps-joint-justice-logo)'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: f986a13d8724dac469b19203ab823c3b, type: 2}
+  m_sharedMaterial: {fileID: 6785472300458195755, guid: f986a13d8724dac469b19203ab823c3b, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 11400000, guid: f952c082cb03451daed3ee968ac6c63e, type: 2}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 64
+  m_fontSizeBase: 64
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &995006767
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995006764}
+  m_CullTransparentMesh: 1
 --- !u!1 &1014408354
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +858,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -556,8 +996,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 107790048}
-  - {fileID: 93676772}
+  - {fileID: 995006765}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
