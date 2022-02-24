@@ -1,48 +1,48 @@
-# Game Grumps: Joint Justice
+<style=h1>Game Grumps: Joint Justice</style>
 
-# A Game By
+A Game By</style>
 
 ![studio logo not game logo](Credits/studio-lovelies-logo)
 
 
-# Project Founder
+<style=h1>Project Founder</style>
 
 Creatrixtiara (creatrixtiara.com)
 
 
-# Big Brother, always watching
+<style=h1>Big Brother, always watching</style>
 (Lead Project Management)
 
 Anasthera (Anasthera#8523)
 
 
-# Discord Overlord and Cult Leader
+<style=h1>Discord Overlord and Cult Leader</style>
 
 Manuel "Epik" Guevara (@WatashiWaEpik)
 
 
-# Merch Manager
+<style=h1>Merch Manager</style>
 
 Xavier "Savior of the Eggs" Greene
 flow.page/savioroftheeggs/
 
 
-# Graphic Design God
+<style=h1>Graphic Design God</style>
 
 gof / King Peggy
 
 
 
-# Programming Team
+<style=h1>Programming Team
 
-# Lead Technomancers
+Lead Technomancers</style>
 (Lead Programmers)
 
 Averlyth
 Isaac "cunt" Laquerre (cunt#4811)
 
 
-# Keyboard Jockeys
+<style=h1>Keyboard Jockeys</style>
 (Programmers)
 
 CounterfeitLlama
@@ -55,15 +55,15 @@ UsernameInUse
 
 
 
-# Writing Team
+<style=h1>Writing Team
 
-# Storytelling Savants
+Storytelling Savants</style>
 (Lead Writers)
 
 Anasthera
 
 
-# Travelling Tale Tellers
+<style=h1>Travelling Tale Tellers</style>
 (Writers)
 
 Alistair
@@ -93,16 +93,16 @@ Xorama
 
 
 
-# Art Team
+<style=h1>Art Team
 
-# Came out the pussy drawing fuckin' Mozart
+Came out the pussy drawing fuckin' Mozart</style>
 (Lead Artists)
 
 Discodur0
 Gof
 
 
-# Bob Ross' Happy Little Friends
+<style=h1>Bob Ross' Happy Little Friends</style>
 (Artists)
 
 Andy
@@ -113,9 +113,9 @@ Xorama
 
 
 
-# Music Team
+<style=h1>Music Team
 
-# Mixing Maestros
+Mixing Maestros</style>
 (Composers)
 
 Akkelby
@@ -128,7 +128,7 @@ SavestateCorrupted
 Theta
 
 
-# Quality Assurance?!?!
+<style=h1>Quality Assurance?!?!</style>
 
 Evan "HyperTurtle77" Hall
 Gof
@@ -139,25 +139,26 @@ Manuel "Epik" Guevara (@WatashiWaEpik)
 Xavier "Savior of the Eggs" Greene
 
 
-# Social Media and ways to reach us
+<style=h1>Social Media and ways to reach us
 
-# Check out our YouTube Channel!
+Check out our YouTube Channel!</style>
 (Thanks to Koda NootNoot for making the trailer!)
 
-# Studio Lovelies
+<style=h1>Studio Lovelies
 
-# Also find our community Discord <br /> on our YouTube channel!
+Also find our community Discord <br /> on our YouTube channel!
 
-# Have a look at our website! <br /> studiolovelies.com
+Have a look at our website!
+studiolovelies.com
 
-# Finally, our Twitter
+Finally, our Twitter
 
-# @StudioLovelies
+@StudioLovelies
 
-# Ask around on either if you want <br /> to be part of the project!
+Ask around on either if you want <br /> to be part of the project!
 
 
-# Special Thanks
+Special Thanks</style>
 
 To Creatrixtiara, for making the
 original Reddit post and inspiring
@@ -234,35 +235,35 @@ providing us with years of entertainment
 and mystery and for inspiring our game.
 
 
-# To Dan, Arin and the whole
-# Game Grumps team:
+<style=h1>To Dan, Arin and the whole
+Game Grumps team:
 
 
-# For bringing all of us
+For bringing all of us
 
-# many years of laughs, tears of joy
+many years of laughs, tears of joy
 
-# and a sense of belonging.
+and a sense of belonging.
 
-# You have served as a great inspiration
+You have served as a great inspiration
 
-# for many of our members
+for many of our members
 
-# and as a beacon of hope
+and as a beacon of hope
 
-# for those passing through a dark time.
+for those passing through a dark time.
 
-# We love what you do and hope
+We love what you do and hope
 
-# you can keep doing it for
+you can keep doing it for
 
-# many years to come.
+many years to come.
 
-# Hopefully one day in the future
+Hopefully one day in the future
 
-# we can all jam Liquid Game Grumps
+we can all jam Liquid Game Grumps
 
-# up our collective peeholes.
+up our collective peeholes.
 
 
 Finally, to YOU, the player. Thank you for giving our
