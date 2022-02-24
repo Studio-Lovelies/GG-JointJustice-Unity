@@ -117,10 +117,18 @@
   - TutorialBoysTragicallyGenericReminiscence
 
 ## SceneAssetName
-  - BaseScene
-  - Credits
-  - MainMenu
-  - Splash
+  - Anime
+  - TMPHAssistant
+  - TMPHCourt
+  - TMPHDefense
+  - TMPHGalaxyBrain
+  - TMPHJudge
+  - TMPHLobby
+  - TMPHProsecution
+  - TMPHRoss
+  - TMPHRossWithDinos
+  - TMPHWideShot
+  - TMPHWitness
 
 ## FullscreenAnimationAssetName
   - BadBoy
