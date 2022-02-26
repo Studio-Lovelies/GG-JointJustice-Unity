@@ -45,7 +45,7 @@ public class NarrativeScriptTests
         var methodCalls = new List<string>();
 
         var objectPreloaderMock = new Mock<IActionDecoder>();
-        objectPreloaderMock.Setup(mock => mock.OnNewActionLine(It.IsAny<string>()))
+        objectPreloaderMock.Setup(mock => mock.InvokeMatchingMethod(It.IsAny<string>()))
             .Callback<string>(line => methodCalls.Add(line));
 
         _ = new NarrativeScript(new TextAsset(story.ToJson()), objectPreloaderMock.Object);

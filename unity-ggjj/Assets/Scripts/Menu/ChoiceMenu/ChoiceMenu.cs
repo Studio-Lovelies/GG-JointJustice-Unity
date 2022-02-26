@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using Ink.Runtime;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Menu))]
-public class ChoiceMenu : MonoBehaviour
+public class ChoiceMenu : MonoBehaviour, IChoiceMenu
 {
+    [SerializeField] private NarrativeGameState _narrativeGameState;
+    
     [Tooltip("Drag the prefab for choice menu items here.")]
     [SerializeField] private MenuItem _choiceMenuItem;
 
@@ -16,16 +18,13 @@ public class ChoiceMenu : MonoBehaviour
     [Tooltip("Drag a menu opener component here.")]
     [SerializeField] private MenuOpener _menuOpener;
 
-    [Tooltip("This event is called when an choice is clicked.")]
-    [SerializeField] private UnityEvent<int> _onChoiceClicked;
-
     /// <summary>
     /// Creates a choice menu using a choice list.
     /// Opens the menu, instantiates the correct number of buttons and
     /// assigns their text and onClick events.
     /// </summary>
     /// <param name="choiceList">The list of choices in the choice menu.</param>
-    public void InitialiseChoiceMenu(List<Choice> choiceList)
+    public void Initialise(List<Choice> choiceList)
     {
         if (gameObject.activeInHierarchy)
         {
@@ -52,8 +51,19 @@ public class ChoiceMenu : MonoBehaviour
                 _menu.SelectInitialButton();
             }
             menuItem.Text = choice.text;
-            ((Button)menuItem.Button).onClick.AddListener(() => _onChoiceClicked.Invoke(choice.index));
+            menuItem.Button.onClick.AddListener(() => OnChoiceClicked(choice.index));
         }
+    }
+
+    /// <summary>
+    /// Called when a choice is clicked.
+    /// Deactivates the menu and calls the HandleChoice method with the given index
+    /// </summary>
+    /// <param name="choiceIndex"></param>
+    private void OnChoiceClicked(int choiceIndex)
+    {
+        DeactivateChoiceMenu();
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.HandleChoice(choiceIndex);
     }
 
     /// <summary>

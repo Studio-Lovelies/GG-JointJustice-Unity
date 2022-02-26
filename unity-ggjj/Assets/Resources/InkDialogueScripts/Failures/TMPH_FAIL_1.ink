@@ -1,7 +1,9 @@
+INCLUDE ../Macros.ink
+
 &SCENE:TMPHAssistant
 &ACTOR:Dan
 &SPEAK:Dan
-Arin...
+Arin{char(".")}{char(".")}{char(".")}
 
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:1
@@ -10,9 +12,9 @@ What? It's the right answer, right?
 
 &SCENE:TMPHAssistant
 &SPEAK:Dan
-...
+{char(".")}{char(".")}{char(".")}
 &SET_POSE:Angry
-No arin, we're getting a penalty for that one.
+No Arin, we're getting a penalty for that one.
 
 &SCENE:TMPHCourt
 &SPEAK:Arin
@@ -31,6 +33,6 @@ Yes!
 &SPEAK:Arin
 OOF.
 &THINK:Arin
-<color=\#0084ff>(I need to be more thoughtful and pay more attention I guess.)
+<color=\#0084ff>(I need to be more thoughtful and pay more attention I guess{char(".")})
 &ISSUE_PENALTY
     -> END

@@ -3,7 +3,9 @@ using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
@@ -81,15 +83,15 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             AddEvidence();
             yield return PressZ();
             var menuItems = GetMenuItems();
-            yield return PressZ();
+            Assert.IsTrue(EvidenceMenu.isActiveAndEnabled);
 
             foreach (var menuItem in menuItems)
             {
-                EvidenceController.RequirePresentEvidence();
-                Assert.IsTrue(EvidenceMenu.isActiveAndEnabled);
                 yield return HoverOverButton(menuItem.transform);
-                yield return LeftClick();
-                Assert.IsFalse(EvidenceMenu.isActiveAndEnabled);
+                var clicked = false;
+                menuItem.GetComponent<Button>().onClick.AddListener(() => clicked = true);
+                yield return InputTestTools.PressForFrame(InputTestTools.Mouse.leftButton);
+                Assert.IsTrue(clicked);
             }
         }
 

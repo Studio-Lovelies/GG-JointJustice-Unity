@@ -1,6 +1,8 @@
+using UnityEngine;
+
 public interface IAudioController
 {
-    void PlaySfx(string SFX);
-    void PlaySong(string songName);
+    void PlaySfx(AudioClip sfx);
+    void PlaySong(AudioClip song);
     void StopSong();
 }

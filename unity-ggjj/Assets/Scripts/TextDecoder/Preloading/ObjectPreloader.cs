@@ -17,57 +17,57 @@ public class ObjectPreloader : ActionDecoderBase
     }
 
     #region Actions
-    protected override void ADD_EVIDENCE(AssetName evidenceName)
+    protected override void ADD_EVIDENCE(EvidenceAssetName evidenceName)
     {
         LoadEvidence(evidenceName);
     }
 
-    protected override void ADD_RECORD(AssetName actorName)
+    protected override void ADD_RECORD(ActorAssetName actorName)
     {
         LoadActor(actorName);
     }
 
-    protected override void PLAY_SFX(AssetName sfx)
+    protected override void PLAY_SFX(SfxAssetName sfx)
     {
         LoadObject<AudioClip>($"Audio/SFX/{sfx}");
     }
 
-    protected override void PLAY_SONG(AssetName songName)
+    protected override void PLAY_SONG(SongAssetName songName)
     {
         LoadObject<AudioClip>($"Audio/Music/{songName}");
     }
 
-    protected override void SCENE(AssetName sceneName)
+    protected override void SCENE(SceneAssetName sceneName)
     {
         LoadObject<BGScene>($"BGScenes/{sceneName}");
     }
 
-    protected override void SHOW_ITEM(AssetName itemName, ItemDisplayPosition itemPos)
+    protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
     {
-        LoadEvidence(itemName);
+        LoadEvidence(item);
     }
 
-    protected override void ACTOR(AssetName actorName)
-    {
-        LoadActor(actorName);
-    }
-
-    protected override void SPEAK(AssetName actorName)
+    protected override void ACTOR(ActorAssetName actorName)
     {
         LoadActor(actorName);
     }
 
-    protected override void SPEAK_UNKNOWN(AssetName actorName)
+    protected override void SPEAK(ActorAssetName actorName)
     {
         LoadActor(actorName);
     }
 
-    protected override void THINK(AssetName actorName)
+    protected override void SPEAK_UNKNOWN(ActorAssetName actorName)
     {
         LoadActor(actorName);
     }
 
-    protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName)
+    protected override void THINK(ActorAssetName actorName)
+    {
+        LoadActor(actorName);
+    }
+
+    protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
     {
         LoadActor(actorName);
     }

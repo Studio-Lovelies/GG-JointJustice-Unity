@@ -53,57 +53,57 @@ public class ActionDecoderTests
 
     private class RawActionDecoder : ActionDecoderBase
     {
-        protected override void ADD_EVIDENCE(AssetName evidenceName)
+        protected override void ADD_EVIDENCE(EvidenceAssetName evidenceName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void ADD_RECORD(AssetName actorName)
+        protected override void ADD_RECORD(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void PLAY_SFX(AssetName sfx)
+        protected override void PLAY_SFX(SfxAssetName sfx)
         {
             throw new NotImplementedException();
         }
 
-        protected override void PLAY_SONG(AssetName songName)
+        protected override void PLAY_SONG(SongAssetName songName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SCENE(AssetName sceneName)
+        protected override void SCENE(SceneAssetName sceneName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SHOW_ITEM(AssetName itemName, ItemDisplayPosition itemPos)
+        protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
         {
             throw new NotImplementedException();
         }
 
-        protected override void ACTOR(AssetName actorName)
+        protected override void ACTOR(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SPEAK(AssetName actorName)
+        protected override void SPEAK(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SPEAK_UNKNOWN(AssetName actorName)
+        protected override void SPEAK_UNKNOWN(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void THINK(AssetName actorName)
+        protected override void THINK(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName)
+        protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
@@ -116,18 +116,21 @@ public class ActionDecoderTests
     /// <returns>A fully mocked ActionDecoder</returns>
     private static ActionDecoder CreateMockedActionDecoder()
     {
-        var dialogueController = new Moq.Mock<IDialogueController>();
-        dialogueController.SetupSet(m => m.GameMode = It.IsAny<GameMode>());
+        var narrativeGameStateMock = new Mock<INarrativeGameState>();
+        narrativeGameStateMock.SetupSet(mock => mock.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.GameMode = It.IsAny<GameMode>());
+        narrativeGameStateMock.Setup(mock => mock.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(""));
+        narrativeGameStateMock.Setup(mock => mock.SceneController.ShakeScreen(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<bool>()));
+        narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(It.IsAny<string>()));
+        narrativeGameStateMock.Setup(mock => mock.ActorController.SetPose(It.IsAny<string>(), It.IsAny<string>()));
+        narrativeGameStateMock.SetupSet(mock => mock.AppearingDialogueController.CharacterDelay = It.IsAny<float>());
+        narrativeGameStateMock.Setup(mock => mock.EvidenceController.AddEvidence(It.IsAny<Evidence>()));
+        narrativeGameStateMock.Setup(mock => mock.ObjectStorage.GetObject<Evidence>(It.IsAny<string>()));
+        narrativeGameStateMock.Setup(mock => mock.AudioController.PlaySfx(It.IsAny<AudioClip>()));
+        narrativeGameStateMock.Setup(mock => mock.PenaltyManager.Decrement());
 
-        return new ActionDecoder()
+        return new ActionDecoder
         {
-            ActorController = new Moq.Mock<IActorController>().Object,
-            AppearingDialogueController = new Moq.Mock<IAppearingDialogueController>().Object,
-            DialogueController = dialogueController.Object,
-            AudioController = new Moq.Mock<IAudioController>().Object,
-            EvidenceController = new Moq.Mock<IEvidenceController>().Object,
-            SceneController = new Moq.Mock<ISceneController>().Object,
-            PenaltyManager = new Moq.Mock<IPenaltyManager>().Object
+            NarrativeGameState = narrativeGameStateMock.Object
         };
     }
 
@@ -158,10 +161,9 @@ public class ActionDecoderTests
         var lineToParse = $"&{missingMethodName}";
         Debug.Log("Attempting to parse:\n" + lineToParse);
         var expectedException = Assert.Throws<MethodNotFoundScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         });
         StringAssert.Contains(missingMethodName, expectedException.Message);
-        StringAssert.Contains(decoder.GetType().FullName, expectedException.Message);
     }
 
     [Test]
@@ -267,9 +269,9 @@ public class ActionDecoderTests
     public void VerifyActionDecoderTrimsExcessWhitespace()
     {
         var decoder = CreateMockedActionDecoder();
-        var sceneControllerMock = new Moq.Mock<ISceneController>();
-        sceneControllerMock.Setup(controller => controller.SetScene(new AssetName("NewScene")));
-        decoder.SceneController = sceneControllerMock.Object;
+        var narrativeGameStateMock = new Mock<INarrativeGameState>();
+        narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(new AssetName("NewScene")));
+        decoder.NarrativeGameState = narrativeGameStateMock.Object;
 
         var lineToParse = " &SCENE:NewScene \n\n\n";
         var logMessage = "Attempting to parse:\n" + lineToParse;
@@ -279,7 +281,7 @@ public class ActionDecoderTests
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
 
-        sceneControllerMock.Verify(controller => controller.SetScene(new AssetName("NewScene")));
+        narrativeGameStateMock.Verify(controller => controller.SceneController.SetScene(new AssetName("NewScene")));
     }
 
 }

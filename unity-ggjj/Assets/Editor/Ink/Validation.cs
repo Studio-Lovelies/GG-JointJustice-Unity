@@ -42,14 +42,14 @@ namespace Editor.Ink
             var lines = inkFile.GetFileContents().Split('\n');
             for (var i = 0; i < lines.Length; i++)
             {
-                if (lines[i] == string.Empty || lines[i][0] != DialogueController.ACTION_TOKEN)
+                if (lines[i] == string.Empty || lines[i][0] != ActionDecoderBase.ACTION_TOKEN)
                 {
                     continue;
                 }
                 
                 try
                 {
-                    ActionDecoder.GenerateInvocationDetails(lines[i]);
+                    ActionDecoderBase.GenerateInvocationDetails(lines[i], typeof(ActionDecoder));
                 }
                 catch (Exception exception)
                 {
