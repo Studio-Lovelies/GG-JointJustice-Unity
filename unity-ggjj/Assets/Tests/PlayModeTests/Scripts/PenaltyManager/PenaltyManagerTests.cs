@@ -2,7 +2,6 @@ using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEditor.SceneManagement;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -24,12 +23,6 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
             _penaltyManager = Object.FindObjectOfType<global::PenaltyManager>();
         }
 
-        [UnityTearDown]
-        public IEnumerator TearDown()
-        {
-            yield return SceneManager.UnloadSceneAsync("Penalties - Test Scene");
-        }
-    
         [UnityTest]
         public IEnumerator PenaltiesAreEnabledOnCrossExaminationStart()
         {
@@ -50,6 +43,7 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
         [UnityTest]
         public IEnumerator NumberOfPenaltiesCanBeReset()
         {
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             var storyProgresser = new StoryProgresser();
 
             for (int i = 0; i < 3; i++)
@@ -60,8 +54,7 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
             yield return _inputTestTools.PressForFrame(Keyboard.zKey);
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
 
-            var subStory = GameObject.Find("SubStory(Clone)");
-            yield return TestTools.DoUntilStateIsReached(() => storyProgresser.ProgressStory(), () => subStory == null);
+            yield return TestTools.DoUntilStateIsReached(() => storyProgresser.ProgressStory(), () => !narrativeScriptPlayer.NarrativeScriptPlayer.HasSubStory);
             
             Assert.AreEqual(4, _penaltyManager.PenaltiesLeft);
             yield return _inputTestTools.PressForFrame(Keyboard.xKey);

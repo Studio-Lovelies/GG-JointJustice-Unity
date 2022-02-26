@@ -4,15 +4,12 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueController
 {
-    [Tooltip("Drag a DirectorActionDecoder component here.")]
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
 
-    [Tooltip("Drag an AudioController here.")]
-    [SerializeField] private AudioController _audioController;
-    
     [Tooltip("Drag a NameBox component here.")]
     [SerializeField] private NameBox _namebox;
     
@@ -58,17 +55,16 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     public bool AppearInstantly { get; set; }
     public int MaxVisibleCharacters => _textBox.maxVisibleCharacters;
     public string Text => _textBox.GetParsedText();
-    public bool PrintingText { get; private set; }
+    public bool IsPrintingText { get; private set; }
 
     public bool TextBoxHidden
     {
         set => _speechPanel.gameObject.SetActive(!value);
     }
 
-    private void Start()
+    private void Awake()
     {
         _textInfo = _textBox.textInfo;
-        _directorActionDecoder.Decoder.AppearingDialogueController = this;
     }
 
     /// <summary>
@@ -77,16 +73,11 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <param name="text">The text to print.</param>
     public void PrintText(string text)
     {
-        if (_printCoroutine != null)
-        {
-            StopCoroutine(_printCoroutine);
-            _printCoroutine = null;
-            PrintingText = false;
-        }
-
+        StopPrintingText();
         text = text.TrimEnd('\n');
         TextBoxHidden = false;
 
+        _narrativeGameState.ActorController.StartTalking();
         int startingIndex = 0;
         if (ContinueDialogue)
         {
@@ -108,7 +99,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             _textBox.maxVisibleCharacters = Int32.MaxValue;
             AppearInstantly = false;
-            OnLineEnd.Invoke();
+            EndLine();
             return;
         }
         
@@ -116,11 +107,26 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     }
 
     /// <summary>
+    /// Stops printing text by stopping _printCoroutine and setting PrintingText to false
+    /// </summary>
+    public void StopPrintingText()
+    {
+        if (_printCoroutine == null)
+        {
+            return;
+        }
+        
+        StopCoroutine(_printCoroutine);
+        _printCoroutine = null;
+        IsPrintingText = false;
+    }
+
+    /// <summary>
     /// Coroutine to print text to the dialogue box over time
     /// </summary>
     private IEnumerator PrintTextCoroutine(int startingIndex)
     {
-        PrintingText = true;
+        IsPrintingText = true;
         for (int i = startingIndex; i < _textInfo.characterCount; i++)
         {
             _textBox.maxVisibleCharacters++;
@@ -129,14 +135,14 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             TryPlayDialogueChirp(_namebox.CurrentActorDialogueChirp, currentCharacterInfo);
             yield return new WaitForSeconds(GetDelay(currentCharacterInfo));
         }
-        OnLineEnd.Invoke();
+        EndLine();
 
         if (AutoSkip)
         {
             _onAutoSkip.Invoke();
         }
 
-        PrintingText = false;
+        IsPrintingText = false;
     }
 
     /// <summary>
@@ -163,7 +169,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         
         if (_chirpIndex % _chirpEveryNthLetter == 0)
         {
-            _audioController.PlaySfx(resultChirp);
+            _narrativeGameState.AudioController.PlaySfx(resultChirp);
         }
         
         _chirpIndex++;
@@ -204,8 +210,17 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
                !_ignoredCharacters.Contains(characterInfo.character) &&
                !_textInfo.linkInfo.Where(info => info.GetLinkID() == "character").Any(linkInfo => _textInfo.characterInfo[linkInfo.linkTextfirstCharacterIndex].Equals(characterInfo));
     }
+
+    /// <summary>
+    /// Handles what happens when a line ends
+    /// </summary>
+    private void EndLine()
+    {
+        _narrativeGameState.ActorController.StopTalking();
+        OnLineEnd.Invoke();
+    }
 }
- 
+
 /// <summary>
 /// Tuple that can be serialized
 /// Stores two items with different types.

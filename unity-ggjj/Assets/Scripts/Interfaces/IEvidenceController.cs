@@ -1,9 +1,13 @@
+using System.Collections.Generic;
+
 public interface IEvidenceController
 {
-    void AddEvidence(string evidenceName);
-    void RemoveEvidence(string evidenceName);
-    void AddToCourtRecord(string actorName);
+    List<ActorData> CurrentProfiles { get; }
+    List<Evidence> CurrentEvidence { get; }
+
+    void AddEvidence(Evidence evidence);
+    void RemoveEvidence(Evidence evidence);
+    void AddRecord(ActorData actor);
     void RequirePresentEvidence();
-    void SubstituteEvidence(string initialEvidenceName, string substituteEvidenceName);
-    void OnPresentEvidence(ICourtRecordObject evidence);
+    void SubstituteEvidence(Evidence initialEvidence, Evidence substituteEvidence);
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,18 +21,19 @@ public class MenuOpener : MonoBehaviour
     [Tooltip("This event is called when the menu is disabled")]
     [SerializeField]
     private UnityEvent _onMenuClosed;
+    
 
     private Button _button;
     private Selectable _cachedSelectedButtonAfterClose;
     private Menu _parentMenu;
     private bool _menuCannotBeOpened;
     private bool _menuOpenedThisFrame;
-
+    
     private void Awake()
     {
         _button = GetComponent<Button>();
         _parentMenu = GetComponentInParent<Menu>();
-        
+
         // Don't disable self when opening menu if opening menu this is part of
         if (_parentMenu == MenuToOpen)
         {
@@ -57,7 +57,7 @@ public class MenuOpener : MonoBehaviour
             Debug.LogError($"Menu has not been set on {this}", this);
             return;
         }
-        
+
         MenuToOpen.gameObject.SetActive(true);
 
         if (_parentMenu != null)

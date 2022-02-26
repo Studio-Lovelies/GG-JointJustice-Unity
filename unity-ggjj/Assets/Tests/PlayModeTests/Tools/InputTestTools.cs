@@ -60,6 +60,7 @@ namespace Tests.PlayModeTests.Tools
                 Release(control);
                 GameViewWindow.Repaint();
                 yield return null;
+                yield return null; // Wait for two frames to wait for InputSystem to rebind if necessary
             }
         }
 

@@ -32,7 +32,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
             Button resumeButton = GetButton(RESUME_BUTTON_NAME);
             Button settingsButton = GetButton(SETTINGS_BUTTON_NAME);
             Button mainMenuButton = GetButton(MAIN_MENU_BUTTON_NAME);
-            
+
             // Menu can be navigated down and wrap from bottom to top
             for (int i = 0; i < 2; i++)
             { 

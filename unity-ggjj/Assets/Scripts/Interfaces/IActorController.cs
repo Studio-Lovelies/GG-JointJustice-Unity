@@ -17,4 +17,6 @@ public interface IActorController
     void OnAnimationDone();
     void AssignActorToSlot(string actor, int oneBasedSlotIndex);
     void SetVisibility(string actorName, bool shouldShow);
+    void SetActiveActorObject(Actor activeSceneActiveActor);
+    void OnSceneChanged(BGScene activeScene);
 }

@@ -14,38 +14,34 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
-        protected global::DialogueController DialogueController { get; private set; }
+        protected global::NarrativeScriptPlayerComponent NarrativeScriptPlayerComponent { get; private set; }
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
+        protected StoryProgresser StoryProgresser { get; private set; }
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters());
-            
+
+            StoryProgresser = new StoryProgresser();
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
-            DialogueController = Object.FindObjectOfType<global::DialogueController>();
+            NarrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu = EvidenceMenu.GetComponent<Menu>();
             CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
-            var dialogueController = Object.FindObjectOfType<global::DialogueController>();
-            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
+            var dialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            yield return TestTools.WaitForState(() => !dialogueController.IsPrintingText);
         }
 
-        [UnityTearDown]
-        public IEnumerator TearDown()
-        {
-            yield return SceneManager.UnloadSceneAsync("Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity");
-        }
-        
         protected ActorData[] AddProfiles()
         {
             ActorData[] actors = Resources.LoadAll<ActorData>("Actors");
 
             foreach (var actorData in actors)
             {
-                EvidenceController.AddToCourtRecord(actorData);
+                EvidenceController.AddRecord(actorData);
             }
 
             return actors;
@@ -53,7 +49,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected Evidence[] AddEvidence()
         {
-            var evidenceOfCurrentScript = DialogueController.ActiveNarrativeScript.ObjectStorage.GetObjectsOfType<Evidence>().ToArray();
+            var evidenceOfCurrentScript = NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObjectsOfType<Evidence>().ToArray();
             foreach (var evidence in evidenceOfCurrentScript)
             {
                 EvidenceController.AddEvidence(evidence);
