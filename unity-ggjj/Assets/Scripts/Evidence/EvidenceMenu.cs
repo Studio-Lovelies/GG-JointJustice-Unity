@@ -2,13 +2,13 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Menu))]
 public class EvidenceMenu : MonoBehaviour
 {
-    [SerializeField, Tooltip("Drag the evidence controller here")]
-    private EvidenceController _evidenceController;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
 
     [SerializeField, Tooltip("Drag the TextMeshProUGUI component used for displaying the evidence's name here")]
     private TextMeshProUGUI _evidenceName;
@@ -42,10 +42,10 @@ public class EvidenceMenu : MonoBehaviour
     private int _numberOfPages;
     private int _startIndex;
     private Menu _menu;
-
+    
     // when set to false, this menu can only be toggled
     // when set to true, this menu can be closed by presenting evidence and thereby following a different path of the active ink script
-    public bool CanPresentEvidence { private get; set; }
+    public bool CanPresentEvidence => _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.CanPressWitness;
 
     /// <summary>
     /// Get the menu on awake to access its DontResetSelectedOnClose property
@@ -91,8 +91,8 @@ public class EvidenceMenu : MonoBehaviour
     public void UpdateEvidenceMenu()
     {
         var objects = _profileMenuActive
-            ? _evidenceController.CurrentProfiles.Cast<ICourtRecordObject>().ToArray()
-            : _evidenceController.CurrentEvidence.Cast<ICourtRecordObject>().ToArray();
+            ? _narrativeGameState.EvidenceController.CurrentProfiles.Cast<ICourtRecordObject>().ToArray()
+            : _narrativeGameState.EvidenceController.CurrentEvidence.Cast<ICourtRecordObject>().ToArray();
         
 
         CalculatePages(objects.Length);
@@ -213,7 +213,7 @@ public class EvidenceMenu : MonoBehaviour
             return;
         }
         _onEvidenceClicked.Invoke();
-        _evidenceController.OnPresentEvidence(evidence);
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.PresentEvidence(evidence);
     }
 
     /// <summary>

@@ -18,7 +18,6 @@ Penalties are enabled
 === Choice
 + [Choice1]
 
-&MODE:CrossExamination
 &APPEAR_INSTANTLY
 End of substory
 &RESET_PENALTIES

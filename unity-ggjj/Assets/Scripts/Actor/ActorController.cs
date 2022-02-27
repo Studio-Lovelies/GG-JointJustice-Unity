@@ -1,44 +1,23 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class ActorController : MonoBehaviour, IActorController
 {
-    [Tooltip("Drag a DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
-    
-    [Tooltip("Attach the action decoder object here")]
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+    [SerializeField] private NarrativeGameState _narrativeGameState;
 
     [Tooltip("Attach the NameBox here")]
     [SerializeField] private NameBox _nameBox;
-    
-    [SerializeField] private UnityEvent _onAnimationStarted;
-    [SerializeField] private UnityEvent _onAnimationComplete;
-    
+
     private readonly Dictionary<ActorData, Actor> _actorDataToActor = new Dictionary<ActorData, Actor>();
     private Actor _activeActor;
     private BGScene _activeScene;
     private Actor _currentSpeakingActor;
     private SpeakingType _currentSpeakingType = SpeakingType.Speaking;
-    
+
     public bool Animating { get; set; }
     public ActorData CurrentSpeakingActorData { get; private set; }
 
-    /// <summary>
-    /// Called when the object is initialized
-    /// </summary>
-    private void Start()
-    {
-        if (_directorActionDecoder == null)
-        {
-            Debug.LogError("Actor Controller doesn't have an action decoder to attach to");
-            return;
-        }
-
-        _directorActionDecoder.Decoder.ActorController = this;
-    } 
     /// <summary>
     /// Connect to an event that exposes the active scene when it changes.
     /// </summary>
@@ -98,7 +77,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            return _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            return _narrativeGameState.ObjectStorage.GetObject<ActorData>(actorName);
         }
         catch (KeyNotFoundException)
         {
@@ -158,11 +137,10 @@ public class ActorController : MonoBehaviour, IActorController
             if (_activeActor == null)
             {
                 Debug.LogError("Actor has not been assigned");
-                _onAnimationComplete.Invoke();
+                OnAnimationDone();
                 return;
             }
-            _onAnimationStarted.Invoke();
-            Animating = true;
+            OnAnimationStarted();
             _activeActor.PlayAnimation(emotion);
         }
         else
@@ -190,7 +168,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            ActorData actorData = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName);
+            ActorData actorData = _narrativeGameState.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(actorData, speakingType);
             CurrentSpeakingActorData = actorData;
             _currentSpeakingActor = _actorDataToActor.ContainsKey(actorData) ? _actorDataToActor[actorData] : null;
@@ -233,12 +211,9 @@ public class ActorController : MonoBehaviour, IActorController
     /// </summary>
     public void OnAnimationDone()
     {
-        if (Animating)
-        {
-            Animating = false;
-            _onAnimationComplete.Invoke();
-        }
-
+        Animating = false;
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = false;
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
     }
 
     /// <summary>
@@ -264,7 +239,7 @@ public class ActorController : MonoBehaviour, IActorController
 
         try
         {
-            var actorData = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actor);
+            var actorData = _narrativeGameState.ObjectStorage.GetObject<ActorData>(actor);
             tempActor.ActorData = actorData;
             SetActorInLookupTable(actorData, tempActor);
         }
@@ -285,5 +260,15 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetVisibility(string actorName, bool shouldShow)
     {
         FindActorInInventory(actorName).GetComponent<Renderer>().enabled = shouldShow;
+    }
+
+    /// <summary>
+    /// Handles what happens when an animation starts
+    /// </summary>
+    private void OnAnimationStarted()
+    {
+        Animating = true;
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = true;
+        _narrativeGameState.AppearingDialogueController.TextBoxHidden = true;
     }
 }

@@ -7,7 +7,7 @@ using Object = Ink.Runtime.Object;
 using UnityEngine;
 
 [Serializable]
-public class NarrativeScript
+public class NarrativeScript : INarrativeScript
 {
     [field: Tooltip("Drag an Ink narrative script here.")]
     [field: SerializeField] public TextAsset Script { get; private set; }
@@ -62,7 +62,7 @@ public class NarrativeScript
         {
             try
             {
-                actionDecoder.OnNewActionLine(action);
+                actionDecoder.InvokeMatchingMethod(action);
             }
             catch (MethodNotFoundScriptParsingException)
             {
@@ -99,5 +99,13 @@ public class NarrativeScript
                     break;
             }
         }
+    }
+
+    /// <summary>
+    /// Resets the state of a story
+    /// </summary>
+    public void Reset()
+    {
+        Story.ResetState();
     }
 }

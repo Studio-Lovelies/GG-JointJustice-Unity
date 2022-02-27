@@ -1,3 +1,5 @@
+INCLUDE ../Macros.ink
+
 &MODE:Dialogue
 &HIDE_TEXTBOX
 &FADE_OUT:3
@@ -14,7 +16,7 @@ Bruh, wtf was that Arin?
 
 &SCENE:TMPHJudge
 &SPEAK:JudgeBrent
-Regarding the lack of evidence in the favor of the accused, Mr. Jory Griffis, I must find him..."
+Regarding the lack of evidence in the favor of the accused, Mr. Jory Griffis, I must find him{char(".")}{char(".")}{char(".")}
 
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:BadBoy

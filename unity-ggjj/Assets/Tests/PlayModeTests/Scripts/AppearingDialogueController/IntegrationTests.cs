@@ -27,12 +27,6 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
             yield return new WaitForEndOfFrame();
         }
 
-        [UnityTearDown]
-        public IEnumerator TearDown()
-        {
-            yield return SceneManager.UnloadSceneAsync("AppearingDialogueController - Test Scene");
-        }
-
         [UnityTest]
         public IEnumerator GetDelayResultImpactsTimeUntilOnLineEndEventIsFired()
         {

@@ -1,3 +1,5 @@
+INCLUDE ../Macros.ink
+
 &ADD_EVIDENCE:Bent_Coins
 &ADD_EVIDENCE:Jorys_Backpack
 &ADD_EVIDENCE:Jory_Srs_Letter
@@ -10,10 +12,12 @@
 &REMOVE_EVIDENCE:Livestream_Recording
 &REMOVE_EVIDENCE:Plumber_Invoice
 &REMOVE_EVIDENCE:Stolen_Dinos
-
 &APPEAR_INSTANTLY
 This script tests the &ADD_RECORD action which adds an actor to the court
 &ADD_RECORD:Ross
 Ross has been added to the court record
+
+-> Present("BentCoins") ->
+Correct
 
 -> END

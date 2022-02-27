@@ -1,4 +1,5 @@
 public interface IActionDecoder
 {
-    public void OnNewActionLine(string actionLine);
+    void InvokeMatchingMethod(string actionLine);
+    bool IsAction(string nextLine);
 }
