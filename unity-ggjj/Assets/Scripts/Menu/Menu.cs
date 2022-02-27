@@ -45,17 +45,16 @@ public class Menu : MonoBehaviour
 
             Selectable selectable = GetComponentInChildren<Selectable>();
             
-            if (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
-            {
-                Debug.Log("");
-                return;
-            }
-
             if (selectable == null)
             {
                 return;
             }
             
+            if (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
+            {
+                return;
+            }
+
             if (selectable.interactable)
             {
                 selectable.Select();
