@@ -238,6 +238,6 @@ public class EvidenceMenu : MonoBehaviour
         }
         
         UpdateEvidenceMenu();
-        _menu.SelectInitialButton();
+        _menu.SelectInitialButton(true);
     }
 }

@@ -1039,6 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUGUI: {fileID: 0}
+  _shouldIgnoreFirstSelectEvent: 0
   <OnItemSelect>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -1439,6 +1440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUGUI: {fileID: 0}
+  _shouldIgnoreFirstSelectEvent: 0
   <OnItemSelect>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -2166,6 +2168,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062974321150016432, guid: b778bff65fd114abe8b54802ead3693c,
+        type: 3}
+      propertyPath: _shouldIgnoreFirstSelectEvent
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2062974321186341388, guid: b778bff65fd114abe8b54802ead3693c,
         type: 3}

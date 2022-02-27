@@ -18,6 +18,7 @@ public class InputModule : MonoBehaviour, Controls.IUIActions
     [SerializeField] private UnityEvent _onSpeedupTextEnd;
     [SerializeField] private UnityEvent _onCaseMenuOpened;
     [SerializeField] private UnityEvent _onPauseMenuOpened;
+    [SerializeField] private UnityEvent<Vector2> _onDirectionalButtons;
 
     private InputManager _inputManager;
     private Controls _controls;
@@ -77,7 +78,11 @@ public class InputModule : MonoBehaviour, Controls.IUIActions
     /// <param name="context"></param>
     void Controls.IUIActions.OnDirectionalButtons(InputAction.CallbackContext context)
     {
-        //Unused for now
+        var value = context.ReadValue<Vector2>();
+        if (context.started)
+        {
+            _onDirectionalButtons.Invoke(value);
+        }
     }
 
     /// <summary>

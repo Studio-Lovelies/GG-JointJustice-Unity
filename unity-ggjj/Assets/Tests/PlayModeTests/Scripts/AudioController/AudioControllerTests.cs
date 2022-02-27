@@ -25,7 +25,6 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             global::AudioController audioController = audioControllerGameObject.AddComponent<global::AudioController>();
             audioController.enabled = true;
 
-            // expect error due to missing DirectorActionDecoder
             AudioSource audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
 
             FieldInfo type = audioController.GetType().GetField("_transitionDuration", BindingFlags.NonPublic | BindingFlags.Instance);

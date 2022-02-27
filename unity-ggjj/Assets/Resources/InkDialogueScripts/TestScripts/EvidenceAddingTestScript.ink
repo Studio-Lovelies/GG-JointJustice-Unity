@@ -1,3 +1,5 @@
+&ADD_RECORD:Ross
+&ADD_RECORD:Dan
 &SCENE:TMPHDefense
 &ACTOR:Arin
 &SPEAK:Arin
