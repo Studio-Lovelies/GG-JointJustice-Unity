@@ -37,4 +37,14 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     {
         _narrativeScriptPlayer.TryPressWitness();
     }
+    
+    /// <summary>
+    /// Loads a narrative script, ending the current narrative script
+    /// and continuing the beginning of the loaded script
+    /// </summary>
+    /// <param name="narrativeScriptName">The name of the narrative script to load</param>
+    public void LoadScript(string narrativeScriptName)
+    {
+        throw new System.NotImplementedException();
+    }
 }

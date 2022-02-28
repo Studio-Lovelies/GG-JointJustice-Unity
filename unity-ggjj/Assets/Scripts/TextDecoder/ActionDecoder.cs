@@ -483,7 +483,7 @@ public class ActionDecoder : ActionDecoderBase
     }
     #endregion
 
-    #region DialogueController
+    #region Gameplay
     /// <summary>Changes the game mode. (This decides how the user is able to progress with the story.)</summary>
     /// <param name="mode">Name of game mode to put the player in</param>
     /// <example>&amp;MODE:CrossExamination</example>
@@ -515,6 +515,18 @@ public class ActionDecoder : ActionDecoderBase
     {
         NarrativeGameState.PenaltyManager.ResetPenalties();
         OnActionDone?.Invoke();
+    }
+
+    /// <summary>
+    /// Loads a narrative script, ending the current narrative script
+    /// and continuing the beginning of the loaded script
+    /// </summary>
+    /// <param name="narrativeScriptName">The name of the narrative script to load</param>
+    /// <example>&LOAD_SCRIPT:Case_1_Part_1</example>
+    /// <category>Progression</category>
+    private void LOAD_SCRIPT(string narrativeScriptName)
+    {
+        NarrativeGameState.NarrativeScriptPlayerComponent.LoadScript(narrativeScriptName);
     }
     
     #endregion
