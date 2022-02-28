@@ -528,7 +528,6 @@ public class ActionDecoder : ActionDecoderBase
     {
         NarrativeGameState.NarrativeScriptPlayerComponent.LoadScript(narrativeScriptName);
     }
-    
     #endregion
 #pragma warning restore IDE0051 // Remove unused private members
 // ReSharper restore UnusedMember.Local

@@ -84,7 +84,7 @@ public class ObjectPreloader : ActionDecoderBase
     }
 
     /// <summary>
-    /// Uses the assigned IObjectLoader to load an object and add it to the object storage
+    /// Loads an object and adds it to the object storage
     /// </summary>
     /// <param name="path">The path to the object to load</param>
     private void LoadObject<T>(string path) where T : Object
