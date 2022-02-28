@@ -27,12 +27,12 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
         FailureScripts.ForEach(script =>
         {
             script.Initialize();
-            _narrativeGameState.BGSceneList.InstantiateBGScenes(DefaultNarrativeScript);
+            _narrativeGameState.BGSceneList.InstantiateBGScenes(script);
         }); 
         GameOverScript.Initialize();
         
         _narrativeGameState.BGSceneList.InstantiateBGScenes(DefaultNarrativeScript);
-        _narrativeGameState.BGSceneList.InstantiateBGScenes(DefaultNarrativeScript);
+        _narrativeGameState.BGSceneList.InstantiateBGScenes(GameOverScript);
     }
 
     /// <summary>
