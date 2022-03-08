@@ -522,7 +522,7 @@ public class ActionDecoder : ActionDecoderBase
     /// and continuing the beginning of the loaded script
     /// </summary>
     /// <param name="narrativeScriptName">The name of the narrative script to load</param>
-    /// <example>&LOAD_SCRIPT:Case_1_Part_1</example>
+    /// <example>&amp;LOAD_SCRIPT:Case_1_Part_1</example>
     /// <category>Progression</category>
     private void LOAD_SCRIPT(string narrativeScriptName)
     {
