@@ -45,7 +45,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     /// <param name="narrativeScriptName">The name of the narrative script to load</param>
     public void LoadScript(string narrativeScriptName)
     {
-        var narrativeScriptText = Resources.Load<TextAsset>($"NarrativeScripts/{narrativeScriptName}.json");
+        var narrativeScriptText = Resources.Load<TextAsset>($"InkDialogueScripts/{narrativeScriptName}");
         _narrativeScriptPlayer.ActiveNarrativeScript = new NarrativeScript(narrativeScriptText);
         _narrativeGameState.BGSceneList.InstantiateBGScenes(_narrativeScriptPlayer.ActiveNarrativeScript);
         _narrativeScriptPlayer.Continue();

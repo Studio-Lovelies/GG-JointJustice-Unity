@@ -22,17 +22,23 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     /// </summary>
     public void InitializeNarrativeScripts(BGSceneList bgSceneList)
     {
-        DefaultNarrativeScript.Initialize();
+        if (DefaultNarrativeScript.Script != null)
+        {
+            DefaultNarrativeScript.Initialize();
+            _narrativeGameState.BGSceneList.InstantiateBGScenes(DefaultNarrativeScript);
+        }
 
+        if (GameOverScript.Script != null)
+        {
+            GameOverScript.Initialize();
+            _narrativeGameState.BGSceneList.InstantiateBGScenes(GameOverScript);
+        }
+        
         FailureScripts.ForEach(script =>
         {
             script.Initialize();
             _narrativeGameState.BGSceneList.InstantiateBGScenes(script);
-        }); 
-        GameOverScript.Initialize();
-        
-        _narrativeGameState.BGSceneList.InstantiateBGScenes(DefaultNarrativeScript);
-        _narrativeGameState.BGSceneList.InstantiateBGScenes(GameOverScript);
+        });
     }
 
     /// <summary>
