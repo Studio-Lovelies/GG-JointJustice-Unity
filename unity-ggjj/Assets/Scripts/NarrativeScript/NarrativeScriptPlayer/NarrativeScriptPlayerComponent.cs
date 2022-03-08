@@ -47,6 +47,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     {
         var narrativeScriptText = Resources.Load<TextAsset>($"InkDialogueScripts/{narrativeScriptName}");
         _narrativeScriptPlayer.ActiveNarrativeScript = new NarrativeScript(narrativeScriptText);
+        _narrativeGameState.BGSceneList.ClearBGScenes();
         _narrativeGameState.BGSceneList.InstantiateBGScenes(_narrativeScriptPlayer.ActiveNarrativeScript);
         _narrativeScriptPlayer.Continue();
     }

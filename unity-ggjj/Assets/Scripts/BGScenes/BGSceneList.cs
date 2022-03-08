@@ -14,24 +14,30 @@ public class BGSceneList : MonoBehaviour
     {
         var backgroundScenes = narrativeScript.ObjectStorage.GetObjectsOfType<BGScene>();
 
-        foreach (var bgScene in _bgScenes.Values)
-        {
-            Destroy(bgScene.gameObject);
-        }
-        _bgScenes.Clear();
-        
         foreach (var bgScene in backgroundScenes)
         {
             if (_bgScenes.ContainsKey(bgScene.name))
             {
                 continue;
             }
-            
+
             var bgSceneClone = Instantiate(bgScene, transform);
             bgSceneClone.name = bgScene.name;
             bgSceneClone.gameObject.SetActive(false);
             _bgScenes.Add(bgScene.name, bgSceneClone);
         }
+    }
+    
+    /// <summary>
+    /// Destroys all BGScene objects and clears the BGScenes dictionary
+    /// </summary>
+    public void ClearBGScenes()
+    {
+        foreach (var bgScene in _bgScenes.Values)
+        {
+            Destroy(bgScene.gameObject);
+        }
+        _bgScenes.Clear();
     }
 
     /// <summary>
