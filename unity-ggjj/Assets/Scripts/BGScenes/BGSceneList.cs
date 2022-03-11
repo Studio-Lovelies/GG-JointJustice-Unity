@@ -7,35 +7,37 @@ public class BGSceneList : MonoBehaviour
     private BGScene _activeScene;
 
     /// <summary>
-    /// Gets all available BGScenes and instantiates them.
-    /// </summary>
-    public void InstantiateBGSceneFromPlaylist(INarrativeScriptPlaylist narrativeScriptPlaylist)
-    {
-        foreach (var narrativeScript in narrativeScriptPlaylist.GetAllNarrativeScripts())
-        {
-            InstantiateBGScenes(narrativeScript);
-        }
-    }
-
-    /// <summary>
     /// Instantiates BGScenes from a given narrative script and adds them to the dictionary
     /// </summary>
     /// <param name="narrativeScript">The narrative script to get BGScenes from</param>
-    private void InstantiateBGScenes(NarrativeScript narrativeScript)
+    public void InstantiateBGScenes(INarrativeScript narrativeScript)
     {
         var backgroundScenes = narrativeScript.ObjectStorage.GetObjectsOfType<BGScene>();
+
         foreach (var bgScene in backgroundScenes)
         {
             if (_bgScenes.ContainsKey(bgScene.name))
             {
                 continue;
             }
-            
+
             var bgSceneClone = Instantiate(bgScene, transform);
             bgSceneClone.name = bgScene.name;
             bgSceneClone.gameObject.SetActive(false);
             _bgScenes.Add(bgScene.name, bgSceneClone);
         }
+    }
+    
+    /// <summary>
+    /// Destroys all BGScene objects and clears the BGScenes dictionary
+    /// </summary>
+    public void ClearBGScenes()
+    {
+        foreach (var bgScene in _bgScenes.Values)
+        {
+            Destroy(bgScene.gameObject);
+        }
+        _bgScenes.Clear();
     }
 
     /// <summary>

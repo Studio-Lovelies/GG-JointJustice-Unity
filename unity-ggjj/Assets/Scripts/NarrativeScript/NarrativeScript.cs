@@ -36,6 +36,10 @@ public class NarrativeScript : INarrativeScript
     /// <param name="actionDecoder">An optional action decoder, used for testing</param>
     public void Initialize(IActionDecoder actionDecoder = null)
     {
+        if (Script == null)
+        {
+            throw new NullReferenceException("Could not initialize narrative script. Script field is null.");
+        }
         _objectStorage = new ObjectStorage();
         Story = new Story(Script.text);
         ReadScript(Story, actionDecoder ?? new ObjectPreloader(_objectStorage));

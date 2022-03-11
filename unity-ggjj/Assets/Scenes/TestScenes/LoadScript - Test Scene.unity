@@ -1334,9 +1334,21 @@ PrefabInstance:
       value: UnityEngine.AudioClip, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: <FailureScripts>k__BackingField.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: <GameOverScript>k__BackingField.<Script>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: <DefaultNarrativeScript>k__BackingField.<Script>k__BackingField
       value: 
-      objectReference: {fileID: 4900000, guid: d3e824f12c025e04e90236f004a06db2, type: 3}
+      objectReference: {fileID: 4900000, guid: 67e7660b4130b440c9ad6e6b552fd797, type: 3}
+    - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: <FailureScripts>k__BackingField.Array.data[0].<Script>k__BackingField
+      value: 
+      objectReference: {fileID: 4900000, guid: e154d70fe5b856b489fc97fab7a97ff2, type: 3}
     - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: <NarrativeScripts>k__BackingField.Array.data[0].<Script>k__BackingField
       value: 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 {
@@ -26,11 +25,11 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     public IActionDecoder ActionDecoder => _actionDecoderComponent.Decoder;
     public INarrativeScriptPlaylist NarrativeScriptPlaylist => _narrativeScriptPlaylist;
     public IChoiceMenu ChoiceMenu => _choiceMenu;
+    public BGSceneList BGSceneList => _bgSceneList;
 
     private void Start()
     {
-        _narrativeScriptPlaylist.InitializeNarrativeScripts();
-        _bgSceneList.InstantiateBGSceneFromPlaylist(_narrativeScriptPlaylist);
+        _narrativeScriptPlaylist.InitializeNarrativeScripts(_bgSceneList);
         _actionDecoderComponent.Decoder.NarrativeGameState = this;
         _narrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
     }
