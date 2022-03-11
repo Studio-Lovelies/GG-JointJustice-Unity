@@ -20,6 +20,7 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     /// <summary>
     /// Call the initialise method on all narrative scripts in this playlist
     /// </summary>
+    /// <param name="bgSceneList">A BGSceneList object with which to instantiate BGScenes used by narrative scripts</param>
     public void InitializeNarrativeScripts(BGSceneList bgSceneList)
     {
         if (DefaultNarrativeScript.Script != null)
