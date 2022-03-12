@@ -524,7 +524,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <param name="narrativeScriptName" validFiles="Assets/Resources/InkDialogueScripts/*.ink">The name of the narrative script to load</param>
     /// <example>&amp;LOAD_SCRIPT:Case_1_Part_1</example>
     /// <category>Script Loading</category>
-    private void LOAD_SCRIPT(AssetName narrativeScriptName)
+    private void LOAD_SCRIPT(NarrativeScriptAssetName narrativeScriptName)
     {
         NarrativeGameState.NarrativeScriptPlayerComponent.LoadScript(narrativeScriptName);
         OnActionDone?.Invoke();
@@ -536,7 +536,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <param name="gameOverScriptName" validFiles="Assets/Resources/InkDialogueScripts/Failures/*.ink">The name of the game over script</param>
     /// <example>&amp;SET_GAME_OVER_SCRIPT:TMPH_GameOver</example>
     /// <category>Script Loading</category>
-    private void SET_GAME_OVER_SCRIPT(AssetName gameOverScriptName)
+    private void SET_GAME_OVER_SCRIPT(GameOverScriptAssetName gameOverScriptName)
     {
         NarrativeGameState.NarrativeScriptPlaylist.SetGameOverScript(gameOverScriptName);
         OnActionDone?.Invoke();
@@ -548,7 +548,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <param name="failureScriptName" validFiles="Assets/Resources/InkDialogueScripts/Failures/*.ink">>The name of the failure script to add</param>
     /// <example>&amp;ADD_FAILURE_SCRIPT:TMPH_FAIL_1</example>
     /// <category>Script Loading</category>
-    private void ADD_FAILURE_SCRIPT(AssetName failureScriptName)
+    private void ADD_FAILURE_SCRIPT(FailureScriptAssetName failureScriptName)
     {
         NarrativeGameState.NarrativeScriptPlaylist.AddFailureScript(failureScriptName);
         OnActionDone?.Invoke();
