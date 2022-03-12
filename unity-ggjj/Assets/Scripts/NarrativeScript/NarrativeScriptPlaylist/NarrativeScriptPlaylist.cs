@@ -56,4 +56,22 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
         failureScript.Reset();
         return failureScript;
     }
+
+    /// <summary>
+    /// Sets the game over script for the currently playing narrative script
+    /// </summary>
+    /// <param name="narrativeScript">The game over narrative script to set</param>
+    public void SetGameOverScript(NarrativeScript narrativeScript)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Adds a failure script to the currently playing narrative script
+    /// </summary>
+    /// <param name="narrativeScript">The failure narrative script to add</param>
+    public void AddFailureScript(NarrativeScript narrativeScript)
+    {
+        throw new NotImplementedException();
+    }
 }
