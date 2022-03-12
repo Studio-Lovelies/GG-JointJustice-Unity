@@ -537,7 +537,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Script Loading</category>
     private void SET_GAME_OVER_SCRIPT(string gameOverScriptName)
     {
-        NarrativeGameState.NarrativeScriptPlaylist.SetGameOverScript(new NarrativeScript(Resources.Load<TextAsset>($"Failures/{gameOverScriptName}")));
+        NarrativeGameState.NarrativeScriptPlaylist.GameOverScript = new NarrativeScript(Resources.Load<TextAsset>($"Failures/{gameOverScriptName}"));
     }
 
     /// <summary>

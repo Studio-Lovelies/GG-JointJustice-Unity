@@ -11,11 +11,8 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     [field: Tooltip("List of narrative scripts to be played in order")]
     [field: SerializeField] public NarrativeScript DefaultNarrativeScript { get; private set; }
     
-    [field: Tooltip("List of narrative scripts to be used when taking penalties")]
-    [field: SerializeField] public List<NarrativeScript> FailureScripts { get; private set; }
-    
-    [field: Tooltip("A narrative script to be played on game over")]
-    [field: SerializeField] public NarrativeScript GameOverScript { get; private set; }
+    public List<NarrativeScript> FailureScripts { get; private set; }
+    public NarrativeScript GameOverScript { get; set; }
 
     /// <summary>
     /// Call the initialise method on all narrative scripts in this playlist
@@ -58,20 +55,11 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     }
 
     /// <summary>
-    /// Sets the game over script for the currently playing narrative script
-    /// </summary>
-    /// <param name="narrativeScript">The game over narrative script to set</param>
-    public void SetGameOverScript(NarrativeScript narrativeScript)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <summary>
     /// Adds a failure script to the currently playing narrative script
     /// </summary>
     /// <param name="narrativeScript">The failure narrative script to add</param>
     public void AddFailureScript(NarrativeScript narrativeScript)
     {
-        throw new NotImplementedException();
+        FailureScripts.Add(narrativeScript);
     }
 }
