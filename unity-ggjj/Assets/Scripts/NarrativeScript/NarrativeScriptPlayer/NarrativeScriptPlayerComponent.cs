@@ -6,20 +6,26 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     
     private NarrativeScriptPlayer _narrativeScriptPlayer;
 
-    public INarrativeScriptPlayer NarrativeScriptPlayer => _narrativeScriptPlayer;
+    public INarrativeScriptPlayer NarrativeScriptPlayer
+    {
+        get
+        {
+            if (_narrativeScriptPlayer == null)
+            {
+                _narrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeGameState)
+                {
+                    ActiveNarrativeScript = _narrativeGameState.NarrativeScriptPlaylist.NarrativeScript
+                };
+            }
+
+            return _narrativeScriptPlayer;
+        }
+    }
 
     public bool Waiting
     {
-        get => _narrativeScriptPlayer.Waiting;
-        set => _narrativeScriptPlayer.Waiting = value;
-    }
-
-    private void Awake()
-    {
-        _narrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeGameState)
-        {
-            ActiveNarrativeScript = _narrativeGameState.NarrativeScriptPlaylist.DefaultNarrativeScript
-        };
+        get => NarrativeScriptPlayer.Waiting;
+        set => NarrativeScriptPlayer.Waiting = value;
     }
 
     /// <summary>
@@ -27,7 +33,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     /// </summary>
     public void Continue()
     {
-        _narrativeScriptPlayer.Continue();
+        NarrativeScriptPlayer.Continue();
     }
 
     /// <summary>
@@ -35,7 +41,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     /// </summary>
     public void TryPressWitness()
     {
-        _narrativeScriptPlayer.TryPressWitness();
+        NarrativeScriptPlayer.TryPressWitness();
     }
 
     /// <summary>
@@ -46,9 +52,9 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     public void LoadScript(string narrativeScriptName)
     {
         var narrativeScriptText = Resources.Load<TextAsset>($"InkDialogueScripts/{narrativeScriptName}");
-        _narrativeScriptPlayer.ActiveNarrativeScript = new NarrativeScript(narrativeScriptText);
+        NarrativeScriptPlayer.ActiveNarrativeScript = new NarrativeScript(narrativeScriptText);
         _narrativeGameState.BGSceneList.ClearBGScenes();
-        _narrativeGameState.BGSceneList.InstantiateBGScenes(_narrativeScriptPlayer.ActiveNarrativeScript);
-        _narrativeScriptPlayer.Continue();
+        _narrativeGameState.BGSceneList.InstantiateBGScenes(NarrativeScriptPlayer.ActiveNarrativeScript);
+        NarrativeScriptPlayer.Continue();
     }
 }

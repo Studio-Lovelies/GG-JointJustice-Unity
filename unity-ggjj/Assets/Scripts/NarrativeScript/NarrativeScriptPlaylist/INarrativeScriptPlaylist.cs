@@ -1,5 +1,5 @@
 public interface INarrativeScriptPlaylist
 {
-    NarrativeScript DefaultNarrativeScript { get; }
+    NarrativeScript NarrativeScript { get; set; }
     NarrativeScript GetRandomFailureScript();
 }
