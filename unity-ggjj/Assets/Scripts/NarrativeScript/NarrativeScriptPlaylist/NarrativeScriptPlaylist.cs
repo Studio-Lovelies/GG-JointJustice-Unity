@@ -48,6 +48,7 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     public void SetGameOverScript(string gameOverScriptName)
     {
         GameOverScript = new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{gameOverScriptName}"));
+        _narrativeGameState.BGSceneList.InstantiateBGScenes(GameOverScript);
     }
 
     /// <summary>
@@ -56,6 +57,8 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     /// <param name="failureScriptName">The name of the failure narrative script to add</param>
     public void AddFailureScript(string failureScriptName)
     {
-        FailureScripts.Add(new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{failureScriptName}")));
+        var narrativeScript = new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{failureScriptName}"));
+        FailureScripts.Add(narrativeScript);
+        _narrativeGameState.BGSceneList.InstantiateBGScenes(narrativeScript);
     }
 }
