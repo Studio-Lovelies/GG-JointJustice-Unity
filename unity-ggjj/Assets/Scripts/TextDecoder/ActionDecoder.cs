@@ -527,6 +527,7 @@ public class ActionDecoder : ActionDecoderBase
     private void LOAD_SCRIPT(string narrativeScriptName)
     {
         NarrativeGameState.NarrativeScriptPlayerComponent.LoadScript(narrativeScriptName);
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -537,7 +538,8 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Script Loading</category>
     private void SET_GAME_OVER_SCRIPT(string gameOverScriptName)
     {
-        NarrativeGameState.NarrativeScriptPlaylist.GameOverScript = new NarrativeScript(Resources.Load<TextAsset>($"Failures/{gameOverScriptName}"));
+        NarrativeGameState.NarrativeScriptPlaylist.GameOverScript = new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{gameOverScriptName}"));
+        OnActionDone?.Invoke();
     }
 
     /// <summary>
@@ -548,7 +550,8 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Script Loading</category>
     private void ADD_FAILURE_SCRIPT(string failureScriptName)
     {
-        NarrativeGameState.NarrativeScriptPlaylist.AddFailureScript(new NarrativeScript(Resources.Load<TextAsset>($"Failures/{failureScriptName}")));
+        NarrativeGameState.NarrativeScriptPlaylist.AddFailureScript(new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{failureScriptName}")));
+        OnActionDone?.Invoke();
     }
     #endregion
 #pragma warning restore IDE0051 // Remove unused private members

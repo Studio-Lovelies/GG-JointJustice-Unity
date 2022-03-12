@@ -10,8 +10,8 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     
     [field: Tooltip("List of narrative scripts to be played in order")]
     [field: SerializeField] public NarrativeScript DefaultNarrativeScript { get; private set; }
-    
-    public List<NarrativeScript> FailureScripts { get; private set; }
+
+    public List<NarrativeScript> FailureScripts { get; } = new List<NarrativeScript>();
     public NarrativeScript GameOverScript { get; set; }
 
     /// <summary>
@@ -20,23 +20,10 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     /// <param name="bgSceneList">A BGSceneList object with which to instantiate BGScenes used by narrative scripts</param>
     public void InitializeNarrativeScripts(BGSceneList bgSceneList)
     {
-        if (DefaultNarrativeScript.Script != null)
-        {
-            DefaultNarrativeScript.Initialize();
-            _narrativeGameState.BGSceneList.InstantiateBGScenes(DefaultNarrativeScript);
-        }
-
-        if (GameOverScript.Script != null)
-        {
-            GameOverScript.Initialize();
-            _narrativeGameState.BGSceneList.InstantiateBGScenes(GameOverScript);
-        }
+        if (DefaultNarrativeScript.Script == null) { return; }
         
-        FailureScripts.ForEach(script =>
-        {
-            script.Initialize();
-            _narrativeGameState.BGSceneList.InstantiateBGScenes(script);
-        });
+        DefaultNarrativeScript.Initialize();
+        _narrativeGameState.BGSceneList.InstantiateBGScenes(DefaultNarrativeScript);
     }
 
     /// <summary>
