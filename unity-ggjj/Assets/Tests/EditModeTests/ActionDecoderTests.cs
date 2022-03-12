@@ -127,6 +127,7 @@ public class ActionDecoderTests
         narrativeGameStateMock.Setup(mock => mock.ObjectStorage.GetObject<Evidence>(It.IsAny<string>()));
         narrativeGameStateMock.Setup(mock => mock.AudioController.PlaySfx(It.IsAny<AudioClip>()));
         narrativeGameStateMock.Setup(mock => mock.PenaltyManager.Decrement());
+        narrativeGameStateMock.Setup(mock => mock.NarrativeScriptPlaylist.AddFailureScript(It.IsAny<string>()));
 
         return new ActionDecoder
         {

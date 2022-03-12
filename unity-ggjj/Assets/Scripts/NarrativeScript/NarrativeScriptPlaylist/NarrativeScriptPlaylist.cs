@@ -40,13 +40,22 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
         failureScript.Reset();
         return failureScript;
     }
+    
+    /// <summary>
+    /// Sets a game over script for the currently playing narrative script
+    /// </summary>
+    /// <param name="gameOverScriptName">The name of the game over script to set</param>
+    public void SetGameOverScript(string gameOverScriptName)
+    {
+        GameOverScript = new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{gameOverScriptName}"));
+    }
 
     /// <summary>
     /// Adds a failure script to the currently playing narrative script
     /// </summary>
-    /// <param name="narrativeScript">The failure narrative script to add</param>
-    public void AddFailureScript(NarrativeScript narrativeScript)
+    /// <param name="failureScriptName">The name of the failure narrative script to add</param>
+    public void AddFailureScript(string failureScriptName)
     {
-        FailureScripts.Add(narrativeScript);
+        FailureScripts.Add(new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{failureScriptName}")));
     }
 }

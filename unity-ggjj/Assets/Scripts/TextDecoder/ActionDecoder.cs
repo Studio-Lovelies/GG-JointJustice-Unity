@@ -538,7 +538,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Script Loading</category>
     private void SET_GAME_OVER_SCRIPT(string gameOverScriptName)
     {
-        NarrativeGameState.NarrativeScriptPlaylist.GameOverScript = new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{gameOverScriptName}"));
+        NarrativeGameState.NarrativeScriptPlaylist.SetGameOverScript(gameOverScriptName);
         OnActionDone?.Invoke();
     }
 
@@ -550,7 +550,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Script Loading</category>
     private void ADD_FAILURE_SCRIPT(string failureScriptName)
     {
-        NarrativeGameState.NarrativeScriptPlaylist.AddFailureScript(new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{failureScriptName}")));
+        NarrativeGameState.NarrativeScriptPlaylist.AddFailureScript(failureScriptName);
         OnActionDone?.Invoke();
     }
     #endregion
