@@ -521,7 +521,7 @@ public class ActionDecoder : ActionDecoderBase
     /// Loads a narrative script, ending the current narrative script
     /// and continuing the beginning of the loaded script
     /// </summary>
-    /// <param name="narrativeScriptName">The name of the narrative script to load</param>
+    /// <param name="narrativeScriptName" validFiles="Assets/Resources/InkDialogueScripts/*.ink">The name of the narrative script to load</param>
     /// <example>&amp;LOAD_SCRIPT:Case_1_Part_1</example>
     /// <category>Script Loading</category>
     private void LOAD_SCRIPT(string narrativeScriptName)
@@ -533,7 +533,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <summary>
     /// Sets the game over narrative script for the currently playing narrative script
     /// </summary>
-    /// <param name="gameOverScriptName">The name of the game over script</param>
+    /// <param name="gameOverScriptName" validFiles="Assets/Resources/InkDialogueScripts/Failures/*.ink">The name of the game over script</param>
     /// <example>&amp;SET_GAME_OVER_SCRIPT:TMPH_GameOver</example>
     /// <category>Script Loading</category>
     private void SET_GAME_OVER_SCRIPT(string gameOverScriptName)
@@ -545,7 +545,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <summary>
     /// Adds a failure script for the currently playing narrative script
     /// </summary>
-    /// <param name="failureScriptName">The name of the failure script to add</param>
+    /// <param name="failureScriptName" validFiles="Assets/Resources/InkDialogueScripts/Failures/*.ink">>The name of the failure script to add</param>
     /// <example>&amp;ADD_FAILURE_SCRIPT:TMPH_FAIL_1</example>
     /// <category>Script Loading</category>
     private void ADD_FAILURE_SCRIPT(string failureScriptName)
