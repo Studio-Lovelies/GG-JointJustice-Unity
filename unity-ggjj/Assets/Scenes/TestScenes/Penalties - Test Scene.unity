@@ -693,6 +693,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: <NarrativeScript>k__BackingField.<Script>k__BackingField
+      value: 
+      objectReference: {fileID: 4900000, guid: b8da66c02a8ef46f1ae4b47192d9a68a, type: 3}
+    - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: <DefaultNarrativeScript>k__BackingField.<Script>k__BackingField
       value: 
       objectReference: {fileID: 4900000, guid: b8da66c02a8ef46f1ae4b47192d9a68a, type: 3}

@@ -99,22 +99,12 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanStartGame()
         {
-            SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
-            SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
-
-            // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
-            // and we query all existing menus instead
-            Menu[] menus = TestTools.FindInactiveInScene<Menu>();
-            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            var menus = TestTools.FindInactiveInScene<Menu>();
+            var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            var startGameButton = mainMenu.gameObject.GetComponentsInChildren<Transform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
+            yield return _inputTestTools.ClickAtPosition(startGameButton.position);
             
-            RectTransform startGameButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
-
-            yield return _inputTestTools.SetMousePosition(startGameButton.position + startGameButton.localScale * 0.5f);
-            Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-            yield return _inputTestTools.PressForFrame(Mouse.leftButton);
-            Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-
-            SceneManagerAPI.overrideAPI = null;
+            yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
         }
     }
 }

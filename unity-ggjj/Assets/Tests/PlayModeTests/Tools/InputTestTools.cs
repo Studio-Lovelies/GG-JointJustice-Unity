@@ -114,9 +114,19 @@ namespace Tests.PlayModeTests.Tools
                 yield return PressForSeconds(key, 0.2f);
             }
         }
-
+        
         /// <summary>
         /// Sets the mouse to a position and clicks.
+        /// </summary>
+        /// <param name="position">The position to click at.</param>
+        public IEnumerator ClickAtPosition(Vector2 position)
+        {
+            yield return SetMousePosition(position);
+            yield return PressForFrame(Mouse.leftButton);
+        }
+
+        /// <summary>
+        /// Sets the mouse to a position in world space and clicks.
         /// </summary>
         /// <param name="position">The position to click at.</param>
         public IEnumerator ClickAtPositionWorldSpace(Vector2 position)
