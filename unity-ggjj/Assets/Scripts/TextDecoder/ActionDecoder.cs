@@ -545,7 +545,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <summary>
     /// Adds a failure script for the currently playing narrative script
     /// </summary>
-    /// <param name="failureScriptName" validFiles="Assets/Resources/InkDialogueScripts/Failures/*.ink">>The name of the failure script to add</param>
+    /// <param name="failureScriptName" validFiles="Assets/Resources/InkDialogueScripts/Failures/*.ink">The name of the failure script to add</param>
     /// <example>&amp;ADD_FAILURE_SCRIPT:TMPH_FAIL_1</example>
     /// <category>Script Loading</category>
     private void ADD_FAILURE_SCRIPT(FailureScriptAssetName failureScriptName)
