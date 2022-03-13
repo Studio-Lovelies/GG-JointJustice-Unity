@@ -12,9 +12,7 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
     public class PenaltyTests : InputTest
     {
         private global::PenaltyManager _penaltyManager;
-
-        public Keyboard Keyboard => Keyboard;
-    
+        
         [UnitySetUp]
         public IEnumerator SetUp()
         {

@@ -26,15 +26,13 @@ namespace Tests.PlayModeTests.Scripts.ActorController
 
             _storyProgresser = new StoryProgresser(this);
             _actorController = Object.FindObjectOfType<global::ActorController>();
-            
-            yield return _storyProgresser.ProgressStory();
             _witnessAnimator = GameObject.Find("Witness_Actor").GetComponent<Actor>().GetComponent<Animator>();
-            AssertIsNotTalking(_witnessAnimator);
         }
 
         [UnityTest]
         public IEnumerator ActorsCanBeSetToTalkingInCode()
         {
+            yield return _storyProgresser.ProgressStory();
             _actorController.StartTalking();
             yield return null;
             AssertIsTalking(_witnessAnimator);
@@ -46,6 +44,8 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator ActorsAreSetToTalkingOnDialogueStart()
         {
+            yield return _storyProgresser.ProgressStory();
+            AssertIsNotTalking(_witnessAnimator);
             yield return PressForFrame(Keyboard.xKey);
             AssertIsTalking(_witnessAnimator);
         }
@@ -61,6 +61,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator ActiveSpeakerCanBeSet()
         {
+            yield return _storyProgresser.ProgressStory();
             var prosecutionAnimator =  GameObject.Find("Prosecution_Actor").GetComponent<Actor>().GetComponent<Animator>();
             _actorController.SetActiveSpeaker("TutorialBoy", SpeakingType.Speaking);
             yield return PressForFrame(Keyboard.xKey);
@@ -80,6 +81,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator SpeakerCanBeSetToThinking()
         {
+            yield return _storyProgresser.ProgressStory();
             _actorController.SetActiveSpeaker("Arin", SpeakingType.Thinking);
             yield return PressForFrame(Keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
@@ -89,8 +91,8 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator SpeakerCanBeSetToNarrator()
         {
+            yield return _storyProgresser.ProgressStory();
             var nameBox = Object.FindObjectOfType<NameBox>().gameObject;
-
             _actorController.SetActiveSpeakerToNarrator();
             yield return PressForFrame(Keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
@@ -100,6 +102,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator ActorPoseCanBeSet()
         {
+            yield return _storyProgresser.ProgressStory();
             const string POSE_NAME = "Sweaty"; 
             Assert.AreNotEqual(POSE_NAME, _witnessAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
             _actorController.SetPose(POSE_NAME);
@@ -110,6 +113,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator ActorEmotionsCanBePlayed()
         {
+            yield return _storyProgresser.ProgressStory();
             const string EMOTION_NAME = "HelmetThrow";
             _actorController.PlayEmotion(EMOTION_NAME);
             yield return null;
@@ -132,6 +136,9 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator ActorNotInTheSceneCanSpeak()
         {
+            yield return _storyProgresser.ProgressStory();
+            AssertIsNotTalking(_witnessAnimator);
+            
             _actorController.SetActiveSpeaker("Dan", SpeakingType.Speaking);
             yield return PressForFrame(Keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
