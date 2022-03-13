@@ -1,4 +1,5 @@
 // Script to test whether penatlies are enabled and disabled at the correct times
+&ADD_FAILURE_SCRIPT:TMPH_FAIL_1
 &ADD_EVIDENCE:AttorneysBadge
 &SCENE:TMPHCourt
 &SET_ACTOR_POSITION:1,Arin

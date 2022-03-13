@@ -1334,6 +1334,10 @@ PrefabInstance:
       value: UnityEngine.AudioClip, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: <NarrativeScript>k__BackingField.<Script>k__BackingField
+      value: 
+      objectReference: {fileID: 4900000, guid: d3e824f12c025e04e90236f004a06db2, type: 3}
+    - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: <DefaultNarrativeScript>k__BackingField.<Script>k__BackingField
       value: 
       objectReference: {fileID: 4900000, guid: d3e824f12c025e04e90236f004a06db2, type: 3}

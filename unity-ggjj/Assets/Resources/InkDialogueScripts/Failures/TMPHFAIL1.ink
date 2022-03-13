@@ -3,16 +3,17 @@ INCLUDE ../Macros.ink
 &SCENE:TMPHAssistant
 &ACTOR:Dan
 &SPEAK:Dan
-Arin{char(".")}{char(".")}{char(".")}
+Arin{ellipsis}
 
 &SCENE:TMPHCourt
+&SET_ACTOR_POSITION:1,Arin
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
 What? It's the right answer, right?
 
 &SCENE:TMPHAssistant
 &SPEAK:Dan
-{char(".")}{char(".")}{char(".")}
+{ellipsis}
 &SET_POSE:Angry
 No Arin, we're getting a penalty for that one.
 

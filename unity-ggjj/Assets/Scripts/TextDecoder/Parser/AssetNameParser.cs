@@ -112,4 +112,46 @@
             return null;
         }
     }
+    public class NarrativeScriptAssetNameParser : Parser<NarrativeScriptAssetName>
+    {
+        public override string Parse(string input, out NarrativeScriptAssetName output)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                output = null;
+                return $"String cannot be empty";
+            }
+
+            output = new NarrativeScriptAssetName(input);
+            return null;
+        }
+    }
+    public class GameOverScriptAssetNameParser : Parser<GameOverScriptAssetName>
+    {
+        public override string Parse(string input, out GameOverScriptAssetName output)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                output = null;
+                return $"String cannot be empty";
+            }
+
+            output = new GameOverScriptAssetName(input);
+            return null;
+        }
+    }
+    public class FailureScriptAssetNameParser : Parser<FailureScriptAssetName>
+    {
+        public override string Parse(string input, out FailureScriptAssetName output)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                output = null;
+                return $"String cannot be empty";
+            }
+
+            output = new FailureScriptAssetName(input);
+            return null;
+        }
+    }
 }

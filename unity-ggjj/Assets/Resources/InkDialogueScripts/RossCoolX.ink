@@ -1,5 +1,7 @@
+INCLUDE FailureStates.ink
+<- Failures.TMPH
+
 &MODE:CrossExamination
-//Do these before fading in, sets up the scene
 
 &ADD_EVIDENCE:BentCoins
 &SCENE:TMPHJudge
