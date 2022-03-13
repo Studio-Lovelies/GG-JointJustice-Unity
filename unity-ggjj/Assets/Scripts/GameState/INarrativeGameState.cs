@@ -11,4 +11,5 @@ public interface INarrativeGameState
     INarrativeScriptPlaylist NarrativeScriptPlaylist { get; }
     IActionDecoder ActionDecoder { get; }
     IChoiceMenu ChoiceMenu { get; }
+    BGSceneList BGSceneList { get; }
 }

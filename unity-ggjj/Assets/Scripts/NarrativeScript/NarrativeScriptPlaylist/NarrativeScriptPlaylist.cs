@@ -8,37 +8,21 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     [SerializeField]
     public NarrativeGameState _narrativeGameState;
     
-    [field: Tooltip("List of narrative scripts to be played in order")]
+    [field: Tooltip("Used for debugging. Narrative scripts should be set using SceneLoader")]
     [field: SerializeField] public NarrativeScript NarrativeScript { get; set; }
-    
-    [field: Tooltip("List of narrative scripts to be used when taking penalties")]
-    [field: SerializeField] public List<NarrativeScript> FailureScripts { get; private set; }
-    
-    [field: Tooltip("A narrative script to be played on game over")]
-    [field: SerializeField] public NarrativeScript GameOverScript { get; private set; }
+
+    public List<NarrativeScript> FailureScripts { get; } = new List<NarrativeScript>();
+    public NarrativeScript GameOverScript { get; set; }
 
     /// <summary>
     /// Call the initialise method on all narrative scripts in this playlist
     /// </summary>
     public void InitializeNarrativeScripts()
     {
-        if (NarrativeScript.Script != null)
-        {
-            NarrativeScript.Initialize();
-            _narrativeGameState.BGSceneList.InstantiateBGScenes(NarrativeScript);
-        }
-
-        if (GameOverScript.Script != null)
-        {
-            GameOverScript.Initialize();
-            _narrativeGameState.BGSceneList.InstantiateBGScenes(GameOverScript);
-        }
+        if (NarrativeScript.Script == null) { return; }
         
-        FailureScripts.ForEach(script =>
-        {
-            script.Initialize();
-            _narrativeGameState.BGSceneList.InstantiateBGScenes(script);
-        });
+        DefaultNarrativeScript.Initialize();
+        _narrativeGameState.BGSceneList.InstantiateBGScenes(DefaultNarrativeScript);
     }
 
     /// <summary>
@@ -54,5 +38,26 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
         var failureScript = FailureScripts[Random.Range(0, FailureScripts.Count)];
         failureScript.Reset();
         return failureScript;
+    }
+    
+    /// <summary>
+    /// Sets a game over script for the currently playing narrative script
+    /// </summary>
+    /// <param name="gameOverScriptName">The name of the game over script to set</param>
+    public void SetGameOverScript(string gameOverScriptName)
+    {
+        GameOverScript = new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{gameOverScriptName}"));
+        _narrativeGameState.BGSceneList.InstantiateBGScenes(GameOverScript);
+    }
+
+    /// <summary>
+    /// Adds a failure script to the currently playing narrative script
+    /// </summary>
+    /// <param name="failureScriptName">The name of the failure narrative script to add</param>
+    public void AddFailureScript(string failureScriptName)
+    {
+        var narrativeScript = new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{failureScriptName}"));
+        FailureScripts.Add(narrativeScript);
+        _narrativeGameState.BGSceneList.InstantiateBGScenes(narrativeScript);
     }
 }
