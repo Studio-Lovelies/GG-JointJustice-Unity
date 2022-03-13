@@ -123,57 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1753085032 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3697150473782156849, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-  m_PrefabInstance: {fileID: 5228303782951346616}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1753085033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1753085032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: 50
-  m_MinHeight: -1
-  m_PreferredWidth: -1
-  m_PreferredHeight: -1
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
---- !u!114 &1753085034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1753085032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 16
-    m_Right: 16
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!114 &2054513137 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7367778912428427391, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
@@ -669,10 +618,6 @@ PrefabInstance:
     - target: {fileID: 5228303784783594412, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Name
       value: AppearingDialogueController
-      objectReference: {fileID: 0}
-    - target: {fileID: 5228303784977925677, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
-      propertyPath: _sceneList
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5979690604451775322, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _menuToOpen

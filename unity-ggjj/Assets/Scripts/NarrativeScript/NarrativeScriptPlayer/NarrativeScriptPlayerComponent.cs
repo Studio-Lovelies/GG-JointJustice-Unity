@@ -18,7 +18,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     {
         _narrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeGameState)
         {
-            ActiveNarrativeScript = _narrativeGameState.NarrativeScriptPlaylist.GetNextNarrativeScript()
+            ActiveNarrativeScript = _narrativeGameState.NarrativeScriptPlaylist.DefaultNarrativeScript
         };
     }
 
@@ -36,5 +36,19 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     public void TryPressWitness()
     {
         _narrativeScriptPlayer.TryPressWitness();
+    }
+
+    /// <summary>
+    /// Loads a narrative script, ending the current narrative script
+    /// and continuing the beginning of the loaded script
+    /// </summary>
+    /// <param name="narrativeScriptName">The name of the narrative script to load</param>
+    public void LoadScript(string narrativeScriptName)
+    {
+        var narrativeScriptText = Resources.Load<TextAsset>($"InkDialogueScripts/{narrativeScriptName}");
+        _narrativeScriptPlayer.ActiveNarrativeScript = new NarrativeScript(narrativeScriptText);
+        _narrativeGameState.BGSceneList.ClearBGScenes();
+        _narrativeGameState.BGSceneList.InstantiateBGScenes(_narrativeScriptPlayer.ActiveNarrativeScript);
+        _narrativeScriptPlayer.Continue();
     }
 }

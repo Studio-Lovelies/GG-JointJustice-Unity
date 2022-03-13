@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-
 public interface INarrativeScriptPlaylist
 {
-    IEnumerable<NarrativeScript> GetAllNarrativeScripts();
+    NarrativeScript DefaultNarrativeScript { get; }
     NarrativeScript GetRandomFailureScript();
-    NarrativeScript GetNextNarrativeScript();
 }
