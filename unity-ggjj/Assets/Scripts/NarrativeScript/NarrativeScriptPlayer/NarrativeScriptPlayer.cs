@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
-using UnityEngine;
 
 /// <summary>
 /// Acts a wrapper around Ink stories, providing access to each new line in a Story
