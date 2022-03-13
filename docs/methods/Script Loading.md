@@ -27,7 +27,7 @@ Examples:
 
 ## ADD_FAILURE_SCRIPT
 Values: 
-  - [>The name of the failure script to add](../constants.md#FailureScriptAssetName)
+  - [The name of the failure script to add](../constants.md#FailureScriptAssetName)
 
 ⏲ Instant
 
