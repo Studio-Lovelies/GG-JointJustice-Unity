@@ -26,7 +26,7 @@ namespace Tests.PlayModeTests.Scripts
             var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer;
             Assert.AreEqual("LoadScriptTest", narrativeScriptPlayer.ActiveNarrativeScript.Script.name);
             yield return _storyProgresser.ProgressStory();
-            Assert.AreEqual("Ross_Cool_X", narrativeScriptPlayer.ActiveNarrativeScript.Script.name);
+            Assert.AreEqual("RossCoolX", narrativeScriptPlayer.ActiveNarrativeScript.Script.name);
         }
 
         [UnityTest]

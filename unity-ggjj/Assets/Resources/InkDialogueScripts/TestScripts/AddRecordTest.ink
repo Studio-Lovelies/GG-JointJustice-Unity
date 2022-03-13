@@ -1,4 +1,7 @@
 INCLUDE ../Macros.ink
+INCLUDE ../FailureStates.ink
+
+&ADD_FAILURE_SCRIPT:TMPH_FAIL_1
 
 &ADD_EVIDENCE:Bent_Coins
 &ADD_EVIDENCE:Jorys_Backpack
