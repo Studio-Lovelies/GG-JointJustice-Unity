@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
-using static UnityEngine.GameObject;
+
 using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scenes.CrossExamination
