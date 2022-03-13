@@ -8,10 +8,8 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scripts
 {
-    public class FullScreenAnimation
+    public class FullScreenAnimation : InputTest
     {
-        private readonly InputTestTools _inputTestTools = new InputTestTools();
-        
         [UnityTest]
         public IEnumerator FullScreenAnimationsCannotBeSkipped()
         {
@@ -20,7 +18,7 @@ namespace Tests.PlayModeTests.Scripts
             yield return null; 
            
             Assert.IsFalse(speechPanel.activeInHierarchy);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return PressForFrame(Keyboard.xKey);
             Assert.IsFalse(speechPanel.activeInHierarchy);
         }
     }

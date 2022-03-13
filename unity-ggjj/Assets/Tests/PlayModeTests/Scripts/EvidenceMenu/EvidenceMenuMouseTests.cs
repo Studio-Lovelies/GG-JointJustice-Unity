@@ -11,8 +11,6 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
     public class EvidenceMenuMouseTests : EvidenceMenuTest
     {
-        private readonly InputTestTools _inputTestTools = new InputTestTools();
-
         /// <summary>
         /// Places mouse over each menu item and asserts it is highlighted.
         /// </summary>
@@ -90,7 +88,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
                 yield return HoverOverButton(menuItem.transform);
                 var clicked = false;
                 menuItem.GetComponent<Button>().onClick.AddListener(() => clicked = true);
-                yield return InputTestTools.PressForFrame(InputTestTools.Mouse.leftButton);
+                yield return PressForFrame(Mouse.leftButton);
                 Assert.IsTrue(clicked);
             }
         }
@@ -107,12 +105,12 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
         private IEnumerator HoverOverButton(Transform transform)
         {
-            yield return _inputTestTools.SetMousePositionWorldSpace(transform.TransformPoint(transform.GetComponent<RectTransform>().rect.center));
+            yield return SetMousePositionWorldSpace(transform.TransformPoint(transform.GetComponent<RectTransform>().rect.center));
         }
 
         private IEnumerator LeftClick()
         {
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Mouse.leftButton);
+            yield return PressForFrame(Mouse.leftButton);
         }
     }
 }

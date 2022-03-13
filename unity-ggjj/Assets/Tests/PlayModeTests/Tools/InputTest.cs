@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
-using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Tools
 {
@@ -13,7 +11,7 @@ namespace Tests.PlayModeTests.Tools
     /// Contains useful methods used when testing features that use Unity Input System.
     /// Also contains input devices that should be used to pass ButtonControls to the methods.
     /// </summary>
-    public class InputTestTools : InputTestFixture
+    public abstract class InputTest : InputTestFixture
     {
         public Keyboard Keyboard { get; } = InputSystem.GetDevice<Keyboard>();
         public Mouse Mouse { get; } = InputSystem.GetDevice<Mouse>();
@@ -35,14 +33,14 @@ namespace Tests.PlayModeTests.Tools
                 return _gameViewWindow;
             }
         }
-
-        /// <summary>
-        /// Waits for the editor "GameView"-tab to repaint
-        /// </summary>
-        public IEnumerator WaitForRepaint()
+        
+        public override void Setup()
         {
-            GameViewWindow.Repaint();
-            yield return null;
+            base.Setup();
+            InputSystem.RegisterLayout<Keyboard>();
+            InputSystem.RegisterLayout<Mouse>();
+            InputSystem.AddDevice<Keyboard>();
+            InputSystem.AddDevice<Mouse>();
         }
 
         /// <summary>
@@ -50,7 +48,7 @@ namespace Tests.PlayModeTests.Tools
         /// </summary>
         /// <param name="control">The key to press.</param>
         /// <param name="repeats">The number of times the key should be pressed.</param>
-        public IEnumerator PressForFrame(ButtonControl control, int repeats = 1)
+        protected IEnumerator PressForFrame(ButtonControl control, int repeats = 1)
         {
             for (int i = 0; i < repeats; i++)
             {
@@ -70,7 +68,7 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="control">The key to press.</param>
         /// <param name="seconds">The number of seconds to press the key for.</param>
         /// <param name="repeats">The number of times the key should be pressed.</param>
-        public IEnumerator PressForSeconds(ButtonControl control, float seconds, int repeats = 1)
+        protected IEnumerator PressForSeconds(ButtonControl control, float seconds, int repeats = 1)
         {
             for (int i = 0; i < repeats; i++)
             {
@@ -85,7 +83,7 @@ namespace Tests.PlayModeTests.Tools
         /// Sets the position of the mouse in the scene.
         /// </summary>
         /// <param name="position">The position to set the mouse to.</param>
-        public IEnumerator SetMousePosition(Vector2 position)
+        protected IEnumerator SetMousePosition(Vector2 position)
         {
             Set(Mouse.position, position);
             yield return null;
@@ -95,7 +93,7 @@ namespace Tests.PlayModeTests.Tools
         /// Sets the position of the mouse in the scene.
         /// </summary>
         /// <param name="position">The position to set the mouse to.</param>
-        public IEnumerator SetMousePositionWorldSpace(Vector2 position)
+        protected IEnumerator SetMousePositionWorldSpace(Vector2 position)
         {
             Set(Mouse.position, Camera.main.WorldToScreenPoint(position));
             yield return null;
@@ -107,7 +105,7 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="behaviour">The behaviour to wait for.</param>
         /// <param name="key">The key to press.</param>
         /// <returns></returns>
-        public IEnumerator WaitForBehaviourActiveAndEnabled(Behaviour behaviour, ButtonControl key)
+        protected IEnumerator WaitForBehaviourActiveAndEnabled(Behaviour behaviour, ButtonControl key)
         {
             while (!behaviour.isActiveAndEnabled)
             {
@@ -119,7 +117,7 @@ namespace Tests.PlayModeTests.Tools
         /// Sets the mouse to a position and clicks.
         /// </summary>
         /// <param name="position">The position to click at.</param>
-        public IEnumerator ClickAtPositionWorldSpace(Vector2 position)
+        protected IEnumerator ClickAtPositionWorldSpace(Vector2 position)
         {
             yield return SetMousePositionWorldSpace(position);
             yield return PressForFrame(Mouse.leftButton);

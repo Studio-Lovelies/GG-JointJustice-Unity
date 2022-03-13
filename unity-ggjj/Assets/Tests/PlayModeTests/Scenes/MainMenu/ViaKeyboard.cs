@@ -9,11 +9,8 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scenes.MainMenu
 {
-    public class ViaKeyboard
+    public class ViaKeyboard : InputTest
     {
-        private readonly InputTestTools _inputTestTools = new InputTestTools();
-        private Keyboard Keyboard => _inputTestTools.Keyboard;
-
         [UnityTest]
         [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
@@ -26,34 +23,34 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
             string selectedButton = mainMenu.SelectedButton.name;
-            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
+            yield return PressForFrame(Keyboard.rightArrowKey);
             string newSelectedButton = mainMenu.SelectedButton.name;
             Assert.AreNotEqual(selectedButton, newSelectedButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.False(mainMenu.Active);
             Assert.True(subMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.False(subMenu.Active);
             Assert.True(secondSubMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+            yield return PressForFrame(Keyboard.downArrowKey);
+            yield return PressForFrame(Keyboard.downArrowKey);
+            yield return PressForFrame(Keyboard.downArrowKey);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.False(secondSubMenu.Active);
             Assert.True(subMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+            yield return PressForFrame(Keyboard.downArrowKey);
+            yield return PressForFrame(Keyboard.downArrowKey);
+            yield return PressForFrame(Keyboard.downArrowKey);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.False(subMenu.Active);
             Assert.True(mainMenu.Active);
         }
@@ -70,22 +67,22 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
             string selectedButton = mainMenu.SelectedButton.name;
-            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
+            yield return PressForFrame(Keyboard.rightArrowKey);
             string newSelectedButton = mainMenu.SelectedButton.name;
             Assert.AreNotEqual(selectedButton, newSelectedButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.False(mainMenu.Active);
             Assert.True(subMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.False(subMenu.Active);
             Assert.True(secondSubMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.False(secondSubMenu.Active);
             Assert.False(subMenu.Active);
             Assert.True(mainMenu.Active);
@@ -100,7 +97,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
             
             Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
 
             SceneManagerAPI.overrideAPI = null;

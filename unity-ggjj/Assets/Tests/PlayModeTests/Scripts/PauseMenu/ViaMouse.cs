@@ -16,7 +16,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
             yield return ToggleMenu();
             foreach (var button in Buttons)
             {
-                yield return InputTools.SetMousePositionWorldSpace(GetButtonCenter(button));
+                yield return SetMousePositionWorldSpace(GetButtonCenter(button));
                 AssertButtonSelected(button);
             }
         }
@@ -27,7 +27,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnityTest]
         public IEnumerator ResumeButtonResumesGame()
         {
-            yield return TestResumeButton(() => InputTools.ClickAtPositionWorldSpace(GetButtonCenter(GetButton(RESUME_BUTTON_NAME))));
+            yield return TestResumeButton(() => ClickAtPositionWorldSpace(GetButtonCenter(GetButton(RESUME_BUTTON_NAME))));
         }
         
         /// <summary>
@@ -36,7 +36,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnityTest]
         public IEnumerator SettingsMenuCanBeOpenedAndClosed()
         {
-            yield return TestSettingsButton(() => InputTools.ClickAtPositionWorldSpace(GetButtonCenter(GetButton(SETTINGS_BUTTON_NAME))));
+            yield return TestSettingsButton(() => ClickAtPositionWorldSpace(GetButtonCenter(GetButton(SETTINGS_BUTTON_NAME))));
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnityTest]
         public IEnumerator MainMenuButtonReturnsToMainMenu()
         {
-            yield return TestMainMenuButton(() => InputTools.ClickAtPositionWorldSpace(GetButtonCenter(GetButton(MAIN_MENU_BUTTON_NAME))));
+            yield return TestMainMenuButton(() => ClickAtPositionWorldSpace(GetButtonCenter(GetButton(MAIN_MENU_BUTTON_NAME))));
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
             yield return ToggleMenu();
             Button button = GetButton(RESUME_BUTTON_NAME);
             AssertButtonSelected(button);
-            yield return InputTools.ClickAtPositionWorldSpace(new Vector2(10, 10));
+            yield return ClickAtPositionWorldSpace(new Vector2(10, 10));
             AssertButtonSelected(button);
         }
 

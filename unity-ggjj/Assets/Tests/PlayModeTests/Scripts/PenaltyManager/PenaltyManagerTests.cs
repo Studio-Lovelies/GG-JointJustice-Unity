@@ -9,12 +9,11 @@ using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scripts.PenaltyManager
 {
-    public class PenaltyTests
+    public class PenaltyTests : InputTest
     {
         private global::PenaltyManager _penaltyManager;
-        private readonly InputTestTools _inputTestTools = new InputTestTools();
 
-        public Keyboard Keyboard => _inputTestTools.Keyboard;
+        public Keyboard Keyboard => Keyboard;
     
         [UnitySetUp]
         public IEnumerator SetUp()
@@ -27,16 +26,16 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
         public IEnumerator PenaltiesAreEnabledOnCrossExaminationStart()
         {
             Assert.IsTrue(!_penaltyManager.isActiveAndEnabled || _penaltyManager.PenaltiesLeft == 0);
-            yield return _inputTestTools.PressForFrame(Keyboard.xKey);
+            yield return PressForFrame(Keyboard.xKey);
             Assert.IsTrue(_penaltyManager.isActiveAndEnabled);
         }
     
         [UnityTest]
         public IEnumerator PenaltiesAreDisabledOnCrossExaminationEnd()
         {
-            yield return _inputTestTools.PressForFrame(Keyboard.xKey);
+            yield return PressForFrame(Keyboard.xKey);
             Assert.IsTrue(_penaltyManager.isActiveAndEnabled);
-            yield return _inputTestTools.PressForFrame(Keyboard.xKey);
+            yield return PressForFrame(Keyboard.xKey);
             Assert.IsFalse(_penaltyManager.isActiveAndEnabled);
         }
     
@@ -44,20 +43,20 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
         public IEnumerator NumberOfPenaltiesCanBeReset()
         {
             var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
-            var storyProgresser = new StoryProgresser();
+            var storyProgresser = new StoryProgresser(this);
 
             for (int i = 0; i < 3; i++)
             {
                 yield return storyProgresser.ProgressStory();
             }
             
-            yield return _inputTestTools.PressForFrame(Keyboard.zKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.zKey);
+            yield return PressForFrame(Keyboard.enterKey);
 
             yield return TestTools.DoUntilStateIsReached(() => storyProgresser.ProgressStory(), () => !narrativeScriptPlayer.NarrativeScriptPlayer.HasSubStory);
             
             Assert.AreEqual(4, _penaltyManager.PenaltiesLeft);
-            yield return _inputTestTools.PressForFrame(Keyboard.xKey);
+            yield return PressForFrame(Keyboard.xKey);
             Assert.AreEqual(5, _penaltyManager.PenaltiesLeft);
         }
     }

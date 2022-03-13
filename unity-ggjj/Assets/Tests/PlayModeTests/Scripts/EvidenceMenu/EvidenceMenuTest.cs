@@ -8,13 +8,12 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
-    public class EvidenceMenuTest
+    public class EvidenceMenuTest : InputTest
     {
         private const string SCENE_PATH = "Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity";
         
-        protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
-        protected global::NarrativeScriptPlayerComponent NarrativeScriptPlayerComponent { get; private set; }
+        protected NarrativeScriptPlayerComponent NarrativeScriptPlayerComponent { get; private set; }
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
@@ -25,7 +24,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters());
 
-            StoryProgresser = new StoryProgresser();
+            StoryProgresser = new StoryProgresser(this);
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
             NarrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
@@ -60,7 +59,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected IEnumerator PressZ()
         {
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.zKey);
+            yield return PressForFrame(Keyboard.zKey);
         }
     }
 }
