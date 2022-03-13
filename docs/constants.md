@@ -139,6 +139,40 @@
   - TripleGavelHit
   - WitnessTestimony
 
+## NarrativeScriptAssetName
+  - ActorTestInk
+  - ActorTestInk2
+  - ArinAnimationDemo
+  - AudioTest
+  - ChoiceTest
+  - FadeInOutDemo
+  - FailureStates
+  - GavelHitDemo
+  - InstantlyAppearingTextDemo
+  - JoryAnimationDemo
+  - JudgeBrentAnimationDemo
+  - LoadScriptTest
+  - Macros
+  - OffScreenPose
+  - Ross_X_Examination
+  - RossAnimationDemo
+  - RossCoolX
+  - ScreenshakeTest
+  - ShowItemDemo
+  - SpeechOptionsTest
+  - TestInk
+  - TutorialBoyAnimationDemo
+
+## GameOverScriptAssetName
+  - TMPHFAIL1
+  - TMPHFAIL2
+  - TMPHGameOver
+
+## FailureScriptAssetName
+  - TMPHFAIL1
+  - TMPHFAIL2
+  - TMPHGameOver
+
 ## ActorPoseAssetName
 ### Arin
   - Annoyed

@@ -29,7 +29,7 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 
     private void Start()
     {
-        _narrativeScriptPlaylist.InitializeNarrativeScripts(_bgSceneList);
+        _narrativeScriptPlaylist.InitializeNarrativeScripts();
         _actionDecoderComponent.Decoder.NarrativeGameState = this;
         _narrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
     }
