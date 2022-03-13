@@ -154,9 +154,9 @@
   - LoadScriptTest
   - Macros
   - OffScreenPose
-  - Ross_Cool_X
   - Ross_X_Examination
   - RossAnimationDemo
+  - RossCoolX
   - ScreenshakeTest
   - ShowItemDemo
   - SpeechOptionsTest
@@ -164,14 +164,14 @@
   - TutorialBoyAnimationDemo
 
 ## GameOverScriptAssetName
-  - TMPH_FAIL_1
-  - TMPH_FAIL_2
-  - TMPH_GameOver
+  - TMPHFAIL1
+  - TMPHFAIL2
+  - TMPHGameOver
 
 ## FailureScriptAssetName
-  - TMPH_FAIL_1
-  - TMPH_FAIL_2
-  - TMPH_GameOver
+  - TMPHFAIL1
+  - TMPHFAIL2
+  - TMPHGameOver
 
 ## ActorPoseAssetName
 ### Arin
