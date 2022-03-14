@@ -107,7 +107,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
         private IEnumerator HoverOverButton(Transform transform)
         {
-            yield return _inputTestTools.SetMousePositionWorldSpace(transform.TransformPoint(transform.GetComponent<RectTransform>().rect.center));
+            yield return _inputTestTools.SetMouseWorldSpacePosition(transform.TransformPoint(transform.GetComponent<RectTransform>().rect.center));
         }
 
         private IEnumerator LeftClick()
