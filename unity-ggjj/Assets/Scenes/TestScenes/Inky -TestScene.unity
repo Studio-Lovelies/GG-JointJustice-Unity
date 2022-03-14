@@ -424,6 +424,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -17.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1963884038002085466, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2734271900007215853, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -686,6 +690,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4058564674497352797, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4073949956407182366, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -920,11 +928,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5228303784028554601, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Size.x
-      value: 3.2
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 5228303784028554601, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_Size.y
-      value: 1.8
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 5228303784028554601, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -1006,6 +1014,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 5750398117185947546, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 225
+      objectReference: {fileID: 0}
     - target: {fileID: 5979690604451775322, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _menuToOpen
       value: 
@@ -1077,6 +1089,10 @@ PrefabInstance:
     - target: {fileID: 6802366024134600853, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _gameInput
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6933900630470009307, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: <DefaultNarrativeScript>k__BackingField.<Script>k__BackingField
