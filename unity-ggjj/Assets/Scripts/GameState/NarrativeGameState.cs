@@ -32,6 +32,7 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
         // If the narrative script is not null then we are debugging and should start the game automatically
         if (_narrativeScriptPlaylist.NarrativeScript.Script != null)
         {
+            _narrativeScriptPlaylist.NarrativeScript.Initialize();
             StartGame();
         }
     }
@@ -41,7 +42,7 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     /// </summary>
     public void StartGame()
     {
-        _narrativeScriptPlaylist.InitializeNarrativeScripts();
+        BGSceneList.InstantiateBGScenes(_narrativeScriptPlaylist.NarrativeScript);
         _actionDecoderComponent.Decoder.NarrativeGameState = this;
         _narrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
     }

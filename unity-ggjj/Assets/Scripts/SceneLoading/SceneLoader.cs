@@ -76,7 +76,7 @@ public class SceneLoader : MonoBehaviour
     private IEnumerator LoadSceneCoroutine()
     {
         _sceneLoadOperation.allowSceneActivation = true;
-        
+
         while (!_sceneLoadOperation.isDone)
         {
             yield return null;

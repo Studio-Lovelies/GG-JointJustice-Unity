@@ -15,11 +15,11 @@ namespace Tests.PlayModeTests.Scripts
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/BlankScene.unity", new LoadSceneParameters());
             var sceneLoader = new GameObject().AddComponent<SceneLoader>();
-            TestTools.SetField(sceneLoader, "_narrativeScript", Resources.Load<TextAsset>("InkDialogueScripts/Ross_Cool_X"));
+            TestTools.SetField(sceneLoader, "_narrativeScript", Resources.Load<TextAsset>("InkDialogueScripts/RossCoolX"));
             sceneLoader.LoadScene("Game");
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
             var narrativeScriptPlaylist = Object.FindObjectOfType<NarrativeScriptPlaylist>();
-            Assert.AreEqual("Ross_Cool_X", narrativeScriptPlaylist.NarrativeScript.Script.name);
+            Assert.AreEqual("RossCoolX", narrativeScriptPlaylist.NarrativeScript.Script.name);
         }
     }
 }

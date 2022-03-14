@@ -15,17 +15,6 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
     public NarrativeScript GameOverScript { get; set; }
 
     /// <summary>
-    /// Call the initialise method on all narrative scripts in this playlist
-    /// </summary>
-    public void InitializeNarrativeScripts()
-    {
-        if (NarrativeScript.Script == null) { return; }
-        
-        DefaultNarrativeScript.Initialize();
-        _narrativeGameState.BGSceneList.InstantiateBGScenes(DefaultNarrativeScript);
-    }
-
-    /// <summary>
     /// Gets a random failure state from the list.
     /// </summary>
     /// <returns>Inky dialogue script containing a failure sub-story.</returns>
