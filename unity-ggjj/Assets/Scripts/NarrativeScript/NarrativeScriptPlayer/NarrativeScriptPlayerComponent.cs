@@ -14,7 +14,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
             {
                 _narrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeGameState)
                 {
-                    ActiveNarrativeScript = _narrativeGameState.NarrativeScriptPlaylist.NarrativeScript
+                    ActiveNarrativeScript = _narrativeGameState.NarrativeScriptStorage.NarrativeScript
                 };
             }
 

@@ -18,8 +18,8 @@ namespace Tests.PlayModeTests.Scripts
             TestTools.SetField(sceneLoader, "_narrativeScript", Resources.Load<TextAsset>("InkDialogueScripts/RossCoolX"));
             sceneLoader.LoadScene("Game");
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
-            var narrativeScriptPlaylist = Object.FindObjectOfType<NarrativeScriptPlaylist>();
-            Assert.AreEqual("RossCoolX", narrativeScriptPlaylist.NarrativeScript.Script.name);
+            var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            Assert.AreEqual("RossCoolX", narrativeGameState.NarrativeScriptStorage.NarrativeScript.Script.name);
         }
     }
 }

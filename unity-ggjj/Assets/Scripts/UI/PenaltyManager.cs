@@ -5,10 +5,7 @@ using UnityEngine.Serialization;
 public class PenaltyManager : MonoBehaviour, IPenaltyManager
 {
     [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
-    
-    [Tooltip("Drag a NarrativeScriptPlaylist here")]
-    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
-    
+
     [Tooltip("Drag the prefab for the penalty UI object here.")]
     [SerializeField]private Animator _penaltyObject;
 
@@ -72,7 +69,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     {
         if (_penaltyObjects.Count == 0)
         {
-            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.StartSubStory(_narrativeGameState.NarrativeScriptStorage.GameOverScript);
         }
     }
 }
