@@ -560,6 +560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1174600150384605043}
   - component: {fileID: 2741042425953383750}
+  - component: {fileID: 4368968314521290936}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -594,7 +595,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _narrativeScriptPlayerComponent: {fileID: 2831046952443657085}
-  _narrativeScriptPlaylist: {fileID: 7074748356020451406}
   _actionDecoderComponent: {fileID: 5228303783986964379}
   _actorController: {fileID: 5228303783822522784}
   _audioController: {fileID: 5766951243316258182}
@@ -604,6 +604,19 @@ MonoBehaviour:
   _penaltyManager: {fileID: 2742639565556443572}
   _bgSceneList: {fileID: 3940572709450816862}
   _choiceMenu: {fileID: 8457434445234389370}
+--- !u!114 &4368968314521290936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3452143361532332994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 456175c2b594046d3923a6d20445dd86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _narrativeScript: {fileID: 0}
 --- !u!1 &3473413185730094231
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +902,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5228303783134667827}
-  - component: {fileID: 7074748356020451406}
   - component: {fileID: 2831046952443657085}
   m_Layer: 0
   m_Name: NarrativeScriptPlaylist
@@ -912,26 +924,6 @@ Transform:
   m_Father: {fileID: 5228303783942753771}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7074748356020451406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5228303783134667826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58b27462104a5457bb77db6c71213cf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _narrativeGameState: {fileID: 2741042425953383750}
-  <DefaultNarrativeScript>k__BackingField:
-    <Script>k__BackingField: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
-  <FailureScripts>k__BackingField:
-  - <Script>k__BackingField: {fileID: 4900000, guid: 3bbbc8ea4e3979648a13c4d73b62b60f, type: 3}
-  - <Script>k__BackingField: {fileID: 4900000, guid: e154d70fe5b856b489fc97fab7a97ff2, type: 3}
-  <GameOverScript>k__BackingField:
-    <Script>k__BackingField: {fileID: 4900000, guid: f5d892d04ca1b4437909602a18ec1bf7, type: 3}
 --- !u!114 &2831046952443657085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2692,7 +2684,7 @@ PrefabInstance:
     - target: {fileID: 7962780514542778033, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _narrativeScriptPlaylist
       value: 
-      objectReference: {fileID: 7074748356020451406}
+      objectReference: {fileID: 0}
     - target: {fileID: 7962780514542778033, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onPenaltiesDepleted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

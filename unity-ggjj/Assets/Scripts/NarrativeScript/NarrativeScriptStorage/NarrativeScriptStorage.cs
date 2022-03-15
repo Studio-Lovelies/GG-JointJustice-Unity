@@ -3,28 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
+public class NarrativeScriptStorage : INarrativeScriptStorage
 {
-    [SerializeField]
-    public NarrativeGameState _narrativeGameState;
+    private readonly INarrativeGameState _narrativeGameState;
     
-    [field: Tooltip("List of narrative scripts to be played in order")]
-    [field: SerializeField] public NarrativeScript DefaultNarrativeScript { get; private set; }
-
+    public NarrativeScript NarrativeScript { get; set; }
     public List<NarrativeScript> FailureScripts { get; } = new List<NarrativeScript>();
     public NarrativeScript GameOverScript { get; set; }
 
-    /// <summary>
-    /// Call the initialise method on all narrative scripts in this playlist
-    /// </summary>
-    public void InitializeNarrativeScripts()
+    public NarrativeScriptStorage(INarrativeGameState narrativeGameState)
     {
-        if (DefaultNarrativeScript.Script == null) { return; }
-        
-        DefaultNarrativeScript.Initialize();
-        _narrativeGameState.BGSceneList.InstantiateBGScenes(DefaultNarrativeScript);
+        _narrativeGameState = narrativeGameState;
     }
-
+    
     /// <summary>
     /// Gets a random failure state from the list.
     /// </summary>
@@ -49,7 +40,7 @@ public class NarrativeScriptPlaylist : MonoBehaviour, INarrativeScriptPlaylist
         GameOverScript = new NarrativeScript(Resources.Load<TextAsset>($"InkDialogueScripts/Failures/{gameOverScriptName}"));
         _narrativeGameState.BGSceneList.InstantiateBGScenes(GameOverScript);
     }
-
+    
     /// <summary>
     /// Adds a failure script to the currently playing narrative script
     /// </summary>

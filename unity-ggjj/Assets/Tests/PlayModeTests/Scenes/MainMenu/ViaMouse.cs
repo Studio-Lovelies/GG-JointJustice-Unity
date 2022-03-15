@@ -33,25 +33,25 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.SetMousePosition(openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
+            yield return _inputTestTools.SetMouseScreenSpacePosition(openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
             yield return _inputTestTools.PressForFrame(Mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
-            yield return _inputTestTools.SetMousePosition(openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
+            yield return _inputTestTools.SetMouseScreenSpacePosition(openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
             yield return _inputTestTools.PressForFrame(Mouse.leftButton);
 
             Assert.True(secondSubMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.SetMousePosition(closeSecondSubMenuButton.position + closeSecondSubMenuButton.localScale * 0.5f);
+            yield return _inputTestTools.SetMouseScreenSpacePosition(closeSecondSubMenuButton.position + closeSecondSubMenuButton.localScale * 0.5f);
             yield return _inputTestTools.PressForFrame(Mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
-            yield return _inputTestTools.SetMousePosition(closeFirstSubMenuButton.position + closeFirstSubMenuButton.localScale * 0.5f);
+            yield return _inputTestTools.SetMouseScreenSpacePosition(closeFirstSubMenuButton.position + closeFirstSubMenuButton.localScale * 0.5f);
             yield return _inputTestTools.PressForFrame(Mouse.leftButton);
 
             Assert.True(mainMenu.Active);
@@ -76,19 +76,19 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.SetMousePosition(openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
+            yield return _inputTestTools.SetMouseScreenSpacePosition(openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
             yield return _inputTestTools.PressForFrame(Mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
-            yield return _inputTestTools.SetMousePosition(openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
+            yield return _inputTestTools.SetMouseScreenSpacePosition(openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
             yield return _inputTestTools.PressForFrame(Mouse.leftButton);
 
             Assert.True(secondSubMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.SetMousePosition(closeAllSubMenusButton.position + closeAllSubMenusButton.localScale * 0.5f);
+            yield return _inputTestTools.SetMouseScreenSpacePosition(closeAllSubMenusButton.position + closeAllSubMenusButton.localScale * 0.5f);
             yield return _inputTestTools.PressForFrame(Mouse.leftButton);
 
             Assert.True(mainMenu.Active);
@@ -99,22 +99,12 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanStartGame()
         {
-            SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
-            SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
-
-            // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
-            // and we query all existing menus instead
-            Menu[] menus = TestTools.FindInactiveInScene<Menu>();
-            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            var menus = TestTools.FindInactiveInScene<Menu>();
+            var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            var startGameButton = mainMenu.gameObject.GetComponentsInChildren<Transform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
+            yield return _inputTestTools.ClickAtScreenSpacePosition(startGameButton.position);
             
-            RectTransform startGameButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
-
-            yield return _inputTestTools.SetMousePosition(startGameButton.position + startGameButton.localScale * 0.5f);
-            Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-            yield return _inputTestTools.PressForFrame(Mouse.leftButton);
-            Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-
-            SceneManagerAPI.overrideAPI = null;
+            yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
         }
     }
 }

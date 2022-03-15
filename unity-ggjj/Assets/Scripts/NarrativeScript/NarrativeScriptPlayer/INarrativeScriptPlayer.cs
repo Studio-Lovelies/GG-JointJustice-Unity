@@ -1,6 +1,6 @@
 public interface INarrativeScriptPlayer
 {
-    INarrativeScript ActiveNarrativeScript { get; }
+    INarrativeScript ActiveNarrativeScript { get; set; }
     GameMode GameMode { get; set; }
     bool Waiting { get; set; }
     bool CanPressWitness { get; }
@@ -11,4 +11,5 @@ public interface INarrativeScriptPlayer
     void PresentEvidence(ICourtRecordObject courtRecordObject);
     void StartSubStory(NarrativeScript narrativeScript);
     void SetWaitingToFalseAndContinue();
+    void TryPressWitness();
 }

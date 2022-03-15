@@ -96,14 +96,8 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanStartGame()
         {
-            SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
-            SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
-            
-            Assert.False(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
-            Assert.True(sceneManagerAPIStub.loadedScenes.Contains("Transition - Test Scene"));
-
-            SceneManagerAPI.overrideAPI = null;
+            yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
         }
     }
 }

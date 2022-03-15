@@ -2722,8 +2722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c1588c060bf994aa9f9fed3449e1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueController: {fileID: 0}
-  _directorActionDecoder: {fileID: 0}
+  _narrativeGameState: {fileID: 0}
   _settingsMusicVolume: 0.5
   _settingsSfxVolume: 0.5
   _transitionDuration: 2
@@ -7625,7 +7624,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Transition - Test Scene
+          m_StringArgument: Game
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 718748590}
@@ -7737,7 +7736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33de4f31ae9f94bf6a3ef7e8c1b64085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingBar: {fileID: 865147027}
+  _narrativeScript: {fileID: 4900000, guid: 6fb0a3af5dbc241b2bc2db1209468de1, type: 3}
 --- !u!114 &1316906785
 MonoBehaviour:
   m_ObjectHideFlags: 0

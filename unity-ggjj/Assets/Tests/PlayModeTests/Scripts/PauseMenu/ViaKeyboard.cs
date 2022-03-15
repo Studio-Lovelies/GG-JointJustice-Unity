@@ -86,7 +86,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnityTest]
         public IEnumerator MainMenuButtonReturnsToMainMenu()
         {
-            yield return NavigateToAndClickMainMenuButton();
+            yield return TestMainMenuButton(NavigateToAndClickMainMenuButton);
         }
 
         /// <summary>
