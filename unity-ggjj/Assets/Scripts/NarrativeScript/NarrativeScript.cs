@@ -112,4 +112,9 @@ public class NarrativeScript : INarrativeScript
     {
         Story.ResetState();
     }
+
+    public override string ToString()
+    {
+        return Script.name;
+    }
 }

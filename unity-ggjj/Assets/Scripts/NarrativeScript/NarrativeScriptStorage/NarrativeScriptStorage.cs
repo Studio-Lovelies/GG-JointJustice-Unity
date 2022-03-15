@@ -5,13 +5,13 @@ using Random = UnityEngine.Random;
 
 public class NarrativeScriptStorage : INarrativeScriptStorage
 {
-    private readonly NarrativeGameState _narrativeGameState;
+    private readonly INarrativeGameState _narrativeGameState;
     
     public NarrativeScript NarrativeScript { get; set; }
     public List<NarrativeScript> FailureScripts { get; } = new List<NarrativeScript>();
     public NarrativeScript GameOverScript { get; set; }
 
-    public NarrativeScriptStorage(NarrativeGameState narrativeGameState)
+    public NarrativeScriptStorage(INarrativeGameState narrativeGameState)
     {
         _narrativeGameState = narrativeGameState;
     }

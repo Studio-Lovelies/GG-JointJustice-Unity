@@ -26,7 +26,7 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     public IActionDecoder ActionDecoder => _actionDecoderComponent.Decoder;
     public INarrativeScriptStorage NarrativeScriptStorage => _narrativeScriptStorage;
     public IChoiceMenu ChoiceMenu => _choiceMenu;
-    public BGSceneList BGSceneList => _bgSceneList;
+    public IBGSceneList BGSceneList => _bgSceneList;
 
     private void Awake()
     {

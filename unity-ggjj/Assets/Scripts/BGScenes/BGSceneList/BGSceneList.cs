@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BGSceneList : MonoBehaviour
+public class BGSceneList : MonoBehaviour, IBGSceneList
 {
     private readonly Dictionary<string, BGScene> _bgScenes = new Dictionary<string, BGScene>();
     private BGScene _activeScene;
