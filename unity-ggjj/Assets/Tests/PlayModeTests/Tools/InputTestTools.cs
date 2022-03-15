@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
-using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Tools
 {
@@ -82,20 +80,20 @@ namespace Tests.PlayModeTests.Tools
         }
 
         /// <summary>
-        /// Sets the position of the mouse in the scene.
+        /// Sets the mouse to a specific pixel
         /// </summary>
         /// <param name="position">The position to set the mouse to.</param>
-        public IEnumerator SetMousePosition(Vector2 position)
+        public IEnumerator SetMouseScreenSpacePosition(Vector2 position)
         {
             Set(Mouse.position, position);
             yield return null;
         }
         
         /// <summary>
-        /// Sets the position of the mouse in the scene.
+        /// Sets the position of the mouse in the scene in world space
         /// </summary>
         /// <param name="position">The position to set the mouse to.</param>
-        public IEnumerator SetMousePositionWorldSpace(Vector2 position)
+        public IEnumerator SetMouseWorldSpacePosition(Vector2 position)
         {
             Set(Mouse.position, Camera.main.WorldToScreenPoint(position));
             yield return null;
@@ -114,14 +112,24 @@ namespace Tests.PlayModeTests.Tools
                 yield return PressForSeconds(key, 0.2f);
             }
         }
+        
+        /// <summary>
+        /// Sets the mouse to specific pixel and clicks
+        /// </summary>
+        /// <param name="position">The position in pixels to click at</param>
+        public IEnumerator ClickAtScreenSpacePosition(Vector2 position)
+        {
+            yield return SetMouseScreenSpacePosition(position);
+            yield return PressForFrame(Mouse.leftButton);
+        }
 
         /// <summary>
-        /// Sets the mouse to a position and clicks.
+        /// Sets the mouse to a position in world space and clicks
         /// </summary>
-        /// <param name="position">The position to click at.</param>
-        public IEnumerator ClickAtPositionWorldSpace(Vector2 position)
+        /// <param name="position">The position to click at in world space coordinates</param>
+        public IEnumerator ClickAtWorldSpacePosition(Vector2 position)
         {
-            yield return SetMousePositionWorldSpace(position);
+            yield return SetMouseWorldSpacePosition(position);
             yield return PressForFrame(Mouse.leftButton);
         }
     }

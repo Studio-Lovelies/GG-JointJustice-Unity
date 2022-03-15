@@ -530,6 +530,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4368968314521290936, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _narrativeScript
+      value: 
+      objectReference: {fileID: 4900000, guid: 72d8df4aeffe149949d07771194aaaac, type: 3}
     - target: {fileID: 5228303783134667828, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueList.Array.size
       value: 1

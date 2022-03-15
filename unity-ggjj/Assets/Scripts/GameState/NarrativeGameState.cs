@@ -3,7 +3,6 @@ using UnityEngine;
 public class NarrativeGameState : MonoBehaviour, INarrativeGameState
 {
     [SerializeField] private NarrativeScriptPlayerComponent _narrativeScriptPlayerComponent;
-    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
     [SerializeField] private ActionDecoderComponent _actionDecoderComponent;
     [SerializeField] private ActorController _actorController;
     [SerializeField] private AudioController _audioController;
@@ -14,6 +13,8 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     [SerializeField] private BGSceneList _bgSceneList;
     [SerializeField] private ChoiceMenu _choiceMenu;
 
+    private NarrativeScriptStorage _narrativeScriptStorage;
+    
     public IActorController ActorController => _actorController;
     public IAppearingDialogueController AppearingDialogueController => _appearingDialogueController;
     public IObjectStorage ObjectStorage => _narrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
@@ -23,13 +24,21 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     public ISceneController SceneController => _sceneController;
     public IPenaltyManager PenaltyManager => _penaltyManager;
     public IActionDecoder ActionDecoder => _actionDecoderComponent.Decoder;
-    public INarrativeScriptPlaylist NarrativeScriptPlaylist => _narrativeScriptPlaylist;
+    public INarrativeScriptStorage NarrativeScriptStorage => _narrativeScriptStorage;
     public IChoiceMenu ChoiceMenu => _choiceMenu;
-    public BGSceneList BGSceneList => _bgSceneList;
+    public IBGSceneList BGSceneList => _bgSceneList;
 
-    private void Start()
+    private void Awake()
     {
-        _narrativeScriptPlaylist.InitializeNarrativeScripts();
+        _narrativeScriptStorage = new NarrativeScriptStorage(this);
+    }
+
+    /// <summary>
+    /// Starts the game, calling the required methods in order
+    /// </summary>
+    public void StartGame()
+    {
+        BGSceneList.InstantiateBGScenes(_narrativeScriptStorage.NarrativeScript);
         _actionDecoderComponent.Decoder.NarrativeGameState = this;
         _narrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
     }

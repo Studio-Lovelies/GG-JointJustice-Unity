@@ -210,7 +210,7 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         var choice = currentChoices.FirstOrDefault(choice => choice.text == courtRecordObject.InstanceName);
         if (choice == null)
         {
-            StartSubStory(_narrativeGameState.NarrativeScriptPlaylist.GetRandomFailureScript());
+            StartSubStory(_narrativeGameState.NarrativeScriptStorage.GetRandomFailureScript());
             return;
         }
         

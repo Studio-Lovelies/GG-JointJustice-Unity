@@ -822,6 +822,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -17.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4368968314521290936, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _narrativeScript
+      value: 
+      objectReference: {fileID: 4900000, guid: 6fb0a3af5dbc241b2bc2db1209468de1, type: 3}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueMode
       value: 0
@@ -1094,6 +1098,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: <NarrativeScript>k__BackingField.<Script>k__BackingField
+      value: 
+      objectReference: {fileID: 4900000, guid: 87154a898d33cb2449007e3ee59a486b, type: 3}
     - target: {fileID: 7074748356020451406, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: <DefaultNarrativeScript>k__BackingField.<Script>k__BackingField
       value: 

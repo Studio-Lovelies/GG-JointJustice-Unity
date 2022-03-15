@@ -8,8 +8,8 @@ public interface INarrativeGameState
     IEvidenceController EvidenceController { get; }
     ISceneController SceneController { get; }
     IPenaltyManager PenaltyManager { get; }
-    INarrativeScriptPlaylist NarrativeScriptPlaylist { get; }
+    INarrativeScriptStorage NarrativeScriptStorage{ get; }
     IActionDecoder ActionDecoder { get; }
     IChoiceMenu ChoiceMenu { get; }
-    BGSceneList BGSceneList { get; }
+    IBGSceneList BGSceneList { get; }
 }
