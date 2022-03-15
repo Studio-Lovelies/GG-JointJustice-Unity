@@ -644,6 +644,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 4368968314521290936, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
+      propertyPath: _narrativeScript
+      value: 
+      objectReference: {fileID: 4900000, guid: db6729caf9a86754796f982ef5392e86, type: 3}
     - target: {fileID: 5228303783123296233, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
       propertyPath: _dialogueMode
       value: 0
