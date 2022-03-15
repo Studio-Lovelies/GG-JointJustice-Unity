@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
-using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Tools
 {
