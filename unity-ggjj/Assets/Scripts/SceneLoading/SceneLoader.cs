@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -16,7 +17,7 @@ public class SceneLoader : MonoBehaviour
     [Tooltip("Assign a narrative script to play on scene load")]
     [SerializeField]
     private TextAsset _narrativeScript;
-    
+
     private ITransition _transition;
     private AsyncOperation _sceneLoadOperation;
 
@@ -39,6 +40,7 @@ public class SceneLoader : MonoBehaviour
             throw new Exception("Scene failed to load");
         }
 
+        EventSystem.current.gameObject.SetActive(false);
         Busy = true;
         Transition();
     }
@@ -51,10 +53,7 @@ public class SceneLoader : MonoBehaviour
     {
         if (_transition != null)
         {
-            if (_sceneLoadOperation != null)
-            {
-                _sceneLoadOperation.allowSceneActivation = false;
-            }
+            _sceneLoadOperation.allowSceneActivation = false;
             _transition.Transition();
             return;
         }
@@ -90,6 +89,9 @@ public class SceneLoader : MonoBehaviour
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
     }
 
+    /// <summary>
+    /// Assigns the assigned narrative script to the NarrativeScriptStorage and starts the game
+    /// </summary>
     private void SetNarrativeScript()
     {
         var gameState = FindObjectOfType<NarrativeGameState>();

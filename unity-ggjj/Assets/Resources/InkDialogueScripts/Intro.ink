@@ -1,5 +1,4 @@
 &FADE_OUT:0
-&SHOW_ACTOR:Ross,False
 &PLAY_SONG:PrologueInPMinor
 
 &SPEAK:Ross
