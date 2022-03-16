@@ -2755,20 +2755,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuClosed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuClosed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5228303783288880051}
+      objectReference: {fileID: 8187846469596165151}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8468250369390210545}
+      objectReference: {fileID: 8187846469596165151}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuClosed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2779,27 +2779,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuClosed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetAsActiveInput
+      value: SetInput
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetAsActiveInput
+      value: SetInput
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuClosed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InputModule, GG-JointJustice
+      value: InputManager, GG-JointJustice
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InputManager, GG-JointJustice
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _onMenuClosed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5228303783288880051}
+    - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8468250369390210545}
+    - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _onMenuClosed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: InputModule, GG-JointJustice
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
-      propertyPath: _onMenuClosed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: InputModule, GG-JointJustice
       objectReference: {fileID: 0}
     - target: {fileID: 9165127187898970320, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: m_RootOrder

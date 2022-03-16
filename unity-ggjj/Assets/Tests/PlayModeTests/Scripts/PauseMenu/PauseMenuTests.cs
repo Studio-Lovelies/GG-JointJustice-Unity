@@ -34,7 +34,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnitySetUp]
         protected IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/AppearingDialogueController - Test Scene.unity",  new LoadSceneParameters());
+            yield return SceneManager.LoadSceneAsync("Game");
             PauseMenu = TestTools.FindInactiveInSceneByName<Menu>("PauseMenu");
             Buttons = PauseMenu.GetComponentsInChildren<Button>();
             CanvasScale = GameObject.Find("BaseCanvas").transform.localScale.x;

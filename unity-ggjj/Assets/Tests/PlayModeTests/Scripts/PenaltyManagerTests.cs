@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Tests.PlayModeTests.Scripts.PenaltyManager
+namespace Tests.PlayModeTests.Scripts
 {
-    public class PenaltyTests
+    public class PenaltyManagerTests
     {
-        private global::PenaltyManager _penaltyManager;
+        private PenaltyManager _penaltyManager;
         private readonly InputTestTools _inputTestTools = new InputTestTools();
 
         public Keyboard Keyboard => _inputTestTools.Keyboard;
@@ -19,8 +19,9 @@ namespace Tests.PlayModeTests.Scripts.PenaltyManager
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/Penalties - Test Scene.unity", new LoadSceneParameters());
-            _penaltyManager = Object.FindObjectOfType<global::PenaltyManager>();
+            yield return SceneManager.LoadSceneAsync("Game");
+            TestTools.StartGame("PenaltyTest");
+            _penaltyManager = Object.FindObjectOfType<PenaltyManager>();
         }
 
         [UnityTest]
