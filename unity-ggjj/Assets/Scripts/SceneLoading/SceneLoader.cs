@@ -40,7 +40,11 @@ public class SceneLoader : MonoBehaviour
             throw new Exception("Scene failed to load");
         }
 
-        EventSystem.current.gameObject.SetActive(false);
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.gameObject.SetActive(false);
+        }
+
         Busy = true;
         Transition();
     }
