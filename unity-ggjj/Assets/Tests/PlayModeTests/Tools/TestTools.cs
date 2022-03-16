@@ -74,5 +74,18 @@ namespace Tests.PlayModeTests.Tools
             }
             fieldInfo.SetValue(targetObject, value);
         }
+        
+        /// <summary>
+        /// Loads a narrative script uses it to start the game
+        /// </summary>
+        /// <param name="narrativeScriptPath">The path of the narrative script to load</param>
+        public static void StartGame(string narrativeScriptPath)
+        {
+            var textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(narrativeScriptPath);
+            Assert.IsNotNull(textAsset);
+            var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(textAsset);
+            narrativeGameState.StartGame();
+        }
     }
 }
