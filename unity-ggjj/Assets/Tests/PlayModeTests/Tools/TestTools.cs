@@ -12,7 +12,7 @@ namespace Tests.PlayModeTests.Tools
     public class TestTools
     {
         private const double DEFAULT_TIMEOUT = 10;
-
+        
         public static IEnumerator WaitForState(Func<bool> hasReachedState, double timeoutInSeconds = DEFAULT_TIMEOUT)
         {
             yield return DoUntilStateIsReached(null, hasReachedState, timeoutInSeconds);
@@ -77,11 +77,12 @@ namespace Tests.PlayModeTests.Tools
         
         /// <summary>
         /// Loads a narrative script uses it to start the game
+        /// Loads narrative scripts from "Assets/Tests/PlayModeTests/TestScripts"
         /// </summary>
-        /// <param name="narrativeScriptPath">The path of the narrative script to load</param>
-        public static void StartGame(string narrativeScriptPath)
+        /// <param name="narrativeScriptName">The path of the narrative script to load</param>
+        public static void StartGame(string narrativeScriptName)
         {
-            var textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(narrativeScriptPath);
+            var textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>($"Assets/Tests/PlayModeTests/TestScripts/{narrativeScriptName}.json");
             Assert.IsNotNull(textAsset);
             var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
             narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(textAsset);

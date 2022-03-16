@@ -21,7 +21,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         public IEnumerator SetUp()
         {
             yield return SceneManager.LoadSceneAsync("Game");
-            TestTools.StartGame("Assets/Tests/PlayModeTests/TestScripts/RossCoolX.json");
+            TestTools.StartGame("RossCoolX");
             _narrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             _storyProgresser = new StoryProgresser();
         }

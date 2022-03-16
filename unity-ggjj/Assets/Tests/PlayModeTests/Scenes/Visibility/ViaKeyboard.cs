@@ -12,7 +12,7 @@ namespace Tests.PlayModeTests.Scenes.VisibilityTest
         [ReloadScene("Game")]
         public IEnumerator RendererChangesVisibility()
         {
-            TestTools.StartGame("Assets/Tests/PlayModeTests/TestScripts/VisibilityTest.json");
+            TestTools.StartGame("VisibilityTest");
             
             var storyProgresser = new StoryProgresser();
             

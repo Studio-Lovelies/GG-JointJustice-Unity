@@ -2,6 +2,7 @@ using System.Collections;
 using System.Reflection;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -17,14 +18,14 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         private const string MUSIC_PATH = "Audio/Music/";
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/TestScenes/BlankScene.unity")]
         public IEnumerator AudioController_PlaySong_FadesBetweenSongs()
         {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/BlankScene.unity", new LoadSceneParameters());
+            
             GameObject audioControllerGameObject = new GameObject("AudioController");
             audioControllerGameObject.AddComponent<AudioListener>(); // required to prevent excessive warnings
             global::AudioController audioController = audioControllerGameObject.AddComponent<global::AudioController>();
             audioController.enabled = true;
-
             AudioSource audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
 
             FieldInfo type = audioController.GetType().GetField("_transitionDuration", BindingFlags.NonPublic | BindingFlags.Instance);
