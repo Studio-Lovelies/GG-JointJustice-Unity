@@ -3,16 +3,17 @@ using Tests.PlayModeTests.Tools;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
-using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scenes.VisibilityTest
 {
     public class ViaKeyboard
     {
         [UnityTest]
-        [ReloadScene("Assets/Scenes/TestScenes/Visibility - TestScene.unity")]
+        [ReloadScene("Game")]
         public IEnumerator RendererChangesVisibility()
         {
+            TestTools.StartGame("Assets/Tests/PlayModeTests/TestScripts/VisibilityTest.json");
+            
             var storyProgresser = new StoryProgresser();
             
             var arinSprite = TestTools.FindInactiveInSceneByName<Renderer>("Defense_Actor");

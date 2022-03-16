@@ -1,7 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
 namespace Tests.PlayModeTests.Tools
@@ -9,16 +8,16 @@ namespace Tests.PlayModeTests.Tools
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class ReloadScene : Attribute, ITestAction
     {
-        private readonly string _absoluteScenePath;
+        private readonly string _sceneName;
 
-        public ReloadScene(string absoluteScenePath)
+        public ReloadScene(string sceneName)
         {
-            _absoluteScenePath = absoluteScenePath;
+            _sceneName = sceneName;
         }
 
         public void BeforeTest(ITest test)
         {
-            EditorSceneManager.LoadSceneInPlayMode(_absoluteScenePath, new LoadSceneParameters());
+            SceneManager.LoadScene(_sceneName);
         }
 
         public void AfterTest(ITest test)
