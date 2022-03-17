@@ -14,8 +14,13 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         private readonly InputTestTools _inputTestTools = new InputTestTools();
         private Mouse Mouse => _inputTestTools.Mouse;
 
+        [UnitySetUp]
+        public IEnumerator SetUp()
+        {
+            yield return SceneManager.LoadSceneAsync("MainMenu");
+        }
+        
         [UnityTest]
-        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
@@ -59,7 +64,6 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         }
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanEnterAndCloseTwoSubMenusWithCloseAllButton()
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
@@ -96,7 +100,6 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         }
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanStartGame()
         {
             var menus = TestTools.FindInactiveInScene<Menu>();

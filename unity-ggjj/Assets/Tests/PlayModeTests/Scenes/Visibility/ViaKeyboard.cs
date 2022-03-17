@@ -2,14 +2,20 @@
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scenes.VisibilityTest
 {
     public class ViaKeyboard
     {
+        [UnitySetUp]
+        public IEnumerator SetUp()
+        {
+            yield return SceneManager.LoadSceneAsync("Game");
+        }
+        
         [UnityTest]
-        [ReloadScene("Game")]
         public IEnumerator RendererChangesVisibility()
         {
             TestTools.StartGame("VisibilityTest");
