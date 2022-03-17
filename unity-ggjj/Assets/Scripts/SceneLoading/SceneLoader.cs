@@ -42,7 +42,7 @@ public class SceneLoader : MonoBehaviour
 
         if (EventSystem.current != null)
         {
-            EventSystem.current.gameObject.SetActive(false);
+            Destroy(EventSystem.current.gameObject);
         }
 
         Busy = true;
