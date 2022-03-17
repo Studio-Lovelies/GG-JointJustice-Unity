@@ -1,4 +1,0 @@
-&APPEAR_INSTANTLY
-Load script test
-&SCENE:TMPH_Lobby
-&LOAD_SCRIPT:ROSS_COOL_X

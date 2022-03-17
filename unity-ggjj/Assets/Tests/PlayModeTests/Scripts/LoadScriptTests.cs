@@ -9,30 +9,31 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scripts
 {
-    public class LoadScriptTests : MonoBehaviour
+    public class LoadScriptTests
     {
         private StoryProgresser _storyProgresser;
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/LoadScript - Test Scene.unity", new LoadSceneParameters());
+            yield return SceneManager.LoadSceneAsync("Game");
+            TestTools.StartGame("LoadScriptTest");
             _storyProgresser = new StoryProgresser();
         }
         
         [UnityTest]
         public IEnumerator NarrativeScriptsCanBeLoaded()
         {
-            var narrativeScriptPlayer = FindObjectOfType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer;
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer;
             Assert.AreEqual("LoadScriptTest", narrativeScriptPlayer.ActiveNarrativeScript.Script.name);
             yield return _storyProgresser.ProgressStory();
-            Assert.AreEqual("RossCoolX", narrativeScriptPlayer.ActiveNarrativeScript.Script.name);
+            Assert.AreEqual("TMPHFAIL1", narrativeScriptPlayer.ActiveNarrativeScript.Script.name);
         }
 
         [UnityTest]
         public IEnumerator BGScenesAreDestroyedAndCreatedOnScriptLoad()
         {
-            var bgSceneListTransform = FindObjectOfType<BGSceneList>().transform;
+            var bgSceneListTransform = Object.FindObjectOfType<BGSceneList>().transform;
             Assert.AreEqual(1, bgSceneListTransform.childCount);
             Assert.AreEqual("TMPHLobby", bgSceneListTransform.GetChild(0).name);
             yield return _storyProgresser.ProgressStory();
