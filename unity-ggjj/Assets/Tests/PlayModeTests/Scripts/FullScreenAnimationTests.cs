@@ -1,7 +1,6 @@
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -15,7 +14,9 @@ namespace Tests.PlayModeTests.Scripts
         [UnityTest]
         public IEnumerator FullScreenAnimationsCannotBeSkipped()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/FullScreenAnimation - Test Scene.unity", new LoadSceneParameters());
+            yield return SceneManager.LoadSceneAsync("Game");
+            TestTools.StartGame("TripleGavelHitTest");
+            
             var speechPanel = TestTools.FindInactiveInSceneByName<GameObject>("SpeechPanel");
             yield return null; 
            

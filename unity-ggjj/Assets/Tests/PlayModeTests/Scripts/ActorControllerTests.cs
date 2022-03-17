@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Reflection;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using TMPro;
-using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,8 +22,9 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/ActorController - Test Scene.unity", new LoadSceneParameters());
+            SceneManager.LoadScene("Game");
             yield return null;
+            TestTools.StartGame("ActorControllerTestScript");
 
             _storyProgresser = new StoryProgresser();
             _actorController = Object.FindObjectOfType<global::ActorController>();

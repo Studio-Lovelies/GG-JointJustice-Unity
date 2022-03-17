@@ -14,8 +14,13 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         private readonly InputTestTools _inputTestTools = new InputTestTools();
         private Keyboard Keyboard => _inputTestTools.Keyboard;
 
+        [UnitySetUp]
+        public IEnumerator SetUp()
+        {
+            yield return SceneManager.LoadSceneAsync("MainMenu");
+        }
+        
         [UnityTest]
-        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
@@ -59,7 +64,6 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         }
 
         [UnityTest]
-        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanEnterAndCloseTwoSubMenusWithCloseAllButton()
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
@@ -91,9 +95,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Assert.True(mainMenu.Active);
         }
 
-
         [UnityTest]
-        [ReloadScene("Assets/Scenes/MainMenu.unity")]
         public IEnumerator CanStartGame()
         {
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);

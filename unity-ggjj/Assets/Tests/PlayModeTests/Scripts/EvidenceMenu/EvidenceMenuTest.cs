@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Linq;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -10,11 +9,9 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
     public class EvidenceMenuTest
     {
-        private const string SCENE_PATH = "Assets/Scenes/TestScenes/EvidenceMenu - Test Scene.unity";
-        
         protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
-        protected global::NarrativeScriptPlayerComponent NarrativeScriptPlayerComponent { get; private set; }
+        protected NarrativeScriptPlayerComponent NarrativeScriptPlayerComponent { get; private set; }
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
@@ -23,7 +20,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(SCENE_PATH, new LoadSceneParameters());
+            yield return SceneManager.LoadSceneAsync("Game");
+            TestTools.StartGame("AddRecordTest");
 
             StoryProgresser = new StoryProgresser();
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
