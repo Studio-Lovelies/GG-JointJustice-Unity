@@ -20,7 +20,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         [UnityTest]
         public IEnumerator AudioController_PlaySong_FadesBetweenSongs()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/BlankScene.unity", new LoadSceneParameters());
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("TestScene", new LoadSceneParameters());
             
             GameObject audioControllerGameObject = new GameObject("AudioController");
             audioControllerGameObject.AddComponent<AudioListener>(); // required to prevent excessive warnings
