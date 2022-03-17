@@ -94,7 +94,7 @@ public class SceneLoader : MonoBehaviour
     }
 
     /// <summary>
-    /// Assigns the assigned narrative script to the NarrativeScriptStorage and starts the game
+    /// Passes the narrative script of this SceneLoader instance to the NarrativeScriptStorage and starts the game
     /// </summary>
     private void SetNarrativeScript()
     {
