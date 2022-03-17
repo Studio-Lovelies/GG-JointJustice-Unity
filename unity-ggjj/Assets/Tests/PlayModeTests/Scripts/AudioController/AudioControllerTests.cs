@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Reflection;
 using NUnit.Framework;
-using Tests.PlayModeTests.Tools;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;

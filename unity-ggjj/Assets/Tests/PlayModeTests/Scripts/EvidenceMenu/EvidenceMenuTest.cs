@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Linq;
-using NUnit.Framework.Internal;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
