@@ -103,6 +103,7 @@ jobs:
           projectPath: unity-ggjj/
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           testMode: EditMode
+          checkName: Test Results - EditMode
           customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
@@ -118,7 +119,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ failure() || success() }}
         with:
-          name: Test results
+          name: Test Results - EditMode
           path: artifacts
 
   unityTestPlayModeScripts:
@@ -155,6 +156,7 @@ jobs:
           projectPath: unity-ggjj/
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           testMode: PlayMode
+          checkName: Test Results - PlayMode Scripts
           customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
@@ -170,7 +172,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ failure() || success() }}
         with:
-          name: Test results
+          name: Test Results - PlayMode Scripts
           path: artifacts
 
   unityTestPlayModeScenes:
@@ -207,6 +209,7 @@ jobs:
           projectPath: unity-ggjj/
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           testMode: PlayMode
+          checkName: Test Results - PlayMode Scenes
           customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
@@ -222,7 +225,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ failure() || success() }}
         with:
-          name: Test results
+          name: Test Results - PlayMode Scenes
           path: artifacts
 
   unityBuild:
