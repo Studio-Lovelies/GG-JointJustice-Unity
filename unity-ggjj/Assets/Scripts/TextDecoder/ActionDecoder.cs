@@ -526,7 +526,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Script Loading</category>
     private void LOAD_SCRIPT(NarrativeScriptAssetName narrativeScriptName)
     {
-        NarrativeGameState.NarrativeScriptPlayerComponent.LoadScript(narrativeScriptName);
+        NarrativeGameState.NarrativeScriptPlayerComponent.LoadScriptByName(narrativeScriptName);
         OnActionDone?.Invoke();
     }
 

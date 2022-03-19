@@ -45,14 +45,25 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     }
 
     /// <summary>
-    /// Loads a narrative script, ending the current narrative script
-    /// and continuing the beginning of the loaded script
+    /// Loads a narrative script using a given narrative script name,
+    /// ending the current narrative script and
+    /// continuing the beginning of the loaded script
     /// </summary>
     /// <param name="narrativeScriptName">The name of the narrative script to load</param>
-    public void LoadScript(string narrativeScriptName)
+    public void LoadScriptByName(string narrativeScriptName)
     {
         var narrativeScriptText = Resources.Load<TextAsset>($"InkDialogueScripts/{narrativeScriptName}");
-        NarrativeScriptPlayer.ActiveNarrativeScript = new NarrativeScript(narrativeScriptText);
+        LoadScriptByReference(new NarrativeScript(narrativeScriptText));
+    }
+
+    /// <summary>
+    /// Loads a narrative script using a narrative script object,
+    /// ending the current narrative script and
+    /// continuing the beginning of the loaded script
+    /// </summary>
+    /// <param name="narrativeScript">The narrative script to load</param>
+    public void LoadScriptByReference(NarrativeScript narrativeScript)
+    {
         _narrativeGameState.BGSceneList.ClearBGScenes();
         _narrativeGameState.BGSceneList.InstantiateBGScenes(NarrativeScriptPlayer.ActiveNarrativeScript);
         NarrativeScriptPlayer.Continue();
