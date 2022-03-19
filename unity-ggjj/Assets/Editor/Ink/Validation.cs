@@ -49,7 +49,13 @@ namespace Editor.Ink
                 
                 try
                 {
-                    ActionDecoderBase.GenerateInvocationDetails(lines[i], typeof(ActionDecoder));
+                    var commentIndex = lines[i].IndexOf("//", StringComparison.Ordinal);
+                    var line = lines[i];
+                    if (commentIndex >= 0)
+                    {
+                        line = lines[i].Substring(0, commentIndex);
+                    }
+                    ActionDecoderBase.GenerateInvocationDetails(line, typeof(ActionDecoder));
                 }
                 catch (Exception exception)
                 {
