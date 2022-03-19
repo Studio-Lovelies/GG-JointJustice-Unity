@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Moq;
+using SaveFiles;
 using TextDecoder.Parser;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -21,10 +22,10 @@ public class ActionDecoderTests
         })
         .SelectMany(list => list);
     private static IEnumerable<string> AvailableActionsWithNoOptionalParameters => AvailableActionMethods.Where(method => method.GetParameters().Any() && method.GetParameters().All(parameter => !parameter.IsOptional)).Select(methodInfo => methodInfo.Name);
-    private static IEnumerable<string> AvailableActionsWithInvalidParameters => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => _invalidData.Keys.Contains(parameter.ParameterType))).Select(methodInfo => methodInfo.Name);
+    private static IEnumerable<string> AvailableActionsWithInvalidParameters => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => InvalidData.Keys.Contains(parameter.ParameterType))).Select(methodInfo => methodInfo.Name);
 
     // These are example values for parameters of "Ink"-script action lines for the ActionDecoder
-    private static readonly Dictionary<Type, object> _validData = new Dictionary<Type, object> {
+    private static readonly Dictionary<Type, object> ValidData = new Dictionary<Type, object> {
         {typeof(string), "ValidString"},
         {typeof(AssetName), "ValidString"},
         {typeof(FullscreenAnimationAssetName), "ValidString"},
@@ -34,98 +35,126 @@ public class ActionDecoderTests
         {typeof(EvidenceAssetName), "ValidString"},
         {typeof(ActorPoseAssetName), "ValidString"},
         {typeof(ActorAssetName), "ValidString"},
+        {typeof(NarrativeScriptAssetName), "ValidString" },
+        {typeof(GameOverScriptAssetName), "ValidString"},
+        {typeof(FailureScriptAssetName), "ValidString"},
         {typeof(bool), "true"},
         {typeof(int), "1"},
         {typeof(float), "1.0"},
         {typeof(ItemDisplayPosition), nameof(ItemDisplayPosition.Left)},
         {typeof(GameMode), nameof(GameMode.CrossExamination)},
+        {typeof(SaveData.Progression.Chapters), nameof(SaveData.Progression.Chapters.Chapter1)}
     };
-    private static readonly Dictionary<Type, object> _invalidData = new Dictionary<Type, object> {
+    private static readonly Dictionary<Type, object> InvalidData = new Dictionary<Type, object> {
         {typeof(bool), "NotABool"},
         {typeof(int), "1.0"},
         {typeof(float), "NotAFloat"},
         {typeof(ItemDisplayPosition), "Invalid"},
-        {typeof(GameMode), "Invalid"}
+        {typeof(GameMode), "Invalid"},
+        {typeof(SaveData.Progression.Chapters), "Invalid"}
     };
 
+    private class RawActionDecoder : ActionDecoderBase
+    {
+        protected override void ADD_EVIDENCE(EvidenceAssetName evidenceName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ADD_RECORD(ActorAssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void PLAY_SFX(SfxAssetName sfx)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void PLAY_SONG(SongAssetName songName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SCENE(SceneAssetName sceneName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ACTOR(ActorAssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SPEAK(ActorAssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SPEAK_UNKNOWN(ActorAssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void THINK(ActorAssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    #region Utilities
     /// <summary>
     /// Helper method to create a fully mocked ActionDecoder
     /// </summary>
     /// <returns>A fully mocked ActionDecoder</returns>
     private static ActionDecoder CreateMockedActionDecoder()
     {
-        var dialogueController = new Moq.Mock<IDialogueController>();
-        dialogueController.SetupSet(m => m.GameMode = It.IsAny<GameMode>());
+        var narrativeGameStateMock = new Mock<INarrativeGameState>();
+        narrativeGameStateMock.SetupSet(mock => mock.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.GameMode = It.IsAny<GameMode>());
+        narrativeGameStateMock.Setup(mock => mock.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(""));
+        narrativeGameStateMock.Setup(mock => mock.SceneController.ShakeScreen(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<bool>()));
+        narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(It.IsAny<string>()));
+        narrativeGameStateMock.Setup(mock => mock.ActorController.SetPose(It.IsAny<string>(), It.IsAny<string>()));
+        narrativeGameStateMock.SetupSet(mock => mock.AppearingDialogueController.CharacterDelay = It.IsAny<float>());
+        narrativeGameStateMock.Setup(mock => mock.EvidenceController.AddEvidence(It.IsAny<Evidence>()));
+        narrativeGameStateMock.Setup(mock => mock.ObjectStorage.GetObject<Evidence>(It.IsAny<string>()));
+        narrativeGameStateMock.Setup(mock => mock.AudioController.PlaySfx(It.IsAny<AudioClip>()));
+        narrativeGameStateMock.Setup(mock => mock.PenaltyManager.Decrement());
+        narrativeGameStateMock.Setup(mock => mock.NarrativeScriptStorage.AddFailureScript(It.IsAny<string>()));
 
-        return new ActionDecoder()
+        return new ActionDecoder
         {
-            ActorController = new Moq.Mock<IActorController>().Object,
-            AppearingDialogueController = new Moq.Mock<IAppearingDialogueController>().Object,
-            DialogueController = dialogueController.Object,
-            AudioController = new Moq.Mock<IAudioController>().Object,
-            EvidenceController = new Moq.Mock<IEvidenceController>().Object,
-            SceneController = new Moq.Mock<ISceneController>().Object,
-            PenaltyManager = new Moq.Mock<IPenaltyManager>().Object
+            NarrativeGameState = narrativeGameStateMock.Object
         };
     }
 
-    private class RawActionDecoder : ActionDecoderBase
+    /// <summary>
+    /// Helper method to generate valid parameters for a given method as strings identical to how they're used inside .ink files
+    /// </summary>
+    /// <returns>Enumerable of string representations of valid data for all optional and required arguments for a method</returns>
+    private static IEnumerable<string> GenerateParametersForMethod(MethodInfo method)
     {
-        protected override void ADD_EVIDENCE(AssetName evidenceName)
-        {
-            throw new NotImplementedException();
-        }
+        Assert.NotNull(method, $"Couldn't find method with name '{method.Name}' on object of type '{nameof(ActionDecoder)}'");
+        return method.GetParameters().Select(parameterInfo => {
+            if (!ValidData.ContainsKey(parameterInfo.ParameterType))
+            {
+                throw new NotImplementedException($"In order for this test to run, you need to specify a valid example for '{parameterInfo.ParameterType}' inside '{nameof(ActionDecoderTests)}.{nameof(ValidData)}'");
+            }
 
-        protected override void ADD_RECORD(AssetName actorName)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void PLAY_SFX(AssetName sfx)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void PLAY_SONG(AssetName songName)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void SCENE(AssetName sceneName)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void SHOW_ITEM(AssetName itemName, ItemDisplayPosition itemPos)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void ACTOR(AssetName actorName)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void SPEAK(AssetName actorName)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void SPEAK_UNKNOWN(AssetName actorName)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void THINK(AssetName actorName)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, AssetName actorName)
-        {
-            throw new NotImplementedException();
-        }
+            return ValidData[parameterInfo.ParameterType];
+        }).Select(validParameter => validParameter.ToString());
     }
+    #endregion
 
     [Test]
     public void ThrowsIfMethodIsNotImplemented()
@@ -136,10 +165,9 @@ public class ActionDecoderTests
         var lineToParse = $"&{missingMethodName}";
         Debug.Log("Attempting to parse:\n" + lineToParse);
         var expectedException = Assert.Throws<MethodNotFoundScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         });
         StringAssert.Contains(missingMethodName, expectedException.Message);
-        StringAssert.Contains(decoder.GetType().FullName, expectedException.Message);
     }
 
     [Test]
@@ -149,12 +177,12 @@ public class ActionDecoderTests
         var decoder = CreateMockedActionDecoder();
 
         var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
-        Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
-        var validParameters = method.GetParameters().Select(parameterInfo => _validData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).ToList();
-        var lineToParse = $"&{methodName}{(validParameters.Any()?":":"")}{string.Join(",", validParameters)}";
-        Debug.Log("Attempting to parse:\n"+lineToParse);
+        var validParametersForMethod = GenerateParametersForMethod(method).ToList();
+
+        var lineToParse = $"&{methodName}{(validParametersForMethod.Any()?":":"")}{string.Join(",", validParametersForMethod)}";
+        Debug.Log("Attempting to parse:\n" + lineToParse);
         Assert.DoesNotThrow(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         });
     }
 
@@ -165,12 +193,12 @@ public class ActionDecoderTests
         var decoder = CreateMockedActionDecoder();
 
         var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
-        Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
-        var validParameters = method.GetParameters().Select(parameterInfo => _validData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).Take(parameterCount).ToList();
-        var lineToParse = $"&{methodName}{(validParameters.Any() ? ":" : "")}{string.Join(",", validParameters)}";
+        var validParametersForMethod = GenerateParametersForMethod(method).Take(parameterCount).ToList();
+
+        var lineToParse = $"&{methodName}{(validParametersForMethod.Any() ? ":" : "")}{string.Join(",", validParametersForMethod)}";
         Debug.Log("Attempting to parse:\n" + lineToParse);
         Assert.DoesNotThrow(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         });
     }
 
@@ -181,13 +209,13 @@ public class ActionDecoderTests
         var decoder = CreateMockedActionDecoder();
 
         var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
-        Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
-        var generatedParameters = method.GetParameters().Select(parameterInfo => _validData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).Append("NewElement").ToList();
-        var lineToParse = $"&{methodName}{(generatedParameters.Any()?":":"")}{string.Join(",", generatedParameters)}";
+        var validParametersPlusSuperfluousArgumentForMethod = GenerateParametersForMethod(method).Append("NewElement").ToList();
+
+        var lineToParse = $"&{methodName}:{string.Join(",", validParametersPlusSuperfluousArgumentForMethod)}";
         Debug.Log("Attempting to parse:\n"+lineToParse);
         Assert.Throws<ScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
-        }, $"'{methodName}' requires exactly {generatedParameters.Count-1} parameters (has {generatedParameters.Count} instead)");
+            decoder.InvokeMatchingMethod(lineToParse);
+        }, $"'{methodName}' requires exactly {validParametersPlusSuperfluousArgumentForMethod.Count-1} parameters (has {validParametersPlusSuperfluousArgumentForMethod.Count} instead)");
     }
 
     [Test]
@@ -198,11 +226,11 @@ public class ActionDecoderTests
 
         var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
         Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
-        var generatedParameters = method.GetParameters().Select(parameterInfo => _validData[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).ToList();
-        var lineToParse = $"&{methodName}{(generatedParameters.Any() ? ":" : "")}{string.Join(",", string.Join(",", generatedParameters.Skip(1)))}";
+        var generatedParameters = GenerateParametersForMethod(method).ToList();
+        var lineToParse = $"&{methodName}{(generatedParameters.Count > 1 ? ":" : "")}{string.Join(",", string.Join(",", generatedParameters.Skip(1)))}";
         Debug.Log("Attempting to parse:\n"+lineToParse);
         Assert.Throws<ScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         }, $"'{methodName}' requires exactly {generatedParameters.Count + 1} parameters (has {generatedParameters.Count} instead)");
     }
 
@@ -214,11 +242,17 @@ public class ActionDecoderTests
 
         var method = decoder.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
         Assert.NotNull(method, $"Couldn't find method with name '{methodName}' on object of type '{nameof(ActionDecoder)}'");
-        var generatedParameters = method.GetParameters().Select(parameterInfo => (_invalidData.ContainsKey(parameterInfo.ParameterType) ? _invalidData: _validData)[parameterInfo.ParameterType]).Select(validParameter => validParameter.ToString()).ToList();
+        var generatedParameters = method.GetParameters().Select(parameterInfo => {
+            if (!InvalidData.ContainsKey(parameterInfo.ParameterType) && !ValidData.ContainsKey(parameterInfo.ParameterType))
+            {
+                throw new NotImplementedException($"In order for this test to run, you need to specify either an invalid ink-script example for '{parameterInfo.ParameterType}' inside '{nameof(ActionDecoderTests)}.{nameof(InvalidData)}' or a valid ink-script example inside '{nameof(ActionDecoderTests)}.{nameof(ValidData)}'");
+            }
+            return (InvalidData.ContainsKey(parameterInfo.ParameterType) ? InvalidData : ValidData)[parameterInfo.ParameterType];
+        }).Select(validParameter => validParameter.ToString()).ToList();
         var lineToParse = $"&{methodName}{(generatedParameters.Any() ? ":" : "")}{string.Join(",", generatedParameters)}";
         Debug.Log("Attempting to parse:\n"+lineToParse);
         var thrownException = Assert.Throws<ScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         });
         StringAssert.Contains("is incorrect as parameter", thrownException.Message);
     }
@@ -231,7 +265,7 @@ public class ActionDecoderTests
         var lineToParse = $"&METHODNAME:PARAMETER:INVALID";
         Debug.Log("Attempting to parse:\n" + lineToParse);
         Assert.Throws<ScriptParsingException>(() => {
-            decoder.OnNewActionLine(lineToParse);
+            decoder.InvokeMatchingMethod(lineToParse);
         }, $"More than one ':' detected in line '{lineToParse}");
     }
 
@@ -239,19 +273,19 @@ public class ActionDecoderTests
     public void VerifyActionDecoderTrimsExcessWhitespace()
     {
         var decoder = CreateMockedActionDecoder();
-        var sceneControllerMock = new Moq.Mock<ISceneController>();
-        sceneControllerMock.Setup(controller => controller.SetScene(new AssetName("NewScene")));
-        decoder.SceneController = sceneControllerMock.Object;
+        var narrativeGameStateMock = new Mock<INarrativeGameState>();
+        narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(new AssetName("NewScene")));
+        decoder.NarrativeGameState = narrativeGameStateMock.Object;
 
         var lineToParse = " &SCENE:NewScene \n\n\n";
         var logMessage = "Attempting to parse:\n" + lineToParse;
         Debug.Log(logMessage);
-        Assert.DoesNotThrow(() => { decoder.OnNewActionLine(lineToParse); });
+        Assert.DoesNotThrow(() => { decoder.InvokeMatchingMethod(lineToParse); });
 
         LogAssert.Expect(LogType.Log, logMessage);
         LogAssert.NoUnexpectedReceived();
 
-        sceneControllerMock.Verify(controller => controller.SetScene(new AssetName("NewScene")));
+        narrativeGameStateMock.Verify(controller => controller.SceneController.SetScene(new AssetName("NewScene")));
     }
 
 }

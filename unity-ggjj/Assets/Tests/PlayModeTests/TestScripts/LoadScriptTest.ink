@@ -1,0 +1,4 @@
+&APPEAR_INSTANTLY
+Load script test
+&SCENE:TMPH_Lobby
+&LOAD_SCRIPT:Failures/TMPHFAIL1

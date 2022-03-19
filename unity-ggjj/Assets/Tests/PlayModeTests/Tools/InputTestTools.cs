@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
-using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Tools
 {
@@ -15,8 +13,8 @@ namespace Tests.PlayModeTests.Tools
     /// </summary>
     public class InputTestTools : InputTestFixture
     {
-        public Keyboard Keyboard { get; } = InputSystem.AddDevice<Keyboard>();
-        public Mouse Mouse { get; } = InputSystem.AddDevice<Mouse>();
+        public Keyboard Keyboard { get; } = InputSystem.GetDevice<Keyboard>();
+        public Mouse Mouse { get; } = InputSystem.GetDevice<Mouse>();
 
         private EditorWindow _gameViewWindow;
 
@@ -60,6 +58,7 @@ namespace Tests.PlayModeTests.Tools
                 Release(control);
                 GameViewWindow.Repaint();
                 yield return null;
+                yield return null; // Wait for two frames to wait for InputSystem to rebind if necessary
             }
         }
 
@@ -81,20 +80,20 @@ namespace Tests.PlayModeTests.Tools
         }
 
         /// <summary>
-        /// Sets the position of the mouse in the scene.
+        /// Sets the mouse to a specific pixel
         /// </summary>
         /// <param name="position">The position to set the mouse to.</param>
-        public IEnumerator SetMousePosition(Vector2 position)
+        public IEnumerator SetMouseScreenSpacePosition(Vector2 position)
         {
             Set(Mouse.position, position);
             yield return null;
         }
         
         /// <summary>
-        /// Sets the position of the mouse in the scene.
+        /// Sets the position of the mouse in the scene in world space
         /// </summary>
         /// <param name="position">The position to set the mouse to.</param>
-        public IEnumerator SetMousePositionWorldSpace(Vector2 position)
+        public IEnumerator SetMouseWorldSpacePosition(Vector2 position)
         {
             Set(Mouse.position, Camera.main.WorldToScreenPoint(position));
             yield return null;
@@ -113,26 +112,25 @@ namespace Tests.PlayModeTests.Tools
                 yield return PressForSeconds(key, 0.2f);
             }
         }
-
+        
         /// <summary>
-        /// Sets the mouse to a position and clicks.
+        /// Sets the mouse to specific pixel and clicks
         /// </summary>
-        /// <param name="position">The position to click at.</param>
-        public IEnumerator ClickAtPositionWorldSpace(Vector2 position)
+        /// <param name="position">The position in pixels to click at</param>
+        public IEnumerator ClickAtScreenSpacePosition(Vector2 position)
         {
-            yield return SetMousePositionWorldSpace(position);
+            yield return SetMouseScreenSpacePosition(position);
             yield return PressForFrame(Mouse.leftButton);
         }
 
         /// <summary>
-        /// Holds the X Key until a DialogueController is not busy
+        /// Sets the mouse to a position in world space and clicks
         /// </summary>
-        /// <param name="dialogueController">The DialogueController to wait for</param>
-        public IEnumerator ProgressStory(DialogueController dialogueController)
+        /// <param name="position">The position to click at in world space coordinates</param>
+        public IEnumerator ClickAtWorldSpacePosition(Vector2 position)
         {
-            Press(Keyboard.xKey);
-            yield return TestTools.WaitForState(() => !dialogueController.IsBusy);
-            Release(Keyboard.xKey);
+            yield return SetMouseWorldSpacePosition(position);
+            yield return PressForFrame(Mouse.leftButton);
         }
     }
 }

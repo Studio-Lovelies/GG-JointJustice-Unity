@@ -65,3 +65,18 @@ public class ActorAssetName : AssetName
 {
     public ActorAssetName(string givenName) : base(givenName) { }
 }
+
+public class NarrativeScriptAssetName : AssetName
+{
+    public NarrativeScriptAssetName(string givenName) : base(givenName) { }
+}
+
+public class GameOverScriptAssetName : AssetName
+{
+    public GameOverScriptAssetName(string givenName) : base(givenName) { }
+}
+
+public class FailureScriptAssetName : AssetName
+{
+    public FailureScriptAssetName(string givenName) : base(givenName) { }
+}

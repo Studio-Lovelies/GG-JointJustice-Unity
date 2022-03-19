@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 /// <summary>
 /// Class that contains methods for loading scenes.
@@ -14,8 +14,9 @@ public class SceneLoader : MonoBehaviour
 {
     public bool Busy { get; private set; }
 
-    [SerializeField, Tooltip("Assign a loading bar here if required")]
-    private Slider _loadingBar;
+    [Tooltip("Assign a narrative script to play on scene load")]
+    [SerializeField]
+    private TextAsset _narrativeScript;
 
     private ITransition _transition;
     private AsyncOperation _sceneLoadOperation;
@@ -30,15 +31,18 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void LoadScene(string sceneName)
     {
-        if (Busy)
-        {
-            return;
-        }
+        if (Busy) { return; }
 
-        _sceneLoadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        _sceneLoadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
         if (_sceneLoadOperation == null)
         {
-            return;
+            throw new Exception("Scene failed to load");
+        }
+
+        if (EventSystem.current != null)
+        {
+            Destroy(EventSystem.current.gameObject);
         }
 
         Busy = true;
@@ -51,13 +55,9 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     private void Transition()
     {
-        Debug.Log("Transitioning");
         if (_transition != null)
         {
-            if (_sceneLoadOperation != null)
-            {
-                _sceneLoadOperation.allowSceneActivation = false;
-            }
+            _sceneLoadOperation.allowSceneActivation = false;
             _transition.Transition();
             return;
         }
@@ -78,31 +78,28 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     private IEnumerator LoadSceneCoroutine()
     {
-        if (_sceneLoadOperation != null)
+        _sceneLoadOperation.allowSceneActivation = true;
+
+        while (!_sceneLoadOperation.isDone)
         {
-            _sceneLoadOperation.allowSceneActivation = true;
+            yield return null;
         }
 
-        yield return null; // Don't show loading bar if it loads in one frame
-
-        if (_sceneLoadOperation != null)
+        if (_narrativeScript != null)
         {
-            while (!_sceneLoadOperation.isDone)
-            {
-                if (_loadingBar != null)
-                {
-                    if (!_loadingBar.gameObject.activeInHierarchy)
-                    {
-                        _loadingBar.gameObject.SetActive(true);
-                    }
-
-                    _loadingBar.value = _sceneLoadOperation.progress;
-                }
-
-                yield return null;
-            }
-
-            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+            SetNarrativeScript();
         }
+        
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+    }
+
+    /// <summary>
+    /// Passes the narrative script of this SceneLoader instance to the NarrativeScriptStorage and starts the game
+    /// </summary>
+    private void SetNarrativeScript()
+    {
+        var gameState = FindObjectOfType<NarrativeGameState>();
+        gameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_narrativeScript);
+        gameState.StartGame();
     }
 }

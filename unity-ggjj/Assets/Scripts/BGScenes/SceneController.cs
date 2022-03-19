@@ -2,11 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class SceneController : MonoBehaviour, ISceneController
 {
-    [Tooltip("Drag a DialogueController here")]
-    [SerializeField] private DialogueController _dialogueController;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
     
     [Tooltip("Pixels per unit of the basic ")]
     [SerializeField] private int _pixelsPerUnit = 100;
@@ -23,9 +23,6 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag the AnimatableObject that plays fullscreen animations here.")]
     [SerializeField] private Animatable _fullscreenAnimationPlayer;
 
-    [Tooltip("Attach the action decoder object here")]
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
-
     [Tooltip("Attach the screenshaker object here")]
     [SerializeField] private ObjectShaker _objectShaker;
 
@@ -37,19 +34,6 @@ public class SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Drag the witness testimony sign here.")]
     [SerializeField] private GameObject _witnessTestimonySign;
-    
-    [Header("Events")]
-    [Tooltip("This event is called when a wait action is started.")]
-    [SerializeField] private UnityEvent _onWaitStart;
-
-    [Tooltip("This event is called when a wait action is finished.")]
-    [SerializeField] private UnityEvent _onWaitComplete;
-
-    [Tooltip("Event that gets called when the actor displayed on screen changes")]
-    [SerializeField] private UnityEvent<Actor> _onActorChanged;
-
-    [Tooltip("Event that gets called when the active bg-scene changes")]
-    [SerializeField] private UnityEvent<BGScene> _onSceneChanged;
 
     private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
@@ -58,21 +42,6 @@ public class SceneController : MonoBehaviour, ISceneController
     public bool WitnessTestimonyActive
     {
         set => _witnessTestimonySign.SetActive(value);
-    }
-
-    /// <summary>
-    /// Called when the object is initialized
-    /// </summary>
-    private void Start()
-    {
-        if (_directorActionDecoder == null)
-        {
-            Debug.LogError("Scene Controller doesn't have a action decoder to attach to");
-        }
-        else
-        {
-            _directorActionDecoder.Decoder.SceneController = this;
-        }
     }
 
     /// <summary>
@@ -88,8 +57,8 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _onWaitStart.Invoke();
-        _imageFader.StartFade(1, 0, seconds, _onWaitComplete);
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = true;
+        _imageFader.StartFade(1, 0, seconds, () => _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue());
     }
 
     /// <summary>
@@ -105,8 +74,8 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        _onWaitStart.Invoke();
-        _imageFader.StartFade(0, 1, seconds, _onWaitComplete);
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = true;
+        _imageFader.StartFade(0, 1, seconds, () => _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue());
     }
 
     /// <summary>
@@ -117,11 +86,12 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="isBlocking">Whether the script should continue after the pan has completed (true) or immediately (false)</param>
     public void PanCamera(float seconds, Vector2Int position, bool isBlocking = false)
     {
-        _panToPositionCoroutine = StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds, isBlocking));
-        
+        _panToPositionCoroutine =
+            StartCoroutine(PanToPosition(PixelPositionToUnitPosition(position), seconds, isBlocking));
+
         if (!isBlocking)
         {
-            _onWaitComplete.Invoke();
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
         }
     }
 
@@ -145,10 +115,10 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _panToPositionCoroutine = null;
-        
+
         if (isBlocking)
         {
-            _onWaitComplete.Invoke();
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
         }
     }
 
@@ -166,8 +136,8 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (_activeScene != null)
         {
-            _onActorChanged.Invoke(_activeScene.ActiveActor);
-            _onSceneChanged.Invoke(_activeScene);
+            _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
+            _narrativeGameState.ActorController.OnSceneChanged(_activeScene);
         }
     }
 
@@ -192,7 +162,7 @@ public class SceneController : MonoBehaviour, ISceneController
 
         if (!isBlocking)
         {
-            _onWaitComplete.Invoke();
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
         }
     }
 
@@ -201,15 +171,14 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     /// <param name="item">The name of the item to show.</param>
     /// <param name="position">The position of the item's image on the screen (left, middle, right).</param>
-    public void ShowItem(string item, ItemDisplayPosition position)
+    public void ShowItem(ICourtRecordObject item, ItemDisplayPosition position)
     {
         if (_itemDisplay == null)
         {
             Debug.LogError($"Cannot show item, no ItemDisplay component assigned to {name}.", gameObject);
         }
-
-        Evidence evidence = _dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(item);
-        _itemDisplay.ShowItem(evidence.Icon, position);
+        
+        _itemDisplay.ShowItem(item.Icon, position);
     }
 
     /// <summary>
@@ -251,16 +220,6 @@ public class SceneController : MonoBehaviour, ISceneController
         return true;
     }
 
-    public void ShowActor()
-    {
-        Debug.LogWarning("ShowActor not implemented");
-    }
-
-    public void HideActor()
-    {
-        Debug.LogWarning("HideActor not implemented");
-    }
-
     /// <summary>
     /// Pans to the position of the specified slot index, if the bg-scene has support for actor slots.
     /// </summary>
@@ -281,7 +240,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _activeScene.SetActiveActorSlot(oneBasedSlotIndex);
-        _onActorChanged.Invoke(_activeScene.ActiveActor);
+        _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
         PanCamera(seconds, _activeScene.GetTargetPosition());
     }
 
@@ -304,7 +263,7 @@ public class SceneController : MonoBehaviour, ISceneController
         }
 
         _activeScene.SetActiveActorSlot(oneBasedSlotIndex);
-        _onActorChanged.Invoke(_activeScene.ActiveActor);
+        _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
         SetCameraPos(_activeScene.GetTargetPosition());
     }
 
@@ -324,9 +283,9 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds">The time to wait in seconds.</param>
     private IEnumerator WaitCoroutine(float seconds)
     {
-        _onWaitStart.Invoke();
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = true;
         yield return new WaitForSeconds(seconds);
-        _onWaitComplete?.Invoke();
+        _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
     }
 
     /// <summary>
@@ -363,7 +322,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="allowRandomShouts">Whether random shouts should be allowed to play (true) or not (false)</param>
     public void Shout(string actorName, string shoutName, bool allowRandomShouts)
     {
-        _shoutPlayer.Shout(_dialogueController.ActiveNarrativeScript.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
+        _shoutPlayer.Shout(_narrativeGameState.ObjectStorage.GetObject<ActorData>(actorName).ShoutVariants, shoutName, allowRandomShouts);
     }
 
     /// <summary>

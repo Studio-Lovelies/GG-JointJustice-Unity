@@ -68,7 +68,7 @@ public class ObjectPreloaderTests
             var actorPositionParameter = action == "SET_ACTOR_POSITION" ? "1," : "";
             
             var typeSpecificResource = (T)genericResource;
-            _objectPreloader.OnNewActionLine($"&{action}:{actorPositionParameter}{typeSpecificResource.name}");
+            _objectPreloader.InvokeMatchingMethod($"&{action}:{actorPositionParameter}{typeSpecificResource.name}");
             var storedActor = _objectStorage.GetObject<T>(typeSpecificResource.name);
             Assert.AreEqual(storedActor, typeSpecificResource);
         }

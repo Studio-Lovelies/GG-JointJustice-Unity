@@ -34,7 +34,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnitySetUp]
         protected IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/AppearingDialogueController - Test Scene.unity",  new LoadSceneParameters());
+            yield return SceneManager.LoadSceneAsync("Game");
             PauseMenu = TestTools.FindInactiveInSceneByName<Menu>("PauseMenu");
             Buttons = PauseMenu.GetComponentsInChildren<Button>();
             CanvasScale = GameObject.Find("BaseCanvas").transform.localScale.x;
@@ -123,15 +123,10 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         /// <param name="selectionMethod">A coroutine that navigates to and clicks the main menu button.</param>
         protected IEnumerator TestMainMenuButton(Func<IEnumerator> selectionMethod)
         {
-            SceneManagerAPIStub sceneManagerAPIStub = new SceneManagerAPIStub();
-            var currentAPI = SceneManagerAPI.overrideAPI;
-            SceneManagerAPI.overrideAPI = sceneManagerAPIStub;
-            Assert.False(sceneManagerAPIStub.loadedScenes.Contains("MainMenu"));
             yield return InputTools.PressForFrame(Keyboard.escapeKey);
             Assert.IsTrue(PauseMenu.isActiveAndEnabled);
             yield return selectionMethod();
-            Assert.True(sceneManagerAPIStub.loadedScenes.Contains("MainMenu"));
-            SceneManagerAPI.overrideAPI = currentAPI;
+            yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "MainMenu");
         }
     }
 }

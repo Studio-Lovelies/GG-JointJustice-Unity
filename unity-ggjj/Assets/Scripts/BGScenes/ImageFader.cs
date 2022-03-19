@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Ink.Runtime;
 using UnityEngine;
@@ -31,7 +32,7 @@ public class ImageFader : MonoBehaviour
     /// <param name="targetAlpha">The alpha value to fade to</param>
     /// <param name="time">The time in seconds to complete the animation</param>
     /// <param name="onComplete">The event to call once fading is complete</param>
-    public void StartFade(float startAlpha, float targetAlpha, float time, UnityEvent onComplete)
+    public void StartFade(float startAlpha, float targetAlpha, float time, Action onComplete)
     {
         gameObject.SetActive(true);
         StartCoroutine(FadeImage(startAlpha, targetAlpha, time, onComplete));
@@ -44,7 +45,7 @@ public class ImageFader : MonoBehaviour
     /// <param name="targetAlpha">The alpha value to fade to</param>
     /// <param name="time">The time in seconds to complete the animation</param>
     /// <param name="onComplete">The event to call once fading is complete</param>
-    private IEnumerator FadeImage(float startAlpha, float targetAlpha, float time, UnityEvent onComplete)
+    private IEnumerator FadeImage(float startAlpha, float targetAlpha, float time, Action onComplete)
     {
         _image.enabled = true;
         float startTime = Time.time;
@@ -66,6 +67,6 @@ public class ImageFader : MonoBehaviour
             gameObject.SetActive(false);
         }
         
-        onComplete.Invoke();
+        onComplete?.Invoke();
     }
 }

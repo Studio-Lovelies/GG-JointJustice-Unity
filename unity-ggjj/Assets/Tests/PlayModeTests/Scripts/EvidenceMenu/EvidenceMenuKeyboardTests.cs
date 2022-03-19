@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using NUnit.Framework;
+using Tests.PlayModeTests.Tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -36,25 +37,33 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return PressZ();
             Assert.True(EvidenceMenu.isActiveAndEnabled);
         }
-
-        /// <summary>
-        /// Selects evidence and asserts that the menu has closed.
-        /// </summary>
+        
         [UnityTest]
-        public IEnumerator EvidenceCanBeSelected()
+        public IEnumerator IncorrectEvidenceCanBePresented()
         {
-            EvidenceController.AddEvidence(Resources.Load<Evidence>("Evidence/AttorneysBadge"));
-            yield return PressZ();
-            Assert.True(EvidenceMenu.isActiveAndEnabled);
+            AddEvidence();
+            yield return StoryProgresser.ProgressStory();
+            yield return StoryProgresser.ProgressStory();
+            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.rightArrowKey);
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey);
-            Assert.True(EvidenceMenu.isActiveAndEnabled);
-            yield return PressZ();
-            
-            EvidenceController.RequirePresentEvidence();
-            yield return PressZ();
-            Assert.True(EvidenceMenu.isActiveAndEnabled);
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            Assert.IsTrue(narrativeScriptPlayer.NarrativeScriptPlayer.HasSubStory);
+        }
+        
+        [UnityTest]
+        public IEnumerator CorrectEvidenceCanBePresented()
+        {
+            yield return SelectEvidence("Evidence/BentCoins");
+            yield return StoryProgresser.ProgressStory();
+            var speechPanel = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
+            Assert.IsTrue(speechPanel.text == "Correct");
+        }
+
+        private IEnumerator SelectEvidence(string evidencePath)
+        {
+            EvidenceController.AddEvidence(Resources.Load<Evidence>(evidencePath));
+            yield return TestTools.DoUntilStateIsReached(() => StoryProgresser.ProgressStory(), () => EvidenceMenu.isActiveAndEnabled);
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey);
-            Assert.False(EvidenceMenu.isActiveAndEnabled);
         }
 
         /// <summary>
@@ -103,9 +112,9 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return PressRight();
             yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey, 101);
             yield return PressLeft();
-            
-            // After all this Jory Sr's Letter should be selected
-            Assert.AreEqual("Switch",Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
+
+            // After all this "Stolen Dinos" should be selected
+            Assert.AreEqual("Stolen Dinos",Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
         }
 
         /// <summary>
@@ -129,15 +138,9 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         {
             var evidence = AddEvidence();
 
-            for (int i = 0; i < evidence.Length / 2; i++)
+            for (var i = 0; i < evidence.Length / 2; i++)
             {
-                EvidenceController.CurrentEvidence[i].AltEvidence =
-                    evidence[evidence.Length - 1 - i];
-            }
-
-            for (int i = 0; i < evidence.Length / 2; i++)
-            {
-                EvidenceController.SubstituteEvidenceWithAlt(EvidenceController.CurrentEvidence[i]);
+                EvidenceController.SubstituteEvidence(EvidenceController.CurrentEvidence[i], EvidenceController.CurrentEvidence[evidence.Length - 1 - i]);
                 Assert.AreEqual(evidence[evidence.Length - 1 - i], EvidenceController.CurrentEvidence[i]); 
             }
 

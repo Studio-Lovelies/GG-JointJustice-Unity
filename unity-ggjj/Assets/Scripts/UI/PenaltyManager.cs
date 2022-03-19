@@ -1,15 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class PenaltyManager : MonoBehaviour, IPenaltyManager
 {
-    [Tooltip("Drag a DirectorActionDecoder here")]
-    [SerializeField] private DirectorActionDecoder _directorActionDecoder;
+    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
 
-    [Tooltip("Drag a NarrativeScriptPlaylist here")]
-    [SerializeField] private NarrativeScriptPlaylist _narrativeScriptPlaylist;
-    
     [Tooltip("Drag the prefab for the penalty UI object here.")]
     [SerializeField]private Animator _penaltyObject;
 
@@ -17,29 +13,15 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
 
     private readonly Queue<Animator> _penaltyObjects = new Queue<Animator>();
 
-    public int PenaltiesLeft => _penaltyObjects.Count;
+    public int PenaltiesLeft { get; private set; }
 
-    private void Awake()
-    {
-        _directorActionDecoder.Decoder.PenaltyManager = this;
-    }
-    
     /// <summary>
     /// Creates penalty UI objects on examination start
     /// </summary>
     public void OnCrossExaminationStart()
     {
+        ResetPenalties();
         gameObject.SetActive(true);
-        
-        if (_penaltyObjects.Count != 0)
-        {
-            return;
-        }
-        
-        for (int i = 0; i < _penaltyCount; i++)
-        {
-            _penaltyObjects.Enqueue(Instantiate(_penaltyObject, transform));
-        }
     }
 
     /// <summary>
@@ -55,12 +37,17 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     /// </summary>
     public void ResetPenalties()
     {
+        PenaltiesLeft = _penaltyCount;
         foreach (var penaltyAnimator in _penaltyObjects)
         {
             Destroy(penaltyAnimator.gameObject);
         }
         _penaltyObjects.Clear();
-        OnCrossExaminationStart();
+        
+        for (int i = 0; i < _penaltyCount; i++)
+        {
+            _penaltyObjects.Enqueue(Instantiate(_penaltyObject, transform));
+        }
     }
 
     /// <summary>
@@ -70,6 +57,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     public void Decrement()
     {
         Debug.Assert(PenaltiesLeft > 0, "Decrement must not be called with 0 or fewer penalty lifelines left");
+        PenaltiesLeft--;
         _penaltyObjects.Dequeue().Play("Explosion");
         CheckGameOver();
     }
@@ -81,7 +69,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     {
         if (_penaltyObjects.Count == 0)
         {
-            _directorActionDecoder.Decoder.DialogueController.StartSubStory(_narrativeScriptPlaylist.GameOverScript);
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.StartSubStory(_narrativeGameState.NarrativeScriptStorage.GameOverScript);
         }
     }
 }

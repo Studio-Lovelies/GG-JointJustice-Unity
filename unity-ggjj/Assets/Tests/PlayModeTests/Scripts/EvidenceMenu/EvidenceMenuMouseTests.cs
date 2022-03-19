@@ -3,7 +3,9 @@ using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
@@ -54,22 +56,22 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             
             EvidenceMenuItem firstMenuItem = GetFirstMenuItem();
             yield return HoverOverButton(firstMenuItem.transform);
-            Assert.AreEqual("Attorney's Badge", firstMenuItem.CourtRecordObject.DisplayName);
+            Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
 
             yield return HoverOverButton(decrementButton);
             yield return LeftClick();
             yield return HoverOverButton(firstMenuItem.transform);
-            Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
+            Assert.AreEqual("Livestream Recording", firstMenuItem.CourtRecordObject.DisplayName);
 
             yield return HoverOverButton(incrementButton);
             yield return LeftClick();
             yield return HoverOverButton(firstMenuItem.transform);
-            Assert.AreEqual("Attorney's Badge", firstMenuItem.CourtRecordObject.DisplayName);
+            Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
             
             yield return HoverOverButton(incrementButton);
             yield return LeftClick();
             yield return HoverOverButton(firstMenuItem.transform);
-            Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
+            Assert.AreEqual("Livestream Recording", firstMenuItem.CourtRecordObject.DisplayName);
         }
 
         /// <summary>
@@ -81,15 +83,15 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             AddEvidence();
             yield return PressZ();
             var menuItems = GetMenuItems();
-            yield return PressZ();
+            Assert.IsTrue(EvidenceMenu.isActiveAndEnabled);
 
             foreach (var menuItem in menuItems)
             {
-                EvidenceController.RequirePresentEvidence();
-                Assert.IsTrue(EvidenceMenu.isActiveAndEnabled);
                 yield return HoverOverButton(menuItem.transform);
-                yield return LeftClick();
-                Assert.IsFalse(EvidenceMenu.isActiveAndEnabled);
+                var clicked = false;
+                menuItem.GetComponent<Button>().onClick.AddListener(() => clicked = true);
+                yield return InputTestTools.PressForFrame(InputTestTools.Mouse.leftButton);
+                Assert.IsTrue(clicked);
             }
         }
 
@@ -105,7 +107,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
         private IEnumerator HoverOverButton(Transform transform)
         {
-            yield return _inputTestTools.SetMousePositionWorldSpace(transform.TransformPoint(transform.GetComponent<RectTransform>().rect.center));
+            yield return _inputTestTools.SetMouseWorldSpacePosition(transform.TransformPoint(transform.GetComponent<RectTransform>().rect.center));
         }
 
         private IEnumerator LeftClick()

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Reflection;
 using NUnit.Framework;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scripts.AudioController
@@ -17,13 +19,12 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         [UnityTest]
         public IEnumerator AudioController_PlaySong_FadesBetweenSongs()
         {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("TestScene", new LoadSceneParameters());
+            
             GameObject audioControllerGameObject = new GameObject("AudioController");
             audioControllerGameObject.AddComponent<AudioListener>(); // required to prevent excessive warnings
             global::AudioController audioController = audioControllerGameObject.AddComponent<global::AudioController>();
-
-            // expect error due to missing DirectorActionDecoder
-            LogAssert.Expect(LogType.Error, "Audio Controller doesn't have an action decoder to attach to");
-            yield return null;
+            audioController.enabled = true;
             AudioSource audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
 
             FieldInfo type = audioController.GetType().GetField("_transitionDuration", BindingFlags.NonPublic | BindingFlags.Instance);
