@@ -12,7 +12,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 {
     public class Case1Tests
     {
-        private static IEnumerable<TestCaseData> NarrativeScripts => Resources.LoadAll<TextAsset>("InkDialogueScripts/Case1").Select(narrativeScript => new TestCaseData(narrativeScript).SetName(narrativeScript.name));
+        private static IEnumerable<TestCaseData> NarrativeScripts => Resources.LoadAll<TextAsset>("InkDialogueScripts/Case1").Select(narrativeScript => new TestCaseData(narrativeScript).SetName(narrativeScript.name).Returns(null));
 
         [UnitySetUp]
         public IEnumerator SetUp()
@@ -24,17 +24,16 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
         [TestCaseSource(nameof(NarrativeScripts))]
         public IEnumerator NarrativeScriptsRunWithNoErrors(TextAsset narrativeScriptText)
         {
-            yield return null;
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
-            // var narrativeScript = new NarrativeScript(narrativeScriptText);
-            // narrativeScriptPlayer.LoadScriptByReference(narrativeScript);
-            //
-            // var storyProgresser = new StoryProgresser();
-            //
-            // while (narrativeScript.Story.canContinue)
-            // {
-            //     yield return storyProgresser.ProgressStory();
-            // }
+            var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            var narrativeScript = new NarrativeScript(narrativeScriptText);
+            narrativeGameState.NarrativeScriptStorage.NarrativeScript = narrativeScript;
+            narrativeGameState.StartGame();
+            var storyProgresser = new StoryProgresser();
+            
+            while (narrativeScript.Story.canContinue)
+            {
+                yield return storyProgresser.ProgressStory();
+            }
         }
     }
 }
