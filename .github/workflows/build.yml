@@ -240,7 +240,8 @@ jobs:
           { unityPlatform: "StandaloneOSX",       outputName: "macOS"       }, 
           { unityPlatform: "StandaloneWindows",   outputName: "Windows-x86" }, 
           { unityPlatform: "StandaloneWindows64", outputName: "Windows-x64" }, 
-          { unityPlatform: "StandaloneLinux64",   outputName: "Linux-x64"   } 
+          { unityPlatform: "StandaloneLinux64",   outputName: "Linux-x64"   },
+          { unityPlatform: "WebGL",               outputName: "WebGL"       } 
         ]
     steps:
       - name: Checkout repository
@@ -334,6 +335,11 @@ jobs:
         with:
           name: Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}
           path: build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}
+      - name: Download WebGL
+        uses: actions/download-artifact@v2
+        with:
+          name: WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}
+          path: build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}
           
       - name: Zip macOS
         run: zip -r "build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"       "build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}"
@@ -343,6 +349,8 @@ jobs:
         run: zip -r "build/Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip" "build/Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}"
       - name: Zip Linux-x64
         run: zip -r "build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"   "build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}"
+      - name: Zip WebGL
+        run: zip -r "build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"       "build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}"
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1.8.6
@@ -352,7 +360,8 @@ jobs:
             build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
             build/Windows-x86-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
             build/Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
-            build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip
+            build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
+            build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}.zip
           artifactErrorsFailBuild: true
           tag:  ${{ needs.extractVersionNumber.outputs.version_number }}
           name: "Release #${{ needs.extractVersionNumber.outputs.version_number }}"
@@ -383,7 +392,8 @@ jobs:
           { outputName: "macOS",       itchIOChannel: "mac"         },
           { outputName: "Windows-x86", itchIOChannel: "windows-x86" }, 
           { outputName: "Windows-x64", itchIOChannel: "windows-x64" }, 
-          { outputName: "Linux-x64",   itchIOChannel: "linux"       }
+          { outputName: "Linux-x64",   itchIOChannel: "linux"       },
+          { outputName: "WebGL",       itchIOChannel: "webGL"       }
         ]
     steps:
       - name: Download ${{ matrix.platforms.outputName }}
