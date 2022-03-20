@@ -1,5 +1,5 @@
 public interface INarrativeScriptPlayerComponent
 {
     INarrativeScriptPlayer NarrativeScriptPlayer { get; }
-    void LoadScriptByName(string narrativeScriptName);
+    void LoadScript(string narrativeScriptName);
 }
