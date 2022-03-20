@@ -84,7 +84,7 @@ public class NarrativeScript : INarrativeScript
     /// </summary>
     /// <param name="content">The Ink container content to read</param>
     /// <param name="lines">A list to add read lines to</param>
-    private static void ReadContent(List<Object> content, List<string> lines)
+    public static void ReadContent(List<Object> content, List<string> lines)
     {
         if (content == null)
         {

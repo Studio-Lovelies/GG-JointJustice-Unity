@@ -1,6 +1,3 @@
-INCLUDE ../Macros.ink
-INCLUDE ../FailureStates.ink
-
 &ADD_FAILURE_SCRIPT:TMPH_FAIL_1
 
 &ADD_EVIDENCE:Bent_Coins
@@ -24,3 +21,11 @@ Ross has been added to the court record
 Correct
 
 -> END
+
+=== Present(presentedObject)
+    &PRESENT_EVIDENCE
+    + [Wrong]
+        -> Present(presentedObject)
+    + [{presentedObject}]
+        &MODE:Dialogue
+        ->->

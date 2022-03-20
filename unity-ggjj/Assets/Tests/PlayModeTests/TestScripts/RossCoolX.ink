@@ -1,5 +1,4 @@
-INCLUDE FailureStates.ink
-<- Failures.TMPH
+&ADD_FAILURE_SCRIPT:TMPHFAIL1
 
 &MODE:CrossExamination
 

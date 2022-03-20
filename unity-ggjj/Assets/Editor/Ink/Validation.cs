@@ -1,8 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Ink;
+using Ink.Parsed;
+using Ink.Runtime;
 using Ink.UnityIntegration;
 using UnityEditor;
 using UnityEngine;
+using Story = Ink.Runtime.Story;
 
 namespace Editor.Ink
 {
@@ -36,11 +41,14 @@ namespace Editor.Ink
         /// Reads an Ink file and attempts to parse every action.
         /// Logs any errors found to the console
         /// </summary>
-        /// <param name="inkFile">The Ink file to read</param>
+        /// <param name="inkFile">The Ink file to read in JSON format</param>
         private static void ValidateNarrativeScript(InkFile inkFile)
         {
-            var lines = inkFile.GetFileContents().Split('\n');
-            for (var i = 0; i < lines.Length; i++)
+            var lines = new List<string>();
+            var story = new Story(inkFile.jsonAsset.text);
+            NarrativeScript.ReadContent(story.mainContentContainer.content, lines);
+            
+            for (var i = 0; i < lines.Count; i++)
             {
                 if (lines[i] == string.Empty || lines[i][0] != ActionDecoderBase.ACTION_TOKEN)
                 {
@@ -49,13 +57,7 @@ namespace Editor.Ink
                 
                 try
                 {
-                    var commentIndex = lines[i].IndexOf("//", StringComparison.Ordinal);
-                    var line = lines[i];
-                    if (commentIndex >= 0)
-                    {
-                        line = lines[i].Substring(0, commentIndex);
-                    }
-                    ActionDecoderBase.GenerateInvocationDetails(line, typeof(ActionDecoder));
+                    ActionDecoderBase.GenerateInvocationDetails(lines[i], typeof(ActionDecoder));
                 }
                 catch (Exception exception)
                 {

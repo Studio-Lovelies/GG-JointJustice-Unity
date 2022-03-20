@@ -171,9 +171,9 @@ Let's go look for that Tutorial Boy and find out what's going on here.
 Right. I don't know about you, but there might be more to this than just being 'a bit'.
 
 &SPEAK:Dan
-&AUTOSKIP:true
+&AUTO_SKIP:true
 Guess we'll have to find out --
-&AUTOSKIP:false
+&AUTO_SKIP:false
 &SPEAK:Arin
 With some sweet Joint Justice?"
 

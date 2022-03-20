@@ -477,12 +477,12 @@ They turned the Power Hour room into a makeshift courtroom just for this.
 So uh, see you there.
 
 &HIDE_TEXTBOX
-&SHOW_ACTOR:False
+&SHOW_ACTOR:Jory,False
 &PLAY_SFX:doorOpens
 &WAIT:2
-&SHOW_ACTOR:True
 
 &ACTOR:Dan
+&SHOW_ACTOR:Dan,True
 &SET_POSE:Surprised
 &DIALOGUE_SPEED:0.04
 &SPEAK:Dan
