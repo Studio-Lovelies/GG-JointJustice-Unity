@@ -1,6 +1,6 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
-INCLUDE ../SceneInitialization.ink
+INCLUDE ../Templates/SceneInitialization.ink
 
 <- COURT.TMPH
 

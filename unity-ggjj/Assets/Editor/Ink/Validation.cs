@@ -46,23 +46,26 @@ namespace Editor.Ink
         {
             var lines = new List<string>();
             var story = new Story(inkFile.jsonAsset.text);
-            NarrativeScript.ReadContent(story.mainContentContainer.content, lines);
-            
-            for (var i = 0; i < lines.Count; i++)
+            NarrativeScript.ReadContent(story.mainContentContainer.content, lines, story);
+
+            var noErrors = true;
+
+            foreach (var line in lines.Where(t => t[0] == ActionDecoderBase.ACTION_TOKEN))
             {
-                if (lines[i] == string.Empty || lines[i][0] != ActionDecoderBase.ACTION_TOKEN)
-                {
-                    continue;
-                }
-                
                 try
                 {
-                    ActionDecoderBase.GenerateInvocationDetails(lines[i], typeof(ActionDecoder));
+                    ActionDecoderBase.GenerateInvocationDetails(line, typeof(ActionDecoder));
                 }
                 catch (Exception exception)
                 {
-                    Debug.LogError($"Error on line {i + 1} of {inkFile}: {exception.Message}");
+                    noErrors = false;
+                    Debug.LogError($"Error in {inkFile} on line \"{line}\"\n{exception.Message}");
                 }
+            }
+
+            if (noErrors)
+            {
+                Debug.Log("Narrative Scripts validated without errors");
             }
         }
     }
