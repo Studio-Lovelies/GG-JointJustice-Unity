@@ -72,8 +72,8 @@ jobs:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
-  unityTest:
-    name: Run PlayMode and EditorMode tests for Unity project
+  unityTestEditMode: 
+    name: Run EditMode tests for Unity project
     needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
     runs-on: ubuntu-latest
@@ -90,7 +90,10 @@ jobs:
           git add .
           git reset --hard
 
-      - name: Run PlayMode and EditMode tests
+      - name: Remove unity-ggjj/Assets/Tests/PlayModeTests/ folder
+        run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/
+
+      - name: Run tests
         uses: game-ci/unity-test-runner@v2.0-alpha-6
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
@@ -99,14 +102,16 @@ jobs:
         with:
           projectPath: unity-ggjj/
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+          testMode: EditMode
+          checkName: Test Results - EditMode
           customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
         uses: codecov/codecov-action@v2
         if: ${{ failure() || success() }}
         with:
-          name: EditMode+PlayMode
-          flags: automated
+          name: EditMode
+          flags: EditMode
           token: ${{ secrets.CODECOV_TOKEN }}
           files: unity-ggjj/coverage-results/**/*.xml
 
@@ -114,7 +119,113 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ failure() || success() }}
         with:
-          name: Test results
+          name: Test Results - EditMode
+          path: artifacts
+
+  unityTestPlayModeScripts:
+    name: Run PlayMode Scenes tests for Unity project
+    needs: [checkLicense]
+    if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Remove unity-ggjj/Assets/Tests/EditModeTests folder
+        run: rm -rf unity-ggjj/Assets/Tests/EditModeTests
+
+      - name: Remove unity-ggjj/Assets/Tests/PlayModeTests/Scenes folder
+        run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
+
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v2.0-alpha-6
+        env:
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: unity-ggjj/
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          testMode: PlayMode
+          checkName: Test Results - PlayMode Scripts
+          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
+
+      - name: Upload XML report to Codecov
+        uses: codecov/codecov-action@v2
+        if: ${{ failure() || success() }}
+        with:
+          name: PlayMode Scripts
+          flags: PlayModeScripts
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: unity-ggjj/coverage-results/**/*.xml
+
+      - name: Store test artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() || success() }}
+        with:
+          name: Test Results - PlayMode Scripts
+          path: artifacts
+
+  unityTestPlayModeScenes:
+    name: Run PlayMode Scripts tests for Unity project
+    needs: [checkLicense]
+    if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Remove unity-ggjj/Assets/Tests/EditModeTests folder
+        run: rm -rf unity-ggjj/Assets/Tests/EditModeTests
+
+      - name: Remove unity-ggjj/Assets/Tests/PlayModeTests/Scripts folder
+        run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scripts
+
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v2.0-alpha-6
+        env:
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: unity-ggjj/
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          testMode: PlayMode
+          checkName: Test Results - PlayMode Scenes
+          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
+
+      - name: Upload XML report to Codecov
+        uses: codecov/codecov-action@v2
+        if: ${{ failure() || success() }}
+        with:
+          name: PlayMode Scenes
+          flags: PlayModeScenes
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: unity-ggjj/coverage-results/**/*.xml
+
+      - name: Store test artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() || success() }}
+        with:
+          name: Test Results - PlayMode Scenes
           path: artifacts
 
   unityBuild:
