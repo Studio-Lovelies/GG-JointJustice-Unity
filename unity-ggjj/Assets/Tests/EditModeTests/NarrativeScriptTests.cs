@@ -49,7 +49,7 @@ public class NarrativeScriptTests
             .Callback<string>(line => methodCalls.Add(line));
 
         _ = new NarrativeScript(new TextAsset(story.ToJson()), objectPreloaderMock.Object);
-        
+
         foreach (var uniqueActionLine in uniqueActionLines)
         {
             Assert.AreEqual(1, methodCalls.Count(line => line == uniqueActionLine));
