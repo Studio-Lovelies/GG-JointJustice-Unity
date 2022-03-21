@@ -31,7 +31,16 @@ namespace Editor.Ink
         [UnityEditor.MenuItem("Assets/Validate Narrative Scripts", false, 202)]
         private static void ValidateAllNarrativeScripts()
         {
-            InkLibrary.GetMasterInkFiles().ToList().ForEach(ValidateNarrativeScript);
+            var noErrors = true;
+            foreach (var unused in InkLibrary.GetMasterInkFiles().ToList().Where(inkFile => !ValidateNarrativeScript(inkFile)))
+            {
+                noErrors = false;
+            }
+
+            if (noErrors)
+            {
+                Debug.Log("Narrative Scripts validated without errors");
+            }
         }
 
         /// <summary>
@@ -39,7 +48,7 @@ namespace Editor.Ink
         /// Logs any errors found to the console
         /// </summary>
         /// <param name="inkFile">The Ink file to read</param>
-        private static void ValidateNarrativeScript(InkFile inkFile)
+        private static bool ValidateNarrativeScript(InkFile inkFile)
         {
             var lines = new List<string>();
             var story = new Story(inkFile.jsonAsset.text);
@@ -60,10 +69,7 @@ namespace Editor.Ink
                 }
             }
 
-            if (noErrors)
-            {
-                Debug.Log("Narrative Scripts validated without errors");
-            }
+            return noErrors;
         }
     }
 }
