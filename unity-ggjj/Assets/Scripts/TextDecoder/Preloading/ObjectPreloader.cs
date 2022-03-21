@@ -32,7 +32,7 @@ public class ObjectPreloader : ActionDecoderBase
         LoadObject<AudioClip>($"Audio/SFX/{sfx}");
     }
 
-    protected override void PLAY_SONG(SongAssetName songName, float transitionTime)
+    protected override void PLAY_SONG(SongAssetName songName, float transitionTime = 0)
     {
         LoadObject<AudioClip>($"Audio/Music/{songName}");
     }

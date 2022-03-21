@@ -150,12 +150,12 @@ public class ActionDecoder : ActionDecoderBase
 
     /// <summary>Plays the provided song. Stops the current one. Loops infinitely.</summary>
     /// <param name="songName" validFiles="Assets/Resources/Audio/Music/*.mp3">Filename of a song</param>
-    /// <param name="transitionTime">The time taken to transition between songs</param>
+    /// <param name="optional_transitionTime">(Optional) The time taken to transition between songs</param>
     /// <example>&amp;PLAY_SONG:TurnaboutGrumpsters</example>
     /// <category>Audio</category>
-    protected override void PLAY_SONG(SongAssetName songName, float transitionTime)
+    protected override void PLAY_SONG(SongAssetName songName, float optional_transitionTime = 0)
     {
-        NarrativeGameState.AudioController.PlaySong(NarrativeGameState.ObjectStorage.GetObject<AudioClip>(songName), transitionTime);
+        NarrativeGameState.AudioController.PlaySong(NarrativeGameState.ObjectStorage.GetObject<AudioClip>(songName), optional_transitionTime);
         OnActionDone?.Invoke();
     }
 
@@ -243,6 +243,7 @@ public class ActionDecoder : ActionDecoderBase
         NarrativeGameState.SceneController.SetScene(sceneName);
         OnActionDone?.Invoke();
     }
+    
     /// <summary>Shows the given evidence on the screen in the given position.</summary>
     /// <param name="item" validFiles="Assets/Resources/Evidence/*.asset">Name of item to show</param>
     /// <param name="itemPos">`Left`, `Right` or `Middle`</param>
