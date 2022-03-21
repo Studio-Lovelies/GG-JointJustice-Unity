@@ -74,6 +74,23 @@ namespace Tests.PlayModeTests.Tools
             }
             fieldInfo.SetValue(targetObject, value);
         }
+
+        /// <summary>
+        /// Gets a private field on an object via reflection
+        /// </summary>
+        /// <param name="targetObject">The object with the field to get</param>
+        /// <param name="fieldName">The name of the field to get</param>
+        /// <typeparam name="T">The type to return the found object as</typeparam>
+        /// <returns>The value of the field requested</returns>
+        public static T GetField<T>(object targetObject, string fieldName)
+        {
+            var fieldInfo = targetObject.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+            if (fieldInfo == null)
+            {
+                throw new MissingFieldException($"Could not get field {fieldName} on object {targetObject}");
+            }
+            return (T)fieldInfo.GetValue(targetObject);
+        }
         
         /// <summary>
         /// Loads a narrative script uses it to start the game

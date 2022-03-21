@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Reflection;
 using NUnit.Framework;
+using Tests.PlayModeTests.Tools;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,68 +16,88 @@ namespace Tests.PlayModeTests.Scripts.AudioController
     {
         private const string MUSIC_PATH = "Audio/Music/";
 
+        private AudioSource _audioSource;
+        private global::AudioController _audioController;
+        
+        [UnitySetUp]
+        public IEnumerator SetUp()
+        {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("TestScene", new LoadSceneParameters());
+            var audioControllerGameObject = new GameObject("AudioController");
+            audioControllerGameObject.AddComponent<AudioListener>(); // required to prevent excessive warnings
+            _audioController = audioControllerGameObject.AddComponent<global::AudioController>();
+            _audioController.enabled = true;
+            _audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
+        }
+        
         [UnityTest]
         public IEnumerator AudioController_PlaySong_FadesBetweenSongs()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("TestScene", new LoadSceneParameters());
-            
-            GameObject audioControllerGameObject = new GameObject("AudioController");
-            audioControllerGameObject.AddComponent<AudioListener>(); // required to prevent excessive warnings
-            global::AudioController audioController = audioControllerGameObject.AddComponent<global::AudioController>();
-            audioController.enabled = true;
-            AudioSource audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
-
-            FieldInfo type = audioController.GetType().GetField("_transitionDuration", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (type is null) // needed to satisfy Intellisense's "possible NullReferenceException" in line below conditional
-            {
-                Assert.IsNotNull(type);
-            }
-            float transitionDuration = (float)type.GetValue(audioController);
-
-            FieldInfo settingsMusicVolumeType = audioController.GetType().GetField("_settingsMusicVolume", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (settingsMusicVolumeType is null) // needed to satisfy Intellisense's "possible NullReferenceException" in line below conditional
-            {
-                Assert.IsNotNull(settingsMusicVolumeType);
-            }
-            float settingsMusicVolume = (float)settingsMusicVolumeType.GetValue(audioController);
+            const float TRANSITION_DURATION = 2f;
+            var settingsMusicVolume = TestTools.GetField<float>(_audioController, "_settingsMusicVolume");
 
             // setup and verify steady state of music playing for a while
-            var firstSong = Resources.Load<AudioClip>($"{MUSIC_PATH}aBoyAndHisTrial");
-            audioController.PlaySong(firstSong);
-            yield return new WaitForSeconds(transitionDuration);
+            var firstSong = LoadSong("aBoyAndHisTrial");
+            _audioController.PlaySong(firstSong, TRANSITION_DURATION);
+            yield return new WaitForSeconds(TRANSITION_DURATION);
 
-            Assert.AreEqual(audioSource.volume, settingsMusicVolume);
-            Assert.AreEqual(firstSong.name, audioSource.clip.name);
-
-            // transition into new song
-            var secondSong = Resources.Load<AudioClip>($"{MUSIC_PATH}aKissFromARose");
-            audioController.PlaySong(secondSong);
-            yield return new WaitForSeconds(transitionDuration/10f);
-
-            // expect old song to still be playing, but no longer at full volume, as we're transitioning
-            Assert.AreNotEqual(audioSource.volume, settingsMusicVolume);
-            Assert.AreEqual(firstSong.name, audioSource.clip.name);
-
-            yield return new WaitForSeconds(transitionDuration);
-
-            // expect new song to be playing at full volume, as we're done transitioning
-            Assert.AreEqual(audioSource.volume, settingsMusicVolume);
-            Assert.AreEqual(secondSong.name, audioSource.clip.name);
+            Assert.AreEqual(_audioSource.volume, settingsMusicVolume);
+            Assert.AreEqual(firstSong.name, _audioSource.clip.name);
 
             // transition into new song
-            var thirdSong = Resources.Load<AudioClip>($"{MUSIC_PATH}investigationJoonyer");
-            audioController.PlaySong(thirdSong);
-            yield return new WaitForSeconds(transitionDuration/10f);
+            var secondSong = LoadSong("aKissFromARose");
+            _audioController.PlaySong(secondSong, TRANSITION_DURATION);
+            yield return new WaitForSeconds(TRANSITION_DURATION/10f);
 
             // expect old song to still be playing, but no longer at full volume, as we're transitioning
-            Assert.AreNotEqual(audioSource.volume, settingsMusicVolume);
-            Assert.AreEqual(secondSong.name, audioSource.clip.name);
+            Assert.AreNotEqual(_audioSource.volume, settingsMusicVolume);
+            Assert.AreEqual(firstSong.name, _audioSource.clip.name);
 
-            yield return new WaitForSeconds(transitionDuration);
+            yield return new WaitForSeconds(TRANSITION_DURATION);
 
             // expect new song to be playing at full volume, as we're done transitioning
-            Assert.AreEqual(audioSource.volume, settingsMusicVolume);
-            Assert.AreEqual(thirdSong.name, audioSource.clip.name);
+            Assert.AreEqual(_audioSource.volume, settingsMusicVolume);
+            Assert.AreEqual(secondSong.name, _audioSource.clip.name);
+
+            // transition into new song
+            var thirdSong = LoadSong("investigationJoonyer");
+            _audioController.PlaySong(thirdSong, TRANSITION_DURATION);
+            yield return new WaitForSeconds(TRANSITION_DURATION/10f);
+
+            // expect old song to still be playing, but no longer at full volume, as we're transitioning
+            Assert.AreNotEqual(_audioSource.volume, settingsMusicVolume);
+            Assert.AreEqual(secondSong.name, _audioSource.clip.name);
+
+            yield return new WaitForSeconds(TRANSITION_DURATION);
+
+            // expect new song to be playing at full volume, as we're done transitioning
+            Assert.AreEqual(_audioSource.volume, settingsMusicVolume);
+            Assert.AreEqual(thirdSong.name, _audioSource.clip.name);
+        }
+
+        [UnityTest]
+        public IEnumerator SongsCanBePlayedWithoutFadeIn()
+        {
+            var song = LoadSong("aBoyAndHisTrial");
+            _audioController.PlaySong(song, 0);
+            yield return null;
+            Assert.AreEqual(song.name, _audioSource.clip.name);
+            Assert.AreEqual(TestTools.GetField<float>(_audioController, "_settingsMusicVolume"), _audioSource.volume);
+        }
+
+        [UnityTest]
+        public IEnumerator SongsCanBeFadedOut()
+        {
+            const float TRANSITION_DURATION = 2;
+            yield return SongsCanBePlayedWithoutFadeIn();
+            _audioController.FadeSong(TRANSITION_DURATION);
+            yield return new WaitForSeconds(TRANSITION_DURATION);
+            Assert.AreEqual(0, _audioSource.volume);
+        }
+
+        public static AudioClip LoadSong(string songName)
+        {
+            return Resources.Load<AudioClip>($"{MUSIC_PATH}{songName}");
         }
     }
 }

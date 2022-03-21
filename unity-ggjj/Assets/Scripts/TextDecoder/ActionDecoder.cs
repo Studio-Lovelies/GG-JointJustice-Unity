@@ -150,11 +150,12 @@ public class ActionDecoder : ActionDecoderBase
 
     /// <summary>Plays the provided song. Stops the current one. Loops infinitely.</summary>
     /// <param name="songName" validFiles="Assets/Resources/Audio/Music/*.mp3">Filename of a song</param>
+    /// <param name="transitionTime">The time taken to transition between songs</param>
     /// <example>&amp;PLAY_SONG:TurnaboutGrumpsters</example>
     /// <category>Audio</category>
-    protected override void PLAY_SONG(SongAssetName songName)
+    protected override void PLAY_SONG(SongAssetName songName, float transitionTime)
     {
-        NarrativeGameState.AudioController.PlaySong(NarrativeGameState.ObjectStorage.GetObject<AudioClip>(songName));
+        NarrativeGameState.AudioController.PlaySong(NarrativeGameState.ObjectStorage.GetObject<AudioClip>(songName), transitionTime);
         OnActionDone?.Invoke();
     }
 
@@ -164,6 +165,18 @@ public class ActionDecoder : ActionDecoderBase
     private void STOP_SONG()
     {
         NarrativeGameState.AudioController.StopSong();
+        OnActionDone?.Invoke();
+    }
+
+    /// <summary>
+    /// Fade out the currently playing song over a given time
+    /// </summary>
+    /// <param name="time">The time taken to fade out</param>
+    /// <example>&amp;FADE_SONG:2</example>
+    /// <category>Audio</category>
+    private void FADE_SONG(float time)
+    {
+        NarrativeGameState.AudioController.FadeSong(time);
         OnActionDone?.Invoke();
     }
     #endregion
