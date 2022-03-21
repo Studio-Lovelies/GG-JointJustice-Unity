@@ -92,11 +92,6 @@ public class NarrativeScript : INarrativeScript
             return;
         }
 
-        if (lines.Count != 0)
-        {
-            lines[lines.Count - 1] += "\n";
-        }
-
         lines.Add(string.Empty);
         foreach (var obj in content)
         {
