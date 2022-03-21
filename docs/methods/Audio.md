@@ -12,6 +12,7 @@ Examples:
 ## PLAY_SONG
 Values: 
   - [Filename of a song](../constants.md#SongAssetName)
+  - (Optional) The time taken to transition between songs
 
 ⏲ Instant
 
@@ -28,3 +29,16 @@ If music is currently playing, stop it.
 
 Examples: 
   - `&STOP_SONG`
+
+## FADE_SONG
+Values: 
+  - The time taken to fade out
+
+⏲ Instant
+
+
+Fade out the currently playing song over a given time
+
+
+Examples: 
+  - `&FADE_SONG:2`
