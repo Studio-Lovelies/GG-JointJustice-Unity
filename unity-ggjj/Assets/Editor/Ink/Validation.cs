@@ -31,11 +31,7 @@ namespace Editor.Ink
         [UnityEditor.MenuItem("Assets/Validate Narrative Scripts", false, 202)]
         private static void ValidateAllNarrativeScripts()
         {
-            var noErrors = true;
-            foreach (var unused in InkLibrary.GetMasterInkFiles().ToList().Where(inkFile => !ValidateNarrativeScript(inkFile)))
-            {
-                noErrors = false;
-            }
+            var noErrors = InkLibrary.GetMasterInkFiles().All(inkFile => !ValidateNarrativeScript(inkFile));
 
             if (noErrors)
             {
