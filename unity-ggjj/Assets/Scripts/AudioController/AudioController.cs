@@ -102,7 +102,7 @@ public class AudioController : MonoBehaviour, IAudioController
     {
         if (IsCurrentlyPlayingMusic())
         {
-            yield return FadeOutSong(transitionTime / 2f);
+            yield return FadeOutSongCoroutine(transitionTime / 2f);
         }
 
         SetCurrentTrack(song);
@@ -113,7 +113,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// Coroutine to found out a song over a given time
     /// </summary>
     /// <param name="time">The time taken to fade out</param>
-    private IEnumerator FadeOutSong(float time)
+    private IEnumerator FadeOutSongCoroutine(float time)
     {
         yield return _musicFader.FadeOut(time);
         StopSong();
@@ -134,9 +134,9 @@ public class AudioController : MonoBehaviour, IAudioController
     /// Fade out the currently playing song over a given time
     /// </summary>
     /// <param name="time">The time taken to fade out</param>
-    public void FadeSong(float time)
+    public void FadeOutSong(float time)
     {
-        StartCoroutine(FadeOutSong(time));
+        StartCoroutine(FadeOutSongCoroutine(time));
     }
 
     /// <summary>

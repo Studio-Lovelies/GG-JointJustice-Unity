@@ -176,7 +176,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Audio</category>
     private void FADE_OUT_SONG(float time)
     {
-        NarrativeGameState.AudioController.FadeSong(time);
+        NarrativeGameState.AudioController.FadeOutSong(time);
         OnActionDone?.Invoke();
     }
     #endregion

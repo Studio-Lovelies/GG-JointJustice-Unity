@@ -90,7 +90,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         {
             const float TRANSITION_DURATION = 2;
             yield return SongsCanBePlayedWithoutFadeIn();
-            _audioController.FadeSong(TRANSITION_DURATION);
+            _audioController.FadeOutSong(TRANSITION_DURATION);
             yield return new WaitForSeconds(TRANSITION_DURATION);
             Assert.AreEqual(0, _audioSource.volume);
         }
