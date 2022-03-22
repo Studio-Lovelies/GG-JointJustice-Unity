@@ -58,10 +58,10 @@ public class NarrativeScript : INarrativeScript
     {
         var lines = new List<string>();
         
-        ReadContent(story.mainContentContainer.content, lines);
-        ReadContent(story.mainContentContainer.namedOnlyContent?.Values.ToList(), lines);
+        ReadContent(story.mainContentContainer.content, lines, story);
+        ReadContent(story.mainContentContainer.namedOnlyContent?.Values.ToList(), lines, story);
 
-        var actions = new HashSet<string>(lines.Where(line => line[0] == '&'));
+        var actions = lines.Where(line => line[0] == '&').Distinct();
         foreach (var action in actions)
         {
             try
@@ -84,25 +84,40 @@ public class NarrativeScript : INarrativeScript
     /// </summary>
     /// <param name="content">The Ink container content to read</param>
     /// <param name="lines">A list to add read lines to</param>
-    private static void ReadContent(List<Object> content, List<string> lines)
+    /// <param name="story">The story containing the "content" container</param>
+    public static void ReadContent(List<Object> content, List<string> lines, Story story)
     {
         if (content == null)
         {
             return;
         }
 
+        lines.Add(string.Empty);
         foreach (var obj in content)
         {
             switch (obj)
             {
                 case Container container:
-                    ReadContent(container.content, lines);
+                    ReadContent(container.content, lines, story);
                     break;
                 case StringValue value:
-                    lines.Add(value.ToString());
+                    if (value.ToString() == "\n" && lines.Last() != string.Empty)
+                    {
+                        lines.Add(string.Empty);
+                    }
+                    else if (value.ToString() != "\n")
+                    {
+                        lines[lines.Count - 1] += value.ToString();
+                    }
+                    break;
+                case VariableReference variableReference:
+                    var variableValue = story.variablesState.GetVariableWithName(variableReference.name);
+                    lines[lines.Count - 1] += variableValue;
                     break;
             }
         }
+
+        lines.RemoveAll(line => line == string.Empty);
     }
 
     /// <summary>
