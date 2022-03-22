@@ -172,9 +172,9 @@ public class ActionDecoder : ActionDecoderBase
     /// Fade out the currently playing song over a given time
     /// </summary>
     /// <param name="time">The time taken to fade out</param>
-    /// <example>&amp;FADE_SONG:2</example>
+    /// <example>&amp;FADE_OUT_SONG:2</example>
     /// <category>Audio</category>
-    private void FADE_SONG(float time)
+    private void FADE_OUT_SONG(float time)
     {
         NarrativeGameState.AudioController.FadeSong(time);
         OnActionDone?.Invoke();
