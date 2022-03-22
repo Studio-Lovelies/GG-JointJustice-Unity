@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Ink.Runtime;
 using Ink.UnityIntegration;
 using UnityEditor;
 using UnityEngine;
@@ -11,16 +13,12 @@ namespace Editor.Ink
         /// <summary>
         /// Called when an Ink file is compiled after editing it
         /// </summary>
-        private static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) {
-            foreach (var importedAssetPath in importedAssets)
-            {
-                if (!InkEditorUtils.IsInkFile(importedAssetPath))
-                {
-                    continue;
-                }
-                var inkFile = InkLibrary.GetInkFileWithPath(importedAssetPath);
-                ValidateNarrativeScript(inkFile);
-            }
+        private static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        {
+            var inkFiles = importedAssets.Where(InkEditorUtils.IsInkFile).Select(InkLibrary.GetInkFileWithPath).ToList();
+            if (!inkFiles.Any()) { return; }
+
+            EditorApplication.delayCall += () => FindAndReportErrorsForFiles(inkFiles);
         }
 
         /// <summary>
@@ -29,33 +27,51 @@ namespace Editor.Ink
         [UnityEditor.MenuItem("Assets/Validate Narrative Scripts", false, 202)]
         private static void ValidateAllNarrativeScripts()
         {
-            InkLibrary.GetMasterInkFiles().ToList().ForEach(ValidateNarrativeScript);
+            FindAndReportErrorsForFiles(InkLibrary.GetMasterInkFiles());
+        }
+        
+        /// <summary>
+        /// Uses <see cref="FindErrorsInFile"/> to generate errors for all <see cref="inkFiles"/> and print them to the console
+        /// Prints a log message if the process completed without any errors
+        /// </summary>
+        /// <param name="inkFiles"><see cref="InkFile"/> instances to check lines for errors</param>
+        private static void FindAndReportErrorsForFiles(IEnumerable<InkFile> inkFiles)
+        {
+            var errorsInFiles = inkFiles.Select(FindErrorsInFile).SelectMany(error => error).ToList();
+            errorsInFiles.ForEach(Debug.Log);
+
+            if (!errorsInFiles.Any())
+            {
+                Debug.Log("Narrative Scripts validated without errors");
+            }
         }
 
         /// <summary>
         /// Reads an Ink file and attempts to parse every action.
-        /// Logs any errors found to the console
+        /// Returns a collection of all errors found
         /// </summary>
         /// <param name="inkFile">The Ink file to read</param>
-        private static void ValidateNarrativeScript(InkFile inkFile)
+        private static IEnumerable<string> FindErrorsInFile(InkFile inkFile)
         {
-            var lines = inkFile.GetFileContents().Split('\n');
-            for (var i = 0; i < lines.Length; i++)
+            var errors = new List<string>();
+            
+            var lines = new List<string>();
+            var story = new Story(inkFile.jsonAsset.text);
+            NarrativeScript.ReadContent(story.mainContentContainer.content, lines, story);
+
+            foreach (var line in lines.Where(t => t[0] == ActionDecoderBase.ACTION_TOKEN))
             {
-                if (lines[i] == string.Empty || lines[i][0] != ActionDecoderBase.ACTION_TOKEN)
-                {
-                    continue;
-                }
-                
                 try
                 {
-                    ActionDecoderBase.GenerateInvocationDetails(lines[i], typeof(ActionDecoder));
+                    ActionDecoderBase.GenerateInvocationDetails(line, typeof(ActionDecoder));
                 }
                 catch (Exception exception)
                 {
-                    Debug.LogError($"Error on line {i + 1} of {inkFile}: {exception.Message}");
+                    errors.Add($"Error in {inkFile} on line \"{line}\"\n{exception.Message}");
                 }
             }
+
+            return errors;
         }
     }
 }
