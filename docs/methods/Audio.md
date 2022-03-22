@@ -30,7 +30,7 @@ If music is currently playing, stop it.
 Examples: 
   - `&STOP_SONG`
 
-## FADE_SONG
+## FADE_OUT_SONG
 Values: 
   - The time taken to fade out
 
@@ -41,4 +41,4 @@ Fade out the currently playing song over a given time
 
 
 Examples: 
-  - `&FADE_SONG:2`
+  - `&FADE_OUT_SONG:2`
