@@ -71,7 +71,7 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void PLAY_SONG(SongAssetName songName)
+        protected override void PLAY_SONG(SongAssetName songName, float transitionTime)
         {
             throw new NotImplementedException();
         }

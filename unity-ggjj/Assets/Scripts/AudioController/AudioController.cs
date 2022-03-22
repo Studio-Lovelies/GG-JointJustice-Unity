@@ -19,10 +19,7 @@ public class AudioController : MonoBehaviour, IAudioController
     [Tooltip("SFX Volume level set by player")]
     [Range(0f, 1f)]
     [SerializeField] private float _settingsSfxVolume = 0.5f;
-
-    [Tooltip("Total duration of fade out + fade in")]
-    [Range(0f, 4f)]
-    [SerializeField] private float _transitionDuration = 2f;
+    
     private AudioSource _musicAudioSource;
     private AudioSource _sfxAudioSource;
     private Coroutine _currentFadeCoroutine;
@@ -55,14 +52,15 @@ public class AudioController : MonoBehaviour, IAudioController
     /// Overload for PlaySong which allows songs to be played using a direct reference.
     /// </summary>
     /// <param name="song">The song to play.</param>
-    public void PlaySong(AudioClip song)
+    /// <param name="transitionTime">The time taken to transition</param>
+    public void PlaySong(AudioClip song, float transitionTime)
     {
         if (_currentFadeCoroutine != null)
         {
             StopCoroutine(_currentFadeCoroutine);
         }
 
-        _currentFadeCoroutine = StartCoroutine(FadeToNewSong(song));
+        _currentFadeCoroutine = StartCoroutine(FadeToNewSong(song, transitionTime));
     }
 
     /// <summary>
@@ -99,15 +97,26 @@ public class AudioController : MonoBehaviour, IAudioController
     /// Coroutine to fade to a new song.
     /// </summary>
     /// <param name="song">The song to fade to</param>
-    public IEnumerator FadeToNewSong(AudioClip song)
+    /// <param name="transitionTime">The time taken to transition</param>
+    private IEnumerator FadeToNewSong(AudioClip song, float transitionTime)
     {
         if (IsCurrentlyPlayingMusic())
         {
-            yield return _musicFader.FadeOut(_transitionDuration / 2f);
+            yield return FadeOutSongCoroutine(transitionTime / 2f);
         }
 
         SetCurrentTrack(song);
-        yield return _musicFader.FadeIn(_transitionDuration / 2f);
+        yield return _musicFader.FadeIn(transitionTime / 2f);
+    }
+
+    /// <summary>
+    /// Coroutine to found out a song over a given time
+    /// </summary>
+    /// <param name="time">The time taken to fade out</param>
+    private IEnumerator FadeOutSongCoroutine(float time)
+    {
+        yield return _musicFader.FadeOut(time);
+        StopSong();
     }
 
     /// <summary>
@@ -119,6 +128,15 @@ public class AudioController : MonoBehaviour, IAudioController
         {
             _musicAudioSource.Stop();
         }
+    }
+
+    /// <summary>
+    /// Fade out the currently playing song over a given time
+    /// </summary>
+    /// <param name="time">The time taken to fade out</param>
+    public void FadeOutSong(float time)
+    {
+        StartCoroutine(FadeOutSongCoroutine(time));
     }
 
     /// <summary>
