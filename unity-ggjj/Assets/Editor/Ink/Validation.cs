@@ -15,8 +15,10 @@ namespace Editor.Ink
         /// </summary>
         private static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
-            Debug.Log("A");
-            FindAndReportErrorsForFiles(importedAssets.Where(InkEditorUtils.IsInkFile).Select(InkLibrary.GetInkFileWithPath));
+            var inkFiles = importedAssets.Where(InkEditorUtils.IsInkFile).Select(InkLibrary.GetInkFileWithPath).ToList();
+            if (!inkFiles.Any()) { return; }
+
+            EditorApplication.delayCall += () => FindAndReportErrorsForFiles(inkFiles);
         }
 
         /// <summary>
@@ -35,10 +37,7 @@ namespace Editor.Ink
         /// <param name="inkFiles"><see cref="InkFile"/> instances to check lines for errors</param>
         private static void FindAndReportErrorsForFiles(IEnumerable<InkFile> inkFiles)
         {
-            var inkFileList = inkFiles.ToList();
-            if (!inkFileList.Any()) { return; }
-            
-            var errorsInFiles = inkFileList.Select(FindErrorsInFile).SelectMany(error => error).ToList();
+            var errorsInFiles = inkFiles.Select(FindErrorsInFile).SelectMany(error => error).ToList();
             errorsInFiles.ForEach(Debug.Log);
 
             if (!errorsInFiles.Any())
