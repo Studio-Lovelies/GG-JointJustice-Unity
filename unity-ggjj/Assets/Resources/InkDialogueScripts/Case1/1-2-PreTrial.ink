@@ -1,6 +1,6 @@
 INCLUDE ../Colors.ink
 
-&PLAY_SONG:turnaboutGrumpsters
+&PLAY_SONG:turnaboutGrumpsters,2
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
 <color={blue}>(It started out just like every time after our livestream.)
@@ -15,7 +15,7 @@ INCLUDE ../Colors.ink
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Dan
-So that's when I said, “that's not mayonnaise!”
+So that's when I said, "that's not mayonnaise!"
 And everyone immediately and violently threw up.
 It was one hell of a graduation party, dude.
 
@@ -156,7 +156,7 @@ Huh?<br>Jory?
 
 &ADD_RECORD:Jory
 
-&PLAY_SONG:prelude6969
+&PLAY_SONG:prelude6969,2
 &ACTOR:Jory
 &SET_POSE:Sweaty
 &WAIT:2
@@ -183,7 +183,7 @@ The problem is...<br>apparently they were found in <color=\#990a1d>MY backpack</
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:damage1
 &ACTOR:Dan
-&SET_POSE:Shocked_ani
+&SET_POSE:ShockAnimation
 &DIALOGUE_SPEED:0.02
 &SPEAK:Dan
 What?
@@ -387,7 +387,7 @@ You've gotta be kidding me.
 
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
-<color=green>“I've heard what happened to my son with the dinosaurs.”</color>
+<color=green>"I've heard what happened to my son with the dinosaurs."</color>
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Dan
@@ -400,7 +400,7 @@ Don't think about it too hard, Dan. Anyways...
 &DIALOGUE_SPEED:0.06
 <color=green>"While I know it looks bad, I know my son is a good boy who only does good things."</color>
 <color=green>"I know you know that too.<br>So please, defend him in court."</color>
-<color=green>"Show the world he is innocent of such a heinous and despicable crime and find out who the real culprit is.”</color>
+<color=green>"Show the world he is innocent of such a heinous and despicable crime and find out who the real culprit is."</color>
 <color=green>"P.S. Remember, the second most important thing to winning this case is love and trust!"</color>
 
 &DIALOGUE_SPEED:0.04
@@ -420,13 +420,13 @@ Wow... that was... beautiful?
 &SPEAK:Arin
 Wait, there's one more thing.
 &DIALOGUE_SPEED:0.06
-<color=green>“P.P.S. I hope you two have been continuing to provide my boy with wholesome food as well.”</color>
-<color=green>“And I hope you've been avoiding giving him </color><color=\#990a1d>milk</color><color=green> as he's </color><color=\#990a1d>deathly allergic</color><color=green> to it.”</color>
+<color=green>"P.P.S. I hope you two have been continuing to provide my boy with wholesome food as well."</color>
+<color=green>"And I hope you've been avoiding giving him </color><color=\#990a1d>milk</color><color=green> as he's </color><color=\#990a1d>deathly allergic</color><color=green> to it."</color>
 
 &DIALOGUE_SPEED:0.04
 Well that was oddly specific.
 &DIALOGUE_SPEED:0.06
-<color=green>“P.P.P.S. don't tell Jory this, but I hope he can be on your show again soon!”</color>
+<color=green>"P.P.P.S. don't tell Jory this, but I hope he can be on your show again soon!"</color>
 
 &SPEAK:Dan
 Huh...
@@ -469,7 +469,7 @@ Yep! I have no doubt we'll clear your good name, Jory!
 
 &ACTOR:Jory
 &SPEAK:Jory
-Wow, thanks guys!<br>I guess I'll head to the, uh, <color=\#990a1d>“Courtroom”</color> then.
+Wow, thanks guys!<br>I guess I'll head to the, uh, <color=\#990a1d>"Courtroom"</color> then.
 &SET_POSE:Thinking
 They turned the Power Hour room into a makeshift courtroom just for this.
 &SET_POSE:Normal
@@ -531,6 +531,7 @@ And I just got a new suit that I think will be perfect.
 &CONTINUE_DIALOGUE
 You're gonna love it.
 
+&HIDE_TEXTBOX
 &FADE_OUT:2
-&PLAY_SONG:None
+&FADE_OUT_SONG:2
 &WAIT:2

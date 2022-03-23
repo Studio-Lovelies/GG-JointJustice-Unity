@@ -38,7 +38,7 @@ namespace Editor.Ink
         private static void FindAndReportErrorsForFiles(IEnumerable<InkFile> inkFiles)
         {
             var errorsInFiles = inkFiles.Select(FindErrorsInFile).SelectMany(error => error).ToList();
-            errorsInFiles.ForEach(Debug.Log);
+            errorsInFiles.ForEach(Debug.LogError);
 
             if (!errorsInFiles.Any())
             {
