@@ -12,9 +12,11 @@ INCLUDE ../Templates/SceneInitialization.ink
 <color=green><align=center>Some Undisclosed Date, 3:30PM<br>10 Minute Power Hour Courthouse
 
 &HIDE_TEXTBOX
-&SCENE:TMPH_WideShot
+&PLAY_SFX:mutter
+&SCENE:TMPHWideShot
 &FADE_IN:0
 &WAIT:2
+&PLAY_SFX:gavel
 &PLAY_ANIMATION:GavelHit
 
 &PLAY_SONG:aBoyAndHisTrial
@@ -24,7 +26,7 @@ INCLUDE ../Templates/SceneInitialization.ink
 &SPEAK:JudgeBrent
 Court is now in session for the trial of Jory Griffis.
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &SPEAK:Arin
 The defense is ready, Your H-
 
@@ -47,7 +49,7 @@ So I will preside over this case for you all today.
 
 &ADD_RECORD:JudgeBrent
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SET_POSE:SideNormal
 &SPEAK:Dan
 Well, I suppose that's fine. I mean, Brent is pretty fair in general.
@@ -69,16 +71,16 @@ He just happened to be visiting this week.
 &SPEAK_UNKNOWN:TutorialBoy
 Mr. Hanson and Mr. Avidan... So we meet at last!
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &THINK:Arin
 <color=lightblue>(Who exactly is this? He seems familiar but I can't put my finger on how...)
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SPEAK:Dan
 Wait, doesn't he kind of look like...
 
-&PLAY_SFX:dramapound
-&SCENE:TMPH_Court
+&PLAY_SFX:DramaPound
+&SCENE:TMPHCourt
 &HIDE_TEXTBOX
 &PLAY_EMOTION:ShockAnimation
 &SET_POSE:Sweaty
@@ -138,19 +140,19 @@ IT WILL BEGIN NOW!
 &SET_POSE:Normal
 The prosecution will now give their opening statement!
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &JUMP_TO_POSITION:3
 &SET_POSE:Normal
 &FADE_OUT_SONG:2
 &SPEAK:TutorialBoy
 Of course, Your Honor.
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SPEAK:Dan
 This is easily the stupidest thing I've ever done.
 
 &PLAY_SONG:logicAndTrains
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &SPEAK:TutorialBoy
 At about 12:00 PM, the Game Grumps and crew were partaking in a livestream.
 A recording of the livestream COULD be added to the court record, if you riddle m-
@@ -203,23 +205,23 @@ A quick search and a few minutes later, they were suspiciously found in THIS bac
 &SPEAK:Arin
 The heck is that <color={red}>white stain</color> there?
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SET_POSE:SideLaughing
 &SPEAK:Dan
 Maybe Jory took the NSP song “Objects of Desire” as inspiration.<br>Know what I mean?
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &JUMP_TO_POSITION:3
 &SET_POSE:Angry
 &SPEAK:TutorialBoy
 Unfortunately, we ALL know what you mean, “Mr. Sexbang”...
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SET_POSE:Normal
 &SPEAK:Dan
 That's “Mr. Business” to you, sir.
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &DIALOGUE_SPEED:0.06
 &SPEAK:TutorialBoy
 Yes...<br>Quite...<br>Indeed.
@@ -260,18 +262,18 @@ Hm... Yes, that seems to be a very solid opening statement.
 You may call your first witness, Mr. Boy.
 &PLAY_SONG:aBoyAndHisTrial
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &SET_POSE:Normal
 &SPEAK:TutorialBoy
 Yes, Your Honor. I would now like to call said defendant, Jory Griffis, to the stand!
 
-# &OBJECTION
+&OBJECTION:Arin
 &SET_POSE:Point,Arin
 &PAN_TO_POSITION:1,{doublePanTime}
 &SPEAK:Arin
 Wait, you can't do that! It violates the Fifth Amendment!
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SET_POSE:SideNormal
 &SPEAK:Dan
 Yeah! Wait, is this even a real courthouse?
