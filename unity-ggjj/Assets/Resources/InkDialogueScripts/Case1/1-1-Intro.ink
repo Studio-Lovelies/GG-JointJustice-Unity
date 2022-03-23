@@ -39,5 +39,7 @@ Now this is a galaxy-brain move right here!
 &PLAY_SFX:RossEvilLaugh
 &WAIT:2
 
+&LOAD_SCRIPT:Case1/1-2-PreTrial
+
     -> END
 

@@ -1,14 +1,13 @@
-=== COURT ===
+=== COURT_TMPH ===
 
-= TMPH
 &HIDE_TEXTBOX
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &ACTOR:Dan
-&SCENE:TMPH_Judge
-&ACTOR:Brent_Judge
-&SCENE:TMPH_Court
+&SCENE:TMPHJudge
+&ACTOR:JudgeBrent
+&SCENE:TMPHCourt
 &SET_ACTOR_POSITION:1,Arin
 &SET_ACTOR_POSITION:2,Ross
-&SET_ACTOR_POSITION:3,Tutorial_Boy
+&SET_ACTOR_POSITION:3,TutorialBoy
 
 -> DONE
