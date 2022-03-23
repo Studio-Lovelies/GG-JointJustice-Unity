@@ -66,9 +66,10 @@ public class ObjectPreloaderTests
         foreach (var genericResource in resourcesInsidePath)
         {
             var actorPositionParameter = action == "SET_ACTOR_POSITION" ? "1," : "";
+            var playSongParameter = action == "PLAY_SONG" ? ",2" : "";
             
             var typeSpecificResource = (T)genericResource;
-            _objectPreloader.InvokeMatchingMethod($"&{action}:{actorPositionParameter}{typeSpecificResource.name}");
+            _objectPreloader.InvokeMatchingMethod($"&{action}:{actorPositionParameter}{typeSpecificResource.name}{playSongParameter}");
             var storedActor = _objectStorage.GetObject<T>(typeSpecificResource.name);
             Assert.AreEqual(storedActor, typeSpecificResource);
         }

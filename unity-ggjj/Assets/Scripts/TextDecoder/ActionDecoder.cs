@@ -150,11 +150,12 @@ public class ActionDecoder : ActionDecoderBase
 
     /// <summary>Plays the provided song. Stops the current one. Loops infinitely.</summary>
     /// <param name="songName" validFiles="Assets/Resources/Audio/Music/*.mp3">Filename of a song</param>
+    /// <param name="optional_transitionTime">(Optional) The time taken to transition between songs</param>
     /// <example>&amp;PLAY_SONG:TurnaboutGrumpsters</example>
     /// <category>Audio</category>
-    protected override void PLAY_SONG(SongAssetName songName)
+    protected override void PLAY_SONG(SongAssetName songName, float optional_transitionTime = 0)
     {
-        NarrativeGameState.AudioController.PlaySong(NarrativeGameState.ObjectStorage.GetObject<AudioClip>(songName));
+        NarrativeGameState.AudioController.PlaySong(NarrativeGameState.ObjectStorage.GetObject<AudioClip>(songName), optional_transitionTime);
         OnActionDone?.Invoke();
     }
 
@@ -164,6 +165,18 @@ public class ActionDecoder : ActionDecoderBase
     private void STOP_SONG()
     {
         NarrativeGameState.AudioController.StopSong();
+        OnActionDone?.Invoke();
+    }
+
+    /// <summary>
+    /// Fade out the currently playing song over a given time
+    /// </summary>
+    /// <param name="time">The time taken to fade out</param>
+    /// <example>&amp;FADE_OUT_SONG:2</example>
+    /// <category>Audio</category>
+    private void FADE_OUT_SONG(float time)
+    {
+        NarrativeGameState.AudioController.FadeOutSong(time);
         OnActionDone?.Invoke();
     }
     #endregion
@@ -230,6 +243,7 @@ public class ActionDecoder : ActionDecoderBase
         NarrativeGameState.SceneController.SetScene(sceneName);
         OnActionDone?.Invoke();
     }
+    
     /// <summary>Shows the given evidence on the screen in the given position.</summary>
     /// <param name="item" validFiles="Assets/Resources/Evidence/*.asset">Name of item to show</param>
     /// <param name="itemPos">`Left`, `Right` or `Middle`</param>
