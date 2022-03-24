@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,13 +10,24 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
     public class EvidenceMenuTest
     {
-        protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
         protected NarrativeScriptPlayerComponent NarrativeScriptPlayerComponent { get; private set; }
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
-        protected StoryProgresser StoryProgresser { get; private set; }
+        protected StoryProgresser _storyProgresser = new StoryProgresser();
+
+        [SetUp]
+        public void Setup()
+        {
+            _storyProgresser.Setup();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _storyProgresser.TearDown();
+        }
 
         [UnitySetUp]
         public IEnumerator SetUp()
@@ -23,7 +35,6 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return SceneManager.LoadSceneAsync("Game");
             TestTools.StartGame("AddRecordTest");
 
-            StoryProgresser = new StoryProgresser();
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
             NarrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
@@ -58,7 +69,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected IEnumerator PressZ()
         {
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.zKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.zKey);
         }
     }
 }

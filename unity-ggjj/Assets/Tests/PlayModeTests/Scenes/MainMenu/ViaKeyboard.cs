@@ -2,7 +2,6 @@
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -12,14 +11,27 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
     public class ViaKeyboard
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
-        private Keyboard Keyboard => _inputTestTools.Keyboard;
+        private Keyboard Keyboard;
+
+        [SetUp]
+        public void Setup()
+        {
+            _inputTestTools.Setup();
+            Keyboard = _inputTestTools.Keyboard;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _inputTestTools.TearDown();
+        }
 
         [UnitySetUp]
-        public IEnumerator SetUp()
+        public IEnumerator UnitySetUp()
         {
             yield return SceneManager.LoadSceneAsync("MainMenu");
         }
-        
+
         [UnityTest]
         public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
         {
