@@ -1,141 +1,143 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
+INCLUDE ../Templates/Macros.ink
 
 <- COURT_TMPH
+
 
 &SET_ACTOR_POSITION:2,Jory
 &JUMP_TO_POSITION:2
 &SET_POSE:Nervous
 
 &FADE_IN:2
-&WAIT:2
-
 &PLAY_SONG:logicAndTrains
 
-&PAN_TO_POSITION:3,{panTime}
-&DIALOGUE_SPEED:0.06
-&SPEAK:Tutorial_Boy
-&AUTO_SKIP:True
-Witness, state y-
-&AUTO_SKIP:False
+// <- WitnessTestimony
 
-&SHAKE_SCREEN:0.25,0.2
-&PLAY_SFX:supershock
-&JUMP_TO_POSITION:2
-&SET_POSE:Sweaty
-&DIALOGUE_SPEED:0.02
-&SPEAK:Jory
-I'm sorry! Please forgive me!!!
+// &PAN_TO_POSITION:3,{panTime}
+// &DIALOGUE_SPEED:0.06
+// &SPEAK:Tutorial_Boy
+// &AUTO_SKIP:True
+// Witness, state y-
+// &AUTO_SKIP:False
 
-&JUMP_TO_POSITION:1
-&SET_POSE:Sweaty
-&PLAY_SFX:stab
-&SPEAK:Arin
-Jory, WHAT THE HECK!
+// &SHAKE_SCREEN:0.25,0.2
+// &PLAY_SFX:supershock
+// &JUMP_TO_POSITION:2
+// &SET_POSE:Sweaty
+// &DIALOGUE_SPEED:0.02
+// &SPEAK:Jory
+// I'm sorry! Please forgive me!!!
 
-&JUMP_TO_POSITION:2
-&SET_POSE:Nervous
-&DIALOGUE_SPEED:0.06
-&SPEAK:Jory
-Ah, jeez...
+// &JUMP_TO_POSITION:1
+// &SET_POSE:Sweaty
+// &PLAY_SFX:stab
+// &SPEAK:Arin
+// Jory, WHAT THE HECK!
 
-&JUMP_TO_POSITION:1
-&SPEAK:Arin
-Just take a deep breath and answer the questions.
+// &JUMP_TO_POSITION:2
+// &SET_POSE:Nervous
+// &DIALOGUE_SPEED:0.06
+// &SPEAK:Jory
+// Ah, jeez...
 
-&JUMP_TO_POSITION:2
-&SPEAK:Jory
-O-Okay...
+// &JUMP_TO_POSITION:1
+// &SPEAK:Arin
+// Just take a deep breath and answer the questions.
 
-&JUMP_TO_POSITION:1
-&DIALOGUE_SPEED:0.04
-&THINK:Arin
-<color=lightblue>(This is gonna be rough, I can already tell...)
+// &JUMP_TO_POSITION:2
+// &SPEAK:Jory
+// O-Okay...
 
-&HIDE_TEXTBOX
-&PAN_TO_POSITION:3,{doublePanTime}
-&PLAY_SFX:damage1
-&PLAY_EMOTION:HeadSlam
-&SET_POSE:Angry
-&PLAY_SFX:stab2
-&DIALOGUE_SPEED:0.02
-&SPEAK:Tutorial_Boy
-WITNESS!
+// &JUMP_TO_POSITION:1
+// &DIALOGUE_SPEED:0.04
+// &THINK:Arin
+// <color=lightblue>(This is gonna be rough, I can already tell...)
 
-&JUMP_TO_POSITION:2
-&SET_POSE:Sweaty
-&SPEAK:Jory
-AHHH!
+// &HIDE_TEXTBOX
+// &PAN_TO_POSITION:3,{doublePanTime}
+// &PLAY_SFX:damage1
+// &PLAY_EMOTION:HeadSlam
+// &SET_POSE:Angry
+// &PLAY_SFX:stab2
+// &DIALOGUE_SPEED:0.02
+// &SPEAK:Tutorial_Boy
+// WITNESS!
 
-&JUMP_TO_POSITION:3
-&SET_POSE:Normal
-&DIALOGUE_SPEED:0.04
-&SPEAK:Tutorial_Boy
-I have questions about the time before the incident, and you will answer!
+// &JUMP_TO_POSITION:2
+// &SET_POSE:Sweaty
+// &SPEAK:Jory
+// AHHH!
 
-&JUMP_TO_POSITION:2
-&SET_POSE:Nervous
-&DIALOGUE_SPEED:0.06
-&SPEAK:Jory
-Ah... Jeez... Okay.
+// &JUMP_TO_POSITION:3
+// &SET_POSE:Normal
+// &DIALOGUE_SPEED:0.04
+// &SPEAK:Tutorial_Boy
+// I have questions about the time before the incident, and you will answer!
 
-&JUMP_TO_POSITION:3
-&DIALOGUE_SPEED:0.04
-&SPEAK:Tutorial_Boy
-When the console broke, you yourself were the first to volunteer to go get a backup console, were you not?
+// &JUMP_TO_POSITION:2
+// &SET_POSE:Nervous
+// &DIALOGUE_SPEED:0.06
+// &SPEAK:Jory
+// Ah... Jeez... Okay.
 
-&JUMP_TO_POSITION:2
-&SET_POSE:Thinking
-&SPEAK:Jory
-Well, it's sort of my job to help with technical issues, but-
+// &JUMP_TO_POSITION:3
+// &DIALOGUE_SPEED:0.04
+// &SPEAK:Tutorial_Boy
+// When the console broke, you yourself were the first to volunteer to go get a backup console, were you not?
 
-&HIDE_TEXTBOX
-&PAN_TO_POSITION:3,{panTime}
-&SPEAK:Tutorial_Boy
-So you ADMIT that you jumped on the opportunity to be the one to do the grunt work for the Grumps?
-How suspicious! Surely there were other, less busy people who could have gotten it, but you didn't hesitate!
+// &JUMP_TO_POSITION:2
+// &SET_POSE:Thinking
+// &SPEAK:Jory
+// Well, it's sort of my job to help with technical issues, but-
 
-&JUMP_TO_POSITION:2
-&SET_POSE:Nervous
-&SPEAK:Jory
-&AUTO_SKIP:True
-Yeah... I guess I didn't... but again it's part of my jo-
-&AUTO_SKIP:False
+// &HIDE_TEXTBOX
+// &PAN_TO_POSITION:3,{panTime}
+// &SPEAK:Tutorial_Boy
+// So you ADMIT that you jumped on the opportunity to be the one to do the grunt work for the Grumps?
+// How suspicious! Surely there were other, less busy people who could have gotten it, but you didn't hesitate!
 
-&HIDE_TEXTBOX
-&PAN_TO_POSITION:3,{panTime}
-&SHAKE_SCREEN:0.25,0.2
-&PLAY_SFX:damage1
-&PLAY_EMOTION:HeadSlam
-&SET_POSE:Angry
-&DIALOGUE_SPEED:0.02
-&SPEAK:Tutorial_Boy
-AH-HAH!
+// &JUMP_TO_POSITION:2
+// &SET_POSE:Nervous
+// &SPEAK:Jory
+// &AUTO_SKIP:True
+// Yeah... I guess I didn't... but again it's part of my jo-
+// &AUTO_SKIP:False
 
-&JUMP_TO_POSITION:2
-&SET_POSE:Sweaty
-&PLAY_SFX:stab
-&SPEAK:Jory
-YIKES!!!
+// &HIDE_TEXTBOX
+// &PAN_TO_POSITION:3,{panTime}
+// &SHAKE_SCREEN:0.25,0.2
+// &PLAY_SFX:damage1
+// &PLAY_EMOTION:HeadSlam
+// &SET_POSE:Angry
+// &DIALOGUE_SPEED:0.02
+// &SPEAK:Tutorial_Boy
+// AH-HAH!
 
-&JUMP_TO_POSITION:1
-&DIALOGUE_SPEED:0.04
-&THINK:Arin
-<color=lightblue>(Dang! This guy is intense!)
+// &JUMP_TO_POSITION:2
+// &SET_POSE:Sweaty
+// &PLAY_SFX:stab
+// &SPEAK:Jory
+// YIKES!!!
 
-&JUMP_TO_POSITION:3
-&SPEAK:Tutorial_Boy
-Suspicious behavior indeed!
-Especially since,  according to the livestream recording here, you were busy cleaning your Good Boy Coins.
-Is this correct?
+// &JUMP_TO_POSITION:1
+// &DIALOGUE_SPEED:0.04
+// &THINK:Arin
+// <color=lightblue>(Dang! This guy is intense!)
 
-&SCENE:TMPH_Assistant
-&SET_POSE:Fist
-&SPEAK:Dan
-Dude, what do his coins have to do with this? And what's with this guilt tripping over being helpful?
-&SET_POSE:Angry
-You should say something, Arin.
+// &JUMP_TO_POSITION:3
+// &SPEAK:Tutorial_Boy
+// Suspicious behavior indeed!
+// Especially since,  according to the livestream recording here, you were busy cleaning your Good Boy Coins.
+// Is this correct?
+
+// &SCENE:TMPH_Assistant
+// &SET_POSE:Fist
+// &SPEAK:Dan
+// Dude, what do his coins have to do with this? And what's with this guilt tripping over being helpful?
+// &SET_POSE:Angry
+// You should say something, Arin.
 
 &SCENE:TMPH_Court
 &JUMP_TO_POSITION:1

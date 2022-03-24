@@ -73,7 +73,7 @@ public class MenuOpener : MonoBehaviour
         {
             MenuToOpen.SelectInitialButton();
         }
-
+        
         _onMenuOpened.Invoke();
     }
     
@@ -109,7 +109,7 @@ public class MenuOpener : MonoBehaviour
         {
             _cachedSelectedButtonAfterClose = MenuToOpen.SelectedButton;
         }
-
+        
         _onMenuClosed.Invoke();
 
         _menuCannotBeOpened = false;
