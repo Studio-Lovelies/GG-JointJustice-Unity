@@ -14,8 +14,10 @@ INCLUDE ../Templates/SceneInitialization.ink
 &HIDE_TEXTBOX
 &PLAY_SFX:mutter
 &SCENE:TMPHWideShot
+&HIDE_ACTOR
 &FADE_IN:0
 &WAIT:2
+&SHOW_ACTOR
 &PLAY_SFX:gavel
 &PLAY_ANIMATION:GavelHit
 
