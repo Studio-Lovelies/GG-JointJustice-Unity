@@ -1,8 +1,8 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
-INCLUDE ../SceneInitialization.ink
+INCLUDE ../Templates/SceneInitialization.ink
 
-<- COURT.TMPH
+<- COURT_TMPH
 
 &SET_ACTOR_POSITION:2,Jory
 &JUMP_TO_POSITION:2
