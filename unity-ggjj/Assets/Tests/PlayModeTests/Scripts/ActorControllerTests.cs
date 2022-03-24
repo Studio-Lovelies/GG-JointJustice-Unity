@@ -10,28 +10,41 @@ using UnityEngine.UI;
 
 namespace Tests.PlayModeTests.Scripts.ActorController
 {
-    public class ActorControllerTests
+    public class ActorControllerTests : StoryProgresser
     {
         const string TALKING_PARAMETER_NAME = "Talking";
         
-        private readonly InputTestTools _inputTestTools = new InputTestTools();
-        private StoryProgresser _storyProgresser;
         private global::ActorController _actorController;
         private Animator _witnessAnimator;
 
-        [UnitySetUp]
-        public IEnumerator SetUp()
+        public override void Setup()
         {
+        }
+
+        public override void TearDown()
+        {
+        }
+
+        [UnitySetUp]
+        public IEnumerator UnitySetUp()
+        {
+            base.Setup();
+
             SceneManager.LoadScene("Game");
             yield return null;
             TestTools.StartGame("ActorControllerTestScript");
 
-            _storyProgresser = new StoryProgresser();
             _actorController = Object.FindObjectOfType<global::ActorController>();
             
-            yield return _storyProgresser.ProgressStory();
+            yield return ProgressStory();
             _witnessAnimator = GameObject.Find("Witness_Actor").GetComponent<Actor>().GetComponent<Animator>();
             AssertIsNotTalking(_witnessAnimator);
+        }
+
+        [UnityTearDown]
+        public void UnityTearDown()
+        {
+            base.TearDown();
         }
 
         [UnityTest]
@@ -48,7 +61,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator ActorsAreSetToTalkingOnDialogueStart()
         {
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return PressForFrame(Keyboard.xKey);
             AssertIsTalking(_witnessAnimator);
         }
 
@@ -56,7 +69,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         public IEnumerator ActorsAreSetToNotTalkingOnDialogueEnd()
         {
             yield return ActorsAreSetToTalkingOnDialogueStart();
-            yield return _storyProgresser.ProgressStory();
+            yield return ProgressStory();
             AssertIsNotTalking(_witnessAnimator);
         }
 
@@ -65,7 +78,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         {
             var prosecutionAnimator =  GameObject.Find("Prosecution_Actor").GetComponent<Actor>().GetComponent<Animator>();
             _actorController.SetActiveSpeaker("TutorialBoy", SpeakingType.Speaking);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return PressForFrame(Keyboard.xKey);
             AssertIsTalking(prosecutionAnimator);
             AssertIsNotTalking(_witnessAnimator);
         }
@@ -83,7 +96,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         public IEnumerator SpeakerCanBeSetToThinking()
         {
             _actorController.SetActiveSpeaker("Arin", SpeakingType.Thinking);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return PressForFrame(Keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
             AssertNameBoxCorrect();
         }
@@ -94,7 +107,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
             var nameBox = Object.FindObjectOfType<NameBox>().gameObject;
 
             _actorController.SetActiveSpeakerToNarrator();
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return PressForFrame(Keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
             Assert.IsFalse(nameBox.activeInHierarchy);
         }
@@ -135,7 +148,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         public IEnumerator ActorNotInTheSceneCanSpeak()
         {
             _actorController.SetActiveSpeaker("Dan", SpeakingType.Speaking);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return PressForFrame(Keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
             AssertNameBoxCorrect();
         }

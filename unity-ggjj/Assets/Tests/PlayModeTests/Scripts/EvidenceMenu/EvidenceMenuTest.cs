@@ -7,23 +7,20 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
-    public class EvidenceMenuTest
+    public class EvidenceMenuTest : StoryProgresser
     {
-        protected InputTestTools InputTestTools { get; } = new InputTestTools();
         protected EvidenceController EvidenceController { get; private set; }
         protected NarrativeScriptPlayerComponent NarrativeScriptPlayerComponent { get; private set; }
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
-        protected StoryProgresser StoryProgresser { get; private set; }
 
         [UnitySetUp]
-        public IEnumerator SetUp()
+        public IEnumerator UnitySetUp()
         {
             yield return SceneManager.LoadSceneAsync("Game");
             TestTools.StartGame("AddRecordTest");
 
-            StoryProgresser = new StoryProgresser();
             EvidenceController = Object.FindObjectOfType<EvidenceController>();
             NarrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
@@ -32,6 +29,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             var dialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !dialogueController.IsPrintingText);
         }
+
 
         protected ActorData[] AddProfiles()
         {
@@ -58,7 +56,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected IEnumerator PressZ()
         {
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.zKey);
+            yield return PressForFrame(Keyboard.zKey);
         }
     }
 }

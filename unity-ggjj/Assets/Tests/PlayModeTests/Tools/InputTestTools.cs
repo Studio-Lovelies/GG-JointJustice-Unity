@@ -13,8 +13,24 @@ namespace Tests.PlayModeTests.Tools
     /// </summary>
     public class InputTestTools : InputTestFixture
     {
-        public Keyboard Keyboard { get; } = InputSystem.GetDevice<Keyboard>();
-        public Mouse Mouse { get; } = InputSystem.GetDevice<Mouse>();
+        public override void Setup()
+        {
+            base.Setup();
+
+            Keyboard = InputSystem.AddDevice<Keyboard>("keyboardMock");
+            Mouse = InputSystem.AddDevice<Mouse>("mouseMock");
+        }
+
+        public override void TearDown()
+        {
+            InputSystem.RemoveDevice(Mouse);
+            InputSystem.RemoveDevice(Keyboard);
+
+            base.TearDown();
+        }
+
+        public Keyboard Keyboard;
+        public Mouse Mouse;
 
         private EditorWindow _gameViewWindow;
 

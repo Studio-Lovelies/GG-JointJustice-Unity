@@ -9,31 +9,26 @@ using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scenes.CrossExamination
 {
-    public class ViaKeyboard
+    public class ViaKeyboard : StoryProgresser
     {
-        private readonly InputTestTools _inputTestTools = new InputTestTools();
         private NarrativeScriptPlayerComponent _narrativeScriptPlayerComponent;
-        private StoryProgresser _storyProgresser;
-
-        private Keyboard Keyboard => _inputTestTools.Keyboard;
 
         [UnitySetUp]
-        public IEnumerator SetUp()
+        public IEnumerator UnitySetUp()
         {
             yield return SceneManager.LoadSceneAsync("Game");
             TestTools.StartGame("RossCoolX");
             _narrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
-            _storyProgresser = new StoryProgresser();
         }
-        
+
         [UnityTest]
         public IEnumerator CanPresentEvidenceDuringExamination()
         {
-            yield return _storyProgresser.ProgressStory();
+            yield return ProgressStory();
             EvidenceMenu evidenceMenu = Object.FindObjectOfType<EvidenceMenu>(true);
-            yield return _inputTestTools.PressForFrame(Keyboard.zKey);
+            yield return PressForFrame(Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
             Assert.IsTrue(_narrativeScriptPlayerComponent.NarrativeScriptPlayer.HasSubStory);
         }
@@ -42,16 +37,16 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         public IEnumerator CantPresentEvidenceDuringExaminationDialogue()
         {
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
-            yield return _storyProgresser.ProgressStory();
-            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
+            yield return ProgressStory();
+            yield return WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
             Assert.IsTrue(_narrativeScriptPlayerComponent.NarrativeScriptPlayer.HasSubStory);
 
-            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
+            yield return WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
         }
 
@@ -60,14 +55,14 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         { 
             var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             
-            yield return _storyProgresser.ProgressStory();
-            yield return _inputTestTools.PressForFrame(Keyboard.cKey);
+            yield return ProgressStory();
+            yield return PressForFrame(Keyboard.cKey);
             yield return TestTools.WaitForState(() => !narrativeScriptPlayer.NarrativeScriptPlayer.Waiting);
 
             EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
-            yield return _inputTestTools.WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
+            yield return WaitForBehaviourActiveAndEnabled(evidenceMenu, Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return PressForFrame(Keyboard.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
         }
 
@@ -75,18 +70,17 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         public IEnumerator GameOverPlaysOnNoLivesLeft()
         {
             var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
-            var storyProgresser = new StoryProgresser();
             
             for (int i = penaltyManager.PenaltiesLeft; i > 0; i--)
             {
                 yield return TestTools.WaitForState(() => _narrativeScriptPlayerComponent.NarrativeScriptPlayer.CanPressWitness);
 
                 Assert.AreEqual(i, penaltyManager.PenaltiesLeft);
-                yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
-                yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.enterKey);
+                yield return PressForFrame(Keyboard.zKey);
+                yield return PressForFrame(Keyboard.enterKey);
                 while (_narrativeScriptPlayerComponent.NarrativeScriptPlayer.HasSubStory && penaltyManager.PenaltiesLeft > 0)
                 {
-                    yield return storyProgresser.ProgressStory();
+                    yield return ProgressStory();
                 }
 
                 Assert.AreEqual(i - 1, penaltyManager.PenaltiesLeft);

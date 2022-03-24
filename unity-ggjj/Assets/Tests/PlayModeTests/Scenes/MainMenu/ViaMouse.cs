@@ -9,17 +9,15 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scenes.MainMenu
 {
-    public class ViaMouse
+    public class ViaMouse : InputTestTools
     {
-        private readonly InputTestTools _inputTestTools = new InputTestTools();
-        private Mouse Mouse => _inputTestTools.Mouse;
 
         [UnitySetUp]
-        public IEnumerator SetUp()
+        public IEnumerator UnitySetUp()
         {
             yield return SceneManager.LoadSceneAsync("MainMenu");
         }
-        
+
         [UnityTest]
         public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
         {
@@ -38,26 +36,26 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.SetMouseScreenSpacePosition(openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
-            yield return _inputTestTools.PressForFrame(Mouse.leftButton);
+            yield return SetMouseScreenSpacePosition(openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(Mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
-            yield return _inputTestTools.SetMouseScreenSpacePosition(openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
-            yield return _inputTestTools.PressForFrame(Mouse.leftButton);
+            yield return SetMouseScreenSpacePosition(openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(Mouse.leftButton);
 
             Assert.True(secondSubMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.SetMouseScreenSpacePosition(closeSecondSubMenuButton.position + closeSecondSubMenuButton.localScale * 0.5f);
-            yield return _inputTestTools.PressForFrame(Mouse.leftButton);
+            yield return SetMouseScreenSpacePosition(closeSecondSubMenuButton.position + closeSecondSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(Mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
-            yield return _inputTestTools.SetMouseScreenSpacePosition(closeFirstSubMenuButton.position + closeFirstSubMenuButton.localScale * 0.5f);
-            yield return _inputTestTools.PressForFrame(Mouse.leftButton);
+            yield return SetMouseScreenSpacePosition(closeFirstSubMenuButton.position + closeFirstSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(Mouse.leftButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
@@ -80,20 +78,20 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.SetMouseScreenSpacePosition(openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
-            yield return _inputTestTools.PressForFrame(Mouse.leftButton);
+            yield return SetMouseScreenSpacePosition(openFirstSubMenuButton.position + openFirstSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(Mouse.leftButton);
 
             Assert.True(subMenu.Active);
             Assert.False(mainMenu.Active);
 
-            yield return _inputTestTools.SetMouseScreenSpacePosition(openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
-            yield return _inputTestTools.PressForFrame(Mouse.leftButton);
+            yield return SetMouseScreenSpacePosition(openSecondSubMenuButton.position + openSecondSubMenuButton.localScale * 0.5f);
+            yield return PressForFrame(Mouse.leftButton);
 
             Assert.True(secondSubMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.SetMouseScreenSpacePosition(closeAllSubMenusButton.position + closeAllSubMenusButton.localScale * 0.5f);
-            yield return _inputTestTools.PressForFrame(Mouse.leftButton);
+            yield return SetMouseScreenSpacePosition(closeAllSubMenusButton.position + closeAllSubMenusButton.localScale * 0.5f);
+            yield return PressForFrame(Mouse.leftButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(secondSubMenu.Active);
@@ -105,7 +103,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             var menus = TestTools.FindInactiveInScene<Menu>();
             var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
             var startGameButton = mainMenu.gameObject.GetComponentsInChildren<Transform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
-            yield return _inputTestTools.ClickAtScreenSpacePosition(startGameButton.position);
+            yield return ClickAtScreenSpacePosition(startGameButton.position);
             
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
         }

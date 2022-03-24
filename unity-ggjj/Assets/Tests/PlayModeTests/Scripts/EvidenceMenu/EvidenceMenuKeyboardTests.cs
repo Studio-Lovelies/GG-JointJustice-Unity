@@ -32,7 +32,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceMenuCannotBeClosedWhenPresentingEvidence()
         {
             EvidenceController.RequirePresentEvidence();
-            yield return InputTestTools.WaitForBehaviourActiveAndEnabled(EvidenceMenu, InputTestTools.Keyboard.xKey);
+            yield return WaitForBehaviourActiveAndEnabled(EvidenceMenu, Keyboard.xKey);
             Assert.True(EvidenceMenu.isActiveAndEnabled);
             yield return PressZ();
             Assert.True(EvidenceMenu.isActiveAndEnabled);
@@ -42,10 +42,10 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator IncorrectEvidenceCanBePresented()
         {
             AddEvidence();
-            yield return StoryProgresser.ProgressStory();
-            yield return StoryProgresser.ProgressStory();
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.rightArrowKey);
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey);
+            yield return ProgressStory();
+            yield return ProgressStory();
+            yield return PressForFrame(Keyboard.rightArrowKey);
+            yield return PressForFrame(Keyboard.enterKey);
             var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             Assert.IsTrue(narrativeScriptPlayer.NarrativeScriptPlayer.HasSubStory);
         }
@@ -54,7 +54,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator CorrectEvidenceCanBePresented()
         {
             yield return SelectEvidence("Evidence/BentCoins");
-            yield return StoryProgresser.ProgressStory();
+            yield return ProgressStory();
             var speechPanel = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
             Assert.IsTrue(speechPanel.text == "Correct");
         }
@@ -62,8 +62,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         private IEnumerator SelectEvidence(string evidencePath)
         {
             EvidenceController.AddEvidence(Resources.Load<Evidence>(evidencePath));
-            yield return TestTools.DoUntilStateIsReached(() => StoryProgresser.ProgressStory(), () => EvidenceMenu.isActiveAndEnabled);
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey);
+            yield return TestTools.DoUntilStateIsReached(() => ProgressStory(), () => EvidenceMenu.isActiveAndEnabled);
+            yield return PressForFrame(Keyboard.enterKey);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             
             // Spam navigation button
             yield return PressLeft();
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey, 50);
+            yield return PressForFrame(Keyboard.enterKey, 50);
 
             yield return PressRight();
             yield return CheckItems(Object.FindObjectsOfType<EvidenceMenuItem>().Length);
@@ -110,7 +110,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             
             // Spam navigation button
             yield return PressRight();
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.enterKey, 101);
+            yield return PressForFrame(Keyboard.enterKey, 101);
             yield return PressLeft();
 
             // After all this "Stolen Dinos" should be selected
@@ -170,17 +170,17 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
         private IEnumerator PressC()
         {
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.cKey);
+            yield return PressForFrame(Keyboard.cKey);
         }
 
         private IEnumerator PressLeft()
         {
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.leftArrowKey);
+            yield return PressForFrame(Keyboard.leftArrowKey);
         }
 
         private IEnumerator PressRight()
         {
-            yield return InputTestTools.PressForFrame(InputTestTools.Keyboard.rightArrowKey);
+            yield return PressForFrame(Keyboard.rightArrowKey);
         }
     }
 }

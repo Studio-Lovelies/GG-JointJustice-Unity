@@ -16,7 +16,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
     /// <summary>
     /// Contains methods and properties used in both the keyboard tests and the mouse tests.
     /// </summary>
-    public abstract class PauseMenuTests
+    public abstract class PauseMenuTests : InputTestTools
     {
         protected const string RESUME_BUTTON_NAME = "ResumeButton";
         protected const string SETTINGS_BUTTON_NAME = "SettingsButton";
@@ -24,8 +24,6 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         
         protected Menu PauseMenu { get; private set; }
         protected Button[] Buttons { get; private set; }
-        protected InputTestTools InputTools { get; }= new InputTestTools();
-        protected Keyboard Keyboard => InputTools.Keyboard;
         protected float CanvasScale { get; private set; }
 
         /// <summary>
@@ -61,7 +59,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         /// </summary>
         protected IEnumerator ToggleMenu()
         {
-            yield return InputTools.PressForFrame(Keyboard.escapeKey);
+            yield return PressForFrame(Keyboard.escapeKey);
         }
 
         /// <summary>
@@ -91,7 +89,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         /// <param name="selectionMethod">A coroutine that navigates to and clicks the resume button.</param>
         protected IEnumerator TestResumeButton(Func<IEnumerator> selectionMethod)
         {
-            yield return InputTools.PressForFrame(Keyboard.escapeKey);
+            yield return PressForFrame(Keyboard.escapeKey);
             Assert.IsTrue(PauseMenu.isActiveAndEnabled);
             yield return selectionMethod();
             Assert.IsFalse(PauseMenu.isActiveAndEnabled);
@@ -105,13 +103,13 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         /// <param name="selectionMethod">A coroutine that navigates to and clicks the settings button.</param>
         protected IEnumerator TestSettingsButton(Func<IEnumerator> selectionMethod)
         {
-            yield return InputTools.PressForFrame(Keyboard.escapeKey);
+            yield return PressForFrame(Keyboard.escapeKey);
             Assert.IsTrue(PauseMenu.isActiveAndEnabled);
             Assert.IsNull(GameObject.Find("SettingsMenu"));
             yield return selectionMethod();
             GameObject settingsMenu = GameObject.Find("SettingsMenu");
             Assert.IsTrue(settingsMenu.activeInHierarchy);
-            yield return InputTools.PressForFrame(Keyboard.escapeKey);
+            yield return PressForFrame(Keyboard.escapeKey);
             Assert.IsFalse(settingsMenu.activeInHierarchy);
         }
 
@@ -123,7 +121,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         /// <param name="selectionMethod">A coroutine that navigates to and clicks the main menu button.</param>
         protected IEnumerator TestMainMenuButton(Func<IEnumerator> selectionMethod)
         {
-            yield return InputTools.PressForFrame(Keyboard.escapeKey);
+            yield return PressForFrame(Keyboard.escapeKey);
             Assert.IsTrue(PauseMenu.isActiveAndEnabled);
             yield return selectionMethod();
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "MainMenu");

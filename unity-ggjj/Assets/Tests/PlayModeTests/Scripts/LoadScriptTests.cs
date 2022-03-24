@@ -9,24 +9,21 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scripts
 {
-    public class LoadScriptTests
+    public class LoadScriptTests : StoryProgresser
     {
-        private StoryProgresser _storyProgresser;
-
         [UnitySetUp]
-        public IEnumerator SetUp()
+        public IEnumerator UnitySetUp()
         {
             yield return SceneManager.LoadSceneAsync("Game");
             TestTools.StartGame("LoadScriptTest");
-            _storyProgresser = new StoryProgresser();
         }
-        
+
         [UnityTest]
         public IEnumerator NarrativeScriptsCanBeLoaded()
         {
             var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer;
             Assert.AreEqual("LoadScriptTest", narrativeScriptPlayer.ActiveNarrativeScript.Script.name);
-            yield return _storyProgresser.ProgressStory();
+            yield return ProgressStory();
             Assert.AreEqual("TMPHFAIL1", narrativeScriptPlayer.ActiveNarrativeScript.Script.name);
         }
 
@@ -36,7 +33,7 @@ namespace Tests.PlayModeTests.Scripts
             var bgSceneListTransform = Object.FindObjectOfType<BGSceneList>().transform;
             Assert.AreEqual(1, bgSceneListTransform.childCount);
             Assert.AreEqual("TMPHLobby", bgSceneListTransform.GetChild(0).name);
-            yield return _storyProgresser.ProgressStory();
+            yield return ProgressStory();
             Assert.AreEqual(3, bgSceneListTransform.childCount);
             var children = bgSceneListTransform.Cast<Transform>().ToList();
             Assert.IsTrue(children.Any(bgScene => bgScene.gameObject.name == "TMPHAssistant"));
