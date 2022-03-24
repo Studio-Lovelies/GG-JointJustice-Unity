@@ -161,7 +161,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         {
             renderer.enabled = !shouldShow;
             Assert.IsTrue(renderer.enabled == !shouldShow);
-            _actorController.SetVisibility(shouldShow, new ActorAssetName(actorName));
+            _actorController.SetVisibility(shouldShow, actorName == null ? null : new ActorAssetName(actorName));
             return renderer.enabled;
         }
 
