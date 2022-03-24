@@ -21,7 +21,7 @@ INCLUDE ../Templates/SceneInitialization.ink
 &PLAY_SFX:gavel
 &PLAY_ANIMATION:GavelHit
 
-&PLAY_SONG:aBoyAndHisTrial
+&PLAY_SONG:aBoyAndHisTrial,{songFadeTime}
 
 &SCENE:TMPHJudge
 &DIALOGUE_SPEED:0.04
@@ -108,7 +108,7 @@ And after what you did to him and his reputation for trivia...
 &SET_POSE:Angry
 I will BRING YOU ALL to JUSTICE, Grumps!
 &SET_POSE:Normal
-&PLAY_SONG:tutorialBoysTragicallyGenericReminiscence
+&PLAY_SONG:tutorialBoysTragicallyGenericReminiscence,{songFadeTime}
 &DIALOGUE_SPEED:0.06
 But first, I will regale you a tale about my tragic past.<br>One gruesome night in 1984, my d--
 
@@ -132,7 +132,7 @@ Man, if the artists drew me yawning, that's what you'd be seeing right now.
 &SET_POSE:Normal
 When the heck is this trial going to start?
 
-&PLAY_SONG:aBoyAndHisTrial
+&PLAY_SONG:aBoyAndHisTrial,{songFadeTime}
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:damage2
 &SCENE:TMPHJudge
@@ -153,7 +153,7 @@ Of course, Your Honor.
 &SPEAK:Dan
 This is easily the stupidest thing I've ever done.
 
-&PLAY_SONG:logicAndTrains
+&PLAY_SONG:logicAndTrains,{songFadeTime}
 &SCENE:TMPHCourt
 &SPEAK:TutorialBoy
 At about 12:00 PM, the Game Grumps and crew were partaking in a livestream.
@@ -262,7 +262,7 @@ I am here to prove beyond any doubt that Jory Griffis stole the dinosaurs...
 Hm... Yes, that seems to be a very solid opening statement.
 &SET_POSE:Normal
 You may call your first witness, Mr. Boy.
-&PLAY_SONG:aBoyAndHisTrial
+&PLAY_SONG:aBoyAndHisTrial,{songFadeTime}
 
 &SCENE:TMPHCourt
 &SET_POSE:Normal

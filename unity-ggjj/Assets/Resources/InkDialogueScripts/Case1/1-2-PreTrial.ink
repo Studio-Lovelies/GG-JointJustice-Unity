@@ -1,6 +1,7 @@
 INCLUDE ../Colors.ink
+INCLUDE ../Options.ink
 
-&PLAY_SONG:turnaboutGrumpsters,2
+&PLAY_SONG:turnaboutGrumpsters,{songFadeTime}
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
 <color={blue}>(It started out just like every time after our livestream.)
@@ -156,7 +157,7 @@ Huh?<br>Jory?
 
 &ADD_RECORD:Jory
 
-&PLAY_SONG:prelude6969,2
+&PLAY_SONG:prelude6969,{songFadeTime}
 &ACTOR:Jory
 &SET_POSE:Sweaty
 &WAIT:2

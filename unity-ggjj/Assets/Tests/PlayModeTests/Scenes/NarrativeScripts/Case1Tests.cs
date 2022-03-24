@@ -35,14 +35,24 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
             var storyProgresser = new StoryProgresser();
             _narrativeScriptPlayer = narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
 
-            while (narrativeScript.Story.canContinue)
+            while (true)
             {
-                if (NarrativeScriptHasChanged(narrativeScript))
+                if (narrativeScript.Story.canContinue)
                 {
-                    break;
-                }
+                    if (NarrativeScriptHasChanged(narrativeScript))
+                    {
+                        break;
+                    }
 
-                yield return storyProgresser.ProgressStory();
+                    yield return storyProgresser.ProgressStory();
+                }
+                else
+                {
+                    if (narrativeScript.Story.currentChoices.Count > 0)
+                    {
+                        
+                    }
+                }
             }
         }
 

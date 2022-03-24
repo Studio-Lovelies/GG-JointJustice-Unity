@@ -1,5 +1,7 @@
+INCLUDE ../Options.ink
+
 &FADE_OUT:0
-&PLAY_SONG:prologueInPMinor
+&PLAY_SONG:prologueInPMinor,{songFadeTime}
 
 &SPEAK:Ross
 After all the work I put into those levels...

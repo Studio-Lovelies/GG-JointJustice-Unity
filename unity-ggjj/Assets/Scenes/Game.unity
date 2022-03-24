@@ -2407,8 +2407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _narrativeGameState: {fileID: 7963640705624872190}
-  _settingsMusicVolume: 0
-  _settingsSfxVolume: 0
+  _settingsMusicVolume: 0.5
+  _settingsSfxVolume: 0.5
 --- !u!4 &2582401826076157597
 Transform:
   m_ObjectHideFlags: 0
