@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scripts.ActorController
 {
@@ -30,7 +31,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
             _actorController = Object.FindObjectOfType<global::ActorController>();
             
             yield return _storyProgresser.ProgressStory();
-            _witnessAnimator = GameObject.Find("Witness_Actor").GetComponent<Actor>().GetComponent<Animator>();
+            _witnessAnimator = GameObject.Find("Witness_Actor").GetComponent<Animator>();
             AssertIsNotTalking(_witnessAnimator);
         }
 
@@ -63,7 +64,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator ActiveSpeakerCanBeSet()
         {
-            var prosecutionAnimator =  GameObject.Find("Prosecution_Actor").GetComponent<Actor>().GetComponent<Animator>();
+            var prosecutionAnimator =  GameObject.Find("Prosecution_Actor").GetComponent<Animator>();
             _actorController.SetActiveSpeaker("TutorialBoy", SpeakingType.Speaking);
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
             AssertIsTalking(prosecutionAnimator);
@@ -138,6 +139,30 @@ namespace Tests.PlayModeTests.Scripts.ActorController
             yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
             AssertNameBoxCorrect();
+        }
+        
+        [UnityTest]
+        [TestCase(true, ExpectedResult = true)]
+        [TestCase(false, ExpectedResult = false)]
+        public bool ActorVisiblityCanBeSetForActiveActor(bool shouldShow)
+        {
+            return AssertVisibility(shouldShow, null, _witnessAnimator.GetComponent<Renderer>());
+        }
+
+        [UnityTest]
+        [TestCase(true, ExpectedResult = true)]
+        [TestCase(false, ExpectedResult = false)]
+        public bool ActorVisibilityCanBeSetForNonActiveActor(bool shouldShow)
+        {
+            return AssertVisibility(shouldShow, "TutorialBoy", GameObject.Find("Prosecution_Actor").GetComponent<Renderer>());
+        }
+
+        private bool AssertVisibility(bool shouldShow, string actorName, Renderer renderer)
+        {
+            renderer.enabled = !shouldShow;
+            Assert.IsTrue(renderer.enabled == !shouldShow);
+            _actorController.SetVisibility(shouldShow, actorName == null ? null : new ActorAssetName(actorName));
+            return renderer.enabled;
         }
 
         private void AssertIsTalking(Animator animator)
