@@ -11,16 +11,27 @@ namespace Tests.PlayModeTests.Scripts
 {
     public class LoadScriptTests
     {
-        private StoryProgresser _storyProgresser;
+        private StoryProgresser _storyProgresser = new StoryProgresser();
 
+        [SetUp]
+        public void Setup()
+        {
+            _storyProgresser.Setup();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _storyProgresser.TearDown();
+        }
+       
         [UnitySetUp]
-        public IEnumerator SetUp()
+        public IEnumerator UnitySetUp()
         {
             yield return SceneManager.LoadSceneAsync("Game");
             TestTools.StartGame("LoadScriptTest");
-            _storyProgresser = new StoryProgresser();
         }
-        
+
         [UnityTest]
         public IEnumerator NarrativeScriptsCanBeLoaded()
         {
