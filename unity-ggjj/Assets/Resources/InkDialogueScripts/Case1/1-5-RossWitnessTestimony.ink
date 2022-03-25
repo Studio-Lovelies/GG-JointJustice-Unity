@@ -1,7 +1,7 @@
 INCLUDE ../Colors.ink
-INCLUDE ../SceneInitialization.ink
+INCLUDE ../Templates/SceneInitialization.ink
 
-<- COURT.TMPH
+<- COURT_TMPH
 
 &JUMP_TO_POSITION:2
 &FADE_OUT:0
@@ -23,7 +23,7 @@ Yeah... It looked important, you know? Plus, I could use the extra money.
 &SCENE:TMPH_Judge
 &SET_POSE:Surprised
 &PLAY_SFX:lightbulb
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 Mr. O'Donovan, being a witness isn't a paying job...
 
 &SCENE:TMPH_Court
@@ -54,7 +54,7 @@ Ahem... Witness, please state your name and occupation for the court.
 
 &SCENE:TMPH_Judge
 &DIALOGUE_SPEED:0.04
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 What was that?
 
 &SCENE:TMPH_Court
@@ -112,7 +112,7 @@ Also, knowing how these things go, the defendant is always innocent...
 &SCENE:TMPH_Judge
 &SET_POSE:Warning
 &DIALOGUE_SPEED:0.04
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 If the defense is done sucking each other's toes, may we begin with Mr. O'Donovan's testimony?
 
 &SCENE:TMPH_Court
@@ -128,12 +128,12 @@ We're ready, Your Honor.
 
 &SCENE:TMPH_Judge
 &SET_POSE:Normal
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 Alright. The witness may begin his testimony.
 
 &HIDE_TEXTBOX
 &FADE_OUT:2
-&PLAY_SONG:None
+&FADE_OUT_SONG:2
 &WAIT:3
 
 -> END

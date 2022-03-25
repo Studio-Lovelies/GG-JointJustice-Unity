@@ -289,4 +289,4 @@ Keep your pants on. I make up the rules in this courthouse. I will allow the tes
 &FADE_OUT:2
 &WAIT:3
 
-&LOAD_SCRIPT:Case1/1-4-Trial
+&LOAD_SCRIPT:Case1/1-4-JoryWitnessTestimony

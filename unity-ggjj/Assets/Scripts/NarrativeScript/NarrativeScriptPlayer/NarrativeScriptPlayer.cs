@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
+using UnityEngine;
 
 /// <summary>
 /// Acts a wrapper around Ink stories, providing access to each new line in a Story
@@ -136,6 +137,10 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         switch (GameMode)
         {
             case GameMode.Dialogue:
+                foreach (var tag in Story.currentTags)
+                {
+                    Debug.Log(tag);
+                }
                 _narrativeGameState.ChoiceMenu.Initialise(Story.currentChoices);
                 break;
             case GameMode.CrossExamination:
