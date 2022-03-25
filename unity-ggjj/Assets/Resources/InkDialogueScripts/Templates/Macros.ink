@@ -6,6 +6,7 @@
 
 === CrossExamination
     -> TestimonyAnimation("CrossExamination") ->
+    &MODE:CrossExamination
     <- Lines.Testimony
     -> DONE
 
@@ -18,7 +19,7 @@
     
 === Lines
     = Testimony
-        <color=orange><align=center>Witness' Testimony
+        <color=orange><align=center>Witness' Account
         -> DONE
         
 

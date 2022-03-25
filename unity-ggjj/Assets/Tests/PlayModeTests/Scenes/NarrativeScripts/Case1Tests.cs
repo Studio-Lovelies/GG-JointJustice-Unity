@@ -64,7 +64,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                         break;
                     }
                 }
-                
+
                 if (_narrativeScript.Story.canContinue)
                 {
                     yield return storyProgresser.ProgressStory();
@@ -84,7 +84,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                     foreach (var choice in choices.Where(choice => visitedChoices[currentChoiceList].All(item => item == null || choice.text != item.text)))
                     {
                         visitedChoices[currentChoiceList][Array.FindIndex(visitedChoices[currentChoiceList], i => i == null)] = choice;
-                        yield return storyProgresser.SelectChoice(choice.index);
+                        yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode);
                         break;
                     }
                 }

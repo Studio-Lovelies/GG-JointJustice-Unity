@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
-using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Tools
 {
@@ -28,11 +30,28 @@ namespace Tests.PlayModeTests.Tools
         /// Selects a choice and presses the x key to progress the story
         /// </summary>
         /// <param name="choiceIndex">The index of the choice to select</param>
-        public IEnumerator SelectChoice(int choiceIndex)
+        /// <param name="gameMode">The GameMode the game is currently using</param>
+        public IEnumerator SelectChoice(int choiceIndex, GameMode gameMode)
         {
-            var choice = Object.FindObjectOfType<ChoiceMenu>().transform.GetChild(choiceIndex).GetComponent<Selectable>();
-            choice.Select();
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            switch (gameMode)
+            {
+                case GameMode.Dialogue:
+                    var choice = Object.FindObjectOfType<ChoiceMenu>().transform.GetChild(choiceIndex).GetComponent<Selectable>();
+                    choice.Select();
+                    yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey); 
+                    break;
+                case GameMode.CrossExamination:
+                    yield return choiceIndex switch
+                    {
+                        0 => _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey),
+                        1 => _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey),
+                        2 => _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey),
+                        _ => throw new ArgumentException($"Choice index can only be 0, 1, or 2 in GameMode {gameMode}")
+                    };
+                    break;
+                default:
+                    throw new NotSupportedException($"GameMode '{gameMode}' is not supported");
+            }
         }
     }
 }
