@@ -20,6 +20,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
         private NarrativeScript _narrativeScript;
         private INarrativeScriptPlayer _narrativeScriptPlayer;
+        private NarrativeGameState _narrativeGameState;
 
         [UnitySetUp]
         public IEnumerator SetUp()
@@ -28,14 +29,15 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
         }
 
         [UnityTest]
+        [Timeout(1000000)]
         [TestCaseSource(nameof(NarrativeScripts))]
         public IEnumerator NarrativeScriptsRunWithNoErrors(TextAsset narrativeScriptText)
         {
-            var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            _narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
             _narrativeScript = new NarrativeScript(narrativeScriptText);
-            narrativeGameState.NarrativeScriptStorage.NarrativeScript = _narrativeScript;
-            narrativeGameState.StartGame();
-            _narrativeScriptPlayer = narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
+            _narrativeGameState.NarrativeScriptStorage.NarrativeScript = _narrativeScript;
+            _narrativeGameState.StartGame();
+            _narrativeScriptPlayer = _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
 
             yield return PlayNarrativeScript();
         }
@@ -55,6 +57,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                         _narrativeScriptPlayer.ActiveNarrativeScript = _narrativeScript;
                         currentChoiceList = 0;
                         _narrativeScript.Reset();
+                        _narrativeGameState.BGSceneList.InstantiateBGScenes(_narrativeScript);
                     }
                     else
                     {
