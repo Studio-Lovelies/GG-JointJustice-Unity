@@ -13,6 +13,11 @@ namespace Tests.PlayModeTests.Tools
     /// </summary>
     public class InputTestTools : InputTestFixture
     {
+        protected Keyboard Keyboard { get; private set; }
+        protected Mouse Mouse { get; private set; }
+
+        private EditorWindow _gameViewWindow;
+
         public override void Setup()
         {
             base.Setup();
@@ -29,11 +34,6 @@ namespace Tests.PlayModeTests.Tools
             base.TearDown();
         }
 
-        public Keyboard Keyboard;
-        public Mouse Mouse;
-
-        private EditorWindow _gameViewWindow;
-
         private EditorWindow GameViewWindow
         {
             get
@@ -43,8 +43,8 @@ namespace Tests.PlayModeTests.Tools
                     return _gameViewWindow;
                 }
 
-                System.Reflection.Assembly assembly = typeof(EditorWindow).Assembly;
-                Type type = assembly.GetType("UnityEditor.GameView");
+                var assembly = typeof(EditorWindow).Assembly;
+                var type = assembly.GetType("UnityEditor.GameView");
                 _gameViewWindow = EditorWindow.GetWindow(type);
                 return _gameViewWindow;
             }
@@ -66,7 +66,7 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="repeats">The number of times the key should be pressed.</param>
         public IEnumerator PressForFrame(ButtonControl control, int repeats = 1)
         {
-            for (int i = 0; i < repeats; i++)
+            for (var i = 0; i < repeats; i++)
             {
                 Press(control);
                 GameViewWindow.Repaint();
@@ -86,7 +86,7 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="repeats">The number of times the key should be pressed.</param>
         public IEnumerator PressForSeconds(ButtonControl control, float seconds, int repeats = 1)
         {
-            for (int i = 0; i < repeats; i++)
+            for (var i = 0; i < repeats; i++)
             {
                 Press(control);
                 yield return new WaitForSeconds(seconds);
