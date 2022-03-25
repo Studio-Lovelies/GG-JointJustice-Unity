@@ -52,7 +52,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
             {
                 if (NarrativeScriptHasChanged(_narrativeScript))
                 {
-                    if (visitedChoices.Values.All(choiceArray => choiceArray.Any(choice => choice == null)))
+                    if (visitedChoices.Count != 0 && visitedChoices.Values.All(choiceArray => choiceArray.Any(choice => choice == null)))
                     {
                         _narrativeScriptPlayer.ActiveNarrativeScript = _narrativeScript;
                         currentChoiceList = 0;
@@ -71,17 +71,17 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                 }
                 else
                 {
-                    var currentChoices = _narrativeScript.Story.currentChoices;
-                    if (currentChoices.Count > 0)
+                    var choices = _narrativeScript.Story.currentChoices;
+                    if (choices.Count > 0)
                     {
                         currentChoiceList++;
                         if (!visitedChoices.ContainsKey(currentChoiceList))
                         {
-                            visitedChoices.Add(currentChoiceList, new Choice[currentChoices.Count]);
+                            visitedChoices.Add(currentChoiceList, new Choice[choices.Count]);
                         }
                     }
 
-                    foreach (var choice in currentChoices.Where(choice => visitedChoices[currentChoiceList].All(item => item == null || choice.text != item.text)))
+                    foreach (var choice in choices.Where(choice => visitedChoices[currentChoiceList].All(item => item == null || choice.text != item.text)))
                     {
                         visitedChoices[currentChoiceList][Array.FindIndex(visitedChoices[currentChoiceList], i => i == null)] = choice;
                         yield return storyProgresser.SelectChoice(choice.index);

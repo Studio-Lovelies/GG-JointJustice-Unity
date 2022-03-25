@@ -20,23 +20,23 @@ Ross?! They roped you into this as well?
 
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
-Yeah... It looked important, you know? Plus, I could use the extra money.
+Yeah{ellipsis} It looked important, you know? Plus, I could use the extra money.
 
 &SCENE:TMPH_Judge
 &SET_POSE:Surprised
 &PLAY_SFX:lightbulb
 &SPEAK:JudgeBrent
-Mr. O'Donovan, being a witness isn't a paying job...
+Mr. O'Donovan, being a witness isn't a paying job{ellipsis}
 
 &SCENE:TMPH_Court
 &JUMP_TO_POSITION:3
 &SPEAK:Tutorial_Boy
-Not that anyone here is getting paid anyway...
+Not that anyone here is getting paid anyway{ellipsis}
 
 &JUMP_TO_POSITION:2
 &SET_POSE:Sweaty
 &SPEAK:Ross
-I-I see...
+I-I see{ellipsis}
 
 &JUMP_TO_POSITION:3
 &SET_POSE:Confident
@@ -46,13 +46,13 @@ Except if you count being paid in JUSTICE!
 &HIDE_TEXTBOX
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Normal
-Ahem... Witness, please state your name and occupation for the court.
+Ahem{ellipsis} Witness, please state your name and occupation for the court.
 
 &JUMP_TO_POSITION:2
 &SET_POSE:Normal
 &DIALOGUE_SPEED:0.06
 &SPEAK:Ross
-<size=40>...Kangaroo court if I ever saw one...
+<size=40>{ellipsis}Kangaroo court if I ever saw one{ellipsis}
 
 &SCENE:TMPH_Judge
 &DIALOGUE_SPEED:0.04
@@ -69,7 +69,7 @@ I am Ross O'Donovan: local animator, Mario Maker enthusiast, apparent sadist, an
 &SCENE:TMPH_Assistant
 &SET_POSE:Fist
 &SPEAK:Dan
-Some friend... testifying against Jory, treating him like a criminal...
+Some friend{ellipsis} testifying against Jory, treating him like a criminal{ellipsis}
 
 &SPEAK:Arin
 What do you mean? Even WE don't know if Jory is innocent!
@@ -89,7 +89,7 @@ That a gavel, lubed properly, has many uses?
 No!
 &SET_POSE:SideLaughing
 &DIALOGUE_SPEED:0.04
-Well, I mean yeah... The “gay-liff” in that game sure was creative.
+Well, I mean yeah{ellipsis} The “gay-liff” in that game sure was creative.
 &SET_POSE:Normal
 But more importantly, you should go into every case with confidence that your client is innocent.
 We don't know if he's guilty, but if his own attorney doesn't believe him, why should the rest of the court?
@@ -97,19 +97,19 @@ We don't know if he's guilty, but if his own attorney doesn't believe him, why s
 &HIDE_TEXTBOX
 &SCENE:TMPH_Court
 &JUMP_TO_POSITION:1
-&PLAY_SFX:deskSlam
-&SHAKE_SCREEN:0.25,0.2
+&PLAY_SFX:DeskSlam
+&SHAKE_SCREEN:0.25,0.25
 &PLAY_EMOTION:DeskSlamAnimation
 &SPEAK:Arin
 You're right! We're here to defend our friend, so we should at least assume we're making the right call.
 
 &SCENE:TMPH_Assistant
 &SPEAK:Dan
-Also, knowing how these things go, the defendant is always innocent...
+Also, knowing how these things go, the defendant is always innocent{ellipsis}
 
 &SET_POSE:SideLean
 &DIALOGUE_SPEED:0.06
-...Usually, anyway.
+{ellipsis}Usually, anyway.
 
 &SCENE:TMPH_Judge
 &SET_POSE:Warning
@@ -139,8 +139,8 @@ Alright. The witness may begin his testimony.
 &WAIT:2
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:2
+&PLAY_SONG:fyiIWannaXYourExaminationModerato,{songFadeTime}
 &FADE_IN:2
-&WAIT:1
 
 <- WitnessTestimony
 
@@ -148,10 +148,9 @@ Alright. The witness may begin his testimony.
 &APPEAR_INSTANTLY
 <align=center><color={orange}>-- Witness' Account --
 
-&PLAY_SONG:fyiIWannaXYourExaminationModerato,{songFadeTime}
 &SPEAK:Ross
 <color=green>I was animating by myself over in my room at the office
-<color=green>But then... I saw someone taking the dinos!!
+<color=green>But then{ellipsis} I saw someone taking the dinos!!
 <color=green>It was Jory! He was on the 10 Minute Power Hour set taking the dinos!
 <color=green>Now that I know they were stolen, that means the culprit must be Jory
 
@@ -167,7 +166,7 @@ Alright. The witness may begin his testimony.
 
 &PLAY_SONG:aBoyAndHisTrial,{songFadeTime}
 &SPEAK:JudgeBrent
-Hm...
+Hm{ellipsis}
 &SET_POSE:Normal
 A remarkably solid testimony here. Great witness, Mr. Boy.
 
@@ -178,6 +177,7 @@ Of course, Your Honor. You can only expect the BEST from me.
 
 &HIDE_TEXTBOX
 &JUMP_TO_POSITION:1
+&PLAY_SFX:DeskSlam
 &PLAY_EMOTION:DeskSlamAnimation
 &SPEAK:Arin
 Dude, that testimony was incredible! Stupendous! AMAZING!
@@ -205,6 +205,7 @@ I'm sure if we keep <color={red}>asking questions</color>, we'll get some inform
 
 &HIDE_TEXTBOX
 &SCENE:TMPH_Court
+&PLAY_SFX:DeskSlam
 &PLAY_EMOTION:DeskSlamAnimation
 &SPEAK:Arin
 Alright, let's do it then.
