@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
@@ -88,10 +89,14 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         [UnityTest]
         public IEnumerator SongsCanBeFadedOut()
         {
-            const float TRANSITION_DURATION = 2;
+            const float TRANSITION_DURATION_IN_SECONDS = 2;
             yield return SongsCanBePlayedWithoutFadeIn();
-            _audioController.FadeOutSong(TRANSITION_DURATION);
-            yield return new WaitForSeconds(TRANSITION_DURATION);
+            var expectedEndTimeOfFadeOut = Time.time + TRANSITION_DURATION_IN_SECONDS;
+            _audioController.FadeOutSong(TRANSITION_DURATION_IN_SECONDS);
+            yield return TestTools.WaitForState(() => _audioSource.volume == 0);
+
+            // This should take at least TRANSITION_DURATION_IN_SECONDS
+            Assert.GreaterOrEqual(Time.time, expectedEndTimeOfFadeOut);
             Assert.AreEqual(0, _audioSource.volume);
         }
 
