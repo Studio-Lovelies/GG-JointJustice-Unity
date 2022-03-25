@@ -16,11 +16,6 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         {
             yield return SceneManager.LoadSceneAsync("MainMenu");
         }
-        [UnityTearDown]
-        public IEnumerator UnityTearDown()
-        {
-            yield return null;
-        }
 
         [UnityTest]
         public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
