@@ -1,8 +1,8 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
-INCLUDE ../SceneInitialization.ink
+INCLUDE ../Templates/SceneInitialization.ink
 
-<- COURT.TMPH
+<- COURT_TMPH
 
 &SCENE:TMPH_Assistant
 &SPEAK:Dan

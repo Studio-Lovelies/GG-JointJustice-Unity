@@ -1,8 +1,8 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
-INCLUDE ../SceneInitialization.ink
+INCLUDE ../Templates/SceneInitialization.ink
 
-<- COURT.TMPH
+<- COURT_TMPH
 
 &PLAY_SFX:gavel
 &PLAY_ANIMATION:GavelHit

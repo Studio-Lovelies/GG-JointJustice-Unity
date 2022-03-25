@@ -10,10 +10,8 @@ INCLUDE ../Templates/Macros.ink
 &JUMP_TO_POSITION:2
 &SET_POSE:Nervous
 
-&FADE_IN:2
 &PLAY_SONG:logicAndTrains,2
-
-<- WitnessTestimony
+&FADE_IN:2
 
 &PAN_TO_POSITION:3,{panTime}
 &DIALOGUE_SPEED:0.06

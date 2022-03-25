@@ -1,8 +1,8 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
-INCLUDE ../SceneInitialization.ink
+INCLUDE ../Templates/SceneInitialization.ink
 
-<- COURT.TMPH
+<- COURT_TMPH
 
 &JUMP_TO_POSITION:2
 &FADE_IN:1
