@@ -2,14 +2,12 @@
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scenes.MainMenu
 {
-    public class ViaKeyboard : InputTestTools
+    public class ViaKeyboard : InputTest
     {
         [UnitySetUp]
         public IEnumerator UnitySetUp()

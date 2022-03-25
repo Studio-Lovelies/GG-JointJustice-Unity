@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 {
-    public class EvidenceMenuTest : StoryProgresser
+    public class EvidenceMenuTest : InputTest
     {
         protected EvidenceController EvidenceController { get; private set; }
         protected NarrativeScriptPlayerComponent NarrativeScriptPlayerComponent { get; private set; }

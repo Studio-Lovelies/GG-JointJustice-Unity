@@ -2,7 +2,6 @@ using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -10,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Tests.PlayModeTests.Scripts.ActorController
 {
-    public class ActorControllerTests : StoryProgresser
+    public class ActorControllerTests : InputTest
     {
         const string TALKING_PARAMETER_NAME = "Talking";
         

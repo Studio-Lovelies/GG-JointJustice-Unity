@@ -2,14 +2,13 @@
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scenes.CrossExamination
 {
-    public class ViaKeyboard : StoryProgresser
+    public class ViaKeyboard : InputTest
     {
         private NarrativeScriptPlayerComponent _narrativeScriptPlayerComponent;
 

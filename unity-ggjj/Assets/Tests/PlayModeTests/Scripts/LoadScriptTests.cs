@@ -2,14 +2,13 @@ using System.Collections;
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scripts
 {
-    public class LoadScriptTests : StoryProgresser
+    public class LoadScriptTests : InputTest
     {
         [UnitySetUp]
         public IEnumerator UnitySetUp()

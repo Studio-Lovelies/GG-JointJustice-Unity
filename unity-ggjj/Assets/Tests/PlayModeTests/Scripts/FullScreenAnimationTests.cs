@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scripts
 {
-    public class FullScreenAnimation : InputTestTools
+    public class FullScreenAnimation : InputTest
     {
         [UnityTest]
         public IEnumerator FullScreenAnimationsCannotBeSkipped()

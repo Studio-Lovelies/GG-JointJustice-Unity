@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace Tests.PlayModeTests.Scenes.VisibilityTest
 {
-    public class ViaKeyboard : StoryProgresser
+    public class ViaKeyboard : InputTest
     {
         [UnitySetUp]
         public IEnumerator UnitySetUp()

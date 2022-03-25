@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Linq;
 using NUnit.Framework;
-using Tests.PlayModeTests.Tools;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 

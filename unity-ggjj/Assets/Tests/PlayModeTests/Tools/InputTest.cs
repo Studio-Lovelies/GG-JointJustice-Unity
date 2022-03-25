@@ -1,9 +1,9 @@
-using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Tools
 {
@@ -11,7 +11,7 @@ namespace Tests.PlayModeTests.Tools
     /// Contains useful methods used when testing features that use Unity Input System.
     /// Also contains input devices that should be used to pass ButtonControls to the methods.
     /// </summary>
-    public class InputTestTools : InputTestFixture
+    public class InputTest : InputTestFixture
     {
         protected Keyboard Keyboard { get; private set; }
         protected Mouse Mouse { get; private set; }
@@ -147,6 +147,16 @@ namespace Tests.PlayModeTests.Tools
         {
             yield return SetMouseWorldSpacePosition(position);
             yield return PressForFrame(Mouse.leftButton);
+        }
+
+        /// <summary>
+        /// Holds the X Key until an AppearingDialogueController is not printing text
+        /// </summary>
+        public IEnumerator ProgressStory()
+        {
+            Press(Keyboard.xKey);
+            yield return TestTools.WaitForState(() => !Object.FindObjectOfType<AppearingDialogueController>().IsPrintingText);
+            Release(Keyboard.xKey);
         }
     }
 }

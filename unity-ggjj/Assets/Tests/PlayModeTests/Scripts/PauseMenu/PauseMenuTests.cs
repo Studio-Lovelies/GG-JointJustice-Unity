@@ -3,10 +3,8 @@ using System.Collections;
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -16,7 +14,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
     /// <summary>
     /// Contains methods and properties used in both the keyboard tests and the mouse tests.
     /// </summary>
-    public abstract class PauseMenuTests : InputTestTools
+    public abstract class PauseMenuTests : InputTest
     {
         protected const string RESUME_BUTTON_NAME = "ResumeButton";
         protected const string SETTINGS_BUTTON_NAME = "SettingsButton";

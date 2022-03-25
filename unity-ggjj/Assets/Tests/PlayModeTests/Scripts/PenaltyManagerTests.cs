@@ -1,15 +1,13 @@
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.SceneManagement;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scripts
 {
-    public class PenaltyManagerTests : StoryProgresser
+    public class PenaltyManagerTests : InputTest
     {
         private PenaltyManager _penaltyManager;
     
