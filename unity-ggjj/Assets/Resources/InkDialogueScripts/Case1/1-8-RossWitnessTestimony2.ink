@@ -1,6 +1,7 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
+INCLUDE ../Templates/Macros.ink
 
 <- COURT_TMPH
 
@@ -8,13 +9,9 @@ INCLUDE ../Templates/SceneInitialization.ink
 &FADE_IN:1
 &WAIT:1
 
-&PLAY_SONG:fyiIWannaXYourExaminationModerato
+&PLAY_SONG:fyiIWannaXYourExaminationModerato,{songFadeTime}
 
-&PLAY_ANIMATION:WitnessTestimony
-
-&SPEAK:None
-&APPEAR_INSTANTLY
-<align=center><color={orange}>-- Witness' Account --
+<- WitnessTestimony
 
 &SPEAK:Ross
 I guess you got me. I did lie about what I was doing.
@@ -25,30 +22,30 @@ I felt it was a good time to take a break, so I went to see what he was up to.
 That's when I saw it! He had taken the dinos and stuffed them into his backpack!
 
 &HIDE_TEXTBOX
-&PLAY_SONG:None
-&FADE_OUT:3
+&FADE_OUT_SONG:{songFadeTime}
+&FADE_OUT:2
 &WAIT:1
 
-&SCENE:TMPH_Judge
+&SCENE:TMPHJudge
 &SET_POSE:Thinking
-&FADE_IN:3
+&FADE_IN:2
 
 &SET_POSE:Normal
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 Hmm. So you were in your office working on a Mario Maker level but needed a break.
 That's when you saw Jory, followed him, and saw the dinosaurs being taken.
 That seems reasonable to me.
 
 &SCENE:TMPH_Court
 &JUMP_TO_POSITION:3
-&SPEAK:Tutorial_Boy
+&SPEAK:TutorialBoy
 Without a doubt, Your Honor. That is how it really happened.
 We -- er, I mean, my witness, wanted to keep it a surprise.
 &SET_POSE:Angry
 I hope the defense is happy with themselves for ruining Ross' great gesture!
 
 &HIDE_TEXTBOX
-&SHAKE_SCREEN:0.25,0.2
+&SHAKE_SCREEN:0.25,0.25
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Normal
@@ -105,8 +102,8 @@ Wait, what do you mean every--
 &SPEAK:Arin
 LET'S DO IT!
 
-&SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
+&SCENE:TMPHJudge
+&SPEAK:JudgeBrent
 If the defense would like to cross examine now...?
 
 &SCENE:TMPH_Court
@@ -114,14 +111,16 @@ If the defense would like to cross examine now...?
 &SPEAK:Arin
 You bet your sweet bippie I would, Your Honor! I've got some questions that need answering!
 
-&SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
+&SCENE:TMPHJudge
+&SPEAK:JudgeBrent
 Very well. The defense may begin their cross-examination.
 
 &HIDE_TEXTBOX
 &PLAY_SONG:None
 &FADE_OUT:3
 &WAIT:1
+
+&LOAD_SCRIPT:Case1/1-9-RossCrossExamination2
 
 -> END
 
