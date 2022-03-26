@@ -160,7 +160,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         private bool AssertVisibility(bool expectedVisibility, string actorName, Renderer renderer)
         {
             renderer.enabled = !expectedVisibility;
-            Assert.IsTrue(renderer.enabled == !expectedVisibility);
+            Assert.IsTrue(renderer.enabled == !expectedVisibility, "Unity sanity check");
             _actorController.SetVisibility(expectedVisibility, actorName == null ? null : new ActorAssetName(actorName));
             return renderer.enabled;
         }
