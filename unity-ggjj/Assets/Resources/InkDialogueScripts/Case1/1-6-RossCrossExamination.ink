@@ -28,7 +28,7 @@ INCLUDE ../Templates/Macros.ink
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
-<color=green>But then... I saw someone taking the dinos!!
+<color=green>But then{ellipsis} I saw someone taking the dinos!!
 + [Continue]
     -> Line3
 + [Press]
@@ -91,7 +91,7 @@ I'm getting to it, just be patient. I'm trying to build suspense for the viewers
 
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
-But this isn't being broadcasted...
+But this isn't being broadcasted{ellipsis}
 
 &JUMP_TO_POSITION:3
 &SPEAK:TutorialBoy
@@ -112,11 +112,11 @@ What makes you so sure that the dinos were stolen, anyways!?
 
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
-...
+{ellipsis}
 
 &SCENE:TMPHJudge
 &SPEAK:JudgeBrent
-...
+{ellipsis}
 
 &SCENE:TMPHAssistant
 &SPEAK:Dan
@@ -125,7 +125,7 @@ Arin, that's literally the reason we're all here.
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
-...
+{ellipsis}
 
 &SCENE:TMPHJudge
 &SPEAK:JudgeBrent
@@ -162,13 +162,13 @@ He oughta have a real good reason for this.
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
-T-That's right! The reason I was able to see Jory was... because I needed to poop!
+T-That's right! The reason I was able to see Jory was{ellipsis} because I needed to poop!
 Yeah!
 
 &JUMP_TO_POSITION:1
 &SET_POSE:Annoyed
 &SPEAK:Arin
-Um... excuse me?
+Um{ellipsis} excuse me?
 
 &SCENE:TMPHAssistant
 &SPEAK:Dan
@@ -188,7 +188,7 @@ W-Well, you see, I had to go out to use the bathroom, which is how I saw Jory!
 
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
-Uh-huh...
+Uh-huh{ellipsis}
 &SET_POSE:Normal
 Your Honor, I believe this needs to be added to the witness's testimony.
 
@@ -199,7 +199,7 @@ Agreed. Witness, add your poop story to your testimony.
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
-Uh... Yes, why of course, Your Honor. Let me go over it again.
+Uh{ellipsis} Yes, why of course, Your Honor. Let me go over it again.
 
 &SCENE:TMPHAssistant
 &SPEAK:Dan
