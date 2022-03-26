@@ -1,6 +1,7 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
+INCLUDE ../Templates/Macros.ink
 
 <- COURT_TMPH
 
@@ -71,15 +72,15 @@ Oh, right! I have a guest prosecutor to help this go over smoothly.
 He just happened to be visiting this week.
 
 &SPEAK_UNKNOWN:TutorialBoy
-Mr. Hanson and Mr. Avidan... So we meet at last!
+Mr. Hanson and Mr. Avidan{ellipsis} So we meet at last!
 
 &SCENE:TMPHCourt
 &THINK:Arin
-<color=lightblue>(Who exactly is this? He seems familiar but I can't put my finger on how...)
+<color=lightblue>(Who exactly is this? He seems familiar but I can't put my finger on how{ellipsis})
 
 &SCENE:TMPHAssistant
 &SPEAK:Dan
-Wait, doesn't he kind of look like...
+Wait, doesn't he kind of look like{ellipsis}
 
 &PLAY_SFX:DramaPound
 &SCENE:TMPHCourt
@@ -100,11 +101,11 @@ T- Trivia Boy?!
 WRONG!
 &SET_POSE:Normal
 &SPEAK:TutorialBoy
-I am Tutorial Boy! Trivia Boy is my brother...
+I am Tutorial Boy! Trivia Boy is my brother{ellipsis}
 
 &ADD_RECORD:TutorialBoy
 
-And after what you did to him and his reputation for trivia...
+And after what you did to him and his reputation for trivia{ellipsis}
 &SET_POSE:Angry
 I will BRING YOU ALL to JUSTICE, Grumps!
 &SET_POSE:Normal
@@ -182,7 +183,7 @@ W-Well, you don't have to be so rude about it! Fine, it's been added to the cour
 
 &SET_POSE:Normal
 &SPEAK:TutorialBoy
-Now... where was I?
+Now{ellipsis} where was I?
 &DIALOGUE_SPEED:0.04
 Oh yes. The livestream.
 During the livestream, according to the transcript here, the Switch they were using suddenly failed.
@@ -216,7 +217,7 @@ Maybe Jory took the NSP song “Objects of Desire” as inspiration.<br>Know wha
 &JUMP_TO_POSITION:3
 &SET_POSE:Angry
 &SPEAK:TutorialBoy
-Unfortunately, we ALL know what you mean, “Mr. Sexbang”...
+Unfortunately, we ALL know what you mean, “Mr. Sexbang”{ellipsis}
 
 &SCENE:TMPHAssistant
 &SET_POSE:Normal
@@ -226,8 +227,8 @@ That's “Mr. Business” to you, sir.
 &SCENE:TMPHCourt
 &DIALOGUE_SPEED:0.06
 &SPEAK:TutorialBoy
-Yes...<br>Quite...<br>Indeed.
-As I was saying...
+Yes{ellipsis}<br>Quite{ellipsis}<br>Indeed.
+As I was saying{ellipsis}
 &SET_POSE:Normal
 &DIALOGUE_SPEED:0.04
 The missing dinos, while quickly found, put a big delay on setting up for the Power Hour.
@@ -251,15 +252,15 @@ In the very same pocket in which the dinos were found, we discovered some Good B
 These were the very same coins Jory was polishing during the livestream.
 This was confirmed by other members of the Grump team present at the time the dinos were discovered.
 This clearly suggests that the perpetrator is the defendant!
-I am here to prove beyond any doubt that Jory Griffis stole the dinosaurs...
+I am here to prove beyond any doubt that Jory Griffis stole the dinosaurs{ellipsis}
 &SET_POSE:Angry
-...in order to sabotage the Ten Minute Power Hour!
+{ellipsis}in order to sabotage the Ten Minute Power Hour!
 
 &FADE_OUT_SONG:2
 &SCENE:TMPHJudge
 &SET_POSE:Thinking
 &SPEAK:JudgeBrent
-Hm... Yes, that seems to be a very solid opening statement.
+Hm{ellipsis} Yes, that seems to be a very solid opening statement.
 &SET_POSE:Normal
 You may call your first witness, Mr. Boy.
 &PLAY_SONG:aBoyAndHisTrial,{songFadeTime}

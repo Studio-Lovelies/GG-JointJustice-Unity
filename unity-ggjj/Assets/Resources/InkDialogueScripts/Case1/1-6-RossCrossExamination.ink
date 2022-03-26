@@ -7,7 +7,7 @@ INCLUDE ../Templates/Macros.ink
 
 &JUMP_TO_POSITION:2
 &FADE_IN:2
-&PLAY_SONG:fyiIWannaXYourExaminationModerato
+&PLAY_SONG:fyiIWannaXYourExaminationModerato,{songFadeTime}
 <- CrossExamination
 
 &SPEAK:Ross

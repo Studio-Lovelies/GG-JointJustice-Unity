@@ -9,7 +9,7 @@ INCLUDE ../Templates/Macros.ink
 &JUMP_TO_POSITION:2
 &SET_POSE:Nervous
 
-&PLAY_SONG:logicAndTrains,2
+&PLAY_SONG:logicAndTrains,{songFadeTime}
 &FADE_IN:2
 
 &PAN_TO_POSITION:3,{panTime}
@@ -37,7 +37,7 @@ Jory, WHAT THE HECK!
 &SET_POSE:Nervous
 &DIALOGUE_SPEED:0.06
 &SPEAK:Jory
-Ah, jeez...
+Ah, jeez{ellipsis}
 
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
@@ -45,12 +45,12 @@ Just take a deep breath and answer the questions.
 
 &JUMP_TO_POSITION:2
 &SPEAK:Jory
-O-Okay...
+O-Okay{ellipsis}
 
 &JUMP_TO_POSITION:1
 &DIALOGUE_SPEED:0.04
 &THINK:Arin
-<color=lightblue>(This is gonna be rough, I can already tell...)
+<color=lightblue>(This is gonna be rough, I can already tell{ellipsis})
 
 &HIDE_TEXTBOX
 &PAN_TO_POSITION:3,{doublePanTime}
@@ -77,7 +77,7 @@ I have questions about the time before the incident, and you will answer!
 &SET_POSE:Nervous
 &DIALOGUE_SPEED:0.06
 &SPEAK:Jory
-Ah... Jeez... Okay.
+Ah{ellipsis} Jeez{ellipsis} Okay.
 
 &JUMP_TO_POSITION:3
 &DIALOGUE_SPEED:0.04
@@ -99,7 +99,7 @@ How suspicious! Surely there were other, less busy people who could have gotten 
 &SET_POSE:Nervous
 &SPEAK:Jory
 &AUTO_SKIP:True
-Yeah... I guess I didn't... but again it's part of my jo-
+Yeah{ellipsis} I guess I didn't{ellipsis} but again it's part of my jo-
 &AUTO_SKIP:False
 
 &HIDE_TEXTBOX
@@ -140,7 +140,7 @@ You should say something, Arin.
 &JUMP_TO_POSITION:1
 &SET_POSE:Thinking
 &THINK:Arin
-Hm...
+Hm{ellipsis}
 &HIDE_TEXTBOX
 
 + [Object!]
@@ -160,7 +160,7 @@ Jory is a great employee who works hard for the team! The prosecution is twistin
 &SCENE:TMPH_Judge
 &SET_POSE:Thinking
 &SPEAK:JudgeBrent
-Hm...
+Hm{ellipsis}
 &SET_POSE:Normal
 Objection sustained. Mr. Boy, you will refrain from “flowery language” when questioning your witness.
 
@@ -168,11 +168,11 @@ Objection sustained. Mr. Boy, you will refrain from “flowery language” when 
 &JUMP_TO_POSITION:3
 &SET_POSE:Sweaty
 &SPEAK:Tutorial_Boy
-Er... Y-Yes, Your Honor. The spirit of justice took hold of me and I got carried away.
+Er{ellipsis} Y-Yes, Your Honor. The spirit of justice took hold of me and I got carried away.
 
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
-Also...
+Also{ellipsis}
 -> Continue
 
 === playerDoesntObject ===
@@ -180,7 +180,7 @@ Also...
 &SPEAK:Arin
 Nah, it's fine. Polishing some coins doesn't prove he's guilty.
 &DIALOGUE_SPEED:0.06
-However...
+However{ellipsis}
 -> Continue
 
 === Continue ===
@@ -228,7 +228,7 @@ Perhaps, but I get to make the call, and it's amusing to watch him do it.
 
 &SCENE:TMPH_Judge
 &SPEAK:JudgeBrent
-...Very amusing.
+{ellipsis}Very amusing.
 The prosecution may continue with the witness' testimony.
 
 &SCENE:TMPH_Court
@@ -241,12 +241,12 @@ When you were asked to go get a replacement Switch, what did you do with those c
 &SET_POSE:Thinking,Jory
 &PAN_TO_POSITION:2,{panTime}
 &SPEAK:Jory
-Well, since I had just finished polishing them, I decided to put them away in my backpack...
+Well, since I had just finished polishing them, I decided to put them away in my backpack{ellipsis}
 and leave it in the 10 Minute Power Hour recording room since I knew I had to do setup for that right after.
 
 &JUMP_TO_POSITION:3
 &SPEAK:Tutorial_Boy
-Would those coins happen to be...
+Would those coins happen to be{ellipsis}
 &SHAKE_SCREEN:0.25,0.2
 &SET_POSE:Angry
 &PLAY_SFX:shock2
@@ -267,14 +267,14 @@ THESE!?!?
 &JUMP_TO_POSITION:2
 &SET_POSE:Sweaty
 &SPEAK:Jory
-Uh... Uh...
+Uh{ellipsis} Uh{ellipsis}
 
 &JUMP_TO_POSITION:3
 &SET_POSE:Normal
 &DIALOGUE_SPEED:0.04
 &SPEAK:Tutorial_Boy
-As stated before, these coins were found in the same pocket as the dinosaurs...
-...and they fit the description of the coins the witness just gave! What more proof do you need!?
+As stated before, these coins were found in the same pocket as the dinosaurs{ellipsis}
+{ellipsis}and they fit the description of the coins the witness just gave! What more proof do you need!?
 
 &SHAKE_SCREEN:0.25,0.2
 &SET_POSE:Angry
@@ -285,7 +285,7 @@ CONFESS TO YOUR CRIMES, JORY!
 &JUMP_TO_POSITION:2
 &DIALOGUE_SPEED:0.06
 &SPEAK:Jory
-I... ER... UH... Oh man, yeah, those are... My coins... B-but that-
+I{ellipsis} ER{ellipsis} UH{ellipsis} Oh man, yeah, those are{ellipsis} My coins{ellipsis} B-but that-
 
 &JUMP_TO_POSITION:3
 &SET_POSE:Confident
@@ -310,9 +310,9 @@ What? Just look at the witness! His sweatiness and nervous behavior is that of a
 &SCENE:TMPH_Judge
 &SET_POSE:Thinking
 &SPEAK:JudgeBrent
-What the defense says holds up...
+What the defense says holds up{ellipsis}
 &SET_POSE:Normal
-...so I will sustain their objection.
+{ellipsis}so I will sustain their objection.
 
 &SCENE:TMPH_Court
 &HIDE_TEXTBOX
@@ -326,10 +326,10 @@ Please tell the court what that <color={red}>something</color> was going to be.
 &JUMP_TO_POSITION:2
 &SET_POSE:Thinking
 &SPEAK:Jory
-Well... You see, we were planning on doing the 10 Minute Power Hour right after the livestream.
-And I had to help set up since we were planning on doing something...
+Well{ellipsis} You see, we were planning on doing the 10 Minute Power Hour right after the livestream.
+And I had to help set up since we were planning on doing something{ellipsis}
 &SET_POSE:Nervous
-...different.
+{ellipsis}different.
 
 &JUMP_TO_POSITION:3
 &SPEAK:Tutorial_Boy
@@ -341,9 +341,9 @@ And what was this something that was so different?
 Well, to put it simply, we were going to do a dunk tank contest--
 --but instead of water it was going to be Strawberries and Cream.
 &SET_POSE:Thinking
-Something about Ninja Party School...? I don't know, it was Dan and Arin's idea...
+Something about Ninja Party School{ellipsis}? I don't know, it was Dan and Arin's idea{ellipsis}
 &SET_POSE:Nervous
-But I wasn't really looking forward to being dunked in... cream...
+But I wasn't really looking forward to being dunked in{ellipsis} cream{ellipsis}
 
 &JUMP_TO_POSITION:1
 &SET_POSE:Sweaty
@@ -353,8 +353,8 @@ But I wasn't really looking forward to being dunked in... cream...
 &JUMP_TO_POSITION:3
 &SET_POSE:Confident
 &SPEAK:Tutorial_Boy
-And so you decided to sabotage the episode's production...
-...so you wouldn't have to suffer through such a menial and humiliating task.
+And so you decided to sabotage the episode's production{ellipsis}
+{ellipsis}so you wouldn't have to suffer through such a menial and humiliating task.
 &SET_POSE:Angry
 I see right through you, Jory Griffis!
 
@@ -392,7 +392,7 @@ You're simply pushing a false narrative to make my client look bad!
 &PAN_TO_POSITION:3,{doublePanTime}
 &SPEAK:Tutorial_Boy
 Oh ho, I assure you, this is no bravado. We have true motivation.
-We have evidence that connects Jory to the crime, and...
+We have evidence that connects Jory to the crime, and{ellipsis}
 
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:smack

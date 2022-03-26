@@ -1,27 +1,32 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
+INCLUDE ../Templates/Macros.ink
 
 <- COURT_TMPH
 
 &JUMP_TO_POSITION:2
-&FADE_IN:1
+&PLAY_SONG:fyiIWannaXYourExaminationModerato,{songFadeTime}
+&FADE_IN:2
 &WAIT:1
 
-&PLAY_SONG:fyiIWannaXYourExaminationModerato
+<- CrossExamination
 
-&PLAY_ANIMATION:CrossExamination
-
-&SPEAK:None
+&NARRATE
 &APPEAR_INSTANTLY
 <align=center><color={orange}>-- Witness' Account --
 
 -> Line1
 
-=== Line1 ===
+=== FocusRoss ===
 &SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
+&SET_POSE:Normal
+-> DONE
+
+=== Line1 ===
+<- FocusRoss
 <color=green>So, I saw Jory walk by my office.
 + [Continue]
     -> Line2
@@ -29,9 +34,7 @@ INCLUDE ../Templates/SceneInitialization.ink
     -> Line1Press
 
 === Line2 ===
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:2
-&SPEAK:Ross
+<- FocusRoss
 <color=green>But I suddenly had to use the bathroom right away!
 + [Continue]
     -> Line3
@@ -39,21 +42,17 @@ INCLUDE ../Templates/SceneInitialization.ink
     -> Line2Press
 
 === Line3 ===
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:2
-&SPEAK:Ross
+<- FocusRoss
 <color=green>I ran to use the nearby bathroom. On my way back, I saw Jory stashing the dinos away.
 + [Continue]
     -> Line4
 + [Press]
     -> Line3Press
 + [Plumber_Invoice]
-    -> Present
+    -> PresentEvidence
 
 === Line4 ===
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:2
-&SPEAK:Ross
+<- FocusRoss
 <color=green>I didn't think anything of it, that's why I forgot to mention it earlier!
 + [Continue]
     -> Line1
@@ -61,7 +60,7 @@ INCLUDE ../Templates/SceneInitialization.ink
     -> Line4Press
 
 === Line1Press ===
-# &HOLD_IT:Arin
+&HOLD_IT:Arin
 &SET_POSE:Point,Arin
 &PAN_TO_POSITION:1,{panTime}
 &SPEAK:Arin
@@ -80,7 +79,7 @@ Please tell the court the reason you had to get up and leave your office.
 -> Line2
 
 === Line2Press ===
-# &HOLD_IT:Arin
+&HOLD_IT:Arin
 &SET_POSE:Point,Arin
 &PAN_TO_POSITION:1,{panTime}
 &SPEAK:Arin
@@ -96,18 +95,18 @@ You're one to talk! YOU have to suddenly poop all the time!
 He's got you there, bro.
 
 &SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 You have quite a reputation with 'making bears', Arin. I think you should let this one go.
 
 &SCENE:TMPH_Court
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
-Uh... right...
+Uh{ellipsis} right{ellipsis}
 
 -> Line3
 
 === Line3Press ===
-# &HOLD_IT
+&HOLD_IT:Arin
 &SET_POSE:Point,Arin
 &PAN_TO_POSITION:1,{panTime}
 &SPEAK:Arin
@@ -120,7 +119,7 @@ Well obviously I'd just finished taking a massive dump. Because that's the reaso
 &JUMP_TO_POSITION:1
 &SET_POSE:Embarrassed
 &SPEAK:Arin
-Hahah... of course. Stupid question, I guess.
+Hahah{ellipsis} of course. Stupid question, I guess.
 
 &SPEAK:Dan
 Hold on, Arin.
@@ -132,13 +131,13 @@ What's up, Dan?
 
 &SCENE:TMPH_Assistant
 &SPEAK:Dan
-Something about that doesn't seem right, but... I dunno...
+Something about that doesn't seem right, but{ellipsis} I dunno{ellipsis}
 Maybe we should look at the <color={red}>evidence</color>, see if there's something about this?
 
 -> Line4
 
 === Line4Press ===
-# &HOLD_IT
+&HOLD_IT:Arin
 &SET_POSE:Point,Arin
 &PAN_TO_POSITION:1,{panTime}
 POSE Arin Point
@@ -157,9 +156,9 @@ Yeah, my shits are pretty legendary. Point taken.
 
 -> Line1
 
-=== Present ===
+=== PresentEvidence ===
 
-# &OBJECTION:Arin
+&OBJECTION:Arin
 &STOP_SONG
 &SET_POSE:Point,Arin
 &PAN_TO_POSITION:1,{panTime}
@@ -175,8 +174,8 @@ Of course I am.
 &SET_POSE:PaperSlap
 &SHOW_ITEM:Plumber_Invoice,Right
 &SPEAK:Arin
-Then why does this plumbing invoice state very clearly...
-&PLAY_SONG:dragonObjection
+Then why does this plumbing invoice state very clearly{ellipsis}
+&PLAY_SONG:dragonObjection,{songFadeTime}
 ..that the toilets were undergoing maintenance at that time?
 &HIDE_ITEM
 
@@ -209,7 +208,7 @@ That means you couldn't have possibly been using that bathroom. And you couldn't
 
 &SCENE:TMPH_Judge
 &SET_POSE:Warning
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 Order in the court!
 Witness, what do you have to say about this?
 
@@ -217,10 +216,10 @@ Witness, what do you have to say about this?
 &JUMP_TO_POSITION:2
 &SET_POSE:Sweaty
 &SPEAK:Ross
-Uh, I.. er...
-Well, you see... the thing is...
+Uh, I.. er{ellipsis}
+Well, you see{ellipsis} the thing is{ellipsis}
 
-# &OBJECTION:Tutorial_Boy
+&OBJECTION:Tutorial_Boy
 
 &HIDE_TEXTBOX
 &STOP_SONG
@@ -233,7 +232,7 @@ I think it's time to reveal the truth, Ross.
 
 &SCENE:TMPH_Judge
 &SET_POSE:Surprised
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 What's that you say?
 
 &SCENE:TMPH_Assistant
@@ -244,9 +243,9 @@ Oh, I do not like where this is going.
 &SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
-The... truth?
+The{ellipsis} truth?
 
-&PLAY_SONG:GGJJROSS
+&PLAY_SONG:GGJJRoss,{songFadeTime}
 
 &JUMP_TO_POSITION:3
 &SPEAK:Tutorial_Boy
@@ -255,11 +254,11 @@ The Mario Maker level you were working on? I think you need to come clean!
 
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
-...
+{ellipsis}
 &PLAY_SFX:realization
 !
 &SET_POSE:Sweaty
-I... guess you're right! Guess I can't hide it any longer.
+I{ellipsis} guess you're right! Guess I can't hide it any longer.
 
 &JUMP_TO_POSITION:1
 &SET_POSE:DeskSlam
@@ -268,14 +267,14 @@ What the hey are you even talking about?
 
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
-Well... the truth is, I wasn't animating anything at all.
+Well{ellipsis} the truth is, I wasn't animating anything at all.
 I was actually working on a secret level for you guys.
 
 &JUMP_TO_POSITION:1
 &PLAY_SFX:stab
 &SET_POSE:Sweaty
 &SPEAK:Arin
-What...?
+What{ellipsis}?
 
 &JUMP_TO_POSITION:2
 &SET_POSE:Sad
@@ -283,7 +282,7 @@ What...?
 I know, I shouldn't have lied about it, but I wanted it to be a surprise!
 
 &SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 This changes things quite a bit, you know.
 &SET_POSE:Normal
 Tutorial Boy, I think we need to redo your witness' testimony again in light of this new information.
@@ -302,7 +301,7 @@ Yes, of course, Your Honor.
 What? Again?
 
 &SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 I know it's unprofessional, but Ross tends to have good intentions.
 Therefore, I'm willing to give him another chance. Besides, how could I say no to that face?
 
@@ -317,12 +316,12 @@ Therefore, I'm willing to give him another chance. Besides, how could I say no t
 (Lord spare me this crap.)
 
 &SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
+&SPEAK:JudgeBrent
 This time, Ross, I need the honest truth from you. You may begin your testimony.
 
 &HIDE_TEXTBOX
 &FADE_OUT:1
-&PLAY_SONG:None
+&FADE_OUT_SONG:{songFadeTime}
 &WAIT:3
 
 -> END

@@ -1,12 +1,13 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
+INCLUDE ../Templates/Macros.ink
 
 &PLAY_SONG:turnaboutGrumpsters,{songFadeTime}
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
 <color={blue}>(It started out just like every time after our livestream.)
 <color={blue}>(We had just finished a session playing Penix Wright: Facial Attorney<sup>(tm)</sup>.)
-<color={blue}>(Dan and I were discussing some very important matters...)
+<color={blue}>(Dan and I were discussing some very important matters{ellipsis})
 
 &HIDE_TEXTBOX
 &SCENE:TMPH_Lobby
@@ -67,7 +68,7 @@ Well,
 &CONTINUE_DIALOGUE
 &DIALOGUE_SPEED:0.08
 I got the invoice for the bathrooms today.
-The plumbers just finished fixing the toilets in the north end of the building, and that got me thinking...
+The plumbers just finished fixing the toilets in the north end of the building, and that got me thinking{ellipsis}
 
 &SET_POSE:Hair
 &SPEAK:Dan
@@ -107,7 +108,7 @@ You mean the whipped cream dunking machine I almost drowned in?
 &PLAY_SFX:lightbulb
 &SET_POSE:Surprised
 &DIALOGUE_SPEED:0.08
-You don't mean...?
+You don't mean{ellipsis}?
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Arin
@@ -119,7 +120,7 @@ You gotta be butt-fuckin' me dude, really?
 
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
-Well, if I gotta be doin' it, Dan...
+Well, if I gotta be doin' it, Dan{ellipsis}
 
 &SET_POSE:Happy
 &DIALOGUE_SPEED:0.02
@@ -149,7 +150,7 @@ Good thinking. Let's get going then!
 &PLAY_SFX:doorOpens
 &DIALOGUE_SPEED:0.06
 &SPEAK_UNKNOWN:Jory
-Actually, guys, we've got a problem...
+Actually, guys, we've got a problem{ellipsis}
 
 &DIALOGUE_SPEED:0.08
 &SPEAK:Arin
@@ -171,7 +172,7 @@ We've spent the last ten minutes looking for them.
 Well, that's not very long. They can't have gone far.
 
 &SPEAK:Jory
-That's the thing... we already found them.
+That's the thing{ellipsis} we already found them.
 
 &SET_POSE:Sweaty
 &SPEAK:Arin
@@ -179,7 +180,7 @@ So then what's the problem?
 
 &SET_POSE:Nervous
 &SPEAK:Jory
-The problem is...<br>apparently they were found in <color=\#990a1d>MY backpack</color>.
+The problem is{ellipsis}<br>apparently they were found in <color=\#990a1d>MY backpack</color>.
 
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:damage1
@@ -217,8 +218,8 @@ Obviously he didn't do it, look at his face! Is that the face of someone who is 
 
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
-...
-Yes...?
+{ellipsis}
+Yes{ellipsis}?
 
 &PLAY_SFX:stab
 &DIALOGUE_SPEED:0.04
@@ -263,7 +264,7 @@ I didn't really know what to do, and you guys know I'd never do anything like th
 
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
-I'm not really sure about all this...
+I'm not really sure about all this{ellipsis}
 
 &ACTOR:Dan
 &SET_POSE:Angry
@@ -272,7 +273,7 @@ I'm not really sure about all this...
 ARIN!
 
 &SET_POSE:Normal
-C'mon bro, be a bro and bro this one out for our bro... Brory.
+C'mon bro, be a bro and bro this one out for our bro{ellipsis} Brory.
 
 &ACTOR:Jory
 &SET_POSE:Nervous
@@ -283,8 +284,8 @@ We're just idiots who play games while saying stupid things for money on the int
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Jory
-Yeah... I don't know, I didn't really have a plan or anything.
-The whole thing has just thrown me for a loop and I'm kind of grasping here...
+Yeah{ellipsis} I don't know, I didn't really have a plan or anything.
+The whole thing has just thrown me for a loop and I'm kind of grasping here{ellipsis}
 
 &ACTOR:Dan
 &SET_POSE:Sad
@@ -311,7 +312,7 @@ Yeah, I understand guys.
 
 &PLAY_SFX:realization
 &SET_POSE:Normal
-Hey... someone just slipped a letter under the door.
+Hey{ellipsis} someone just slipped a letter under the door.
 
 &SPEAK:Arin
 A letter? Who's it from?
@@ -319,14 +320,14 @@ A letter? Who's it from?
 &SET_POSE:thinking
 &DIALOGUE_SPEED:0.06
 &SPEAK:Jory
-It's from...<br>My dad?
+It's from{ellipsis}<br>My dad?
 
 &PLAY_SFX:realization
 &ACTOR:Dan
 &SET_POSE:Surprised
 &DIALOGUE_SPEED:0.04
 &SPEAK:Dan
-From <color=\#990a1d>Jory Sr</color>? Why doesn't he just text...
+From <color=\#990a1d>Jory Sr</color>? Why doesn't he just text{ellipsis}
 
 &SPEAK:Arin
 Open it up, what does it say?
@@ -335,11 +336,11 @@ Open it up, what does it say?
 &ACTOR:Jory
 &SET_POSE:Thinking
 &SPEAK:Jory
-...<br>It's from my dad alright, but it's addressed to you two!
+{ellipsis}<br>It's from my dad alright, but it's addressed to you two!
 
 &PLAY_SFX:realization
 &SPEAK:Arin
-Us? Like... me and Dan?
+Us? Like{ellipsis} me and Dan?
 
 &ACTOR:Dan
 &SET_POSE:Hair
@@ -349,7 +350,7 @@ I thought we made that bit up for our episodes.
 &ACTOR:Jory
 &SET_POSE:Thinking
 &SPEAK:Jory
-Well, judging from the handwriting and the little hearts dotting the I's...
+Well, judging from the handwriting and the little hearts dotting the I's{ellipsis}
 It's definitely from my dad.
 
 &SPEAK:Arin
@@ -359,7 +360,7 @@ Let me see that!
 &SET_POSE:Normal
 &PLAY_SFX:pageTurn
 &DIALOGUE_SPEED:0.04
-...<br>Wow, he's right! We should hold on to this, I think it might be important later...
+{ellipsis}<br>Wow, he's right! We should hold on to this, I think it might be important later{ellipsis}
 
 &PLAY_SFX:EvidenceDing
 &ADD_EVIDENCE:Jory_Srs_Letter
@@ -395,7 +396,7 @@ You've gotta be kidding me.
 Wha- How? Didn't this happen like, 10 minutes ago?
 
 &SPEAK:Arin
-Don't think about it too hard, Dan. Anyways...
+Don't think about it too hard, Dan. Anyways{ellipsis}
 
 &SET_POSE:Normal
 &DIALOGUE_SPEED:0.06
@@ -415,7 +416,7 @@ Wow, that was beautiful.
 
 &SET_POSE:Surprised
 &SPEAK:Dan
-Wow... that was... beautiful?
+Wow{ellipsis} that was{ellipsis} beautiful?
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Arin
@@ -430,7 +431,7 @@ Well that was oddly specific.
 <color=green>"P.P.P.S. don't tell Jory this, but I hope he can be on your show again soon!"</color>
 
 &SPEAK:Dan
-Huh...
+Huh{ellipsis}
 
 &SET_POSE:Normal
 &DIALOGUE_SPEED:0.04
@@ -442,11 +443,11 @@ That's a lot of P.
 &WAIT:2
 
 &SPEAK:Arin
-...
+{ellipsis}
 
 &ACTOR:Dan
 &SPEAK:Dan
-...<br>So...?
+{ellipsis}<br>So{ellipsis}?
     
 &ACTOR:Jory
 &SET_POSE:Normal
@@ -509,11 +510,11 @@ That's the whole point, right?!
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Dan
-You are just... UN...
+You are just{ellipsis} UN{ellipsis}
 
 &DIALOGUE_SPEED:0.010
 &SPEAK:Arin
-...<br>...<br>...
+{ellipsis}<br>{ellipsis}<br>{ellipsis}
 &DIALOGUE_SPEED:0.06
 &AUTO_SKIP:True
 I'm wha---
@@ -527,7 +528,7 @@ BELIEVEABLE!
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Arin
-Ok, ok, no need to yell... Let's just get ready.<br>I kind of want to look sharp for this.
+Ok, ok, no need to yell{ellipsis} Let's just get ready.<br>I kind of want to look sharp for this.
 And I just got a new suit that I think will be perfect.
 &CONTINUE_DIALOGUE
 You're gonna love it.

@@ -13,8 +13,6 @@ After all the work I put into those levels...
 
 &CAMERA_PAN:2,0,0 //Speed, x, y
 &WAIT:1
-
-&SPEAK:Ross //Optional, doesn't need to be here, but can be nice for clarity
 ...We'll see who the real good boy is now, won't we Jory?
 
 &HIDE_TEXTBOX
@@ -22,8 +20,6 @@ After all the work I put into those levels...
 &SCENE:TMPH_Ross_With_Dinos
 &CAMERA_SET:0,0 //x, y
 &FADE_IN:1
-
-&SPEAK:Ross //Optional, doesn't need to be here, but can be nice for clarity
 Just as planned...
 
 &CAMERA_PAN:3,270,0 //Speed, x, y
@@ -33,8 +29,8 @@ Soon, I'll have all the coins!
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:RossGalaxyBrain
 &SCENE:TMPH_GalaxyBrain
-&SPEAK:Ross //Optional, doesn't need to be here, but can be nice for clarity
 Now this is a galaxy-brain move right here!
+
 &HIDE_TEXTBOX
 &WAIT:1
 &FADE_OUT:0
@@ -43,5 +39,5 @@ Now this is a galaxy-brain move right here!
 
 &LOAD_SCRIPT:Case1/1-2-PreTrial
 
-    -> END
+-> END
 
