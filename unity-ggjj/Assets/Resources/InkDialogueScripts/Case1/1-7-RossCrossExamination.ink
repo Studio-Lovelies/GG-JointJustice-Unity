@@ -208,7 +208,7 @@ I have an invoice from the plumbers who were working on that bathroom earlier to
 They had just finished working on that very bathroom when we found out about Jory being accused.
 
 &HIDE_TEXTBOX
-&PLAY_SFX:deskslam
+&PLAY_SFX:DeskSlam
 &PLAY_EMOTION:DeskSlamAnimation
 That means you couldn't have possibly been using that bathroom. And you couldn't have seen Jory!
 
@@ -333,8 +333,10 @@ Therefore, I'm willing to give him another chance. Besides, how could I say no t
 This time, Ross, I need the honest truth from you. You may begin your testimony.
 
 &HIDE_TEXTBOX
-&FADE_OUT:1
+&FADE_OUT:2
 &FADE_OUT_SONG:{songFadeTime}
-&WAIT:3
+&WAIT:2
+
+&LOAD_SCRIPT:Case1/1-8-RossWitnessTestimony2
 
 -> END
