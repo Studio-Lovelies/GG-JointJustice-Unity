@@ -10,7 +10,7 @@ I'm visible!
 &SPEAK:Ross
 So am I!
 
-&SHOW_ACTOR:Ross,False
+&HIDE_ACTOR
 &SPEAK:Ross
 Oh no! I'm invisible!
 
@@ -22,7 +22,7 @@ I'm not!
 &SPEAK:Ross
 I'm still invisible!
 
-&SHOW_ACTOR:Arin,False
+&HIDE_ACTOR:Arin
 &SPEAK:Arin
 Oh no!
 
@@ -30,12 +30,12 @@ Oh no!
 &SPEAK:Arin
 Now I'm invisible too!
 
-&SHOW_ACTOR:Ross,true
+&SHOW_ACTOR:Ross
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
 But I'm back now!
 
-&SHOW_ACTOR:Arin,true
+&SHOW_ACTOR:Arin
 &JUMP_TO_POSITION:1
 &SPEAK:Arin
 So am I!

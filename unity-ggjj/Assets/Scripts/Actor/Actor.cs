@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Actor : Animatable
 {
     private ActorData _actorData;
@@ -13,6 +15,8 @@ public class Actor : Animatable
             Animator.Play("Normal");
         }
     }
+    
+    public Renderer Renderer { get; private set; }
 
     /// <summary>
     /// Call base awake method and also set animator to keep state on disable.
@@ -20,6 +24,7 @@ public class Actor : Animatable
     protected override void Awake()
     {
         base.Awake();
+        Renderer = GetComponent<Renderer>();
         Animator.keepAnimatorControllerStateOnDisable = true;
     }
 

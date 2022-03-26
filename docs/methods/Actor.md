@@ -11,11 +11,21 @@ Examples:
 
 ⏲ Instant
 
-Shows or hides all actors in the scene. Has to be re-done after switching a scene.
+Shows the current active actor, or a specified actor in the scene
 
 Examples: 
-  - `&SHOW_ACTOR:Arin,true`
-  - `&SHOW_ACTOR:Arin,false`
+  - `&SHOW_ACTOR`
+  - `&SHOW_ACTOR:Arin`
+
+## HIDE_ACTOR
+
+⏲ Instant
+
+Hides the current active actor, or a specified actor in the scene
+
+Examples: 
+  - `&HIDE_ACTOR`
+  - `&HIDE_ACTOR:Arin`
 
 ## SET_POSE
 Values: 

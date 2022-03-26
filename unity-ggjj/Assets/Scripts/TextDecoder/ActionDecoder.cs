@@ -386,15 +386,25 @@ public class ActionDecoder : ActionDecoderBase
         OnActionDone?.Invoke();
     }
 
-    /// <summary>Shows or hides all actors in the scene. Has to be re-done after switching a scene.</summary>
-    /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
-    /// <param name="shouldShow">Whether to show (`true`) or not show (`false`) the current actor</param>
-    /// <example>&amp;SHOW_ACTOR:Arin,true</example>
-    /// <example>&amp;SHOW_ACTOR:Arin,false</example>
+    /// <summary>Shows the current active actor, or a specified actor in the scene</summary>
+    /// <param name="optional_actorName" validFiles="Assets/Resources/Actors/*.asset">(Optional) Name of the actor to show</param>
+    /// <example>&amp;SHOW_ACTOR</example>
+    /// <example>&amp;SHOW_ACTOR:Arin</example>
     /// <category>Actor</category>
-    private void SHOW_ACTOR(ActorAssetName actorName, bool shouldShow)
+    private void SHOW_ACTOR(ActorAssetName optional_actorName = null)
     {
-        NarrativeGameState.ActorController.SetVisibility(actorName, shouldShow);
+        NarrativeGameState.ActorController.SetVisibility(true, optional_actorName);
+        OnActionDone?.Invoke();
+    }
+
+    /// <summary>Hides the current active actor, or a specified actor in the scene</summary>
+    /// <param name="optional_actorName" validFiles="Assets/Resources/Actors/*.asset">(Optional) Name of the actor to hide</param>
+    /// <example>&amp;HIDE_ACTOR</example>
+    /// <example>&amp;HIDE_ACTOR:Arin</example>
+    /// <category>Actor</category>
+    private void HIDE_ACTOR(ActorAssetName optional_actorName = null)
+    {
+        NarrativeGameState.ActorController.SetVisibility(false, optional_actorName);
         OnActionDone?.Invoke();
     }
 
