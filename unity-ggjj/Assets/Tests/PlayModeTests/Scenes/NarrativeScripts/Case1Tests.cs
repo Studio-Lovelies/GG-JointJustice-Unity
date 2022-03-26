@@ -88,19 +88,19 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                         {
                             if (choice.index == 1 && _narrativeScript.Story.currentTags.Contains("correct") && visitedChoices.Values.Any(choiceList => choiceList.Any(choice => choice == null && choiceList != visitedChoices[currentText])))
                             {
-                                yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode);
+                                yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
                                 continue;
                             }
                             
                             visitedChoices[currentText][Array.FindIndex(visitedChoices[currentText], i => i == null)] =
                                 choice;
-                            yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode);
+                            yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode, new EvidenceAssetName(choice.text));
                             break;
                         }
                     }
                     else
                     {
-                        yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode);
+                        yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
                     }
                 }
                 yield return null;

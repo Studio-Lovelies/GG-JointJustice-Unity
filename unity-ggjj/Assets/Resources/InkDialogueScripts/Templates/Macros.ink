@@ -19,7 +19,7 @@
     
 === Lines
     = Testimony
-        <color=orange><align=center>Witness' Account
+        <color=orange><align=center>-- Witness' Account --
         -> DONE
         
 

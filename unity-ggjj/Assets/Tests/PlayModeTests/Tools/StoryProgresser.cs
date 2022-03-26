@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -32,7 +33,8 @@ namespace Tests.PlayModeTests.Tools
         /// </summary>
         /// <param name="choiceIndex">The index of the choice to select</param>
         /// <param name="gameMode">The GameMode the game is currently using</param>
-        public IEnumerator SelectChoice(int choiceIndex, GameMode gameMode)
+        /// <param name="evidenceName">The name of any evidence to present (if any)</param>
+        public IEnumerator SelectChoice(int choiceIndex, GameMode gameMode, EvidenceAssetName evidenceName)
         {
             switch (gameMode)
             {
@@ -46,13 +48,40 @@ namespace Tests.PlayModeTests.Tools
                     {
                         0 => _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey),
                         1 => _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey),
-                        2 => _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey),
+                        2 =>  SelectEvidence(evidenceName),
                         _ => throw new ArgumentException($"Choice index can only be 0, 1, or 2 in GameMode {gameMode}")
                     };
                     break;
                 default:
                     throw new NotSupportedException($"GameMode '{gameMode}' is not supported");
             }
+        }
+
+        private IEnumerator SelectEvidence(EvidenceAssetName evidenceName)
+        {
+            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
+            var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
+            var evidenceMenuItems = evidenceMenu.transform.GetComponentsInChildren<EvidenceMenuItem>();
+            var incrementButton = evidenceMenu.transform.GetComponentsInChildren<Selectable>().First(menuItem => menuItem.name == "IncrementButton");
+
+            for (var i = 0; i < TestTools.GetField<int>(evidenceMenu, "_numberOfPages"); i++)
+            {
+                foreach (var evidenceMenuItem in evidenceMenuItems)
+                {
+                    if (evidenceMenuItem.CourtRecordObject.InstanceName != evidenceName)
+                    {
+                        continue;
+                    }
+
+                    evidenceMenuItem.GetComponent<Selectable>().Select();
+                    yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+                    yield break;
+                }
+                
+                incrementButton.Select();
+            }
+
+            throw new MissingReferenceException($"Evidence menu did not contain {evidenceName}");
         }
     }
 }

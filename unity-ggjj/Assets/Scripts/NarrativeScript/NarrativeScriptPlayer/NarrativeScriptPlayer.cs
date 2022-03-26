@@ -212,7 +212,7 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         }
 
         var currentChoices = Story.currentChoices;
-        var choice = currentChoices.FirstOrDefault(choice => choice.text == courtRecordObject.InstanceName);
+        var choice = currentChoices.FirstOrDefault(choice => new EvidenceAssetName(choice.text).ToString() == courtRecordObject.InstanceName);
         if (choice == null)
         {
             StartSubStory(_narrativeGameState.NarrativeScriptStorage.GetRandomFailureScript());

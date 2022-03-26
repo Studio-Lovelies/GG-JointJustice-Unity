@@ -5,6 +5,15 @@ INCLUDE ../Templates/Macros.ink
 
 <- COURT_TMPH
 
+&ADD_RECORD:Arin
+&ADD_RECORD:Dan
+&ADD_RECORD:Jory
+
+&ADD_EVIDENCE:AttorneysBadge
+&ADD_EVIDENCE:PlumberInvoice
+&ADD_EVIDENCE:Switch
+&ADD_EVIDENCE:Jory_Srs_Letter
+
 &FADE_OUT:0
 &SET_ACTOR_POSITION:2,Jory
 

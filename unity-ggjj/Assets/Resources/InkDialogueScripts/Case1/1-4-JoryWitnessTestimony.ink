@@ -5,6 +5,20 @@ INCLUDE ../Templates/Macros.ink
 
 <- COURT_TMPH
 
+&ADD_RECORD:Arin
+&ADD_RECORD:Dan
+&ADD_RECORD:Jory
+&ADD_RECORD:JudgeBrent
+&ADD_RECORD:TutorialBoy
+
+&ADD_EVIDENCE:AttorneysBadge
+&ADD_EVIDENCE:PlumberInvoice
+&ADD_EVIDENCE:Switch
+&ADD_EVIDENCE:Jory_Srs_Letter
+&ADD_EVIDENCE:LivestreamRecording
+&ADD_EVIDENCE:JorysBackpack
+&ADD_EVIDENCE:StolenDinos
+
 &SET_ACTOR_POSITION:2,Jory
 &JUMP_TO_POSITION:2
 &SET_POSE:Nervous
