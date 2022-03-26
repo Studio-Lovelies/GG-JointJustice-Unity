@@ -22,6 +22,7 @@ I felt it was a good time to take a break, so I went to see what he was up to.
 That's when I saw it! He had taken the dinos and stuffed them into his backpack!
 
 &HIDE_TEXTBOX
+&END_WITNESS_TESTIMONY
 &FADE_OUT_SONG:{songFadeTime}
 &FADE_OUT:2
 &WAIT:1
@@ -36,7 +37,7 @@ Hmm. So you were in your office working on a Mario Maker level but needed a brea
 That's when you saw Jory, followed him, and saw the dinosaurs being taken.
 That seems reasonable to me.
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &JUMP_TO_POSITION:3
 &SPEAK:TutorialBoy
 Without a doubt, Your Honor. That is how it really happened.
@@ -57,12 +58,12 @@ Ho boy...
 &SET_POSE:Thinking
 What do you think, Dan?
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SET_POSE:SideNormal
 &SPEAK:Dan
 Yeah... I can't really see any holes in his claim...
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &SET_POSE:DeskSlam
 &SPEAK:Arin
 Damn...
@@ -75,9 +76,9 @@ Wait! I've got an idea!
 What is it?
 
 &HIDE_TEXTBOX
-&PLAY_SFX:deskslam
+&PLAY_SFX:DeskSlam
 &PLAY_EMOTION:DeskSlamAnimation
-&SPEAK:ARin
+&SPEAK:Arin
 I'll just BS my way through by questioning everything he said!
 
 &SPEAK:Dan
@@ -87,7 +88,7 @@ I don't know, man. Do you really think that will work?
 &SPEAK:Arin
 Who knows? I mean, it's worked for everything else I've ever done...
 
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SPEAK:Dan
 If you say so...
 &SET_POSE:Angry
@@ -96,7 +97,7 @@ Wait, what do you mean every--
 
 &HIDE_TEXTBOX
 &AUTO_SKIP:false
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &PLAY_SFX:DeskSlam
 &PLAY_EMOTION:DeskSlamAnimation
 &SPEAK:Arin
@@ -106,7 +107,7 @@ LET'S DO IT!
 &SPEAK:JudgeBrent
 If the defense would like to cross examine now...?
 
-&SCENE:TMPH_Court
+&SCENE:TMPHCourt
 &SET_POSE:Point
 &SPEAK:Arin
 You bet your sweet bippie I would, Your Honor! I've got some questions that need answering!
@@ -116,8 +117,8 @@ You bet your sweet bippie I would, Your Honor! I've got some questions that need
 Very well. The defense may begin their cross-examination.
 
 &HIDE_TEXTBOX
-&PLAY_SONG:None
-&FADE_OUT:3
+&FADE_OUT_SONG:{songFadeTime}
+&FADE_OUT:2
 &WAIT:1
 
 &LOAD_SCRIPT:Case1/1-9-RossCrossExamination2

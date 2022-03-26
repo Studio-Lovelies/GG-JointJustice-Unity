@@ -171,6 +171,7 @@ Yeah, my shits are pretty legendary. Point taken.
 
 === PresentEvidence ===
 
+&MODE:Dialogue
 &OBJECTION:Arin
 &STOP_SONG
 &SET_POSE:Point,Arin
