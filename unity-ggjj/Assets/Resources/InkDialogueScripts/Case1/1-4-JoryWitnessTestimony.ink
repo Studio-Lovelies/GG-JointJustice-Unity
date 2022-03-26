@@ -5,7 +5,6 @@ INCLUDE ../Templates/Macros.ink
 
 <- COURT_TMPH
 
-
 &SET_ACTOR_POSITION:2,Jory
 &JUMP_TO_POSITION:2
 &SET_POSE:Nervous

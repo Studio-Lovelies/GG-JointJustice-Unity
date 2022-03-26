@@ -21,11 +21,15 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
         private NarrativeScript _narrativeScript;
         private INarrativeScriptPlayer _narrativeScriptPlayer;
         private NarrativeGameState _narrativeGameState;
+        private AppearingDialogueController _appearingDialogueController;
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
             yield return SceneManager.LoadSceneAsync("Game");
+            _appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
+            _narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+
         }
 
         [UnityTest]
@@ -33,7 +37,6 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
         [TestCaseSource(nameof(NarrativeScripts))]
         public IEnumerator NarrativeScriptsRunWithNoErrors(TextAsset narrativeScriptText)
         {
-            _narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
             _narrativeScript = new NarrativeScript(narrativeScriptText);
             _narrativeGameState.NarrativeScriptStorage.NarrativeScript = _narrativeScript;
             _narrativeGameState.StartGame();
@@ -44,18 +47,16 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
         private IEnumerator PlayNarrativeScript()
         {
-            var visitedChoices = new Dictionary<int, Choice[]>();
+            var visitedChoices = new Dictionary<string, Choice[]>();
             var storyProgresser = new StoryProgresser();
-            var currentChoiceList = 0;
 
             while (true)
             {
                 if (NarrativeScriptHasChanged(_narrativeScript))
                 {
-                    if (visitedChoices.Count != 0 && visitedChoices.Values.All(choiceArray => choiceArray.Any(choice => choice == null)))
+                    if (visitedChoices.Count != 0 && visitedChoices.Values.SelectMany(choices => choices).Any(choice => choice == null))
                     {
                         _narrativeScriptPlayer.ActiveNarrativeScript = _narrativeScript;
-                        currentChoiceList = 0;
                         _narrativeScript.Reset();
                         _narrativeGameState.BGSceneList.InstantiateBGScenes(_narrativeScript);
                     }
@@ -71,21 +72,35 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                 }
                 else
                 {
+                    yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
+                    
                     var choices = _narrativeScript.Story.currentChoices;
-                    if (choices.Count > 0)
+                    var currentText = _narrativeScript.Story.currentText;
+                    if (choices.Count > 0 && !visitedChoices.ContainsKey(currentText))
                     {
-                        currentChoiceList++;
-                        if (!visitedChoices.ContainsKey(currentChoiceList))
-                        {
-                            visitedChoices.Add(currentChoiceList, new Choice[choices.Count]);
-                        }
+                        visitedChoices.Add(currentText, new Choice[choices.Count]);
                     }
 
-                    foreach (var choice in choices.Where(choice => visitedChoices[currentChoiceList].All(item => item == null || choice.text != item.text)))
+                    var possibleChoices = choices.Where(choice => visitedChoices[currentText].All(item => item == null || choice.text != item.text)).ToArray();
+                    if (possibleChoices.Length > 0)
                     {
-                        visitedChoices[currentChoiceList][Array.FindIndex(visitedChoices[currentChoiceList], i => i == null)] = choice;
-                        yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode);
-                        break;
+                        foreach (var choice in possibleChoices)
+                        {
+                            if (choice.index == 1 && _narrativeScript.Story.currentTags.Contains("correct") && visitedChoices.Values.Any(choiceList => choiceList.Any(choice => choice == null && choiceList != visitedChoices[currentText])))
+                            {
+                                yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode);
+                                continue;
+                            }
+                            
+                            visitedChoices[currentText][Array.FindIndex(visitedChoices[currentText], i => i == null)] =
+                                choice;
+                            yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode);
                     }
                 }
                 yield return null;

@@ -38,7 +38,7 @@ INCLUDE ../Templates/Macros.ink
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:2
 &SPEAK:Ross
-<color=green>It was Jory! He was on the 10 Minute Power Hour set taking the dinos!
+<color=green>It was Jory! He was on the 10 Minute Power Hour set taking the dinos!#correct
 + [Continue]
     -> Line4
 + [Press]
@@ -209,5 +209,7 @@ Way to go, Big Cat! Let's see how this changes things.
 &FADE_OUT:1
 &FADE_OUT_SONG:{songFadeTime}
 &WAIT:3
+
+&LOAD_SCRIPT:Case1/1-7-RossCrossExamination
 
 -> END
