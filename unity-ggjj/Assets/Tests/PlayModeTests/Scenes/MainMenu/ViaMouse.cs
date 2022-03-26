@@ -12,14 +12,27 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
     public class ViaMouse
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
-        private Mouse Mouse => _inputTestTools.Mouse;
+        private Mouse Mouse;
+
+        [SetUp]
+        public void Setup()
+        {
+            _inputTestTools.Setup();
+            Mouse = _inputTestTools.Mouse;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _inputTestTools.TearDown();
+        }
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
             yield return SceneManager.LoadSceneAsync("MainMenu");
         }
-        
+
         [UnityTest]
         public IEnumerator CanEnterAndCloseTwoSubMenusIndividually()
         {

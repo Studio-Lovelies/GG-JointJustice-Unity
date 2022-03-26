@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
@@ -31,7 +32,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         }
         
         [UnityTest]
-        public IEnumerator AudioController_PlaySong_FadesBetweenSongs()
+        public IEnumerator FadesBetweenSongs()
         {
             const float TRANSITION_DURATION = 2f;
             var settingsMusicVolume = TestTools.GetField<float>(_audioController, "_settingsMusicVolume");
@@ -39,39 +40,33 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             // setup and verify steady state of music playing for a while
             var firstSong = LoadSong("aBoyAndHisTrial");
             _audioController.PlaySong(firstSong, TRANSITION_DURATION);
-            yield return new WaitForSeconds(TRANSITION_DURATION);
 
-            Assert.AreEqual(_audioSource.volume, settingsMusicVolume);
+            yield return TestTools.WaitForState(() => _audioSource.volume == settingsMusicVolume, TRANSITION_DURATION*2);
             Assert.AreEqual(firstSong.name, _audioSource.clip.name);
 
             // transition into new song
             var secondSong = LoadSong("aKissFromARose");
             _audioController.PlaySong(secondSong, TRANSITION_DURATION);
-            yield return new WaitForSeconds(TRANSITION_DURATION/10f);
+            yield return TestTools.WaitForState(() => _audioSource.volume != settingsMusicVolume, TRANSITION_DURATION);
 
             // expect old song to still be playing, but no longer at full volume, as we're transitioning
             Assert.AreNotEqual(_audioSource.volume, settingsMusicVolume);
             Assert.AreEqual(firstSong.name, _audioSource.clip.name);
 
-            yield return new WaitForSeconds(TRANSITION_DURATION);
-
             // expect new song to be playing at full volume, as we're done transitioning
-            Assert.AreEqual(_audioSource.volume, settingsMusicVolume);
+            yield return TestTools.WaitForState(() => _audioSource.volume == settingsMusicVolume, TRANSITION_DURATION*2);
             Assert.AreEqual(secondSong.name, _audioSource.clip.name);
 
             // transition into new song
             var thirdSong = LoadSong("investigationJoonyer");
             _audioController.PlaySong(thirdSong, TRANSITION_DURATION);
-            yield return new WaitForSeconds(TRANSITION_DURATION/10f);
 
             // expect old song to still be playing, but no longer at full volume, as we're transitioning
-            Assert.AreNotEqual(_audioSource.volume, settingsMusicVolume);
+            yield return TestTools.WaitForState(() => _audioSource.volume != settingsMusicVolume, TRANSITION_DURATION);
             Assert.AreEqual(secondSong.name, _audioSource.clip.name);
 
-            yield return new WaitForSeconds(TRANSITION_DURATION);
-
             // expect new song to be playing at full volume, as we're done transitioning
-            Assert.AreEqual(_audioSource.volume, settingsMusicVolume);
+            yield return TestTools.WaitForState(() => _audioSource.volume == settingsMusicVolume, TRANSITION_DURATION*2);
             Assert.AreEqual(thirdSong.name, _audioSource.clip.name);
         }
 
@@ -88,10 +83,14 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         [UnityTest]
         public IEnumerator SongsCanBeFadedOut()
         {
-            const float TRANSITION_DURATION = 2;
+            const float TRANSITION_DURATION_IN_SECONDS = 2;
             yield return SongsCanBePlayedWithoutFadeIn();
-            _audioController.FadeOutSong(TRANSITION_DURATION);
-            yield return new WaitForSeconds(TRANSITION_DURATION);
+            var expectedEndTimeOfFadeOut = Time.time + TRANSITION_DURATION_IN_SECONDS;
+            _audioController.FadeOutSong(TRANSITION_DURATION_IN_SECONDS);
+            yield return TestTools.WaitForState(() => _audioSource.volume == 0);
+
+            // This should take at least TRANSITION_DURATION_IN_SECONDS
+            Assert.GreaterOrEqual(Time.time, expectedEndTimeOfFadeOut);
             Assert.AreEqual(0, _audioSource.volume);
         }
 

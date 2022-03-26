@@ -41,6 +41,7 @@ public class MusicFader
     /// <returns>WaitUntil object that returns control to the coroutine when it's finished</returns>
     public WaitUntil FadeOut(float seconds = 1f)
     {
+        var startTime = Time.time;
         return new WaitUntil(() =>
         {
             if (seconds <= 0)
@@ -49,17 +50,17 @@ public class MusicFader
                 return true;
             }
 
-            NormalizedVolume -= Time.deltaTime / seconds;
+            NormalizedVolume = Mathf.Lerp(1f, 0f, (Time.time - startTime) / seconds);
 
-            if (NormalizedVolume <= 0)
-            {
-                NormalizedVolume = 0;
-                return true;
-            }
-            else
+            // not enough time has passed
+            if (Time.time - startTime <= seconds)
             {
                 return false;
             }
+
+            NormalizedVolume = 0;
+            return true;
+
         });
     }
 }
