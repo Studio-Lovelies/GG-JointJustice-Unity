@@ -144,24 +144,24 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         [TestCase(true, ExpectedResult = true)]
         [TestCase(false, ExpectedResult = false)]
-        public bool ActorVisiblityCanBeSetForActiveActor(bool shouldShow)
+        public bool ActorVisiblityCanBeSetForActiveActor(bool expectedVisibility)
         {
-            return AssertVisibility(shouldShow, null, _witnessAnimator.GetComponent<Renderer>());
+            return AssertVisibility(expectedVisibility, null, _witnessAnimator.GetComponent<Renderer>());
         }
 
         [UnityTest]
         [TestCase(true, ExpectedResult = true)]
         [TestCase(false, ExpectedResult = false)]
-        public bool ActorVisibilityCanBeSetForNonActiveActor(bool shouldShow)
+        public bool ActorVisibilityCanBeSetForNonActiveActor(bool expectedVisibility)
         {
-            return AssertVisibility(shouldShow, "TutorialBoy", GameObject.Find("Prosecution_Actor").GetComponent<Renderer>());
+            return AssertVisibility(expectedVisibility, "TutorialBoy", GameObject.Find("Prosecution_Actor").GetComponent<Renderer>());
         }
 
-        private bool AssertVisibility(bool shouldShow, string actorName, Renderer renderer)
+        private bool AssertVisibility(bool expectedVisibility, string actorName, Renderer renderer)
         {
-            renderer.enabled = !shouldShow;
-            Assert.IsTrue(renderer.enabled == !shouldShow);
-            _actorController.SetVisibility(shouldShow, actorName == null ? null : new ActorAssetName(actorName));
+            renderer.enabled = !expectedVisibility;
+            Assert.IsTrue(renderer.enabled == !expectedVisibility);
+            _actorController.SetVisibility(expectedVisibility, actorName == null ? null : new ActorAssetName(actorName));
             return renderer.enabled;
         }
 
