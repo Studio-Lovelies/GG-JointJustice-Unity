@@ -1,8 +1,11 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
+INCLUDE ../Templates/FailureStates.ink
+INCLUDE ../Templates/Macros.ink
 
 <- COURT_TMPH
+<- Failures.TMPH
 
 &ADD_RECORD:Arin
 &ADD_RECORD:Dan
@@ -34,7 +37,7 @@ That's the best question you can come up with? Laughable!
 (Jeez, this guy is so annoying!)
 
 &PLAY_SFX:realization
-(...!)
+({ellipsis}!)
 
 &SET_POSE:Confident
 &SPEAK:Arin
@@ -86,16 +89,9 @@ Impossible! There's no way you can prove such a thing!
 &JUMP_TO_POSITION:1
 &SET_POSE:DeskSlam
 &SPEAK:Arin
-I CAN prove it... with THIS!
+I CAN prove it{ellipsis} with THIS!
 
--> PresentEvidence
-
-=== PresentEvidence ===
-&PRESENT_EVIDENCE
-+ [Wrong]
-    -> PresentEvidence
-+ [Switch]
-    -> PresentSwitch
+-> Present("Switch") ->
     
 === PresentSwitch ===
 &TAKE_THAT:Arin
@@ -103,13 +99,13 @@ I CAN prove it... with THIS!
 
 &JUMP_TO_POSITION:3
 &SPEAK:TutorialBoy
-A... Nintendo Switch?
+A{ellipsis} Nintendo Switch?
 
 &JUMP_TO_POSITION:1
 &SET_POSE:Confident
 &SPEAK:Arin
-That's right. Remember how you told everyone that Jory went to get us a switch when ours broke?
-Well it just so happens that I have this switch... RIGHT HERE!
+That's right. Remember how you told everyone that Jory went to get us a Switch when ours broke?
+Well it just so happens that I have this switch{ellipsis} RIGHT HERE!
 
 &HIDE_TEXTBOX
 &HIDE_ITEM
@@ -131,13 +127,13 @@ That can't be!
 &HIDE_TEXTBOX
 &WAIT:2
 &SET_POSE:Normal
-...
+{ellipsis}
 &STOP_SONG
 Wait a second, how does that help you?
 
 &SCENE:TMPHJudge
 &SPEAK:JudgeBrent
-Does the prosecution have an... objection?
+Does the prosecution have an{ellipsis} objection?
 
 &SCENE:TMPHCourt
 &SET_POSE:Sweaty
@@ -146,8 +142,8 @@ Oh right, my mistake.
 &OBJECTION:TutorialBoy
 &SET_POSE:Angry
 This is a complete waste of time, Your Honor!
-Not only is there no proof that Switch belongs to Ross...
-...but there's no proof this is even the Switch Jory brought back!
+Not only is there no proof that Switch belongs to Ross{ellipsis}
+{ellipsis}but there's no proof this is even the Switch Jory brought back!
 
 &OBJECTION:Arin
 &PAN_TO_POSITION:1,{doublePanTime}
@@ -171,9 +167,9 @@ Look closely on the back of this particular Switch.
 &SHOW_ITEM:Switch,Right
 You'll see that on the back there is clearly a Slimemantha<sup>(tm)</sup> sticker on it!
 In case you don't know, Slimemantha<sup>(tm)</sup> is an original character made by Ross himself!
-Not only that, but these stickers aren't yet available to the public...
+Not only that, but these stickers aren't yet available to the public{ellipsis}
 &SET_POSE:Point
-...meaning only Ross himself could have them!
+{ellipsis}meaning only Ross himself could have them!
 
 &HIDE_ITEM
 &SCENE:TMPHAssistant
@@ -188,7 +184,7 @@ Easy. I've been helping produce merch for Ross. Isn't that right?
 &JUMP_TO_POSITION:2
 &SET_POSE:Sweaty
 &SPEAK:Ross
-Well... I...
+Well{ellipsis} I{ellipsis}
 
 &JUMP_TO_POSITION:1
 &SET_POSE:Normal
@@ -205,7 +201,7 @@ Damn dude your deduction skills are incredible today!
 &SCENE:TMPHCourt
 &SET_POSE:Confident
 &SPEAK:Arin
-Don't you know, Dan? I'm the Video Game Boy...
+Don't you know, Dan? I'm the Video Game Boy{ellipsis}
 &PLAY_SFX:objectionClean
 &SET_POSE:Objection
 I'm the one who's winning this case!
@@ -227,7 +223,7 @@ And, being the manager, I know that these stickers aren't available to anyone bu
 &SCENE:TMPHCourt
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
-Urp...!
+Urp{ellipsis}!
 
 &STOP_SONG
 &SCENE:TMPHJudge
@@ -286,9 +282,9 @@ All we know from that is what games are on there! Nothing else!
 &SCENE:TMPHAssistant
 &SET_POSE:SideLean
 &SPEAK:Dan
-There are some interesting games on here though...
+There are some interesting games on here though{ellipsis}
 &SET_POSE:SideNormal
-Er... Ross... what exactly is 'Mew Mew Cutie Girls Club'?
+Er{ellipsis} Ross{ellipsis} what exactly is 'Mew Mew Cutie Girls Club'?
 
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:2
@@ -318,14 +314,14 @@ H-Hey! That's totally irrelevant! You can't judge me!
 &SCENE:TMPHJudge
 &SET_POSE:Warning
 &SPEAK:JudgeBrent
-Ahem... if we could get back to the case, you two?
+Ahem{ellipsis} if we could get back to the case, you two?
 &SET_POSE:Normal
 The games on Ross' Switch does not have any bearing on this case.
 
 &SCENE:TMPHCourt
 &SET_POSE:Thinking
 &THINK:Arin
-(Damn... I thought I had the right answer there.)
+(Damn{ellipsis} I thought I had the right answer there.)
 
 -> PlayerChoice
 
@@ -342,7 +338,7 @@ The answer will become clear, when those titties are near!
 &SCENE:TMPHJudge
 &SET_POSE:Warning
 &SPEAK:JudgeBrent
-...You do realize this is a court of law, right?
+{ellipsis}You do realize this is a court of law, right?
 &PLAY_SONG:logicAndTrains,{songFadeTime}
 The titty showing will have to wait until AFTER the trial.
 
@@ -354,7 +350,7 @@ Hey, now we've got something to look forward to when you win!
 &SCENE:TMPHCourt
 &SET_POSE:Thinking
 &SPEAK:Arin
-Wait... Will this change the age rating?
+Wait{ellipsis} Will this change the age rating?
 
 &JUMP_TO_POSITION:3
 &SPEAK:TutorialBoy
@@ -369,7 +365,7 @@ LET'S MOVE ON BEFORE WE FIND OUT!
 &JUMP_TO_POSITION:1
 &SET_POSE:PaperSlap
 &SPEAK:Arin
-If you've ever owned a Switch, you'd know that the last game played...
+If you've ever owned a Switch, you'd know that the last game played{ellipsis}
 Always sits on the far left-hand side of the screen!
 That way you have quick and easy access to the game you were most recently playing.
 
@@ -382,13 +378,13 @@ That's very true! I've noticed it on my own Switch.
 &SET_POSE:Normal
 &SPEAK:Arin
 Exactly! And what do we see when we load Ross' Switch to the home screen?
-Well, if the prosecution's claim that Ross was making a Mario Maker level with his Switch is true...
+Well, if the prosecution's claim that Ross was making a Mario Maker level with his Switch is true{ellipsis}
 Then Mario Maker would be the game you see on the left hand side of the screen!
 
 &HIDE_TEXTBOX
 &PLAY_SFX:deskSlam
 &PLAY_EMOTION:DeskSlamAnimation
-But if you'd take a look at Ross' Switch, Your Honor...
+But if you'd take a look at Ross' Switch, Your Honor{ellipsis}
 &SET_POSE:Point
 I'm willing to bet that is NOT the game you'll find!
 Your Honor, would you please tell this court what game is actually there?
@@ -422,10 +418,10 @@ Absurd!
 &SET_POSE:DeskSlam
 &SPEAK:Arin
 That's right! If Ross was truly making a Mario Maker level, it would be Mario Maker there!
-That means the fact that Penix Wright is there...
+That means the fact that Penix Wright is there{ellipsis}
 &JUMP_TO_POSITION:2
 &SET_POSE:Glaring
-...was because it was the game we were playing on the livestream!
+{ellipsis}was because it was the game we were playing on the livestream!
 
 &HIDE_TEXTBOX
 &STOP_SONG
@@ -434,7 +430,7 @@ That means the fact that Penix Wright is there...
 &PLAY_EMOTION:Damage
 &SET_POSE:Glaring
 &SPEAK:Ross
-AUGH...
+AUGH{ellipsis}
 &HIDE_TEXTBOX
 &PLAY_SFX:stab
 &SHAKE_SCREEN:0.25,0.25
@@ -456,7 +452,7 @@ OWWW-WUH!
 &JUMP_TO_POSITION:2
 &SET_POSE:MadMilk
 &SPEAK:Ross
-You... guys...
+You{ellipsis} guys{ellipsis}
 &PLAY_SFX:stab
 &PLAY_SONG:ninjaSexPursuit,{songFadeTime}
 Grrr!!! You're all lying!
@@ -499,7 +495,7 @@ I just was mistaken about a few things! That's no way to treat one of your oldes
 &SCENE:TMPHJudge
 &SET_POSE:Thinking
 &SPEAK:JudgeBrent
-Hmmm... the prosecution does bring up a point.
+Hmmm{ellipsis} the prosecution does bring up a point.
 &STOP_SONG
 &HIDE_TEXTBOX
 &WAIT:2
@@ -515,7 +511,7 @@ We can't rely on what he said when many things were just now proven to have glar
 
 &SCENE:TMPHJudge
 &SPEAK:JudgeBrent
-Be that as it may, unless the defense has evidence of someone else more likely to have committed the crime than Jory...
+Be that as it may, unless the defense has evidence of someone else more likely to have committed the crime than Jory{ellipsis}
 I have no choice but to overrule your objection.
 
 &SCENE:TMPHCourt
@@ -534,7 +530,7 @@ Wait, Arin! It's not over yet!
 &SET_POSE:SideNormal
 All we have to do is show that someone else could have done it, right?
 Well, there were only two people who weren't with us during the livestream today.
-One was Jory, and the other...
+One was Jory, and the other{ellipsis}
 
 &HIDE_TEXTBOX
 &PLAY_SFX:realization

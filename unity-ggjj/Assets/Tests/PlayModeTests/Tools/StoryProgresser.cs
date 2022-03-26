@@ -41,7 +41,8 @@ namespace Tests.PlayModeTests.Tools
                 case GameMode.Dialogue:
                     var choice = Object.FindObjectOfType<ChoiceMenu>().transform.GetChild(choiceIndex).GetComponent<Selectable>();
                     choice.Select();
-                    yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey); 
+                    yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+                    Debug.Log(choiceIndex);
                     break;
                 case GameMode.CrossExamination:
                     yield return choiceIndex switch
