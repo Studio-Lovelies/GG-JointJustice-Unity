@@ -137,10 +137,6 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         switch (GameMode)
         {
             case GameMode.Dialogue:
-                foreach (var tag in Story.currentTags)
-                {
-                    Debug.Log(tag);
-                }
                 _narrativeGameState.ChoiceMenu.Initialise(Story.currentChoices);
                 break;
             case GameMode.CrossExamination:

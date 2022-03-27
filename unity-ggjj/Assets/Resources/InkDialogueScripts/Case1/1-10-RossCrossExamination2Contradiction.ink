@@ -23,68 +23,68 @@ INCLUDE ../Templates/Macros.ink
 &ADD_EVIDENCE:StolenDinos
 &ADD_EVIDENCE:BentCoins
 
-// &JUMP_TO_POSITION:2
-// &SPEAK:Ross
-// I was using my Switch! Duh! Like, how ELSE could I be making it?
+&JUMP_TO_POSITION:2
+&SPEAK:Ross
+I was using my Switch! Duh! Like, how ELSE could I be making it?
 
-// &JUMP_TO_POSITION:3
-// &SPEAK:TutorialBoy
-// That's the best question you can come up with? Laughable!
+&JUMP_TO_POSITION:3
+&SPEAK:TutorialBoy
+That's the best question you can come up with? Laughable!
 
-// &JUMP_TO_POSITION:1
-// &SET_POSE:DeskSlam
-// &THINK:Arin
-// (Jeez, this guy is so annoying!)
+&JUMP_TO_POSITION:1
+&SET_POSE:DeskSlam
+&THINK:Arin
+(Jeez, this guy is so annoying!)
 
-// &PLAY_SFX:realization
-// ({ellipsis}!)
+&PLAY_SFX:realization
+({ellipsis}!)
 
-// &SET_POSE:Confident
-// &SPEAK:Arin
-// As a matter of fact, it IS the best question!
+&SET_POSE:Confident
+&SPEAK:Arin
+As a matter of fact, it IS the best question!
 
-// &PLAY_SONG:dragonObjection,{songFadeTime}
+&PLAY_SONG:dragonObjection,{songFadeTime}
 
-// &SET_POSE:Point
-// And it's the only question I need to see your lies for what they are!
+&SET_POSE:Point
+And it's the only question I need to see your lies for what they are!
 
-// &PLAY_SFX:stab
-// &SHAKE_SCREEN:0.25,0.25
-// &JUMP_TO_POSITION:2
-// &SET_POSE:Sweaty
-// &SPEAK:Ross
-// W-W-What?
+&PLAY_SFX:stab
+&SHAKE_SCREEN:0.25,0.25
+&JUMP_TO_POSITION:2
+&SET_POSE:Sweaty
+&SPEAK:Ross
+W-W-What?
 
-// &JUMP_TO_POSITION:1
-// &SET_POSE:Point
-// &SPEAK:Arin
-// There's no possible way you could have been using your Switch when you said you were!
+&JUMP_TO_POSITION:1
+&SET_POSE:Point
+&SPEAK:Arin
+There's no possible way you could have been using your Switch when you said you were!
 
-// &HIDE_TEXTBOX
-// &SCENE:TMPHWideShot
-// &PLAY_SFX:mutter
-// &WAIT:2
-// &PLAY_SFX:gavel
-// &PLAY_ANIMATION:GavelHit
+&HIDE_TEXTBOX
+&SCENE:TMPHWideShot
+&PLAY_SFX:mutter
+&WAIT:2
+&PLAY_SFX:gavel
+&PLAY_ANIMATION:GavelHit
 
-// &SCENE:TMPHJudge
-// &SET_POSE:Angry
-// &SPEAK:JudgeBrent
-// You say that he could not have been using his Switch as he claims?
+&SCENE:TMPHJudge
+&SET_POSE:Angry
+&SPEAK:JudgeBrent
+You say that he could not have been using his Switch as he claims?
 
-// &SCENE:TMPHCourt
-// &SET_POSE:DeskSlam
-// &SPEAK:Arin
-// That's correct, Your Honor!
+&SCENE:TMPHCourt
+&SET_POSE:DeskSlam
+&SPEAK:Arin
+That's correct, Your Honor!
 
-// &HIDE_TEXTBOX
-// &JUMP_TO_POSITION:3
-// &SHAKE_SCREEN:0.25,0.25
-// &PLAY_SFX:damage1
-// &PLAY_EMOTION:HeadSlam
-// &SET_POSE:Sweaty
-// &SPEAK:TutorialBoy
-// Impossible! There's no way you can prove such a thing!
+&HIDE_TEXTBOX
+&JUMP_TO_POSITION:3
+&SHAKE_SCREEN:0.25,0.25
+&PLAY_SFX:damage1
+&PLAY_EMOTION:HeadSlam
+&SET_POSE:Sweaty
+&SPEAK:TutorialBoy
+Impossible! There's no way you can prove such a thing!
 
 &JUMP_TO_POSITION:1
 &SET_POSE:DeskSlam
@@ -253,7 +253,7 @@ Don't worry, Dan. Check this shit out.
 &HIDE_TEXTBOX
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:1
-&SET_POSE:Normal
+&SET_POSE:Normal#1 //#1 indicates which choice is correct so it can be picked last by tests
 + [Show them what games are on the Switch]
     -> Wrong1
 + [Show them the last game played on the Switch]

@@ -53,10 +53,8 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
             while (true)
             {
-                Debug.Log("2");
                 if (NarrativeScriptHasChanged(_narrativeScript))
                 {
-                    Debug.Log("3");
                     if (visitedChoices.Count != 0 && visitedChoices.Values.SelectMany(choices => choices).Any(choice => choice == null))
                     {
                         _narrativeScriptPlayer.ActiveNarrativeScript = _narrativeScript;
@@ -71,12 +69,10 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
                 if (_narrativeScript.Story.canContinue)
                 {
-                    Debug.Log("1");
                     yield return storyProgresser.ProgressStory();
                 }
                 else
                 {
-                    Debug.Log("4");
                     yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
                     
                     var choices = _narrativeScript.Story.currentChoices;
@@ -101,14 +97,21 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                     {
                         foreach (var choice in possibleChoices)
                         {
-                            if (choice.index == 1 && _narrativeScript.Story.currentTags.Contains("correct") && visitedChoices.Values.Any(choiceList => choiceList.Any(choice => choice == null && choiceList != visitedChoices[currentText])))
+                            if (choice.index == 1 && _narrativeScript.Story.currentTags.Contains("correct") && visitedChoices.Values.Any(choiceList => choiceList.Any(choiceInList => choiceInList == null && choiceList != visitedChoices[currentText])))
                             {
                                 yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
                                 continue;
                             }
                             
-                            visitedChoices[currentText][Array.FindIndex(visitedChoices[currentText], i => i == null)] =
-                                choice;
+                            int.TryParse(_narrativeScript.Story.currentTags[0], out var c);
+                            
+                            
+                            if (int.TryParse(_narrativeScript.Story.currentTags[0], out var correctChoice) && choice.index == correctChoice && visitedChoices[currentText].All(choiceInList => choiceInList != null || Array.FindIndex(visitedChoices[currentText], i => i == null) == choice.index))
+                            {
+                                continue;
+                            }
+                            
+                            visitedChoices[currentText][Array.FindIndex(visitedChoices[currentText], i => i == null)] = choice;
                             yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode, new EvidenceAssetName(choice.text));
                             break;
                         }
