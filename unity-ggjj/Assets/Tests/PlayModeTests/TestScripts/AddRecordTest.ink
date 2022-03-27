@@ -24,11 +24,3 @@ Ross has been added to the court record
 Correct
 
 -> END
-
-=== Present(presentedObject)
-    &PRESENT_EVIDENCE
-    + [Wrong]
-        -> Present(presentedObject)
-    + [{presentedObject}]
-        &MODE:Dialogue
-        ->->

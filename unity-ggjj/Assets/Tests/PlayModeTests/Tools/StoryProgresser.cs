@@ -10,6 +10,8 @@ namespace Tests.PlayModeTests.Tools
 {
     public class StoryProgresser : InputTestTools
     {
+        private EvidenceMenu _evidenceMenu;
+        
         /// <summary>
         /// Holds the X Key until an AppearingDialogueController is not printing text
         /// </summary>
@@ -40,6 +42,17 @@ namespace Tests.PlayModeTests.Tools
                     var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
                     if (evidenceMenu != null && evidenceMenu.CanPresentEvidence)
                     {
+                        var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+                        var courtRecordObjects = narrativeGameState.ObjectStorage.GetObjectsOfType<ICourtRecordObject>().ToList();
+
+                        if (courtRecordObjects.Any(courtRecordObject => courtRecordObject is ActorData && courtRecordObject.InstanceName == evidenceName))
+                        {
+                            yield return PressForFrame(Keyboard.cKey);
+                        }
+                        else if (courtRecordObjects.All(courtRecordObject => courtRecordObject.InstanceName != evidenceName))
+                        {
+                            yield break;
+                        }
                         yield return SelectEvidence(evidenceName);
                     }
                     yield return choiceIndex switch
@@ -57,13 +70,6 @@ namespace Tests.PlayModeTests.Tools
 
         private IEnumerator SelectEvidence(EvidenceAssetName evidenceName)
         {
-            var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
-            var actors = narrativeGameState.ObjectStorage.GetObjectsOfType<ActorData>();
-            if (actors.Any(actorData => actorData.InstanceName == evidenceName))
-            {
-                yield return PressForFrame(Keyboard.cKey);
-            }
-            
             yield return PressForFrame(Keyboard.zKey);
             var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
             var evidenceMenuItems = evidenceMenu.transform.GetComponentsInChildren<EvidenceMenuItem>();

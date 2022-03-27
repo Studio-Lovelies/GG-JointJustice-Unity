@@ -53,8 +53,10 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
             while (true)
             {
+                Debug.Log("2");
                 if (NarrativeScriptHasChanged(_narrativeScript))
                 {
+                    Debug.Log("3");
                     if (visitedChoices.Count != 0 && visitedChoices.Values.SelectMany(choices => choices).Any(choice => choice == null))
                     {
                         _narrativeScriptPlayer.ActiveNarrativeScript = _narrativeScript;
@@ -69,17 +71,29 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
                 if (_narrativeScript.Story.canContinue)
                 {
+                    Debug.Log("1");
                     yield return storyProgresser.ProgressStory();
                 }
                 else
                 {
+                    Debug.Log("4");
                     yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
                     
                     var choices = _narrativeScript.Story.currentChoices;
                     var currentText = _narrativeScript.Story.currentText;
-                    if (choices.Count > 0 && !visitedChoices.ContainsKey(currentText))
+                    var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
+
+                    if (choices.Count > 0 && !visitedChoices.ContainsKey(currentText) && (evidenceMenu == null || !evidenceMenu.CanPresentEvidence))
                     {
                         visitedChoices.Add(currentText, new Choice[choices.Count]);
+                    }
+                    else if (evidenceMenu != null && evidenceMenu.CanPresentEvidence)
+                    {
+                        foreach (var choice in choices)
+                        {
+                            yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode, new EvidenceAssetName(choice.text));
+                        }
+                        continue;
                     }
 
                     var possibleChoices = choices.Where(choice => visitedChoices[currentText].All(item => item == null || choice.text != item.text)).ToArray();
