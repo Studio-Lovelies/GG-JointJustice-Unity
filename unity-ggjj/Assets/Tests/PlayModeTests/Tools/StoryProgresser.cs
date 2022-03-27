@@ -38,6 +38,11 @@ namespace Tests.PlayModeTests.Tools
                     Debug.Log(choiceIndex);
                     break;
                 case GameMode.CrossExamination:
+                    var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
+                    if (evidenceMenu != null && evidenceMenu.CanPresentEvidence)
+                    {
+                        yield return SelectEvidence(evidenceName);
+                    }
                     yield return choiceIndex switch
                     {
                         0 => PressForFrame(Keyboard.xKey),
@@ -66,7 +71,7 @@ namespace Tests.PlayModeTests.Tools
                     {
                         continue;
                     }
-
+                    
                     evidenceMenuItem.GetComponent<Selectable>().Select();
                     yield return PressForFrame(Keyboard.xKey);
                     yield break;
