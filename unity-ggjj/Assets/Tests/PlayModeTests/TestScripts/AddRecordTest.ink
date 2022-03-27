@@ -1,3 +1,6 @@
+INCLUDE ../../../Resources/InkDialogueScripts/Templates/Macros.ink
+INCLUDE ../../../Resources/InkDialogueScripts/Templates/FailureStates.ink
+
 &ADD_FAILURE_SCRIPT:TMPH_FAIL_1
 
 &ADD_EVIDENCE:Bent_Coins

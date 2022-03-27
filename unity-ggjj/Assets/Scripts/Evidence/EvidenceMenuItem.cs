@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,7 +11,38 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
 
     [SerializeField, Tooltip("The evidence menu this evidence menu item is a child of")]
     private EvidenceMenu _evidenceMenu;
+    
     private ICourtRecordObject _courtRecordObject;
+    private Selectable _selectable;
+
+    private Selectable Selectable
+    {
+        get
+        {
+            if (_selectable == null)
+            {
+                _selectable = GetComponent<Selectable>();
+            }
+
+            return _selectable;
+        }
+    }
+    
+    /// <summary>
+    /// Disable the selectable then reenable it after one frame so that menu items
+    /// aren't selected on the same frame the menu opens
+    /// </summary>
+    private void OnEnable()
+    {
+        Selectable.enabled = false;
+        StartCoroutine(EnableOnNextFrame());
+    }
+
+    private IEnumerator EnableOnNextFrame()
+    {
+        yield return null;
+        Selectable.enabled = true;
+    }
 
     /// <summary>
     /// When evidence is assigned to this menu item its Image component will be automatically updated.
