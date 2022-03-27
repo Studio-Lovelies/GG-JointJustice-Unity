@@ -35,7 +35,6 @@ namespace Tests.PlayModeTests.Tools
                     var choice = Object.FindObjectOfType<ChoiceMenu>().transform.GetChild(choiceIndex).GetComponent<Selectable>();
                     choice.Select();
                     yield return PressForFrame(Keyboard.xKey);
-                    Debug.Log(choiceIndex);
                     break;
                 case GameMode.CrossExamination:
                     var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
@@ -58,6 +57,13 @@ namespace Tests.PlayModeTests.Tools
 
         private IEnumerator SelectEvidence(EvidenceAssetName evidenceName)
         {
+            var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            var actors = narrativeGameState.ObjectStorage.GetObjectsOfType<ActorData>();
+            if (actors.Any(actorData => actorData.InstanceName == evidenceName))
+            {
+                yield return PressForFrame(Keyboard.cKey);
+            }
+            
             yield return PressForFrame(Keyboard.zKey);
             var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
             var evidenceMenuItems = evidenceMenu.transform.GetComponentsInChildren<EvidenceMenuItem>();
