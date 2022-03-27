@@ -1,5 +1,5 @@
-INCLUDE ../Macros.ink
-INCLUDE ../FailureStates.ink
+INCLUDE ../../../Resources/InkDialogueScripts/Templates/Macros.ink
+INCLUDE ../../../Resources/InkDialogueScripts/Templates/FailureStates.ink
 
 &ADD_FAILURE_SCRIPT:TMPH_FAIL_1
 
