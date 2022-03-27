@@ -49,6 +49,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
         {
             var visitedChoices = new Dictionary<string, Choice[]>();
             var storyProgresser = new StoryProgresser();
+            storyProgresser.Setup();
 
             while (true)
             {
@@ -105,6 +106,8 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                 }
                 yield return null;
             }
+            
+            storyProgresser.TearDown();
         }
 
         private bool NarrativeScriptHasChanged(NarrativeScript narrativeScript)

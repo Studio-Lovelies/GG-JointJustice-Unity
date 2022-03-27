@@ -34,14 +34,14 @@ namespace Tests.PlayModeTests.Tools
                 case GameMode.Dialogue:
                     var choice = Object.FindObjectOfType<ChoiceMenu>().transform.GetChild(choiceIndex).GetComponent<Selectable>();
                     choice.Select();
-                    yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+                    yield return PressForFrame(Keyboard.xKey);
                     Debug.Log(choiceIndex);
                     break;
                 case GameMode.CrossExamination:
                     yield return choiceIndex switch
                     {
-                        0 => _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey),
-                        1 => _inputTestTools.PressForFrame(_inputTestTools.Keyboard.cKey),
+                        0 => PressForFrame(Keyboard.xKey),
+                        1 => PressForFrame(Keyboard.cKey),
                         2 =>  SelectEvidence(evidenceName),
                         _ => throw new ArgumentException($"Choice index can only be 0, 1, or 2 in GameMode {gameMode}")
                     };
@@ -53,7 +53,7 @@ namespace Tests.PlayModeTests.Tools
 
         private IEnumerator SelectEvidence(EvidenceAssetName evidenceName)
         {
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.zKey);
+            yield return PressForFrame(Keyboard.zKey);
             var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
             var evidenceMenuItems = evidenceMenu.transform.GetComponentsInChildren<EvidenceMenuItem>();
             var incrementButton = evidenceMenu.transform.GetComponentsInChildren<Selectable>().First(menuItem => menuItem.name == "IncrementButton");
@@ -68,7 +68,7 @@ namespace Tests.PlayModeTests.Tools
                     }
 
                     evidenceMenuItem.GetComponent<Selectable>().Select();
-                    yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+                    yield return PressForFrame(Keyboard.xKey);
                     yield break;
                 }
                 
