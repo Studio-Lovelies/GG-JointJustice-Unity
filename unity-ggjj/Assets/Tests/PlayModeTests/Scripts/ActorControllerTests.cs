@@ -15,24 +15,29 @@ namespace Tests.PlayModeTests.Scripts.ActorController
     {
         const string TALKING_PARAMETER_NAME = "Talking";
         
-        private readonly InputTestTools _inputTestTools = new InputTestTools();
-        private StoryProgresser _storyProgresser;
+        private StoryProgresser _storyProgresser = new StoryProgresser();
         private global::ActorController _actorController;
         private Animator _witnessAnimator;
 
         [UnitySetUp]
-        public IEnumerator SetUp()
+        public IEnumerator UnitySetUp()
         {
+            _storyProgresser.Setup();
             SceneManager.LoadScene("Game");
             yield return null;
             TestTools.StartGame("ActorControllerTestScript");
 
-            _storyProgresser = new StoryProgresser();
             _actorController = Object.FindObjectOfType<global::ActorController>();
             
             yield return _storyProgresser.ProgressStory();
             _witnessAnimator = GameObject.Find("Witness_Actor").GetComponent<Animator>();
             AssertIsNotTalking(_witnessAnimator);
+        }
+
+        [UnityTearDown]
+        public void UnityTearDown()
+        {
+            _storyProgresser.TearDown();
         }
 
         [UnityTest]
@@ -49,7 +54,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         public IEnumerator ActorsAreSetToTalkingOnDialogueStart()
         {
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
             AssertIsTalking(_witnessAnimator);
         }
 
@@ -66,7 +71,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         {
             var prosecutionAnimator =  GameObject.Find("Prosecution_Actor").GetComponent<Animator>();
             _actorController.SetActiveSpeaker("TutorialBoy", SpeakingType.Speaking);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
             AssertIsTalking(prosecutionAnimator);
             AssertIsNotTalking(_witnessAnimator);
         }
@@ -84,7 +89,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         public IEnumerator SpeakerCanBeSetToThinking()
         {
             _actorController.SetActiveSpeaker("Arin", SpeakingType.Thinking);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
             AssertNameBoxCorrect();
         }
@@ -95,7 +100,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
             var nameBox = Object.FindObjectOfType<NameBox>().gameObject;
 
             _actorController.SetActiveSpeakerToNarrator();
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
             Assert.IsFalse(nameBox.activeInHierarchy);
         }
@@ -136,7 +141,7 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         public IEnumerator ActorNotInTheSceneCanSpeak()
         {
             _actorController.SetActiveSpeaker("Dan", SpeakingType.Speaking);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
             AssertNameBoxCorrect();
         }
@@ -144,24 +149,24 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         [UnityTest]
         [TestCase(true, ExpectedResult = true)]
         [TestCase(false, ExpectedResult = false)]
-        public bool ActorVisiblityCanBeSetForActiveActor(bool shouldShow)
+        public bool ActorVisiblityCanBeSetForActiveActor(bool expectedVisibility)
         {
-            return AssertVisibility(shouldShow, null, _witnessAnimator.GetComponent<Renderer>());
+            return AssertVisibility(expectedVisibility, null, _witnessAnimator.GetComponent<Renderer>());
         }
 
         [UnityTest]
         [TestCase(true, ExpectedResult = true)]
         [TestCase(false, ExpectedResult = false)]
-        public bool ActorVisibilityCanBeSetForNonActiveActor(bool shouldShow)
+        public bool ActorVisibilityCanBeSetForNonActiveActor(bool expectedVisibility)
         {
-            return AssertVisibility(shouldShow, "TutorialBoy", GameObject.Find("Prosecution_Actor").GetComponent<Renderer>());
+            return AssertVisibility(expectedVisibility, "TutorialBoy", GameObject.Find("Prosecution_Actor").GetComponent<Renderer>());
         }
 
-        private bool AssertVisibility(bool shouldShow, string actorName, Renderer renderer)
+        private bool AssertVisibility(bool expectedVisibility, string actorName, Renderer renderer)
         {
-            renderer.enabled = !shouldShow;
-            Assert.IsTrue(renderer.enabled == !shouldShow);
-            _actorController.SetVisibility(shouldShow, actorName == null ? null : new ActorAssetName(actorName));
+            renderer.enabled = !expectedVisibility;
+            Assert.IsTrue(renderer.enabled == !expectedVisibility, "Unity sanity check");
+            _actorController.SetVisibility(expectedVisibility, actorName == null ? null : new ActorAssetName(actorName));
             return renderer.enabled;
         }
 

@@ -8,24 +8,17 @@ using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Tools
 {
-    public class StoryProgresser
+    public class StoryProgresser : InputTestTools
     {
-        private readonly InputTestTools _inputTestTools = new InputTestTools();
-        private readonly AppearingDialogueController _appearingDialogueController;
-        
-        public StoryProgresser()
-        {
-            _appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
-        }
-        
         /// <summary>
         /// Holds the X Key until an AppearingDialogueController is not printing text
         /// </summary>
         public IEnumerator ProgressStory()
         {
-            _inputTestTools.Press(_inputTestTools.Keyboard.xKey);
-            yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
-            _inputTestTools.Release(_inputTestTools.Keyboard.xKey);
+            Press(Keyboard.xKey);
+            var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
+            yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
+            Release(Keyboard.xKey);
         }
 
         /// <summary>
