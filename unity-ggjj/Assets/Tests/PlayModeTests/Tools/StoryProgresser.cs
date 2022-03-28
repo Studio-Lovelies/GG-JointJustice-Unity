@@ -18,8 +18,10 @@ namespace Tests.PlayModeTests.Tools
         public IEnumerator ProgressStory()
         {
             Press(Keyboard.xKey);
+            Debug.Log("a");
             var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
+            Debug.Log(appearingDialogueController.IsPrintingText);
             Release(Keyboard.xKey);
         }
 
