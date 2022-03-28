@@ -234,6 +234,7 @@ The witness will continue with his testimony.
 -> Line5
 
 === Line5Press ===
+&MODE:Dialogue
 <- HoldIt
 Can you prove you found the dinos in the left side pocket?
 
@@ -662,6 +663,6 @@ Dan?
 &SPEAK:Dan
 Wait, Your Honor! There's something off about those dinosaurs, and I think I know what it is!
 
-&LOAD_SCRIPT:Case1/1-13
+&LOAD_SCRIPT:Case1/1-13-TrialEnd
 
 -> END

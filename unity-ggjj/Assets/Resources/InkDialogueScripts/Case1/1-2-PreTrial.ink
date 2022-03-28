@@ -538,4 +538,4 @@ You're gonna love it.
 &FADE_OUT_SONG:2
 &WAIT:2
 
-&LOAD_SCRIPT:Case1/1-3-Trial
+&LOAD_SCRIPT:Case1/1-3-TrialStart

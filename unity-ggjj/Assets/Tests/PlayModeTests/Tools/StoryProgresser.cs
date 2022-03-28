@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
-using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -16,13 +14,13 @@ namespace Tests.PlayModeTests.Tools
         /// </summary>
         public IEnumerator ProgressStory()
         {
-            yield return null;
+            yield return new WaitForSeconds(.25f);
             Press(Keyboard.xKey);
-            yield return null;
+            yield return new WaitForSeconds(.25f);
             var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
             Release(Keyboard.xKey);
-            yield return null;
+            yield return new WaitForSeconds(.25f);
         }
 
         /// <summary>
@@ -38,7 +36,9 @@ namespace Tests.PlayModeTests.Tools
                 case GameMode.Dialogue:
                     var choice = Object.FindObjectOfType<ChoiceMenu>().transform.GetChild(choiceIndex).GetComponent<Selectable>();
                     choice.Select();
+                    yield return new WaitForSeconds(.75f);
                     yield return PressForFrame(Keyboard.xKey);
+                    Debug.Log("here");
                     break;
                 case GameMode.CrossExamination:
                     var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();

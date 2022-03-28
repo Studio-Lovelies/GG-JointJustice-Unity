@@ -1,6 +1,7 @@
 INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
+INCLUDE ../Templates/Macros.ink
 
 <- COURT_TMPH
 
@@ -23,7 +24,7 @@ INCLUDE ../Templates/SceneInitialization.ink
 &SCENE:TMPHJudge
 &SET_POSE:Surprised
 &SPEAK:JudgeBrent
-Something... off?
+Something{ellipsis} off?
 
 &HIDE_TEXTBOX
 &SCENE:TMPHCourt
@@ -53,7 +54,7 @@ What are you talking about, Dan?
 Roll with me, Arin, I got this one.
 
 &HIDE_TEXTBOX
-&PLAY_EMOTION:SideObjection
+&SET_POSE:SideObjection
 What I mean is this!
 
 &PLAY_SONG:ninjaSexPursuit
@@ -76,7 +77,7 @@ Huh?!
 &JUMP_TO_POSITION:3
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
-Not... jizz?
+Not{ellipsis} jizz?
 
 &SCENE:TMPHJudge
 &SET_POSE:Surprised
@@ -86,7 +87,7 @@ If it's not jizz, then what is it? And what does that have to do with this case?
 &SCENE:TMPHAssistant
 &SET_POSE:SideLean
 &SPEAK:Dan
-I think I know what it is, and if I can have those dinosaurs...
+I think I know what it is, and if I can have those dinosaurs{ellipsis}
 
 &HIDE_TEXTBOX
 &SET_POSE:SideObjection
@@ -96,16 +97,16 @@ I think I can prove Jory's innocence!
 &JUMP_TO_POSITION:1
 &SET_POSE:Thinking
 &THINK:Arin
-(Wait... I think I know what Dan's getting at.)
+(Wait{ellipsis} I think I know what Dan's getting at.)
 &SHAKE_SCREEN:0.25,0.25
 &PLAY_SFX:deskSlam
 &SET_POSE:Point
-Your Honor! I request for Dan...
+Your Honor! I request for Dan{ellipsis}
 
 -> Choice
 
 === Choice ===
-&HIDE_TEXTBOX
+&HIDE_TEXTBOX#0
 + [Taste them.]
     -> Taste
 + [Smell them.]
@@ -114,12 +115,12 @@ Your Honor! I request for Dan...
     -> Rub
 
 === Rub ===
-...to be allowed to rub the dinos all over his beautiful nude body!
+{ellipsis}to be allowed to rub the dinos all over his beautiful nude body!
 
 &SCENE:TMPHJudge
 &SET_POSE:Angry
 &SPEAK:JudgeBrent
-...
+{ellipsis}
 
 &SCENE:TMPHAssistant
 &SET_POSE:Angry
@@ -131,14 +132,14 @@ Arin! That's not at all what I want with those things. Why did you say that?
 Oh, oops. Wishful thinking, I guess.
 &SET_POSE:Point
 &SPEAK:Arin
-What I mean to say is, Your Honor...
+What I mean to say is, Your Honor{ellipsis}
 
 -> END
 
 === Taste ===
-be allowed to taste those dinosaurs...
+be allowed to taste those dinosaurs{ellipsis}
 &SET_POSE:Confident
-...so we can find out what's really covering them!
+{ellipsis}so we can find out what's really covering them!
 
 &PLAY_SFX:stab
 &SHAKE_SCREEN:0.25,0.25
@@ -160,9 +161,9 @@ I'm deadly serious!
 -> EndChoice
 
 === Smell ===
-be allowed to smell those stain-covered dinosaurs...
+be allowed to smell those stain-covered dinosaurs{ellipsis}
 &SET_POSE:Confident
-...so we can find out what's really covering them!
+{ellipsis}so we can find out what's really covering them!
 
 &HIDE_TEXTBOX
 &PLAY_SFX:stab
@@ -172,7 +173,8 @@ be allowed to smell those stain-covered dinosaurs...
 Ack!
 
 &HIDE_TEXTBOX
-&OBJECTION:TutorialBot
+&OBJECTION:TutorialBoy
+&JUMP_TO_POSITION:3
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Angry
@@ -192,12 +194,12 @@ Then let's find out for sure!
 &SCENE:TMPHJudge
 &SET_POSE:Thinking
 &SPEAK:JudgeBrent
-I'm not sure what to think of this... request.
+I'm not sure what to think of this{ellipsis} request.
 
 &SCENE:TMPHCourt
 &SET_POSE:DeskSlam
 &THINK:Arin
-(Come on, Brent...)
+(Come on, Brent{ellipsis})
 
 &HIDE_TEXTBOX
 &OBJECTION:TutorialBoy
@@ -205,12 +207,12 @@ I'm not sure what to think of this... request.
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 Your Honor, please think about this. This is a trivial matter!
-These... 'stains' have no relation to anything relevant. The defense is stalling!
+These{ellipsis} 'stains' have no relation to anything relevant. The defense is stalling!
 
 &SCENE:TMPHJudge
 &SET_POSE:Thinking
 &SPEAK:JudgeBrent
-...
+{ellipsis}
 &SET_POSE:Normal
 The prosecution has a point.
 Defense, can you prove the importance of these stains?
@@ -226,26 +228,17 @@ Arin, I think we can.
 &SPEAK:Arin
 Uh, yeah!
 &SET_POSE:Normal
-Yeah, we can prove it. With...
+Yeah, we can prove it. With{ellipsis}
 
--> PresentEvidence
-
-=== PresentEvidence ===
-&HIDE_TEXTBOX
-&PRESENT_EVIDENCE
-+ [Wrong]
-    -> PresentEvidence
-+ [Jorys_Backpack]
-    -> PresentJorysBackpack
+-> Present("JorysBackpack") ->
     
-=== PresentJorysBackpack ===
 &TAKE_THAT:Arin
 &SHOW_ITEM:Jorys_Backpack,Right
 &STOP_SONG
 &SCENE:TMPHJudge
 &SET_POSE:Surprised
 &SPEAK:JudgeBrent
-The... backpack?
+The{ellipsis} backpack?
 
 &SCENE:TMPHCourt
 &SET_POSE:Normal
@@ -257,7 +250,7 @@ Your Honor, take a closer look at it.
 &SPEAK:JudgeBrent
 Okay, but this better be relevant.
 &SET_POSE:Thinking
-...
+{ellipsis}
 &HIDE_TEXTBOX
 &WAIT:2
 &PLAY_SONG:starlightObjection
@@ -268,7 +261,7 @@ There's a stain here too!
 
 &SCENE:TMPHAssistant
 &SPEAK:Dan
-Exactly. On one item, a stain may be trivial...
+Exactly. On one item, a stain may be trivial{ellipsis}
 
 &SCENE:TMPHCourt
 &SET_POSE:Confident
@@ -280,7 +273,7 @@ But similar stains on two pieces of evidence? That seems relevant to the case.
 &JUMP_TO_POSITION:3
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
-No! I don't... I... it's...
+No! I don't{ellipsis} I{ellipsis} it's{ellipsis}
 
 &HIDE_TEXTBOX
 &SCENE:TMPHJudge
@@ -295,7 +288,7 @@ The prosecution will refrain from objecting without purpose.
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
-I... apologize, Your Honor.
+I{ellipsis} apologize, Your Honor.
 
 &SCENE:TMPHJudge
 &SET_POSE:Normal
@@ -306,13 +299,13 @@ The defense has proven its point. Mr. Avidan will be permitted to conduct his, e
 &JUMP_TO_POSITION:1
 &SET_POSE:DeskSlam
 &THINK:Arin
-(Okay, now we're getting somewhere. It's all on you Dan...)
+(Okay, now we're getting somewhere. It's all on you Dan{ellipsis})
 
 &PLAY_SFX:slurp
 &SCENE:TMPHAssistant
 &SET_POSE:SideLean
 &SPEAK:Dan
-...
+{ellipsis}
 &HIDE_TEXTBOX
 &WAIT:2
 &PLAY_SFX:lightbulb
@@ -345,7 +338,7 @@ I KNEW IT!
 &SCENE:TMPHAssistant
 &SET_POSE:SideObjection
 &SPEAK:Dan
-The white stain on those dinos... It's still fresh, and it's not what you think it is!
+The white stain on those dinos{ellipsis} It's still fresh, and it's not what you think it is!
 
 &SCENE:TMPHJudge
 &SET_POSE:Surprised
@@ -372,20 +365,20 @@ OH NO!
 &SPEAK:TutorialBoy
 You can't be serious! How does that prove anything?
 
-&JUMP_TO_POSTION:1
+&JUMP_TO_POSITION:1
 &SET_POSE:Thinking
 &THINK:Arin
 (Yeah, how does that prove anything?)
-&HIDE_TEXTBOX:
+&HIDE_TEXTBOX
 &WAIT:1
 &PLAY_SFX:realization
-&PLAY_ANIMATION:ShockAnimation
+&PLAY_EMOTION:ShockAnimation
 &WAIT:1
 &PLAY_SFX:deskSlam
 &SHAKE_SCREEN:0.25,0.25
-&PLAY_ANIMATION:DeskSlam
+&PLAY_EMOTION:DeskSlamAnimation
 &SPEAK:Arin
-It proves everything, actually! Not only does this clear our client's name...
+It proves everything, actually! Not only does this clear our client's name{ellipsis}
 &SET_POSE:Point
 It also proves that Ross was the real culprit!
 
@@ -400,7 +393,7 @@ No way!
 &SPEAK:Arin
 Yes way, and I can back it up!
 &SET_POSE:Normal
-See... what you don't know, Mister Tutorial dude--
+See{ellipsis} what you don't know, Mister Tutorial dude--
 
 &JUMP_TO_POSITION:3
 &SPEAK:TutorialBoy
@@ -409,7 +402,7 @@ It's Tutorial BOY, thank you very much!
 &JUMP_TO_POSITION:1
 &SET_POSE:Annoyed
 &SPEAK:Arin
-...
+{ellipsis}
 &HIDE_TEXTBOX
 &WAIT:2
 &SET_POSE:Normal
@@ -432,10 +425,11 @@ ROSS!!!
 &SPEAK:Ross
 OOF!
 
+&HIDE_TEXTBOX
 &SCENE:TMPHWideShot
 &PLAY_SFX:mutter
 &WAIT:2
-&PLAY_SFX:triplegavel
+&PLAY_SFX:TripleGavel
 &PLAY_ANIMATION:TripleGavelHit
 
 &SCENE:TMPHJudge
@@ -443,7 +437,7 @@ OOF!
 &SPEAK:JudgeBrent
 Order Order ORDER, I say! ORDER!!!
 &SET_POSE:Thinking
-... ahem...
+{ellipsis} ahem{ellipsis}
 &SET_POSE:Normal
 I sense that you have some kind of idea of what really happened, Arin?
 
@@ -476,20 +470,12 @@ You must be lying! It's way too convenient for Jory to be allergic to milk!
 &SPEAK:Arin
 As if! I have proof of his condition RIGHT HERE!
 
--> PresentEvidence2
+-> Present("JorySrsLetter") ->
 
-=== PresentEvidence2 ===
-&PRESENT_EVIDENCE
-+ [Wrong]
-    -> PresentEvidence2
-+ [Jory_Srs_Letter]
-    -> PresentJorySrsLetter
-
-=== PresentJorySrsLetter ===
 &SCENE:TMPHJudge
 &SET_POSE:Surprised
 &SPEAK:JudgeBrent
-A... letter?
+A{ellipsis} letter?
 
 &SCENE:TMPHCourt
 &SPEAK:Arin
@@ -541,12 +527,12 @@ I've presided over quite a few cases in my day, but I've never seen a case resol
 All in a day's work for Danny Sexbang!
 &HIDE_TEXTBOX
 &PLAY_SFX:airGuitar
-&PLAY_EMOTION:AirGuitar
+//&PLAY_EMOTION:AirGuitar
 &SET_POSE:SideNormal
 
 &SCENE:TMPHJudge
 &SPEAK:JudgeBrent
-Yes... Well done, Mr. Avidan.
+Yes{ellipsis} Well done, Mr. Avidan.
 
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:1
@@ -556,7 +542,7 @@ Hey, I did a lot too!
 &SPEAK:JudgeBrent
 But with that, I think we can safely say justice is served today.
 &SET_POSE:Warning
-Therefore, I find the defendant, Jory Griffis...
+Therefore, I find the defendant, Jory Griffis{ellipsis}
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:GoodBoy
 
