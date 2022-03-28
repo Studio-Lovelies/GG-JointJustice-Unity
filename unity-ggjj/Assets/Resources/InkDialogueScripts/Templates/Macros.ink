@@ -24,6 +24,7 @@
         
 
 === Present(presentedObject)
+    &HIDE_TEXTBOX
     &PRESENT_EVIDENCE
     + [Wrong]
         -> Present(presentedObject)

@@ -8,7 +8,7 @@ INCLUDE ../Templates/SceneInitialization.ink
 &JUMP_TO_POSITION:2
 &SET_POSE:SweatyNoHelmet
 &FADE_IN:1
-&PLAY_SONG:fyiIWannaXYourExaminationAllegro
+&PLAY_SONG:FyiIWannaXYourExaminationAllegro
 &PLAY_ANIMATION:WitnessTestimony
 
 &SPEAK:None

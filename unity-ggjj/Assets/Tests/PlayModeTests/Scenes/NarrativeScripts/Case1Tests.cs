@@ -53,10 +53,8 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
             while (true)
             {
-                Debug.Log(1);
                 if (NarrativeScriptHasChanged(_narrativeScript))
                 {
-                    Debug.Log(2);
                     if (visitedChoices.Count != 0 && visitedChoices.Values.SelectMany(choices => choices).Any(choice => choice == null))
                     {
                         _narrativeScriptPlayer.ActiveNarrativeScript = _narrativeScript;
@@ -71,12 +69,10 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
                 if (_narrativeScript.Story.canContinue)
                 {
-                    Debug.Log(3);
                     yield return storyProgresser.ProgressStory();
                 }
                 else
                 {
-                    Debug.Log(4);
                     yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
                     
                     var choices = _narrativeScript.Story.currentChoices;

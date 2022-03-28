@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -17,12 +16,30 @@ namespace Tests.PlayModeTests.Tools
         /// </summary>
         public IEnumerator ProgressStory()
         {
-            Press(Keyboard.xKey);
-            Debug.Log("a");
+            try
+            {
+                Press(Keyboard.xKey);
+                Debug.Log("NOW");
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
             var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
-            Debug.Log(appearingDialogueController.IsPrintingText);
-            Release(Keyboard.xKey);
+            yield return null;
+            Debug.Log(Keyboard.xKey.isPressed);
+            try
+            {
+                Release(Keyboard.xKey);
+                Debug.Log("HERE");
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
+
+            Debug.Log(Keyboard.xKey.isPressed);
         }
 
         /// <summary>
