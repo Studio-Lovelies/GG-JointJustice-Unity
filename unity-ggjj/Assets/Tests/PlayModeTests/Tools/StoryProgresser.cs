@@ -14,13 +14,10 @@ namespace Tests.PlayModeTests.Tools
         /// </summary>
         public IEnumerator ProgressStory()
         {
-            yield return new WaitForSeconds(.25f);
             Press(Keyboard.xKey);
-            yield return new WaitForSeconds(.25f);
             var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
             Release(Keyboard.xKey);
-            yield return new WaitForSeconds(.25f);
         }
 
         /// <summary>
@@ -38,7 +35,6 @@ namespace Tests.PlayModeTests.Tools
                     choice.Select();
                     yield return new WaitForSeconds(.75f);
                     yield return PressForFrame(Keyboard.xKey);
-                    Debug.Log("here");
                     break;
                 case GameMode.CrossExamination:
                     var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();

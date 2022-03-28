@@ -214,6 +214,7 @@ As a matter of fact{ellipsis}
 -> Line4
 
 === Line4Press ===
+&MODE:Dialogue
 &HOLD_IT:Arin
 &STOP_SONG
 &SET_POSE:Normal,Arin
@@ -221,7 +222,6 @@ As a matter of fact{ellipsis}
 &SET_POSE:Normal
 &SPEAK:Arin
 So you were making a level when you saw Jory. Exactly how were you making it?
-
 &LOAD_SCRIPT:Case1/1-10-RossCrossExamination2Contradiction
 -> END
 

@@ -134,7 +134,7 @@ Oh, oops. Wishful thinking, I guess.
 &SPEAK:Arin
 What I mean to say is, Your Honor{ellipsis}
 
--> END
+-> Choice
 
 === Taste ===
 be allowed to taste those dinosaurs{ellipsis}

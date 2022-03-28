@@ -69,7 +69,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
                 if (_narrativeScript.Story.canContinue)
                 {
-                    yield return storyProgresser.ProgressStory();
+                    yield return ProgressStory();
                 }
                 else
                 {
@@ -127,6 +127,16 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
         private bool NarrativeScriptHasChanged(NarrativeScript narrativeScript)
         {
             return TestTools.GetField<NarrativeScript>(_narrativeScriptPlayer, "_activeNarrativeScript") != narrativeScript;
+        }
+
+        private IEnumerator ProgressStory()
+        {
+            var input = GameObject.Find("GameInput").GetComponent<InputModule>();
+            if (!input.enabled) { yield break; }
+            _appearingDialogueController.SpeedMultiplier = 8;
+            yield return TestTools.WaitForState(() => !_narrativeGameState.AppearingDialogueController.IsPrintingText);
+            _appearingDialogueController.SpeedMultiplier = 1;
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
         }
     }
 }
