@@ -61,7 +61,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
         private IEnumerator SelectEvidence(string evidencePath)
         {
-            EvidenceController.AddEvidence(Resources.Load<Evidence>(evidencePath));
+            EvidenceController.AddEvidence(Resources.Load<EvidenceData>(evidencePath));
             yield return TestTools.DoUntilStateIsReached(() => _storyProgresser.ProgressStory(), () => EvidenceMenu.isActiveAndEnabled);
             yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
         }

@@ -56,9 +56,9 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             return actors;
         }
         
-        protected Evidence[] AddEvidence()
+        protected EvidenceData[] AddEvidence()
         {
-            var evidenceOfCurrentScript = NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObjectsOfType<Evidence>().ToArray();
+            var evidenceOfCurrentScript = NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObjectsOfType<EvidenceData>().ToArray();
             foreach (var evidence in evidenceOfCurrentScript)
             {
                 EvidenceController.AddEvidence(evidence);
