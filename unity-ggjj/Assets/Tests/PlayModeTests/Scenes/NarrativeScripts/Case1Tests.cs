@@ -15,8 +15,8 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
     public class Case1Tests
     {
         private static IEnumerable<TestCaseData> NarrativeScripts => Resources
-            .LoadAll<TextAsset>("InkDialogueScripts/Case1").Select(narrativeScript =>
-                new TestCaseData(narrativeScript).SetName(narrativeScript.name).Returns(null));
+            .LoadAll<TextAsset>("InkDialogueScripts/Case1").OrderBy(textAsset => textAsset.name.Split('-')[1].PadLeft(2, '0'))
+                .Select(narrativeScript => new TestCaseData(narrativeScript).SetName(narrativeScript.name).Returns(null));
 
         private NarrativeScript _narrativeScript;
         private INarrativeScriptPlayer _narrativeScriptPlayer;
