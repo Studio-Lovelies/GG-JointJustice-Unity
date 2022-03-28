@@ -35,7 +35,7 @@ public class ObjectPreloaderTests
     [TestCaseSource(nameof(EvidenceLoadingActions))]
     public void ObjectPreloaderCanLoadEvidence(string action)
     {
-        ObjectPreloaderCanLoadObjects<Evidence>("Evidence", action);
+        ObjectPreloaderCanLoadObjects<EvidenceData>("Evidence", action);
     }
     
     [Test]

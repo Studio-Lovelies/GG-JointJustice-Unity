@@ -11,34 +11,34 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     [Tooltip("This event is called when the PRESENT_EVIDENCE action is called.")]
     [SerializeField] private UnityEvent _onRequirePresentEvidence;
     
-    public List<Evidence> CurrentEvidence { get; } = new List<Evidence>();
+    public List<EvidenceData> CurrentEvidence { get; } = new List<EvidenceData>();
     public List<ActorData> CurrentProfiles { get; } = new List<ActorData>();
 
     /// <summary>
     /// Adds a piece of evidence to the evidence menu.
     /// </summary>
-    /// <param name="evidence">The evidence to add.</param>
-    public void AddEvidence(Evidence evidence)
+    /// <param name="evidenceData">evidence to add.</param>
+    public void AddEvidence(EvidenceData evidenceData)
     {
-        CurrentEvidence.Add(evidence);
+        CurrentEvidence.Add(evidenceData);
     }
 
     /// <summary>
     /// Removes a piece of evidence from the evidence menu.
     /// </summary>
-    /// <param name="evidence">The evidence object to remove</param>
-    public void RemoveEvidence(Evidence evidence)
+    /// <param name="evidenceData">evidence to remove</param>
+    public void RemoveEvidence(EvidenceData evidenceData)
     {
-        CurrentEvidence.Remove(evidence);
+        CurrentEvidence.Remove(evidenceData);
     }
 
     /// <summary>
     /// Adds an actor to the court record.
     /// </summary>
-    /// <param name="actor">The actor to add.</param>
-    public void AddRecord(ActorData actor)
+    /// <param name="actorData">The actor to add.</param>
+    public void AddRecord(ActorData actorData)
     {
-        CurrentProfiles.Add(actor);
+        CurrentProfiles.Add(actorData);
     }
 
     /// <summary>
@@ -51,12 +51,12 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     }
 
     /// <summary>
-    /// Substitutes a piece of evidence with its assigned alternate evidence.
+    /// Substitutes a piece of evidence with another piece of evidence.
     /// </summary>
-    /// <param name="initialEvidence">The evidence to be substituted</param>
-    /// <param name="substituteEvidence">The evidence to substitute <see cref="initialEvidence"/> with</param>
-    public void SubstituteEvidence(Evidence initialEvidence, Evidence substituteEvidence)
+    /// <param name="initialEvidenceData"> evidenceData to be substituted</param>
+    /// <param name="substituteEvidenceData"> evidenceData to substitute <see cref="initialEvidenceData"/> with</param>
+    public void SubstituteEvidence(EvidenceData initialEvidenceData, EvidenceData substituteEvidenceData)
     {
-        CurrentEvidence[CurrentEvidence.IndexOf(initialEvidence)] = substituteEvidence;
+        CurrentEvidence[CurrentEvidence.IndexOf(initialEvidenceData)] = substituteEvidenceData;
     }
 }
