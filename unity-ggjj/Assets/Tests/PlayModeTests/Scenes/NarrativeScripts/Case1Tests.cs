@@ -91,7 +91,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                         }
                         continue;
                     }
-
+                    
                     var possibleChoices = choices.Where(choice => visitedChoices[currentText].All(item => item == null || choice.text != item.text)).ToArray();
                     if (possibleChoices.Length > 0)
                     {

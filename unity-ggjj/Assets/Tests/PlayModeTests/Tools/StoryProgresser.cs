@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Linq;
+using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -9,38 +11,18 @@ namespace Tests.PlayModeTests.Tools
 {
     public class StoryProgresser : InputTestTools
     {
-        private EvidenceMenu _evidenceMenu;
-        
         /// <summary>
         /// Holds the X Key until an AppearingDialogueController is not printing text
         /// </summary>
         public IEnumerator ProgressStory()
         {
-            try
-            {
-                Press(Keyboard.xKey);
-                Debug.Log("NOW");
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e);
-            }
+            yield return null;
+            Press(Keyboard.xKey);
+            yield return null;
             var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
+            Release(Keyboard.xKey);
             yield return null;
-            yield return null;
-            Debug.Log(Keyboard.xKey.isPressed);
-            try
-            {
-                Release(Keyboard.xKey);
-                Debug.Log("HERE");
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e);
-            }
-
-            Debug.Log(Keyboard.xKey.isPressed);
         }
 
         /// <summary>

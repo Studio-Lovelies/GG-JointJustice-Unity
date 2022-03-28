@@ -4,412 +4,567 @@ INCLUDE ../Templates/SceneInitialization.ink
 
 <- COURT_TMPH
 
-&SCENE:TMPH_Assistant
-&SPEAK:Dan
-This isn't good, man. Isn't there something we can do?
+&ADD_RECORD:Arin
+&ADD_RECORD:Dan
+&ADD_RECORD:Jory
+&ADD_RECORD:JudgeBrent
+&ADD_RECORD:TutorialBoy
+&ADD_RECORD:Ross
 
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:1
-&SET_POSE:DeskSlam
-&SPEAK:Arin
-I don't know. If only there was some way to prove he's lying.
+&ADD_EVIDENCE:AttorneysBadge
+&ADD_EVIDENCE:PlumberInvoice
+&ADD_EVIDENCE:Switch
+&ADD_EVIDENCE:Jory_Srs_Letter
+&ADD_EVIDENCE:LivestreamRecording
+&ADD_EVIDENCE:JorysBackpack
+&ADD_EVIDENCE:StolenDinos
+&ADD_EVIDENCE:BentCoins
 
-&SCENE:TMPH_Assistant
-&SET_POSE:SideNormalTurned
-&SPEAK:Dan
-If there is, it has to have something to do with that backpack.
-
-&SCENE:TMPH_Court
-&SET_POSE:Thinking
-&SPEAK:Arin
-You think so?
-
-&SCENE:TMPH_Assistant
-&SPEAK:Dan
-I don't know, man, I don't know what else we can do! What do you think?
-
--> FakeChoice
-
-=== FakeChoice ===
+&SCENE:TMPHJudge
+&SET_POSE:Surprised
+&SPEAK:JudgeBrent
+Something... off?
 
 &HIDE_TEXTBOX
-+ [Check the backpack]
-    -> CheckBackpack
-+ [Give the fuck up this shit is too hard]
-    -> GiveUp
-    
-=== GiveUp ===
-&WAIT:1
-&SCENE:TMPH_Court
-&SET_POSE:Sweaty
-&SPEAK:Arin
-Fuck, man I dunno! Fucking fuck! I don't know!!! Shit!
-
-&SCENE:TMPH_Assistant
-&SET_POSE:SideNormalTurned
-&SPEAK:Dan
-Damn, dude, no need to freak out! Let's just see if we can look at the backpack.
-
-&SCENE:TMPH_Court
-&SPEAK:Arin
-Alright, I hope you're right about this!
-
--> FakeChoice
-
-=== CheckBackpack ===
-&WAIT:1
-&SCENE:TMPH_Court
-&SET_POSE:Normal
-&SPEAK:Arin
-Your Honor, I think there is something worth checking out about that backpack.
-&HIDE_TEXTBOX
-&PLAY_SFX:deskslam
-&PLAY_EMOTION:DeskSlamAnimation
-If the court will allow, I'd like to see if my hunch is correct!
-
-&HIDE_TEXTBOX
-//&OBJECTION:Tutorial_Boy
-&PAN_TO_POSITION:3,{doublePanTime}
-&SPEAK:Tutorial_Boy
-Absolutely not! Your Honor, they will tamper with the evidence!
-&SET_POSE:Angry
-These two care not for justice, only for their friend to AVOID JUSTICE!
-
-&HIDE_TEXTBOX
+&SCENE:TMPHCourt
+&JUMP_TO_POSITION:3
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
+&SET_POSE:Angry
+&SPEAK:TutorialBoy
+It's covered in JIZZ, right? Hah hah, very funny. We've heard that joke a million times!
+That's no reason to interrupt the verdict.
 
-&SCENE:TMPH_Judge
-&SET_POSE:Warning
-&SPEAK:Brent_Judge
-I've known Arin for years now, and he is one of the most honest people I've ever met.
-&SET_POSE:Normal
-Certainly in a normal court, like in Attitude City, such things are not allowed.
-&SET_POSE:Warning
-But these are hardly normal circumstances. Thus, I will allow the defense to examine the backpack.
-Do I make myself clear?
-
-&SCENE:TMPH_Court
-&SET_POSE:Sweaty
-&SPEAK:Tutorial_Boy
-Y-Yes! Absolutely crystal, Your Honor.
-
-&SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
-Good.
-&SET_POSE:Normal
-The defense may examine the evidence.
-
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:1
-&SET_POSE:Confident
-&SPEAK:Arin
-Thank you, Your Honor! Now, let's take a look at this backpack!
-&SET_POSE:Normal
-&SHOW_ITEM:Jorys_Backpack,Right
-&HIDE_TEXTBOX
-&WAIT:1
-&PLAY_SFX:dramaPound
-&PLAY_EMOTION:ShockAnimation
-&SET_POSE:Sweaty
-Holy jeeez, man! What's in this thing? It's so heavy.
-&HIDE_TEXTBOX
-&WAIT:1
-&PLAY_EMOTION:ShockAnimation
-&WAIT:1
-&PLAY_SFX:realization
-&PLAY_SFX:deskSlam
-&PLAY_EMOTION:DeskSlamAnimation
-&SPEAK:Arin
-That's it! I got it! I know how he's lying!
-
-&SCENE:TMPH_Assistant
-&SET_POSE:Fist
-&SPEAK:Dan
-Well, don't just stand there, present the proof so we can get on with our lives!
-
-&HIDE_TEXTBOX
-&PRESENT_EVIDENCE // Jorys_Backpack
-&HIDE_ITEM
-// &TAKE_THAT:Arin
-&SCENE:TMPH_Court
-&SET_POSE:Point
-&SPEAK:Arin
-Your Honor, I'd like you to inspect the pocket Ross claims to have found our dinos in!
-
-&SCENE:TMPH_Judge
-&SET_POSE:Surprised
-&SPEAK:Brent_Judge
-Inspect the backpack...?
-&PLAY_SFX:realization
-&SET_POSE:Normal
-Oh yes, of course. #We can check the left side pocket to see if our witness is worth his bacon.
-
-&SCENE:TMPH_Court
-&SET_POSE:DeskSlam
-&SPEAK:Arin
-PRECISELY! And judging by the sweat on his face, I believe all we have here is soggy bacon, Your Honor!
-
-&SCENE:TMPH_Assistant
-&SET_POSE:Fist
-&SPEAK:Dan
-...what...?
-
-&HIDE_TEXTBOX
-&SCENE:TMPH_Judge
-&PLAY_EMOTION:Nodding
-&SET_POSE:Normal
-&SPEAK:Brent_Judge
-Very well. Let's not delay any further, open 'er up!
-
-&SHOW_ITEM:Jorys_Backpack,Right
-&PLAY_SFX:shoomp
-&STOP_SONG
-&PLAY_SFX:potatoes2
-
-&SCENE:TMPH_Court
-&SET_POSE:Sweaty
-&SPEAK:Arin
-...
-
-&PLAY_SFX:potatoes
-&PLAY_SFX:potatoes2
-
-&JUMP_TO_POSITION:3
-&SET_POSE:Sweaty
-&SPEAK:Tutorial_Boy
-...
-
-&PLAY_SFX:potatoes
-&PLAY_SFX:potatoes2
-
-&SCENE:TMPH_Judge
-&SET_POSE:Surprised
-&SPEAK:Brent_Judge
-...
-
-&WAIT:1
-&PLAY_SFX:thud4
-&PLAY_SONG:ninjaSexPursuit
-
-&SCENE:TMPH_Court
 &JUMP_TO_POSITION:2
 &SET_POSE:MadMilk
 &SPEAK:Ross
-P... POTATOES???
+Y-Yeah..! What does that have to do with anything!?
 
-&HIDE_TEXTBOX
-&SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
-&SPEAK:Arin
-That's right! A nearly endless supply of potatoes...
-&HIDE_TEXTBOX
-&PLAY_SFX:deskSlam
-&PLAY_EMOTION:DeskSlamAnimation
-...and his backpack is filled to the brim with them!
-
-&JUMP_TO_POSITION:3
-&HIDE_TEXTBOX
-&PLAY_SFX:damage1
-&PLAY_EMOTION:HeadSlam
-&SPEAK:Tutorial_Boy
-RIDICULOUS!
-&HIDE_TEXTBOX
-&PLAY_SFX:damage1
-// &PLAY_EMOTION:HeadSlam
-PREPOSTEROUS!
-&HIDE_TEXTBOX
-&PLAY_SFX:damage1
-// &PLAY_EMOTION:HeadSlam
-LUDICROUS!
-
-&HIDE_TEXTBOX
-&JUMP_TO_POSITION:1
-&PLAY_SFX:deskSlam
-&PLAY_EMOTION:DeskSlamAnimation
-&SPEAK:Arin
-I assure you it's not!
-Your Honor, if you would: Please confirm for the court that, other than the front pocket here...
-&PLAY_SFX:objectionClean
-&SET_POSE:Objection
-...there is positively no other place that the dinos AND coins could have been!
-
-&HIDE_TEXTBOX
-&SCENE:TMPH_Judge
-&SET_POSE:Thinking
-&WAIT:1
-&PLAY_SFX:lightbulb
-&SET_POSE:Surprised
-&SPEAK:Brent_Judge
-It is as the defense says. This backpack is COMPLETELY filled with what feels like a million potatoes!
-
-&HIDE_ITEM
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:2
-&SET_POSE:MadMilk
-&SPEAK:Ross
-But, but... why?!?
-&PLAY_SFX:stab
-&HIDE_TEXTBOX
-&PLAY_EMOTION:DamageNoHelmet
-It doesn't make any sense at all! Why would Jory have such an endless supply potatoes in his backpack?
-
-&JUMP_TO_POSITION:1
-&SET_POSE:Thinking
-&THINK:Arin
-(That's a good question. Why DOES he seem to have infinite potatoes all inside one backpack?)
-
-&SCENE:TMPH_Assistant
-&SET_POSE:NormalSideTurned
-&SPEAK:Dan
-I think he just really likes potatoes, dude.
-
-&SCENE:TMPH_Judge
-&SET_POSE:Thinking
-&SPEAK:Brent_Judge
-Well, you might have a serious problem here, Jory. I think we can get you the help that you need.
-
-&SCENE:TMPH_Court
-&SET_POSE:Confident
-&SPEAK:Arin
-The only help my client needs right now is help being cleared of these charges!
-
-&SCENE:TMPH_Judge
-&SET_POSE:Normal
-&SPEAK:Brent_Judge
-Well, you have made a strong case that Jory would not have done this...
-
-&HIDE_TEXTBOX
-// &OBJECTION:Tutorial_Boy
-&STOP_SONG
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:3
-&PLAY_EMOTION:Objection
-&SPEAK:Tutorial_Boy
-He has no case at all!
-Sure, it SEEMS like Jory is innocent, but that's simply what the defense would have you believe!
-
-&JUMP_TO_POSITION:1
-&SET_POSE:Sweaty
-&THINK:Arin
-(It's my job to do that, though...)
-
-&PLAY_SONG:investigationUniCore
-&JUMP_TO_POSITION:3
-&SET_POSE:Angry
-&SPEAK:Tutorial_Boy
-But all he has stated is baseless conjecture! He has no REAL proof that Ross is the real culprit!
-The fact is that the dinos were found in JORY'S backpack!
-We also have a motive of avoiding today's 10 Minute Power Hour!
-I don't care how many potatoes were stuffed in his backpack-
--or how much the defense CLAIMS he loves those coins!
-All of those are lies made up by the defense to distract you from the story the hard evidence tells: Jory is guilty!
-
-&HIDE_TEXTBOX
-&SCENE:TMPH_WideShot
-&PLAY_SFX:mutter
-&WAIT:2
-&PLAY_SFX:tripleGavel
-&PLAY_ANIMATION:TripleGavelHit
-
-&SCENE:TMPH_Judge
-&SET_POSE:Angry
-&SPEAK:Brent_Judge
-Order in this court!
-&SET_POSE:Surprised
-That was quite an impassioned speech from the prosecution!
-&SET_POSE:Normal
-And he does bring up good points.
-
-&SCENE:TMPH_Assistant
-&SET_POSE:Fist
-&PLAY_SFX:shock2
-&SPEAK:Dan
-No way!
-
-&SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
-I've not heard of this potato obsession before today, so it strikes me as maybe too convenient.
-I know that in the past Jory has been nothing but a good boy...
-...but the evidence seems stacked in the prosecution's favor.
-
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:1
-&SET_POSE:DeskSlam
-&SPEAK:Arin
-You can't be serious! After all that?
-
-&JUMP_TO_POSITION:3
-&SET_POSE:Confident
-&SPEAK:Tutorial_Boy
-You are very wise, Judge Brent!
-I know that justice will be measured for Jory according to the devious and sinister nature of his crimes!
-
-&SCENE:TMPH_Judge
-&SET_POSE:Thinking
-&SPEAK:Brent_Judge
-...
-&SET_POSE:Normal
-Yes, I think I have to agree with the prosecution on this matter.
-&STOP_SONG
-
-&HIDE_TEXTBOX
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:1
-&PLAY_SFX:stab2
-&PLAY_EMOTION:ShockAnimation
-&SET_POSE:Sweaty
-&SPEAK:Arin
-WHAT?!? We lost?!
-
-&HIDE_TEXTBOX
-&PLAY_SFX:gavel
-&PLAY_ANIMATION:GavelHit
-
-&SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
-I'm sorry, Jory. I like you a lot but given the circumstances it seems I have no choice.
-
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:3
-&SET_POSE:Confident
-&SPEAK:Tutorial_Boy
-Looks like you lose this time, 'Video Game Boy'!
-
-&JUMP_TO_POSITION:1
-&SET_POSE:DeskSlam
-&THINK:Arin
-(I'm sorry, Jory... I failed.)
-
-&SCENE:TMPH_Judge
-&SPEAK:Brent_Judge
-This court finds the defendant, Jory Griffis...
-
-&HIDE_TEXTBOX
-&WAIT:1
-
-// &OBJECTION:Dan
-
-&PLAY_SFX:shock2
-&SCENE:TMPH_Court
-&JUMP_TO_POSITION:3
-&SET_POSE:Sweaty
-&WAIT:1
-
-&PLAY_SFX:shock2
-&JUMP_TO_POSITION:2
-&SET_POSE:MadMilk
-&WAIT:1
-
-&PLAY_SFX:shock2
-&JUMP_TO_POSITION:1
-&SET_POSE:SweatyBlinking
-&SPEAK:Arin
-Dan?
-
-&SCENE:TMPH_Assistant
+&SCENE:TMPHAssistant
 &SET_POSE:SideObjection
 &SPEAK:Dan
-Wait, Your Honor! There's something off about those dinosaurs, and I think I know what it is!
+It has EVERYTHING to do with this!
 
+&SPEAK:Arin
+What are you talking about, Dan?
+
+&SET_POSE:SideNormalTurned
+&SPEAK:Dan
+Roll with me, Arin, I got this one.
+
+&HIDE_TEXTBOX
+&PLAY_EMOTION:SideObjection
+What I mean is this!
+
+&PLAY_SONG:ninjaSexPursuit
+&SCENE:Anime
+&ACTOR:Dan
+&SET_POSE:CloseUp
+&PLAY_SFX:objectionClean
+I don't think that's jizz AT ALL!
+
+&HIDE_TEXTBOX
+&PLAY_SFX:stab
+&SCENE:TMPHCourt
+&JUMP_TO_POSITION:2
+&PLAY_EMOTION:DamageNoHelmet
+&SET_POSE:MadMilk
+&SPEAK:Ross
+Huh?!
+
+&PLAY_SFX:stab
+&JUMP_TO_POSITION:3
+&SET_POSE:Sweaty
+&SPEAK:TutorialBoy
+Not... jizz?
+
+&SCENE:TMPHJudge
+&SET_POSE:Surprised
+&SPEAK:JudgeBrent
+If it's not jizz, then what is it? And what does that have to do with this case?
+
+&SCENE:TMPHAssistant
+&SET_POSE:SideLean
+&SPEAK:Dan
+I think I know what it is, and if I can have those dinosaurs...
+
+&HIDE_TEXTBOX
+&SET_POSE:SideObjection
+I think I can prove Jory's innocence!
+
+&SCENE:TMPHCourt
+&JUMP_TO_POSITION:1
+&SET_POSE:Thinking
+&THINK:Arin
+(Wait... I think I know what Dan's getting at.)
+&SHAKE_SCREEN:0.25,0.25
+&PLAY_SFX:deskSlam
+&SET_POSE:Point
+Your Honor! I request for Dan...
+
+-> Choice
+
+=== Choice ===
+&HIDE_TEXTBOX
++ [Taste them.]
+    -> Taste
++ [Smell them.]
+    -> Smell
++ [Rub them on his nipples."]
+    -> Rub
+
+=== Rub ===
+...to be allowed to rub the dinos all over his beautiful nude body!
+
+&SCENE:TMPHJudge
+&SET_POSE:Angry
+&SPEAK:JudgeBrent
+...
+
+&SCENE:TMPHAssistant
+&SET_POSE:Angry
+&SPEAK:Dan
+Arin! That's not at all what I want with those things. Why did you say that?
+
+&SCENE:TMPHCourt
+&SET_POSE:Embarrassed
+Oh, oops. Wishful thinking, I guess.
+&SET_POSE:Point
+&SPEAK:Arin
+What I mean to say is, Your Honor...
+
+-> END
+
+=== Taste ===
+be allowed to taste those dinosaurs...
+&SET_POSE:Confident
+...so we can find out what's really covering them!
+
+&PLAY_SFX:stab
+&SHAKE_SCREEN:0.25,0.25
+&JUMP_TO_POSITION:2
+&SET_POSE:GlaringNoHelmet
+&SPEAK:Ross
+EW, SICK!
+
+&JUMP_TO_POSITION:3
+&SET_POSE:Sweaty
+&SPEAK:TutorialBoy
+You can't be serious.
+
+&JUMP_TO_POSITION:1
+&SET_POSE:DeskSlam
+&SPEAK:Arin
+I'm deadly serious!
+
+-> EndChoice
+
+=== Smell ===
+be allowed to smell those stain-covered dinosaurs...
+&SET_POSE:Confident
+...so we can find out what's really covering them!
+
+&HIDE_TEXTBOX
+&PLAY_SFX:stab
+&JUMP_TO_POSITION:2
+&PLAY_EMOTION:DamageNoHelmet
+&SPEAK:Ross
+Ack!
+
+&HIDE_TEXTBOX
+&OBJECTION:TutorialBot
+&PLAY_SFX:damage1
+&PLAY_EMOTION:HeadSlam
+&SET_POSE:Angry
+&SPEAK:TutorialBoy
+That is an absurd request! I object to this!
+No trivial stain is going to change the outcome of this trial!
+You fools probably got it covered in some paint or something and you don't remember.
+
+&JUMP_TO_POSITION:1
+&SET_POSE:Point
+&SPEAK:Arin
+Then let's find out for sure!
+
+-> EndChoice
+
+=== EndChoice ===
+&SCENE:TMPHJudge
+&SET_POSE:Thinking
+&SPEAK:JudgeBrent
+I'm not sure what to think of this... request.
+
+&SCENE:TMPHCourt
+&SET_POSE:DeskSlam
+&THINK:Arin
+(Come on, Brent...)
+
+&HIDE_TEXTBOX
+&OBJECTION:TutorialBoy
+&JUMP_TO_POSITION:3
+&SET_POSE:Sweaty
+&SPEAK:TutorialBoy
+Your Honor, please think about this. This is a trivial matter!
+These... 'stains' have no relation to anything relevant. The defense is stalling!
+
+&SCENE:TMPHJudge
+&SET_POSE:Thinking
+&SPEAK:JudgeBrent
+...
+&SET_POSE:Normal
+The prosecution has a point.
+Defense, can you prove the importance of these stains?
+
+&SCENE:TMPHAssistant
+&SET_POSE:SideLean
+&SPEAK:Dan
+Arin, I think we can.
+
+&SCENE:TMPHCourt
+&JUMP_TO_POSITION:1
+&SET_POSE:Sweaty
+&SPEAK:Arin
+Uh, yeah!
+&SET_POSE:Normal
+Yeah, we can prove it. With...
+
+-> PresentEvidence
+
+=== PresentEvidence ===
+&HIDE_TEXTBOX
+&PRESENT_EVIDENCE
++ [Wrong]
+    -> PresentEvidence
++ [Jorys_Backpack]
+    -> PresentJorysBackpack
+    
+=== PresentJorysBackpack ===
+&TAKE_THAT:Arin
+&SHOW_ITEM:Jorys_Backpack,Right
+&STOP_SONG
+&SCENE:TMPHJudge
+&SET_POSE:Surprised
+&SPEAK:JudgeBrent
+The... backpack?
+
+&SCENE:TMPHCourt
+&SET_POSE:Normal
+&SPEAK:Arin
+Your Honor, take a closer look at it.
+
+&SCENE:TMPHJudge
+&SET_POSE:Normal
+&SPEAK:JudgeBrent
+Okay, but this better be relevant.
+&SET_POSE:Thinking
+...
+&HIDE_TEXTBOX
+&WAIT:2
+&PLAY_SONG:starlightObjection
+&PLAY_SFX:lightbulb
+&SET_POSE:Surprised
+There's a stain here too!
+&HIDE_ITEM
+
+&SCENE:TMPHAssistant
+&SPEAK:Dan
+Exactly. On one item, a stain may be trivial...
+
+&SCENE:TMPHCourt
+&SET_POSE:Confident
+&SPEAK:Arin
+But similar stains on two pieces of evidence? That seems relevant to the case.
+
+&HIDE_TEXTBOX
+&OBJECTION:TutorialBoy
+&JUMP_TO_POSITION:3
+&SET_POSE:Sweaty
+&SPEAK:TutorialBoy
+No! I don't... I... it's...
+
+&HIDE_TEXTBOX
+&SCENE:TMPHJudge
+&PLAY_EMOTION:HeadShake
+&SET_POSE:Angry
+&SPEAK:JudgeBrent
+The prosecution will refrain from objecting without purpose.
+
+&HIDE_TEXTBOX
+&SCENE:TMPHCourt
+&PLAY_SFX:damage1
+&PLAY_EMOTION:HeadSlam
+&SET_POSE:Sweaty
+&SPEAK:TutorialBoy
+I... apologize, Your Honor.
+
+&SCENE:TMPHJudge
+&SET_POSE:Normal
+&SPEAK:JudgeBrent
+The defense has proven its point. Mr. Avidan will be permitted to conduct his, erm, 'test'.
+
+&SCENE:TMPHCourt
+&JUMP_TO_POSITION:1
+&SET_POSE:DeskSlam
+&THINK:Arin
+(Okay, now we're getting somewhere. It's all on you Dan...)
+
+&PLAY_SFX:slurp
+&SCENE:TMPHAssistant
+&SET_POSE:SideLean
+&SPEAK:Dan
+...
+&HIDE_TEXTBOX
+&WAIT:2
+&PLAY_SFX:lightbulb
+&PLAY_SFX:stab
+&SET_POSE:Fist
+I KNEW IT!
+
+&HIDE_TEXTBOX
+&SCENE:TMPHCourt
+&PLAY_SFX:shock2
+&PLAY_EMOTION:ShockAnimation
+&WAIT:2
+
+&SCENE:TMPHJudge
+&SET_POSE:Surprised
+&PLAY_SFX:shock2
+&WAIT:2
+
+&SCENE:TMPHCourt
+&JUMP_TO_POSITION:2
+&SET_POSE:MadMilk
+&PLAY_SFX:shock2
+&WAIT:2
+
+&JUMP_TO_POSITION:3
+&SET_POSE:Sweaty
+&PLAY_SFX:shock2
+&WAIT:1
+
+&SCENE:TMPHAssistant
+&SET_POSE:SideObjection
+&SPEAK:Dan
+The white stain on those dinos... It's still fresh, and it's not what you think it is!
+
+&SCENE:TMPHJudge
+&SET_POSE:Surprised
+&SPEAK:JudgeBrent
+Then, what exactly is covering the dinosaurs if it's not dick milk?
+
+&SCENE:TMPHAssistant
+&SPEAK:Dan
+Gross
+But funny you should say that!
+It's actually just regular milk! Whole milk, to be exact!
+
+&HIDE_TEXTBOX
+&SCENE:TMPHCourt
+&JUMP_TO_POSITION:2
+&PLAY_SFX:stab
+&PLAY_EMOTION:DamageNoHelmet
+&SET_POSE:MadMilk
+&SPEAK:Ross
+OH NO!
+
+&JUMP_TO_POSITION:3
+&SET_POSE:Sweaty
+&SPEAK:TutorialBoy
+You can't be serious! How does that prove anything?
+
+&JUMP_TO_POSTION:1
+&SET_POSE:Thinking
+&THINK:Arin
+(Yeah, how does that prove anything?)
+&HIDE_TEXTBOX:
+&WAIT:1
+&PLAY_SFX:realization
+&PLAY_ANIMATION:ShockAnimation
+&WAIT:1
+&PLAY_SFX:deskSlam
+&SHAKE_SCREEN:0.25,0.25
+&PLAY_ANIMATION:DeskSlam
+&SPEAK:Arin
+It proves everything, actually! Not only does this clear our client's name...
+&SET_POSE:Point
+It also proves that Ross was the real culprit!
+
+&SHAKE_SCREEN:0.25,0.25
+&JUMP_TO_POSITION:3
+&PLAY_SFX:stab
+&SPEAK:TutorialBoy
+No way!
+
+&JUMP_TO_POSITION:1
+&SET_POSE:Confident
+&SPEAK:Arin
+Yes way, and I can back it up!
+&SET_POSE:Normal
+See... what you don't know, Mister Tutorial dude--
+
+&JUMP_TO_POSITION:3
+&SPEAK:TutorialBoy
+It's Tutorial BOY, thank you very much!
+
+&JUMP_TO_POSITION:1
+&SET_POSE:Annoyed
+&SPEAK:Arin
+...
+&HIDE_TEXTBOX
+&WAIT:2
+&SET_POSE:Normal
+&SPEAK:Arin
+What you don't know is that Jory is deathly allergic to milk and dairy products!
+He wouldn't have gotten near these dinos if they had milk stains on them when he left the stream.
+&SET_POSE:Confident
+There is one person, however, who is obsessed with dairy products, here in this courtroom!
+&SCENE:Anime
+&ACTOR:Arin
+&SET_POSE:CloseUp
+ROSS!!!
+
+&HIDE_TEXTBOX
+&SCENE:TMPHCourt
+&JUMP_TO_POSITION:2
+&PLAY_SFX:stab2
+&PLAY_EMOTION:DamageNoHelmet
+&SET_POSE:MadMilk
+&SPEAK:Ross
+OOF!
+
+&SCENE:TMPHWideShot
+&PLAY_SFX:mutter
+&WAIT:2
+&PLAY_SFX:triplegavel
+&PLAY_ANIMATION:TripleGavelHit
+
+&SCENE:TMPHJudge
+&SET_POSE:Angry
+&SPEAK:JudgeBrent
+Order Order ORDER, I say! ORDER!!!
+&SET_POSE:Thinking
+... ahem...
+&SET_POSE:Normal
+I sense that you have some kind of idea of what really happened, Arin?
+
+&SCENE:TMPHCourt
+&JUMP_TO_POSITION:1
+&SET_POSE:Confident
+&SPEAK:Arin
+You bet I do, Your Honor!
+&SET_POSE:Normal
+When Jory left to put his backpack in the 10 Minute Power Hour studio, he passed by Ross' office.
+Ross, who noticed Jory walk by, decided he would take him down a peg, and set him up to be framed.
+Right after Jory left, Ross snuck into the room and stashed the dinos in Jory's backpack.
+He was obviously jealous of all the positive recognition Jory had gotten.
+In his rush, he clearly spilt milk he always seems to have over the dinos as he was hiding them.
+It's clear from the evidence, Your Honor, that Jory could not have possibly stolen the dinos!
+
+&HIDE_TEXTBOX
+&OBJECTION:TutorialBoy
+&JUMP_TO_POSITION:3
+&SPEAK:TutorialBoy
+N-No! That can't be true!
+&HIDE_TEXTBOX
+&PLAY_SFX:damage1
+&PLAY_EMOTION:HeadSlam
+&SET_POSE:Sweaty
+You must be lying! It's way too convenient for Jory to be allergic to milk!
+
+&JUMP_TO_POSITION:1
+&SET_POSE:Confident
+&SPEAK:Arin
+As if! I have proof of his condition RIGHT HERE!
+
+-> PresentEvidence2
+
+=== PresentEvidence2 ===
+&PRESENT_EVIDENCE
++ [Wrong]
+    -> PresentEvidence2
++ [Jory_Srs_Letter]
+    -> PresentJorySrsLetter
+
+=== PresentJorySrsLetter ===
+&SCENE:TMPHJudge
+&SET_POSE:Surprised
+&SPEAK:JudgeBrent
+A... letter?
+
+&SCENE:TMPHCourt
+&SPEAK:Arin
+Absolutely!
+&SET_POSE:Point
+It's a letter from Jory's father, and take a look at the very end!
+
+&HIDE_TEXTBOX
+&SCENE:TMPHJudge
+&PLAY_EMOTION:Nodding
+&SET_POSE:Thinking
+&WAIT:1
+&PLAY_SFX:realization
+&SET_POSE:Surprised
+&SPEAK:JudgeBrent
+It's as the defense says! <color={red}>Deathly allergic to milk!
+
+&SCENE:TMPHCourt
+&SET_POSE:Normal
+&SPEAK:Arin
+And since Dan has proven that the stains are in fact milk, that makes it impossible for Jory to go near them!
+&HIDE_TEXTBOX
+&PLAY_SFX:deskSlam
+&PLAY_EMOTION:DeskSlamAnimation
+No one else likes milk like Ross does, and that makes him our real culprit!
+
+&HIDE_TEXTBOX
+&STOP_SONG
+&JUMP_TO_POSITION:2
+&PLAY_SFX:stab
+&SHAKE_SCREEN:0.25,0.25
+&PLAY_EMOTION:Breakdown
+&PLAY_SFX:wham
+&SHAKE_SCREEN:0.25,0.25
+&WAIT:1
+&FADE_OUT:3
+&WAIT:1
+
+&SCENE:TMPHJudge
+&SET_POSE:Normal
+&FADE_IN:1
+&SPEAK:JudgeBrent
+Well, that certainly was quite the turnaround there.
+I've presided over quite a few cases in my day, but I've never seen a case resolved quite like that!
+
+&SCENE:TMPHAssistant
+&SET_POSE:SideLean
+&SPEAK:Dan
+All in a day's work for Danny Sexbang!
+&HIDE_TEXTBOX
+&PLAY_SFX:airGuitar
+&PLAY_EMOTION:AirGuitar
+&SET_POSE:SideNormal
+
+&SCENE:TMPHJudge
+&SPEAK:JudgeBrent
+Yes... Well done, Mr. Avidan.
+
+&SCENE:TMPHCourt
+&JUMP_TO_POSITION:1
+Hey, I did a lot too!
+
+&SCENE:TMPHJudge
+&SPEAK:JudgeBrent
+But with that, I think we can safely say justice is served today.
+&SET_POSE:Warning
+Therefore, I find the defendant, Jory Griffis...
+&HIDE_TEXTBOX
+&PLAY_ANIMATION:GoodBoy
+
+&PLAY_SFX:galleryCheer
+&SCENE:TMPHWideShot
+&WAIT:2
+
+&FADE_OUT:3
+
+&LOAD_SCRIPT:Case1/1-14-PostTrial
 -> END
