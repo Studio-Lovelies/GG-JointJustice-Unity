@@ -28,6 +28,7 @@ namespace Tests.PlayModeTests.Tools
             var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
             yield return null;
+            yield return null;
             Debug.Log(Keyboard.xKey.isPressed);
             try
             {
