@@ -245,7 +245,7 @@ public class ActionDecoder : ActionDecoderBase
     }
     
     /// <summary>Shows the given evidence on the screen in the given position.</summary>
-    /// <param name="itemName" validFiles="Assets/Resources/**.asset">Name of the piece of evidence to show</param>
+    /// <param name="itemName" validFiles="Assets/Resources/**.asset">Name of a piece of evidence or actor to show</param>
     /// <param name="itemPos">`Left`, `Right` or `Middle`</param>
     /// <example>&amp;SHOW_ITEM:Switch,Left</example>
     /// <category>Scene</category>
