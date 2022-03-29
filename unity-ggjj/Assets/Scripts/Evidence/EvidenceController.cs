@@ -53,8 +53,8 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     /// <summary>
     /// Substitutes a piece of evidence with another piece of evidence.
     /// </summary>
-    /// <param name="initialEvidenceData"> evidenceData to be substituted</param>
-    /// <param name="substituteEvidenceData"> evidenceData to substitute <see cref="initialEvidenceData"/> with</param>
+    /// <param name="initialEvidenceData">The evidenceData to be substituted</param>
+    /// <param name="substituteEvidenceData">The evidenceData to substitute <see cref="initialEvidenceData"/> with</param>
     public void SubstituteEvidence(EvidenceData initialEvidenceData, EvidenceData substituteEvidenceData)
     {
         CurrentEvidence[CurrentEvidence.IndexOf(initialEvidenceData)] = substituteEvidenceData;
