@@ -244,7 +244,7 @@ public class ActionDecoder : ActionDecoderBase
         OnActionDone?.Invoke();
     }
     
-    /// <summary>Shows the given evidence on the screen in the given position.</summary>
+    /// <summary>Shows a piece of evidence or actor on the screen in the given position.</summary>
     /// <param name="itemName" validFiles="Assets/Resources/**.asset">Name of a piece of evidence or actor to show</param>
     /// <param name="itemPos">`Left`, `Right` or `Middle`</param>
     /// <example>&amp;SHOW_ITEM:Switch,Left</example>
