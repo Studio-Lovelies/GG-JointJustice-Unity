@@ -120,6 +120,24 @@
   - TMPHWideShot
   - TMPHWitness
 
+## CourtRecordItemName
+| Name | Description | Icon |
+| ---- | ----------- | ---- |
+| Arin | Half of the Game Grumps duo. Definitely the same height as Dan. | ![image for Arin](../unity-ggjj/Assets/Images/Profiles/Arin.png) |
+| AttorneysBadge |  | ![image for AttorneysBadge]() |
+| BentCoins |  | ![image for BentCoins]() |
+| Dan | The other half of the Game Grumps. Known aliases: 'Danny Sexbang', 'Mr. Business.' | ![image for Dan](../unity-ggjj/Assets/Images/Profiles/Dan.png) |
+| Jory | Game developer for Dream Daddy. Previous job: P.P.I.S.S machine. | ![image for Jory](../unity-ggjj/Assets/Images/Profiles/Jory.png) |
+| JorysBackpack |  | ![image for JorysBackpack]() |
+| JorySrsLetter |  | ![image for JorySrsLetter]() |
+| JudgeBrent | Manages the Grumps business. Also a Judge in the totally real Attitute City. | ![image for JudgeBrent](../unity-ggjj/Assets/Images/Profiles/JudgeBrent.png) |
+| LivestreamRecording |  | ![image for LivestreamRecording]() |
+| PlumberInvoice |  | ![image for PlumberInvoice]() |
+| Ross | Animator and self-described sadist. Also really loves milk for some reason. | ![image for Ross](../unity-ggjj/Assets/Images/Profiles/Ross.png) |
+| StolenDinos |  | ![image for StolenDinos]() |
+| Switch |  | ![image for Switch]() |
+| TutorialBoy | The first prosecutor. Has an extremely predictable name. | ![image for TutorialBoy](../unity-ggjj/Assets/Images/Profiles/TutorialBoy.png) |
+
 ## FullscreenAnimationAssetName
   - BadBoy
   - CrossExamination
