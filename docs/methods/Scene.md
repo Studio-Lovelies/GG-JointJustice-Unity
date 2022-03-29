@@ -70,6 +70,9 @@ Examples:
   - `&SCENE:TMPH_Court`
 
 ## SHOW_ITEM
+Values: 
+  - [Name of the piece of evidence to show](../constants.md#CourtRecordItemName)
+  - `Left`, `Right` or `Middle`
 
 ⏲ Instant
 
