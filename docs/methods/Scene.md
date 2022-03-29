@@ -82,7 +82,7 @@ Examples:
 
 ⏲ Instant
 
-Hides the item shown when using SHOW_ITEM.
+Hides the piece of evidence shown when using SHOW_ITEM.
 
 Examples: 
   - `&HIDE_ITEM`
