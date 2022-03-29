@@ -51,19 +51,24 @@ public class SongAssetName : AssetName
     public SongAssetName(string givenName) : base(givenName) { }
 }
 
-public class EvidenceAssetName : AssetName
+public abstract class CourtRecordItemName : AssetName
+{
+    protected CourtRecordItemName(string givenName) : base(givenName) { }
+}
+
+public class EvidenceAssetName : CourtRecordItemName
 {
     public EvidenceAssetName(string givenName) : base(givenName) { }
+}
+
+public class ActorAssetName : CourtRecordItemName
+{
+    public ActorAssetName(string givenName) : base(givenName) { }
 }
 
 public class ActorPoseAssetName : AssetName
 {
     public ActorPoseAssetName(string givenName) : base(givenName) { }
-}
-
-public class ActorAssetName : AssetName
-{
-    public ActorAssetName(string givenName) : base(givenName) { }
 }
 
 public class NarrativeScriptAssetName : AssetName

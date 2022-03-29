@@ -70,20 +70,6 @@
             return null;
         }
     }
-    public class EvidenceAssetNameParser : Parser<EvidenceAssetName>
-    {
-        public override string Parse(string input, out EvidenceAssetName output)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                output = null;
-                return $"String cannot be empty";
-            }
-
-            output = new EvidenceAssetName(input);
-            return null;
-        }
-    }
     public class ActorPoseAssetNameParser : Parser<ActorPoseAssetName>
     {
         public override string Parse(string input, out ActorPoseAssetName output)
@@ -95,6 +81,35 @@
             }
 
             output = new ActorPoseAssetName(input);
+            return null;
+        }
+    }
+    public class CourtRecordItemNameParser : Parser<CourtRecordItemName>
+    {
+        public override string Parse(string input, out CourtRecordItemName output)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                output = null;
+                return $"String cannot be empty";
+            }
+
+            // EvidenceAssetName is mismatched by design; CourtRecordItemName is abstract and can't be constructed directly
+            output = new EvidenceAssetName(input);
+            return null;
+        }
+    }
+    public class EvidenceAssetNameParser : Parser<EvidenceAssetName>
+    {
+        public override string Parse(string input, out EvidenceAssetName output)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                output = null;
+                return $"String cannot be empty";
+            }
+
+            output = new EvidenceAssetName(input);
             return null;
         }
     }
