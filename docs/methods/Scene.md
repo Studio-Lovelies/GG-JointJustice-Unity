@@ -71,7 +71,7 @@ Examples:
 
 ## SHOW_ITEM
 Values: 
-  - [Name of the piece of evidence to show](../constants.md#CourtRecordItemName)
+  - [Name of a piece of evidence or actor to show](../constants.md#CourtRecordItemName)
   - `Left`, `Right` or `Middle`
 
 ⏲ Instant
