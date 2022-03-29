@@ -76,7 +76,7 @@ Values:
 
 ⏲ Instant
 
-Shows the given evidence on the screen in the given position.
+Shows a piece of evidence or actor on the screen in the given position.
 
 Examples: 
   - `&SHOW_ITEM:Switch,Left`
