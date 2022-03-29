@@ -32,9 +32,10 @@ public class ActionDecoderTests
         {typeof(SceneAssetName), "ValidString"},
         {typeof(SfxAssetName), "ValidString"},
         {typeof(SongAssetName), "ValidString"},
+        {typeof(CourtRecordItemName), "ValidString"},
         {typeof(EvidenceAssetName), "ValidString"},
-        {typeof(ActorPoseAssetName), "ValidString"},
         {typeof(ActorAssetName), "ValidString"},
+        {typeof(ActorPoseAssetName), "ValidString"},
         {typeof(NarrativeScriptAssetName), "ValidString" },
         {typeof(GameOverScriptAssetName), "ValidString"},
         {typeof(FailureScriptAssetName), "ValidString"},
@@ -81,7 +82,7 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
+        protected override void SHOW_ITEM(CourtRecordItemName itemName, ItemDisplayPosition itemPos)
         {
             throw new NotImplementedException();
         }
