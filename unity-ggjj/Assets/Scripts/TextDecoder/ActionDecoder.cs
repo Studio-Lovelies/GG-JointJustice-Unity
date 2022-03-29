@@ -97,7 +97,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Removes the provided evidence from the court record.</summary>
-    /// <param name="evidenceName" validFiles="Assets/Resources/ Evidence/*.asset">Name of evidence to remove</param>
+    /// <param name="evidenceName" validFiles="Assets/Resources/Evidence/*.asset">Name of evidence to remove</param>
     /// <example>&amp;REMOVE_EVIDENCE:Bent_Coins</example>
     /// <category>Evidence</category>
     private void REMOVE_EVIDENCE(EvidenceAssetName evidenceName)
