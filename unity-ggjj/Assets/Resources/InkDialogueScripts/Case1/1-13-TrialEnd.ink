@@ -527,7 +527,7 @@ I've presided over quite a few cases in my day, but I've never seen a case resol
 All in a day's work for Danny Sexbang!
 &HIDE_TEXTBOX
 &PLAY_SFX:airGuitar
-//&PLAY_EMOTION:AirGuitar
+&PLAY_EMOTION:AirGuitar
 &SET_POSE:SideNormal
 
 &SCENE:TMPHJudge
