@@ -44,14 +44,16 @@ namespace Tests.PlayModeTests.Tools
                         var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
                         var courtRecordObjects = narrativeGameState.ObjectStorage.GetObjectsOfType<ICourtRecordObject>().ToList();
 
+                        if (courtRecordObjects.All(courtRecordObject => courtRecordObject.InstanceName != evidenceName))
+                        {
+                            throw new KeyNotFoundException($"{evidenceName} was not found in object storage.");
+                        }
+                        
                         if (courtRecordObjects.Any(courtRecordObject => courtRecordObject is ActorData && courtRecordObject.InstanceName == evidenceName))
                         {
                             yield return PressForFrame(Keyboard.cKey);
                         }
-                        else if (courtRecordObjects.All(courtRecordObject => courtRecordObject.InstanceName != evidenceName))
-                        {
-                            throw new KeyNotFoundException($"{evidenceName} was not found in object storage.");
-                        }
+    
                         yield return SelectEvidence(evidenceName);
                     }
                     yield return choiceIndex switch

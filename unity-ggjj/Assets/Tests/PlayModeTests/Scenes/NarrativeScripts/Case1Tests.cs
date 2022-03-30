@@ -72,8 +72,10 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                 if (_narrativeScript.Story.canContinue)
                 {
                     yield return ProgressStory();
+                    continue;
                 }
-                else if (_narrativeScript.Story.currentChoices.Count > 0)
+                
+                if (_narrativeScript.Story.currentChoices.Count > 0)
                 {
                     yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
                     
@@ -81,13 +83,8 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                     var currentText = _narrativeScript.Story.currentText;
                     var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
 
-                    // If we encounter choices, add a new entry to the dictionary to store visited choices
-                    if (choices.Count > 0 && !visitedChoices.ContainsKey(currentText) && (evidenceMenu == null || !evidenceMenu.CanPresentEvidence))
-                    {
-                        visitedChoices.Add(currentText, new Choice[choices.Count]);
-                    }
                     // If the evidence menu is open we need to present evidence
-                    else if (evidenceMenu != null && evidenceMenu.CanPresentEvidence)
+                    if (evidenceMenu != null && evidenceMenu.CanPresentEvidence)
                     {
                         foreach (var choice in choices)
                         {
@@ -96,6 +93,12 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                         continue;
                     }
                     
+                    // If we encounter choices, add a new entry to the dictionary to store visited choices
+                    if (choices.Count > 0 && !visitedChoices.ContainsKey(currentText) && (evidenceMenu == null || !evidenceMenu.CanPresentEvidence))
+                    {
+                        visitedChoices.Add(currentText, new Choice[choices.Count]);
+                    }
+
                     // Get all the choices we have not visited yet
                     var possibleChoices = choices.Where(choice => visitedChoices[currentText].All(item => item == null || choice.text != item.text)).ToArray();
                     if (possibleChoices.Length > 0)
