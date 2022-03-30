@@ -560,7 +560,7 @@ All of those are lies made up by the defense to distract you from the story the 
 &SCENE:TMPHWideShot
 &PLAY_SFX:mutter
 &WAIT:2
-&PLAY_SFX:TripleGavel
+&PLAY_SFX:Triplegavel
 &PLAY_ANIMATION:TripleGavelHit
 
 &SCENE:TMPHJudge

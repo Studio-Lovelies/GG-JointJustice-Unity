@@ -819,7 +819,7 @@ Did ANY of you see which part of the backpack they were found in?
 &SCENE:TMPHWideShot
 &PLAY_SFX:mutter
 &WAIT:2
-&PLAY_SFX:TripleGavel
+&PLAY_SFX:Triplegavel
 &PLAY_ANIMATION:TripleGavelHit
 
 &SCENE:TMPHJudge
