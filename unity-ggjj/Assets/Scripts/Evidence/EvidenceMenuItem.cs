@@ -15,19 +15,8 @@ public class EvidenceMenuItem : MonoBehaviour, ISelectHandler
     private ICourtRecordObject _courtRecordObject;
     private Selectable _selectable;
 
-    private Selectable Selectable
-    {
-        get
-        {
-            if (_selectable == null)
-            {
-                _selectable = GetComponent<Selectable>();
-            }
+    private Selectable Selectable => _selectable == null ? _selectable = GetComponent<Selectable>() : _selectable;
 
-            return _selectable;
-        }
-    }
-    
     /// <summary>
     /// Disable the selectable then reenable it after one frame so that menu items
     /// aren't selected on the same frame the menu opens
