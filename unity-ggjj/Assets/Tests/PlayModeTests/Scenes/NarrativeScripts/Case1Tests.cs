@@ -32,7 +32,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
         }
 
         [UnityTest]
-        [Timeout(1000000)]
+        [Timeout(5 * 60 * 1000)]
         [TestCaseSource(nameof(NarrativeScripts))]
         public IEnumerator NarrativeScriptsRunWithNoErrors(TextAsset narrativeScriptText)
         {
