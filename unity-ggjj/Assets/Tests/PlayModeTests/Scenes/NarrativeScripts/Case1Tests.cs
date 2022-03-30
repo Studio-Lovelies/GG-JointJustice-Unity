@@ -102,12 +102,11 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                                 yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
                                 continue;
                             }
-
-                            if (_narrativeScript.Story.currentTags.Count > 0 && int.TryParse(_narrativeScript.Story.currentTags[0], out var correctChoice) && choice.index == correctChoice && visitedChoices[currentText].All(choiceInList => choiceInList != null || Array.FindIndex(visitedChoices[currentText], i => i == null) == choice.index))
+                            
+                            if (_narrativeScript.Story.currentTags.Count > 0 && int.TryParse(_narrativeScript.Story.currentTags[0], out var correctChoice) && choice.index == correctChoice && visitedChoices[currentText].Count(visitedChoice => visitedChoice == null) != 1)
                             {
                                 continue;
                             }
-                            
                             visitedChoices[currentText][Array.FindIndex(visitedChoices[currentText], i => i == null)] = choice;
                             yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode, new EvidenceAssetName(choice.text));
                             break;
