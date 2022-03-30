@@ -66,6 +66,10 @@ namespace Tests.PlayModeTests.Tools
             }
         }
 
+        /// <summary>
+        /// Opens the evidence menu and finds a specified piece of evidence to present
+        /// </summary>
+        /// <param name="evidenceName">The name of the evidence to present</param>
         private IEnumerator SelectEvidence(EvidenceAssetName evidenceName)
         {
             yield return PressForFrame(Keyboard.zKey);
