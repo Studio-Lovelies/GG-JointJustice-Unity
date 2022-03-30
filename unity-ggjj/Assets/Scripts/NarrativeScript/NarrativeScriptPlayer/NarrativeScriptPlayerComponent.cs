@@ -53,7 +53,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     public void LoadScript(string narrativeScriptName)
     {
         var narrativeScriptText = Resources.Load<TextAsset>($"InkDialogueScripts/{narrativeScriptName}");
-        Debug.Assert(narrativeScriptName != null, $"Failed to load narrative script with name {narrativeScriptName}");
+        Debug.Assert(narrativeScriptText != null, $"Failed to load narrative script resource at 'InkDialogueScripts/{narrativeScriptName}'");
         
         var narrativeScript = new NarrativeScript(narrativeScriptText);
         NarrativeScriptPlayer.ActiveNarrativeScript = narrativeScript;
