@@ -75,67 +75,62 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                     continue;
                 }
                 
-                if (_narrativeScript.Story.currentChoices.Count > 0)
-                {
-                    yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
-                    
-                    var choices = _narrativeScript.Story.currentChoices;
-                    var currentText = _narrativeScript.Story.currentText;
-                    var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
-
-                    // If the evidence menu is open we need to present evidence
-                    if (evidenceMenu != null && evidenceMenu.CanPresentEvidence)
-                    {
-                        foreach (var choice in choices)
-                        {
-                            yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode, new EvidenceAssetName(choice.text));
-                        }
-                        continue;
-                    }
-                    
-                    // If we encounter choices, add a new entry to the dictionary to store visited choices
-                    if (choices.Count > 0 && !visitedChoices.ContainsKey(currentText) && (evidenceMenu == null || !evidenceMenu.CanPresentEvidence))
-                    {
-                        visitedChoices.Add(currentText, new Choice[choices.Count]);
-                    }
-
-                    // Get all the choices we have not visited yet
-                    var possibleChoices = choices.Where(choice => visitedChoices[currentText].All(item => item == null || choice.text != item.text)).ToArray();
-                    if (possibleChoices.Length > 0)
-                    {
-                        foreach (var choice in possibleChoices)
-                        {
-                            // During cross examinations we want to select the choice marked "correct" last
-                            if (choice.index == 1 && _narrativeScript.Story.currentTags.Contains("correct") && visitedChoices.Values.Any(choiceList => choiceList.Any(choiceInList => choiceInList == null && choiceList != visitedChoices[currentText])))
-                            {
-                                yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
-                                continue;
-                            }
-                            
-                            // During dialogue we want to select the choice indicated by the current tag (e.g., #0) last
-                            if (_narrativeScript.Story.currentTags.Count > 0 && int.TryParse(_narrativeScript.Story.currentTags[0], out var correctChoice) && choice.index == correctChoice && visitedChoices[currentText].Count(visitedChoice => visitedChoice == null) != 1)
-                            {
-                                continue;
-                            }
-                            
-                            // Set the corresponding choice in the dictionary to visited and select the choice
-                            visitedChoices[currentText][Array.FindIndex(visitedChoices[currentText], i => i == null)] = choice;
-                            yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode, new EvidenceAssetName(choice.text));
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        // If all choices visited, continue as normal
-                        yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
-                    }
-                }
                 // No choices and cannot continue means the end of a story
-                else
+                if (_narrativeScript.Story.currentChoices.Count == 0)
                 {
                     break;
                 }
-                yield return null;
+                
+                yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
+                
+                var choices = _narrativeScript.Story.currentChoices;
+                var currentText = _narrativeScript.Story.currentText;
+                var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
+
+                // If the evidence menu is open we need to present evidence
+                if (evidenceMenu != null && evidenceMenu.CanPresentEvidence)
+                {
+                    foreach (var choice in choices)
+                    {
+                        yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode, new EvidenceAssetName(choice.text));
+                    }
+                    continue;
+                }
+                
+                // If we encounter choices, add a new entry to the dictionary to store visited choices
+                if (choices.Count > 0 && !visitedChoices.ContainsKey(currentText) && (evidenceMenu == null || !evidenceMenu.CanPresentEvidence))
+                {
+                    visitedChoices.Add(currentText, new Choice[choices.Count]);
+                }
+
+                // Get all the choices we have not visited yet
+                var possibleChoices = choices.Where(choice => visitedChoices[currentText].All(item => item == null || choice.text != item.text)).ToArray();
+                foreach (var choice in possibleChoices)
+                {
+                    // During cross examinations we want to select the choice marked "correct" last
+                    if (choice.index == 1 && _narrativeScript.Story.currentTags.Contains("correct") && visitedChoices.Values.Any(choiceList => choiceList.Any(choiceInList => choiceInList == null && choiceList != visitedChoices[currentText])))
+                    {
+                        yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
+                        continue;
+                    }
+                    
+                    // During dialogue we want to select the choice indicated by the current tag (e.g., #0) last
+                    if (_narrativeScript.Story.currentTags.Count > 0 && int.TryParse(_narrativeScript.Story.currentTags[0], out var correctChoice) && choice.index == correctChoice && visitedChoices[currentText].Count(visitedChoice => visitedChoice == null) != 1)
+                    {
+                        continue;
+                    }
+                    
+                    // Set the corresponding choice in the dictionary to visited and select the choice
+                    visitedChoices[currentText][Array.FindIndex(visitedChoices[currentText], i => i == null)] = choice;
+                    yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode, new EvidenceAssetName(choice.text));
+                    break;
+                }
+
+                // If all choices visited, continue as normal
+                if (possibleChoices.Length == 0)
+                {
+                    yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
+                }
             }
             
             storyProgresser.TearDown();
