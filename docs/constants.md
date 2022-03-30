@@ -99,8 +99,9 @@
   - CongratulationsInTheShower
   - DragonObjection
   - FightThroughRhinoOrPumaForTheTruth
+  - FyiIWannaXYourExaminationAllegro
   - FyiIWannaXYourExaminationModerato
-  - GyiIWannaXYourExaminationAllegro
+  - GGJJRoss
   - HuffPuffPursuit
   - InvestigationJoonyer
   - InvestigationUniCore
@@ -110,7 +111,6 @@
   - ObjectsOfVictory
   - Prelude6969
   - PrologueInPMinor
-  - Ross
   - SimplePlotOfInvestigation
   - StarlightObjection
   - TurnaboutGrumpsters
@@ -140,7 +140,9 @@
   - WitnessTestimony
 
 ## NarrativeScriptAssetName
+  - Colors
   - Intro
+  - Options
 
 ## GameOverScriptAssetName
   - TMPHFAIL1
