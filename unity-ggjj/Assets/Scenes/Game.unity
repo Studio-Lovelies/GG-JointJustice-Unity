@@ -1560,6 +1560,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2741042425953383750, guid: ef7dd0dd7a380264d90181b3a106c435, type: 3}
     - target: {fileID: 7962780514542778033, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _penaltyCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7962780514542778033, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _narrativeGameState
       value: 
       objectReference: {fileID: 7963640705624872190}
