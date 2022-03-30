@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,7 +50,7 @@ namespace Tests.PlayModeTests.Tools
                         }
                         else if (courtRecordObjects.All(courtRecordObject => courtRecordObject.InstanceName != evidenceName))
                         {
-                            yield break;
+                            throw new KeyNotFoundException($"{evidenceName} was not found in object storage.");
                         }
                         yield return SelectEvidence(evidenceName);
                     }
