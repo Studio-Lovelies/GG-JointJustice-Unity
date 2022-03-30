@@ -429,7 +429,7 @@ OOF!
 &SCENE:TMPHWideShot
 &PLAY_SFX:mutter
 &WAIT:2
-&PLAY_SFX:TripleGavel
+//&PLAY_SFX:TripleGavel
 &PLAY_ANIMATION:TripleGavelHit
 
 &SCENE:TMPHJudge
