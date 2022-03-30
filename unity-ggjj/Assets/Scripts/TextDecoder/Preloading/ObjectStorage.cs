@@ -35,7 +35,14 @@ public class ObjectStorage : IObjectStorage
     /// <returns>An object with name objectName</returns>
     public T GetObject<T>(string objectName) where T : class
     {
-        return _objects[objectName] as T;
+        try
+        {
+            return _objects[objectName] as T;
+        }
+        catch (KeyNotFoundException exception)
+        {
+            throw new KeyNotFoundException(objectName);
+        }
     }
 
     /// <summary>

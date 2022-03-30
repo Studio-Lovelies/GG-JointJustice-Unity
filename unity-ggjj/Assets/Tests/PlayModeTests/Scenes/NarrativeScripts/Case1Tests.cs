@@ -53,6 +53,8 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
             while (true)
             {
+                _appearingDialogueController.AppearInstantly = true;
+                
                 if (NarrativeScriptHasChanged(_narrativeScript))
                 {
                     if (visitedChoices.Count != 0 && visitedChoices.Values.SelectMany(choices => choices).Any(choice => choice == null))
@@ -136,7 +138,8 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
         {
             var input = GameObject.Find("GameInput").GetComponent<InputModule>();
             if (!input.enabled) { yield break; }
-            _appearingDialogueController.SpeedMultiplier = 8;
+            
+            // _appearingDialogueController.SpeedMultiplier = 20;
             yield return TestTools.WaitForState(() => !_narrativeGameState.AppearingDialogueController.IsPrintingText);
             _appearingDialogueController.SpeedMultiplier = 1;
             _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
