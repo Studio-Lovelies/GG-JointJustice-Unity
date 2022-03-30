@@ -1,4 +1,5 @@
 INCLUDE ../Colors.ink
+INCLUDE ../Templates/Macros.ink
 
 &HIDE_TEXTBOX
 &FADE_OUT:0
@@ -11,8 +12,8 @@ INCLUDE ../Colors.ink
 &SPEAK:Dan
 KSST.
 &PLAY_SFX:chug
-\*glug...glug...*
-Ah... this can of La Croix is as refreshing as that victory...!
+\*glug{ellipsis} glug{ellipsis}*
+Ah{ellipsis} this can of La Croix is as refreshing as that victory{ellipsis}!
 &SET_POSE:Happy
 You did it Arin! I can't believe we won that!
 
@@ -54,7 +55,7 @@ Ross!
 &ACTOR:Ross
 &SET_POSE:SadNoHelmet
 &SPEAK:Ross
-Hey guys...
+Hey guys{ellipsis}
 
 &SPEAK:Arin
 Come by to sulk, Ross?
@@ -84,14 +85,15 @@ Jory, did you know about this?
 No way man! Nobody ever tells me anything.
 
 &ACTOR:Ross
-Huh... so who's idea was all this? Brent?
+&SET_POSE:SweatyNoHelmet
+Huh{ellipsis} so whose idea was all this? Brent?
 
 &SPEAK:Arin
 No way, he's way too responsible. Maybe it was that tutorial guy. He's the only variable here.
 
 &ACTOR:Dan
-&SET_POSE:NormalNoHelmet
-&SPEAK:dan
+&SET_POSE:Normal
+&SPEAK:Dan
 Huh. Yeah, that's right. He's still here right?
 
 &SPEAK:Arin
@@ -99,10 +101,15 @@ I think so. We should go find out what all this was about.
 
 &ACTOR:Ross
 &SPEAK:Ross
-Well looks like there's no hard feelings! I'm going to go work on those levels now...
+&SET_POSE:NormalNoHelmet
+Well looks like there's no hard feelings! I'm going to go work on those levels now{ellipsis}
 
+&HIDE_TEXTBOX
+&HIDE_ACTOR
 &PLAY_SFX:doorOpens
+&WAIT:2
 
+&SHOW_ACTOR
 &ACTOR:Dan
 &SPEAK:Dan
 I hope to God those levels are gonna actually be fun to play.
@@ -111,11 +118,11 @@ I hope to God those levels are gonna actually be fun to play.
 Dude it's Ross. I don't think that's gonna happen.
 
 &SPEAK:Dan
-Yeah you're probably right... but I'm gonna hold out hope for once.
+Yeah you're probably right{ellipsis} but I'm gonna hold out hope for once.
 &PLAY_SFX:pageTurn
 &PLAY_SFX:realization
 &SET_POSE:Surprised
-Wha...? Another letter?
+Wha{ellipsis}? Another letter?
 
 &SPEAK:Arin
 Oh god what now?
@@ -136,7 +143,7 @@ Wow, Jory's dad has done a lot of things.
 
 &SPEAK:Arin
 He also says a lot of words.
-Hey Dan, by the way...
+Hey Dan, by the way{ellipsis}
 
 &SPEAK:Dan
 Hm? What's up?
@@ -145,25 +152,25 @@ Hm? What's up?
 Thanks for having my back out there, dude.
 The end of that trial was tough. I really thought that we actually lost for a second there.
 Thanks to you, we managed to save Jory from a life behind bars!
-...or losing fake coins, I guess.
+{ellipsis}or losing fake coins, I guess.
 
 &SPEAK:Dan
-Like I said - teamwork, man. Guess you could say we served...
+Like I said - teamwork, man. Guess you could say we served{ellipsis}
 &SET_POSE:SideLean
-...Some sweet JOINT JUSTICE!
+{ellipsis}Some sweet JOINT JUSTICE!
 
 &SPEAK:Arin
-...
+{ellipsis}
 
 &SPEAK:Dan
-...
+{ellipsis}
 
 &SPEAK:Arin
-... did you really just-?
+{ellipsis}did you really just-?
 
 &SET_POSE:Happy
 &SPEAK:Dan
-Yeah, I went there. Couldn't help myself. Anyways...
+Yeah, I went there. Couldn't help myself. Anyways{ellipsis}
 &SET_POSE:Normal
 Let's go look for that Tutorial Boy and find out what's going on here.
 
@@ -179,12 +186,12 @@ With some sweet Joint Justice?"
 
 &SET_POSE:Angry
 &SPEAK:Dan
-...
+{ellipsis}
 &SET_POSE:Normal
 Arin, you're a man after my own heart.
 
 &HIDE_TEXTBOX
-&SET_POSE:Laugh
+&SET_POSE:Laughing
 
 &FADE_OUT:3
 &WAIT:2

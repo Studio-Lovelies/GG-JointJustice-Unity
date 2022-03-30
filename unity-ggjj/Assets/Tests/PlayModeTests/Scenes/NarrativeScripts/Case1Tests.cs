@@ -71,7 +71,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                 {
                     yield return ProgressStory();
                 }
-                else
+                else if (_narrativeScript.Story.currentChoices.Count > 0)
                 {
                     yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
                     
@@ -116,6 +116,10 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                     {
                         yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
                     }
+                }
+                else
+                {
+                    break;
                 }
                 yield return null;
             }

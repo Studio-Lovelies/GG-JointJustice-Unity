@@ -228,6 +228,6 @@ Way to go, Big Cat! Let's see how this changes things.
 &FADE_OUT_SONG:{songFadeTime}
 &WAIT:3
 
-&LOAD_SCRIPT:Case1/1-7-RossCrossExamination
+&LOAD_SCRIPT:Case1/1-7-RossCrossExamination2
 
 -> END

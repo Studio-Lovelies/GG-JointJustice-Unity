@@ -137,7 +137,7 @@ Very well. The defense may begin their cross-examination.
 &FADE_OUT:2
 &WAIT:1
 
-&LOAD_SCRIPT:Case1/1-9-RossCrossExamination2
+&LOAD_SCRIPT:Case1/1-9-RossCrossExamination3
 
 -> END
 

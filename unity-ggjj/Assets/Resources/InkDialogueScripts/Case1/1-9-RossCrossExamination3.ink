@@ -222,7 +222,7 @@ As a matter of fact{ellipsis}
 &SET_POSE:Normal
 &SPEAK:Arin
 So you were making a level when you saw Jory. Exactly how were you making it?
-&LOAD_SCRIPT:Case1/1-10-RossCrossExamination2Contradiction
+&LOAD_SCRIPT:Case1/1-10-RossCrossExamination3Contradiction
 -> END
 
 === Line5Press ===
