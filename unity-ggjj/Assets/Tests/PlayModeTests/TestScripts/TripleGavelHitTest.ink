@@ -1,5 +1,5 @@
 &HIDE_TEXTBOX
-&PLAY_SFX:TripleGavel
+&PLAY_SFX:Triplegavel
 &PLAY_ANIMATION:TripleGavelHit
 &APPEAR_INSTANTLY
 The animation has finished
