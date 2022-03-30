@@ -41,7 +41,7 @@ public class ObjectStorage : IObjectStorage
         }
         catch (KeyNotFoundException exception)
         {
-            throw new KeyNotFoundException(objectName);
+            throw new KeyNotFoundException(objectName, exception);
         }
     }
 
