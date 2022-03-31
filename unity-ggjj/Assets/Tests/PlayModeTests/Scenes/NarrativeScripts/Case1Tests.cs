@@ -109,12 +109,21 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
 
                 // Get all the choices we have not visited yet
                 var possibleChoices = choices.Where(choice => visitedChoices[currentText].All(item => item == null || choice.text != item.text)).ToArray();
+                // Debug.Log(possibleChoices.Length);
                 foreach (var choice in possibleChoices)
                 {
                     // During cross examinations we want to select the choice marked "correct" last
                     if (choice.index == 1 && _narrativeScript.Story.currentTags.Contains("correct") && visitedChoices.Values.Any(choiceList => choiceList.Any(choiceInList => choiceInList == null && choiceList != visitedChoices[currentText])))
                     {
                         yield return _storyProgresser.SelectCrossExaminationChoice(CrossExaminationChoice.ContinueStory, null);
+                        continue;
+                    }
+                    
+                    // If there is no "correct" choice, but 3 choices and we're in CrossExamination mode and all other choices are visited we need to present evidence
+                    if (_narrativeScript.Story.currentChoices.Count == 3 && _narrativeScriptPlayer.GameMode == GameMode.CrossExamination && !visitedChoices.Values.Any(choiceList => choiceList.Any(choiceInList => choiceInList == null && choiceList != visitedChoices[currentText])))
+                    {
+                        visitedChoices[currentText][Array.FindIndex(visitedChoices[currentText], i => i == null)] = choice;
+                        yield return _storyProgresser.PresentEvidence(new EvidenceAssetName(choice.text));
                         continue;
                     }
                     
