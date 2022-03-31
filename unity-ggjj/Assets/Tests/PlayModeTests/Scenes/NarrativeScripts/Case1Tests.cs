@@ -22,6 +22,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
         private INarrativeScriptPlayer _narrativeScriptPlayer;
         private NarrativeGameState _narrativeGameState;
         private AppearingDialogueController _appearingDialogueController;
+        private StoryProgresser _storyProgresser;
 
         [UnitySetUp]
         public IEnumerator SetUp()
@@ -29,6 +30,8 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
             yield return SceneManager.LoadSceneAsync("Game");
             _appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
             _narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            _storyProgresser = new StoryProgresser();
+            _storyProgresser.Setup();
         }
 
         [UnityTest]
@@ -47,8 +50,6 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
         private IEnumerator PlayNarrativeScript()
         {
             var visitedChoices = new Dictionary<string, Choice[]>();
-            var storyProgresser = new StoryProgresser();
-            storyProgresser.Setup();
 
             while (true)
             {
@@ -95,7 +96,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                 {
                     foreach (var choice in choices)
                     {
-                        yield return storyProgresser.PresentEvidence(new EvidenceAssetName(choice.text));
+                        yield return _storyProgresser.PresentEvidence(new EvidenceAssetName(choice.text));
                     }
                     continue;
                 }
@@ -113,7 +114,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                     // During cross examinations we want to select the choice marked "correct" last
                     if (choice.index == 1 && _narrativeScript.Story.currentTags.Contains("correct") && visitedChoices.Values.Any(choiceList => choiceList.Any(choiceInList => choiceInList == null && choiceList != visitedChoices[currentText])))
                     {
-                        yield return storyProgresser.SelectCrossExaminationChoice(CrossExaminationChoice.ContinueStory, null);
+                        yield return _storyProgresser.SelectCrossExaminationChoice(CrossExaminationChoice.ContinueStory, null);
                         continue;
                     }
                     
@@ -125,18 +126,33 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                     
                     // Set the corresponding choice in the dictionary to visited and select the choice
                     visitedChoices[currentText][Array.FindIndex(visitedChoices[currentText], i => i == null)] = choice;
-                    yield return storyProgresser.SelectDialogueChoice(choice.index);
+                    yield return SelectChoice(choice.index);
                     break;
                 }
 
                 // If all choices visited, continue as normal
                 if (possibleChoices.Length == 0)
                 {
-                    yield return storyProgresser.SelectDialogueChoice(0);
+                    yield return SelectChoice(0);
                 }
             }
             
-            storyProgresser.TearDown();
+            _storyProgresser.TearDown();
+        }
+
+        /// <summary>
+        /// Calls SelectDialogueChoice or SelectCrossExaminationChoice
+        /// depending on the current game mode
+        /// </summary>
+        /// <param name="choiceIndex">The index of the choice in the story</param>
+        private IEnumerator SelectChoice(int choiceIndex)
+        {
+            yield return _narrativeScriptPlayer.GameMode switch
+            {
+                GameMode.Dialogue => _storyProgresser.SelectDialogueChoice(choiceIndex),
+                GameMode.CrossExamination => _storyProgresser.SelectCrossExaminationChoice((CrossExaminationChoice)choiceIndex, null),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         private bool NarrativeScriptHasChanged(NarrativeScript narrativeScript)
