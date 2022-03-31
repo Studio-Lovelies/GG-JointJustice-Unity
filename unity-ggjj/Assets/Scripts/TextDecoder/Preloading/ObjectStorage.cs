@@ -23,7 +23,7 @@ public class ObjectStorage : IObjectStorage
         }
         catch (ArgumentException exception)
         {
-            throw new ObjectLoadingException("Obj \"{obj.name}\" has already been added to object storage.", exception);
+            throw new ObjectLoadingException($"Obj \"{obj.name}\" has already been added to object storage.", exception);
         }
     }
     

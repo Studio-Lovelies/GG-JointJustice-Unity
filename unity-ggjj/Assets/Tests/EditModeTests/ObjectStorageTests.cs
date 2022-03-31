@@ -1,5 +1,8 @@
+using System;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 public class ObjectStorageTests
 {
@@ -27,7 +30,7 @@ public class ObjectStorageTests
         Assert.AreEqual(0, _objectStorage.Count);
         _objectStorage.Add(Resources.Load("Actors/Arin"));
         Assert.AreEqual(1, _objectStorage.Count);
-        _objectStorage.Add(Resources.Load("Actors/Arin"));
+        Assert.Throws<ObjectLoadingException>(() => _objectStorage.Add(Resources.Load("Actors/Arin")));
         Assert.AreEqual(1, _objectStorage.Count);
     }
     
