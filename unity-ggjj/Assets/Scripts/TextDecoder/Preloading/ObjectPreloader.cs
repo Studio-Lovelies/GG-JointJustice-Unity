@@ -99,7 +99,7 @@ public class ObjectPreloader : ActionDecoderBase
         }
         catch (NullReferenceException exception)
         {
-            throw new NullReferenceException($"{exception.GetType().Name}: Object at path {path} could not be loaded", exception);
+            throw new ObjectLoadingException($"{exception.GetType().Name}: Object at path {path} could not be loaded", exception);
         }
     }
 }
