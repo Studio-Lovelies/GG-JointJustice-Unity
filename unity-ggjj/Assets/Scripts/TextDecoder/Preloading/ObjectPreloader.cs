@@ -42,9 +42,9 @@ public class ObjectPreloader : ActionDecoderBase
         LoadObject<BGScene>($"BGScenes/{sceneName}");
     }
 
-    protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
+    protected override void SHOW_ITEM(CourtRecordItemName itemName, ItemDisplayPosition itemPos)
     {
-        LoadEvidence(item);
+        LoadEvidence(itemName);
     }
 
     protected override void ACTOR(ActorAssetName actorName)
@@ -80,7 +80,7 @@ public class ObjectPreloader : ActionDecoderBase
     
     private void LoadEvidence(string evidenceName)
     {
-        LoadObject<Evidence>($"Evidence/{evidenceName}");
+        LoadObject<EvidenceData>($"Evidence/{evidenceName}");
     }
 
     /// <summary>

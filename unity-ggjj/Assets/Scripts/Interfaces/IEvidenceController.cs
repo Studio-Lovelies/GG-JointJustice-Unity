@@ -3,11 +3,11 @@ using System.Collections.Generic;
 public interface IEvidenceController
 {
     List<ActorData> CurrentProfiles { get; }
-    List<Evidence> CurrentEvidence { get; }
+    List<EvidenceData> CurrentEvidence { get; }
 
-    void AddEvidence(Evidence evidence);
-    void RemoveEvidence(Evidence evidence);
-    void AddRecord(ActorData actor);
+    void AddEvidence(EvidenceData evidenceData);
+    void RemoveEvidence(EvidenceData evidenceData);
+    void AddRecord(ActorData actorData);
     void RequirePresentEvidence();
-    void SubstituteEvidence(Evidence initialEvidence, Evidence substituteEvidence);
+    void SubstituteEvidence(EvidenceData initialEvidenceData, EvidenceData substituteEvidenceData);
 }

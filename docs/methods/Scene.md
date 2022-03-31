@@ -70,10 +70,13 @@ Examples:
   - `&SCENE:TMPH_Court`
 
 ## SHOW_ITEM
+Values: 
+  - [Name of a piece of evidence or actor to show](../constants.md#CourtRecordItemName)
+  - `Left`, `Right` or `Middle`
 
 ⏲ Instant
 
-Shows the given evidence on the screen in the given position.
+Shows a piece of evidence or actor on the screen in the given position.
 
 Examples: 
   - `&SHOW_ITEM:Switch,Left`
@@ -82,7 +85,7 @@ Examples:
 
 ⏲ Instant
 
-Hides the item shown when using SHOW_ITEM.
+Hides the piece of evidence shown when using SHOW_ITEM.
 
 Examples: 
   - `&HIDE_ITEM`
