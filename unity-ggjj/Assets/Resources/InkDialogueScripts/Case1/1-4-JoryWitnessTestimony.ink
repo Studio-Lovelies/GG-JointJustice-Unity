@@ -1,4 +1,3 @@
-INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Templates/Macros.ink
@@ -267,15 +266,7 @@ Would those coins happen to be{ellipsis}
 &DIALOGUE_SPEED:0.02
 THESE!?!?
 
-&PLAY_SFX:evidenceDing
-&ADD_EVIDENCE:Bent_Coins
-&SHOW_ITEM:Bent_Coins,Left
-&DIALOGUE_SPEED:0.06
-&NARRATE
-<align=center><color={lightBlue}>The Bent Coins have been added to the Court Record.
-&PLAY_SFX:evidenceShoop
-&HIDE_ITEM
-&WAIT:0.1
+<- AddEvidence("BentCoins")
 
 &PLAY_SFX:stab
 &JUMP_TO_POSITION:2

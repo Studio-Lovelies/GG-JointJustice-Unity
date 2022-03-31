@@ -1,3 +1,5 @@
+INCLUDE ../Colors.ink
+
 === WitnessTestimony
     -> TestimonyAnimation("WitnessTestimony") ->
     &BEGIN_WITNESS_TESTIMONY
@@ -21,7 +23,6 @@
     = Testimony
         <color=orange><align=center>-- Witness' Account --
         -> DONE
-        
 
 === Present(presentedObject)
     &HIDE_TEXTBOX
@@ -31,6 +32,18 @@
     + [{presentedObject}]
         &MODE:Dialogue
         ->->
+        
+=== AddEvidence(evidenceName)
+    &PLAY_SFX:evidenceDing
+    &ADD_EVIDENCE:Plumber_Invoice
+    &SHOW_ITEM:Plumber_Invoice,Left
+    &DIALOGUE_SPEED:0.06
+    &NARRATE
+    <align="center"><color={lightBlue}>Plumber Invoice has been added to the Court Record.
+    &PLAY_SFX:evidenceShoop
+    &HIDE_ITEM
+    &WAIT:0.1
+    -> DONE
 
 === function char(x)
     ~ return "<link=character>{x}</link>"

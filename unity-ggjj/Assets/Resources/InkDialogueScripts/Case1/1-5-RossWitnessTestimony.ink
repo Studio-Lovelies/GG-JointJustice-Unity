@@ -1,4 +1,3 @@
-INCLUDE ../Colors.ink
 INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Templates/Macros.ink
 INCLUDE ../Options.ink

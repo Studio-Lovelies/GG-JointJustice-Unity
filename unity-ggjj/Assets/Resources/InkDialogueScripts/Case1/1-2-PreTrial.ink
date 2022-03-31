@@ -1,4 +1,3 @@
-INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/Macros.ink
 
@@ -85,15 +84,7 @@ Well, you know how much I like poopin!
 &SPEAK:Dan
 Yeah, yeah, you do like poopin'.
 
-&PLAY_SFX:evidenceDing
-&ADD_EVIDENCE:Plumber_Invoice
-&SHOW_ITEM:Plumber_Invoice,Left
-&DIALOGUE_SPEED:0.06
-&NARRATE
-<align="center"><color={lightBlue}>Plumber Invoice has been added to the Court Record.
-&PLAY_SFX:evidenceShoop
-&HIDE_ITEM
-&WAIT:0.1
+<- AddEvidence("PlumberInvoice")
 
 &SET_POSE:Normal
 &PLAY_SFX:realization
@@ -132,15 +123,7 @@ This is no time for hilarious jokes, Arin, we have some tanks to set up!
 &SPEAK:Arin
 Hell yeah, dude. Let me just grab the <color=\#990a1d>backup Switch</color> we borrowed so we can put it back where Jory got it.
 
-&PLAY_SFX:EvidenceDing
-&ADD_EVIDENCE:Switch
-&SHOW_ITEM:Switch,Left
-&DIALOGUE_SPEED:0.06
-&NARRATE
-<align="center"><color={lightBlue}>The Nintendo Switch has been added to the Court Record.
-&PLAY_SFX:evidenceShoop
-&HIDE_ITEM
-&WAIT:0.1
+<- AddEvidence("Switch")
 
 &SET_POSE:Normal
 &DIALOGUE_SPEED:0.04
@@ -364,15 +347,7 @@ Let me see that!
 &DIALOGUE_SPEED:0.04
 {ellipsis}<br>Wow, he's right! We should hold on to this, I think it might be important later{ellipsis}
 
-&PLAY_SFX:EvidenceDing
-&ADD_EVIDENCE:Jory_Srs_Letter
-&SHOW_ITEM:Jory_Srs_Letter,Left
-&DIALOGUE_SPEED:0.06
-&NARRATE
-<align="center"><color={lightBlue}>Jory Sr's Letter has been added to the Court Record.
-&PLAY_SFX:evidenceShoop
-&HIDE_ITEM
-&WAIT:0.1
+<- AddEvidence("JorySrsLetter")
 
 &ACTOR:Dan
 &DIALOGUE_SPEED:0.04

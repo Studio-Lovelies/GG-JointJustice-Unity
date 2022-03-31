@@ -1,4 +1,3 @@
-INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Templates/Macros.ink
@@ -180,15 +179,7 @@ Yeah, yeah, I know. Press 'Z' to see the court record. Could you get to the poin
 &SPEAK:TutorialBoy
 W-Well, you don't have to be so rude about it! Fine, it's been added to the court record.
 
-&PLAY_SFX:evidenceDing
-&ADD_EVIDENCE:Livestream_Recording
-&SHOW_ITEM:Livestream_Recording,Left
-&DIALOGUE_SPEED:0.06
-&NARRATE
-<align=center><color={lightBlue}>The Livestream Recording has been added to the Court Record.
-&PLAY_SFX:evidenceShoop
-&HIDE_ITEM
-&WAIT:0.1
+<- AddEvidence("LivestreamRecording")
 
 &SET_POSE:Normal
 &SPEAK:TutorialBoy
@@ -201,15 +192,7 @@ When the livestream was over, the crew went to prepare for a 10 Minute Power Hou
 However, when they arrived and started preparing, they noticed the Dinos were missing!
 A quick search and a few minutes later, they were suspiciously found in THIS backpack!
 
-&PLAY_SFX:evidenceDing
-&ADD_EVIDENCE:Jorys_Backpack
-&SHOW_ITEM:Jorys_Backpack,Left
-&DIALOGUE_SPEED:0.06
-&NARRATE
-<align=center><color={lightBlue}>Jory's Backpack has been added to the Court Record.
-&PLAY_SFX:evidenceShoop
-&HIDE_ITEM
-&WAIT:0.1
+<- AddEvidence("JorysBackpack")
 
 &JUMP_TO_POSITION:1
 &SET_POSE:Sweaty
@@ -243,15 +226,7 @@ As I was saying{ellipsis}
 The missing dinos, while quickly found, put a big delay on setting up for the Power Hour.
 I have been informed that recording cannot begin without them. As such they are critical pieces of evidence!
 
-&PLAY_SFX:evidenceDing
-&ADD_EVIDENCE:Stolen_Dinos
-&SHOW_ITEM:Stolen_Dinos,Left
-&NARRATE
-&DIALOGUE_SPEED:0.06
-<align=center><color={lightBlue}>The Stolen Dinos have been added to the Court Record
-&PLAY_SFX:evidenceShoop
-&HIDE_ITEM
-&WAIT:0.1
+<- AddEvidence("StolenDinos")
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:TutorialBoy
