@@ -73,8 +73,7 @@ INCLUDE ../Templates/FailureStates.ink
     -> Line4Press
 
 === Line1Press ===
-&PLAY_SFX:holdItArin
-&WAIT:0.2
+&HOLD_IT:Arin
 &PAN_TO_POSITION:1,0.5
 &WAIT:0.5
 &SPEAK:Arin
@@ -96,8 +95,7 @@ Ross, continue your testimony.
 -> Line2
 
 === Line2Press ===
-&PLAY_SFX:holdItArin
-&WAIT:0.2
+&HOLD_IT:Arin
 &PAN_TO_POSITION:1,0.5
 &WAIT:0.5
 &SPEAK:Arin
@@ -121,8 +119,7 @@ Witness, carry on.
 -> Line3
 
 === Line4Press ===
-&PLAY_SFX:holdItArin
-&WAIT:0.2
+&HOLD_IT:Arin
 &PAN_TO_POSITION:1,0.5
 &WAIT:0.5
 &SPEAK:Arin
@@ -151,7 +148,7 @@ I'll just pretend that didn't happen.
 -> Line1
 
 === Finale ===
-&PLAY_SFX:objectionArin
+&OBJECTION:Arin
 &PAN_TO_POSITION:1,0.5
 &PLAY_EMOTION:Objection
 &SPEAK:Arin
