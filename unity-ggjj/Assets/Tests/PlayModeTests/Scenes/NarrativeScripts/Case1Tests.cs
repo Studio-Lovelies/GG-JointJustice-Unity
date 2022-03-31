@@ -53,22 +53,24 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
             while (true)
             {
                 _appearingDialogueController.AppearInstantly = true;
-                
+
+                // If the narrative script has changed then we have reached the end of a script
                 if (NarrativeScriptHasChanged(_narrativeScript))
                 {
-                    // Are there choices remaining to explore?
+                    // Are there choices remaining to explore in the previous script?
+                    // Then reload the previous script and explore the remaining choices
                     if (visitedChoices.Count != 0 && visitedChoices.Values.SelectMany(choices => choices).Any(choice => choice == null))
                     {
                         _narrativeScriptPlayer.ActiveNarrativeScript = _narrativeScript;
                         _narrativeScript.Reset();
                         _narrativeGameState.BGSceneList.InstantiateBGScenes(_narrativeScript);
+                        continue;
                     }
-                    else
-                    {
-                        break;
-                    }
+                    
+                    break;
                 }
 
+                // If the story can continue, then just continue
                 if (_narrativeScript.Story.canContinue)
                 {
                     yield return ProgressStory();
