@@ -2,6 +2,8 @@ INCLUDE ../Colors.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/Macros.ink
 
+&ADD_EVIDENCE:AttorneysBadge
+
 &PLAY_SONG:turnaboutGrumpsters,{songFadeTime}
 &DIALOGUE_SPEED:0.06
 &SPEAK:Arin
