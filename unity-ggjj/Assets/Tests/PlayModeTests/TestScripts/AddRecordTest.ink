@@ -1,4 +1,4 @@
-INCLUDE ../../../Resources/InkDialogueScripts/Templates/Macros.ink
+INCLUDE ../../../Resources/InkDialogueScripts/Colors.ink
 INCLUDE ../../../Resources/InkDialogueScripts/Templates/FailureStates.ink
 
 &ADD_FAILURE_SCRIPT:TMPH_FAIL_1
@@ -19,8 +19,16 @@ INCLUDE ../../../Resources/InkDialogueScripts/Templates/FailureStates.ink
 This script tests the &ADD_RECORD action which adds an actor to the court
 &ADD_RECORD:Ross
 Ross has been added to the court record
-
 -> Present("BentCoins") ->
 Correct
 
 -> END
+
+=== Present(presentedObject)
+    &HIDE_TEXTBOX
+    &PRESENT_EVIDENCE
+    + [Wrong]
+        -> Present(presentedObject)
+    + [{presentedObject}]
+        &MODE:Dialogue
+        ->->

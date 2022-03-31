@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
+using UnityEngine;
 
 /// <summary>
 /// Acts a wrapper around Ink stories, providing access to each new line in a Story
@@ -207,7 +208,7 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         }
 
         var currentChoices = Story.currentChoices;
-        var choice = currentChoices.FirstOrDefault(choice => choice.text == courtRecordObject.InstanceName);
+        var choice = currentChoices.FirstOrDefault(choice => new EvidenceAssetName(choice.text).ToString() == courtRecordObject.InstanceName);
         if (choice == null)
         {
             StartSubStory(_narrativeGameState.NarrativeScriptStorage.GetRandomFailureScript());

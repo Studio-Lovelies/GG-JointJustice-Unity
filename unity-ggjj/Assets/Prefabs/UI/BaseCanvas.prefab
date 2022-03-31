@@ -315,36 +315,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e789411aea6446bae39500df0e60eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _choiceMenuItem: {fileID: 9037909576011396635, guid: df86e027ee393427aa99cd5b869d9660, type: 3}
+  _narrativeGameState: {fileID: 0}
+  _choiceMenuItem: {fileID: 7387902164298400915, guid: d6ab8b52d3ec54f61a645bcc0677ffba, type: 3}
   _menu: {fileID: 7337399535461805308}
   _menuOpener: {fileID: 2156551771264601347}
-  _onChoiceClicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4454197773906763391}
-        m_TargetAssemblyTypeName: ChoiceMenu, GG-JointJustice
-        m_MethodName: DeactivateChoiceMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueController, GG-JointJustice
-        m_MethodName: HandleChoice
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &4898658874430892737
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +504,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6030709744272325552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,8 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2ee456eabd848e58621c5999c806c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _directorActionDecoder: {fileID: 0}
-  _narrativeScriptPlaylist: {fileID: 0}
+  _narrativeGameState: {fileID: 0}
   _penaltyObject: {fileID: 2935643627197535036, guid: 033e03543217049bb931fd21ed61c8b7, type: 3}
   _penaltyCount: 5
 --- !u!1001 &1531153953830890095

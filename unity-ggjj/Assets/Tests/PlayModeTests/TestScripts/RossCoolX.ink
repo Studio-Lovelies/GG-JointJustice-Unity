@@ -1,5 +1,5 @@
-INCLUDE FailureStates.ink
-<- Failures.TMPH
+&SET_GAME_OVER_SCRIPT:TMPHGameOver
+&ADD_FAILURE_SCRIPT:TMPHFAIL1
 
 &MODE:CrossExamination
 

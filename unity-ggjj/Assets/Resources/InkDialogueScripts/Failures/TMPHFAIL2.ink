@@ -1,4 +1,4 @@
-INCLUDE ../Macros.ink
+INCLUDE ../Templates/Macros.ink
 
 &SCENE:TMPHCourt
 &SET_ACTOR_POSITION:3,TutorialBoy

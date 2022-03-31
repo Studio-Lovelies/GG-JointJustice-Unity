@@ -1,4 +1,4 @@
-INCLUDE ../Macros.ink
+INCLUDE ../Templates/Macros.ink
 
 &SCENE:TMPHAssistant
 &ACTOR:Dan

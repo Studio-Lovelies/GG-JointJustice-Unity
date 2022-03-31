@@ -1,4 +1,4 @@
-INCLUDE ../Macros.ink
+INCLUDE ../Templates/Macros.ink
 
 &MODE:Dialogue
 &HIDE_TEXTBOX

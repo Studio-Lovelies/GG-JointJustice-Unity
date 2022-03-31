@@ -8,7 +8,8 @@
         "Unity.InputSystem",
         "Unity.InputSystem.TestFramework",
         "Unity.TextMeshPro",
-        "UnityEngine.UI"
+        "UnityEngine.UI",
+        "Ink-Libraries"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

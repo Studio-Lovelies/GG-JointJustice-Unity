@@ -21,9 +21,9 @@ public class ObjectStorage : IObjectStorage
         {
             _objects.Add(obj.name, obj);
         }
-        catch (ArgumentException)
+        catch (ArgumentException exception)
         {
-            Debug.LogWarning($"Obj \"{obj.name}\" has already been added to the dictionary.");
+            throw new ObjectLoadingException($"Obj \"{obj.name}\" has already been added to object storage.", exception);
         }
     }
     
@@ -35,7 +35,14 @@ public class ObjectStorage : IObjectStorage
     /// <returns>An object with name objectName</returns>
     public T GetObject<T>(string objectName) where T : class
     {
-        return _objects[objectName] as T;
+        try
+        {
+            return _objects[objectName] as T;
+        }
+        catch (KeyNotFoundException exception)
+        {
+            throw new ObjectLoadingException($"Object \"{objectName}\" was not found in object storage", exception);
+        }
     }
 
     /// <summary>
