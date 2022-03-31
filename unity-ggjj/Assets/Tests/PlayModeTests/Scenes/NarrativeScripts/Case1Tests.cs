@@ -94,7 +94,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                 {
                     foreach (var choice in choices)
                     {
-                        yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode, new EvidenceAssetName(choice.text));
+                        yield return storyProgresser.PresentEvidence(new EvidenceAssetName(choice.text));
                     }
                     continue;
                 }
@@ -112,7 +112,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                     // During cross examinations we want to select the choice marked "correct" last
                     if (choice.index == 1 && _narrativeScript.Story.currentTags.Contains("correct") && visitedChoices.Values.Any(choiceList => choiceList.Any(choiceInList => choiceInList == null && choiceList != visitedChoices[currentText])))
                     {
-                        yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
+                        yield return storyProgresser.SelectCrossExaminationChoice(CrossExaminationChoice.ContinueStory, null);
                         continue;
                     }
                     
@@ -124,14 +124,14 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
                     
                     // Set the corresponding choice in the dictionary to visited and select the choice
                     visitedChoices[currentText][Array.FindIndex(visitedChoices[currentText], i => i == null)] = choice;
-                    yield return storyProgresser.SelectChoice(choice.index, _narrativeScriptPlayer.GameMode, new EvidenceAssetName(choice.text));
+                    yield return storyProgresser.SelectDialogueChoice(choice.index);
                     break;
                 }
 
                 // If all choices visited, continue as normal
                 if (possibleChoices.Length == 0)
                 {
-                    yield return storyProgresser.SelectChoice(0, _narrativeScriptPlayer.GameMode, null);
+                    yield return storyProgresser.SelectDialogueChoice(0);
                 }
             }
             
