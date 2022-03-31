@@ -522,11 +522,12 @@ You are just{ellipsis} UN{ellipsis}
 I'm wha---
 &AUTO_SKIP:False
 
+&SPEAK:Dan
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:smack
 &SET_POSE:Angry
 &DIALOGUE_SPEED:0.02
-BELIEVEABLE!
+BELIEVABLE!
 
 &DIALOGUE_SPEED:0.04
 &SPEAK:Arin
