@@ -32,9 +32,10 @@ public class ActionDecoderTests
         {typeof(SceneAssetName), "ValidString"},
         {typeof(SfxAssetName), "ValidString"},
         {typeof(SongAssetName), "ValidString"},
+        {typeof(CourtRecordItemName), "ValidString"},
         {typeof(EvidenceAssetName), "ValidString"},
-        {typeof(ActorPoseAssetName), "ValidString"},
         {typeof(ActorAssetName), "ValidString"},
+        {typeof(ActorPoseAssetName), "ValidString"},
         {typeof(NarrativeScriptAssetName), "ValidString" },
         {typeof(GameOverScriptAssetName), "ValidString"},
         {typeof(FailureScriptAssetName), "ValidString"},
@@ -81,7 +82,7 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
+        protected override void SHOW_ITEM(CourtRecordItemName itemName, ItemDisplayPosition itemPos)
         {
             throw new NotImplementedException();
         }
@@ -121,13 +122,13 @@ public class ActionDecoderTests
     {
         var narrativeGameStateMock = new Mock<INarrativeGameState>();
         narrativeGameStateMock.SetupSet(mock => mock.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.GameMode = It.IsAny<GameMode>());
-        narrativeGameStateMock.Setup(mock => mock.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<Evidence>(""));
+        narrativeGameStateMock.Setup(mock => mock.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage.GetObject<EvidenceData>(""));
         narrativeGameStateMock.Setup(mock => mock.SceneController.ShakeScreen(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<bool>()));
         narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(It.IsAny<string>()));
         narrativeGameStateMock.Setup(mock => mock.ActorController.SetPose(It.IsAny<string>(), It.IsAny<string>()));
         narrativeGameStateMock.SetupSet(mock => mock.AppearingDialogueController.CharacterDelay = It.IsAny<float>());
-        narrativeGameStateMock.Setup(mock => mock.EvidenceController.AddEvidence(It.IsAny<Evidence>()));
-        narrativeGameStateMock.Setup(mock => mock.ObjectStorage.GetObject<Evidence>(It.IsAny<string>()));
+        narrativeGameStateMock.Setup(mock => mock.EvidenceController.AddEvidence(It.IsAny<EvidenceData>()));
+        narrativeGameStateMock.Setup(mock => mock.ObjectStorage.GetObject<EvidenceData>(It.IsAny<string>()));
         narrativeGameStateMock.Setup(mock => mock.AudioController.PlaySfx(It.IsAny<AudioClip>()));
         narrativeGameStateMock.Setup(mock => mock.PenaltyManager.Decrement());
         narrativeGameStateMock.Setup(mock => mock.NarrativeScriptStorage.AddFailureScript(It.IsAny<string>()));

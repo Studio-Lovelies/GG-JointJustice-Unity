@@ -127,7 +127,7 @@ public class StoryPlayerTests
         _narrativeGameStateMock.Setup(mock => mock.AppearingDialogueController.PrintText("Correct\n")).Verifiable();
 
         _narrativeScriptPlayer.Continue();
-        var evidence = ScriptableObject.CreateInstance<Evidence>();
+        var evidence = ScriptableObject.CreateInstance<EvidenceData>();
         evidence.name = "BentCoins";
         _narrativeScriptPlayer.GameMode = GameMode.CrossExamination;
         _narrativeScriptPlayer.PresentEvidence(evidence);

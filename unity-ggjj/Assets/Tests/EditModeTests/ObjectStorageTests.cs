@@ -42,7 +42,7 @@ public class ObjectStorageTests
         Assert.AreEqual(ARIN, storedActorData.name);
         
         _objectStorage.Add(Resources.Load($"Evidence/{BENT_COINS}"));
-        var storedEvidence = _objectStorage.GetObject<Evidence>(BENT_COINS);
+        var storedEvidence = _objectStorage.GetObject<EvidenceData>(BENT_COINS);
         Assert.AreEqual(BENT_COINS, storedEvidence.name);
     }
 }

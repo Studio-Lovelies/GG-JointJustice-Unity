@@ -35,7 +35,7 @@ public class ObjectPreloaderTests
     [TestCaseSource(nameof(EvidenceLoadingActions))]
     public void ObjectPreloaderCanLoadEvidence(string action)
     {
-        ObjectPreloaderCanLoadObjects<Evidence>("Evidence", action);
+        ObjectPreloaderCanLoadObjects<EvidenceData>("Evidence", action);
     }
     
     [Test]
@@ -67,9 +67,10 @@ public class ObjectPreloaderTests
         {
             var actorPositionParameter = action == "SET_ACTOR_POSITION" ? "1," : "";
             var playSongParameter = action == "PLAY_SONG" ? ",2" : "";
-            
+            var showItemParameter = action == "SHOW_ITEM" ? ",Left" : "";
+
             var typeSpecificResource = (T)genericResource;
-            _objectPreloader.InvokeMatchingMethod($"&{action}:{actorPositionParameter}{typeSpecificResource.name}{playSongParameter}");
+            _objectPreloader.InvokeMatchingMethod($"&{action}:{actorPositionParameter}{typeSpecificResource.name}{playSongParameter}{showItemParameter}");
             var storedActor = _objectStorage.GetObject<T>(typeSpecificResource.name);
             Assert.AreEqual(storedActor, typeSpecificResource);
         }

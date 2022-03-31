@@ -115,7 +115,12 @@ public class XMLDocParser
 
             var folderPath = Path.GetDirectoryName(parameterValuesPath);
             var fileMask = Path.GetFileName(parameterValuesPath);
-            filesByType[parameterType] = Directory.EnumerateFiles(folderPath, fileMask)
+            SearchOption searchOption = SearchOption.TopDirectoryOnly;
+            if (fileMask.Contains("**")) {
+                searchOption = SearchOption.AllDirectories;
+                fileMask.Replace("**", "*");
+            }
+            filesByType[parameterType] = Directory.EnumerateFiles(folderPath, fileMask, searchOption)
                 .ToList()
                 .Select(path=>new PathItem(absolutePathToAssetDirectory, relativePathsByGUID, path){});
         }
@@ -132,16 +137,22 @@ public class XMLDocParser
             {
                 var subFolder = dependentPath.Replace($"{{{key}}}", Path.GetFileNameWithoutExtension(subItem.Item));
                 var folderPath = Path.GetDirectoryName(subFolder)!;
-                var filePath = Path.GetFileName(subFolder)!;
+                var fileMask = Path.GetFileName(subFolder)!;
                 var folder = folderPath.Split(Path.DirectorySeparatorChar).Last();
 
-                List<PathItem> abc = new List<PathItem>();
-                foreach (var absoluteFilePath in Directory.EnumerateFiles(folderPath, filePath))
-                {
-                    abc.Add(new PathItem(absolutePathToAssetDirectory, relativePathsByGUID, absoluteFilePath));
+                List<PathItem> matchingFiles = new List<PathItem>();
+                SearchOption searchOption = SearchOption.TopDirectoryOnly;
+                if (fileMask.Contains("**")) {
+                    searchOption = SearchOption.AllDirectories;
+                    fileMask.Replace("**", "*");
                 }
 
-                filesByType[dependentType] = filesByType[dependentType].Concat(new List<PathItem>(){new() { Children = abc, Item = folder } });
+                foreach (var absoluteFilePath in Directory.EnumerateFiles(folderPath, fileMask, searchOption))
+                {
+                    matchingFiles.Add(new PathItem(absolutePathToAssetDirectory, relativePathsByGUID, absoluteFilePath));
+                }
+
+                filesByType[dependentType] = filesByType[dependentType].Concat(new List<PathItem>(){new() { Children = matchingFiles, Item = folder } });
             }
 
             filesByType[dependentType] = filesByType[dependentType].ToList();

@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
-[CreateAssetMenu(fileName = "New Evidence", menuName = "Evidence/Evidence")]
-public class Evidence : ScriptableObject, ICourtRecordObject
+[CreateAssetMenu(fileName = "New Evidence Data", menuName = "Evidence/Evidence Data")]
+public class EvidenceData : ScriptableObject, ICourtRecordObject
 {
     [field: SerializeField, Tooltip("The name of the evidence, display in the evidence menu.")]
     public string DisplayName { get; private set; }

@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01c953ab3999141bd9d06e427dbad13d, type: 3}
+  m_Script: {fileID: 11500000, guid: 9492945559ae8934e8d5b14c814b9c32, type: 3}
   m_Name: Switch
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Switch
   <Icon>k__BackingField: {fileID: 21300000, guid: 8e655d41c2dd9e5469df730fc59535f5, type: 3}
   <Description>k__BackingField: 'A borrowed Switch. It has a sticker of some kind
     of slime-girl on it. '
-  <AltEvidence>k__BackingField: {fileID: 11400000, guid: 503009f6acfe6418baf69be7c3d55515, type: 2}

@@ -87,22 +87,22 @@ public class ActionDecoder : ActionDecoderBase
 
     #region EvidenceController
     /// <summary>Adds the provided evidence to the court record.</summary>
-    /// <param name="evidence" validFiles="Assets/Resources/Evidence/*.asset">Name of evidence to add</param>
+    /// <param name="evidenceName" validFiles="Assets/Resources/Evidence/*.asset">Name of evidence to add</param>
     /// <example>&amp;ADD_EVIDENCE:Bent_Coins</example>
     /// <category>Evidence</category>
-    protected override void ADD_EVIDENCE(EvidenceAssetName evidence)
+    protected override void ADD_EVIDENCE(EvidenceAssetName evidenceName)
     {
-        NarrativeGameState.EvidenceController.AddEvidence(NarrativeGameState.ObjectStorage.GetObject<Evidence>(evidence));
+        NarrativeGameState.EvidenceController.AddEvidence(NarrativeGameState.ObjectStorage.GetObject<EvidenceData>(evidenceName));
         OnActionDone?.Invoke();
     }
 
     /// <summary>Removes the provided evidence from the court record.</summary>
-    /// <param name="evidence" validFiles="Assets/Resources/Evidence/*.asset">Name of evidence to remove</param>
+    /// <param name="evidenceName" validFiles="Assets/Resources/Evidence/*.asset">Name of evidence to remove</param>
     /// <example>&amp;REMOVE_EVIDENCE:Bent_Coins</example>
     /// <category>Evidence</category>
-    private void REMOVE_EVIDENCE(EvidenceAssetName evidence)
+    private void REMOVE_EVIDENCE(EvidenceAssetName evidenceName)
     {
-        NarrativeGameState.EvidenceController.RemoveEvidence(NarrativeGameState.ObjectStorage.GetObject<Evidence>(evidence));
+        NarrativeGameState.EvidenceController.RemoveEvidence(NarrativeGameState.ObjectStorage.GetObject<EvidenceData>(evidenceName));
         OnActionDone?.Invoke();
     }
 
@@ -132,7 +132,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <category>Evidence</category>
     private void SUBSTITUTE_EVIDENCE(EvidenceAssetName initialEvidenceName, EvidenceAssetName substituteEvidenceName)
     {
-        NarrativeGameState.EvidenceController.SubstituteEvidence(NarrativeGameState.ObjectStorage.GetObject<Evidence>(initialEvidenceName), NarrativeGameState.ObjectStorage.GetObject<Evidence>(substituteEvidenceName));
+        NarrativeGameState.EvidenceController.SubstituteEvidence(NarrativeGameState.ObjectStorage.GetObject<EvidenceData>(initialEvidenceName), NarrativeGameState.ObjectStorage.GetObject<EvidenceData>(substituteEvidenceName));
         OnActionDone?.Invoke();
     }
     #endregion
@@ -244,18 +244,18 @@ public class ActionDecoder : ActionDecoderBase
         OnActionDone?.Invoke();
     }
     
-    /// <summary>Shows the given evidence on the screen in the given position.</summary>
-    /// <param name="item" validFiles="Assets/Resources/Evidence/*.asset">Name of item to show</param>
+    /// <summary>Shows a piece of evidence or actor on the screen in the given position.</summary>
+    /// <param name="itemName" validFiles="Assets/Resources/**.asset">Name of a piece of evidence or actor to show</param>
     /// <param name="itemPos">`Left`, `Right` or `Middle`</param>
     /// <example>&amp;SHOW_ITEM:Switch,Left</example>
     /// <category>Scene</category>
-    protected override void SHOW_ITEM(EvidenceAssetName item, ItemDisplayPosition itemPos)
+    protected override void SHOW_ITEM(CourtRecordItemName itemName, ItemDisplayPosition itemPos)
     {
-        NarrativeGameState.SceneController.ShowItem(NarrativeGameState.ObjectStorage.GetObject<ICourtRecordObject>(item), itemPos);
+        NarrativeGameState.SceneController.ShowItem(NarrativeGameState.ObjectStorage.GetObject<ICourtRecordObject>(itemName), itemPos);
         OnActionDone?.Invoke();
     }
 
-    /// <summary>Hides the item shown when using SHOW_ITEM.</summary>
+    /// <summary>Hides the piece of evidence shown when using SHOW_ITEM.</summary>
     /// <example>&amp;HIDE_ITEM</example>
     /// <category>Scene</category>
     private void HIDE_ITEM()
