@@ -53,6 +53,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
             while (true)
             {
                 _appearingDialogueController.AppearInstantly = true;
+                _appearingDialogueController.SpeedMultiplier = 20;
 
                 // If the narrative script has changed then we have reached the end of a script
                 if (NarrativeScriptHasChanged(_narrativeScript))

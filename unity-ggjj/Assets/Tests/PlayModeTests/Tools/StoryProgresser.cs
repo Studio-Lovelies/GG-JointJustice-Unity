@@ -28,7 +28,6 @@ namespace Tests.PlayModeTests.Tools
         {
             var choice = Object.FindObjectOfType<ChoiceMenu>().transform.GetChild(choiceIndex).GetComponent<Selectable>();
             choice.Select();
-            yield return new WaitForSeconds(.75f);
             yield return PressForFrame(Keyboard.xKey);
         }
 
