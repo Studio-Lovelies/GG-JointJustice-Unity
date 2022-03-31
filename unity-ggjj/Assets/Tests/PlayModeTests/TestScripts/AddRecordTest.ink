@@ -19,18 +19,16 @@ INCLUDE ../../../Resources/InkDialogueScripts/Templates/FailureStates.ink
 This script tests the &ADD_RECORD action which adds an actor to the court
 &ADD_RECORD:Ross
 Ross has been added to the court record
-
-
-&PLAY_SFX:evidenceDing
-&ADD_EVIDENCE:Plumber_Invoice
-&SHOW_ITEM:Plumber_Invoice,Left
-&DIALOGUE_SPEED:0.06
-&NARRATE
-<align="center"><color={lightBlue}>Plumber Invoice has been added to the Court Record.
-&PLAY_SFX:evidenceShoop
-&HIDE_ITEM
-&WAIT:0.1
--> DONE
+-> Present("BentCoins") ->
 Correct
 
 -> END
+
+=== Present(presentedObject)
+    &HIDE_TEXTBOX
+    &PRESENT_EVIDENCE
+    + [Wrong]
+        -> Present(presentedObject)
+    + [{presentedObject}]
+        &MODE:Dialogue
+        ->->
