@@ -47,7 +47,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     /// <summary>
     /// Loads a narrative script using a given narrative script name,
     /// ending the current narrative script and
-    /// continuing the beginning of the loaded script
+    /// continuing at the beginning of the loaded script
     /// </summary>
     /// <param name="narrativeScriptName">The name of the narrative script to load</param>
     public void LoadScript(string narrativeScriptName)
