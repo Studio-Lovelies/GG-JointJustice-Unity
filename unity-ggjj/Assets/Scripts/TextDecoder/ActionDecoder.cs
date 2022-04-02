@@ -75,7 +75,7 @@ public class ActionDecoder : ActionDecoderBase
         OnActionDone?.Invoke();
     }
 
-    /// <summary>Hides the dialogue text-box until the next line of dialogue.</summary>
+    /// <summary>Hides the dialogue textbox until the next line of dialogue.</summary>
     /// <category>Dialogue</category>
     /// <example>&amp;HIDE_TEXTBOX</example>
     private void HIDE_TEXTBOX()
@@ -319,7 +319,7 @@ public class ActionDecoder : ActionDecoderBase
         NarrativeGameState.SceneController.Wait(seconds);
     }
 
-    /// <summary>Plays an "Objection!" animation and sound-effect for the specified actor.</summary>
+    /// <summary>Plays an "Objection!" animation and sound effect for the specified actor.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;OBJECTION:Arin</example>
     /// <category>Dialogue</category>
@@ -328,7 +328,7 @@ public class ActionDecoder : ActionDecoderBase
         SHOUT(actorName, "Objection", true);
     }
 
-    /// <summary>Plays a "Take that!" animation and sound-effect for the specified actor.</summary>
+    /// <summary>Plays a "Take that!" animation and sound effect for the specified actor.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;TAKE_THAT:Arin</example>
     /// <category>Dialogue</category>
@@ -337,7 +337,7 @@ public class ActionDecoder : ActionDecoderBase
         SHOUT(actorName, "TakeThat", true);
     }
 
-    /// <summary>Plays a "Hold it!" animation and sound-effect for the specified actor.</summary>
+    /// <summary>Plays a "Hold it!" animation and sound effect for the specified actor.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;HOLD_IT:Arin</example>
     /// <category>Dialogue</category>
