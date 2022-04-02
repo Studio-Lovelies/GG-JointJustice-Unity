@@ -57,7 +57,7 @@ public abstract class ActionDecoderBase : IActionDecoder
         var methodInfo = decoderType.GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
         if (methodInfo == null)
         {
-            throw new MethodNotFoundScriptParsingException("ActionDecoder", action);
+            throw new MethodNotFoundScriptParsingException(decoderType.FullName, action);
         }
 
         var methodParameters = methodInfo.GetParameters();
@@ -112,19 +112,14 @@ public abstract class ActionDecoderBase : IActionDecoder
                 throw new ArgumentException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no constructor without parameters");
             }
 
-            // Find the 'Parse' method on that parser
-            var parseMethod = parser.GetMethod("Parse");
-            if (parseMethod == null)
-            {
-                throw new MissingMethodException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no 'Parse' method");
-            }
 
-            // Create a parser and call the 'Parse' method
+            // Create a parser
             var parserInstance = parserConstructor.Invoke(Array.Empty<object>());
             object[] parseMethodParameters = { parameters[index], null };
 
+            // Call the 'Parse' method
+            var humanReadableParseError = parser.GetMethod("Parse")!.Invoke(parserInstance, parseMethodParameters);
             // If we received an error attempting to parse a parameter to the type, expose it to the user
-            var humanReadableParseError = parseMethod.Invoke(parserInstance, parseMethodParameters);
             if (humanReadableParseError != null)
             {
                 throw new ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': {humanReadableParseError}");
@@ -156,16 +151,49 @@ public abstract class ActionDecoderBase : IActionDecoder
         return line != string.Empty && line[0] == ACTION_TOKEN;
     }
 
-    protected abstract void ADD_EVIDENCE(EvidenceAssetName evidenceName);
-    protected abstract void ADD_RECORD(ActorAssetName actorName);
-    protected abstract void PLAY_SFX(SfxAssetName sfx);
-    protected abstract void PLAY_SONG(SongAssetName songName, float optionalTransitionTime = 0);
-    protected abstract void SCENE(SceneAssetName sceneName);
-    protected abstract void SHOW_ITEM(CourtRecordItemName itemName, ItemDisplayPosition itemPos);
-    protected abstract void ACTOR(ActorAssetName actorName);
-    protected abstract void SPEAK(ActorAssetName actorName);
-    protected abstract void SPEAK_UNKNOWN(ActorAssetName actorName);
-    protected abstract void THINK(ActorAssetName actorName);
-    protected abstract void SET_ACTOR_POSITION(string slotName, ActorAssetName actorName);
+    protected virtual void ADD_EVIDENCE(EvidenceAssetName evidenceName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void ADD_RECORD(ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void PLAY_SFX(SfxAssetName sfx)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void PLAY_SONG(SongAssetName songName, float optionalTransitionTime = 0)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void SCENE(SceneAssetName sceneName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void SHOW_ITEM(CourtRecordItemName itemName, ItemDisplayPosition itemPos)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void ACTOR(ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void SPEAK(ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void SPEAK_UNKNOWN(ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void THINK(ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void SET_ACTOR_POSITION(string slotName, ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
 }
 
