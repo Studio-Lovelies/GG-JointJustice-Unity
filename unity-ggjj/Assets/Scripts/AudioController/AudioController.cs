@@ -73,16 +73,6 @@ public class AudioController : MonoBehaviour, IAudioController
         }.AddComponent<AudioSource>();
 
     /// <summary>
-    /// Plays sound effect of desired name.
-    /// </summary>
-    /// <param name="sfx">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
-    public void PlaySfx(string sfx)
-    {
-        var soundEffectClip = _narrativeGameState.ObjectStorage.GetObject<AudioClip>(sfx);
-        PlaySfx(soundEffectClip);
-    }
-
-    /// <summary>
     /// Play given audio clip immediately
     /// </summary>
     /// <param name="soundEffectClip">Clip to play</param>
