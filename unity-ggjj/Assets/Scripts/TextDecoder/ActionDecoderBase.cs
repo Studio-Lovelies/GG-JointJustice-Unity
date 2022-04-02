@@ -71,11 +71,6 @@ public abstract class ActionDecoderBase : IActionDecoder
         // For each supplied parameter of that action...
         for (var index = 0; index < parameters.Length; index++)
         {
-            if (parameters.Length <= index && methodParameters[index].IsOptional)
-            {
-                parsedMethodParameters.Add(methodParameters[index].DefaultValue);
-            }
-
             // Determine it's type
             var methodParameter = methodParameters[index];
 
@@ -98,7 +93,7 @@ public abstract class ActionDecoderBase : IActionDecoder
 
                     if (e.Message == "Must specify valid information for parsing in the string.")
                     {
-                        throw new ScriptParsingException($"'' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a => a.ToString()))}')");
+                        throw new ScriptParsingException($"'' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '' (empty) into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a => a.ToString()))}')");
                     }
                     throw;
                 }
