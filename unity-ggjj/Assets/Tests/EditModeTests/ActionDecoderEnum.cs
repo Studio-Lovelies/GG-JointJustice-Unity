@@ -9,7 +9,6 @@ public class ActionDecoderEnumTests
     [Test]
     public void ParseActionLineWithValidEnumValue()
     {
-       
         const string ACTOR_DATA_NAME = "NewActorData";
         var actorData = ScriptableObject.CreateInstance<ActorData>();
         actorData.name = ACTOR_DATA_NAME;
@@ -38,18 +37,40 @@ public class ActionDecoderEnumTests
     {
         var narrativeGameStateMock = new Mock<INarrativeGameState>();
         narrativeGameStateMock.Setup(mock => mock.SceneController.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left));
-        
+
         var decoder = new ActionDecoder
         {
             NarrativeGameState = narrativeGameStateMock.Object
         };
 
-        const string lineToParse = " &SHOW_ITEM:a,Lleft \n\n\n";
-        const string logMessage = "Attempting to parse:\n" + lineToParse;
-        Debug.Log(logMessage);
-        Assert.Throws<ScriptParsingException>(() => { decoder.InvokeMatchingMethod(lineToParse); }, "'Lleft' is incorrect as parameter #2 (itemPos) for action 'SHOW_ITEM': Cannot convert 'Lleft' into an ItemDisplayPosition (valid values include: 'Left, Right, Middle')");
+        const string LINE_TO_PARSE = " &SHOW_ITEM:a,Lleft \n\n\n";
+        const string LOG_MESSAGE = "Attempting to parse:\n" + LINE_TO_PARSE;
+        Debug.Log(LOG_MESSAGE);
+        Assert.Throws<ScriptParsingException>(() => { decoder.InvokeMatchingMethod(LINE_TO_PARSE); }, "'Lleft' is incorrect as parameter #2 (itemPos) for action 'SHOW_ITEM': Cannot convert 'Lleft' into an ItemDisplayPosition (valid values include: 'Left, Right, Middle')");
 
-        LogAssert.Expect(LogType.Log, logMessage);
+        LogAssert.Expect(LogType.Log, LOG_MESSAGE);
+        LogAssert.NoUnexpectedReceived();
+
+        narrativeGameStateMock.Verify(controller => controller.SceneController.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left), Times.Never);
+    }
+
+    [Test]
+    public void ParseActionLineWithEmptyEnumValue()
+    {
+        var narrativeGameStateMock = new Mock<INarrativeGameState>();
+        narrativeGameStateMock.Setup(mock => mock.SceneController.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left));
+
+        var decoder = new ActionDecoder
+        {
+            NarrativeGameState = narrativeGameStateMock.Object
+        };
+
+        const string LINE_TO_PARSE = " &SHOW_ITEM:a, \n\n\n";
+        const string LOG_MESSAGE = "Attempting to parse:\n" + LINE_TO_PARSE;
+        Debug.Log(LOG_MESSAGE);
+        Assert.Throws<ScriptParsingException>(() => { decoder.InvokeMatchingMethod(LINE_TO_PARSE); }, "'' is incorrect as parameter #2 (itemPos) for action 'SHOW_ITEM': Cannot convert '' (empty) into an ItemDisplayPosition (valid values include: 'Left, Right, Middle')");
+
+        LogAssert.Expect(LogType.Log, LOG_MESSAGE);
         LogAssert.NoUnexpectedReceived();
 
         narrativeGameStateMock.Verify(controller => controller.SceneController.ShowItem(ScriptableObject.CreateInstance<ActorData>(), ItemDisplayPosition.Left), Times.Never);
