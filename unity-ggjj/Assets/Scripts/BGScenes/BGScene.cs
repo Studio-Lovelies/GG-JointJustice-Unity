@@ -6,7 +6,7 @@ using UnityEngine;
 public class BGScene : MonoBehaviour
 {
     [Serializable]
-    public struct ActorSlot
+    public class ActorSlot
     {
         public Actor AttachedActor { get; set; }
         public Vector2Int Position { get; set; }
@@ -32,6 +32,11 @@ public class BGScene : MonoBehaviour
         }
 
         _actorSlotBySlotName = GetComponentsInChildren<Actor>().ToDictionary(NormalizeActorName, GenerateSlotDataForActor);
+        if (_actorSlotBySlotName.Count == 0)
+        {
+            return;
+        }
+
         CurrentActorSlot = _actorSlotBySlotName.First().Value;
     }
 

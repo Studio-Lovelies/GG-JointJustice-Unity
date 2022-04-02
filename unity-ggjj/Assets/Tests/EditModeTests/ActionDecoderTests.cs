@@ -77,7 +77,7 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void Scene(SceneAssetName sceneName)
+        protected override void SCENE(SceneAssetName sceneName)
         {
             throw new NotImplementedException();
         }
@@ -87,12 +87,12 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void Actor(ActorAssetName actorName)
+        protected override void ACTOR(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void Speak(ActorAssetName actorName)
+        protected override void SPEAK(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
@@ -102,7 +102,7 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void Think(ActorAssetName actorName)
+        protected override void THINK(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }

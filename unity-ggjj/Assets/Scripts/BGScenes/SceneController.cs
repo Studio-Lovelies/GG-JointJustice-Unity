@@ -132,7 +132,12 @@ public class SceneController : MonoBehaviour, ISceneController
             StopCoroutine(_panToPositionCoroutine);
         }
 
-        _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.CurrentActorSlot.AttachedActor);
+        // it's possible to have scenes without actors (where they are part of the background sprites)
+        if (_activeScene.CurrentActorSlot != null)
+        {
+            _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.CurrentActorSlot.AttachedActor);
+        }
+
         _narrativeGameState.ActorController.OnSceneChanged(_activeScene);
     }
 
