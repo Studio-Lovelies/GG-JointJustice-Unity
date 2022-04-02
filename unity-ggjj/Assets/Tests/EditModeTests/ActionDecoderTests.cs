@@ -107,7 +107,7 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
+        protected override void SET_ACTOR_POSITION(string slotName, ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }

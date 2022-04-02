@@ -1,13 +1,13 @@
 INCLUDE ../Templates/Macros.ink
 
 &SCENE:TMPHCourt
-&SET_ACTOR_POSITION:3,TutorialBoy
-&SET_ACTOR_POSITION:1,Arin
-&JUMP_TO_POSITION:3
+&SET_ACTOR_POSITION:Prosecution,TutorialBoy
+&SET_ACTOR_POSITION:Defense,Arin
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Wow, you're terrible at this.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 
 &PLAY_EMOTION:ShockAnimation
 &WAIT:0.5

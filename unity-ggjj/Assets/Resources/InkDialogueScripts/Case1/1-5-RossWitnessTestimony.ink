@@ -20,20 +20,20 @@ INCLUDE ../Options.ink
 &ADD_EVIDENCE:StolenDinos
 &ADD_EVIDENCE:BentCoins
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &FADE_OUT:0
 &PLAY_SONG:aBoyAndHisTrial,{songFadeTime}
 &FADE_IN:1
 &WAIT:1
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:dramaPound
 &PLAY_EMOTION:ShockAnimation
 &SET_POSE:Sweaty
 &SPEAK:Arin
 Ross?! They roped you into this as well?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Yeah{ellipsis} It looked important, you know? Plus, I could use the extra money.
 
@@ -44,16 +44,16 @@ Yeah{ellipsis} It looked important, you know? Plus, I could use the extra money.
 Mr. O'Donovan, being a witness isn't a paying job{ellipsis}
 
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:Tutorial_Boy
 Not that anyone here is getting paid anyway{ellipsis}
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sweaty
 &SPEAK:Ross
 I-I see{ellipsis}
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Confident
 &SPEAK:Tutorial_Boy
 Except if you count being paid in JUSTICE!
@@ -63,7 +63,7 @@ Except if you count being paid in JUSTICE!
 &SET_POSE:Normal
 Ahem{ellipsis} Witness, please state your name and occupation for the court.
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Normal
 &DIALOGUE_SPEED:0.06
 &SPEAK:Ross
@@ -111,7 +111,7 @@ We don't know if he's guilty, but if his own attorney doesn't believe him, why s
 
 &HIDE_TEXTBOX
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:DeskSlam
 &SHAKE_SCREEN:0.25,0.25
 &PLAY_EMOTION:DeskSlamAnimation
@@ -153,7 +153,7 @@ Alright. The witness may begin his testimony.
 &FADE_OUT_SONG:2
 &WAIT:2
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_SONG:fyiIWannaXYourExaminationModerato,{songFadeTime}
 &FADE_IN:2
 
@@ -186,12 +186,12 @@ Hm{ellipsis}
 A remarkably solid testimony here. Great witness, Mr. Boy.
 
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:Tutorial_Boy
 Of course, Your Honor. You can only expect the BEST from me.
 
 &HIDE_TEXTBOX
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:DeskSlam
 &PLAY_EMOTION:DeskSlamAnimation
 &SPEAK:Arin

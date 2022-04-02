@@ -128,8 +128,8 @@ namespace Tests.PlayModeTests.Scripts.ActorController
         public void ActorsCanBeAssignedToSlots()
         {
             const string ACTOR_NAME = "Ross";
-            _actorController.AssignActorToSlot(ACTOR_NAME, 1);
-            _actorController.AssignActorToSlot(ACTOR_NAME, 3);
+            _actorController.AssignActorToSlot("Defense", ACTOR_NAME);
+            _actorController.AssignActorToSlot("Prosecution", ACTOR_NAME);
             var actors = Object.FindObjectOfType<BGSceneList>().GetComponentsInChildren<Actor>();
             foreach (var actor in actors)
             {

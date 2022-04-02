@@ -171,5 +171,5 @@ public abstract class ActionDecoderBase : IActionDecoder
     protected abstract void SPEAK(ActorAssetName actorName);
     protected abstract void SPEAK_UNKNOWN(ActorAssetName actorName);
     protected abstract void THINK(ActorAssetName actorName);
-    protected abstract void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName);
+    protected abstract void SET_ACTOR_POSITION(string slotName, ActorAssetName actorName);
 }

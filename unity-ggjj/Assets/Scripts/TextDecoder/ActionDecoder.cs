@@ -274,23 +274,23 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Makes the camera jump to focus on the target sub-position of the currently active scene.</summary>
-    /// <param name="slotIndex">Whole number representing the target sub-position of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
     /// <example>&amp;JUMP_TO_POSITION:1</example>
     /// <category>Scene</category>
-    private void JUMP_TO_POSITION(int slotIndex)
+    private void JUMP_TO_POSITION(string slotName)
     {
-        NarrativeGameState.SceneController.JumpToActorSlot(slotIndex);
+        NarrativeGameState.SceneController.JumpToActorSlot(slotName);
         OnActionDone?.Invoke();
     }
 
     /// <summary>Makes the camera pan to focus on the target sub-position of the currently active scene. Takes the provided amount of time to complete. If you want the system to wait for completion, call WAIT with the appropriate amount of seconds afterwards.</summary>
-    /// <param name="slotIndex">Whole number representing the target sub-position of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
     /// <param name="panDuration">Decimal number representing the amount of time the pan should take in seconds</param>
     /// <example>&amp;PAN_TO_POSITION:1,1</example>
     /// <category>Scene</category>
-    private void PAN_TO_POSITION(int slotIndex, float panDuration)
+    private void PAN_TO_POSITION(string slotName, float panDuration)
     {
-        NarrativeGameState.SceneController.PanToActorSlot(slotIndex, panDuration);
+        NarrativeGameState.SceneController.PanToActorSlot(slotName, panDuration);
     }
 
     /// <summary>Restarts the currently playing script from the beginning.</summary>
@@ -483,13 +483,13 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Sets the target sub-position of the current bg-scene to have the target actor.</summary>
-    /// <param name="oneBasedSlotIndex">Whole number representing the target sub-position of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of an actor</param>
     /// <example>&amp;SET_ACTOR_POSITION:1,Arin</example>
     /// <category>Actor</category>
-    protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
+    protected override void SET_ACTOR_POSITION(string slotName, ActorAssetName actorName)
     {
-        NarrativeGameState.ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
+        NarrativeGameState.ActorController.AssignActorToSlot(slotName, actorName);
         OnActionDone?.Invoke();
     }
 

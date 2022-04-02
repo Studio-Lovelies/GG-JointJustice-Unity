@@ -1,89 +1,77 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BGScene : MonoBehaviour
 {
-    [Tooltip("List of potential actor slots in the scene that can be filled with ActorData and an associated camera position")]
-    [SerializeField] private List<ActorSlot> _actorSlots;
+    [System.Serializable]
+    public struct ActorSlot
+    {
+        public Actor AttachedActor { get; set; }
+        public Vector2Int Position { get; set; }
+    }
 
-    private ActorSlot _currentActorSlot;
-
-    public Actor ActiveActor { get; private set; }
+    private Dictionary<string, ActorSlot> _actorSlotBySlotName;
+    public ActorSlot CurrentActorSlot { get; private set; }
 
     /// <summary>
     /// Sets the active actor to the first actor in the scene.
     /// </summary>
     private void Awake()
     {
-        if (SupportsActorSlots())
+        static string NormalizeActorName(Actor actor) => actor.name.Replace("_Actor", "");
+        static ActorSlot GenerateSlotDataForActor(Actor actor)
         {
-            SetActiveActorSlot(1);
-            return;
+            var position = actor.GetComponent<Transform>().localPosition * 100;
+            return new ActorSlot()
+            {
+                AttachedActor = actor,
+                Position = new Vector2Int((int)position.x, (int)position.y)
+            };
         }
-            
-        ActiveActor = GetComponentInChildren<Actor>();
-    }
 
-    /// <summary>
-    /// Sees whether the current scene has support for actor slots
-    /// </summary>
-    /// <returns>whether this bg-scene has support for actor slots</returns>
-    public bool SupportsActorSlots()
-    {
-        return _actorSlots.Count > 0;
+        _actorSlotBySlotName = GetComponentsInChildren<Actor>().ToDictionary(NormalizeActorName, GenerateSlotDataForActor);
+        CurrentActorSlot = _actorSlotBySlotName.First().Value;
     }
 
     /// <summary>
     /// Sets the active actor slot used when calculating the camera target position
     /// </summary>
-    /// <param name="oneBasedSlotIndex">new active slot index, 1 based.</param>
-    /// <see cref="GetTargetPosition"/>
-    public void SetActiveActorSlot(int oneBasedSlotIndex)
+    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
+    public void SetActiveActorSlot(string slotName)
     {
-        int slotIndex = oneBasedSlotIndex - 1;
-        
-        if (slotIndex >= _actorSlots.Count)
+        if (_actorSlotBySlotName.Count < 2)
         {
-            Debug.LogError($"Slot with index '{slotIndex}' (one-based index '{oneBasedSlotIndex}') not found in scene {gameObject.name}");
-            return;
+            throw new NotSupportedException("Can't assign actor to slot: This scene has no support for multiple actor slots");
         }
 
-        _currentActorSlot = _actorSlots[slotIndex];
-        ActiveActor = _currentActorSlot.AttachedActor;
-    }
+        if (!_actorSlotBySlotName.ContainsKey(slotName))
+        {
+            throw new KeyNotFoundException($"Slot with name '{slotName}'  not found in scene '{gameObject.name}' - available slots: '{string.Join("', '", _actorSlotBySlotName.Select(slotEntry => slotEntry.Key))}'");
+        }
 
-    /// <summary>
-    /// Gets the target position based on the current actor slot
-    /// </summary>
-    /// <returns></returns>
-    public Vector2Int GetTargetPosition()
-    {
-        return _currentActorSlot.Position;
+        CurrentActorSlot = _actorSlotBySlotName[slotName];
     }
 
 
     /// <summary>
     /// Gets the actor object at a certain slot without activating the system
     /// </summary>
-    /// <param name="oneBasedSlotIndex">Target slot index, 1 based</param>
+    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
     /// <returns>Actor object at target slot</returns>
-    public Actor GetActorAtSlot(int oneBasedSlotIndex)
+    public Actor GetActorAtSlot(string slotName)
     {
-        int slotIndex = oneBasedSlotIndex - 1;
-        if (slotIndex >= _actorSlots.Count)
+        if (_actorSlotBySlotName.Count < 2)
         {
-            Debug.LogError($"Slot with index '{slotIndex}' (one-based index '{oneBasedSlotIndex}') not found in scene {gameObject.name}");
-            return null;
+            throw new NotSupportedException("Can't assign actor to slot: This scene has no support for multiple actor slots");
         }
-        return _actorSlots[slotIndex].AttachedActor;
-    }
 
+        if (!_actorSlotBySlotName.ContainsKey(slotName))
+        {
+            throw new KeyNotFoundException($"Slot with name '{slotName}'  not found in scene '{gameObject.name}' - available slots: '{string.Join("', '", _actorSlotBySlotName.Select(slotEntry => slotEntry.Key))}'");
+        }
 
-    [System.Serializable]
-    public struct ActorSlot
-    {
-        public Actor AttachedActor;
-        public Vector2Int Position;
+        return _actorSlotBySlotName[slotName].AttachedActor;
     }
 }

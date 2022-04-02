@@ -67,7 +67,7 @@ public class ObjectPreloader : ActionDecoderBase
         LoadActor(actorName);
     }
 
-    protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
+    protected override void SET_ACTOR_POSITION(string slotName, ActorAssetName actorName)
     {
         LoadActor(actorName);
     }

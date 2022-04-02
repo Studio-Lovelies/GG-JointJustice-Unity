@@ -133,10 +133,10 @@ public class SceneController : MonoBehaviour, ISceneController
         {
             StopCoroutine(_panToPositionCoroutine);
         }
-
+        
         if (_activeScene != null)
         {
-            _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
+            _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.CurrentActorSlot.AttachedActor);
             _narrativeGameState.ActorController.OnSceneChanged(_activeScene);
         }
     }
@@ -223,9 +223,9 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <summary>
     /// Pans to the position of the specified slot index, if the bg-scene has support for actor slots.
     /// </summary>
-    /// <param name="oneBasedSlotIndex">Target slot index, 1 based.</param>
+    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
     /// <param name="seconds">Time in seconds the pan should take</param>
-    public void PanToActorSlot(int oneBasedSlotIndex, float seconds)
+    public void PanToActorSlot(string slotName, float seconds)
     {
         if (_activeScene == null)
         {
@@ -233,22 +233,16 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        if (!_activeScene.SupportsActorSlots())
-        {
-            Debug.LogError("Can't assign actor to slot: This scene has no support for slots");
-            return;
-        }
-
-        _activeScene.SetActiveActorSlot(oneBasedSlotIndex);
-        _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
-        PanCamera(seconds, _activeScene.GetTargetPosition());
+        _activeScene.SetActiveActorSlot(slotName);
+        _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.CurrentActorSlot.AttachedActor);
+        PanCamera(seconds, _activeScene.CurrentActorSlot.Position);
     }
 
     /// <summary>
     /// Jump cuts to the target sub position, if the bg-scene has sub positions.
     /// </summary>
-    /// <param name="oneBasedSlotIndex">Target actor slot, 1 based.</param>
-    public void JumpToActorSlot(int oneBasedSlotIndex)
+    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
+    public void JumpToActorSlot(string slotName)
     {
         if (_activeScene == null)
         {
@@ -256,15 +250,9 @@ public class SceneController : MonoBehaviour, ISceneController
             return;
         }
 
-        if (!_activeScene.SupportsActorSlots())
-        {
-            Debug.LogError("Can't assign actor to slot: This scene has no support for slots");
-            return;
-        }
-
-        _activeScene.SetActiveActorSlot(oneBasedSlotIndex);
-        _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.ActiveActor);
-        SetCameraPos(_activeScene.GetTargetPosition());
+        _activeScene.SetActiveActorSlot(slotName);
+        _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.CurrentActorSlot.AttachedActor);
+        SetCameraPos(_activeScene.CurrentActorSlot.Position);
     }
 
     /// <summary>

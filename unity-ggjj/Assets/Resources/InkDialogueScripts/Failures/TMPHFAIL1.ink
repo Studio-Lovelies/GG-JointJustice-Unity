@@ -6,8 +6,8 @@ INCLUDE ../Templates/Macros.ink
 Arin{ellipsis}
 
 &SCENE:TMPHCourt
-&SET_ACTOR_POSITION:1,Arin
-&JUMP_TO_POSITION:1
+&SET_ACTOR_POSITION:Defense,Arin
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 What? It's the right answer, right?
 
