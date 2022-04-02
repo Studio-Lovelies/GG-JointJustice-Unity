@@ -70,7 +70,7 @@ Examples:
 
 ⏲ Instant
 
-Hides the dialogue text-box until the next line of dialogue.
+Hides the dialogue textbox until the next line of dialogue.
 
 Examples: 
   - `&HIDE_TEXTBOX`
@@ -79,7 +79,7 @@ Examples:
 
 ⏳ Waits for completion
 
-Plays an "Objection!" animation and sound-effect for the specified actor.
+Plays an "Objection!" animation and sound effect for the specified actor.
 
 Examples: 
   - `&OBJECTION:Arin`
@@ -88,7 +88,7 @@ Examples:
 
 ⏳ Waits for completion
 
-Plays a "Take that!" animation and sound-effect for the specified actor.
+Plays a "Take that!" animation and sound effect for the specified actor.
 
 Examples: 
   - `&TAKE_THAT:Arin`
@@ -97,7 +97,7 @@ Examples:
 
 ⏳ Waits for completion
 
-Plays a "Hold it!" animation and sound-effect for the specified actor.
+Plays a "Hold it!" animation and sound effect for the specified actor.
 
 Examples: 
   - `&HOLD_IT:Arin`
