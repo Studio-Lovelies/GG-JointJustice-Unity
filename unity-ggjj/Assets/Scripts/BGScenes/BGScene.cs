@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BGScene : MonoBehaviour
 {
-    [System.Serializable]
+    [Serializable]
     public struct ActorSlot
     {
         public Actor AttachedActor { get; set; }

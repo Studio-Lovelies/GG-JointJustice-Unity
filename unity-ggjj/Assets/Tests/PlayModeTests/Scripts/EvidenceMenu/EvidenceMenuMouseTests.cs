@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Linq;
 using NUnit.Framework;
-using Tests.PlayModeTests.Tools;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
@@ -23,17 +20,17 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             yield return PressZ();
             
             // Get the menu items to test
-            MenuItem[] menuItems = GetMenuItems();
-            EvidenceMenuItem firstMenuItem = GetFirstMenuItem();
+            var menuItems = GetMenuItems();
+            var firstMenuItem = GetFirstMenuItem();
             yield return HoverOverButton(firstMenuItem.transform);
             Assert.AreEqual(firstMenuItem.CourtRecordObject.DisplayName, Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
             
             // Loop through the menu items and check if they highlight correctly
-            for (int i = 1; i < menuItems.Length; i++)
+            for (var i = 1; i < menuItems.Length; i++)
             {
-                MenuItem menuItem = menuItems.First(item => item.gameObject.name == $"EvidenceMenuItem ({i})");
+                var menuItem = menuItems.First(item => item.gameObject.name == $"EvidenceMenuItem ({i})");
                 yield return HoverOverButton(menuItem.transform);
-                ICourtRecordObject evidence = Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
+                var evidence = Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
                 Assert.AreEqual(menuItem.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName, evidence.DisplayName);
             }
         }
@@ -50,10 +47,10 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             
             yield return PressZ();
             
-            Transform decrementButton = GameObject.Find("DecrementButton").GetComponent<MenuItem>().transform;
-            Transform incrementButton = GameObject.Find("IncrementButton").GetComponent<MenuItem>().transform;
+            var decrementButton = GameObject.Find("DecrementButton").GetComponent<MenuItem>().transform;
+            var incrementButton = GameObject.Find("IncrementButton").GetComponent<MenuItem>().transform;
             
-            EvidenceMenuItem firstMenuItem = GetFirstMenuItem();
+            var firstMenuItem = GetFirstMenuItem();
             yield return HoverOverButton(firstMenuItem.transform);
             Assert.AreEqual("Bent Coins", firstMenuItem.CourtRecordObject.DisplayName);
 
@@ -99,7 +96,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             return GameObject.Find("EvidenceContainer").GetComponentsInChildren<MenuItem>();
         }
 
-        private EvidenceMenuItem GetFirstMenuItem()
+        private static EvidenceMenuItem GetFirstMenuItem()
         {
             return GetMenuItems().First(menuItem => menuItem.gameObject.name == "EvidenceMenuItem").GetComponent<EvidenceMenuItem>();
         }

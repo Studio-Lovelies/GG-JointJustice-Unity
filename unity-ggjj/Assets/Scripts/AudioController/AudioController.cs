@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
@@ -67,12 +66,11 @@ public class AudioController : MonoBehaviour, IAudioController
     /// Creates a child object that has an AudioSource component
     /// </summary>
     /// <returns>The AudioSource of the new child object</returns>
-    private AudioSource CreateAudioSource(string gameObjectName)
-    {
-        var newGameObject = new GameObject(gameObjectName);
-        newGameObject.transform.parent = transform;
-        return newGameObject.AddComponent<AudioSource>();
-    }
+    private AudioSource CreateAudioSource(string gameObjectName) => new GameObject(gameObjectName) {
+            transform = {
+                parent = transform
+            }
+        }.AddComponent<AudioSource>();
 
     /// <summary>
     /// Plays sound effect of desired name.
@@ -80,7 +78,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="sfx">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
     public void PlaySfx(string sfx)
     {
-        AudioClip soundEffectClip = _narrativeGameState.ObjectStorage.GetObject<AudioClip>(sfx);
+        var soundEffectClip = _narrativeGameState.ObjectStorage.GetObject<AudioClip>(sfx);
         PlaySfx(soundEffectClip);
     }
 

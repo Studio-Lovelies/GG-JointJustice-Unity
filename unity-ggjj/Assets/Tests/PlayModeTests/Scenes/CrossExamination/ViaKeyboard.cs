@@ -38,7 +38,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         public IEnumerator CanPresentEvidenceDuringExamination()
         {
             yield return _storyProgresser.ProgressStory();
-            EvidenceMenu evidenceMenu = Object.FindObjectOfType<EvidenceMenu>(true);
+            var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>(true);
             yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
@@ -49,7 +49,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         [UnityTest]
         public IEnumerator CantPresentEvidenceDuringExaminationDialogue()
         {
-            EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
+            var evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _storyProgresser.ProgressStory();
             yield return _storyProgresser.WaitForBehaviourActiveAndEnabled(evidenceMenu, _storyProgresser.Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
@@ -72,7 +72,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.cKey);
             yield return TestTools.WaitForState(() => !narrativeScriptPlayer.NarrativeScriptPlayer.Waiting);
 
-            EvidenceMenu evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
+            var evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _storyProgresser.WaitForBehaviourActiveAndEnabled(evidenceMenu, _storyProgresser.Keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
@@ -84,7 +84,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         {
             var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
             
-            for (int i = penaltyManager.PenaltiesLeft; i > 0; i--)
+            for (var i = penaltyManager.PenaltiesLeft; i > 0; i--)
             {
                 yield return TestTools.WaitForState(() => _narrativeScriptPlayerComponent.NarrativeScriptPlayer.CanPressWitness);
 

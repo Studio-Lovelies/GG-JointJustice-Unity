@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
@@ -35,7 +34,6 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag the witness testimony sign here.")]
     [SerializeField] private GameObject _witnessTestimonySign;
 
-    private Coroutine _waitCoroutine;
     private Coroutine _panToPositionCoroutine;
     private BGScene _activeScene;
 
@@ -98,19 +96,18 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <summary>
     /// Pans the camera position to the target position
     /// </summary>
-    /// <param name="targetPos">Target position</param>
+    /// <param name="targetPosition">Target position</param>
     /// <param name="timeInSeconds">Time for the pan to take in seconds</param>
     /// <param name="isBlocking">Whether the script should continue after the pan has completed (true) or immediately (false)</param>
     /// <returns>IEnumerator stuff for coroutine</returns>
-    private IEnumerator PanToPosition(Vector2 targetPos, float timeInSeconds, bool isBlocking)
+    private IEnumerator PanToPosition(Vector2 targetPosition, float timeInSeconds, bool isBlocking)
     {
-        Vector2 startPos = _activeScene.transform.position;
-        float percentagePassed = 0f;
-        BGScene targetScene = _activeScene;
+        var startPosition = _activeScene.transform.position;
+        var percentagePassed = 0f;
         while (percentagePassed < 1)
         {
             percentagePassed += Time.deltaTime / timeInSeconds;
-            _activeScene.transform.position = Vector2.Lerp(startPos, targetPos, percentagePassed);
+            _activeScene.transform.position = Vector2.Lerp(startPosition, targetPosition, percentagePassed);
             yield return null;
         }
 
@@ -129,16 +126,14 @@ public class SceneController : MonoBehaviour, ISceneController
     public void SetScene(string background)
     {
         _activeScene = _sceneList.SetScene(new SceneAssetName(background));
+
         if (_panToPositionCoroutine != null)
         {
             StopCoroutine(_panToPositionCoroutine);
         }
-        
-        if (_activeScene != null)
-        {
-            _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.CurrentActorSlot.AttachedActor);
-            _narrativeGameState.ActorController.OnSceneChanged(_activeScene);
-        }
+
+        _narrativeGameState.ActorController.SetActiveActorObject(_activeScene.CurrentActorSlot.AttachedActor);
+        _narrativeGameState.ActorController.OnSceneChanged(_activeScene);
     }
 
     /// <summary>
@@ -262,7 +257,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <param name="seconds"></param>
     public void Wait(float seconds)
     {
-        _waitCoroutine = StartCoroutine(WaitCoroutine(seconds));
+        StartCoroutine(WaitCoroutine(seconds));
     }
 
     /// <summary>
@@ -274,21 +269,6 @@ public class SceneController : MonoBehaviour, ISceneController
         _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Waiting = true;
         yield return new WaitForSeconds(seconds);
         _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.SetWaitingToFalseAndContinue();
-    }
-
-    /// <summary>
-    /// Cancels a wait coroutine. Used to stop the the coroutine from
-    /// continuing if more actions are read before waiting is complete.
-    /// Subscribe this to DialogueController's onNewActionLine and onNewSpokenLine events.
-    /// Make sure the event is ABOVE DirectorActionController in the subscribed events list.
-    /// </summary>
-    public void CancelWaitCoroutine()
-    {
-        if (_waitCoroutine == null)
-            return;
-
-        StopCoroutine(_waitCoroutine);
-        _waitCoroutine = null;
     }
 
     /// <summary>

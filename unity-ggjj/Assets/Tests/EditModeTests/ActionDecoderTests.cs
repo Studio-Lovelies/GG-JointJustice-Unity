@@ -72,12 +72,12 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void PLAY_SONG(SongAssetName songName, float transitionTime)
+        protected override void PLAY_SONG(SongAssetName songName, float transitionTime = 0)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SCENE(SceneAssetName sceneName)
+        protected override void Scene(SceneAssetName sceneName)
         {
             throw new NotImplementedException();
         }
@@ -87,12 +87,12 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void ACTOR(ActorAssetName actorName)
+        protected override void Actor(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SPEAK(ActorAssetName actorName)
+        protected override void Speak(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
@@ -102,7 +102,7 @@ public class ActionDecoderTests
             throw new NotImplementedException();
         }
 
-        protected override void THINK(ActorAssetName actorName)
+        protected override void Think(ActorAssetName actorName)
         {
             throw new NotImplementedException();
         }
@@ -160,15 +160,15 @@ public class ActionDecoderTests
     [Test]
     public void ThrowsIfMethodIsNotImplemented()
     {
-        const string missingMethodName = "MISSING_METHOD";
+        const string MISSING_METHOD_NAME = "MISSING_METHOD";
         var decoder = new RawActionDecoder();
         
-        var lineToParse = $"&{missingMethodName}";
+        var lineToParse = $"&{MISSING_METHOD_NAME}";
         Debug.Log("Attempting to parse:\n" + lineToParse);
         var expectedException = Assert.Throws<MethodNotFoundScriptParsingException>(() => {
             decoder.InvokeMatchingMethod(lineToParse);
         });
-        StringAssert.Contains(missingMethodName, expectedException.Message);
+        StringAssert.Contains(MISSING_METHOD_NAME, expectedException.Message);
     }
 
     [Test]
@@ -263,11 +263,11 @@ public class ActionDecoderTests
     {
         var decoder = CreateMockedActionDecoder();
 
-        var lineToParse = $"&METHODNAME:PARAMETER:INVALID";
-        Debug.Log("Attempting to parse:\n" + lineToParse);
+        const string LINE_TO_PARSE = "&METHODNAME:PARAMETER:INVALID";
+        Debug.Log("Attempting to parse:\n" + LINE_TO_PARSE);
         Assert.Throws<ScriptParsingException>(() => {
-            decoder.InvokeMatchingMethod(lineToParse);
-        }, $"More than one ':' detected in line '{lineToParse}");
+            decoder.InvokeMatchingMethod(LINE_TO_PARSE);
+        }, $"More than one ':' detected in line '{LINE_TO_PARSE}");
     }
 
     [Test]
@@ -278,12 +278,12 @@ public class ActionDecoderTests
         narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(new AssetName("NewScene")));
         decoder.NarrativeGameState = narrativeGameStateMock.Object;
 
-        var lineToParse = " &SCENE:NewScene \n\n\n";
-        var logMessage = "Attempting to parse:\n" + lineToParse;
-        Debug.Log(logMessage);
-        Assert.DoesNotThrow(() => { decoder.InvokeMatchingMethod(lineToParse); });
+        const string LINE_TO_PARSE = " &SCENE:NewScene \n\n\n";
+        const string LOG_MESSAGE = "Attempting to parse:\n" + LINE_TO_PARSE;
+        Debug.Log(LOG_MESSAGE);
+        Assert.DoesNotThrow(() => { decoder.InvokeMatchingMethod(LINE_TO_PARSE); });
 
-        LogAssert.Expect(LogType.Log, logMessage);
+        LogAssert.Expect(LogType.Log, LOG_MESSAGE);
         LogAssert.NoUnexpectedReceived();
 
         narrativeGameStateMock.Verify(controller => controller.SceneController.SetScene(new AssetName("NewScene")));

@@ -11,13 +11,13 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
     public class ViaKeyboard
     {
         private readonly InputTestTools _inputTestTools = new InputTestTools();
-        private Keyboard Keyboard;
+        private Keyboard _keyboard;
 
         [SetUp]
         public void Setup()
         {
             _inputTestTools.Setup();
-            Keyboard = _inputTestTools.Keyboard;
+            _keyboard = _inputTestTools.Keyboard;
         }
 
         [TearDown]
@@ -37,40 +37,40 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            Menu[] menus = TestTools.FindInactiveInScene<Menu>();
-            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
-            Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
-            Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
+            var menus = TestTools.FindInactiveInScene<Menu>();
+            var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            var subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
+            var secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
-            string selectedButton = mainMenu.SelectedButton.name;
-            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
-            string newSelectedButton = mainMenu.SelectedButton.name;
+            var selectedButton = mainMenu.SelectedButton.name;
+            yield return _inputTestTools.PressForFrame(_keyboard.rightArrowKey);
+            var newSelectedButton = mainMenu.SelectedButton.name;
             Assert.AreNotEqual(selectedButton, newSelectedButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.enterKey);
             Assert.False(mainMenu.Active);
             Assert.True(subMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.enterKey);
             Assert.False(subMenu.Active);
             Assert.True(secondSubMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.downArrowKey);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.enterKey);
             Assert.False(secondSubMenu.Active);
             Assert.True(subMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.downArrowKey);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.enterKey);
             Assert.False(subMenu.Active);
             Assert.True(mainMenu.Active);
         }
@@ -80,28 +80,28 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         {
             // as the containing GameObjects are enabled, `GameObject.Find()` will not find them
             // and we query all existing menus instead
-            Menu[] menus = TestTools.FindInactiveInScene<Menu>();
-            Menu mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
-            Menu subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
-            Menu secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
+            var menus = TestTools.FindInactiveInScene<Menu>();
+            var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
+            var subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
+            var secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
-            string selectedButton = mainMenu.SelectedButton.name;
-            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
-            string newSelectedButton = mainMenu.SelectedButton.name;
+            var selectedButton = mainMenu.SelectedButton.name;
+            yield return _inputTestTools.PressForFrame(_keyboard.rightArrowKey);
+            var newSelectedButton = mainMenu.SelectedButton.name;
             Assert.AreNotEqual(selectedButton, newSelectedButton);
 
             Assert.True(mainMenu.Active);
             Assert.False(subMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.enterKey);
             Assert.False(mainMenu.Active);
             Assert.True(subMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.enterKey);
             Assert.False(subMenu.Active);
             Assert.True(secondSubMenu.Active);
 
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.enterKey);
             Assert.False(secondSubMenu.Active);
             Assert.False(subMenu.Active);
             Assert.True(mainMenu.Active);
@@ -110,7 +110,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         [UnityTest]
         public IEnumerator CanStartGame()
         {
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return _inputTestTools.PressForFrame(_keyboard.enterKey);
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
         }
     }

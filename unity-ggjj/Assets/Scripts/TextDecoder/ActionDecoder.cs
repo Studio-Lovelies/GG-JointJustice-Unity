@@ -35,7 +35,7 @@ public class ActionDecoder : ActionDecoderBase
         OnActionDone?.Invoke();
     }
 
-    /// <summary>Starts or stops autoskipping of dialogue, where it automatically continues after it is done.</summary>
+    /// <summary>Starts or stops auto-skipping of dialogue, where it automatically continues after it is done.</summary>
     /// <param name="value">Set to either `true` or `false` to enable or disable automatic dialogue skipping respectively.</param>
     /// <example>&amp;AUTO_SKIP:true</example>
     /// <example>&amp;AUTO_SKIP:false</example>
@@ -75,7 +75,7 @@ public class ActionDecoder : ActionDecoderBase
         OnActionDone?.Invoke();
     }
 
-    /// <summary>Hides the dialogue textbox until the next line of dialogue.</summary>
+    /// <summary>Hides the dialogue text-box until the next line of dialogue.</summary>
     /// <category>Dialogue</category>
     /// <example>&amp;HIDE_TEXTBOX</example>
     private void HIDE_TEXTBOX()
@@ -301,7 +301,7 @@ public class ActionDecoder : ActionDecoderBase
         NarrativeGameState.SceneController.ReloadScene();
     }
 
-    /// <summary>Issues a penalty / deducts one of the attempts available to a player to find the correct piece of evidence or actor during a cross examinaton.</summary>
+    /// <summary>Issues a penalty / deducts one of the attempts available to a player to find the correct piece of evidence or actor during a cross examination.</summary>
     /// <example>&amp;ISSUE_PENALTY</example>
     /// <category>Cross Examination</category>
     private void ISSUE_PENALTY()
@@ -319,7 +319,7 @@ public class ActionDecoder : ActionDecoderBase
         NarrativeGameState.SceneController.Wait(seconds);
     }
 
-    /// <summary>Plays an "Objection!" animation and soundeffect for the specified actor.</summary>
+    /// <summary>Plays an "Objection!" animation and sound-effect for the specified actor.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;OBJECTION:Arin</example>
     /// <category>Dialogue</category>
@@ -328,7 +328,7 @@ public class ActionDecoder : ActionDecoderBase
         SHOUT(actorName, "Objection", true);
     }
 
-    /// <summary>Plays a "Take that!" animation and soundeffect for the specified actor.</summary>
+    /// <summary>Plays a "Take that!" animation and sound-effect for the specified actor.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;TAKE_THAT:Arin</example>
     /// <category>Dialogue</category>
@@ -337,7 +337,7 @@ public class ActionDecoder : ActionDecoderBase
         SHOUT(actorName, "TakeThat", true);
     }
 
-    /// <summary>Plays a "Hold it!" animation and soundeffect for the specified actor.</summary>
+    /// <summary>Plays a "Hold it!" animation and sound-effect for the specified actor.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;HOLD_IT:Arin</example>
     /// <category>Dialogue</category>
@@ -349,6 +349,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <summary>Uses the specified actor to play the specified shout.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor to use</param>
     /// <param name="shoutName" validFiles="Assets/Images/Shouts/*.png">Name of the shout to play</param>
+    /// <param name="allowRandomShouts">When set to true, there is a small chance of this shout instead being replaced with a random special shout</param>
     /// <example>&amp;SHOUT:Arin,OBJECTION,false</example>
     /// <category>Dialogue</category>
     private void SHOUT(ActorAssetName actorName, string shoutName, bool allowRandomShouts = false)
@@ -470,7 +471,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <param name="optional_targetActor" validFiles="Assets/Resources/Actors/*.asset">(optional) Name of the actor</param>
     /// <example>&amp;PLAY_EMOTION:Nodding</example>
     /// <category>Actor</category>
-    private void PLAY_EMOTION(ActorPoseAssetName poseName, ActorAssetName? optional_targetActor = null)
+    private void PLAY_EMOTION(ActorPoseAssetName poseName, ActorAssetName optional_targetActor = null)
     {
         if (optional_targetActor == null)
         {

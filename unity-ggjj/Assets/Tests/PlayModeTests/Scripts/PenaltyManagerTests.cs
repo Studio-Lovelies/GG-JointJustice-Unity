@@ -1,8 +1,6 @@
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.SceneManagement;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
@@ -12,7 +10,7 @@ namespace Tests.PlayModeTests.Scripts
     public class PenaltyManagerTests
     {
         private PenaltyManager _penaltyManager;
-        private StoryProgresser _storyProgresser = new StoryProgresser();
+        private readonly StoryProgresser _storyProgresser = new StoryProgresser();
 
         [SetUp]
         public void Setup()
