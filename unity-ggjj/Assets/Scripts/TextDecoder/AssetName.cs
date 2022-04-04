@@ -85,3 +85,8 @@ public class FailureScriptAssetName : AssetName
 {
     public FailureScriptAssetName(string givenName) : base(givenName) { }
 }
+
+public class UnitySceneAssetName : AssetName
+{
+    public UnitySceneAssetName(string givenName) : base(givenName) { }
+}

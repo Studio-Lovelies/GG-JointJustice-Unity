@@ -12,4 +12,5 @@ public interface INarrativeGameState
     IActionDecoder ActionDecoder { get; }
     IChoiceMenu ChoiceMenu { get; }
     IBGSceneList BGSceneList { get; }
+    SceneLoader SceneLoader { get; }
 }

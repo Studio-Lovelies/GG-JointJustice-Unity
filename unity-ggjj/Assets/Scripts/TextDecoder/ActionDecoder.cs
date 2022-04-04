@@ -1,6 +1,7 @@
 using System;
 using SaveFiles;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ActionDecoder : ActionDecoderBase
 {
@@ -576,6 +577,17 @@ public class ActionDecoder : ActionDecoderBase
     {
         NarrativeGameState.NarrativeScriptStorage.AddFailureScript(failureScriptName);
         OnActionDone?.Invoke();
+    }
+
+    /// <summary>
+    /// Loads a Unity scene
+    /// </summary>
+    /// <param name="sceneName" validFiles="Assets/Scenes/*.unity">The name of the scene to load</param>
+    /// <example>&amp;LOAD_SCENE:Credits</example>
+    /// <category>Script Loading</category>
+    private void LOAD_SCENE(UnitySceneAssetName sceneName)
+    {
+        NarrativeGameState.SceneLoader.LoadScene(sceneName);
     }
     #endregion
 #pragma warning restore IDE0051 // Remove unused private members
