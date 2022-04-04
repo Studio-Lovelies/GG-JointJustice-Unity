@@ -28,7 +28,7 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     public INarrativeScriptStorage NarrativeScriptStorage => _narrativeScriptStorage;
     public IChoiceMenu ChoiceMenu => _choiceMenu;
     public IBGSceneList BGSceneList => _bgSceneList;
-    public SceneLoader SceneLoader => _sceneLoader;
+    public ISceneLoader SceneLoader => _sceneLoader;
 
     private void Awake()
     {

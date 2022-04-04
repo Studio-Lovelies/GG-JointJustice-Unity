@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 /// LoadScene coroutine keeps track of the progress of the scene loading.
 /// Unloads the current scene after new scene has loaded.
 /// </summary>
-public class SceneLoader : MonoBehaviour
+public class SceneLoader : MonoBehaviour, ISceneLoader
 {
     public bool Busy { get; private set; }
 
