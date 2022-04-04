@@ -37,3 +37,16 @@ Adds a failure script for the currently playing narrative script
 
 Examples: 
   - `&ADD_FAILURE_SCRIPT:TMPH_FAIL_1`
+
+## LOAD_SCENE
+Values: 
+  - [The name of the scene to load](../constants.md#UnitySceneAssetName)
+
+⏳ Waits for completion
+
+
+Loads a Unity scene
+
+
+Examples: 
+  - `&LOAD_SCENE:Credits`

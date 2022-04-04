@@ -162,6 +162,12 @@
   - TMPHFAIL2
   - TMPHGameOver
 
+## UnitySceneAssetName
+  - Credits
+  - Game
+  - MainMenu
+  - Splash
+
 ## ActorPoseAssetName
 ### Arin
   - Annoyed
