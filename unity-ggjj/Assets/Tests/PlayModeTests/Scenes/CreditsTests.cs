@@ -1,6 +1,6 @@
 using System.Collections;
+using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
