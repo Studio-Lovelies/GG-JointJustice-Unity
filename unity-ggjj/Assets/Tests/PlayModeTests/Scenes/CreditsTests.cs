@@ -16,6 +16,7 @@ namespace Tests.PlayModeTests.Scenes
             var gameState = Object.FindObjectOfType<NarrativeGameState>();
             var actionDecoder = Object.FindObjectOfType<ActionDecoderComponent>();
             actionDecoder.Decoder.NarrativeGameState = gameState;
+            Assert.AreNotEqual(SceneManager.GetActiveScene().name, "Credits");
             actionDecoder.OnNewActionLine("&LOAD_SCENE:Credits\n");
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Credits");
         }
