@@ -39,9 +39,9 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         {
             yield return _storyProgresser.ProgressStory();
             var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>(true);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.zKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
             Assert.IsTrue(_narrativeScriptPlayerComponent.NarrativeScriptPlayer.HasSubStory);
         }
@@ -51,15 +51,15 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
         {
             var evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
             yield return _storyProgresser.ProgressStory();
-            yield return _storyProgresser.WaitForBehaviourActiveAndEnabled(evidenceMenu, _storyProgresser.Keyboard.zKey);
+            yield return _storyProgresser.WaitForBehaviourActiveAndEnabled(evidenceMenu, _storyProgresser.keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.enterKey);
             Assert.False(evidenceMenu.isActiveAndEnabled);
             Assert.IsTrue(_narrativeScriptPlayerComponent.NarrativeScriptPlayer.HasSubStory);
 
-            yield return _storyProgresser.WaitForBehaviourActiveAndEnabled(evidenceMenu, _storyProgresser.Keyboard.zKey);
+            yield return _storyProgresser.WaitForBehaviourActiveAndEnabled(evidenceMenu, _storyProgresser.keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
         }
 
@@ -69,13 +69,13 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             
             yield return _storyProgresser.ProgressStory();
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.cKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.cKey);
             yield return TestTools.WaitForState(() => !narrativeScriptPlayer.NarrativeScriptPlayer.Waiting);
 
             var evidenceMenu = TestTools.FindInactiveInScene<EvidenceMenu>()[0];
-            yield return _storyProgresser.WaitForBehaviourActiveAndEnabled(evidenceMenu, _storyProgresser.Keyboard.zKey);
+            yield return _storyProgresser.WaitForBehaviourActiveAndEnabled(evidenceMenu, _storyProgresser.keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.enterKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
         }
 
@@ -89,8 +89,8 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
                 yield return TestTools.WaitForState(() => _narrativeScriptPlayerComponent.NarrativeScriptPlayer.CanPressWitness);
 
                 Assert.AreEqual(i, penaltyManager.PenaltiesLeft);
-                yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.zKey);
-                yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
+                yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.zKey);
+                yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.enterKey);
                 while (_narrativeScriptPlayerComponent.NarrativeScriptPlayer.HasSubStory && penaltyManager.PenaltiesLeft > 0)
                 {
                     yield return _storyProgresser.ProgressStory();

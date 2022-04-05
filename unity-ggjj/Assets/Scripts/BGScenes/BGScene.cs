@@ -5,7 +5,12 @@ using UnityEngine;
 
 public class BGScene : MonoBehaviour
 {
-    [Serializable]
+    /// <summary>
+    /// Data transfer object which contains an object that can represent ActorData and the position in the Unity scene
+    /// </summary>
+    /// <remarks>
+    /// This class shouldn't be created outside of <see cref="BGScene"/>
+    /// </remarks>
     public class ActorSlot
     {
         public Actor AttachedActor { get; set; }
@@ -24,7 +29,7 @@ public class BGScene : MonoBehaviour
         static ActorSlot GenerateSlotDataForActor(Actor actor)
         {
             var position = actor.GetComponent<Transform>().localPosition * 100;
-            return new ActorSlot()
+            return new ActorSlot
             {
                 AttachedActor = actor,
                 Position = new Vector2Int((int)position.x, (int)position.y)
@@ -32,18 +37,13 @@ public class BGScene : MonoBehaviour
         }
 
         _actorSlotBySlotName = GetComponentsInChildren<Actor>().ToDictionary(NormalizeActorName, GenerateSlotDataForActor);
-        if (_actorSlotBySlotName.Count == 0)
-        {
-            return;
-        }
-
-        CurrentActorSlot = _actorSlotBySlotName.First().Value;
+        CurrentActorSlot = _actorSlotBySlotName.FirstOrDefault().Value;
     }
 
     /// <summary>
     /// Sets the active actor slot used when calculating the camera target position
     /// </summary>
-    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     public void SetActiveActorSlot(string slotName)
     {
         if (_actorSlotBySlotName.Count < 2)
@@ -63,7 +63,7 @@ public class BGScene : MonoBehaviour
     /// <summary>
     /// Gets the actor object at a certain slot without activating the system
     /// </summary>
-    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     /// <returns>Actor object at target slot</returns>
     public Actor GetActorAtSlot(string slotName)
     {

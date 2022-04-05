@@ -36,16 +36,16 @@ namespace Tests.PlayModeTests.Scripts
         public IEnumerator PenaltiesAreEnabledOnCrossExaminationStart()
         {
             Assert.IsTrue(!_penaltyManager.isActiveAndEnabled || _penaltyManager.PenaltiesLeft == 0);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.xKey);
             Assert.IsTrue(_penaltyManager.isActiveAndEnabled);
         }
     
         [UnityTest]
         public IEnumerator PenaltiesAreDisabledOnCrossExaminationEnd()
         {
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.xKey);
             Assert.IsTrue(_penaltyManager.isActiveAndEnabled);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.xKey);
             Assert.IsFalse(_penaltyManager.isActiveAndEnabled);
         }
     
@@ -58,13 +58,13 @@ namespace Tests.PlayModeTests.Scripts
                 yield return _storyProgresser.ProgressStory();
             }
             
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.zKey);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.zKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.enterKey);
 
             yield return TestTools.DoUntilStateIsReached(() => _storyProgresser.ProgressStory(), () => !narrativeScriptPlayer.NarrativeScriptPlayer.HasSubStory);
             
             Assert.AreEqual(4, _penaltyManager.PenaltiesLeft);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.xKey);
             Assert.AreEqual(5, _penaltyManager.PenaltiesLeft);
         }
     }

@@ -86,7 +86,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
                 yield return HoverOverButton(menuItem.transform);
                 var clicked = false;
                 menuItem.GetComponent<Button>().onClick.AddListener(() => clicked = true);
-                yield return _storyProgresser.PressForFrame(_storyProgresser.Mouse.leftButton);
+                yield return storyProgresser.PressForFrame(storyProgresser.mouse.leftButton);
                 Assert.IsTrue(clicked);
             }
         }
@@ -103,12 +103,12 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
         private IEnumerator HoverOverButton(Transform transform)
         {
-            yield return _storyProgresser.SetMouseWorldSpacePosition(transform.TransformPoint(transform.GetComponent<RectTransform>().rect.center));
+            yield return storyProgresser.SetMouseWorldSpacePosition(transform.TransformPoint(transform.GetComponent<RectTransform>().rect.center));
         }
 
         private IEnumerator LeftClick()
         {
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Mouse.leftButton);
+            yield return storyProgresser.PressForFrame(storyProgresser.mouse.leftButton);
         }
     }
 }

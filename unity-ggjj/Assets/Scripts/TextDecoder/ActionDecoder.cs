@@ -274,7 +274,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Makes the camera jump to focus on the target sub-position of the currently active scene.</summary>
-    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     /// <example>&amp;JUMP_TO_POSITION:1</example>
     /// <category>Scene</category>
     private void JUMP_TO_POSITION(string slotName)
@@ -284,7 +284,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Makes the camera pan to focus on the target sub-position of the currently active scene. Takes the provided amount of time to complete. If you want the system to wait for completion, call WAIT with the appropriate amount of seconds afterwards.</summary>
-    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     /// <param name="panDuration">Decimal number representing the amount of time the pan should take in seconds</param>
     /// <example>&amp;PAN_TO_POSITION:1,1</example>
     /// <category>Scene</category>
@@ -484,7 +484,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Sets the target sub-position of the current bg-scene to have the target actor.</summary>
-    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of an actor</param>
     /// <example>&amp;SET_ACTOR_POSITION:1,Arin</example>
     /// <category>Actor</category>

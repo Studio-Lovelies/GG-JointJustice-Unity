@@ -224,7 +224,7 @@ public class ActorController : MonoBehaviour, IActorController
     /// <summary>
     /// Sets an actor inside a slot in the scene, if the active bg-scene has support for slots.
     /// </summary>
-    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     /// <param name="newActorName"></param>
     public void AssignActorToSlot(string slotName, string newActorName)
     {

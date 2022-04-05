@@ -223,7 +223,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <summary>
     /// Pans to the position of the specified slot index, if the bg-scene has support for actor slots.
     /// </summary>
-    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     /// <param name="seconds">Time in seconds the pan should take</param>
     public void PanToActorSlot(string slotName, float seconds)
     {
@@ -241,7 +241,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// <summary>
     /// Jump cuts to the target sub position, if the bg-scene has sub positions.
     /// </summary>
-    /// <param name="slotName">Name of an actor slot of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     public void JumpToActorSlot(string slotName)
     {
         if (_activeScene == null)

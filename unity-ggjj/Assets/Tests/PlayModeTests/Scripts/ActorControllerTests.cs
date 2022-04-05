@@ -53,7 +53,7 @@ namespace Tests.PlayModeTests.Scripts
         [UnityTest]
         public IEnumerator ActorsAreSetToTalkingOnDialogueStart()
         {
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.xKey);
             AssertIsTalking(_witnessAnimator);
         }
 
@@ -70,7 +70,7 @@ namespace Tests.PlayModeTests.Scripts
         {
             var prosecutionAnimator =  GameObject.Find("Prosecution_Actor").GetComponent<Animator>();
             _actorController.SetActiveSpeaker("TutorialBoy", SpeakingType.Speaking);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.xKey);
             AssertIsTalking(prosecutionAnimator);
             AssertIsNotTalking(_witnessAnimator);
         }
@@ -88,7 +88,7 @@ namespace Tests.PlayModeTests.Scripts
         public IEnumerator SpeakerCanBeSetToThinking()
         {
             _actorController.SetActiveSpeaker("Arin", SpeakingType.Thinking);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
             AssertNameBoxCorrect();
         }
@@ -99,7 +99,7 @@ namespace Tests.PlayModeTests.Scripts
             var nameBox = Object.FindObjectOfType<NameBox>().gameObject;
 
             _actorController.SetActiveSpeakerToNarrator();
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
             Assert.IsFalse(nameBox.activeInHierarchy);
         }
@@ -140,7 +140,7 @@ namespace Tests.PlayModeTests.Scripts
         public IEnumerator ActorNotInTheSceneCanSpeak()
         {
             _actorController.SetActiveSpeaker("Dan", SpeakingType.Speaking);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.xKey);
+            yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.xKey);
             AssertIsNotTalking(_witnessAnimator);
             AssertNameBoxCorrect();
         }
