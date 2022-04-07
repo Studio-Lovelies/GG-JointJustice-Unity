@@ -19,6 +19,7 @@ namespace Tests.PlayModeTests.Scenes
             Assert.AreNotEqual(SceneManager.GetActiveScene().name, "Credits");
             actionDecoder.OnNewActionLine("&LOAD_SCENE:Credits\n");
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Credits");
+        }
 
         [UnityTest]
         public IEnumerator CreditsCanBeSkipped()
