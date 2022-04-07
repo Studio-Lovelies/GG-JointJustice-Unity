@@ -39,6 +39,7 @@ public class ActionDecoderTests
         {typeof(NarrativeScriptAssetName), "ValidString" },
         {typeof(GameOverScriptAssetName), "ValidString"},
         {typeof(FailureScriptAssetName), "ValidString"},
+        {typeof(UnitySceneAssetName), "ValidString" },
         {typeof(bool), "true"},
         {typeof(int), "1"},
         {typeof(float), "1.0"},
@@ -132,6 +133,7 @@ public class ActionDecoderTests
         narrativeGameStateMock.Setup(mock => mock.AudioController.PlaySfx(It.IsAny<AudioClip>()));
         narrativeGameStateMock.Setup(mock => mock.PenaltyManager.Decrement());
         narrativeGameStateMock.Setup(mock => mock.NarrativeScriptStorage.AddFailureScript(It.IsAny<string>()));
+        narrativeGameStateMock.Setup(mock => mock.SceneLoader.LoadScene(It.IsAny<string>()));
 
         return new ActionDecoder
         {

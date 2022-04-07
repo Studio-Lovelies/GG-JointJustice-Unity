@@ -12,6 +12,7 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     [SerializeField] private PenaltyManager _penaltyManager;
     [SerializeField] private BGSceneList _bgSceneList;
     [SerializeField] private ChoiceMenu _choiceMenu;
+    [SerializeField] private SceneLoader _sceneLoader;
 
     private NarrativeScriptStorage _narrativeScriptStorage;
     
@@ -27,6 +28,7 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     public INarrativeScriptStorage NarrativeScriptStorage => _narrativeScriptStorage;
     public IChoiceMenu ChoiceMenu => _choiceMenu;
     public IBGSceneList BGSceneList => _bgSceneList;
+    public ISceneLoader SceneLoader => _sceneLoader;
 
     private void Awake()
     {
