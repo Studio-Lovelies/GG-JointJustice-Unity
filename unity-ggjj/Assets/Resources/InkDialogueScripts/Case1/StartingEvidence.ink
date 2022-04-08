@@ -7,7 +7,6 @@
 === Part3StartingEvidence
 <- Part2StartingEvidence
 &ADD_RECORD:Jory
-&ADD_EVIDENCE:AttorneysBadge
 &ADD_EVIDENCE:PlumberInvoice
 &ADD_EVIDENCE:Switch
 &ADD_EVIDENCE:Jory_Srs_Letter
