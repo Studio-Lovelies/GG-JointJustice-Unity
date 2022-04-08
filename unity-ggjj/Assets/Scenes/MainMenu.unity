@@ -2725,7 +2725,7 @@ MonoBehaviour:
   _narrativeGameState: {fileID: 0}
   _settingsMusicVolume: 0.5
   _settingsSfxVolume: 0.5
-  _transitionDuration: 2
+  _defaultSong: {fileID: 0}
 --- !u!4 &718748591
 Transform:
   m_ObjectHideFlags: 0
@@ -2848,7 +2848,7 @@ RectTransform:
   - {fileID: 2120264172}
   - {fileID: 2007141595}
   m_Father: {fileID: 919536739}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4025,7 +4025,7 @@ RectTransform:
   m_Children:
   - {fileID: 2054351562}
   m_Father: {fileID: 919536739}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4570,13 +4570,13 @@ RectTransform:
   - {fileID: 1217097358}
   - {fileID: 1454283877}
   - {fileID: 1359121067}
-  - {fileID: 1961069500}
   - {fileID: 865147026}
   - {fileID: 2018234049}
   - {fileID: 742725379}
   - {fileID: 1037994235}
   - {fileID: 967025245}
   - {fileID: 1946344350}
+  - {fileID: 1961069500}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5341,7 +5341,7 @@ RectTransform:
   - {fileID: 871039659}
   - {fileID: 1579935356}
   m_Father: {fileID: 919536739}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5366,19 +5366,26 @@ MonoBehaviour:
   _chapterSelectMenu: {fileID: 1946344353}
   _audioController: {fileID: 718748590}
   _buttonSelectAudioClip: {fileID: 8300000, guid: f7b1651d91b510149a9af1e8d61223e1, type: 3}
+  _sceneLoader: {fileID: 1316906784}
+  _startGameSound: {fileID: 8300000, guid: e132ba488be9972449d8a112e3c4c38a, type: 3}
   _cases:
   - <Name>k__BackingField: Jory's Trial
     <PreviewImage>k__BackingField: {fileID: 21300000, guid: 20e9308721ef94bb59f914e4df0bffc1, type: 3}
     <Chapters>k__BackingField:
-    - {fileID: 4900000, guid: 6e87adfdd5fce6b498b1bc3d5231b81d, type: 3}
-    - {fileID: 4900000, guid: 5dba738a7e82bde4a8bb1735cb3436c3, type: 3}
-    - {fileID: 4900000, guid: b3cfd648cf87de341a3c0169214479c9, type: 3}
-    - {fileID: 4900000, guid: be9f8b2104c09f34d9bdda6d9eb4896f, type: 3}
-    - {fileID: 4900000, guid: 338a37f516e6550438ecaa88e9cf17af, type: 3}
+    - {fileID: 4900000, guid: 8f9a85b8095344c73aab5d77be6bfb93, type: 3}
+    - {fileID: 4900000, guid: 88366ebe444f8416eab61e9b52dec3e8, type: 3}
+    - {fileID: 4900000, guid: c0c18e94cbb054f739e2293fa303a602, type: 3}
+    - {fileID: 4900000, guid: 7acd73ff59f054bcaa21997ccff75ac5, type: 3}
+    - {fileID: 4900000, guid: df5cfd921a646476a82feb420bc43dbb, type: 3}
+    - {fileID: 4900000, guid: 2cfb1c49c7cb64dfd85a25e55b7b3e3c, type: 3}
+    - {fileID: 4900000, guid: 3c528fde75acb40558c48d41e36bbe1b, type: 3}
+    - {fileID: 4900000, guid: 6379fea067bf34c05b45257776455306, type: 3}
+    - {fileID: 4900000, guid: d5ea0d673bfc8479fb076153e6699ec5, type: 3}
+    - {fileID: 4900000, guid: 760ab022713e14a7783d28fe4fe56de0, type: 3}
   - <Name>k__BackingField: Post-Trial
     <PreviewImage>k__BackingField: {fileID: 21300000, guid: 4cf2a604d3f624719b15a821e3671d15, type: 3}
     <Chapters>k__BackingField:
-    - {fileID: 4900000, guid: d3352e0fc4999ce4b891897849581641, type: 3}
+    - {fileID: 4900000, guid: 4303ceee313c84e8ca63ab3438a4732e, type: 3}
 --- !u!114 &967025248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5627,7 +5634,7 @@ RectTransform:
   - {fileID: 230721440}
   - {fileID: 1412137858}
   m_Father: {fileID: 919536739}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7736,7 +7743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33de4f31ae9f94bf6a3ef7e8c1b64085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScript: {fileID: 4900000, guid: c2d26570bbb424d3598fa05e0d7adbaf, type: 3}
+  <NarrativeScript>k__BackingField: {fileID: 4900000, guid: c2d26570bbb424d3598fa05e0d7adbaf, type: 3}
 --- !u!114 &1316906785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9670,7 +9677,7 @@ RectTransform:
   - {fileID: 1108334206}
   - {fileID: 1293895579}
   m_Father: {fileID: 919536739}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9735,6 +9742,8 @@ MonoBehaviour:
   _backButton: {fileID: 1261533795}
   _audioController: {fileID: 718748590}
   _buttonSelectAudioClip: {fileID: 8300000, guid: f7b1651d91b510149a9af1e8d61223e1, type: 3}
+  _sceneLoader: {fileID: 1316906784}
+  _startGameSound: {fileID: 8300000, guid: e132ba488be9972449d8a112e3c4c38a, type: 3}
 --- !u!114 &1946344354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9799,12 +9808,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961069499}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 919536739}
-  m_RootOrder: 3
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10215,7 +10224,7 @@ RectTransform:
   - {fileID: 330356528}
   - {fileID: 922587110}
   m_Father: {fileID: 919536739}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
