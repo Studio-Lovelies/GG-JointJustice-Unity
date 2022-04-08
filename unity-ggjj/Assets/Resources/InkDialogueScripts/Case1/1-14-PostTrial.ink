@@ -1,4 +1,7 @@
 INCLUDE ../Templates/Macros.ink
+INCLUDE StartingEvidence.ink
+
+<- Part5StartingEvidence
 
 &HIDE_TEXTBOX
 &FADE_OUT:0
