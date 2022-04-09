@@ -16,7 +16,7 @@ namespace Tests.PlayModeTests.Scripts
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/BlankScene.unity", new LoadSceneParameters());
             var sceneLoader = new GameObject().AddComponent<SceneLoader>();
-            TestTools.SetField(sceneLoader, "_narrativeScript", AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Tests/PlayModeTests/TestScripts/RossCoolX.json"));
+            sceneLoader.NarrativeScript = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Tests/PlayModeTests/TestScripts/RossCoolX.json");
             sceneLoader.LoadScene("Game");
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
             var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
