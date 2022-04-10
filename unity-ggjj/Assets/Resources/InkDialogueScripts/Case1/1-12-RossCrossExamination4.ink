@@ -1,26 +1,12 @@
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Templates/Macros.ink
+INCLUDE StartingEvidence.ink
 
+<- Part5StartingEvidence
 <- COURT_TMPH
 
 <-SetupWitness
-
-&ADD_RECORD:Arin
-&ADD_RECORD:Dan
-&ADD_RECORD:Jory
-&ADD_RECORD:JudgeBrent
-&ADD_RECORD:TutorialBoy
-&ADD_RECORD:Ross
-
-&ADD_EVIDENCE:AttorneysBadge
-&ADD_EVIDENCE:PlumberInvoice
-&ADD_EVIDENCE:Switch
-&ADD_EVIDENCE:Jory_Srs_Letter
-&ADD_EVIDENCE:LivestreamRecording
-&ADD_EVIDENCE:JorysBackpack
-&ADD_EVIDENCE:StolenDinos
-&ADD_EVIDENCE:BentCoins
 
 &FADE_OUT:0
 &FADE_IN:1
@@ -32,7 +18,7 @@ INCLUDE ../Templates/Macros.ink
 
 === SetupWitness ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:SweatyNoHelmet
 &SPEAK:Ross
 
@@ -42,7 +28,7 @@ INCLUDE ../Templates/Macros.ink
 &HIDE_TEXTBOX
 &HOLD_IT:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SET_POSE:Normal
 &SPEAK:Arin
 
@@ -98,12 +84,12 @@ Seems rather convenient to me!
 
 &HIDE_TEXTBOX
 &SET_POSE:GlaringNoHelmet,Ross
-&PAN_TO_POSITION:2,{panTime}
+&PAN_TO_POSITION:Witness,{panTime}
 &SPEAK:Ross
 It happened like an hour after I saw him!
 Not exactly hard to remember that. Not that you would know, Arin{ellipsis}
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 Hey, that's out of line, Ross! My memory is fine.
 
@@ -141,20 +127,20 @@ Good. The witness will continue his testimony.
 <- HoldIt
 Why search the backpack?
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Ross says he saw Jory stuff the dinos into his backpack.
 Of course that's the first thing he'd think of.
 Try to pay attention to the story for once, Mr. Video Game Boy!
 &HIDE_TEXTBOX
 &SET_POSE:Embarrassed,Arin
-&PAN_TO_POSITION:1,{doublePanTime}
+&PAN_TO_POSITION:Defense,{doublePanTime}
 &SPEAK:Arin
 UH, yeah of course, I knew that. I was just making sure{ellipsis}
 &SET_POSE:Point
 That YOU knew it!
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 {ellipsis}
 &HIDE_TEXTBOX
@@ -167,16 +153,16 @@ What did you do next, Ross?
 <- HoldIt
 You say you saw the coins in the front pocket?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Yes{ellipsis}?
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Embarrassed
 &SPEAK:Arin
 Uh{ellipsis} Ok, good! Just{ellipsis} making sure I heard you correctly.
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:GlaringNoHelmet
 &SPEAK:Ross
 What, do you have biscuits in your ears or something?
@@ -207,11 +193,11 @@ Yes, anyways, as I was saying{ellipsis}
 <- HoldIt
 You said you opened up the LEFT side pocket? My left or your left?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 It was my left, without a doubt.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 So you say, but we all know you have trouble with left and right!
 
@@ -237,11 +223,11 @@ The witness will continue with his testimony.
 <- HoldIt
 Can you prove you found the dinos in the left side pocket?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Well{ellipsis} no, but I don't think you can prove that I didn't!
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 I'd like to remind the court that the burden of proof{ellipsis}
 {ellipsis}rests in the hands of the defense! Ross is a witness, not the accused, after all.
@@ -257,7 +243,7 @@ Unless you can prove otherwise, this court will be taking this testimony as fact
 This isn't good, man. Isn't there something we can do?
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &SPEAK:Arin
 I don't know. If only there was some way to prove he's lying.
@@ -317,7 +303,7 @@ If the court will allow, I'd like to see if my hunch is correct!
 
 &HIDE_TEXTBOX
 &OBJECTION:TutorialBoy
-&PAN_TO_POSITION:3,{doublePanTime}
+&PAN_TO_POSITION:Prosecution,{doublePanTime}
 &SPEAK:TutorialBoy
 Absolutely not! Your Honor, they will tamper with the evidence!
 &SET_POSE:Angry
@@ -349,7 +335,7 @@ Good.
 The defense may examine the evidence.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Confident
 &SPEAK:Arin
 Thank you, Your Honor! Now, let's take a look at this backpack!
@@ -425,7 +411,7 @@ Very well. Let's not delay any further, open 'er up!
 &PLAY_SFX:potatoes
 &PLAY_SFX:potatoes2
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 {ellipsis}
@@ -443,14 +429,14 @@ Very well. Let's not delay any further, open 'er up!
 &PLAY_SONG:ninjaSexPursuit
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:MadMilk
 &SPEAK:Ross
 P{ellipsis} POTATOES???
 
 &HIDE_TEXTBOX
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SPEAK:Arin
 That's right! A nearly endless supply of potatoes{ellipsis}
 &HIDE_TEXTBOX
@@ -458,7 +444,7 @@ That's right! A nearly endless supply of potatoes{ellipsis}
 &PLAY_EMOTION:DeskSlamAnimation
 {ellipsis}and his backpack is filled to the brim with them!
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &HIDE_TEXTBOX
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
@@ -474,7 +460,7 @@ PREPOSTEROUS!
 LUDICROUS!
 
 &HIDE_TEXTBOX
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:deskSlam
 &PLAY_EMOTION:DeskSlamAnimation
 &SPEAK:Arin
@@ -495,7 +481,7 @@ It is as the defense says. This backpack is COMPLETELY filled with what feels li
 
 &HIDE_ITEM
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:MadMilk
 &SPEAK:Ross
 But, but{ellipsis} why?!?
@@ -504,7 +490,7 @@ But, but{ellipsis} why?!?
 &PLAY_EMOTION:DamageNoHelmet
 It doesn't make any sense at all! Why would Jory have such an endless supply potatoes in his backpack?
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Thinking
 &THINK:Arin
 (That's a good question. Why DOES he seem to have infinite potatoes all inside one backpack?)
@@ -533,19 +519,19 @@ Well, you have made a strong case that Jory would not have done this{ellipsis}
 &OBJECTION:TutorialBoy
 &STOP_SONG
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_EMOTION:Objection
 &SPEAK:TutorialBoy
 He has no case at all!
 Sure, it SEEMS like Jory is innocent, but that's simply what the defense would have you believe!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &THINK:Arin
 (It's my job to do that, though{ellipsis})
 
 &PLAY_SONG:investigationUniCore
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Angry
 &SPEAK:TutorialBoy
 But all he has stated is baseless conjecture! He has no REAL proof that Ross is the real culprit!
@@ -584,12 +570,12 @@ I know that in the past Jory has been nothing but a good boy{ellipsis}
 {ellipsis}but the evidence seems stacked in the prosecution's favor.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &SPEAK:Arin
 You can't be serious! After all that?
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Confident
 &SPEAK:TutorialBoy
 You are very wise, Judge Brent!
@@ -605,7 +591,7 @@ Yes, I think I have to agree with the prosecution on this matter.
 
 &HIDE_TEXTBOX
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:stab2
 &PLAY_EMOTION:ShockAnimation
 &SET_POSE:Sweaty
@@ -621,12 +607,12 @@ WHAT?!? We lost?!
 I'm sorry, Jory. I like you a lot but given the circumstances it seems I have no choice.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Confident
 &SPEAK:TutorialBoy
 Looks like you lose this time, 'Video Game Boy'!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &THINK:Arin
 (I'm sorry, Jory{ellipsis} I failed.)
@@ -642,17 +628,17 @@ This court finds the defendant, Jory Griffis{ellipsis}
 
 &PLAY_SFX:shock2
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &WAIT:1
 
 &PLAY_SFX:shock2
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:MadMilk
 &WAIT:1
 
 &PLAY_SFX:shock2
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:SweatyBlinking
 &SPEAK:Arin
 Dan?

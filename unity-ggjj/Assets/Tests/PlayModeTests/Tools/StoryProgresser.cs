@@ -14,10 +14,10 @@ namespace Tests.PlayModeTests.Tools
         /// </summary>
         public IEnumerator ProgressStory()
         {
-            Press(Keyboard.xKey);
+            Press(keyboard.xKey);
             var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
-            Release(Keyboard.xKey);
+            Release(keyboard.xKey);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Tests.PlayModeTests.Tools
         {
             var choice = Object.FindObjectOfType<ChoiceMenu>().transform.GetChild(choiceIndex).GetComponent<Selectable>();
             choice.Select();
-            yield return PressForFrame(Keyboard.xKey);
+            yield return PressForFrame(keyboard.xKey);
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace Tests.PlayModeTests.Tools
             // Otherwise we're in a cross examination. We can choose to continue, press the witness, or present evidence
             yield return crossExaminationChoice switch
             {
-                CrossExaminationChoice.ContinueStory => PressForFrame(Keyboard.xKey),
-                CrossExaminationChoice.PressWitness => PressForFrame(Keyboard.cKey),
+                CrossExaminationChoice.ContinueStory => PressForFrame(keyboard.xKey),
+                CrossExaminationChoice.PressWitness => PressForFrame(keyboard.cKey),
                 CrossExaminationChoice.PresentEvidence =>  PresentEvidence(evidenceName),
                 _ => throw new ArgumentException("Choice index can only be 0, 1, or 2 in GameMode CrossExamination")
             };
@@ -67,10 +67,10 @@ namespace Tests.PlayModeTests.Tools
             // Check if the item being presented in an actor
             if (courtRecordObjects.Any(courtRecordObject => courtRecordObject is ActorData && courtRecordObject.InstanceName == evidenceName))
             {
-                yield return PressForFrame(Keyboard.cKey);
+                yield return PressForFrame(keyboard.cKey);
             }
             
-            yield return PressForFrame(Keyboard.zKey);
+            yield return PressForFrame(keyboard.zKey);
             var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
             var evidenceMenuItems = evidenceMenu.transform.GetComponentsInChildren<EvidenceMenuItem>();
             var incrementButton = evidenceMenu.transform.GetComponentsInChildren<Selectable>().First(menuItem => menuItem.name == "IncrementButton");
@@ -87,12 +87,12 @@ namespace Tests.PlayModeTests.Tools
                     }
                     
                     evidenceMenuItem.GetComponent<Selectable>().Select();
-                    yield return PressForFrame(Keyboard.xKey);
+                    yield return PressForFrame(keyboard.xKey);
                     yield break;
                 }
                 
                 incrementButton.Select();
-                yield return PressForFrame(Keyboard.xKey);
+                yield return PressForFrame(keyboard.xKey);
             }
 
             throw new MissingReferenceException($"Evidence menu did not contain {evidenceName}");

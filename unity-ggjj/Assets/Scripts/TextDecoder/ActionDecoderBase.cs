@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using UnityEngine;
+using TextDecoder.Parser;
 
 public abstract class ActionDecoderBase : IActionDecoder
 {
@@ -32,7 +32,7 @@ public abstract class ActionDecoderBase : IActionDecoder
     /// This method is responsible for:
     ///     1. Finding a method inside this class, matching `methodName`
     ///     2. Verifying the amount of parameters matches the amount of parameters needed in the method
-    ///     3. Attempting to parse each parameter into the correct type using <see cref="Parser&lt;T&gt;"/> of the type
+    ///     3. Attempting to parse each parameter into the correct type using <see cref="Parser{T}"/> of the type
     /// </summary>
     /// <param name="actionLine">The action line to parse</param>
     /// <param name="decoderType">The type of decoder to get methods from</param>
@@ -40,42 +40,37 @@ public abstract class ActionDecoderBase : IActionDecoder
     public static InvocationDetails GenerateInvocationDetails(string actionLine, Type decoderType)
     {
         actionLine = actionLine.Trim();
-        const char actionSideSeparator = ':';
-        const char actionParameterSeparator = ',';
+        const char ACTION_SIDE_SEPARATOR = ':';
+        const char ACTION_PARAMETER_SEPARATOR = ',';
 
-        var actionNameAndParameters = actionLine.Substring(1, actionLine.Length - 1).Trim().Split(actionSideSeparator);
+        var actionNameAndParameters = actionLine.Substring(1, actionLine.Length - 1).Trim().Split(ACTION_SIDE_SEPARATOR);
 
         if (actionNameAndParameters.Length > 2)
         {
-            throw new TextDecoder.Parser.ScriptParsingException($"More than one '{actionSideSeparator}' detected in line '{actionLine}'");
+            throw new ScriptParsingException($"More than one '{ACTION_SIDE_SEPARATOR}' detected in line '{actionLine}'");
         }
 
         var action = actionNameAndParameters[0];
-        var parameters = (actionNameAndParameters.Length == 2) ? actionNameAndParameters[1].Split(actionParameterSeparator) : Array.Empty<string>();
+        var parameters = (actionNameAndParameters.Length == 2) ? actionNameAndParameters[1].Split(ACTION_PARAMETER_SEPARATOR) : Array.Empty<string>();
 
         // Find method with exact same name as action inside script
         var methodInfo = decoderType.GetMethod(action, BindingFlags.Instance | BindingFlags.NonPublic);
         if (methodInfo == null)
         {
-            throw new TextDecoder.Parser.MethodNotFoundScriptParsingException("ActionDecoder", action);
+            throw new MethodNotFoundScriptParsingException(decoderType.FullName, action);
         }
 
         var methodParameters = methodInfo.GetParameters();
         var optionalParameters = methodParameters.Count(parameter => parameter.IsOptional);
         if (parameters.Length < (methodParameters.Length - optionalParameters) || parameters.Length > (methodParameters.Length))
         {
-            throw new TextDecoder.Parser.ScriptParsingException($"'{action}' requires {(optionalParameters == 0 ? "exactly" : "between")} {(optionalParameters == 0 ? methodParameters.Length.ToString() : $"{methodParameters.Length-optionalParameters} and {methodParameters.Length}")} parameters (has {parameters.Length} instead)");
+            throw new ScriptParsingException($"'{action}' requires {(optionalParameters == 0 ? "exactly" : "between")} {(optionalParameters == 0 ? methodParameters.Length.ToString() : $"{methodParameters.Length-optionalParameters} and {methodParameters.Length}")} parameters (has {parameters.Length} instead)");
         }
 
         var parsedMethodParameters = new List<object>();
         // For each supplied parameter of that action...
         for (var index = 0; index < parameters.Length; index++)
         {
-            if (parameters.Length <= index && methodParameters[index].IsOptional)
-            {
-                parsedMethodParameters.Add(methodParameters[index].DefaultValue);
-            }
-
             // Determine it's type
             var methodParameter = methodParameters[index];
 
@@ -93,12 +88,12 @@ public abstract class ActionDecoderBase : IActionDecoder
                     var match = pattern.Match(e.Message);
                     if (match.Success)
                     {
-                        throw new TextDecoder.Parser.ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '{match.Groups[1].Captures[0]}' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a=>a.ToString()))}')");
+                        throw new ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '{match.Groups[1].Captures[0]}' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a=>a.ToString()))}')");
                     }
 
                     if (e.Message == "Must specify valid information for parsing in the string.")
                     {
-                        throw new TextDecoder.Parser.ScriptParsingException($"'' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '' into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a => a.ToString()))}')");
+                        throw new ScriptParsingException($"'' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': Cannot convert '' (empty) into an {methodParameter.ParameterType} (valid values include: '{string.Join(", ", Enum.GetValues(methodParameter.ParameterType).Cast<object>().Select(a => a.ToString()))}')");
                     }
                     throw;
                 }
@@ -108,7 +103,7 @@ public abstract class ActionDecoderBase : IActionDecoder
             var parser = decoderType.Assembly.GetTypes().FirstOrDefault(type => type.BaseType is { IsGenericType: true } && type.BaseType.GenericTypeArguments[0] == methodParameter.ParameterType);
             if (parser == null)
             {
-                throw new TextDecoder.Parser.MissingParserException($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
+                throw new MissingParserException($"The TextDecoder.Parser namespace contains no Parser for type {methodParameter.ParameterType}");
             }
 
             var parserConstructor = parser.GetConstructor(Type.EmptyTypes);
@@ -117,22 +112,17 @@ public abstract class ActionDecoderBase : IActionDecoder
                 throw new ArgumentException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no constructor without parameters");
             }
 
-            // Find the 'Parse' method on that parser
-            var parseMethod = parser.GetMethod("Parse");
-            if (parseMethod == null)
-            {
-                throw new MissingMethodException($"TextDecoder.Parser for type {methodParameter.ParameterType} has no 'Parse' method");
-            }
 
-            // Create a parser and call the 'Parse' method
+            // Create a parser
             var parserInstance = parserConstructor.Invoke(Array.Empty<object>());
             object[] parseMethodParameters = { parameters[index], null };
 
+            // Call the 'Parse' method
+            var humanReadableParseError = parser.GetMethod("Parse")!.Invoke(parserInstance, parseMethodParameters);
             // If we received an error attempting to parse a parameter to the type, expose it to the user
-            var humanReadableParseError = parseMethod.Invoke(parserInstance, parseMethodParameters);
             if (humanReadableParseError != null)
             {
-                throw new TextDecoder.Parser.ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': {humanReadableParseError}");
+                throw new ScriptParsingException($"'{parameters[index]}' is incorrect as parameter #{index + 1} ({methodParameter.Name}) for action '{action}': {humanReadableParseError}");
             }
 
             parsedMethodParameters.Add(parseMethodParameters[1]);
@@ -161,15 +151,49 @@ public abstract class ActionDecoderBase : IActionDecoder
         return line != string.Empty && line[0] == ACTION_TOKEN;
     }
 
-    protected abstract void ADD_EVIDENCE(EvidenceAssetName evidenceName);
-    protected abstract void ADD_RECORD(ActorAssetName actorName);
-    protected abstract void PLAY_SFX(SfxAssetName sfx);
-    protected abstract void PLAY_SONG(SongAssetName songName, float optional_transitionTime = 0);
-    protected abstract void SCENE(SceneAssetName sceneName);
-    protected abstract void SHOW_ITEM(CourtRecordItemName itemName, ItemDisplayPosition itemPos);
-    protected abstract void ACTOR(ActorAssetName actorName);
-    protected abstract void SPEAK(ActorAssetName actorName);
-    protected abstract void SPEAK_UNKNOWN(ActorAssetName actorName);
-    protected abstract void THINK(ActorAssetName actorName);
-    protected abstract void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName);
+    protected virtual void ADD_EVIDENCE(EvidenceAssetName evidenceName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void ADD_RECORD(ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void PLAY_SFX(SfxAssetName sfx)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void PLAY_SONG(SongAssetName songName, float optionalTransitionTime = 0)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void SCENE(SceneAssetName sceneName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void SHOW_ITEM(CourtRecordItemName itemName, ItemDisplayPosition itemPos)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void ACTOR(ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void SPEAK(ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void SPEAK_UNKNOWN(ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void THINK(ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void SET_ACTOR_POSITION(string slotName, ActorAssetName actorName)
+    {
+        throw new NotImplementedException();
+    }
 }
+

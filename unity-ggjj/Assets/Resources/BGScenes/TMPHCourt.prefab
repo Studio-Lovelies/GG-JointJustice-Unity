@@ -297,12 +297,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actorSlots:
-  - AttachedActor: {fileID: 8239092870040901235}
-    Position: {x: 0, y: 0}
-  - AttachedActor: {fileID: 8239092870962547047}
-    Position: {x: 504, y: 0}
-  - AttachedActor: {fileID: 8239092869838533241}
-    Position: {x: 976, y: 0}
+  - <AttachedActor>k__BackingField: {fileID: 8239092870040901235}
+    <Position>k__BackingField: {x: 0, y: 0}
+  - <AttachedActor>k__BackingField: {fileID: 8239092870962547047}
+    <Position>k__BackingField: {x: 504, y: 0}
+  - <AttachedActor>k__BackingField: {fileID: 8239092869838533241}
+    <Position>k__BackingField: {x: 976, y: 0}
 --- !u!1 &8092316713152032216
 GameObject:
   m_ObjectHideFlags: 0

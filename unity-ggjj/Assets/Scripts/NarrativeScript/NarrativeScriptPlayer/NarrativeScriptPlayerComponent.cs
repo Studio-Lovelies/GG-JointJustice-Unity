@@ -52,6 +52,7 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     /// <param name="narrativeScriptName">The name of the narrative script to load</param>
     public void LoadScript(string narrativeScriptName)
     {
+        _narrativeGameState.EvidenceController.ClearCourtRecord();
         var narrativeScriptText = Resources.Load<TextAsset>($"InkDialogueScripts/{narrativeScriptName}");
         Debug.Assert(narrativeScriptText != null, $"Failed to load narrative script resource at 'InkDialogueScripts/{narrativeScriptName}'");
         

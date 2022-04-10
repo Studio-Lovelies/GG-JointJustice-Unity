@@ -2,7 +2,6 @@ using System.Collections;
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -11,7 +10,7 @@ namespace Tests.PlayModeTests.Scripts
 {
     public class LoadScriptTests
     {
-        private StoryProgresser _storyProgresser = new StoryProgresser();
+        private readonly StoryProgresser _storyProgresser = new StoryProgresser();
 
         [SetUp]
         public void Setup()

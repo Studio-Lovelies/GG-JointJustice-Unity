@@ -59,4 +59,13 @@ public class EvidenceController : MonoBehaviour, IEvidenceController
     {
         CurrentEvidence[CurrentEvidence.IndexOf(initialEvidenceData)] = substituteEvidenceData;
     }
+
+    /// <summary>
+    /// Clears the court record so new evidence and profiles can be added
+    /// </summary>
+    public void ClearCourtRecord()
+    {
+        CurrentEvidence.Clear();
+        CurrentProfiles.Clear();
+    }
 }

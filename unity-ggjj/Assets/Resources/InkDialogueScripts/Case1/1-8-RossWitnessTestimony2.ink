@@ -1,26 +1,13 @@
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Templates/Macros.ink
+INCLUDE StartingEvidence.ink
+
+<- Part5StartingEvidence
 
 <- COURT_TMPH
 
-&ADD_RECORD:Arin
-&ADD_RECORD:Dan
-&ADD_RECORD:Jory
-&ADD_RECORD:JudgeBrent
-&ADD_RECORD:TutorialBoy
-&ADD_RECORD:Ross
-
-&ADD_EVIDENCE:AttorneysBadge
-&ADD_EVIDENCE:PlumberInvoice
-&ADD_EVIDENCE:Switch
-&ADD_EVIDENCE:Jory_Srs_Letter
-&ADD_EVIDENCE:LivestreamRecording
-&ADD_EVIDENCE:JorysBackpack
-&ADD_EVIDENCE:StolenDinos
-&ADD_EVIDENCE:BentCoins
-
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &FADE_IN:1
 &WAIT:1
 
@@ -53,7 +40,7 @@ That's when you saw Jory, followed him, and saw the dinosaurs being taken.
 That seems reasonable to me.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Without a doubt, Your Honor. That is how it really happened.
 We -- er, I mean, my witness, wanted to keep it a surprise.
@@ -66,7 +53,7 @@ I hope the defense is happy with themselves for ruining Ross' great gesture!
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Normal
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &SPEAK:Arin
 Ho boy...

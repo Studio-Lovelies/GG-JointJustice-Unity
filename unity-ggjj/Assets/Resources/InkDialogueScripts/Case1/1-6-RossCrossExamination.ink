@@ -2,27 +2,14 @@ INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Options.ink
 INCLUDE ../Templates/Macros.ink
 INCLUDE ../Templates/FailureStates.ink
+INCLUDE StartingEvidence.ink
 
+<- Part5StartingEvidence
 <- COURT_TMPH
 <- Failures.TMPH
 
-&ADD_RECORD:Arin
-&ADD_RECORD:Dan
-&ADD_RECORD:Jory
-&ADD_RECORD:JudgeBrent
-&ADD_RECORD:TutorialBoy
-&ADD_RECORD:Ross
 
-&ADD_EVIDENCE:AttorneysBadge
-&ADD_EVIDENCE:PlumberInvoice
-&ADD_EVIDENCE:Switch
-&ADD_EVIDENCE:Jory_Srs_Letter
-&ADD_EVIDENCE:LivestreamRecording
-&ADD_EVIDENCE:JorysBackpack
-&ADD_EVIDENCE:StolenDinos
-&ADD_EVIDENCE:BentCoins
-
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &FADE_IN:2
 &PLAY_SONG:fyiIWannaXYourExaminationModerato,{songFadeTime}
 <- CrossExamination
@@ -33,7 +20,7 @@ INCLUDE ../Templates/FailureStates.ink
 
 === Line1 ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 <color=green>I was animating by myself over in my room at the office.
 + [Continue]
@@ -43,7 +30,7 @@ INCLUDE ../Templates/FailureStates.ink
 
 === Line2 ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 <color=green>But then{ellipsis} I saw someone taking the dinos!!
 + [Continue]
@@ -53,7 +40,7 @@ INCLUDE ../Templates/FailureStates.ink
 
 === Line3 ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 <color=green>It was Jory! He was on the 10 Minute Power Hour set taking the dinos!#correct
 + [Continue]
@@ -63,7 +50,7 @@ INCLUDE ../Templates/FailureStates.ink
 
 === Line4 ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 <color=green>Now that I know they were stolen, that means the culprit must be Jory!
 + [Continue]
@@ -73,12 +60,12 @@ INCLUDE ../Templates/FailureStates.ink
 
 === Line1Press ===
 &HOLD_IT:Arin
-&PAN_TO_POSITION:1,0.5
+&PAN_TO_POSITION:Defense,0.5
 &WAIT:0.5
 &SPEAK:Arin
 What were you animating?
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Your Honor, this is clearly irrelevant to the case.
 
@@ -87,7 +74,7 @@ Your Honor, this is clearly irrelevant to the case.
 I agree. Arin, try being serious about this.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Ross, continue your testimony.
 
@@ -95,20 +82,20 @@ Ross, continue your testimony.
 
 === Line2Press ===
 &HOLD_IT:Arin
-&PAN_TO_POSITION:1,0.5
+&PAN_TO_POSITION:Defense,0.5
 &WAIT:0.5
 &SPEAK:Arin
 Who did you see?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 I'm getting to it, just be patient. I'm trying to build suspense for the viewers!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 But this isn't being broadcasted{ellipsis}
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Quick! Back to the testimony before we break the fourth wall again!
 
@@ -119,12 +106,12 @@ Witness, carry on.
 
 === Line4Press ===
 &HOLD_IT:Arin
-&PAN_TO_POSITION:1,0.5
+&PAN_TO_POSITION:Defense,0.5
 &WAIT:0.5
 &SPEAK:Arin
 What makes you so sure that the dinos were stolen, anyways!?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 {ellipsis}
 
@@ -137,7 +124,7 @@ What makes you so sure that the dinos were stolen, anyways!?
 Arin, that's literally the reason we're all here.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 {ellipsis}
 
@@ -148,23 +135,23 @@ I'll just pretend that didn't happen.
 
 === Finale ===
 &OBJECTION:Arin
-&PAN_TO_POSITION:1,0.5
+&PAN_TO_POSITION:Defense,0.5
 &PLAY_EMOTION:Objection
 &SPEAK:Arin
 You said you saw Jory in the 10 Minute Power Hour room, correct?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Yes, that's correct!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:PaperSlap
 &SPEAK:Arin
 Yet you also say you were in your office animating
 &SET_POSE:Confident
 Seems very odd to me! How could you see anyone while you were focused on your work!
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Are you saying that my witness is a liar?
 I'm sure Ross has a very reasonable explanation for all this.
@@ -174,12 +161,12 @@ I'm sure Ross has a very reasonable explanation for all this.
 He oughta have a real good reason for this.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 T-That's right! The reason I was able to see Jory was{ellipsis} because I needed to poop!
 Yeah!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Annoyed
 &SPEAK:Arin
 Um{ellipsis} excuse me?
@@ -189,18 +176,18 @@ Um{ellipsis} excuse me?
 Hah hah hah hah!!!
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &THINK:Arin
 (Goddamnit, Ross.)
 
 &SPEAK:Arin
 What does you needing to poop have to do with seeing Jory?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 W-Well, you see, I had to go out to use the bathroom, which is how I saw Jory!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 Uh-huh{ellipsis}
 &SET_POSE:Normal
@@ -211,7 +198,7 @@ Your Honor, I believe this needs to be added to the witness's testimony.
 Agreed. Witness, add your poop story to your testimony.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Uh{ellipsis} Yes, why of course, Your Honor. Let me go over it again.
 

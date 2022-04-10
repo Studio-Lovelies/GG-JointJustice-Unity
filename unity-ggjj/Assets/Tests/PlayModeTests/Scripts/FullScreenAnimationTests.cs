@@ -34,7 +34,7 @@ namespace Tests.PlayModeTests.Scripts
             yield return null; 
            
             Assert.IsFalse(speechPanel.activeInHierarchy);
-            yield return _inputTestTools.PressForFrame(_inputTestTools.Keyboard.xKey);
+            yield return _inputTestTools.PressForFrame(_inputTestTools.keyboard.xKey);
             Assert.IsFalse(speechPanel.activeInHierarchy);
         }
     }
