@@ -7,7 +7,7 @@ INCLUDE StartingEvidence.ink
 
 <- COURT_TMPH
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &FADE_IN:1
 &WAIT:1
 
@@ -40,7 +40,7 @@ That's when you saw Jory, followed him, and saw the dinosaurs being taken.
 That seems reasonable to me.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Without a doubt, Your Honor. That is how it really happened.
 We -- er, I mean, my witness, wanted to keep it a surprise.
@@ -53,7 +53,7 @@ I hope the defense is happy with themselves for ruining Ross' great gesture!
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Normal
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &SPEAK:Arin
 Ho boy...

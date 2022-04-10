@@ -1,7 +1,7 @@
 &SCENE:TMPH_Court
-&SET_ACTOR_POSITION:1,Arin
+&SET_ACTOR_POSITION:Defense,Arin
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 After this line, we unlock a new chapter! You see how Chapter1 is false?
 

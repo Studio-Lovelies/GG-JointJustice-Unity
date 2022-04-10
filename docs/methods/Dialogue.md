@@ -30,7 +30,7 @@ Values:
 
 ⏲ Instant
 
-Starts or stops autoskipping of dialogue, where it automatically continues after it is done.
+Starts or stops auto-skipping of dialogue, where it automatically continues after it is done.
 
 Examples: 
   - `&AUTO_SKIP:true`
@@ -79,7 +79,7 @@ Examples:
 
 ⏳ Waits for completion
 
-Plays an "Objection!" animation and soundeffect for the specified actor.
+Plays an "Objection!" animation and sound effect for the specified actor.
 
 Examples: 
   - `&OBJECTION:Arin`
@@ -88,7 +88,7 @@ Examples:
 
 ⏳ Waits for completion
 
-Plays a "Take that!" animation and soundeffect for the specified actor.
+Plays a "Take that!" animation and sound effect for the specified actor.
 
 Examples: 
   - `&TAKE_THAT:Arin`
@@ -97,7 +97,7 @@ Examples:
 
 ⏳ Waits for completion
 
-Plays a "Hold it!" animation and soundeffect for the specified actor.
+Plays a "Hold it!" animation and sound effect for the specified actor.
 
 Examples: 
   - `&HOLD_IT:Arin`

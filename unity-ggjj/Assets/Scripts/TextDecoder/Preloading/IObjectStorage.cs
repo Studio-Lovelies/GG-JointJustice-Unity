@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Object = UnityEngine.Object;
 
 public interface IObjectStorage
 {

@@ -15,18 +15,18 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         protected global::EvidenceMenu EvidenceMenu { get; private set; }
         protected Transform CanvasTransform { get; private set; }
         protected Menu Menu { get; private set; }
-        protected StoryProgresser _storyProgresser = new StoryProgresser();
+        protected StoryProgresser storyProgresser = new StoryProgresser();
 
         [SetUp]
         public void Setup()
         {
-            _storyProgresser.Setup();
+            storyProgresser.Setup();
         }
 
         [TearDown]
         public void TearDown()
         {
-            _storyProgresser.TearDown();
+            storyProgresser.TearDown();
         }
 
         [UnitySetUp]
@@ -69,7 +69,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         
         protected IEnumerator PressZ()
         {
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.zKey);
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.zKey);
         }
     }
 }

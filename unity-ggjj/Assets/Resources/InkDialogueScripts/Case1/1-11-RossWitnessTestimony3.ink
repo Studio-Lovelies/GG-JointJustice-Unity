@@ -7,7 +7,7 @@ INCLUDE StartingEvidence.ink
 <- COURT_TMPH
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:SweatyNoHelmet
 &FADE_IN:1
 &PLAY_SONG:FyiIWannaXYourExaminationAllegro
