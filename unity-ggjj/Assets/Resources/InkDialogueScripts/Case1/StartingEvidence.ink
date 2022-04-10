@@ -1,11 +1,11 @@
-=== Part2StartingEvidence
+=== Part1StartingEvidence
 &ADD_RECORD:Arin
 &ADD_RECORD:Dan
 &ADD_EVIDENCE:AttorneysBadge
 -> DONE
 
 === Part3StartingEvidence
-<- Part2StartingEvidence
+<- Part1StartingEvidence
 &ADD_RECORD:Jory
 &ADD_EVIDENCE:PlumberInvoice
 &ADD_EVIDENCE:Switch
