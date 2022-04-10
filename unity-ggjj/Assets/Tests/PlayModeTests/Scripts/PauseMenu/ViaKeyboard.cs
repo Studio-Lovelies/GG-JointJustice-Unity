@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine.TestTools;
-using UnityEngine.UI;
 
 namespace Tests.PlayModeTests.Scripts.PauseMenu
 {
@@ -13,9 +12,9 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         public IEnumerator PauseMenuCanBeOpenedAndClosed()
         {
             AssertMenuInactive();
-            yield return _inputTestTools.PressForFrame(Keyboard.escapeKey);
+            yield return inputTestTools.PressForFrame(Keyboard.escapeKey);
             AssertMenuActive();
-            yield return _inputTestTools.PressForFrame(Keyboard.escapeKey);
+            yield return inputTestTools.PressForFrame(Keyboard.escapeKey);
             AssertMenuInactive();
         }
 
@@ -28,37 +27,37 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnityTest]
         public IEnumerator PauseMenuCanBeNavigated()
         {
-            yield return _inputTestTools.PressForFrame(Keyboard.escapeKey);
-            Button resumeButton = GetButton(RESUME_BUTTON_NAME);
-            Button settingsButton = GetButton(SETTINGS_BUTTON_NAME);
-            Button mainMenuButton = GetButton(MAIN_MENU_BUTTON_NAME);
+            yield return inputTestTools.PressForFrame(Keyboard.escapeKey);
+            var resumeButton = GetButton(RESUME_BUTTON_NAME);
+            var settingsButton = GetButton(SETTINGS_BUTTON_NAME);
+            var mainMenuButton = GetButton(MAIN_MENU_BUTTON_NAME);
 
             // Menu can be navigated down and wrap from bottom to top
-            for (int i = 0; i < 2; i++)
+            for (var i = 0; i < 2; i++)
             { 
                 AssertButtonSelected(resumeButton);
-                yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+                yield return inputTestTools.PressForFrame(Keyboard.downArrowKey);
                 AssertButtonSelected(settingsButton);
-                yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+                yield return inputTestTools.PressForFrame(Keyboard.downArrowKey);
                 AssertButtonSelected(mainMenuButton);
-                yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+                yield return inputTestTools.PressForFrame(Keyboard.downArrowKey);
             }
             
             // Menu can be navigated up and wrap from top to bottom
-            for (int i = 0; i < 2; i++)
+            for (var i = 0; i < 2; i++)
             {
                 AssertButtonSelected(resumeButton);
-                yield return _inputTestTools.PressForFrame(Keyboard.upArrowKey);
+                yield return inputTestTools.PressForFrame(Keyboard.upArrowKey);
                 AssertButtonSelected(mainMenuButton);
-                yield return _inputTestTools.PressForFrame(Keyboard.upArrowKey);
+                yield return inputTestTools.PressForFrame(Keyboard.upArrowKey);
                 AssertButtonSelected(settingsButton);
-                yield return _inputTestTools.PressForFrame(Keyboard.upArrowKey);
+                yield return inputTestTools.PressForFrame(Keyboard.upArrowKey);
             }
 
             // Navigating left and right should not select different buttons
-            yield return _inputTestTools.PressForFrame(Keyboard.leftArrowKey);
+            yield return inputTestTools.PressForFrame(Keyboard.leftArrowKey);
             AssertButtonSelected(resumeButton);
-            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
+            yield return inputTestTools.PressForFrame(Keyboard.rightArrowKey);
             AssertButtonSelected(resumeButton);
         }
 
@@ -68,7 +67,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         [UnityTest]
         public IEnumerator ResumeButtonResumesGame()
         {
-            yield return TestResumeButton(() => _inputTestTools.PressForFrame(Keyboard.enterKey));
+            yield return TestResumeButton(() => inputTestTools.PressForFrame(Keyboard.enterKey));
         }
         
         /// <summary>
@@ -94,8 +93,8 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         /// </summary>
         private IEnumerator NavigateToAndClickSettingsButton()
         {
-            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return inputTestTools.PressForFrame(Keyboard.downArrowKey);
+            yield return inputTestTools.PressForFrame(Keyboard.enterKey);
         }
 
         /// <summary>
@@ -104,8 +103,8 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         /// <returns></returns>
         private IEnumerator NavigateToAndClickMainMenuButton()
         {
-            yield return _inputTestTools.PressForFrame(Keyboard.upArrowKey);
-            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return inputTestTools.PressForFrame(Keyboard.upArrowKey);
+            yield return inputTestTools.PressForFrame(Keyboard.enterKey);
         }
     }
 }

@@ -22,15 +22,15 @@ INCLUDE ../Templates/Macros.ink
 &ADD_EVIDENCE:StolenDinos
 &ADD_EVIDENCE:BentCoins
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 I was using my Switch! Duh! Like, how ELSE could I be making it?
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 That's the best question you can come up with? Laughable!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &THINK:Arin
 (Jeez, this guy is so annoying!)
@@ -49,12 +49,12 @@ And it's the only question I need to see your lies for what they are!
 
 &PLAY_SFX:stab
 &SHAKE_SCREEN:0.25,0.25
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sweaty
 &SPEAK:Ross
 W-W-What?
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Point
 &SPEAK:Arin
 There's no possible way you could have been using your Switch when you said you were!
@@ -77,7 +77,7 @@ You say that he could not have been using his Switch as he claims?
 That's correct, Your Honor!
 
 &HIDE_TEXTBOX
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SHAKE_SCREEN:0.25,0.25
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
@@ -85,7 +85,7 @@ That's correct, Your Honor!
 &SPEAK:TutorialBoy
 Impossible! There's no way you can prove such a thing!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &SPEAK:Arin
 I CAN prove it{ellipsis} with THIS!
@@ -95,11 +95,11 @@ I CAN prove it{ellipsis} with THIS!
 &TAKE_THAT:Arin
 &SHOW_ITEM:Switch,Right
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 A{ellipsis} Nintendo Switch?
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Confident
 &SPEAK:Arin
 That's right. Remember how you told everyone that Jory went to get us a Switch when ours broke?
@@ -109,13 +109,13 @@ Well it just so happens that I have this switch{ellipsis} RIGHT HERE!
 &HIDE_ITEM
 &SHAKE_SCREEN:0.25,0.25
 &PLAY_SFX:stab
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_EMOTION:Damage
 &SPEAK:Ross
 GAH!
 
 &HIDE_TEXTBOX
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Sweaty
@@ -144,7 +144,7 @@ Not only is there no proof that Switch belongs to Ross{ellipsis}
 {ellipsis}but there's no proof this is even the Switch Jory brought back!
 
 &OBJECTION:Arin
-&PAN_TO_POSITION:1,{doublePanTime}
+&PAN_TO_POSITION:Defense,{doublePanTime}
 &SPEAK:Arin
 If you wouldn't interrupt, I'd show you all the proof you'll need!
 &PLAY_SFX:deskSlam
@@ -179,12 +179,12 @@ Wow, dude. How did you even know about that?
 &SPEAK:Arin
 Easy. I've been helping produce merch for Ross. Isn't that right?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sweaty
 &SPEAK:Ross
 Well{ellipsis} I{ellipsis}
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Normal
 &SPEAK:Arin
 That's what I thought!
@@ -205,7 +205,7 @@ Don't you know, Dan? I'm the Video Game Boy{ellipsis}
 I'm the one who's winning this case!
 
 &OBJECTION:TutorialBoy
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Angry
 &SPEAK:TutorialBoy
 Preposterous! It's too early to celebrate! That simply isn't enough proof on it's own.
@@ -251,7 +251,7 @@ Don't worry, Dan. Check this shit out.
 
 &HIDE_TEXTBOX
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Normal#1 //#1 indicates which choice is correct so it can be picked last by tests
 + [Show them what games are on the Switch]
     -> Wrong1
@@ -264,14 +264,14 @@ Don't worry, Dan. Check this shit out.
 
 &TAKE_THAT:Arin
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:PaperSlap
 &SPEAK:Arin
 This is every single game downloaded on the Switch!
 
 &OBJECTION:TutorialBoy
 &SET_POSE:Normal,TutorialBoy
-&PAN_TO_POSITION:3,{doublePanTime}
+&PAN_TO_POSITION:Prosecution,{doublePanTime}
 &SPEAK:TutorialBoy
 What exactly are you trying to prove here?
 &SET_POSE:Confident
@@ -285,24 +285,24 @@ There are some interesting games on here though{ellipsis}
 Er{ellipsis} Ross{ellipsis} what exactly is 'Mew Mew Cutie Girls Club'?
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SHAKE_SCREEN:0.25,0.25
 &PLAY_SFX:stab
 &SET_POSE:Sweaty
 &SPEAK:Ross
 Th-That's nothing! It's ironic, I-I swear!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Annoyed
 &SPEAK:Arin
 What HAVE you been playing?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Glaring
 &SPEAK:Ross
 Hey - don't act like you're better than me, with your Pantsu Hunter and your weird anime dating sim crap!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &SPEAK:Arin
 H-Hey! That's totally irrelevant! You can't judge me!
@@ -327,7 +327,7 @@ The games on Ross' Switch does not have any bearing on this case.
 === Wrong2 ===
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Confident
 &SPEAK:Arin
 The answer will become clear, when those titties are near!
@@ -351,7 +351,7 @@ Hey, now we've got something to look forward to when you win!
 &SPEAK:Arin
 Wait{ellipsis} Will this change the age rating?
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 LET'S MOVE ON BEFORE WE FIND OUT!
 
@@ -361,7 +361,7 @@ LET'S MOVE ON BEFORE WE FIND OUT!
 
 &TAKE_THAT:Arin
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:PaperSlap
 &SPEAK:Arin
 If you've ever owned a Switch, you'd know that the last game played{ellipsis}
@@ -404,21 +404,21 @@ Penix Wright: Facial Attorney<sup>(tm)</sup>?!
 
 &HIDE_TEXTBOX
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_SFX:stab
 &PLAY_EMOTION:Damage
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 Absurd!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &SPEAK:Arin
 That's right! If Ross was truly making a Mario Maker level, it would be Mario Maker there!
 That means the fact that Penix Wright is there{ellipsis}
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Glaring
 {ellipsis}was because it was the game we were playing on the livestream!
 
@@ -441,14 +441,14 @@ A--A-A-AAAHAAAAAA!!!
 &HIDE_TEXTBOX
 &PLAY_EMOTION:HelmetThrow
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:smack
 &PLAY_EMOTION:HelmetHit
 &SET_POSE:Sweaty
 &SPEAK:Arin
 OWWW-WUH!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:MadMilk
 &SPEAK:Ross
 You{ellipsis} guys{ellipsis}
@@ -460,7 +460,7 @@ He's the culprit, I tell you!
 I saw him! He's the only one who could have taken it!
 
 &HIDE_TEXTBOX
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &PLAY_EMOTION:DeskSlamAnimation
 &PLAY_SFX:deskSlam
 &SPEAK:Arin
@@ -471,7 +471,7 @@ So tell us the truth! What really happened?!
 
 &OBJECTION:TutorialBoy
 &PLAY_SONG:confessionPatrol,{songFadeTime}
-&PAN_TO_POSITION:3,{doublePanTime}
+&PAN_TO_POSITION:Prosecution,{doublePanTime}
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Angry
@@ -486,7 +486,7 @@ I request that last bit of evidence be stricken from the record!
 &SET_POSE:Normal
 The only hard evidence we have shows the dinosaurs in Jory's backpack! Who else but him would have done it?!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 YEAH, MAN! I'm the one looking out for you guys here, I've done nothing wrong!
 I just was mistaken about a few things! That's no way to treat one of your oldest friends!
@@ -502,7 +502,7 @@ Hmmm{ellipsis} the prosecution does bring up a point.
 Under these circumstances I cannot refute what the prosecution says. Objection sustained.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Point
 &SPEAK:Arin
 Your Honor, we've just put the witness' credibility in the furnace!
@@ -543,14 +543,14 @@ You're right, Dan!
 Your Honor! There is one other person who could have done the deed!
 
 &HIDE_TEXTBOX
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_SFX:stab
 &PLAY_EMOTION:DamageNoHelmet
 &SET_POSE:MadMilk
 &SPEAK:Ross
 !!!
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:stab
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
@@ -565,7 +565,7 @@ Please point out exactly who you are accusing.
 -> Present("Ross") ->
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &SPEAK:Arin
 Why, the only other person who wasn't at the livestream other than Jory!
@@ -590,7 +590,7 @@ But how could this be true? Didn't Ross find them in the first place?
 We saw him find them in Jory's backpack. Why would Ross find them himself if he was the one who stole them?
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Confident
 &SPEAK:TutorialBoy
 The answer to that is simple, Your Honor! It's because he DIDN'T steal them!
@@ -601,7 +601,7 @@ How dare you sully the name of JUSTICE by proposing this preposterous position!
 
 &HIDE_TEXTBOX
 &OBJECTION:Arin
-&PAN_TO_POSITION:1,{doublePanTime}
+&PAN_TO_POSITION:Defense,{doublePanTime}
 &PLAY_EMOTION:ShakingHead
 &SET_POSE:Normal
 &SPEAK:Arin
@@ -614,7 +614,7 @@ Regardless of that fact, I need proof or evidence that suggests that Ross was th
 
 &HIDE_TEXTBOX
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Normal
@@ -623,7 +623,7 @@ HAH! Good luck proving that, "Video Game Boy". I'd like to see you try!
 
 &STOP_SONG
 &SET_POSE:Confident,Arin
-&PAN_TO_POSITION:1,{doublePanTime}
+&PAN_TO_POSITION:Defense,{doublePanTime}
 &SPEAK:Arin
 I'll do better than that...
 &PLAY_SFX:ObjectionClean
@@ -631,14 +631,14 @@ I'll do better than that...
 &SET_POSE:Objection
 ...because I'm the one who wins!
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SHAKE_SCREEN:0.25,0.25
 &PLAY_SFX:stab
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 Not that joke again...
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Confident
 &SPEAK:Arin
 Hell yea dude, check this shit out!
@@ -663,12 +663,12 @@ That we're cheap bastards making coins out of cardboard?
 &SPEAK:Arin
 Well--
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Normal
 &SPEAK:TutorialBoy
 I second that notion.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:stab
 &SET_POSE:DeskSlam
 &SPEAK:Arin
@@ -691,7 +691,7 @@ Regardless, Jory would never let his coins be ruined like this!
 There is no way he would have stuffed the dinosaurs so carelessly with those coins there!
 
 &HIDE_TEXTBOX
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_SFX:stab
 &PLAY_EMOTION:DamageNoHelmet
 &SET_POSE:MadMilk
@@ -699,7 +699,7 @@ There is no way he would have stuffed the dinosaurs so carelessly with those coi
 GUH!
 
 &HIDE_TEXTBOX
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Normal
@@ -707,7 +707,7 @@ GUH!
 RIDICULOUS! I don't believe a word of that! There's no way someone would be so careful around such pointless coins.
 
 &HIDE_TEXTBOX
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:DeskSlam
 &PLAY_EMOTION:DeskSlamAnimation
 &SPEAK:Arin
@@ -733,8 +733,8 @@ Now I ask the court to consider this: Why would Jory take such care of his coins
 The answer is simple: HE DIDN'T PUT THE DINOS IN THERE AT ALL!
 
 &SCENE:TMPHCourt
-&SET_ACTOR_POSITION:1,Arin //This is to avoid a bug where SET_POSE will try to set the pose on Arin in the anime scene
-&JUMP_TO_POSITION:2
+&SET_ACTOR_POSITION:Defense,Arin //This is to avoid a bug where SET_POSE will try to set the pose on Arin in the anime scene
+&JUMP_TO_POSITION:Witness
 &HIDE_TEXTBOX
 &PLAY_SFX:stab2
 &PLAY_EMOTION:DamageNoHelmet
@@ -754,38 +754,38 @@ I'm not sure how you polish cardboard... but regardless, Jory's care of those co
 Does the prosecution have anything to say about this?
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 Well... uh...
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Confident
 &THINK:Arin
 (Yeah, let's see you sneak your way out of this one, dawg!)
 
 &HIDE_TEXTBOX
 &STOP_SONG
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Normal
 &SPEAK:TutorialBoy
 YES! There is an explanation!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &THINK:Arin
 (Come ON dude!)
 
 &PLAY_SONG:investigationUniCore
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Clearly, my witness made an error! The dinos were simply found in a different part of the backpack.
 When he found them, Mr. O'Donovan simply was so shocked that Jory would do such a thing...
 ...that he mistook which pocket they were found in.
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_SFX:realization
 &SPEAK:Ross
 ...!
@@ -796,7 +796,7 @@ I realized that there was no room, so I checked the side pocket and that's where
 &HIDE_TEXTBOX
 &OBJECTION:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SPEAK:Arin
 That's fucking bullshit, Your Honor! That's not what he said in his testimony.
 
@@ -808,7 +808,7 @@ Hmm... That does seem like a reach.
 There were a lot of people in the area at the time. Someone must have seen where the dinos were found in the backpack.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Well, why don't we ask them?
 Esteemed court members who were present when Ross found the dinos...
@@ -827,12 +827,12 @@ Did ANY of you see which part of the backpack they were found in?
 ORDER! ORDER I SAY!
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &THINK:Arin
 (I think Brent just likes hitting that gavel and yelling...)
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 It is as I said, Your Honor. Ross simply mistook which pocket he found them in.
 The coins were damaged at some point between Jory placing them inside the backpack and the dinos being found.
@@ -849,7 +849,7 @@ And since there is nobody here that can refute this point, I have to side with t
 &HIDE_TEXTBOX
 &SHAKE_SCREEN:0.25,0.25
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:stab2
 &PLAY_EMOTION:ShockAnimation
 &SET_POSE:Sweaty
@@ -864,11 +864,11 @@ I would like the witness to revise his testimony to reflect this change.
 Let me be clear: This is the LAST time I will allow this.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 Such a wise judgement, Your Honor! Your years of judicial experience shine brightly today!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &THINK:Arin
 (This is it, then. I have to get him here. For Jory!)

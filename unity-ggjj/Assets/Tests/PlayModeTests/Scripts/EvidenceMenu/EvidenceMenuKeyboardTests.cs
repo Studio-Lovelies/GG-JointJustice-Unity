@@ -32,7 +32,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator EvidenceMenuCannotBeClosedWhenPresentingEvidence()
         {
             EvidenceController.RequirePresentEvidence();
-            yield return _storyProgresser.WaitForBehaviourActiveAndEnabled(EvidenceMenu, _storyProgresser.Keyboard.xKey);
+            yield return storyProgresser.WaitForBehaviourActiveAndEnabled(EvidenceMenu, storyProgresser.keyboard.xKey);
             Assert.True(EvidenceMenu.isActiveAndEnabled);
             yield return PressZ();
             Assert.True(EvidenceMenu.isActiveAndEnabled);
@@ -42,10 +42,10 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator IncorrectEvidenceCanBePresented()
         {
             AddEvidence();
-            yield return _storyProgresser.ProgressStory();
-            yield return _storyProgresser.ProgressStory();
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.rightArrowKey);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
+            yield return storyProgresser.ProgressStory();
+            yield return storyProgresser.ProgressStory();
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.rightArrowKey);
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.enterKey);
             var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
             Assert.IsTrue(narrativeScriptPlayer.NarrativeScriptPlayer.HasSubStory);
         }
@@ -54,7 +54,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         public IEnumerator CorrectEvidenceCanBePresented()
         {
             yield return SelectEvidence("Evidence/BentCoins");
-            yield return _storyProgresser.ProgressStory();
+            yield return storyProgresser.ProgressStory();
             var speechPanel = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
             Assert.IsTrue(speechPanel.text == "Correct");
         }
@@ -62,8 +62,8 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         private IEnumerator SelectEvidence(string evidencePath)
         {
             EvidenceController.AddEvidence(Resources.Load<EvidenceData>(evidencePath));
-            yield return TestTools.DoUntilStateIsReached(() => _storyProgresser.ProgressStory(), () => EvidenceMenu.isActiveAndEnabled);
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey);
+            yield return TestTools.DoUntilStateIsReached(() => storyProgresser.ProgressStory(), () => EvidenceMenu.isActiveAndEnabled);
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.enterKey);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
                 yield return PressRight();
             }
 
-            for (int i = evidence.Length - 1; i > -1; i--)
+            for (var i = evidence.Length - 1; i > -1; i--)
             {
                 Assert.AreEqual(evidence[i].DisplayName, Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject.DisplayName);
                 yield return PressLeft();
@@ -102,7 +102,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             
             // Spam navigation button
             yield return PressLeft();
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey, 50);
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.enterKey, 50);
 
             yield return PressRight();
             yield return CheckItems(Object.FindObjectsOfType<EvidenceMenuItem>().Length);
@@ -110,7 +110,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
             
             // Spam navigation button
             yield return PressRight();
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.enterKey, 101);
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.enterKey, 101);
             yield return PressLeft();
 
             // After all this "Stolen Dinos" should be selected
@@ -150,17 +150,17 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
         private IEnumerator CheckItems(int count)
         {
-            TextMeshProUGUI[] evidenceTextBoxes = EvidenceMenu.GetComponentsInChildren<TextMeshProUGUI>();
-            TextMeshProUGUI evidenceName =
+            var evidenceTextBoxes = EvidenceMenu.GetComponentsInChildren<TextMeshProUGUI>();
+            var evidenceName =
                 evidenceTextBoxes.First(evidenceTextBox => evidenceTextBox.gameObject.name == "EvidenceName");
-            TextMeshProUGUI evidenceDescription = evidenceTextBoxes.First(evidenceTextBox =>
+            var evidenceDescription = evidenceTextBoxes.First(evidenceTextBox =>
                 evidenceTextBox.gameObject.name == "EvidenceDescription");
-            Image[] images = EvidenceMenu.GetComponentsInChildren<Image>();
-            Image evidenceIcon = images.First(image => image.gameObject.name == "EvidenceIcon");
+            var images = EvidenceMenu.GetComponentsInChildren<Image>();
+            var evidenceIcon = images.First(image => image.gameObject.name == "EvidenceIcon");
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-                ICourtRecordObject item = Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
+                var item = Menu.SelectedButton.GetComponent<EvidenceMenuItem>().CourtRecordObject;
                 Assert.AreEqual(evidenceName.text, item.CourtRecordName);
                 Assert.AreEqual(evidenceDescription.text, item.Description);
                 Assert.AreEqual(evidenceIcon.sprite, item.Icon);
@@ -170,17 +170,17 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
         private IEnumerator PressC()
         {
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.cKey);
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.cKey);
         }
 
         private IEnumerator PressLeft()
         {
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.leftArrowKey);
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.leftArrowKey);
         }
 
         private IEnumerator PressRight()
         {
-            yield return _storyProgresser.PressForFrame(_storyProgresser.Keyboard.rightArrowKey);
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.rightArrowKey);
         }
     }
 }

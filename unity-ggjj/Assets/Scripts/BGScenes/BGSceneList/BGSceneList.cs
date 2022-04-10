@@ -47,22 +47,17 @@ public class BGSceneList : MonoBehaviour, IBGSceneList
     /// <returns>The new active scene. Can be null if an error occurred.</returns>
     public BGScene SetScene(SceneAssetName sceneName)
     {
-        if (!_bgScenes.ContainsKey(sceneName))
-        {
-            Debug.LogError($"BGScene '{sceneName}' was not found in bg-scenes dictionary");
-            return _activeScene;
-        }
-
-        BGScene targetScene = _bgScenes[sceneName];
-        if (_activeScene != null && targetScene == _activeScene)
-        {
-            return _activeScene;
-        }
-
+        var targetScene = _bgScenes[sceneName];
         if (_activeScene != null)
         {
+            if (targetScene == _activeScene)
+            {
+                return _activeScene;
+            }
+
             _activeScene.gameObject.SetActive(false);
         }
+
         _activeScene = targetScene;
         targetScene.gameObject.SetActive(true);
 

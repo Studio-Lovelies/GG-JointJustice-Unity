@@ -21,7 +21,7 @@ INCLUDE ../Templates/Macros.ink
 &ADD_EVIDENCE:BentCoins
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:SweatyNoHelmet
 &FADE_IN:1
 &PLAY_SONG:FyiIWannaXYourExaminationAllegro

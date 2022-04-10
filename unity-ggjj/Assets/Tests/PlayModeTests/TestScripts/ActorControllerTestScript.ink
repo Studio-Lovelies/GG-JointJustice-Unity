@@ -1,9 +1,9 @@
 &SCENE:TMPHCourt
-&SET_ACTOR_POSITION:1,Arin
-&SET_ACTOR_POSITION:2,Ross
-&SET_ACTOR_POSITION:3,TutorialBoy
+&SET_ACTOR_POSITION:Defense,Arin
+&SET_ACTOR_POSITION:Witness,Ross
+&SET_ACTOR_POSITION:Prosecution,TutorialBoy
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Actor Controller test script
 Actor Controller test script

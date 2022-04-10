@@ -14,7 +14,7 @@ INCLUDE ../Templates/Macros.ink
 &ADD_EVIDENCE:Jory_Srs_Letter
 
 &FADE_OUT:0
-&SET_ACTOR_POSITION:2,Jory
+&SET_ACTOR_POSITION:Witness,Jory
 
 &DIALOGUE_SPEED:0.08
 &NARRATE
@@ -101,7 +101,7 @@ T- Trivia Boy?!
 &HIDE_TEXTBOX
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:damage1
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_EMOTION:HeadSlam
 &PLAY_SFX:tutorialBoyWrong
 &SET_POSE:Angry
@@ -123,19 +123,19 @@ But first, I will regale you a tale about my tragic past.<br>One gruesome night 
 
 &PLAY_SFX:recordScratch
 &STOP_SONG
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Annoyed
 &DIALOGUE_SPEED:0.02
 &SPEAK:Arin
 Yeap, uh-huh, got it, tragic backstory tutorial blah blah blah. Can we get this show on the road?
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &DIALOGUE_SPEED:0.04
 &SPEAK:TutorialBoy
 Don't you dare skip me! I'm the-
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 Man, if the artists drew me yawning, that's what you'd be seeing right now.
 &SET_POSE:Normal
@@ -152,7 +152,7 @@ IT WILL BEGIN NOW!
 The prosecution will now give their opening statement!
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Normal
 &FADE_OUT_SONG:2
 &SPEAK:TutorialBoy
@@ -168,13 +168,13 @@ This is easily the stupidest thing I've ever done.
 At about 12:00 PM, the Game Grumps and crew were partaking in a livestream.
 A recording of the livestream COULD be added to the court record, if you riddle m-
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Annoyed
 &SPEAK:Arin
 Yeah, yeah, I know. Press 'Z' to see the court record. Could you get to the point, please?
 
 &PLAY_SFX:stab
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 W-Well, you don't have to be so rude about it! Fine, it's been added to the court record.
@@ -194,7 +194,7 @@ A quick search and a few minutes later, they were suspiciously found in THIS bac
 
 <- AddEvidence("JorysBackpack")
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &DIALOGUE_SPEED:0.04
 &SPEAK:Arin
@@ -206,7 +206,7 @@ The heck is that <color={red}>white stain</color> there?
 Maybe Jory took the NSP song “Objects of Desire” as inspiration.<br>Know what I mean?
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Angry
 &SPEAK:TutorialBoy
 Unfortunately, we ALL know what you mean, “Mr. Sexbang”{ellipsis}
@@ -256,7 +256,7 @@ Yes, Your Honor. I would now like to call said defendant, Jory Griffis, to the s
 
 &OBJECTION:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{doublePanTime}
+&PAN_TO_POSITION:Defense,{doublePanTime}
 &SPEAK:Arin
 Wait, you can't do that! It violates the Fifth Amendment!
 

@@ -18,14 +18,14 @@ INCLUDE ../Templates/Macros.ink
 &ADD_EVIDENCE:JorysBackpack
 &ADD_EVIDENCE:StolenDinos
 
-&SET_ACTOR_POSITION:2,Jory
-&JUMP_TO_POSITION:2
+&SET_ACTOR_POSITION:Witness,Jory
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Nervous
 
 &PLAY_SONG:logicAndTrains,{songFadeTime}
 &FADE_IN:2
 
-&PAN_TO_POSITION:3,{panTime}
+&PAN_TO_POSITION:Prosecution,{panTime}
 &DIALOGUE_SPEED:0.06
 &SPEAK:Tutorial_Boy
 &AUTO_SKIP:True
@@ -34,39 +34,39 @@ Witness, state y-
 
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:supershock
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sweaty
 &DIALOGUE_SPEED:0.02
 &SPEAK:Jory
 I'm sorry! Please forgive me!!!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &PLAY_SFX:stab
 &SPEAK:Arin
 Jory, WHAT THE HECK!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Nervous
 &DIALOGUE_SPEED:0.06
 &SPEAK:Jory
 Ah, jeez{ellipsis}
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 Just take a deep breath and answer the questions.
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Jory
 O-Okay{ellipsis}
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &DIALOGUE_SPEED:0.04
 &THINK:Arin
 <color=lightblue>(This is gonna be rough, I can already tell{ellipsis})
 
 &HIDE_TEXTBOX
-&PAN_TO_POSITION:3,{doublePanTime}
+&PAN_TO_POSITION:Prosecution,{doublePanTime}
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Angry
@@ -75,40 +75,40 @@ O-Okay{ellipsis}
 &SPEAK:Tutorial_Boy
 WITNESS!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sweaty
 &SPEAK:Jory
 AHHH!
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Normal
 &DIALOGUE_SPEED:0.04
 &SPEAK:Tutorial_Boy
 I have questions about the time before the incident, and you will answer!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Nervous
 &DIALOGUE_SPEED:0.06
 &SPEAK:Jory
 Ah{ellipsis} Jeez{ellipsis} Okay.
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &DIALOGUE_SPEED:0.04
 &SPEAK:Tutorial_Boy
 When the console broke, you yourself were the first to volunteer to go get a backup console, were you not?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Thinking
 &SPEAK:Jory
 Well, it's sort of my job to help with technical issues, but-
 
 &HIDE_TEXTBOX
-&PAN_TO_POSITION:3,{panTime}
+&PAN_TO_POSITION:Prosecution,{panTime}
 &SPEAK:Tutorial_Boy
 So you ADMIT that you jumped on the opportunity to be the one to do the grunt work for the Grumps?
 How suspicious! Surely there were other, less busy people who could have gotten it, but you didn't hesitate!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Nervous
 &SPEAK:Jory
 &AUTO_SKIP:True
@@ -116,7 +116,7 @@ Yeah{ellipsis} I guess I didn't{ellipsis} but again it's part of my jo-
 &AUTO_SKIP:False
 
 &HIDE_TEXTBOX
-&PAN_TO_POSITION:3,{panTime}
+&PAN_TO_POSITION:Prosecution,{panTime}
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
@@ -125,18 +125,18 @@ Yeah{ellipsis} I guess I didn't{ellipsis} but again it's part of my jo-
 &SPEAK:Tutorial_Boy
 AH-HAH!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sweaty
 &PLAY_SFX:stab
 &SPEAK:Jory
 YIKES!!!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &DIALOGUE_SPEED:0.04
 &THINK:Arin
 <color=lightblue>(Dang! This guy is intense!)
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:Tutorial_Boy
 Suspicious behavior indeed!
 Especially since,  according to the livestream recording here, you were busy cleaning your Good Boy Coins.
@@ -150,7 +150,7 @@ Dude, what do his coins have to do with this? And what's with this guilt trippin
 You should say something, Arin.
 
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Thinking
 &THINK:Arin
 Hm{ellipsis}
@@ -178,12 +178,12 @@ Hm{ellipsis}
 Objection sustained. Mr. Boy, you will refrain from “flowery language” when questioning your witness.
 
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &SPEAK:Tutorial_Boy
 Er{ellipsis} Y-Yes, Your Honor. The spirit of justice took hold of me and I got carried away.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 Also{ellipsis}
 -> Continue
@@ -205,7 +205,7 @@ It's making everyone nervous.
 
 &HIDE_TEXTBOX
 &OBJECTION:Tutorial_Boy
-&PAN_TO_POSITION:3,{doublePanTime}
+&PAN_TO_POSITION:Prosecution,{doublePanTime}
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Angry
@@ -213,7 +213,7 @@ It's making everyone nervous.
 &SPEAK:Tutorial_Boy
 NEVER! It's my only way of objecting!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Annoyed
 &SPEAK:Arin
 You can't be serious.
@@ -224,7 +224,7 @@ You can't be serious.
 Objection sustained. I'll allow it.
 
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &SPEAK:Arin
 Your Honor! That kind of behavior isn't appropriate in this courtroom!
@@ -235,7 +235,7 @@ Perhaps, but I get to make the call, and it's amusing to watch him do it.
 
 &HIDE_TEXTBOX
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 
@@ -252,12 +252,12 @@ When you were asked to go get a replacement Switch, what did you do with those c
 
 &HIDE_TEXTBOX
 &SET_POSE:Thinking,Jory
-&PAN_TO_POSITION:2,{panTime}
+&PAN_TO_POSITION:Witness,{panTime}
 &SPEAK:Jory
 Well, since I had just finished polishing them, I decided to put them away in my backpack{ellipsis}
 and leave it in the 10 Minute Power Hour recording room since I knew I had to do setup for that right after.
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:Tutorial_Boy
 Would those coins happen to be{ellipsis}
 &SHAKE_SCREEN:0.25,0.2
@@ -269,12 +269,12 @@ THESE!?!?
 <- AddEvidence("BentCoins")
 
 &PLAY_SFX:stab
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sweaty
 &SPEAK:Jory
 Uh{ellipsis} Uh{ellipsis}
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Normal
 &DIALOGUE_SPEED:0.04
 &SPEAK:Tutorial_Boy
@@ -287,12 +287,12 @@ As stated before, these coins were found in the same pocket as the dinosaurs{ell
 &DIALOGUE_SPEED:0.02
 CONFESS TO YOUR CRIMES, JORY!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &DIALOGUE_SPEED:0.06
 &SPEAK:Jory
 I{ellipsis} ER{ellipsis} UH{ellipsis} Oh man, yeah, those are{ellipsis} My coins{ellipsis} B-but that-
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Confident
 &DIALOGUE_SPEED:0.04
 &SPEAK:Tutorial_Boy
@@ -301,14 +301,14 @@ Is that a confession I hear? You admit your guilt!?
 &HIDE_TEXTBOX
 &OBJECTION:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{doublePanTime}
+&PAN_TO_POSITION:Defense,{doublePanTime}
 &SPEAK:Arin
 The prosecution is hectoring the witness!
 The coins being in the pocket with the dinos doesn't directly prove he put them both there!
 
 &HIDE_TEXTBOX
 &SET_POSE:Angry,Tutorial_Boy
-&PAN_TO_POSITION:3,{doublePanTime}
+&PAN_TO_POSITION:Prosecution,{doublePanTime}
 &SPEAK:Tutorial_Boy
 What? Just look at the witness! His sweatiness and nervous behavior is that of a criminal
 
@@ -328,7 +328,7 @@ Very well. But don't think you're out of hot water yet.
 You said you were doing setup for something right after the livestream.
 Please tell the court what that <color={red}>something</color> was going to be.
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Thinking
 &SPEAK:Jory
 Well{ellipsis} You see, we were planning on doing the 10 Minute Power Hour right after the livestream.
@@ -336,11 +336,11 @@ And I had to help set up since we were planning on doing something{ellipsis}
 &SET_POSE:Nervous
 {ellipsis}different.
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:Tutorial_Boy
 And what was this something that was so different?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Normal
 &SPEAK:Jory
 Well, to put it simply, we were going to do a dunk tank contest--
@@ -350,12 +350,12 @@ Something about Ninja Party School{ellipsis}? I don't know, it was Dan and Arin'
 &SET_POSE:Nervous
 But I wasn't really looking forward to being dunked in{ellipsis} cream{ellipsis}
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &THINK:Arin
 <color=lightblue>(Don't say that! You're gonna get yourself into more trouble!)
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Confident
 &SPEAK:Tutorial_Boy
 And so you decided to sabotage the episode's production{ellipsis}
@@ -363,7 +363,7 @@ And so you decided to sabotage the episode's production{ellipsis}
 &SET_POSE:Angry
 I see right through you, Jory Griffis!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sweaty
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_SFX:stab
@@ -371,7 +371,7 @@ I see right through you, Jory Griffis!
 N-No! I would never-
 
 &HIDE_TEXTBOX
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:damage1
 &SHAKE_SCREEN:0.25,0.2
 &PLAY_EMOTION:HeadSlam
@@ -382,7 +382,7 @@ Save your lies! This is a courtroom of truth!
 &HIDE_TEXTBOX
 &OBJECTION:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{doublePanTime}
+&PAN_TO_POSITION:Defense,{doublePanTime}
 &SPEAK:Arin
 There is no proof that Jory is lying!
 
@@ -394,7 +394,7 @@ You're simply pushing a false narrative to make my client look bad!
 
 &HIDE_TEXTBOX
 &SET_POSE:Confident,Tutorial_Boy
-&PAN_TO_POSITION:3,{doublePanTime}
+&PAN_TO_POSITION:Prosecution,{doublePanTime}
 &SPEAK:Tutorial_Boy
 Oh ho, I assure you, this is no bravado. We have true motivation.
 We have evidence that connects Jory to the crime, and{ellipsis}

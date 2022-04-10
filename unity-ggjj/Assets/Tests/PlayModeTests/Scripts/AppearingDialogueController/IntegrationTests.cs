@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -31,9 +30,8 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
         [UnityTest]
         public IEnumerator GetDelayResultImpactsTimeUntilOnLineEndEventIsFired()
         {
-            const string textToPrint = "Lorem ips";
+            const string TEXT_TO_PRINT = "Lorem ips";
 
-            DateTime startedAt = default;
             DateTime completedAt = default;
 
             void OnLineEndUpdateCompletionTime()
@@ -41,13 +39,13 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
                 completedAt = DateTime.Now;
             }
 
-            TimeSpan firstDuration = default;
-            TimeSpan secondDuration = default;
+            TimeSpan firstDuration;
+            TimeSpan secondDuration;
 
             _appearingDialogueController.OnLineEnd.AddListener(OnLineEndUpdateCompletionTime);
             _appearingDialogueController.CharacterDelay = 1f;
-            startedAt = DateTime.Now;
-            _appearingDialogueController.PrintText(textToPrint);
+            var startedAt = DateTime.Now;
+            _appearingDialogueController.PrintText(TEXT_TO_PRINT);
             while (completedAt == default)
             {
                 yield return new WaitForSeconds(1.0f);
@@ -57,7 +55,7 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
 
             _appearingDialogueController.CharacterDelay = 0f;
             startedAt = DateTime.Now;
-            _appearingDialogueController.PrintText(textToPrint);
+            _appearingDialogueController.PrintText(TEXT_TO_PRINT);
             while (completedAt == default)
             {
                 yield return new WaitForSeconds(1.0f);
@@ -70,7 +68,6 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
         [UnityTest]
         public IEnumerator AppearInstantlyImpactsTimeUntilOnLineEndEventIsFired()
         {
-            DateTime startedAt = default;
             DateTime completedAt = default;
 
             void OnLineEndUpdateCompletionTime()
@@ -78,12 +75,12 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
                 completedAt = DateTime.Now;
             }
 
-            TimeSpan firstDuration = default;
-            TimeSpan secondDuration = default;
+            TimeSpan firstDuration;
+            TimeSpan secondDuration;
 
             _appearingDialogueController.OnLineEnd.AddListener(OnLineEndUpdateCompletionTime);
             _appearingDialogueController.AppearInstantly = false;
-            startedAt = DateTime.Now;
+            var startedAt = DateTime.Now;
             _appearingDialogueController.PrintText(TEST_TEXT);
             while (completedAt == default)
             {
