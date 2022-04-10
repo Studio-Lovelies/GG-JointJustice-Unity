@@ -1,7 +1,8 @@
 INCLUDE ../Options.ink
 INCLUDE ../Templates/Macros.ink
+INCLUDE StartingEvidence.ink
 
-&ADD_EVIDENCE:AttorneysBadge
+<- Part1StartingEvidence
 
 &PLAY_SONG:turnaboutGrumpsters,{songFadeTime}
 &DIALOGUE_SPEED:0.06

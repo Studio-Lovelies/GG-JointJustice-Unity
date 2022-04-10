@@ -1,17 +1,10 @@
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Templates/Macros.ink
+INCLUDE StartingEvidence.ink
 
 <- COURT_TMPH
-
-&ADD_RECORD:Arin
-&ADD_RECORD:Dan
-&ADD_RECORD:Jory
-
-&ADD_EVIDENCE:AttorneysBadge
-&ADD_EVIDENCE:PlumberInvoice
-&ADD_EVIDENCE:Switch
-&ADD_EVIDENCE:Jory_Srs_Letter
+<- Part3StartingEvidence
 
 &FADE_OUT:0
 &SET_ACTOR_POSITION:Witness,Jory
@@ -275,3 +268,4 @@ Keep your pants on. I make up the rules in this courthouse. I will allow the tes
 &WAIT:3
 
 &LOAD_SCRIPT:Case1/1-4-JoryWitnessTestimony
+-> END

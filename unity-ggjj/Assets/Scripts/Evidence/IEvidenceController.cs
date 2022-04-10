@@ -10,4 +10,5 @@ public interface IEvidenceController
     void AddRecord(ActorData actorData);
     void RequirePresentEvidence();
     void SubstituteEvidence(EvidenceData initialEvidenceData, EvidenceData substituteEvidenceData);
+    void ClearCourtRecord();
 }

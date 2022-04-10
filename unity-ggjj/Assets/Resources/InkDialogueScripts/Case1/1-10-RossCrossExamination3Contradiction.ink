@@ -2,27 +2,14 @@ INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Templates/FailureStates.ink
 INCLUDE ../Templates/Macros.ink
+INCLUDE StartingEvidence.ink
 
+<- Part5StartingEvidence
 <- COURT_TMPH
 <- Failures.TMPH
 
-&ADD_RECORD:Arin
-&ADD_RECORD:Dan
-&ADD_RECORD:Jory
-&ADD_RECORD:JudgeBrent
-&ADD_RECORD:TutorialBoy
-&ADD_RECORD:Ross
-
-&ADD_EVIDENCE:AttorneysBadge
-&ADD_EVIDENCE:PlumberInvoice
-&ADD_EVIDENCE:Switch
-&ADD_EVIDENCE:Jory_Srs_Letter
-&ADD_EVIDENCE:LivestreamRecording
-&ADD_EVIDENCE:JorysBackpack
-&ADD_EVIDENCE:StolenDinos
-&ADD_EVIDENCE:BentCoins
-
 &JUMP_TO_POSITION:Witness
+
 &SPEAK:Ross
 I was using my Switch! Duh! Like, how ELSE could I be making it?
 

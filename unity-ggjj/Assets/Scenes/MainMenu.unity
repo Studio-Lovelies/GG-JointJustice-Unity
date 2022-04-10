@@ -2725,7 +2725,7 @@ MonoBehaviour:
   _narrativeGameState: {fileID: 0}
   _settingsMusicVolume: 0.5
   _settingsSfxVolume: 0.5
-  _transitionDuration: 2
+  _defaultSong: {fileID: 0}
 --- !u!4 &718748591
 Transform:
   m_ObjectHideFlags: 0

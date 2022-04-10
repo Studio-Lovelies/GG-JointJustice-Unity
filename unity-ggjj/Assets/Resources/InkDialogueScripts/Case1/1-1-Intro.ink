@@ -1,4 +1,7 @@
 INCLUDE ../Options.ink
+INCLUDE StartingEvidence.ink
+
+<- Part1StartingEvidence
 
 &FADE_OUT:0
 &PLAY_SONG:prologueInPMinor,{songFadeTime}
