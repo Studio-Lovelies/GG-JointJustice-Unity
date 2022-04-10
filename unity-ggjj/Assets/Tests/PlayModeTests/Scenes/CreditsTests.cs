@@ -27,7 +27,7 @@ namespace Tests.PlayModeTests.Scenes
             yield return SceneManager.LoadSceneAsync("Credits");
             var inputTestTools = new InputTestTools();
             inputTestTools.Setup();
-            yield return inputTestTools.PressForFrame(inputTestTools.Keyboard.xKey);
+            yield return inputTestTools.PressForFrame(inputTestTools.keyboard.xKey);
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "MainMenu");
         }
     }
