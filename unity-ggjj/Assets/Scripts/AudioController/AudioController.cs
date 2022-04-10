@@ -73,8 +73,14 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <returns>The AudioSource of the new child object</returns>
     private AudioSource CreateAudioSource(string gameObjectName)
     {
-        return new GameObject(gameObjectName) { transform = { parent = transform } }.AddComponent<AudioSource>();
-    } 
+        return new GameObject(gameObjectName)
+        {
+            transform =
+            {
+                parent = transform
+            }
+        }.AddComponent<AudioSource>();
+    }
 
     /// <summary>
     /// Play given audio clip immediately
