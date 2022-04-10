@@ -18,6 +18,9 @@ public class AudioController : MonoBehaviour, IAudioController
     [Tooltip("SFX Volume level set by player")]
     [Range(0f, 1f)]
     [SerializeField] private float _settingsSfxVolume = 0.5f;
+
+    [Tooltip("Drag an AudioClip here to be played on scene start")]
+    [SerializeField] private AudioClip _defaultSong;
     
     private AudioSource _musicAudioSource;
     private AudioSource _sfxAudioSource;
@@ -31,6 +34,8 @@ public class AudioController : MonoBehaviour, IAudioController
     {
         _musicFader = new MusicFader();
         _musicAudioSource = CreateAudioSource("Music Player");
+        PlaySong(_defaultSong, 0);
+        _musicAudioSource.Play();
         _sfxAudioSource = CreateAudioSource("SFX Player");
         _musicAudioSource.loop = true;
     }
