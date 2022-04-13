@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +10,8 @@ public class ChapterSelectMenu : MonoBehaviour
     [SerializeField] private Button _backButton;
     [SerializeField] private AudioController _audioController;
     [SerializeField] private AudioClip _buttonSelectAudioClip;
+    [SerializeField] private SceneLoader _sceneLoader;
+    [SerializeField] private AudioClip _startGameSound;
 
     private readonly List<MenuItem> _menuItems = new List<MenuItem>();
     
@@ -37,7 +38,8 @@ public class ChapterSelectMenu : MonoBehaviour
             }
             menuItem.Text = $"Part {i}";
             menuItem.OnItemSelect.AddListener(() => _audioController.PlaySfx(_buttonSelectAudioClip));
-            menuItem.Button.onClick.AddListener(StartGame);
+            var chapterIndex = i - 1;
+            menuItem.Button.onClick.AddListener(() => StartGame(chapters[chapterIndex]));
             _menuItems.Add(menuItem);
         }
 
@@ -45,8 +47,10 @@ public class ChapterSelectMenu : MonoBehaviour
         _backButton.onClick.AddListener(menuOpener.CloseMenu);
     }
 
-    private static void StartGame()
+    private void StartGame(TextAsset story)
     {
-        throw new NotImplementedException("Put logic for starting game here");
+        _audioController.PlaySfx(_startGameSound);
+        _sceneLoader.NarrativeScript = story;
+        _sceneLoader.LoadScene("Game");
     }
 }
