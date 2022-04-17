@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -135,6 +136,41 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
             _appearingDialogueController.TextBoxHidden = true;
             Assert.IsFalse(nameBox.activeSelf);
             yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator TextCanBeAutoSkipped()
+        {
+            var storyProgresser = new StoryProgresser();
+            storyProgresser.Setup();
+            TestTools.StartGame("AutoSkipTest");
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeGameState>().NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
+            
+            yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
+            var dialogueText = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
+            Assert.AreEqual("Start of test", dialogueText.text);
+            narrativeScriptPlayer.Continue();
+            yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
+            Assert.AreEqual("End of test", dialogueText.text);
+        }
+
+        [UnityTest]
+        public IEnumerator ContinueArrowAppearsWhenTextIsPrinting()
+        {
+            var storyProgresser = new StoryProgresser();
+            storyProgresser.Setup();
+            TestTools.StartGame("AutoSkipTest");
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeGameState>().NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
+            var continueArrow = GameObject.Find("ContinueArrow");
+
+            Assert.IsFalse(_appearingDialogueController.IsPrintingText);
+            Assert.IsTrue(continueArrow.activeInHierarchy);
+
+            narrativeScriptPlayer.Continue();
+            Assert.IsFalse(continueArrow.activeInHierarchy);
+            
+            yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
+            Assert.IsTrue(continueArrow.activeInHierarchy);
         }
     }
 }
