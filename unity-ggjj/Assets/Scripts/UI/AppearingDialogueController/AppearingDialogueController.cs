@@ -40,9 +40,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
     [SerializeField] private GameObject _continueArrow;
 
-    [field:Header("Events")]
-    [field:SerializeField] public UnityEvent OnLineEnd { get; private set; }
-
     private TMP_TextInfo _textInfo;
     private Coroutine _printCoroutine;
     private int _chirpIndex;

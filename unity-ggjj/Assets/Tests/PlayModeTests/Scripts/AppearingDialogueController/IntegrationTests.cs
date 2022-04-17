@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using Tests.PlayModeTests.Tools;
 using TMPro;
 using UnityEngine;
@@ -33,35 +34,17 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
         {
             const string TEXT_TO_PRINT = "Lorem ips";
 
-            DateTime completedAt = default;
-
-            void OnLineEndUpdateCompletionTime()
-            {
-                completedAt = DateTime.Now;
-            }
-
-            TimeSpan firstDuration;
-            TimeSpan secondDuration;
-
-            _appearingDialogueController.OnLineEnd.AddListener(OnLineEndUpdateCompletionTime);
             _appearingDialogueController.CharacterDelay = 1f;
             var startedAt = DateTime.Now;
             _appearingDialogueController.PrintText(TEXT_TO_PRINT);
-            while (completedAt == default)
-            {
-                yield return new WaitForSeconds(1.0f);
-            }
-            firstDuration = completedAt - startedAt;
-            completedAt = default;
+            yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
+            var firstDuration = DateTime.Now - startedAt;
 
             _appearingDialogueController.CharacterDelay = 0f;
             startedAt = DateTime.Now;
             _appearingDialogueController.PrintText(TEXT_TO_PRINT);
-            while (completedAt == default)
-            {
-                yield return new WaitForSeconds(1.0f);
-            }
-            secondDuration = completedAt - startedAt;
+            yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
+            var secondDuration = DateTime.Now - startedAt;
 
             Assert.Greater(firstDuration, secondDuration);
         }
@@ -69,35 +52,20 @@ namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
         [UnityTest]
         public IEnumerator AppearInstantlyImpactsTimeUntilOnLineEndEventIsFired()
         {
-            DateTime completedAt = default;
-
-            void OnLineEndUpdateCompletionTime()
-            {
-                completedAt = DateTime.Now;
-            }
-
             TimeSpan firstDuration;
             TimeSpan secondDuration;
 
-            _appearingDialogueController.OnLineEnd.AddListener(OnLineEndUpdateCompletionTime);
             _appearingDialogueController.AppearInstantly = false;
             var startedAt = DateTime.Now;
             _appearingDialogueController.PrintText(TEST_TEXT);
-            while (completedAt == default)
-            {
-                yield return new WaitForSeconds(1.0f);
-            }
-            firstDuration = completedAt - startedAt;
-            completedAt = default;
+            yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
+            firstDuration = DateTime.Now - startedAt;
 
             _appearingDialogueController.AppearInstantly = true;
             startedAt = DateTime.Now;
             _appearingDialogueController.PrintText(TEST_TEXT);
-            while (completedAt == default)
-            {
-                yield return new WaitForSeconds(1.0f);
-            }
-            secondDuration = completedAt - startedAt;
+            yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
+            secondDuration = DateTime.Now - startedAt;
 
             Assert.Greater(firstDuration, secondDuration);
         }
