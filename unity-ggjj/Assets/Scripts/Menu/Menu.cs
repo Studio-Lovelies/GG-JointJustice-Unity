@@ -71,14 +71,6 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    /// Set the screen to fullscreen mode if isFullscreen is true
-    /// </summary>
-    public void SetFullscreen (bool isFullScreen)
-    {
-        Screen.fullScreen = isFullScreen;
-    }
-
-    /// <summary>
     /// Called when the menu is disabled. Should be used to set DialogueController to not busy.
     /// </summary>
     private void OnDisable()
