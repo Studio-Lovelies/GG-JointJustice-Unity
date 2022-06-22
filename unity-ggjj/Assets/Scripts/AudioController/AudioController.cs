@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
@@ -19,6 +18,9 @@ public class AudioController : MonoBehaviour, IAudioController
     [Tooltip("SFX Volume level set by player")]
     [Range(0f, 1f)]
     [SerializeField] private float _settingsSfxVolume = 0.5f;
+
+    [Tooltip("Drag an AudioClip here to be played on scene start")]
+    [SerializeField] private AudioClip _defaultSong;
     
     private AudioSource _musicAudioSource;
     private AudioSource _sfxAudioSource;
@@ -32,6 +34,8 @@ public class AudioController : MonoBehaviour, IAudioController
     {
         _musicFader = new MusicFader();
         _musicAudioSource = CreateAudioSource("Music Player");
+        PlaySong(_defaultSong, 0);
+        _musicAudioSource.Play();
         _sfxAudioSource = CreateAudioSource("SFX Player");
         _musicAudioSource.loop = true;
     }
@@ -69,19 +73,13 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <returns>The AudioSource of the new child object</returns>
     private AudioSource CreateAudioSource(string gameObjectName)
     {
-        var newGameObject = new GameObject(gameObjectName);
-        newGameObject.transform.parent = transform;
-        return newGameObject.AddComponent<AudioSource>();
-    }
-
-    /// <summary>
-    /// Plays sound effect of desired name.
-    /// </summary>
-    /// <param name="sfx">Name of sound effect asset, must be in `Resources/Audio/SFX`</param>
-    public void PlaySfx(string sfx)
-    {
-        AudioClip soundEffectClip = _narrativeGameState.ObjectStorage.GetObject<AudioClip>(sfx);
-        PlaySfx(soundEffectClip);
+        return new GameObject(gameObjectName)
+        {
+            transform =
+            {
+                parent = transform
+            }
+        }.AddComponent<AudioSource>();
     }
 
     /// <summary>

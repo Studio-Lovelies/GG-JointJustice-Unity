@@ -1,24 +1,10 @@
 INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Templates/Macros.ink
+INCLUDE StartingEvidence.ink
 
+<- Part5StartingEvidence
 <- COURT_TMPH
-
-&ADD_RECORD:Arin
-&ADD_RECORD:Dan
-&ADD_RECORD:Jory
-&ADD_RECORD:JudgeBrent
-&ADD_RECORD:TutorialBoy
-&ADD_RECORD:Ross
-
-&ADD_EVIDENCE:AttorneysBadge
-&ADD_EVIDENCE:PlumberInvoice
-&ADD_EVIDENCE:Switch
-&ADD_EVIDENCE:Jory_Srs_Letter
-&ADD_EVIDENCE:LivestreamRecording
-&ADD_EVIDENCE:JorysBackpack
-&ADD_EVIDENCE:StolenDinos
-&ADD_EVIDENCE:BentCoins
 
 &SCENE:TMPHJudge
 &SET_POSE:Surprised
@@ -27,7 +13,7 @@ Something{ellipsis} off?
 
 &HIDE_TEXTBOX
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Angry
@@ -35,7 +21,7 @@ Something{ellipsis} off?
 It's covered in JIZZ, right? Hah hah, very funny. We've heard that joke a million times!
 That's no reason to interrupt the verdict.
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:MadMilk
 &SPEAK:Ross
 Y-Yeah..! What does that have to do with anything!?
@@ -66,14 +52,14 @@ I don't think that's jizz AT ALL!
 &HIDE_TEXTBOX
 &PLAY_SFX:stab
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_EMOTION:DamageNoHelmet
 &SET_POSE:MadMilk
 &SPEAK:Ross
 Huh?!
 
 &PLAY_SFX:stab
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 Not{ellipsis} jizz?
@@ -93,7 +79,7 @@ I think I know what it is, and if I can have those dinosaurs{ellipsis}
 I think I can prove Jory's innocence!
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Thinking
 &THINK:Arin
 (Wait{ellipsis} I think I know what Dan's getting at.)
@@ -142,17 +128,17 @@ be allowed to taste those dinosaurs{ellipsis}
 
 &PLAY_SFX:stab
 &SHAKE_SCREEN:0.25,0.25
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:GlaringNoHelmet
 &SPEAK:Ross
 EW, SICK!
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 You can't be serious.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &SPEAK:Arin
 I'm deadly serious!
@@ -166,14 +152,14 @@ be allowed to smell those stain-covered dinosaurs{ellipsis}
 
 &HIDE_TEXTBOX
 &PLAY_SFX:stab
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_EMOTION:DamageNoHelmet
 &SPEAK:Ross
 Ack!
 
 &HIDE_TEXTBOX
 &OBJECTION:TutorialBoy
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Angry
@@ -182,7 +168,7 @@ That is an absurd request! I object to this!
 No trivial stain is going to change the outcome of this trial!
 You fools probably got it covered in some paint or something and you don't remember.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Point
 &SPEAK:Arin
 Then let's find out for sure!
@@ -202,7 +188,7 @@ I'm not sure what to think of this{ellipsis} request.
 
 &HIDE_TEXTBOX
 &OBJECTION:TutorialBoy
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 Your Honor, please think about this. This is a trivial matter!
@@ -222,7 +208,7 @@ Defense, can you prove the importance of these stains?
 Arin, I think we can.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &SPEAK:Arin
 Uh, yeah!
@@ -269,7 +255,7 @@ But similar stains on two pieces of evidence? That seems relevant to the case.
 
 &HIDE_TEXTBOX
 &OBJECTION:TutorialBoy
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 No! I don't{ellipsis} I{ellipsis} it's{ellipsis}
@@ -295,7 +281,7 @@ I{ellipsis} apologize, Your Honor.
 The defense has proven its point. Mr. Avidan will be permitted to conduct his, erm, 'test'.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &THINK:Arin
 (Okay, now we're getting somewhere. It's all on you Dan{ellipsis})
@@ -324,12 +310,12 @@ I KNEW IT!
 &WAIT:2
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:MadMilk
 &PLAY_SFX:shock2
 &WAIT:2
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &PLAY_SFX:shock2
 &WAIT:1
@@ -352,19 +338,19 @@ It's actually just regular milk! Whole milk, to be exact!
 
 &HIDE_TEXTBOX
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_SFX:stab
 &PLAY_EMOTION:DamageNoHelmet
 &SET_POSE:MadMilk
 &SPEAK:Ross
 OH NO!
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Sweaty
 &SPEAK:TutorialBoy
 You can't be serious! How does that prove anything?
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Thinking
 &THINK:Arin
 (Yeah, how does that prove anything?)
@@ -382,23 +368,23 @@ It proves everything, actually! Not only does this clear our client's name{ellip
 It also proves that Ross was the real culprit!
 
 &SHAKE_SCREEN:0.25,0.25
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:stab
 &SPEAK:TutorialBoy
 No way!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Confident
 &SPEAK:Arin
 Yes way, and I can back it up!
 &SET_POSE:Normal
 See{ellipsis} what you don't know, Mister Tutorial dude--
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 It's Tutorial BOY, thank you very much!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Annoyed
 &SPEAK:Arin
 {ellipsis}
@@ -417,7 +403,7 @@ ROSS!!!
 
 &HIDE_TEXTBOX
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_SFX:stab2
 &PLAY_EMOTION:DamageNoHelmet
 &SET_POSE:MadMilk
@@ -441,7 +427,7 @@ Order Order ORDER, I say! ORDER!!!
 I sense that you have some kind of idea of what really happened, Arin?
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Confident
 &SPEAK:Arin
 You bet I do, Your Honor!
@@ -455,7 +441,7 @@ It's clear from the evidence, Your Honor, that Jory could not have possibly stol
 
 &HIDE_TEXTBOX
 &OBJECTION:TutorialBoy
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:TutorialBoy
 N-No! That can't be true!
 &HIDE_TEXTBOX
@@ -464,7 +450,7 @@ N-No! That can't be true!
 &SET_POSE:Sweaty
 You must be lying! It's way too convenient for Jory to be allergic to milk!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Confident
 &SPEAK:Arin
 As if! I have proof of his condition RIGHT HERE!
@@ -503,7 +489,7 @@ No one else likes milk like Ross does, and that makes him our real culprit!
 
 &HIDE_TEXTBOX
 &STOP_SONG
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_SFX:stab
 &SHAKE_SCREEN:0.25,0.25
 &PLAY_EMOTION:Breakdown
@@ -534,7 +520,7 @@ All in a day's work for Danny Sexbang!
 Yes{ellipsis} Well done, Mr. Avidan.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 Hey, I did a lot too!
 
 &SCENE:TMPHJudge

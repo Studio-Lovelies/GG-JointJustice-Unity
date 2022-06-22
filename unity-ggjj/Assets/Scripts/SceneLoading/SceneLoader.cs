@@ -10,13 +10,13 @@ using UnityEngine.SceneManagement;
 /// LoadScene coroutine keeps track of the progress of the scene loading.
 /// Unloads the current scene after new scene has loaded.
 /// </summary>
-public class SceneLoader : MonoBehaviour
+public class SceneLoader : MonoBehaviour, ISceneLoader
 {
     public bool Busy { get; private set; }
 
-    [Tooltip("Assign a narrative script to play on scene load")]
-    [SerializeField]
-    private TextAsset _narrativeScript;
+    [field: Tooltip("Assign a narrative script to play on scene load")]
+    [field: SerializeField]
+    public TextAsset NarrativeScript { get; set; }
 
     private ITransition _transition;
     private AsyncOperation _sceneLoadOperation;
@@ -85,7 +85,7 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
 
-        if (_narrativeScript != null)
+        if (NarrativeScript != null)
         {
             SetNarrativeScript();
         }
@@ -99,7 +99,7 @@ public class SceneLoader : MonoBehaviour
     private void SetNarrativeScript()
     {
         var gameState = FindObjectOfType<NarrativeGameState>();
-        gameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_narrativeScript);
+        gameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(NarrativeScript);
         gameState.StartGame();
     }
 }

@@ -169,4 +169,18 @@
             return null;
         }
     }
+    public class UnitySceneAssetNameParser : Parser<UnitySceneAssetName>
+    {
+        public override string Parse(string input, out UnitySceneAssetName output)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                output = null;
+                return $"String cannot be empty";
+            }
+
+            output = new UnitySceneAssetName(input);
+            return null;
+        }
+    }
 }

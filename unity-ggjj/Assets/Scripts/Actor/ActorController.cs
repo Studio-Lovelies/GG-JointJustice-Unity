@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ActorController : MonoBehaviour, IActorController
 {
@@ -28,17 +28,20 @@ public class ActorController : MonoBehaviour, IActorController
     }
 
     /// <summary>
-    /// Set the target GameObject to be considered the active actor to manipulate when actions are triggered in  the dialogue script
+    /// Set the target GameObject to be considered the active actor to manipulate when actions are triggered in the dialogue script
     /// </summary>
     /// <param name="actor">Actor MonoBehaviour attached to the GameObject to be set as the active actor</param>
     public void SetActiveActorObject(Actor actor)
     {
+        if (actor == null)
+        {
+            throw new ArgumentNullException(nameof(actor), "Can't set active Actor object: The supplied actor is null");
+        }
+
         _activeActor = actor;
         _currentSpeakingType = SpeakingType.Speaking;
-        if (actor != null)
-        {
-            actor.AttachController(this);
-        }
+
+        actor.AttachController(this);
     }
 
 
@@ -51,11 +54,13 @@ public class ActorController : MonoBehaviour, IActorController
     public void SetActiveActor(string actor)
     {
         var targetActorData = FindActorDataInInventory(actor);
-        if (_activeActor != null)
+        if (_activeActor == null)
         {
-            _activeActor.ActorData = targetActorData;
-            SetActorInLookupTable(targetActorData, _activeActor);
+            throw new NotSupportedException("Can't assign ActorData to Actor: No Actor is currently marked as active");
         }
+
+        _activeActor.ActorData = targetActorData;
+        SetActorInLookupTable(targetActorData, _activeActor);
     }
 
     /// <summary>
@@ -168,7 +173,7 @@ public class ActorController : MonoBehaviour, IActorController
     {
         try
         {
-            ActorData actorData = _narrativeGameState.ObjectStorage.GetObject<ActorData>(actorName);
+            var actorData = _narrativeGameState.ObjectStorage.GetObject<ActorData>(actorName);
             _nameBox.SetSpeaker(actorData, speakingType);
             CurrentSpeakingActorData = actorData;
             _currentSpeakingActor = _actorDataToActor.ContainsKey(actorData) ? _actorDataToActor[actorData] : null;
@@ -219,35 +224,19 @@ public class ActorController : MonoBehaviour, IActorController
     /// <summary>
     /// Sets an actor inside a slot in the scene, if the active bg-scene has support for slots.
     /// </summary>
-    /// <param name="actor">Target actor</param>
-    /// <param name="oneBasedSlotIndex">Target slot, 1 based</param>
-    public void AssignActorToSlot(string actor, int oneBasedSlotIndex)
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
+    /// <param name="newActorName"></param>
+    public void AssignActorToSlot(string slotName, string newActorName)
     {
         if (_activeScene == null)
         {
-            Debug.LogError("Can't assign actor to slot: No active scene");
-            return;
+            throw new NotSupportedException("Can't assign actor to slot: No active scene");
         }
 
-        if (!_activeScene.SupportsActorSlots())
-        {
-            Debug.LogError("Can't assign actor to slot: This scene has no support for slots");
-            return;
-        }
-
-        var tempActor = _activeScene.GetActorAtSlot(oneBasedSlotIndex);
-
-        try
-        {
-            var actorData = _narrativeGameState.ObjectStorage.GetObject<ActorData>(actor);
-            tempActor.ActorData = actorData;
-            SetActorInLookupTable(actorData, tempActor);
-        }
-        catch (KeyNotFoundException)
-        {
-            tempActor.ActorData = null;
-            throw new KeyNotFoundException($"Actor {actor} was not found in actor dictionary");
-        }
+        var actorData = _narrativeGameState.ObjectStorage.GetObject<ActorData>(newActorName);
+        var actorAtSlot = _activeScene.GetActorAtSlot(slotName);
+        actorAtSlot.ActorData = actorData;
+        SetActorInLookupTable(actorData, actorAtSlot);
     }
 
     /// <summary>

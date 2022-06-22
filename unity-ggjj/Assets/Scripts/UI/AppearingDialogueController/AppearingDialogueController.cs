@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueController
 {
-    [FormerlySerializedAs("_game")] [SerializeField] private NarrativeGameState _narrativeGameState;
+    [SerializeField] private NarrativeGameState _narrativeGameState;
 
     [Tooltip("Drag a NameBox component here.")]
     [SerializeField] private NameBox _namebox;
@@ -38,11 +38,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Specify how often a chirp should play here")]
     [SerializeField] private int _chirpEveryNthLetter = 1;
 
-    
-    [field:Header("Events")]
-    [field:SerializeField] public UnityEvent OnLineEnd { get; private set; }
-    [SerializeField] private UnityEvent _onAutoSkip;
-    [SerializeField] private UnityEvent _onLetterAppear;
+    [SerializeField] private GameObject _continueArrow;
 
     private TMP_TextInfo _textInfo;
     private Coroutine _printCoroutine;
@@ -76,6 +72,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         StopPrintingText();
         text = text.TrimEnd('\n');
         TextBoxHidden = false;
+        _continueArrow.SetActive(false);
 
         _narrativeGameState.ActorController.StartTalking();
         int startingIndex = 0;
@@ -130,7 +127,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         for (int i = startingIndex; i < _textInfo.characterCount; i++)
         {
             _textBox.maxVisibleCharacters++;
-            _onLetterAppear.Invoke();
             var currentCharacterInfo = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1];
             TryPlayDialogueChirp(_namebox.CurrentActorDialogueChirp, currentCharacterInfo);
             yield return new WaitForSeconds(GetDelay(currentCharacterInfo));
@@ -139,10 +135,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
 
         if (AutoSkip)
         {
-            _onAutoSkip.Invoke();
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
         }
-
-        IsPrintingText = false;
     }
 
     /// <summary>
@@ -217,7 +211,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private void EndLine()
     {
         _narrativeGameState.ActorController.StopTalking();
-        OnLineEnd.Invoke();
+        _continueArrow.SetActive(true);
+        IsPrintingText = false;
     }
 }
 

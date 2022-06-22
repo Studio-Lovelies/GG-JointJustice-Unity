@@ -10,6 +10,8 @@ public class CaseSelectMenu : MonoBehaviour
     [SerializeField] private ChapterSelectMenu _chapterSelectMenu;
     [SerializeField] private AudioController _audioController;
     [SerializeField] private AudioClip _buttonSelectAudioClip;
+    [SerializeField] private SceneLoader _sceneLoader;
+    [SerializeField] private AudioClip _startGameSound;
     [SerializeField] private NarrativeCase[] _cases;
 
     /// <summary>
@@ -50,9 +52,12 @@ public class CaseSelectMenu : MonoBehaviour
     {
         if (narrativeCase.Chapters.Length == 1)
         {
-            throw new NotImplementedException("Put logic for starting game here");
+            _audioController.PlaySfx(_startGameSound);
+            _sceneLoader.NarrativeScript = narrativeCase.Chapters[0];
+            _sceneLoader.LoadScene("Game");
+            return;
         }
-            
+        
         menuOpener.OpenMenu();
         _chapterSelectMenu.Initialise(narrativeCase.Chapters, menuOpener);
     }

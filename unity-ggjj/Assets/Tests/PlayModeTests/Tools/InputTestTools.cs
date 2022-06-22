@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
@@ -13,26 +12,26 @@ namespace Tests.PlayModeTests.Tools
     /// </summary>
     public class InputTestTools : InputTestFixture
     {
+        public Keyboard keyboard;
+        public Mouse mouse;
+
+        private EditorWindow _gameViewWindow;
+
         public override void Setup()
         {
             base.Setup();
 
-            Keyboard = InputSystem.AddDevice<Keyboard>("keyboardMock");
-            Mouse = InputSystem.AddDevice<Mouse>("mouseMock");
+            keyboard = InputSystem.AddDevice<Keyboard>("keyboardMock");
+            mouse = InputSystem.AddDevice<Mouse>("mouseMock");
         }
 
         public override void TearDown()
         {
-            InputSystem.RemoveDevice(Mouse);
-            InputSystem.RemoveDevice(Keyboard);
+            InputSystem.RemoveDevice(mouse);
+            InputSystem.RemoveDevice(keyboard);
 
             base.TearDown();
         }
-
-        public Keyboard Keyboard;
-        public Mouse Mouse;
-
-        private EditorWindow _gameViewWindow;
 
         private EditorWindow GameViewWindow
         {
@@ -43,20 +42,11 @@ namespace Tests.PlayModeTests.Tools
                     return _gameViewWindow;
                 }
 
-                System.Reflection.Assembly assembly = typeof(EditorWindow).Assembly;
-                Type type = assembly.GetType("UnityEditor.GameView");
+                var assembly = typeof(EditorWindow).Assembly;
+                var type = assembly.GetType("UnityEditor.GameView");
                 _gameViewWindow = EditorWindow.GetWindow(type);
                 return _gameViewWindow;
             }
-        }
-
-        /// <summary>
-        /// Waits for the editor "GameView"-tab to repaint
-        /// </summary>
-        public IEnumerator WaitForRepaint()
-        {
-            GameViewWindow.Repaint();
-            yield return null;
         }
 
         /// <summary>
@@ -66,7 +56,7 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="repeats">The number of times the key should be pressed.</param>
         public IEnumerator PressForFrame(ButtonControl control, int repeats = 1)
         {
-            for (int i = 0; i < repeats; i++)
+            for (var i = 0; i < repeats; i++)
             {
                 Press(control);
                 GameViewWindow.Repaint();
@@ -86,7 +76,7 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="repeats">The number of times the key should be pressed.</param>
         public IEnumerator PressForSeconds(ButtonControl control, float seconds, int repeats = 1)
         {
-            for (int i = 0; i < repeats; i++)
+            for (var i = 0; i < repeats; i++)
             {
                 Press(control);
                 yield return new WaitForSeconds(seconds);
@@ -101,7 +91,7 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="position">The position to set the mouse to.</param>
         public IEnumerator SetMouseScreenSpacePosition(Vector2 position)
         {
-            Set(Mouse.position, position);
+            Set(mouse.position, position);
             yield return null;
         }
         
@@ -111,7 +101,7 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="position">The position to set the mouse to.</param>
         public IEnumerator SetMouseWorldSpacePosition(Vector2 position)
         {
-            Set(Mouse.position, Camera.main.WorldToScreenPoint(position));
+            Set(mouse.position, Camera.main!.WorldToScreenPoint(position));
             yield return null;
         }
 
@@ -136,7 +126,7 @@ namespace Tests.PlayModeTests.Tools
         public IEnumerator ClickAtScreenSpacePosition(Vector2 position)
         {
             yield return SetMouseScreenSpacePosition(position);
-            yield return PressForFrame(Mouse.leftButton);
+            yield return PressForFrame(mouse.leftButton);
         }
 
         /// <summary>
@@ -146,7 +136,7 @@ namespace Tests.PlayModeTests.Tools
         public IEnumerator ClickAtWorldSpacePosition(Vector2 position)
         {
             yield return SetMouseWorldSpacePosition(position);
-            yield return PressForFrame(Mouse.leftButton);
+            yield return PressForFrame(mouse.leftButton);
         }
     }
 }

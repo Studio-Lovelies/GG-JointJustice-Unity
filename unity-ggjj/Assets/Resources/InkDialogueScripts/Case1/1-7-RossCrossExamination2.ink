@@ -2,27 +2,14 @@ INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Templates/Macros.ink
 INCLUDE ../Templates/FailureStates.ink
+INCLUDE StartingEvidence.ink
 
+<- Part5StartingEvidence
 <- COURT_TMPH
 <- Failures.TMPH
 
-&ADD_RECORD:Arin
-&ADD_RECORD:Dan
-&ADD_RECORD:Jory
-&ADD_RECORD:JudgeBrent
-&ADD_RECORD:TutorialBoy
-&ADD_RECORD:Ross
+&JUMP_TO_POSITION:Witness
 
-&ADD_EVIDENCE:AttorneysBadge
-&ADD_EVIDENCE:PlumberInvoice
-&ADD_EVIDENCE:Switch
-&ADD_EVIDENCE:Jory_Srs_Letter
-&ADD_EVIDENCE:LivestreamRecording
-&ADD_EVIDENCE:JorysBackpack
-&ADD_EVIDENCE:StolenDinos
-&ADD_EVIDENCE:BentCoins
-
-&JUMP_TO_POSITION:2
 &PLAY_SONG:fyiIWannaXYourExaminationModerato,{songFadeTime}
 &FADE_IN:2
 
@@ -32,7 +19,7 @@ INCLUDE ../Templates/FailureStates.ink
 
 === FocusRoss ===
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 &SET_POSE:Normal
 -> DONE
@@ -74,30 +61,30 @@ INCLUDE ../Templates/FailureStates.ink
 === Line1Press ===
 &HOLD_IT:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SPEAK:Arin
 So you saw Jory while you were busy animating?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Well, I saw someone move past my office door out of the corner of my eye.
 It was only after I got up and left my office that I realized it was Jory.
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:Tutorial_Boy
 Please tell the court the reason you had to get up and leave your office.
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 
 -> Line2
 
 === Line2Press ===
 &HOLD_IT:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SPEAK:Arin
 You 'suddenly' had to poop? Seems a little convenient, don't you think?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Glaring
 &SPEAK:Ross
 You're one to talk! YOU have to suddenly poop all the time!
@@ -111,7 +98,7 @@ He's got you there, bro.
 You have quite a reputation with 'making bears', Arin. I think you should let this one go.
 
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SPEAK:Arin
 Uh{ellipsis} right{ellipsis}
 
@@ -120,15 +107,15 @@ Uh{ellipsis} right{ellipsis}
 === Line3Press ===
 &HOLD_IT:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SPEAK:Arin
 What were you doing by the office toilet, Ross?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Well obviously I'd just finished taking a massive dump. Because that's the reason the toilet is there.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Embarrassed
 &SPEAK:Arin
 Hahah{ellipsis} of course. Stupid question, I guess.
@@ -151,17 +138,17 @@ Maybe we should look at the <color={red}>evidence</color>, see if there's someth
 === Line4Press ===
 &HOLD_IT:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 POSE Arin Point
 &SPEAK:Arin
 You didn't think pooping was important enough to mention?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Glaring
 &SPEAK:Ross
 No, of course not! Not everyone has memorable bathroom trips like you, Arin.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &SPEAK:Arin
 Yeah, my shits are pretty legendary. Point taken.
@@ -174,16 +161,16 @@ Yeah, my shits are pretty legendary. Point taken.
 &OBJECTION:Arin
 &STOP_SONG
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SPEAK:Arin
 Not so fast, Jafar! I-I mean, Ross!
 Are you absolutely certain that you had just used the office toilet?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Of course I am.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:PaperSlap
 &SHOW_ITEM:Plumber_Invoice,Right
 &SPEAK:Arin
@@ -192,7 +179,7 @@ Then why does this plumbing invoice state very clearly{ellipsis}
 ..that the toilets were undergoing maintenance at that time?
 &HIDE_ITEM
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &PLAY_SFX:stab
 &HIDE_TEXTBOX
 &PLAY_EMOTION:Damage
@@ -200,7 +187,7 @@ Then why does this plumbing invoice state very clearly{ellipsis}
 &SPEAK:Ross
 W-What's that now?
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Point
 &SPEAK:Arin
 I have an invoice from the plumbers who were working on that bathroom earlier today!
@@ -226,7 +213,7 @@ Order in the court!
 Witness, what do you have to say about this?
 
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sweaty
 &SPEAK:Ross
 Uh, I.. er{ellipsis}
@@ -236,7 +223,7 @@ Well, you see{ellipsis} the thing is{ellipsis}
 
 &HIDE_TEXTBOX
 &STOP_SONG
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &PLAY_SFX:damage1
 &PLAY_EMOTION:HeadSlam
 &SET_POSE:Normal
@@ -254,18 +241,18 @@ What's that you say?
 Oh, I do not like where this is going.
 
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 The{ellipsis} truth?
 
 &PLAY_SONG:GGJJRoss,{songFadeTime}
 
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:Tutorial_Boy
 Remember? You told me all about it, how you wanted to keep it a surprise?
 The Mario Maker level you were working on? I think you need to come clean!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 {ellipsis}
 &PLAY_SFX:realization
@@ -273,23 +260,23 @@ The Mario Maker level you were working on? I think you need to come clean!
 &SET_POSE:Sweaty
 I{ellipsis} guess you're right! Guess I can't hide it any longer.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:DeskSlam
 &SPEAK:Arin
 What the hey are you even talking about?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Well{ellipsis} the truth is, I wasn't animating anything at all.
 I was actually working on a secret level for you guys.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:stab
 &SET_POSE:Sweaty
 &SPEAK:Arin
 What{ellipsis}?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sad
 &SPEAK:Ross
 I know, I shouldn't have lied about it, but I wanted it to be a surprise!
@@ -301,12 +288,12 @@ This changes things quite a bit, you know.
 Tutorial Boy, I think we need to redo your witness' testimony again in light of this new information.
 
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SPEAK:Tutorial_Boy
 Yes, of course, Your Honor.
 
 &HIDE_TEXTBOX
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:stab
 &PLAY_EMOTION:ShockAnimation
 &SET_POSE:Sweaty
@@ -319,12 +306,12 @@ I know it's unprofessional, but Ross tends to have good intentions.
 Therefore, I'm willing to give him another chance. Besides, how could I say no to that face?
 
 &SCENE:TMPH_Court
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sad
 &SPEAK:Ross
 \*whimper\*.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &THINK:Arin
 (Lord spare me this crap.)
 

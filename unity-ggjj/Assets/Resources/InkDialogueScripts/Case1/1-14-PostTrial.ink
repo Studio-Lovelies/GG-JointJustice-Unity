@@ -1,4 +1,7 @@
 INCLUDE ../Templates/Macros.ink
+INCLUDE StartingEvidence.ink
+
+<- Part5StartingEvidence
 
 &HIDE_TEXTBOX
 &FADE_OUT:0
@@ -195,4 +198,5 @@ Arin, you're a man after my own heart.
 &FADE_OUT:3
 &WAIT:2
 
+&LOAD_SCENE:Credits
 -> END

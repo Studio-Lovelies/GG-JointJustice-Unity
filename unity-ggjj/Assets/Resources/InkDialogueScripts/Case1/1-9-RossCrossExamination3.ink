@@ -2,27 +2,14 @@ INCLUDE ../Options.ink
 INCLUDE ../Templates/SceneInitialization.ink
 INCLUDE ../Templates/Macros.ink
 INCLUDE ../Templates/FailureStates.ink
+INCLUDE StartingEvidence.ink
 
+<- Part5StartingEvidence
 <- COURT_TMPH
 <- Failures.TMPH
 
-&ADD_RECORD:Arin
-&ADD_RECORD:Dan
-&ADD_RECORD:Jory
-&ADD_RECORD:JudgeBrent
-&ADD_RECORD:TutorialBoy
-&ADD_RECORD:Ross
+&JUMP_TO_POSITION:Witness
 
-&ADD_EVIDENCE:AttorneysBadge
-&ADD_EVIDENCE:PlumberInvoice
-&ADD_EVIDENCE:Switch
-&ADD_EVIDENCE:Jory_Srs_Letter
-&ADD_EVIDENCE:LivestreamRecording
-&ADD_EVIDENCE:JorysBackpack
-&ADD_EVIDENCE:StolenDinos
-&ADD_EVIDENCE:BentCoins
-
-&JUMP_TO_POSITION:2
 &FADE_IN:1
 &WAIT:1
 &PLAY_SONG:fyiIWannaXYourExaminationModerato,{songFadeTime}
@@ -33,7 +20,7 @@ INCLUDE ../Templates/FailureStates.ink
 
 === Line1 ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 <color=green>I guess you got me. I did lie about what I was doing.
 + [Continue]
@@ -43,7 +30,7 @@ INCLUDE ../Templates/FailureStates.ink
 
 === Line2 ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 <color=green>I was actually making a special Mario Maker level for you guys.
 + [Continue]
@@ -53,7 +40,7 @@ INCLUDE ../Templates/FailureStates.ink
 
 === Line3 ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 <color=green>You've always been good sports about my troll levels, so I wanted to make you a nice one for a change!
 + [Continue]
@@ -63,7 +50,7 @@ INCLUDE ../Templates/FailureStates.ink
 
 === Line4 ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 <color=green>I was working on it, thinking about what to make next, when I saw Jory walk by my office.#correct
 + [Continue]
@@ -73,7 +60,7 @@ INCLUDE ../Templates/FailureStates.ink
     
 === Line5 ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 <color=green>I felt it was a good time to take a break, so I went to see what he was up to.
 + [Continue]
@@ -83,7 +70,7 @@ INCLUDE ../Templates/FailureStates.ink
     
 === Line6 ===
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 <color=green>That's when I saw it! He had taken the dinos and stuffed them into his backpack!
 + [Continue]
@@ -94,22 +81,22 @@ INCLUDE ../Templates/FailureStates.ink
 === Line1Press ===
 &HOLD_IT:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SPEAK:Arin
 Why did you lie to us in the first place?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Sweaty
 &SPEAK:Ross
 Well{ellipsis} I didn't want to seem suspicious{ellipsis} That would incriminate me!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &PLAY_SFX:smack
 &SPEAK:Arin
 You made yourself look suspicious when you lied!
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 I'm really sorry for that. Seriously--!
 
@@ -120,7 +107,7 @@ Yeah{ellipsis} I dunno. I'm not sure if I'm buying all this.
 
 &OBJECTION:TutorialBoy
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:3
+&JUMP_TO_POSITION:Prosecution
 &SET_POSE:Angry
 &SPEAK:TutorialBoy
 My witness already apologized, stop hectoring him and let him continue his testimony!
@@ -130,7 +117,7 @@ My witness already apologized, stop hectoring him and let him continue his testi
 Objection sustained. The witness will continue.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Yes, yes of course! Ehehe{ellipsis}
 &SET_POSE:Normal
@@ -140,11 +127,11 @@ Yes, yes of course! Ehehe{ellipsis}
 === Line2Press ===
 &HOLD_IT:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SPEAK:Arin
 I don't like the way you define 'special', Ross.
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Normal
 &SPEAK:Ross
 They were some fun and joyful levels I had planned! Honest!
@@ -180,7 +167,7 @@ Er, yes, Your Honor. My sincerest apologies!
 === Line3Press ===
 &HOLD_IT:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SPEAK:Arin
 Good{ellipsis} sports? What do you mean by that?
 
@@ -190,12 +177,12 @@ Good{ellipsis} sports? What do you mean by that?
 I think he means your tolerance of his style of levels.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Yeah totally! You all haven't fired me yet, so I take that as you guys being good sports!
 I just wanted to show you my appreciation for your patience with nicer level or two!
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Thinking
 &THINK:Arin
 (That is a very Ross thing to do{ellipsis})
@@ -203,7 +190,7 @@ I just wanted to show you my appreciation for your patience with nicer level or 
 &SPEAK:Arin
 I can't see how a couple of nicer levels would make up for all that pain.
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Glaring
 &SPEAK:Ross
 Well, I'd be finishing them right now, if not for Jory!
@@ -217,7 +204,7 @@ As a matter of fact{ellipsis}
 &HOLD_IT:Arin
 &STOP_SONG
 &SET_POSE:Normal,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SET_POSE:Normal
 &SPEAK:Arin
 So you were making a level when you saw Jory. Exactly how were you making it?
@@ -227,7 +214,7 @@ So you were making a level when you saw Jory. Exactly how were you making it?
 === Line5Press ===
 &HOLD_IT:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SET_POSE:Normal
 &SPEAK:Arin
 Ross, when have you ever gotten tired of making Mario Maker stages?
@@ -238,16 +225,16 @@ Ross, when have you ever gotten tired of making Mario Maker stages?
 Yeah, I feel like you have a serious hard-on for making us suffer. I don't think that's something you tire of easily.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 Well, I happened to have a glass of warm milk before making them. A fault on my part, indeed. Makes me sleepy, you see.
 
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &SET_POSE:Sweaty
 &SPEAK:Arin
 Ross{ellipsis} It was the middle of the day. Why are you drinking warm milk at noon?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SET_POSE:Glaring
 &SPEAK:Ross
 Well{ellipsis} I just felt like having a glass of warm milk!
@@ -267,12 +254,12 @@ Y-Yes, of course.
 === Line6Press ===
 &HOLD_IT:Arin
 &SET_POSE:Point,Arin
-&PAN_TO_POSITION:1,{panTime}
+&PAN_TO_POSITION:Defense,{panTime}
 &SET_POSE:Normal
 &SPEAK:Arin
 Are you SURE you saw the dinos?
 
-&JUMP_TO_POSITION:2
+&JUMP_TO_POSITION:Witness
 &SPEAK:Ross
 I'm pretty sure, it would be pretty difficult to mistake them for anything else.
 
@@ -284,7 +271,7 @@ We've known Ross for quite a while now, and I personally have never been made aw
 Since I am acquainted with his eye doctor and also observant, I would know if such a problem existed.
 
 &SCENE:TMPHCourt
-&JUMP_TO_POSITION:1
+&JUMP_TO_POSITION:Defense
 &PLAY_SFX:DramaPound
 &PLAY_EMOTION:ShockAnimation
 &SET_POSE:Sweaty

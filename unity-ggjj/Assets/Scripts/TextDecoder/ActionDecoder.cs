@@ -1,6 +1,7 @@
 using System;
 using SaveFiles;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ActionDecoder : ActionDecoderBase
 {
@@ -35,7 +36,7 @@ public class ActionDecoder : ActionDecoderBase
         OnActionDone?.Invoke();
     }
 
-    /// <summary>Starts or stops autoskipping of dialogue, where it automatically continues after it is done.</summary>
+    /// <summary>Starts or stops auto-skipping of dialogue, where it automatically continues after it is done.</summary>
     /// <param name="value">Set to either `true` or `false` to enable or disable automatic dialogue skipping respectively.</param>
     /// <example>&amp;AUTO_SKIP:true</example>
     /// <example>&amp;AUTO_SKIP:false</example>
@@ -274,23 +275,23 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Makes the camera jump to focus on the target sub-position of the currently active scene.</summary>
-    /// <param name="slotIndex">Whole number representing the target sub-position of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     /// <example>&amp;JUMP_TO_POSITION:1</example>
     /// <category>Scene</category>
-    private void JUMP_TO_POSITION(int slotIndex)
+    private void JUMP_TO_POSITION(string slotName)
     {
-        NarrativeGameState.SceneController.JumpToActorSlot(slotIndex);
+        NarrativeGameState.SceneController.JumpToActorSlot(slotName);
         OnActionDone?.Invoke();
     }
 
     /// <summary>Makes the camera pan to focus on the target sub-position of the currently active scene. Takes the provided amount of time to complete. If you want the system to wait for completion, call WAIT with the appropriate amount of seconds afterwards.</summary>
-    /// <param name="slotIndex">Whole number representing the target sub-position of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     /// <param name="panDuration">Decimal number representing the amount of time the pan should take in seconds</param>
     /// <example>&amp;PAN_TO_POSITION:1,1</example>
     /// <category>Scene</category>
-    private void PAN_TO_POSITION(int slotIndex, float panDuration)
+    private void PAN_TO_POSITION(string slotName, float panDuration)
     {
-        NarrativeGameState.SceneController.PanToActorSlot(slotIndex, panDuration);
+        NarrativeGameState.SceneController.PanToActorSlot(slotName, panDuration);
     }
 
     /// <summary>Restarts the currently playing script from the beginning.</summary>
@@ -301,7 +302,7 @@ public class ActionDecoder : ActionDecoderBase
         NarrativeGameState.SceneController.ReloadScene();
     }
 
-    /// <summary>Issues a penalty / deducts one of the attempts available to a player to find the correct piece of evidence or actor during a cross examinaton.</summary>
+    /// <summary>Issues a penalty / deducts one of the attempts available to a player to find the correct piece of evidence or actor during a cross examination.</summary>
     /// <example>&amp;ISSUE_PENALTY</example>
     /// <category>Cross Examination</category>
     private void ISSUE_PENALTY()
@@ -319,7 +320,7 @@ public class ActionDecoder : ActionDecoderBase
         NarrativeGameState.SceneController.Wait(seconds);
     }
 
-    /// <summary>Plays an "Objection!" animation and soundeffect for the specified actor.</summary>
+    /// <summary>Plays an "Objection!" animation and sound effect for the specified actor.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;OBJECTION:Arin</example>
     /// <category>Dialogue</category>
@@ -328,7 +329,7 @@ public class ActionDecoder : ActionDecoderBase
         SHOUT(actorName, "Objection", true);
     }
 
-    /// <summary>Plays a "Take that!" animation and soundeffect for the specified actor.</summary>
+    /// <summary>Plays a "Take that!" animation and sound effect for the specified actor.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;TAKE_THAT:Arin</example>
     /// <category>Dialogue</category>
@@ -337,7 +338,7 @@ public class ActionDecoder : ActionDecoderBase
         SHOUT(actorName, "TakeThat", true);
     }
 
-    /// <summary>Plays a "Hold it!" animation and soundeffect for the specified actor.</summary>
+    /// <summary>Plays a "Hold it!" animation and sound effect for the specified actor.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor</param>
     /// <example>&amp;HOLD_IT:Arin</example>
     /// <category>Dialogue</category>
@@ -349,6 +350,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <summary>Uses the specified actor to play the specified shout.</summary>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of the actor to use</param>
     /// <param name="shoutName" validFiles="Assets/Images/Shouts/*.png">Name of the shout to play</param>
+    /// <param name="allowRandomShouts">When set to true, there is a small chance of this shout instead being replaced with a random special shout</param>
     /// <example>&amp;SHOUT:Arin,OBJECTION,false</example>
     /// <category>Dialogue</category>
     private void SHOUT(ActorAssetName actorName, string shoutName, bool allowRandomShouts = false)
@@ -470,7 +472,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <param name="optional_targetActor" validFiles="Assets/Resources/Actors/*.asset">(optional) Name of the actor</param>
     /// <example>&amp;PLAY_EMOTION:Nodding</example>
     /// <category>Actor</category>
-    private void PLAY_EMOTION(ActorPoseAssetName poseName, ActorAssetName? optional_targetActor = null)
+    private void PLAY_EMOTION(ActorPoseAssetName poseName, ActorAssetName optional_targetActor = null)
     {
         if (optional_targetActor == null)
         {
@@ -483,13 +485,13 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>Sets the target sub-position of the current bg-scene to have the target actor.</summary>
-    /// <param name="oneBasedSlotIndex">Whole number representing the target sub-position of the currently active scene</param>
+    /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of an actor</param>
     /// <example>&amp;SET_ACTOR_POSITION:1,Arin</example>
     /// <category>Actor</category>
-    protected override void SET_ACTOR_POSITION(int oneBasedSlotIndex, ActorAssetName actorName)
+    protected override void SET_ACTOR_POSITION(string slotName, ActorAssetName actorName)
     {
-        NarrativeGameState.ActorController.AssignActorToSlot(actorName, oneBasedSlotIndex);
+        NarrativeGameState.ActorController.AssignActorToSlot(slotName, actorName);
         OnActionDone?.Invoke();
     }
 
@@ -576,6 +578,17 @@ public class ActionDecoder : ActionDecoderBase
     {
         NarrativeGameState.NarrativeScriptStorage.AddFailureScript(failureScriptName);
         OnActionDone?.Invoke();
+    }
+
+    /// <summary>
+    /// Loads a Unity scene
+    /// </summary>
+    /// <param name="sceneName" validFiles="Assets/Scenes/*.unity">The name of the scene to load</param>
+    /// <example>&amp;LOAD_SCENE:Credits</example>
+    /// <category>Script Loading</category>
+    private void LOAD_SCENE(UnitySceneAssetName sceneName)
+    {
+        NarrativeGameState.SceneLoader.LoadScene(sceneName);
     }
     #endregion
 #pragma warning restore IDE0051 // Remove unused private members

@@ -103,7 +103,7 @@ Examples:
 
 ## JUMP_TO_POSITION
 Values: 
-  - Whole number representing the target sub-position of the currently active scene
+  - Name of an actor slot in the currently active scene
 
 ⏲ Instant
 
@@ -114,7 +114,7 @@ Examples:
 
 ## PAN_TO_POSITION
 Values: 
-  - Whole number representing the target sub-position of the currently active scene
+  - Name of an actor slot in the currently active scene
   - Decimal number representing the amount of time the pan should take in seconds
 
 ⏳ Waits for completion
