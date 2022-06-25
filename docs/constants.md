@@ -116,9 +116,12 @@
   - TMPHLobby
   - TMPHProsecution
   - TMPHRoss
+  - TMPHRossCloseUp1
+  - TMPHRossCloseUp2
   - TMPHRossWithDinos
   - TMPHWideShot
   - TMPHWitness
+  - WhiteScreen
 
 ## CourtRecordItemName
 | Name | Description | Icon |
@@ -143,7 +146,6 @@
   - CrossExamination
   - GavelHit
   - GoodBoy
-  - RossGalaxyBrain
   - TripleGavelHit
   - WitnessTestimony
 
