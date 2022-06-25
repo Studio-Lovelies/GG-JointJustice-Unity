@@ -3,53 +3,22 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
-    [SerializeField] private NarrativeGameState _narrativeGameState;
-
-    /// <summary>
-    /// One day this will come from the "Settings," but for now it lives on a field
-    /// </summary>
-    [Tooltip("Music Volume level set by player")]
-    [Range(0f, 1f)]
-    [SerializeField] private float _settingsMusicVolume = 0.5f;
-
-    /// <summary>
-    /// One day this will come from the "Settings," but for now it lives on a field
-    /// </summary>
-    [Tooltip("SFX Volume level set by player")]
-    [Range(0f, 1f)]
-    [SerializeField] private float _settingsSfxVolume = 0.5f;
+    [SerializeField] private AudioSource _musicAudioSource;
+    [SerializeField] private AudioSource _sfxAudioSource;
 
     [Tooltip("Drag an AudioClip here to be played on scene start")]
     [SerializeField] private AudioClip _defaultSong;
     
-    private AudioSource _musicAudioSource;
-    private AudioSource _sfxAudioSource;
     private Coroutine _currentFadeCoroutine;
-    private MusicFader _musicFader;
 
     /// <summary>
     /// Called when the object is initialized
     /// </summary>
     private void Awake()
     {
-        _musicFader = new MusicFader();
-        _musicAudioSource = CreateAudioSource("Music Player");
         PlaySong(_defaultSong, 0);
         _musicAudioSource.Play();
-        _sfxAudioSource = CreateAudioSource("SFX Player");
         _musicAudioSource.loop = true;
-    }
-
-    /// <summary>
-    /// Called every rendered frame
-    /// </summary>
-    private void Update()
-    {
-        if (_musicAudioSource != null && _musicFader != null)
-            _musicAudioSource.volume = _musicFader.NormalizedVolume * _settingsMusicVolume;
-
-        if (_sfxAudioSource != null)
-            _sfxAudioSource.volume = _settingsSfxVolume;
     }
 
     /// <summary>
@@ -65,21 +34,6 @@ public class AudioController : MonoBehaviour, IAudioController
         }
 
         _currentFadeCoroutine = StartCoroutine(FadeToNewSong(song, transitionTime));
-    }
-
-    /// <summary>
-    /// Creates a child object that has an AudioSource component
-    /// </summary>
-    /// <returns>The AudioSource of the new child object</returns>
-    private AudioSource CreateAudioSource(string gameObjectName)
-    {
-        return new GameObject(gameObjectName)
-        {
-            transform =
-            {
-                parent = transform
-            }
-        }.AddComponent<AudioSource>();
     }
 
     /// <summary>
@@ -100,11 +54,15 @@ public class AudioController : MonoBehaviour, IAudioController
     {
         if (IsCurrentlyPlayingMusic())
         {
-            yield return FadeOutSongCoroutine(transitionTime / 2f);
+            yield return FadeOutSongCoroutine(transitionTime);
         }
 
         SetCurrentTrack(song);
-        yield return _musicFader.FadeIn(transitionTime / 2f);
+        while (_musicAudioSource.volume < 1)
+        {
+            _musicAudioSource.volume = Mathf.MoveTowards(_musicAudioSource.volume, 1, Time.deltaTime / transitionTime);
+            yield return null;
+        }
     }
 
     /// <summary>
@@ -113,7 +71,11 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="time">The time taken to fade out</param>
     private IEnumerator FadeOutSongCoroutine(float time)
     {
-        yield return _musicFader.FadeOut(time);
+        while (_musicAudioSource.volume != 0)
+        {
+            _musicAudioSource.volume = Mathf.MoveTowards(_musicAudioSource.volume, 0, Time.deltaTime / time);
+            yield return null;
+        }
         StopSong();
     }
 
@@ -143,7 +105,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <returns>True if we're playing a music track with a volume above zero</returns>
     private bool IsCurrentlyPlayingMusic()
     {
-        return _musicAudioSource.clip != null && _settingsMusicVolume != 0;
+        return _musicAudioSource.clip != null && _musicAudioSource.volume != 0;
     }
 
     /// <summary>
