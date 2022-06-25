@@ -4,12 +4,25 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class VolumeManager : MonoBehaviour
 {
-    public AudioSource AudioSource { get; private set; }
+    private AudioSource _audioSource;
+    
+    public AudioSource AudioSource
+    {
+        get
+        {
+            if (_audioSource == null)
+            {
+                _audioSource = GetComponent<AudioSource>();
+            }
+            return _audioSource;
+        }
+    }
+
     public float Volume { get; set; } = 1;
 
     private void Awake()
     {
-        AudioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
         Volume = AudioSource.volume;
     }
 
