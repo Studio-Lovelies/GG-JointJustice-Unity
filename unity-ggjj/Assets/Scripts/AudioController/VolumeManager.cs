@@ -15,10 +15,15 @@ public class VolumeManager : MonoBehaviour
 
     public IEnumerator Fade(float targetVolume, float time)
     {
-        while (AudioSource.volume != targetVolume)
+        var completion = 0f;
+        var startVolume = AudioSource.volume;
+        var startTime = Time.time;
+        while (completion < 1)
         {
-            AudioSource.volume = Mathf.MoveTowards(AudioSource.volume, targetVolume, Time.deltaTime / time);
+            AudioSource.volume = Mathf.Lerp(startVolume, targetVolume, completion);
+            completion = (Time.time - startTime) / time;
             yield return null;
         }
+        AudioSource.volume = targetVolume;
     }
 }
