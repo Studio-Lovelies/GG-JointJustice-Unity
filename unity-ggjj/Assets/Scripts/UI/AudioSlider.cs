@@ -5,7 +5,7 @@ namespace UI
 {
     public class AudioSlider : MonoBehaviour
     {
-        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private VolumeManager _volumeManager;
 
         private Slider _slider;
 
@@ -16,7 +16,7 @@ namespace UI
         
         private void OnEnable()
         {
-            _slider.value = _audioSource.volume;
+            _slider.value = _volumeManager.Volume;
         }
     }
 }

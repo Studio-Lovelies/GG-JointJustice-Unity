@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour, IAudioController
 {
-    [SerializeField] private AudioSource _musicAudioSource;
-    [SerializeField] private AudioSource _sfxAudioSource;
+    [SerializeField] private VolumeManager _musicVolumeManager;
+    [SerializeField] private VolumeManager _sfxVolumeManager;
 
     [Tooltip("Drag an AudioClip here to be played on scene start")]
     [SerializeField] private AudioClip _defaultSong;
@@ -17,8 +17,7 @@ public class AudioController : MonoBehaviour, IAudioController
     private void Awake()
     {
         PlaySong(_defaultSong, 0);
-        _musicAudioSource.Play();
-        _musicAudioSource.loop = true;
+        _musicVolumeManager.AudioSource.Play();
     }
 
     /// <summary>
@@ -42,7 +41,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="soundEffectClip">Clip to play</param>
     public void PlaySfx(AudioClip soundEffectClip)
     {
-        _sfxAudioSource.PlayOneShot(soundEffectClip);
+        _sfxVolumeManager.AudioSource.PlayOneShot(soundEffectClip);
     }
 
     /// <summary>
@@ -54,15 +53,11 @@ public class AudioController : MonoBehaviour, IAudioController
     {
         if (IsCurrentlyPlayingMusic())
         {
-            yield return FadeOutSongCoroutine(transitionTime);
+            yield return FadeOutSongCoroutine(transitionTime / 2f);
         }
 
         SetCurrentTrack(song);
-        while (_musicAudioSource.volume < 1)
-        {
-            _musicAudioSource.volume = Mathf.MoveTowards(_musicAudioSource.volume, 1, Time.deltaTime / transitionTime);
-            yield return null;
-        }
+        yield return _musicVolumeManager.Fade(_musicVolumeManager.Volume, transitionTime / 2f);
     }
 
     /// <summary>
@@ -71,11 +66,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="time">The time taken to fade out</param>
     private IEnumerator FadeOutSongCoroutine(float time)
     {
-        while (_musicAudioSource.volume != 0)
-        {
-            _musicAudioSource.volume = Mathf.MoveTowards(_musicAudioSource.volume, 0, Time.deltaTime / time);
-            yield return null;
-        }
+        yield return _musicVolumeManager.Fade(0, time);
         StopSong();
     }
 
@@ -84,9 +75,9 @@ public class AudioController : MonoBehaviour, IAudioController
     /// </summary>
     public void StopSong()
     {
-        if (_musicAudioSource != null)
+        if (_musicVolumeManager != null)
         {
-            _musicAudioSource.Stop();
+            _musicVolumeManager.AudioSource.Stop();
         }
     }
 
@@ -105,7 +96,7 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <returns>True if we're playing a music track with a volume above zero</returns>
     private bool IsCurrentlyPlayingMusic()
     {
-        return _musicAudioSource.clip != null && _musicAudioSource.volume != 0;
+        return _musicVolumeManager.AudioSource.clip != null && _musicVolumeManager.AudioSource.volume != 0;
     }
 
     /// <summary>
@@ -114,8 +105,8 @@ public class AudioController : MonoBehaviour, IAudioController
     /// <param name="song">The song to fade to</param>
     private void SetCurrentTrack(AudioClip song)
     {
-        _musicAudioSource.clip = song;
-        _musicAudioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
-        _musicAudioSource.Play();
+        _musicVolumeManager.AudioSource.clip = song;
+        _musicVolumeManager.AudioSource.volume = 0f; // Always set volume to 0 BEFORE playing the audio source
+        _musicVolumeManager.AudioSource.Play();
     }
 }

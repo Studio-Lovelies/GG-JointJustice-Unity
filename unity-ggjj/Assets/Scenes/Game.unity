@@ -213,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 272117219}
   - component: {fileID: 272117220}
+  - component: {fileID: 272117221}
   m_Layer: 0
   m_Name: MusicAudioSource
   m_TagString: Untagged
@@ -330,6 +331,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &272117221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272117218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0504b6ef97eb4513a7e6dcaedf72aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &284323535 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7608917519089844374, guid: f4cda231489f65341910a0acac208946, type: 3}
@@ -843,6 +856,10 @@ PrefabInstance:
       propertyPath: _audioSource
       value: 
       objectReference: {fileID: 272117220}
+    - target: {fileID: 2677010262055364600, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _volumeManager
+      value: 
+      objectReference: {fileID: 272117221}
     - target: {fileID: 2831367891110804742, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: <OnItemSelect>k__BackingField.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1043,6 +1060,10 @@ PrefabInstance:
       propertyPath: _audioSource
       value: 
       objectReference: {fileID: 1449839712}
+    - target: {fileID: 4653593017631171403, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _volumeManager
+      value: 
+      objectReference: {fileID: 1449839713}
     - target: {fileID: 4764540348414031665, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: <OnItemSelect>k__BackingField.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -2260,6 +2281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1449839711}
   - component: {fileID: 1449839712}
+  - component: {fileID: 1449839713}
   m_Layer: 0
   m_Name: SFXAudioSource
   m_TagString: Untagged
@@ -2377,6 +2399,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1449839713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449839710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0504b6ef97eb4513a7e6dcaedf72aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1836982804
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,8 +2758,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c1588c060bf994aa9f9fed3449e1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _musicAudioSource: {fileID: 272117220}
-  _sfxAudioSource: {fileID: 1449839712}
+  _musicVolumeManager: {fileID: 272117221}
+  _sfxVolumeManager: {fileID: 1449839713}
   _defaultSong: {fileID: 0}
 --- !u!4 &2582401826076157597
 Transform:

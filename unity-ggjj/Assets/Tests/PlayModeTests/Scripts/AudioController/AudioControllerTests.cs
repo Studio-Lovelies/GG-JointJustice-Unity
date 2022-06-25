@@ -15,45 +15,44 @@ namespace Tests.PlayModeTests.Scripts.AudioController
     public class AudioControllerTests
     {
         private const string MUSIC_PATH = "Audio/Music/";
-
-        private AudioSource _audioSource;
+        
         private global::AudioController _audioController;
+        private AudioSource _audioSource;
+        private VolumeManager _volumeManager;
         
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("TestScene", new LoadSceneParameters());
-            var audioControllerGameObject = new GameObject("AudioController");
-            audioControllerGameObject.AddComponent<AudioListener>(); // required to prevent excessive warnings
-            _audioController = audioControllerGameObject.AddComponent<global::AudioController>();
-            _audioController.enabled = true;
-            _audioSource = audioControllerGameObject.transform.Find("Music Player").GetComponent<AudioSource>();
+            yield return SceneManager.LoadSceneAsync("Game");
+            var audioSourceGameObject = GameObject.Find("MusicAudioSource");
+            _audioController = Object.FindObjectOfType<global::AudioController>();
+            _audioSource = audioSourceGameObject.GetComponent<AudioSource>();
+            _volumeManager = audioSourceGameObject.GetComponent<VolumeManager>();
         }
         
         [UnityTest]
         public IEnumerator FadesBetweenSongs()
         {
             const float TRANSITION_DURATION = 2f;
-            var settingsMusicVolume = TestTools.GetField<float>(_audioController, "_settingsMusicVolume");
 
             // setup and verify steady state of music playing for a while
             var firstSong = LoadSong("aBoyAndHisTrial");
             _audioController.PlaySong(firstSong, TRANSITION_DURATION);
 
-            yield return TestTools.WaitForState(() => _audioSource.volume == settingsMusicVolume, TRANSITION_DURATION*2);
+            yield return TestTools.WaitForState(() => _audioSource.volume == _volumeManager.Volume, TRANSITION_DURATION*2);
             Assert.AreEqual(firstSong.name, _audioSource.clip.name);
 
             // transition into new song
             var secondSong = LoadSong("aKissFromARose");
             _audioController.PlaySong(secondSong, TRANSITION_DURATION);
-            yield return TestTools.WaitForState(() => _audioSource.volume != settingsMusicVolume, TRANSITION_DURATION);
+            yield return TestTools.WaitForState(() => _audioSource.volume != _volumeManager.Volume, TRANSITION_DURATION);
 
             // expect old song to still be playing, but no longer at full volume, as we're transitioning
-            Assert.AreNotEqual(_audioSource.volume, settingsMusicVolume);
+            Assert.AreNotEqual(_audioSource.volume, _volumeManager.Volume);
             Assert.AreEqual(firstSong.name, _audioSource.clip.name);
 
             // expect new song to be playing at full volume, as we're done transitioning
-            yield return TestTools.WaitForState(() => _audioSource.volume == settingsMusicVolume, TRANSITION_DURATION*2);
+            yield return TestTools.WaitForState(() => _audioSource.volume == _volumeManager.Volume, TRANSITION_DURATION*2);
             Assert.AreEqual(secondSong.name, _audioSource.clip.name);
 
             // transition into new song
@@ -61,11 +60,11 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             _audioController.PlaySong(thirdSong, TRANSITION_DURATION);
 
             // expect old song to still be playing, but no longer at full volume, as we're transitioning
-            yield return TestTools.WaitForState(() => _audioSource.volume != settingsMusicVolume, TRANSITION_DURATION);
+            yield return TestTools.WaitForState(() => _audioSource.volume != _volumeManager.Volume, TRANSITION_DURATION);
             Assert.AreEqual(secondSong.name, _audioSource.clip.name);
 
             // expect new song to be playing at full volume, as we're done transitioning
-            yield return TestTools.WaitForState(() => _audioSource.volume == settingsMusicVolume, TRANSITION_DURATION*2);
+            yield return TestTools.WaitForState(() => _audioSource.volume == _volumeManager.Volume, TRANSITION_DURATION*2);
             Assert.AreEqual(thirdSong.name, _audioSource.clip.name);
         }
 
@@ -76,7 +75,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             _audioController.PlaySong(song, 0);
             yield return null;
             Assert.AreEqual(song.name, _audioSource.clip.name);
-            Assert.AreEqual(TestTools.GetField<float>(_audioController, "_settingsMusicVolume"), _audioSource.volume);
+            Assert.AreEqual(_volumeManager.Volume, _audioSource.volume);
         }
 
         [UnityTest]
