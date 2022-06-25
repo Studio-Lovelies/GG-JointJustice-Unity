@@ -30,8 +30,19 @@ Just as planned...
 Soon, I'll have all the coins!
 
 &HIDE_TEXTBOX
-&PLAY_ANIMATION:RossGalaxyBrain
-&SCENE:TMPH_GalaxyBrain
+
+&SCENE:WhiteScreen
+&WAIT:0.1
+&SCENE:TMPHRossCloseUp1
+&WAIT:0.5
+&SCENE:WhiteScreen
+&WAIT:0.1
+&SCENE:TMPHRossCloseUp2
+&WAIT:0.5
+&SCENE:WhiteScreen
+&WAIT:0.1
+&SCENE:TMPHGalaxyBrain
+&WAIT:0.5
 Now this is a galaxy-brain move right here!
 
 &HIDE_TEXTBOX
