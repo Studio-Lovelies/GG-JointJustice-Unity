@@ -5,6 +5,7 @@ using UnityEngine;
 public class VolumeManager : MonoBehaviour
 {
     private AudioSource _audioSource;
+    private float _maximumVolume = 1;
     
     public AudioSource AudioSource
     {
@@ -18,12 +19,20 @@ public class VolumeManager : MonoBehaviour
         }
     }
 
-    public float Volume { get; set; } = 1;
+    public float MaximumVolume
+    {
+        get => _maximumVolume;
+        set
+        {
+            _audioSource.volume = value;
+            _maximumVolume = value;
+        }
+    }
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
-        Volume = AudioSource.volume;
+        MaximumVolume = AudioSource.volume;
     }
 
     public IEnumerator Fade(float targetVolume, float time)

@@ -57,7 +57,7 @@ public class AudioController : MonoBehaviour, IAudioController
         }
 
         SetCurrentTrack(song);
-        yield return _musicVolumeManager.Fade(_musicVolumeManager.Volume, transitionTime / 2f);
+        yield return _musicVolumeManager.Fade(_musicVolumeManager.MaximumVolume, transitionTime / 2f);
     }
 
     /// <summary>

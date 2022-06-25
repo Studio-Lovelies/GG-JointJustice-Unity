@@ -16,7 +16,7 @@ namespace UI
         
         private void OnEnable()
         {
-            _slider.value = _volumeManager.Volume;
+            _slider.value = _volumeManager.MaximumVolume;
         }
     }
 }
