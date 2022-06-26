@@ -1,150 +1,28 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
-/// <summary>
-/// Handles input. Add events to this class use them to communicate with the Controls instance.
-/// </summary>
-public class InputModule : MonoBehaviour, Controls.IUIActions
+namespace Input
 {
-    [SerializeField] private float _delayBeforeSpeedup = 0.5f; //In seconds
-
-    // Add key press events here
-    [SerializeField] private UnityEvent _onContinueStory;
-    [SerializeField] private UnityEvent _onPressWitness;
-    [SerializeField] private UnityEvent _onSpeedupTextStart;
-    [SerializeField] private UnityEvent _onSpeedupTextEnd;
-    [SerializeField] private UnityEvent _onCaseMenuOpened;
-    [SerializeField] private UnityEvent _onPauseMenuOpened;
-    [SerializeField] private UnityEvent<Vector2> _onDirectionalButtons;
-
-    private InputManager _inputManager;
-    private Controls _controls;
-    private bool _selectPressed;
-    private IEnumerator _lastSpeedupCoroutine;
-
-    private void Awake()
-    {
-        _inputManager = GetComponentInParent<InputManager>();
-    }
-    
     /// <summary>
-    /// Called when the object is enabled
+    /// Handles input. Add events to this class use them to communicate with the Controls instance.
     /// </summary>
-    private void OnEnable()
+    public class InputModule : MonoBehaviour
     {
-        _controls ??= new Controls();
-        _controls.UI.SetCallbacks(this);
-        _controls.Enable();
-    }
+        [SerializeField] private Control[] _controls;
 
-    /// <summary>
-    /// Called when the object is disabled
-    /// </summary>
-    private void OnDisable()
-    {
-        _controls.UI.SetCallbacks(null);
-        _controls.Disable();
-    }
-
-    /// <summary>
-    /// Coroutine function (unity threading) which waits for a certain delay before starting to speed up the appearing text (if the button is still being pressed)
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator WaitAndSpeedUp()
-    {
-        yield return new WaitForSeconds(_delayBeforeSpeedup);
-
-        if (_selectPressed)
+        public void OnEnable()
         {
-            _onSpeedupTextStart.Invoke();
-        }
-    }
-
-    /// <summary>
-    /// Called when the left mouse button is pressed anywhere on the screen.
-    /// </summary>
-    /// <param name="context"></param>
-    void Controls.IUIActions.OnLeftMouseButton(InputAction.CallbackContext context)
-    {
-        //Unused for now
-    }
-
-    /// <summary>
-    /// Called when any of the directional buttons are pressed
-    /// </summary>
-    /// <param name="context"></param>
-    void Controls.IUIActions.OnDirectionalButtons(InputAction.CallbackContext context)
-    {
-        var value = context.ReadValue<Vector2>();
-        if (context.started)
-        {
-            _onDirectionalButtons.Invoke(value);
-        }
-    }
-
-    /// <summary>
-    /// Called when the select button is pressed (x)
-    /// </summary>
-    /// <param name="context"></param>
-    void Controls.IUIActions.OnSelect(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            _onContinueStory.Invoke();
-            _selectPressed = true;
-            _lastSpeedupCoroutine = WaitAndSpeedUp();
-            if (_lastSpeedupCoroutine != null)
+            foreach (var control in _controls)
             {
-                StartCoroutine(_lastSpeedupCoroutine);
+                control.Enable();
             }
         }
-        else if (context.phase == InputActionPhase.Canceled)
+
+        public void OnDisable()
         {
-            _selectPressed = false;
-            if (_lastSpeedupCoroutine != null)
+            foreach (var control in _controls)
             {
-                StopCoroutine(_lastSpeedupCoroutine);
-                _onSpeedupTextEnd.Invoke();
-                _lastSpeedupCoroutine = null;
+                control.Disable();
             }
         }
-    }
-
-    /// <summary>
-    /// Called when the press witness button is pressed (c)
-    /// </summary>
-    /// <param name="context"></param>
-    void Controls.IUIActions.OnPress(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-            _onPressWitness.Invoke();
-    }
-
-    /// <summary>
-    /// Called when the menu button is pressed (z)
-    /// </summary>
-    /// <param name="context"></param>
-    void Controls.IUIActions.OnMenu(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-            _onCaseMenuOpened.Invoke();
-    }
-
-    /// <summary>
-    /// Called when the pause button is pressed (esc)
-    /// </summary>
-    /// <param name="context"></param>
-    void Controls.IUIActions.OnPause(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-            _onPauseMenuOpened.Invoke();
-    }
-
-    void Controls.IUIActions.OnCursor(InputAction.CallbackContext context)
-    {
-        //Unused for now
     }
 }

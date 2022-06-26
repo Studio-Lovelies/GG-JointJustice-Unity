@@ -332,124 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayBeforeSpeedup: 0.05
-  _onContinueStory:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8054490722184616645}
-        m_TargetAssemblyTypeName: NarrativeScriptPlayer, GG-JointJustice
-        m_MethodName: Continue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onPressWitness:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8054490722184616645}
-        m_TargetAssemblyTypeName: NarrativeScriptPlayer, GG-JointJustice
-        m_MethodName: TryPressWitness
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1937167320}
-        m_TargetAssemblyTypeName: EvidenceMenu, GG-JointJustice
-        m_MethodName: ToggleProfileMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onSpeedupTextStart:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8901694707279466764}
-        m_TargetAssemblyTypeName: AppearingText, Assembly-CSharp
-        m_MethodName: set_SpeedMultiplier
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 4
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  _onSpeedupTextEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8901694707279466764}
-        m_TargetAssemblyTypeName: AppearingText, Assembly-CSharp
-        m_MethodName: set_SpeedMultiplier
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onCaseMenuOpened:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1937167313}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-        m_MethodName: ToggleMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onPauseMenuOpened:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2078122577}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-        m_MethodName: ToggleMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1931580884}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-        m_MethodName: CloseMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onDirectionalButtons:
-    m_PersistentCalls:
-      m_Calls: []
+  _controls: []
 --- !u!4 &342284812
 Transform:
   m_ObjectHideFlags: 0
@@ -473,7 +356,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 479700757}
-  - component: {fileID: 479700756}
+  - component: {fileID: 479700758}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -481,76 +364,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &479700756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479700755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 39ed1286-0cce-4d62-b445-81e4f9eb7e5f
-    m_ActionName: UI/Left Mouse Button[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 51fc77bb-0044-49e6-b0aa-81378f1f9dd9
-    m_ActionName: UI/DirectionalButtons[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 03060c75-97bb-4857-aa4b-29d29a4a5468
-    m_ActionName: UI/Select[/Keyboard/x,/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a619f33d-34d5-4ff0-aafc-7b44b079fd16
-    m_ActionName: UI/Press[/Keyboard/c]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1937167313}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-        m_MethodName: ToggleMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 4604dfdc-1231-4c48-90e6-179e07ce8c7b
-    m_ActionName: UI/Menu[/Keyboard/g]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e246d8c6-4dd4-4e4f-ba34-9888a9114e4a
-    m_ActionName: UI/Pause[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: af67e4f3-2837-4590-ad59-91a7e5b12fd7
-    m_ActionName: UI/Cursor[/Mouse/position,/Pen/position]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Mouse and Keyboard
-  m_DefaultActionMap: UI
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!4 &479700757
 Transform:
   m_ObjectHideFlags: 0
@@ -559,12 +372,41 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479700755}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.046482354, y: 0.65075284, z: -1.1749139}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &479700758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479700755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controls:
+  - _inputActionReference: {fileID: -525457200784595857, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+    _event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1937167313}
+          m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
+          m_MethodName: ToggleMenu
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &586186429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2430,17 +2272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1931580884 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1905737855016361055, guid: f4cda231489f65341910a0acac208946, type: 3}
-  m_PrefabInstance: {fileID: 586186429}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1937167313 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6204405884758206015, guid: f4cda231489f65341910a0acac208946, type: 3}
@@ -2450,17 +2281,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1937167320 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6458276735814169469, guid: f4cda231489f65341910a0acac208946, type: 3}
-  m_PrefabInstance: {fileID: 586186429}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ebf593d67c2846bda7a4e4142032787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2044061588
@@ -2525,17 +2345,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3b7e99e542e44d73a566690e1cb0c64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2078122577 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
-  m_PrefabInstance: {fileID: 586186429}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2114217580 stripped
@@ -2835,40 +2644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayBeforeSpeedup: 0.5
-  _onContinueStory:
-    m_PersistentCalls:
-      m_Calls: []
-  _onPressWitness:
-    m_PersistentCalls:
-      m_Calls: []
-  _onSpeedupTextStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _onSpeedupTextEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  _onCaseMenuOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  _onPauseMenuOpened:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2078122577}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-        m_MethodName: OpenMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onDirectionalButtons:
-    m_PersistentCalls:
-      m_Calls: []
+  _controls: []
 --- !u!114 &1767373746181080126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3098,52 +2874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayBeforeSpeedup: 0.5
-  _onContinueStory:
-    m_PersistentCalls:
-      m_Calls: []
-  _onPressWitness:
-    m_PersistentCalls:
-      m_Calls: []
-  _onSpeedupTextStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _onSpeedupTextEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  _onCaseMenuOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  _onPauseMenuOpened:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2078122577}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-        m_MethodName: CloseMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1931580884}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-        m_MethodName: CloseMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onDirectionalButtons:
-    m_PersistentCalls:
-      m_Calls: []
+  _controls: []
 --- !u!114 &4590349130768267613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4114,52 +3845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayBeforeSpeedup: 0.5
-  _onContinueStory:
-    m_PersistentCalls:
-      m_Calls: []
-  _onPressWitness:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1937167320}
-        m_TargetAssemblyTypeName: EvidenceMenu, GG-JointJustice
-        m_MethodName: ToggleProfileMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onSpeedupTextStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _onSpeedupTextEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  _onCaseMenuOpened:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1937167313}
-        m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-        m_MethodName: CloseMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onPauseMenuOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDirectionalButtons:
-    m_PersistentCalls:
-      m_Calls: []
+  _controls: []
 --- !u!114 &8371940055574374656
 MonoBehaviour:
   m_ObjectHideFlags: 0
