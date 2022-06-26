@@ -28,7 +28,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     private IHighlight _highlight;
     
     public bool ShouldIgnoreNextSelectEvent { private get; set; }
-    public Button Button { get; private set; }
+    public Selectable Selectable { get; private set; }
 
     /// <summary>
     /// Use this to set the text of a menu item.
@@ -54,13 +54,13 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     /// </summary>
     private void Awake()
     {
-        Button = GetComponent<Button>();
+        Selectable = GetComponent<Selectable>();
         _menu = GetComponentInParent<Menu>();
         _menu.OnSetInteractable.AddListener(interactable =>
         {
-            Button.enabled = interactable;
+            Selectable.enabled = interactable;
             enabled = interactable;
-            _highlight.SetHighlighted(_menu.SelectedButton == Button);
+            _highlight.SetHighlighted(_menu.SelectedButton == Selectable);
         });
         
         _highlight = GetComponentInChildren<IHighlight>();
@@ -85,9 +85,9 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!Button.interactable) return;
+        if (!Selectable.interactable) return;
         
-        Button.Select();
+        Selectable.Select();
         _highlight?.SetHighlighted(true);
     }
 
@@ -97,7 +97,7 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     /// <param name="eventData"></param>
     public void OnSelect(BaseEventData eventData)
     {
-        _menu.SelectedButton = Button;
+        _menu.SelectedButton = Selectable;
         _highlight?.SetHighlighted(true);
         
         if (ShouldIgnoreNextSelectEvent)

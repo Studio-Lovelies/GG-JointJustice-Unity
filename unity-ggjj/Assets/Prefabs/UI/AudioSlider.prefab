@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5005095157764427799}
   - component: {fileID: 2992916628710470802}
   - component: {fileID: 521583630854744703}
+  - component: {fileID: 5719712193118676251}
   m_Layer: 5
   m_Name: AudioSlider
   m_TagString: Untagged
@@ -149,6 +150,26 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &5719712193118676251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397646246220948315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fba59a51dbe4441fbe03b1c73d561db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textMeshProUGUI: {fileID: 0}
+  _shouldIgnoreFirstSelectEvent: 0
+  <OnItemSelect>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnItemDeselect>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2532701802098227637
 GameObject:
   m_ObjectHideFlags: 0
