@@ -226,100 +226,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayBeforeSpeedup: 0.5
-  _onContinueStory:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1959434934}
-        m_TargetAssemblyTypeName: SceneLoader, GG-JointJustice
-        m_MethodName: LoadScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MainMenu
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 328321591}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2002382600}
-        m_TargetAssemblyTypeName: AudioController, GG-JointJustice
-        m_MethodName: FadeOutSong
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onPressWitness:
-    m_PersistentCalls:
-      m_Calls: []
-  _onSpeedupTextStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _onSpeedupTextEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  _onCaseMenuOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  _onPauseMenuOpened:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1959434934}
-        m_TargetAssemblyTypeName: SceneLoader, GG-JointJustice
-        m_MethodName: LoadScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MainMenu
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 328321591}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2002382600}
-        m_TargetAssemblyTypeName: AudioController, GG-JointJustice
-        m_MethodName: FadeOutSong
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onDirectionalButtons:
-    m_PersistentCalls:
-      m_Calls: []
+  _controls:
+  - _inputActionReference: {fileID: 675183000856290462, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+    _event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1959434934}
+          m_TargetAssemblyTypeName: SceneLoader, GG-JointJustice
+          m_MethodName: LoadScene
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: MainMenu
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _inputActionReference: {fileID: 2662257130399901586, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+    _event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1959434934}
+          m_TargetAssemblyTypeName: SceneLoader, GG-JointJustice
+          m_MethodName: LoadScene
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: MainMenu
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &328321592
 Transform:
   m_ObjectHideFlags: 0
