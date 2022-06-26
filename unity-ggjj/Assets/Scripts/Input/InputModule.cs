@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Input
@@ -7,7 +8,7 @@ namespace Input
     /// </summary>
     public class InputModule : MonoBehaviour
     {
-        [SerializeField] private Control[] _controls;
+        [SerializeField] private Control[] _controls = Array.Empty<Control>();
 
         public void OnEnable()
         {
