@@ -237,7 +237,18 @@ public class @Controls : IInputActionCollection, IDisposable
         {
             ""name"": ""Mouse and Keyboard"",
             ""bindingGroup"": ""Mouse and Keyboard"",
-            ""devices"": []
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         },
         {
             ""name"": ""Touch"",
