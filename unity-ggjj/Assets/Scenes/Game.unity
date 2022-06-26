@@ -2769,6 +2769,17 @@ MonoBehaviour:
   _onMenuClosed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &586186434 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6458276735814169469, guid: f4cda231489f65341910a0acac208946, type: 3}
+  m_PrefabInstance: {fileID: 586186429}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ebf593d67c2846bda7a4e4142032787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &606207931
 GameObject:
   m_ObjectHideFlags: 0
@@ -5711,6 +5722,22 @@ MonoBehaviour:
         - m_Target: {fileID: 586186431}
           m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
           m_MethodName: ToggleMenu
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _inputActionReference: {fileID: 6692141995298261549, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+    _event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 586186434}
+          m_TargetAssemblyTypeName: EvidenceMenu, GG-JointJustice
+          m_MethodName: ToggleProfileMenu
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
