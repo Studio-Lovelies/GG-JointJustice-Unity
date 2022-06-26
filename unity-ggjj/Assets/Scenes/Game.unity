@@ -2625,7 +2625,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuClosed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -2677,7 +2677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuClosed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: InputModule, GG-JointJustice
+      value: Input.InputModule, GG-JointJustice
       objectReference: {fileID: 0}
     - target: {fileID: 8917197989530816387, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
