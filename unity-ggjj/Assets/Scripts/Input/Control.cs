@@ -13,7 +13,8 @@ namespace Input
 
         public void Enable()
         {
-            _inputActionReference.action.started += Invoke;
+            _inputActionReference.action.performed += Invoke;
+            _inputActionReference.action.Enable();
         }
 
         public void Invoke(InputAction.CallbackContext ctx)
@@ -23,7 +24,7 @@ namespace Input
 
         public void Disable()
         {
-            _inputActionReference.action.started -= Invoke;
+            _inputActionReference.action.performed -= Invoke;
         }
     }
 }

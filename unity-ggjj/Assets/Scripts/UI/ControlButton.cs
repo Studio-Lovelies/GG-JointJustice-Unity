@@ -29,7 +29,6 @@ namespace UI
             _inputActionReference.action.Enable();
             rebindingOperation.Dispose();
             UpdateButton();
-            Debug.Log(_inputActionReference.action);
         }
 
         private void UpdateButton()
