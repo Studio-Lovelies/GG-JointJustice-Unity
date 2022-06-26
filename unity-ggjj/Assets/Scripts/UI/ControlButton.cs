@@ -17,7 +17,7 @@ namespace UI
         public void BeginRebind()
         {
             _inputActionReference.action.Disable();
-            _inputActionReference.action.PerformInteractiveRebinding()
+            _inputActionReference.action.PerformInteractiveRebinding(0)
                 .WithControlsExcluding("Mouse")
                 .OnComplete(OnRebindComplete)
                 .OnMatchWaitForAnother(0.1f)
@@ -33,7 +33,7 @@ namespace UI
 
         private void UpdateButton()
         {
-            _text.text = _inputActionReference.action.GetBindingDisplayString();
+            _text.text = _inputActionReference.action.GetBindingDisplayString().Split('|')[0].Trim();
         }
     }
 }
