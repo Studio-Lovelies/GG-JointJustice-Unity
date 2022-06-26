@@ -772,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b311dd7ac94f4ded81eaeae45bb6588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputActionReference: {fileID: 2662257130399901586, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+  _inputActionReference: {fileID: 6692141995298261549, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
   _text: {fileID: 361998338}
 --- !u!1 &456721318
 GameObject:
@@ -3168,6 +3168,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputActionReference: {fileID: -525457200784595857, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
   _text: {fileID: 1049900520}
+--- !u!114 &1049900523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049900521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1049900522}
+          m_TargetAssemblyTypeName: UI.ControlButton, GG-JointJustice
+          m_MethodName: Cancel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &1049900526 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7387902164298400916, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
@@ -3505,18 +3534,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8651111736892800900, guid: f4cda231489f65341910a0acac208946, type: 3}
   m_PrefabInstance: {fileID: 586186429}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1341421214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341421213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c63981f85a9b94f449441c116636c23f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1341421215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3532,6 +3549,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.4392157, g: 0.5568628, b: 0.8862745, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 0
+--- !u!114 &1341421218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341421213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c63981f85a9b94f449441c116636c23f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1429721701
 GameObject:
   m_ObjectHideFlags: 0
