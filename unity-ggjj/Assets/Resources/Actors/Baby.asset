@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc981f29381844a991ebe930492451f, type: 3}
+  m_Name: Baby
+  m_EditorClassIdentifier: 
+  <Profile>k__BackingField: {fileID: 21300000, guid: f3d31743d28ac4d4dbdb8d6b7c76833b, type: 3}
+  <DisplayName>k__BackingField: Baby
+  <Age>k__BackingField: 33
+  _ageCertainty: 0
+  <DisplayColor>k__BackingField: {r: 1, g: 0.7028302, b: 0.9825194, a: 1}
+  <Bio>k__BackingField: Marge.
+  <AnimatorController>k__BackingField: {fileID: 9100000, guid: 1a4e85fc80dc6432595a37f634088f04, type: 2}
+  <ShoutVariants>k__BackingField: []
+  <DialogueChirp>k__BackingField: {fileID: 0}
