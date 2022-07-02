@@ -34,12 +34,12 @@ public class ChapterSelectMenu : MonoBehaviour
             var menuItem = Instantiate(_menuItemPrefab, _buttonContainer);
             if (i == 1)
             {
-                menuItem.Button.Select();
+                menuItem.Selectable.Select();
             }
             menuItem.Text = $"Part {i}";
             menuItem.OnItemSelect.AddListener(() => _audioController.PlaySfx(_buttonSelectAudioClip));
             var chapterIndex = i - 1;
-            menuItem.Button.onClick.AddListener(() => StartGame(chapters[chapterIndex]));
+            ((Button)menuItem.Selectable).onClick.AddListener(() => StartGame(chapters[chapterIndex]));
             _menuItems.Add(menuItem);
         }
 
