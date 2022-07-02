@@ -12,6 +12,4 @@ updates:
     schedule:
       interval: "daily"
       time: "04:00"
-    labels:
-      - "autoupdate"
     open-pull-requests-limit: 100
