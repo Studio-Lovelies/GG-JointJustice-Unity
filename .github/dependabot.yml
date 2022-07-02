@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "03:00"
+    open-pull-requests-limit: 100
+
+  - package-ecosystem: "nuget"
+    directory: "/docs_generator"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    labels:
+      - "autoupdate"
+    open-pull-requests-limit: 100
