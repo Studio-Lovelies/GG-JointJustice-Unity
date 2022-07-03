@@ -77,6 +77,10 @@ jobs:
     needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      checks: write # allows dependabot PRs to set pull request checks
+      contents: read
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -127,6 +131,10 @@ jobs:
     needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      checks: write # allows dependabot PRs to set pull request checks
+      contents: read
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -180,6 +188,10 @@ jobs:
     needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      checks: write # allows dependabot PRs to set pull request checks
+      contents: read
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
