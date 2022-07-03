@@ -107,7 +107,7 @@ jobs:
           customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         if: ${{ failure() || success() }}
         with:
           name: EditMode
@@ -160,7 +160,7 @@ jobs:
           customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         if: ${{ failure() || success() }}
         with:
           name: PlayMode Scripts
@@ -213,7 +213,7 @@ jobs:
           customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         if: ${{ failure() || success() }}
         with:
           name: PlayMode Scenes
