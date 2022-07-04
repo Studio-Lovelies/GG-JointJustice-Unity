@@ -67,7 +67,7 @@ jobs:
           unityVersion: 2020.3.15f2
 
       - name: Expose as artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
@@ -120,7 +120,7 @@ jobs:
           files: unity-ggjj/coverage-results/**/*.xml
 
       - name: Store test artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ failure() || success() }}
         with:
           name: Test Results - EditMode
@@ -177,7 +177,7 @@ jobs:
           files: unity-ggjj/coverage-results/**/*.xml
 
       - name: Store test artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ failure() || success() }}
         with:
           name: Test Results - PlayMode Scripts
@@ -234,7 +234,7 @@ jobs:
           files: unity-ggjj/coverage-results/**/*.xml
 
       - name: Store test artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ failure() || success() }}
         with:
           name: Test Results - PlayMode Scenes
@@ -295,7 +295,7 @@ jobs:
           buildName: 'Game Grumps - Joint Justice'
 
       - name: Upload '${{ matrix.targetPlatform.outputName }}' artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.targetPlatform.outputName }}-v${{ github.run_number }}
           path: build/${{ matrix.targetPlatform.unityPlatform }}

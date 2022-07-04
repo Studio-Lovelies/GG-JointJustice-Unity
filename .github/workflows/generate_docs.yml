@@ -47,7 +47,7 @@ jobs:
         run: echo "Current '${{ steps.currentDocs.outputs.hash }}' - New '${{ steps.newDocs.outputs.hash }}'"
         
       - name: Upload '/docs' artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: docs-v${{ github.run_number }}
           path: ./docs
