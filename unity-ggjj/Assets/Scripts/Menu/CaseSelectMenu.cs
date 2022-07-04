@@ -37,7 +37,7 @@ public class CaseSelectMenu : MonoBehaviour
             menuOpener.MenuToOpen = _chapterSelectMenu.Menu;
             
             menuItem.OnItemSelect.AddListener(() => _audioController.PlaySfx(_buttonSelectAudioClip));
-            menuItem.Button.onClick.AddListener(() => StartGameOrShowChapterSelectionMenu(narrativeCase, menuOpener));
+            ((Button)menuItem.Selectable).onClick.AddListener(() => StartGameOrShowChapterSelectionMenu(narrativeCase, menuOpener));
         }
     }
 
