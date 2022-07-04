@@ -68,7 +68,7 @@ jobs:
         run: rm -rf docs/* 
         
       - name: Download ${{ matrix.platforms.outputName }}
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: docs-v${{ github.run_number }}
           path: ./docs
