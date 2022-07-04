@@ -54,8 +54,13 @@ namespace Editor.Ink
         private static IEnumerable<string> FindErrorsInFile(InkFile inkFile)
         {
             var errors = new List<string>();
-            
             var lines = new List<string>();
+
+            if (inkFile.jsonAsset == null)
+            {
+                return Array.Empty<string>();
+            }
+            
             var story = new Story(inkFile.jsonAsset.text);
             NarrativeScript.ReadContent(story.mainContentContainer.content, lines, story);
 
