@@ -5,7 +5,7 @@ public class FullscreenToggle : MonoBehaviour
 {
     private void Awake()
     {
-        SetFullscreen(GetComponent<Toggle>().isOn);
+        GetComponent<Toggle>().isOn = Screen.fullScreen;
     }
 
     /// <summary>
