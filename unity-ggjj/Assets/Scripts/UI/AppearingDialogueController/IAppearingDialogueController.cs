@@ -1,5 +1,6 @@
 public interface IAppearingDialogueController
 {
+    bool SpeedupText { get; set; }
     float CharacterDelay { get; set; }
     float DefaultPunctuationDelay { set; }
     bool SkippingDisabled { get; set; }

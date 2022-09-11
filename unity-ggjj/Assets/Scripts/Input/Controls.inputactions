@@ -6,6 +6,14 @@
             "id": "de1537fe-4eb2-4289-b2fb-a49589bc443e",
             "actions": [
                 {
+                    "name": "ToggleTextSpeedup",
+                    "type": "Button",
+                    "id": "73cf0c6d-7a5f-4586-b850-5726b955b4f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Left Mouse Button",
                     "type": "PassThrough",
                     "id": "39ed1286-0cce-4d62-b445-81e4f9eb7e5f",
@@ -63,6 +71,17 @@
                 }
             ],
             "bindings": [
+                {
+                    "name": "",
+                    "id": "7811c9e1-b05e-4dfb-8c46-8d3fc0e8d035",
+                    "path": "<Keyboard>/x",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "ToggleTextSpeedup",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
                 {
                     "name": "",
                     "id": "988ad8b7-96bd-45d0-a79f-b8fd62a8d7a9",

@@ -19,14 +19,17 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Drag the speech panel game object here")]
     [SerializeField] private GameObject _speechPanel;
     
-    [field: Tooltip("The time after one character appears and before the next character appears.")]
+    [field: Tooltip("The time in seconds after a character appears and before the next >non-punctuation< character appears.")]
     [field: SerializeField] public float CharacterDelay { get; set; }
 
-    [field: Tooltip("Set the default delay for punctuation characters here.")]
+    [field: Tooltip("The time in seconds after a character appears and before the next >punctuation< character appears.")]
     [field: SerializeField] public float DefaultPunctuationDelay { get; set; }
 
-    [Tooltip("Add punctuation characters and their delay values here.")]
-    [SerializeField] private Pair<char, float>[] _punctuationDelay;
+    [field: Tooltip("The time in seconds after a character appears and before the next character appears when the player is requesting a text speedup.")]
+    [field: SerializeField] public float SpeedupDelay { get; set; }
+
+    [Tooltip("List of characters and a custom delay in seconds after a character appears and before >that specific< character appears.")]
+    [SerializeField] private Pair<char, float>[] _specialDelays;
 
     [Tooltip("Add characters that should be treated like regular characters here.")]
     [SerializeField] private char[] _ignoredCharacters;
@@ -44,7 +47,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     private Coroutine _printCoroutine;
     private int _chirpIndex;
 
-    public float SpeedMultiplier { get; set; } = 1;
+    public bool SpeedupText { get; set; }
     public bool SkippingDisabled { get; set; }
     public bool ContinueDialogue { get; set; }
     public bool AutoSkip { get; set; }
@@ -179,12 +182,19 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     /// <returns>The time to wait.</returns>
     public float GetDelay(TMP_CharacterInfo characterInfo)
     {
-        var speedMultiplier = SkippingDisabled ? 1 : SpeedMultiplier;
+        if (!SkippingDisabled)
+        {
+            if (SpeedupText)
+            {
+                return SpeedupDelay;
+            }
+        }
+
         var character = characterInfo.character;
         
         if (!CharShouldBeTreatedAsPunctuation(characterInfo))
         {
-            return CharacterDelay / speedMultiplier;
+            return CharacterDelay;
         }
 
         if (_textBox.maxVisibleCharacters == _textInfo.characterCount)
@@ -192,8 +202,8 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
             return 0;
         }
         
-        var pair = _punctuationDelay.FirstOrDefault(charFloatPair => charFloatPair.Item1 == character);
-        return (pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2) / speedMultiplier;
+        var pair = _specialDelays.FirstOrDefault(charFloatPair => charFloatPair.Item1 == character);
+        return (pair.Item1 == '\0' ? DefaultPunctuationDelay : pair.Item2);
     }
     
     /// <param name="characterInfo">Char to be tested</param>

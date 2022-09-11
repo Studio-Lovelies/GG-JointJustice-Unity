@@ -55,7 +55,8 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
             while (true)
             {
                 _appearingDialogueController.AppearInstantly = true;
-                _appearingDialogueController.SpeedMultiplier = 20;
+                _appearingDialogueController.SpeedupText = true;
+                _appearingDialogueController.SpeedupDelay = 0;
 
                 // If the narrative script has changed then we have reached the end of a script
                 if (NarrativeScriptHasChanged(_narrativeScript))
@@ -179,7 +180,7 @@ namespace Tests.PlayModeTests.Scenes.NarrativeScripts
             if (!input.enabled) { yield break; }
             
             yield return TestTools.WaitForState(() => !_narrativeGameState.AppearingDialogueController.IsPrintingText);
-            _appearingDialogueController.SpeedMultiplier = 1;
+            _appearingDialogueController.SpeedupText = false;
             _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
         }
     }
