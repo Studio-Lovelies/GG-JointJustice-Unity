@@ -1,3 +1,5 @@
+using UnityEngine.InputSystem;
+
 public interface INarrativeScriptPlayer
 {
     INarrativeScript ActiveNarrativeScript { get; set; }
@@ -5,6 +7,7 @@ public interface INarrativeScriptPlayer
     bool Waiting { get; set; }
     bool CanPressWitness { get; }
     bool HasSubStory { get; }
+    void ToggleSpeedup(InputAction.CallbackContext inputCallbackContext);
     
     void Continue(bool overridePrintingText = false);
     void HandleChoice(int choiceIndex);

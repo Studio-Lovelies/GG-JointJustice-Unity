@@ -9,7 +9,7 @@ namespace Input
     public class Control
     {
         [SerializeField] private InputActionReference _inputActionReference;
-        [SerializeField] private UnityEvent _event;
+        [SerializeField] private UnityEvent<InputAction.CallbackContext> _event;
 
         public void Enable()
         {
@@ -17,9 +17,9 @@ namespace Input
             _inputActionReference.action.Enable();
         }
 
-        public void Invoke(InputAction.CallbackContext ctx)
+        public void Invoke(InputAction.CallbackContext inputCallbackContext)
         {
-            _event.Invoke();
+            _event.Invoke(inputCallbackContext);
         }
 
         public void Disable()

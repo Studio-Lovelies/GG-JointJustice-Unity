@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPlayerComponent
 {
@@ -34,6 +35,11 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     public void Continue()
     {
         NarrativeScriptPlayer.Continue();
+    }
+
+    public void ToggleSpeedup(InputAction.CallbackContext inputCallbackContext)
+    {
+        NarrativeScriptPlayer.ToggleSpeedup(inputCallbackContext);
     }
 
     /// <summary>
