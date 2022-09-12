@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
-using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Acts a wrapper around Ink stories, providing access to each new line in a Story
@@ -75,6 +75,29 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
     public NarrativeScriptPlayer(INarrativeGameState narrativeGameState)
     {
         _narrativeGameState = narrativeGameState;
+    }
+
+    
+    /// <summary>
+    /// Speeds up or restores the previous speed of delay between characters when called
+    /// </summary>
+    /// <param name="inputCallbackContext">Generated from Unity's InputModule</param>
+    public void ToggleSpeedup(InputAction.CallbackContext inputCallbackContext)
+    {
+        if (inputCallbackContext.ReadValueAsButton())
+        {
+            // this check is required, as the "speedup" button is identical to the "progress story button".
+            // removal would result in tiny sub-second speedups, each time the player attempts to
+            // progress the narrative script.
+            // with it, the speedup only occurs if the button is pressed while there is still text left
+            // to show in the current line of dialogue
+            if (_narrativeGameState.AppearingDialogueController.IsPrintingText)
+            {
+                _narrativeGameState.AppearingDialogueController.SpeedupText = true;
+                return;
+            }
+        }
+        _narrativeGameState.AppearingDialogueController.SpeedupText = false;
     }
 
     /// <summary>

@@ -422,22 +422,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - _inputActionReference: {fileID: 2662257130399901586, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
-    _event:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8054490722184616645}
-          m_TargetAssemblyTypeName: NarrativeScriptPlayerComponent, GG-JointJustice
-          m_MethodName: Continue
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - _inputActionReference: {fileID: 675183000856290462, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
     _event:
       m_PersistentCalls:
@@ -461,6 +445,38 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 4398871484667759689}
             m_ObjectArgumentAssemblyTypeName: Input.InputModule, GG-JointJustice
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _inputActionReference: {fileID: 6117326585994252875, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+    _event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8054490722184616645}
+          m_TargetAssemblyTypeName: NarrativeScriptPlayerComponent, GG-JointJustice
+          m_MethodName: ToggleSpeedup
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _inputActionReference: {fileID: 2662257130399901586, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+    _event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8054490722184616645}
+          m_TargetAssemblyTypeName: NarrativeScriptPlayerComponent, GG-JointJustice
+          m_MethodName: Continue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -4213,7 +4229,8 @@ MonoBehaviour:
   _speechPanel: {fileID: 641077}
   <CharacterDelay>k__BackingField: 0.02
   <DefaultPunctuationDelay>k__BackingField: 0.25
-  _punctuationDelay:
+  <SpeedupDelay>k__BackingField: 0
+  _specialDelays:
   - <Item1>k__BackingField: 44
     <Item2>k__BackingField: 0.1
   _ignoredCharacters: 2700280029002d00
