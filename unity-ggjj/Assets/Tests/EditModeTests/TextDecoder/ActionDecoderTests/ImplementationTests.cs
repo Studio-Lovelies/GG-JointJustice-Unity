@@ -33,7 +33,7 @@ namespace TextDecoder.ActionDecoderTests
             {typeof(FullscreenAnimationAssetName), "ValidString"},
             {typeof(SceneAssetName), "ValidString"},
             {typeof(SfxAssetName), "ValidString"},
-            {typeof(SongAssetName), "ValidString"},
+            {typeof(StaticSongAssetName), "ValidString"},
             {typeof(CourtRecordItemName), "ValidString"},
             {typeof(EvidenceAssetName), "ValidString"},
             {typeof(ActorAssetName), "ValidString"},

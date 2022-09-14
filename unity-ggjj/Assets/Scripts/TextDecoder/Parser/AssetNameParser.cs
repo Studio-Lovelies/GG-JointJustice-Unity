@@ -56,9 +56,9 @@
             return null;
         }
     }
-    public class SongAssetNameParser : Parser<SongAssetName>
+    public class StaticSongAssetNameParser : Parser<StaticSongAssetName>
     {
-        public override string Parse(string input, out SongAssetName output)
+        public override string Parse(string input, out StaticSongAssetName output)
         {
             if (string.IsNullOrWhiteSpace(input))
             {
@@ -66,7 +66,21 @@
                 return $"String cannot be empty";
             }
 
-            output = new SongAssetName(input);
+            output = new StaticSongAssetName(input);
+            return null;
+        }
+    }
+    public class DynamicSongAssetNameParser : Parser<DynamicSongAssetName>
+    {
+        public override string Parse(string input, out DynamicSongAssetName output)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                output = null;
+                return $"String cannot be empty";
+            }
+
+            output = new DynamicSongAssetName(input);
             return null;
         }
     }

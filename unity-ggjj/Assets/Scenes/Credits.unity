@@ -2154,7 +2154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c1588c060bf994aa9f9fed3449e1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _musicVolumeManager: {fileID: 1571389418}
+  _musicPrimaryVolumeManager: {fileID: 1571389418}
   _sfxVolumeManager: {fileID: 1618686190}
   _defaultSong: {fileID: 8300000, guid: af91ed2528c6c8741890a3db3575fad8, type: 3}
 --- !u!4 &2002382601

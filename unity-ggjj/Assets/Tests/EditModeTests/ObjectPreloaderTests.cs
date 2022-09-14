@@ -49,7 +49,7 @@ public class ObjectPreloaderTests
     [TestCaseSource(nameof(MusicLoadingActions))]
     public void ObjectPreloaderCanLoadMusic(string action)
     {
-        ObjectPreloaderCanLoadObjects<AudioClip>("Audio/Music", action);
+        ObjectPreloaderCanLoadObjects<AudioClip>("Audio/Music/Static", action);
     }
 
     /// <summary>

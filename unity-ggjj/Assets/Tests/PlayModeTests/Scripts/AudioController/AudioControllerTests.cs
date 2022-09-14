@@ -1,7 +1,6 @@
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -14,7 +13,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
     //       To test this locally, activate `Edit` -> `Project Settings` -> `Audio` -> `Disable Unity Audio`.
     public class AudioControllerTests
     {
-        private const string MUSIC_PATH = "Audio/Music/";
+        private const string MUSIC_PATH = "Audio/Music/Static/";
         
         private global::AudioController _audioController;
         private AudioSource _audioSource;
@@ -37,14 +36,14 @@ namespace Tests.PlayModeTests.Scripts.AudioController
 
             // setup and verify steady state of music playing for a while
             var firstSong = LoadSong("aBoyAndHisTrial");
-            _audioController.PlaySong(firstSong, TRANSITION_DURATION);
+            _audioController.PlayStaticSong(firstSong, TRANSITION_DURATION);
 
             yield return TestTools.WaitForState(() => _audioSource.volume == _volumeManager.MaximumVolume, TRANSITION_DURATION*2);
             Assert.AreEqual(firstSong.name, _audioSource.clip.name);
 
             // transition into new song
             var secondSong = LoadSong("aKissFromARose");
-            _audioController.PlaySong(secondSong, TRANSITION_DURATION);
+            _audioController.PlayStaticSong(secondSong, TRANSITION_DURATION);
             yield return TestTools.WaitForState(() => _audioSource.volume != _volumeManager.MaximumVolume, TRANSITION_DURATION);
 
             // expect old song to still be playing, but no longer at full volume, as we're transitioning
@@ -57,7 +56,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
 
             // transition into new song
             var thirdSong = LoadSong("investigationJoonyer");
-            _audioController.PlaySong(thirdSong, TRANSITION_DURATION);
+            _audioController.PlayStaticSong(thirdSong, TRANSITION_DURATION);
 
             // expect old song to still be playing, but no longer at full volume, as we're transitioning
             yield return TestTools.WaitForState(() => _audioSource.volume != _volumeManager.MaximumVolume, TRANSITION_DURATION);
@@ -72,7 +71,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         public IEnumerator SongsCanBePlayedWithoutFadeIn()
         {
             var song = LoadSong("aBoyAndHisTrial");
-            _audioController.PlaySong(song, 0);
+            _audioController.PlayStaticSong(song, 0);
             yield return null;
             Assert.AreEqual(song.name, _audioSource.clip.name);
             Assert.AreEqual(_volumeManager.MaximumVolume, _audioSource.volume);
