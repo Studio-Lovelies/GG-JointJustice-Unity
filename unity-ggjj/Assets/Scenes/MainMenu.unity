@@ -2722,7 +2722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c1588c060bf994aa9f9fed3449e1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _musicVolumeManager: {fileID: 1734046928}
+  _musicPrimaryVolumeManager: {fileID: 1734046928}
   _sfxVolumeManager: {fileID: 908936411}
   _defaultSong: {fileID: 0}
 --- !u!4 &718748591
@@ -4530,7 +4530,7 @@ AudioSource:
   m_GameObject: {fileID: 908936409}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7685474735026175454, guid: de07e6c9c0b1a4a4a9df41abd43356f4, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -9216,7 +9216,7 @@ AudioSource:
   m_GameObject: {fileID: 1734046925}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5898139108293559615, guid: de07e6c9c0b1a4a4a9df41abd43356f4, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -10275,40 +10275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayBeforeSpeedup: 0.5
-  _onContinueStory:
-    m_PersistentCalls:
-      m_Calls: []
-  _onPressWitness:
-    m_PersistentCalls:
-      m_Calls: []
-  _onSpeedupTextStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _onSpeedupTextEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  _onCaseMenuOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  _onPauseMenuOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDirectionalButtons:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ButtonSelectSoundPlayer, Assembly-CSharp
-        m_MethodName: OnDirectionalButtons
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _controls: []
 --- !u!4 &1987953456
 Transform:
   m_ObjectHideFlags: 0

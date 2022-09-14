@@ -46,9 +46,14 @@ public class SfxAssetName : AssetName
     public SfxAssetName(string givenName) : base(givenName) { }
 }
 
-public class SongAssetName : AssetName
+public class StaticSongAssetName : AssetName
 {
-    public SongAssetName(string givenName) : base(givenName) { }
+    public StaticSongAssetName(string givenName) : base(givenName) { }
+}
+
+public class DynamicSongAssetName : AssetName
+{
+    public DynamicSongAssetName(string givenName) : base(givenName) { }
 }
 
 public abstract class CourtRecordItemName : AssetName

@@ -3601,6 +3601,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _musicPrimaryVolumeManager: {fileID: 272117221}
+  _musicSecondaryAVolumeManager: {fileID: 341645292}
+  _musicSecondaryBVolumeManager: {fileID: 844587420}
   _sfxVolumeManager: {fileID: 1449839713}
   _defaultSong: {fileID: 0}
 --- !u!4 &2582401826076157597
@@ -4475,7 +4477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456175c2b594046d3923a6d20445dd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScript: {fileID: 0}
+  _narrativeScript: {fileID: 4900000, guid: 65a7f575a6727fb44b3e4a3220dc3aab, type: 3}
 --- !u!1 &8699442053336843567
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,9 +32,14 @@ public class ObjectPreloader : ActionDecoderBase
         LoadObject<AudioClip>($"Audio/SFX/{sfx}");
     }
 
-    protected override void PLAY_SONG(SongAssetName songName, float transitionTime = 0)
+    protected override void PLAY_SONG(StaticSongAssetName staticSongName, float transitionTime = 0)
     {
-        LoadObject<AudioClip>($"Audio/Music/{songName}");
+        LoadObject<AudioClip>($"Audio/Music/Static/{staticSongName}");
+    }
+
+    protected override void PLAY_SONG_VARIANT(DynamicSongAssetName dynamicSongName, string variantName, float transitionTime = 0)
+    {
+        LoadObject<DynamicMusicData>($"Audio/Music/Dynamic/{dynamicSongName}/{dynamicSongName}");
     }
 
     protected override void SCENE(SceneAssetName sceneName)
