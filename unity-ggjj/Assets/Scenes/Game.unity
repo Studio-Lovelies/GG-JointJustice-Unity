@@ -1979,6 +1979,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7646823483824665929, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: <MenuToOpen>k__BackingField
+      value: 
+      objectReference: {fileID: 6514482086263597470}
+    - target: {fileID: 7646823483824665929, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4120714960866268583}
+    - target: {fileID: 7646823483824665929, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1918110703}
     - target: {fileID: 7784601747797780530, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: <OnItemSelect>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2276,42 +2288,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &586186432 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1139489939919295125, guid: f4cda231489f65341910a0acac208946, type: 3}
+--- !u!114 &586186433 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7646823483824665929, guid: f4cda231489f65341910a0acac208946, type: 3}
   m_PrefabInstance: {fileID: 586186429}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &586186433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586186432}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MenuToOpen>k__BackingField: {fileID: 6514482086263597470}
-  _onMenuOpened:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4120714960866268583}
-        m_TargetAssemblyTypeName: InputManager, GG-JointJustice
-        m_MethodName: SetInput
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1918110703}
-          m_ObjectArgumentAssemblyTypeName: Input.InputModule, GG-JointJustice
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onMenuClosed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &586186434 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6458276735814169469, guid: f4cda231489f65341910a0acac208946, type: 3}
