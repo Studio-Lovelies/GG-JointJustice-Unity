@@ -117,7 +117,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             var menus = TestTools.FindInactiveInScene<Menu>();
             var mainMenu = menus.First(menu => menu.gameObject.name == "MenuButtons");
             var startGameButton = mainMenu.gameObject.GetComponentsInChildren<Transform>().First(menuItem => menuItem.gameObject.name == "NewGameButton");
-            yield return _inputTestTools.ClickAtScreenSpacePosition(startGameButton.position);
+            yield return _inputTestTools.ClickAtScreenSpacePosition(startGameButton.position + (Vector3)(startGameButton.GetComponent<RectTransform>().sizeDelta / 2));
             
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
         }
