@@ -55,15 +55,17 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     private void Awake()
     {
         Selectable = GetComponent<Selectable>();
+        _highlight = GetComponentInChildren<IHighlight>();
         _menu = GetComponentInParent<Menu>();
         _menu.OnSetInteractable.AddListener(interactable =>
         {
             Selectable.enabled = interactable;
             enabled = interactable;
-            _highlight.SetHighlighted(_menu.SelectedButton == Selectable);
+            if (_highlight != null)
+            {
+                _highlight.SetHighlighted(_menu.SelectedButton == Selectable);
+            }
         });
-        
-        _highlight = GetComponentInChildren<IHighlight>();
     }
 
     private void OnEnable()
