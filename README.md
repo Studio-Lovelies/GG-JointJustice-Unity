@@ -13,10 +13,10 @@ This is the Unity Port of the [Lua-based Court Engine for Game Grumps Joint Just
     1. Click "Add"
     2. Select `[repository root]/unity-ggjj` and hit "Open"
     3. Once it appears in the Projects list, makes sure it's pulling in the correct Unity Version
-4. Select `GG-JointJustice-Unity` to open the project
-5. In the "Project" tab, navigate to `/Assets/Scenes/MainMenu.unity`
-6. Click on the "Game" tab in the main view
-7. Hit the play button on the top!
+5. Select `unity-ggjj` to open the project
+6. In the "Project" tab, navigate to `/Assets/Scenes/MainMenu.unity`
+7. Click on the "Game" tab in the main view
+8. Hit the play button on the top!
 
 ## Set-Up Requirements
 
