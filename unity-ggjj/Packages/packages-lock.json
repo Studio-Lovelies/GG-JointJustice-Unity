@@ -199,6 +199,22 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "nuget.castle-core": {
+      "version": "2.0.0-exp.2",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "nuget.moq": {
+      "version": "2.0.0-exp.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "nuget.castle-core": "2.0.0-exp.2"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
