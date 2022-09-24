@@ -1,6 +1,22 @@
+# Game Grumps: Joint Justice [![codecov](https://codecov.io/gh/Studio-Lovelies/GG-JointJustice-Unity/branch/develop/graph/badge.svg?token=EM2MPOLMP7)](https://codecov.io/gh/Studio-Lovelies/GG-JointJustice-Unity)
+
 This is the Unity Port of the [Lua-based Court Engine for Game Grumps Joint Justice](https://github.com/IsaacLaquerre/GameGrumpsJointJustice), the Game Grumps Phoenix Wright fan project.
 
 ---
+## Getting started
+
+1. Install the [Set-Up Requirements](#set-up-requirements)
+2. Via GitHub CLI or Desktop, clone this repository to somewhere on your machine  
+   moving forward, this location will be referred to as the `[repository root]`
+3. Launch Unity Hub - this should open up the Project tab by default
+4. (First Time Only)
+    1. Click "Add"
+    2. Select `[repository root]/unity-ggjj` and hit "Open"
+    3. Once it appears in the Projects list, makes sure it's pulling in the correct Unity Version
+4. Select `GG-JointJustice-Unity` to open the project
+5. In the "Project" tab, navigate to `/Assets/Scenes/MainMenu.unity`
+6. Click on the "Game" tab in the main view
+7. Hit the play button on the top!
 
 ## Set-Up Requirements
 
@@ -12,29 +28,13 @@ To contribute to the project, you will need to have the following tools instead 
   - This will prompt you to create a Unity ID and select a Micrograme before it lets you launch Unity. This second step is expected to take some time.
 - [Unity Version 2020.3.15f2](https://unity3d.com/get-unity/download/archive)
   - Click on the Unity 2020.x tab, scroll to Unity 2020.3.15f2 (LTS) and click on the green "Unity Hub" button to download
-  
-Wait for Unity to launch, then install the following:
+- [GitHub for Desktop](https://desktop.github.com/) (optional)
+  - Helpful UI if you're not familiar with Git CLI
+- Some IDE (optional):
+  - [Visual Studio Code](https://code.visualstudio.com/)
+  - [Atom](https://atom.io/)
+  - [Sublime](https://www.sublimetext.com/download)
 
-- [GitHub for Unity](https://assetstore.unity.com/packages/tools/version-control/github-for-unity-118069)
-  - Click on "Add to My Assets", then "Open in Unity".
-  - Once the Package Manager opens, hit "Download", then "Import"
-
-_Optional:_
-
-- [GitHub for Desktop](https://desktop.github.com/) - Helpful UI if you're not familiar with Git CLI, Recommended install after Git LFS
-- Some IDE ([Visual Studio Code](https://code.visualstudio.com/), [Atom](https://atom.io/), [Sublime](https://www.sublimetext.com/download) are all free examples)
-
-## How to Run
-
-- Via GitHub CLI or Desktop, clone this repository somewhere reasonable
-- Launch Unity Hub - this should open up the Project tab by default
-- (First Time Only) Click "Add"
-  - Select your copy of "GG-JointJustice-Unity" and hit "Open"
-  - Once it appears in the Projects list, makes sure it's pulling in the correct Unity Version
-- Select GG-JointJustice-Unity to open the project
-- In the "Project" tab, navigate to `Assets/Scenes/SampleScene`
-- Click on the "Game" tab in the main view
-- Hit the play button on the top!
 
 ## Contributing
 When updating code, it is mandatory to create a pull request to make sure
