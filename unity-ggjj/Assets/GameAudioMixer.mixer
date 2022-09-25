@@ -53,7 +53,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TextBlips
+  m_Name: Dialogue
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: dd7bd7f95160deb448e2ea0605f5be57
   m_Children: []
@@ -104,8 +104,8 @@ AudioMixerGroupController:
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 70cc3d8f2749fcc4db63cad51fa1a80c
   m_Children:
-  - {fileID: 7685474735026175454}
   - {fileID: 5898139108293559615}
+  - {fileID: 7685474735026175454}
   m_Volume: 42b75760b1b523646ba6c78c0d4ba198
   m_Pitch: 0433c4623dbf1574fa0d8e64f130d3d9
   m_Send: 00000000000000000000000000000000

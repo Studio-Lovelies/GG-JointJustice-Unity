@@ -17,6 +17,7 @@ public class AudioController : MonoBehaviour, IAudioController
     }
 
     [SerializeField] private VolumeManager _sfxVolumeManager;
+    [SerializeField] private VolumeManager _dialogueVolumeManager;
 
     [Tooltip("Drag an AudioClip here to be played on scene start")]
     [SerializeField] private AudioClip _defaultSong;
@@ -32,6 +33,11 @@ public class AudioController : MonoBehaviour, IAudioController
         _musicPrimaryVolumeManager.AudioSource.Play();
     }
 
+    public void SetDialogueVolume(float volume)
+    {
+        _dialogueVolumeManager.MaximumVolume = volume;
+    }
+
     /// <summary>
     /// Play given audio clip immediately
     /// </summary>
@@ -39,6 +45,15 @@ public class AudioController : MonoBehaviour, IAudioController
     public void PlaySfx(AudioClip soundEffectClip)
     {
         _sfxVolumeManager.AudioSource.PlayOneShot(soundEffectClip);
+    }
+
+    /// <summary>
+    /// Play given audio clip immediately
+    /// </summary>
+    /// <param name="soundEffectClip">Clip to play</param>
+    public void PlayDialogue(AudioClip soundEffectClip)
+    {
+        _dialogueVolumeManager.AudioSource.PlayOneShot(soundEffectClip);
     }
 
     /// <summary>
