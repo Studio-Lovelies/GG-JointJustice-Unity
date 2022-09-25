@@ -166,7 +166,14 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         
         if (_chirpIndex % _chirpEveryNthLetter == 0)
         {
-            _narrativeGameState.AudioController.PlaySfx(resultChirp);
+            float volume = 1.0f;
+            if(SpeedupText)
+            {
+                volume = 0.18f;
+            }
+
+            _narrativeGameState.AudioController.SetDialogueVolume(volume);
+            _narrativeGameState.AudioController.PlayDialogue(resultChirp);
         }
         
         _chirpIndex++;
