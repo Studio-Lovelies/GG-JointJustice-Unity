@@ -127,7 +127,7 @@ jobs:
           path: artifacts
 
   unityTestPlayModeScripts:
-    name: Run PlayMode Scenes tests for Unity project
+    name: Run PlayMode Scripts tests for Unity project
     needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
     runs-on: ubuntu-latest
@@ -151,8 +151,8 @@ jobs:
       - name: Remove unity-ggjj/Assets/Tests/EditModeTests folder
         run: rm -rf unity-ggjj/Assets/Tests/EditModeTests
 
-      - name: Remove unity-ggjj/Assets/Tests/PlayModeTests/Scenes folder
-        run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
+      - name: Remove unity-ggjj/Assets/Tests/PlayModeTests/Scripts folder
+        run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scripts
 
       - name: Run tests
         uses: game-ci/unity-test-runner@v2.0-alpha-6
@@ -184,7 +184,7 @@ jobs:
           path: artifacts
 
   unityTestPlayModeScenes:
-    name: Run PlayMode Scripts tests for Unity project
+    name: Run PlayMode Scenes tests for Unity project
     needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
     runs-on: ubuntu-latest
@@ -208,8 +208,8 @@ jobs:
       - name: Remove unity-ggjj/Assets/Tests/EditModeTests folder
         run: rm -rf unity-ggjj/Assets/Tests/EditModeTests
 
-      - name: Remove unity-ggjj/Assets/Tests/PlayModeTests/Scripts folder
-        run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scripts
+      - name: Remove unity-ggjj/Assets/Tests/PlayModeTests/Scenes folder
+        run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
 
       - name: Run tests
         uses: game-ci/unity-test-runner@v2.0-alpha-6
