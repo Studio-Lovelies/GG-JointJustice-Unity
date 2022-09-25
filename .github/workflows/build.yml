@@ -148,11 +148,11 @@ jobs:
           git add .
           git reset --hard
 
-      - name: Remove unity-ggjj/Assets/Tests/EditModeTests folder
-        run: rm -rf unity-ggjj/Assets/Tests/EditModeTests
-
-      - name: Remove unity-ggjj/Assets/Tests/PlayModeTests/Scripts folder
-        run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scripts
+      - name: Remove other test folders
+        run: |
+          rm -rf unity-ggjj/Assets/Tests/EditModeTests
+          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
+          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Playthrough
 
       - name: Run tests
         uses: game-ci/unity-test-runner@v2.0-alpha-6
@@ -205,11 +205,11 @@ jobs:
           git add .
           git reset --hard
 
-      - name: Remove unity-ggjj/Assets/Tests/EditModeTests folder
-        run: rm -rf unity-ggjj/Assets/Tests/EditModeTests
-
-      - name: Remove unity-ggjj/Assets/Tests/PlayModeTests/Scenes folder
-        run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
+      - name: Remove other test folders
+        run: |
+          rm -rf unity-ggjj/Assets/Tests/EditModeTests
+          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scripts
+          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Playthrough
 
       - name: Run tests
         uses: game-ci/unity-test-runner@v2.0-alpha-6
@@ -238,6 +238,63 @@ jobs:
         if: ${{ failure() || success() }}
         with:
           name: Test Results - PlayMode Scenes
+          path: artifacts
+
+  unityTestPlayModePlaythrough:
+    name: Run PlayMode Playthrough tests for Unity project
+    needs: [checkLicense]
+    if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write # allows dependabot PRs to set pull request checks
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Remove other test folders
+        run: |
+          rm -rf unity-ggjj/Assets/Tests/EditModeTests
+          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scripts
+          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
+
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v2.0-alpha-6
+        env:
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: unity-ggjj/
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          testMode: PlayMode
+          checkName: Test Results - PlayMode Playthrough
+          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
+
+      - name: Upload XML report to Codecov
+        uses: codecov/codecov-action@v3
+        if: ${{ failure() || success() }}
+        with:
+          name: PlayMode Playthrough
+          flags: PlayModePlaythrough
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: unity-ggjj/coverage-results/**/*.xml
+
+      - name: Store test artifacts
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || success() }}
+        with:
+          name: Test Results - PlayMode Playthrough
           path: artifacts
 
   unityBuild:
