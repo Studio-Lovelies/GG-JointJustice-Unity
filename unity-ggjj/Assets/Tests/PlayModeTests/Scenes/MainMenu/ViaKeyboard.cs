@@ -43,6 +43,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
 
             var selectedButton = mainMenu.SelectedButton.name;
             yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
             var newSelectedButton = mainMenu.SelectedButton.name;
             Assert.AreNotEqual(selectedButton, newSelectedButton);
 
@@ -85,6 +86,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             var secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
 
             var selectedButton = mainMenu.SelectedButton.name;
+            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
             yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
             var newSelectedButton = mainMenu.SelectedButton.name;
             Assert.AreNotEqual(selectedButton, newSelectedButton);

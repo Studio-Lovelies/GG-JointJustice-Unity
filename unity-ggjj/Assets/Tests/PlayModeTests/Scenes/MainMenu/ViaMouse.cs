@@ -42,7 +42,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             var subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
             var secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
             
-            var openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton");
+            var openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "SettingsButton");
             var openSecondSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
             var closeSecondSubMenuButton = secondSubMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (4)");
             var closeFirstSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (4)");
@@ -85,7 +85,7 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
             var subMenu = menus.First(menu => menu.gameObject.name == "TestSubMenu");
             var secondSubMenu = menus.First(menu => menu.gameObject.name == "TestDoubleSubMenu");
             
-            var openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton");
+            var openFirstSubMenuButton = mainMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "SettingsButton");
             var openSecondSubMenuButton = subMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
             var closeAllSubMenusButton = secondSubMenu.gameObject.GetComponentsInChildren<RectTransform>().First(menuItem => menuItem.gameObject.name == "LoadButton (1)");
 
