@@ -23,7 +23,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         public IEnumerator SetUp()
         {
             yield return SceneManager.LoadSceneAsync("Game");
-            var audioSourceGameObject = GameObject.Find("MusicAudioSource");
+            var audioSourceGameObject = GameObject.Find("MusicPrimary");
             _audioController = Object.FindObjectOfType<global::AudioController>();
             _audioSource = audioSourceGameObject.GetComponent<AudioSource>();
             _volumeManager = audioSourceGameObject.GetComponent<VolumeManager>();
