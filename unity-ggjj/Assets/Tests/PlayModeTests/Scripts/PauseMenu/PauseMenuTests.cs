@@ -96,7 +96,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         }
 
         /// <summary>
-        /// Tests that the the resume button resumes the game.
+        /// Tests that the resume button resumes the game.
         /// Is called by the keyboard and mouse tests which provide a
         /// method of navigating to the correct button.
         /// </summary>
@@ -110,7 +110,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         }
 
         /// <summary>
-        /// Tests that the the settings button opens the settings menu, and escape closes it.
+        /// Tests that the settings button opens the settings menu, and escape closes it.
         /// Is called by the keyboard and mouse tests which provide a
         /// method of navigating to the correct button.
         /// </summary>
@@ -128,7 +128,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         }
 
         /// <summary>
-        /// Tests that the the main menu button opens the main menu scene.
+        /// Tests that the main menu button opens the main menu scene.
         /// Is called by the keyboard and mouse tests which provide a
         /// method of navigating to the correct button.
         /// </summary>
