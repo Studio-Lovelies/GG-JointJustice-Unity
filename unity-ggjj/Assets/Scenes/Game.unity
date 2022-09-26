@@ -4166,10 +4166,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _musicPrimaryVolumeManager: {fileID: 272117221}
-  _musicSecondaryAVolumeManager: {fileID: 0}
-  _musicSecondaryBVolumeManager: {fileID: 0}
+  _musicSecondaryAVolumeManager: {fileID: 341645292}
+  _musicSecondaryBVolumeManager: {fileID: 844587420}
   _sfxVolumeManager: {fileID: 1449839713}
-  _dialogueVolumeManager: {fileID: 300640163}
+  _dialogueChirpVolumeManager: {fileID: 300640163}
   _defaultSong: {fileID: 0}
 --- !u!4 &2582401826076157597
 Transform:
@@ -5098,6 +5098,7 @@ MonoBehaviour:
   _defaultDialogueChirpSfx: {fileID: 8300000, guid: bec396ecc7b7242499dbad1326715317,
     type: 3}
   _chirpEveryNthLetter: 3
+  _chirpVolumeDuringSpeedup: 0.18
   _continueArrow: {fileID: 284323535}
 --- !u!1 &9036500920682706004
 GameObject:
