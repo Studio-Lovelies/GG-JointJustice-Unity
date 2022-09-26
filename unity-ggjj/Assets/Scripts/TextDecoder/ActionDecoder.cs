@@ -153,6 +153,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <param name="staticSongName" validFiles="Assets/Resources/Audio/Music/Static/*.mp3">Filename of a song</param>
     /// <param name="optional_transitionTime">(Optional) The time taken to transition between songs</param>
     /// <example>&amp;PLAY_SONG:TurnaboutGrumpsters</example>
+    /// <example>&amp;PLAY_SONG:TurnaboutGrumpsters,2</example>
     /// <category>Audio</category>
     protected override void PLAY_SONG(StaticSongAssetName staticSongName, float optional_transitionTime = 0)
     {
@@ -167,6 +168,8 @@ public class ActionDecoder : ActionDecoderBase
     /// <example>&amp;PLAY_SONG_VARIANT:YouBurgieBurgie,Dan</example>
     /// <example>&amp;PLAY_SONG_VARIANT:YouBurgieBurgie,EvilBurgie</example>
     /// <example>&amp;PLAY_SONG_VARIANT:YouBurgieBurgie,Burgie</example>
+    /// <example>&amp;PLAY_SONG_VARIANT:YouBurgieBurgie,Burgie,2</example>
+    /// <example>&amp;PLAY_SONG_VARIANT:YouBurgieBurgie,Burgie,2</example>
     /// <category>Audio</category>
     protected override void PLAY_SONG_VARIANT(DynamicSongAssetName dynamicSongName, string variantName, float optional_transitionTime = 0)
     {
