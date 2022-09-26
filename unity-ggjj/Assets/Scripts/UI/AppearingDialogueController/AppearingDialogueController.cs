@@ -57,7 +57,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         get => _speedupText;
         set {
             _speedupText = value;
-            _narrativeGameState.AudioController.SetDialogueChirpVolume(value ? _chirpVolumeDuringSpeedup : 1.0f);
+            _narrativeGameState?.AudioController?.SetDialogueChirpVolume(value ? _chirpVolumeDuringSpeedup : 1.0f);
         }
     }
     
