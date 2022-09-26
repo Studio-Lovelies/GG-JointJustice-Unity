@@ -162,7 +162,7 @@ public class ActionDecoder : ActionDecoderBase
     }
 
     /// <summary>When a static or different dynamic song is playing: Stops the current song and plays the base and variant of the the provided dynamic song. When the dynamic song is already playing: Cross-fades the current variant into the provided one. Loops infinitely.</summary>
-    /// <param name="dynamicSongName" validFiles="Assets/Resources/Audio/Music/Dynamic/*.asset">Filename of a dynamic song asset</param>
+    /// <param name="dynamicSongName" validFiles="Assets/Resources/Audio/Music/Dynamic/**.asset">Filename of a dynamic song asset</param>
     /// <param name="variantName">Name of the variant of the song</param>
     /// <param name="optional_transitionTime">(Optional) The time taken to transition between songs</param>
     /// <example>&amp;PLAY_SONG_VARIANT:YouBurgieBurgie,Dan</example>
