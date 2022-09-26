@@ -31,7 +31,7 @@ public class Scanner
         return relevantMethods.ToDictionary(
             relevantMethod => ((MethodDeclarationSyntax)relevantMethod).Identifier.Text,
             relevantMethod => {
-                var comments = relevantMethod.GetLeadingTrivia().FirstOrDefault(trivia => trivia.Kind() == SyntaxKind.SingleLineDocumentationCommentTrivia);
+                var comments = relevantMethod.GetLeadingTrivia().FirstOrDefault(trivia => trivia.IsKind(SyntaxKind.SingleLineDocumentationCommentTrivia));
                 if (comments == default) { return new(); }
 
                 var fullComment = comments.ToFullString();
