@@ -1023,7 +1023,7 @@ MonoBehaviour:
   _musicSecondaryAVolumeManager: {fileID: 0}
   _musicSecondaryBVolumeManager: {fileID: 0}
   _sfxVolumeManager: {fileID: 908936411}
-  _dialogueVolumeManager: {fileID: 54361536}
+  _dialogueChirpVolumeManager: {fileID: 54361536}
   _defaultSong: {fileID: 0}
 --- !u!4 &718748591
 Transform:

@@ -17,7 +17,7 @@ public class AudioController : MonoBehaviour, IAudioController
     }
 
     [SerializeField] private VolumeManager _sfxVolumeManager;
-    [SerializeField] private VolumeManager _dialogueVolumeManager;
+    [SerializeField] private VolumeManager _dialogueChirpVolumeManager;
 
     [Tooltip("Drag an AudioClip here to be played on scene start")]
     [SerializeField] private AudioClip _defaultSong;
@@ -33,13 +33,8 @@ public class AudioController : MonoBehaviour, IAudioController
         _musicPrimaryVolumeManager.AudioSource.Play();
     }
 
-    public void SetDialogueVolume(float volume)
-    {
-        _dialogueVolumeManager.MaximumVolume = volume;
-    }
-
     /// <summary>
-    /// Play given audio clip immediately
+    /// Play given sound effect clip immediately
     /// </summary>
     /// <param name="soundEffectClip">Clip to play</param>
     public void PlaySfx(AudioClip soundEffectClip)
@@ -48,12 +43,21 @@ public class AudioController : MonoBehaviour, IAudioController
     }
 
     /// <summary>
-    /// Play given audio clip immediately
+    /// Play given dialogue chirp clip immediately
     /// </summary>
     /// <param name="soundEffectClip">Clip to play</param>
-    public void PlayDialogue(AudioClip soundEffectClip)
+    public void PlayDialogueChirp(AudioClip soundEffectClip)
     {
-        _dialogueVolumeManager.AudioSource.PlayOneShot(soundEffectClip);
+        _dialogueChirpVolumeManager.AudioSource.PlayOneShot(soundEffectClip);
+    }
+
+    /// <summary>
+    /// Set relative volume of dialogue chirps
+    /// </summary>
+    /// <param name="volume">Relative volume (0 = 0%, 1 = 100%) of the chirp sound</param>
+    public void SetDialogueChirpVolume(float volume)
+    {
+        _dialogueChirpVolumeManager.AudioSource.volume = volume;
     }
 
     /// <summary>

@@ -41,13 +41,26 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Tooltip("Specify how often a chirp should play here")]
     [SerializeField] private int _chirpEveryNthLetter = 1;
 
+    [Range(0, 1)]
+    [Tooltip("Relative volume (0=0% to 1=100%) of the chirp sound when the text-box is sped up")]
+    [SerializeField] private float _chirpVolumeDuringSpeedup = 0.18f;
+    private float _currentChirpVolume = 1.0f;
+
     [SerializeField] private GameObject _continueArrow;
 
     private TMP_TextInfo _textInfo;
     private Coroutine _printCoroutine;
     private int _chirpIndex;
 
-    public bool SpeedupText { get; set; }
+    private bool _speedupText = false;
+    public bool SpeedupText { 
+        get => _speedupText;
+        set {
+            _speedupText = value;
+            _narrativeGameState.AudioController.SetDialogueChirpVolume(value ? _chirpVolumeDuringSpeedup : 1.0f);
+        }
+    }
+    
     public bool SkippingDisabled { get; set; }
     public bool ContinueDialogue { get; set; }
     public bool AutoSkip { get; set; }
@@ -166,14 +179,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         
         if (_chirpIndex % _chirpEveryNthLetter == 0)
         {
-            float volume = 1.0f;
-            if(SpeedupText)
-            {
-                volume = 0.18f;
-            }
-
-            _narrativeGameState.AudioController.SetDialogueVolume(volume);
-            _narrativeGameState.AudioController.PlayDialogue(resultChirp);
+            _narrativeGameState.AudioController.PlayDialogueChirp(resultChirp);
         }
         
         _chirpIndex++;
