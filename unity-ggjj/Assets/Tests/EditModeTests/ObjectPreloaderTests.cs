@@ -14,7 +14,8 @@ public class ObjectPreloaderTests
     private static IEnumerable<MethodInfo> AvailableActionMethods => typeof(ActionDecoderBase).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Where(method => new Regex("^[A-Z_]+$").IsMatch(method.Name)).ToArray();
     private static IEnumerable<string> ActorLoadingActions => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.Name.Contains("actor"))).Select(methodInfo => methodInfo.Name);
     private static IEnumerable<string> EvidenceLoadingActions => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.Name.Contains("evidence"))).Select(methodInfo => methodInfo.Name);
-    private static IEnumerable<string> MusicLoadingActions => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.Name.Contains("song"))).Select(methodInfo => methodInfo.Name);
+    private static IEnumerable<string> StaticMusicLoadingActions => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.Name.Contains("staticSong"))).Select(methodInfo => methodInfo.Name);
+    private static IEnumerable<string> DynamicMusicLoadingActions => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.Name.Contains("dynamicSong"))).Select(methodInfo => methodInfo.Name);
     private static IEnumerable<string> SfxLoadingActions => AvailableActionMethods.Where(method => method.GetParameters().Any(parameter => parameter.Name.Contains("sfx"))).Select(methodInfo => methodInfo.Name);
 
     [SetUp]
@@ -46,10 +47,17 @@ public class ObjectPreloaderTests
     }
     
     [Test]
-    [TestCaseSource(nameof(MusicLoadingActions))]
-    public void ObjectPreloaderCanLoadMusic(string action)
+    [TestCaseSource(nameof(StaticMusicLoadingActions))]
+    public void ObjectPreloaderCanLoadStaticMusic(string action)
     {
         ObjectPreloaderCanLoadObjects<AudioClip>("Audio/Music/Static", action);
+    }
+    
+    [Test]
+    [TestCaseSource(nameof(DynamicMusicLoadingActions))]
+    public void ObjectPreloaderCanLoadDynamicMusic(string action)
+    {
+        ObjectPreloaderCanLoadObjects<DynamicMusicData>("Audio/Music/Dynamic", action);
     }
 
     /// <summary>
@@ -61,14 +69,15 @@ public class ObjectPreloaderTests
     /// <typeparam name="T">The type of object to load.</typeparam>
     private void ObjectPreloaderCanLoadObjects<T>(string path, string action) where T : Object
     {
-        var resourcesInsidePath = Resources.LoadAll(path);
+        var resourcesInsidePath = Resources.LoadAll(path, typeof(T));
 
         foreach (var genericResource in resourcesInsidePath)
         {
             var actorPositionParameter = action == "SET_ACTOR_POSITION" ? "1," : "";
-            var playSongParameter = action == "PLAY_SONG" ? ",2" : "";
+            var playSongParameter = action.StartsWith("PLAY_SONG") ? ",2" : "";
             var showItemParameter = action == "SHOW_ITEM" ? ",Left" : "";
 
+            Debug.Log(genericResource);
             var typeSpecificResource = (T)genericResource;
             _objectPreloader.InvokeMatchingMethod($"&{action}:{actorPositionParameter}{typeSpecificResource.name}{playSongParameter}{showItemParameter}");
             var storedActor = _objectStorage.GetObject<T>(typeSpecificResource.name);
