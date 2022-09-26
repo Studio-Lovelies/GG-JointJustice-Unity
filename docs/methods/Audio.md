@@ -30,7 +30,7 @@ Values:
 
 ⏲ Instant
 
-When a static or different dynamic song is playing: Stops the current song and plays the base and variant of the the provided dynamic song. When the dynamic song is already playing: Cross-fades the current variant into the provided one. Loops infinitely.
+When a static or different dynamic song is playing: Stops the current song and plays the base and variant of the provided dynamic song. When the dynamic song is already playing: Cross-fades the current variant into the provided one. Loops infinitely.
 
 Examples: 
   - `&PLAY_SONG_VARIANT:YouBurgieBurgie,Dan`
