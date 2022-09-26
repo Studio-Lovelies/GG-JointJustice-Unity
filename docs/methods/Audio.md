@@ -11,7 +11,7 @@ Examples:
 
 ## PLAY_SONG
 Values: 
-  - [Filename of a song](../constants.md#SongAssetName)
+  - [Filename of a song](../constants.md#StaticSongAssetName)
   - (Optional) The time taken to transition between songs
 
 ⏲ Instant
@@ -20,6 +20,24 @@ Plays the provided song. Stops the current one. Loops infinitely.
 
 Examples: 
   - `&PLAY_SONG:TurnaboutGrumpsters`
+  - `&PLAY_SONG:TurnaboutGrumpsters,2`
+
+## PLAY_SONG_VARIANT
+Values: 
+  - [Filename of a dynamic song asset](../constants.md#DynamicSongAssetName)
+  - Name of the variant of the song
+  - (Optional) The time taken to transition between songs
+
+⏲ Instant
+
+When a static or different dynamic song is playing: Stops the current song and plays the base and variant of the the provided dynamic song. When the dynamic song is already playing: Cross-fades the current variant into the provided one. Loops infinitely.
+
+Examples: 
+  - `&PLAY_SONG_VARIANT:YouBurgieBurgie,Dan`
+  - `&PLAY_SONG_VARIANT:YouBurgieBurgie,EvilBurgie`
+  - `&PLAY_SONG_VARIANT:YouBurgieBurgie,Burgie`
+  - `&PLAY_SONG_VARIANT:YouBurgieBurgie,Burgie,2`
+  - `&PLAY_SONG_VARIANT:YouBurgieBurgie,Burgie,2`
 
 ## STOP_SONG
 
