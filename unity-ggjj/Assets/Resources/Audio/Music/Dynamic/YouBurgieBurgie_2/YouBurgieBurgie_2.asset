@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0590784c19109834ebcd2fafb2e0a29a, type: 3}
+  m_Name: YouBurgieBurgie_2
+  m_EditorClassIdentifier: 
+  primary: {fileID: 8300000, guid: 57a0e1c27d8f94e769e542438af5a265, type: 3}
+  secondaryVariants:
+  - name: Base
+    file: {fileID: 8300000, guid: b3652cf40f65a44638075fd3dd4c3aac, type: 3}
+  - name: Burgie
+    file: {fileID: 8300000, guid: 3a06cf3bc81f04032a08eb222c723d1a, type: 3}
+  - name: Dan
+    file: {fileID: 8300000, guid: 15dcc3706d1684826b1ebe5745259d0b, type: 3}
+  - name: EvilBurgie
+    file: {fileID: 8300000, guid: 26edf16d69aec4379afe7e1e5171f35c, type: 3}
