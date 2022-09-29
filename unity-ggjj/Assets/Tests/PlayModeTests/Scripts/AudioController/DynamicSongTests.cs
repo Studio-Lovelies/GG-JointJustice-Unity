@@ -11,7 +11,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
     //       things like ".isPlaying" or ".time"  of AudioSources cannot be asserted, as they will remain
     //       `false` / `0.0f` respectively.
     //       To test this locally, activate `Edit` -> `Project Settings` -> `Audio` -> `Disable Unity Audio`.
-    public class AudioControllerTests
+    public class DynamicSongTests
     {
         private const string MUSIC_PATH = "Audio/Music/";
         
@@ -39,48 +39,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         }
         
         [UnityTest]
-        public IEnumerator FadesBetweenStaticSongs()
-        {
-            const float TRANSITION_DURATION = 2f;
-
-            // setup and verify steady state of music playing for a while
-            var firstSong = LoadStaticSong("aBoyAndHisTrial");
-            Assert.IsNotNull(firstSong);
-            _audioController.PlayStaticSong(firstSong, TRANSITION_DURATION);
-
-            yield return TestTools.WaitForState(() => _musicPrimaryAudioSource.volume == _musicPrimaryVolumeManager.MaximumVolume, TRANSITION_DURATION*2);
-            Assert.AreEqual(firstSong.name, _musicPrimaryAudioSource.clip.name);
-
-            // transition into new song
-            var secondSong = LoadStaticSong("aKissFromARose");
-            Assert.IsNotNull(secondSong);
-            _audioController.PlayStaticSong(secondSong, TRANSITION_DURATION);
-            yield return TestTools.WaitForState(() => _musicPrimaryAudioSource.volume != _musicPrimaryVolumeManager.MaximumVolume, TRANSITION_DURATION);
-
-            // expect old song to still be playing, but no longer at full volume, as we're transitioning
-            Assert.AreNotEqual(_musicPrimaryAudioSource.volume, _musicPrimaryVolumeManager.MaximumVolume);
-            Assert.AreEqual(firstSong.name, _musicPrimaryAudioSource.clip.name);
-
-            // expect new song to be playing at full volume, as we're done transitioning
-            yield return TestTools.WaitForState(() => _musicPrimaryAudioSource.volume == _musicPrimaryVolumeManager.MaximumVolume, TRANSITION_DURATION*2);
-            Assert.AreEqual(secondSong.name, _musicPrimaryAudioSource.clip.name);
-
-            // transition into new song
-            var thirdSong = LoadStaticSong("investigationJoonyer");
-            Assert.IsNotNull(thirdSong);
-            _audioController.PlayStaticSong(thirdSong, TRANSITION_DURATION);
-
-            // expect old song to still be playing, but no longer at full volume, as we're transitioning
-            yield return TestTools.WaitForState(() => _musicPrimaryAudioSource.volume != _musicPrimaryVolumeManager.MaximumVolume, TRANSITION_DURATION);
-            Assert.AreEqual(secondSong.name, _musicPrimaryAudioSource.clip.name);
-
-            // expect new song to be playing at full volume, as we're done transitioning
-            yield return TestTools.WaitForState(() => _musicPrimaryAudioSource.volume == _musicPrimaryVolumeManager.MaximumVolume, TRANSITION_DURATION*2);
-            Assert.AreEqual(thirdSong.name, _musicPrimaryAudioSource.clip.name);
-        }
-        
-        [UnityTest]
-        public IEnumerator FadesBetweenDynamicSongs()
+        public IEnumerator FadesBetweenSongs()
         {
             const float TRANSITION_DURATION = 2f;
 
@@ -90,7 +49,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             const string SECOND_SONG_VARIANT_NAME = "Dan";
 
             // setup and verify steady state of music playing for a while
-            var firstSong = LoadDynamicSong(FIRST_SONG_NAME);
+            var firstSong = LoadSong(FIRST_SONG_NAME);
             Assert.IsNotNull(firstSong);
             _audioController.PlayDynamicSong(firstSong, FIRST_SONG_VARIANT_NAME, TRANSITION_DURATION);
 
@@ -99,7 +58,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             Assert.AreEqual($"{FIRST_SONG_NAME}-{FIRST_SONG_VARIANT_NAME}", _musicSecondaryAAudioSource.clip.name);
 
             // transition into new song
-            var secondSong = LoadDynamicSong(SECOND_SONG_NAME);
+            var secondSong = LoadSong(SECOND_SONG_NAME);
             Assert.IsNotNull(secondSong);
             _audioController.PlayDynamicSong(secondSong, SECOND_SONG_VARIANT_NAME, TRANSITION_DURATION);
             yield return TestTools.WaitForState(() => _musicPrimaryAudioSource.volume != _musicPrimaryVolumeManager.MaximumVolume, TRANSITION_DURATION);
@@ -131,10 +90,10 @@ namespace Tests.PlayModeTests.Scripts.AudioController
         [UnityTest]
         public IEnumerator SongsCanBePlayedWithoutFadeIn()
         {
-            var song = LoadStaticSong("aBoyAndHisTrial");
-            _audioController.PlayStaticSong(song, 0);
+            var song = LoadSong("YouBurgieBurgie");
+            _audioController.PlayDynamicSong(song, "Dan", 0);
             yield return null;
-            Assert.AreEqual(song.name, _musicPrimaryAudioSource.clip.name);
+            Assert.AreEqual(song.Primary.name, _musicPrimaryAudioSource.clip.name);
             Assert.AreEqual(_musicPrimaryVolumeManager.MaximumVolume, _musicPrimaryAudioSource.volume);
         }
 
@@ -152,12 +111,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
             Assert.AreEqual(0, _musicPrimaryAudioSource.volume);
         }
 
-        public static AudioClip LoadStaticSong(string songName)
-        {
-            return Resources.Load<AudioClip>($"{MUSIC_PATH}Static/{songName}");
-        }
-
-        public static DynamicMusicData LoadDynamicSong(string songName)
+        private static DynamicMusicData LoadSong(string songName)
         {
             return Resources.Load<DynamicMusicData>($"{MUSIC_PATH}Dynamic/{songName}/{songName}");
         }
