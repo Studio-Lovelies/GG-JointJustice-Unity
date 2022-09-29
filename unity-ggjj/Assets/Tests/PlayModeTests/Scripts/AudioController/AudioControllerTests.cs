@@ -86,7 +86,7 @@ namespace Tests.PlayModeTests.Scripts.AudioController
 
             const string FIRST_SONG_NAME = "YouBurgieBurgie";
             const string FIRST_SONG_VARIANT_NAME = "Dan";
-            const string SECOND_SONG_NAME = "YouBurgieBurgie_2";
+            const string SECOND_SONG_NAME = "YouBurgieBurgieTwo";
             const string SECOND_SONG_VARIANT_NAME = "Dan";
 
             // setup and verify steady state of music playing for a while
