@@ -108,7 +108,7 @@
 
 ## DynamicSongAssetName
   - YouBurgieBurgie
-  - YouBurgieBurgie_2
+  - YouBurgieBurgieTwo
 
 ## SceneAssetName
   - Anime
@@ -145,7 +145,7 @@
 | Switch |  | ![image for Switch]() |
 | TutorialBoy | The first prosecutor. Has an extremely predictable name. | ![image for TutorialBoy](../unity-ggjj/Assets/Images/Profiles/TutorialBoy.png) |
 | YouBurgieBurgie |  | ![image for YouBurgieBurgie]() |
-| YouBurgieBurgie_2 |  | ![image for YouBurgieBurgie_2]() |
+| YouBurgieBurgieTwo |  | ![image for YouBurgieBurgieTwo]() |
 
 ## FullscreenAnimationAssetName
   - BadBoy
