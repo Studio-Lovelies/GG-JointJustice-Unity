@@ -77,9 +77,21 @@ public class AudioController : MonoBehaviour, IAudioController
     /// </summary>
     public void StopSong()
     {
-        _musicPrimaryVolumeManager?.AudioSource.Stop();
-        _musicSecondaryAVolumeManager?.AudioSource.Stop();
-        _musicSecondaryBVolumeManager?.AudioSource.Stop();
+        if (_musicPrimaryVolumeManager != null)
+        {
+            _musicPrimaryVolumeManager.AudioSource.Stop();
+            _musicPrimaryVolumeManager.AudioSource.time = 0.0f;
+        }
+        if (_musicSecondaryAVolumeManager != null)
+        {
+            _musicSecondaryAVolumeManager.AudioSource.Stop();
+            _musicSecondaryAVolumeManager.AudioSource.time = 0.0f;
+        }
+        if (_musicSecondaryBVolumeManager != null)
+        {
+            _musicSecondaryBVolumeManager.AudioSource.Stop();
+            _musicSecondaryBVolumeManager.AudioSource.time = 0.0f;
+        }
         _isSecondaryAActive = true;
     }
 
@@ -219,6 +231,7 @@ public class AudioController : MonoBehaviour, IAudioController
 
         StartCoroutine(InactiveSecondaryManager.Fade(ActiveMusicSecondaryManager.MaximumVolume, transitionTime));
         yield return ActiveMusicSecondaryManager.Fade(0, transitionTime);
+        ActiveMusicSecondaryManager.AudioSource.Stop();
         ToggleActiveMusicSecondaryManager();
     }
 
