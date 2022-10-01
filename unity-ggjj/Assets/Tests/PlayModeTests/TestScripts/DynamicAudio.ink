@@ -15,7 +15,7 @@ Tasty! Now for Evil Burgie!
 
 &SPEAK:Ross
 How's that? Now Evil Burgie again, but this time it's a differnt song, we start from the beginning again!
-&PLAY_SONG_VARIANT:YouBurgieBurgieTwo,EvilBurgie,0.5
+&PLAY_SONG_VARIANT:YouBurgieBurgieTwo,EvilBurgie,2
 
 &SPEAK:Ross
 Lets go back to our original track...

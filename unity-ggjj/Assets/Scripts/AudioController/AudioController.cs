@@ -170,20 +170,17 @@ public class AudioController : MonoBehaviour, IAudioController
     /// </summary>
     /// <param name="primaryClip">The primary clip of dynamic music we expect to be playing right now</param>
     /// <returns>True if we're playing the specified primary music clip with a volume above zero in the active music secondary manager</returns>
-    private bool IsCurrentlyPlayingDynamicMusic(AudioClip primaryClip)
+    private bool IsPlayingSpecifiedDynamicMusic(AudioClip primaryClip)
     {
-        if (ActiveMusicSecondaryManager.AudioSource.clip == null)
+        if (!ActiveMusicSecondaryManager.AudioSource.isPlaying)
         {
-            return false;
-        }
-
-        if (ActiveMusicSecondaryManager.AudioSource.volume == 0)
-        {
+            // not playing any dynamic music
             return false;
         }
 
         if (_musicPrimaryVolumeManager.AudioSource.clip != primaryClip)
         {
+            // not playing the specified primaryClip
             return false;
         }
 
@@ -200,7 +197,7 @@ public class AudioController : MonoBehaviour, IAudioController
     {
         if (IsCurrentlyPlayingMusic())
         {
-            if (IsCurrentlyPlayingDynamicMusic(primaryClip))
+            if (IsPlayingSpecifiedDynamicMusic(primaryClip))
             {
                 yield return FadeBetweenDynamicVariant(secondaryClip, transitionTime);
                 yield break;
