@@ -11,7 +11,7 @@ public class AudioController : MonoBehaviour, IAudioController
     private VolumeManager ActiveMusicSecondaryManager => _isSecondaryAActive ? _musicSecondaryAVolumeManager : _musicSecondaryBVolumeManager;
     private VolumeManager InactiveSecondaryManager => !_isSecondaryAActive ? _musicSecondaryAVolumeManager : _musicSecondaryBVolumeManager;
 
-    public void ToggleActiveMusicSecondaryManager()
+    private void ToggleActiveMusicSecondaryManager()
     {
         _isSecondaryAActive = !_isSecondaryAActive;
     }
@@ -23,8 +23,8 @@ public class AudioController : MonoBehaviour, IAudioController
     [SerializeField] private AudioClip _defaultSong;
     
     private Coroutine _currentFadeCoroutine;
+    
     /// <summary>
-
     /// Called when the object is initialized
     /// </summary>
     private void Awake()
