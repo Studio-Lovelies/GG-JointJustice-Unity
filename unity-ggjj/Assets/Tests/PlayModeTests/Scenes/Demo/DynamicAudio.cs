@@ -36,7 +36,7 @@ namespace Tests.PlayModeTests.Scenes.Demo
         {
             // Primary and secondary audio sources can be slightly out-of-sync; this is acceptable to a certain degree
             // This constant defines the accepted tolerance in [PCM samples](https://en.wikipedia.org/wiki/Pulse-code_modulation)
-            const int ACCEPTABLE_TOLERANCE_IN_SAMPLES = 1000;
+            const int ACCEPTABLE_TOLERANCE_IN_SAMPLES = 15000; // around 0.3 seconds; required for GitHub Actions runners
             
             var finishedFadingDelay = new WaitForSeconds(2.5f);
             
