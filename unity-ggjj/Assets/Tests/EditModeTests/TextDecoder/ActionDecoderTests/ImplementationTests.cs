@@ -226,7 +226,7 @@ namespace TextDecoder.ActionDecoderTests
         {
             var decoder = CreateMockedActionDecoder();
             var narrativeGameStateMock = new Mock<INarrativeGameState>();
-            narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(new AssetName("NewScene")));
+            narrativeGameStateMock.Setup(mock => mock.SceneController.SetScene(new UnitySceneAssetName("NewScene")));
             decoder.NarrativeGameState = narrativeGameStateMock.Object;
 
             const string LINE_TO_PARSE = " &SCENE:NewScene \n\n\n";
@@ -237,7 +237,7 @@ namespace TextDecoder.ActionDecoderTests
             LogAssert.Expect(LogType.Log, LOG_MESSAGE);
             LogAssert.NoUnexpectedReceived();
 
-            narrativeGameStateMock.Verify(controller => controller.SceneController.SetScene(new AssetName("NewScene")));
+            narrativeGameStateMock.Verify(controller => controller.SceneController.SetScene(new UnitySceneAssetName("NewScene")));
         }
 
     }

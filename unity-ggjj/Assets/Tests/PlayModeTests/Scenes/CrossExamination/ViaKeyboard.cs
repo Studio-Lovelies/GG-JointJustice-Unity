@@ -101,7 +101,7 @@ namespace Tests.PlayModeTests.Scenes.CrossExamination
             
             yield return new WaitForSeconds(5);
             
-            Assert.IsTrue(new AssetName(_narrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.Script.name).ToString() == new AssetName("TMPHGameOver").ToString());
+            Assert.IsTrue(new NarrativeScriptAssetName(_narrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript.Script.name).ToString() == new NarrativeScriptAssetName("TMPHGameOver").ToString());
         }
     }
 }
