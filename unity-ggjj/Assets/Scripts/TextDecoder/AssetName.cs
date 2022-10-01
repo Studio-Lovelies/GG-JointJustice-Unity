@@ -1,4 +1,4 @@
-public class AssetName
+public abstract class AssetName
 {
     private readonly string _internalString;
     public static implicit operator string(AssetName assetName)
@@ -6,7 +6,7 @@ public class AssetName
         return assetName.ToString();
     }
 
-    public AssetName(string givenName)
+    protected AssetName(string givenName)
     {
         _internalString = SplitAndCapitalize('_', givenName);
         _internalString = SplitAndCapitalize(' ', _internalString);
