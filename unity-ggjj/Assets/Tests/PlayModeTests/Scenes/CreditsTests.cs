@@ -1,6 +1,7 @@
 using System.Collections;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
@@ -9,6 +10,21 @@ namespace Tests.PlayModeTests.Scenes
 {
     public class CreditsTests
     {
+        private InputTestTools input = new();
+        
+        [SetUp]
+        public void Setup()
+        {
+            input.Setup();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            input.TearDown();
+        }
+        
+        
         [UnityTest]
         public IEnumerator CreditsCanBeLoadedViaAction()
         {
@@ -25,9 +41,7 @@ namespace Tests.PlayModeTests.Scenes
         public IEnumerator CreditsCanBeSkipped()
         {
             yield return SceneManager.LoadSceneAsync("Credits");
-            var inputTestTools = new InputTestTools();
-            inputTestTools.Setup();
-            yield return inputTestTools.PressForFrame(inputTestTools.keyboard.xKey);
+            yield return input.PressForFrame(input.keyboard.xKey);
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "MainMenu");
         }
     }
