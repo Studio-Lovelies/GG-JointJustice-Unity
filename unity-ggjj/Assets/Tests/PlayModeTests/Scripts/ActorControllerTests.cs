@@ -148,7 +148,7 @@ namespace Tests.PlayModeTests.Scripts
         [UnityTest]
         [TestCase(true, ExpectedResult = true)]
         [TestCase(false, ExpectedResult = false)]
-        public bool ActorVisibilityCanBeSetForActiveActor(bool expectedVisibility)
+        public IEnumerator ActorVisibilityCanBeSetForActiveActor(bool expectedVisibility)
         {
             return AssertVisibility(expectedVisibility, null, _witnessAnimator.GetComponent<Renderer>());
         }
@@ -156,17 +156,18 @@ namespace Tests.PlayModeTests.Scripts
         [UnityTest]
         [TestCase(true, ExpectedResult = true)]
         [TestCase(false, ExpectedResult = false)]
-        public bool ActorVisibilityCanBeSetForNonActiveActor(bool expectedVisibility)
+        public IEnumerator ActorVisibilityCanBeSetForNonActiveActor(bool expectedVisibility)
         {
             return AssertVisibility(expectedVisibility, "TutorialBoy", GameObject.Find("Prosecution_Actor").GetComponent<Renderer>());
         }
 
-        private bool AssertVisibility(bool expectedVisibility, string actorName, Renderer renderer)
+        private IEnumerator AssertVisibility(bool expectedVisibility, string actorName, Renderer renderer)
         {
             renderer.enabled = !expectedVisibility;
             Assert.IsTrue(renderer.enabled == !expectedVisibility, "Unity sanity check");
             _actorController.SetVisibility(expectedVisibility, actorName == null ? null : new ActorAssetName(actorName));
-            return renderer.enabled;
+            Assert.IsTrue(renderer.enabled == expectedVisibility);
+            yield break;
         }
 
         private void AssertIsTalking(Animator animator)
