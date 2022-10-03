@@ -57,7 +57,7 @@ TextureImporter:
       213: 3570087436311622238
     second: Yeeta_ani_17
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -74,10 +74,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -116,6 +118,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -131,6 +135,42 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
@@ -532,9 +572,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Yeeta_ani_10: 2728000588373644216
+      Yeeta_ani_12: 3993992989770502404
+      Yeeta_ani_1: -598922672669809211
+      Yeeta_ani_8: -7168603752451528081
+      Yeeta_ani_9: -3719569265735971265
+      Yeeta_ani_5: 9171928119968049431
+      Yeeta_ani_15: -2122410139830305370
+      Yeeta_ani_0: -982576624584040587
+      Yeeta_ani_2: -7271292945982164061
+      Yeeta_ani_14: 5150403398312261536
+      Yeeta_ani_3: 2464365051519556653
+      Yeeta_ani_13: 5492603963567058173
+      Yeeta_ani_11: -3353602643775273944
+      Yeeta_ani_4: 2761010066484731251
+      Yeeta_ani_16: 3087191690274380591
+      Yeeta_ani_7: -761978450626558650
+      Yeeta_ani_6: 8889699196623971320
+      Yeeta_ani_17: 3570087436311622238
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

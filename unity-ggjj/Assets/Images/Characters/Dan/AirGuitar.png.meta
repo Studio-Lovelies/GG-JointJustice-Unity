@@ -135,7 +135,7 @@ TextureImporter:
       213: 8813169062463817308
     second: AirGuitar_ani_43
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -152,10 +152,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -194,6 +196,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -209,6 +213,42 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
@@ -841,9 +881,38 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      AirGuitar_ani_11: 5680215912659478875
+      AirGuitar_ani_27: -5557745458458514137
+      AirGuitar_ani_22: -1571668657159789719
+      AirGuitar_ani_2: 179716606799038922
+      AirGuitar_ani_9: 6355104138919952737
+      AirGuitar_ani_19: 5647241043569201154
+      AirGuitar_ani_10: 8654233634233113214
+      AirGuitar_ani_6: 4715913143011292566
+      AirGuitar_ani_20: 9000457837936353227
+      AirGuitar_ani_5: 2941070783967077955
+      AirGuitar_ani_7: -9071367577438246152
+      AirGuitar_ani_4: 6700992557311750711
+      AirGuitar_ani_25: 6103005327596628132
+      AirGuitar_ani_24: -7688693279604622381
+      AirGuitar_ani_16: 3958478934395953073
+      AirGuitar_ani_18: 9132252767661879683
+      AirGuitar_ani_23: -6955140910100846438
+      AirGuitar_ani_8: 2628388785657136483
+      AirGuitar_ani_13: -1379978307936831675
+      AirGuitar_ani_28: 7137180865968716521
+      AirGuitar_ani_26: -7105168888383321786
+      AirGuitar_ani_14: -6751391295930718872
+      AirGuitar_ani_0: -2717325075764081500
+      AirGuitar_ani_15: -5631808631028646290
+      AirGuitar_ani_21: 1033108759138759433
+      AirGuitar_ani_3: -2084893149793539591
+      AirGuitar_ani_12: -3315024154330488841
+      AirGuitar_ani_1: -1563560005713539998
+      AirGuitar_ani_17: -1604088623285860943
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

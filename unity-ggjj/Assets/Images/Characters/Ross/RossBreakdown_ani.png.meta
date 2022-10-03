@@ -108,7 +108,7 @@ TextureImporter:
       213: 9039167001481089321
     second: RossBreakdown_ani_34
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -125,10 +125,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -167,6 +169,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -182,6 +186,42 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
@@ -940,9 +980,44 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      RossBreakdown_ani_4: 2401986343442440354
+      RossBreakdown_ani_21: 6968105740367014589
+      RossBreakdown_ani_28: 1770234381147722979
+      RossBreakdown_ani_7: -3468646074106648161
+      RossBreakdown_ani_27: -7665928088824809458
+      RossBreakdown_ani_8: -8182034556236437160
+      RossBreakdown_ani_26: 6459066033391566924
+      RossBreakdown_ani_10: 4519117887147718643
+      RossBreakdown_ani_15: 5345217777002653272
+      RossBreakdown_ani_0: -9088581208893452479
+      RossBreakdown_ani_17: 6256673801083561473
+      RossBreakdown_ani_1: -7798833161335039356
+      RossBreakdown_ani_34: 9039167001481089321
+      RossBreakdown_ani_2: -8342682509986494290
+      RossBreakdown_ani_20: 3427685383475213764
+      RossBreakdown_ani_3: -9136393133331438816
+      RossBreakdown_ani_16: 6333386652384901246
+      RossBreakdown_ani_33: -8378377499553210392
+      RossBreakdown_ani_13: 5977772520603751459
+      RossBreakdown_ani_12: 3567369936288822124
+      RossBreakdown_ani_25: 2180863250237169809
+      RossBreakdown_ani_22: 7526944202550364966
+      RossBreakdown_ani_19: 6796919496443158847
+      RossBreakdown_ani_11: 4679623299108371070
+      RossBreakdown_ani_6: 4484047448427949215
+      RossBreakdown_ani_23: -3119231462209861399
+      RossBreakdown_ani_9: 4031616968239517189
+      RossBreakdown_ani_29: -568126350424467275
+      RossBreakdown_ani_24: 1784728709418679938
+      RossBreakdown_ani_5: -3724253806041867603
+      RossBreakdown_ani_18: -8722615684401747504
+      RossBreakdown_ani_31: -8278562059965172740
+      RossBreakdown_ani_32: 5271066820988269330
+      RossBreakdown_ani_14: 8298145848655603222
+      RossBreakdown_ani_30: 3995516201902357840
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
