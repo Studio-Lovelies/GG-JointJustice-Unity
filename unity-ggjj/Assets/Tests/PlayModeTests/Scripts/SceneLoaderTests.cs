@@ -14,7 +14,7 @@ namespace Tests.PlayModeTests.Scripts
         [UnityTest]
         public IEnumerator GameSceneCanBeLoadedWithNarrativeScript()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Scenes/TestScenes/BlankScene.unity", new LoadSceneParameters());
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Tests/PlayModeTests/TestScenes/BlankScene.unity", new LoadSceneParameters());
             var sceneLoader = new GameObject().AddComponent<SceneLoader>();
             sceneLoader.NarrativeScript = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Tests/PlayModeTests/TestScripts/RossCoolX.json");
             sceneLoader.LoadScene("Game");
