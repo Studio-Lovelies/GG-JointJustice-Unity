@@ -422,7 +422,7 @@ jobs:
         run: zip -r "build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"       "build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}"
 
       - name: Create GitHub Release
-        uses: ncipollo/release-action@v1.10.0
+        uses: ncipollo/release-action@v1.11.1
         with:
           # glob-files need to be escaped
           artifacts: |
