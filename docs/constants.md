@@ -176,6 +176,20 @@
   - MainMenu
   - Splash
 
+## DynamicSongVariantAssetName
+### YouBurgieBurgie
+  - YouBurgieBurgie-BaseA
+  - YouBurgieBurgie-BaseB
+  - YouBurgieBurgie-Burgie
+  - YouBurgieBurgie-Dan
+  - YouBurgieBurgie-EvilBurgie
+### YouBurgieBurgieTwo
+  - YouBurgieBurgieTwo-BaseA
+  - YouBurgieBurgieTwo-BaseB
+  - YouBurgieBurgieTwo-Burgie
+  - YouBurgieBurgieTwo-Dan
+  - YouBurgieBurgieTwo-EvilBurgie
+
 ## ActorPoseAssetName
 ### Arin
   - Annoyed
