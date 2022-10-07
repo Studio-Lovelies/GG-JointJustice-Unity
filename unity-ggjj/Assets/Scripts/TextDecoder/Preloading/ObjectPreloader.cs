@@ -37,7 +37,7 @@ public class ObjectPreloader : ActionDecoderBase
         LoadObject<AudioClip>($"Audio/Music/Static/{staticSongName}");
     }
 
-    protected override void PLAY_SONG_VARIANT(DynamicSongAssetName dynamicSongName, string variantName, float transitionTime = 0)
+    protected override void PLAY_SONG_VARIANT(DynamicSongAssetName dynamicSongName, DynamicSongVariantAssetName variantName, float transitionTime = 0)
     {
         LoadObject<DynamicMusicData>($"Audio/Music/Dynamic/{dynamicSongName}/{dynamicSongName}");
     }

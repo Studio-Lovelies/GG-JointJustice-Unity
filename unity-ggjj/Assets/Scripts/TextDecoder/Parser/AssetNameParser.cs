@@ -70,6 +70,20 @@
             return null;
         }
     }
+    public class DynamicSongVariantAssetNameParser : Parser<DynamicSongVariantAssetName>
+    {
+        public override string Parse(string input, out DynamicSongVariantAssetName output)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                output = null;
+                return $"String cannot be empty";
+            }
+
+            output = new DynamicSongVariantAssetName(input);
+            return null;
+        }
+    }
     public class ActorPoseAssetNameParser : Parser<ActorPoseAssetName>
     {
         public override string Parse(string input, out ActorPoseAssetName output)

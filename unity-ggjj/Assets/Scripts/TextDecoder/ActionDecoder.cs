@@ -163,7 +163,7 @@ public class ActionDecoder : ActionDecoderBase
 
     /// <summary>When a static or different dynamic song is playing: Stops the current song and plays the base and variant of the provided dynamic song. When the dynamic song is already playing: Cross-fades the current variant into the provided one. Loops infinitely.</summary>
     /// <param name="dynamicSongName" validFiles="Assets/Resources/Audio/Music/Dynamic/**.asset">Filename of a dynamic song asset</param>
-    /// <param name="variantName">Name of the variant of the song</param>
+    /// <param name="variantName" validFiles="Assets/Resources/Audio/Music/Dynamic/{DynamicSongAssetName}/*.wav">Name of the variant of the song</param>
     /// <param name="optional_transitionTime">(Optional) The time taken to transition between songs</param>
     /// <example>&amp;PLAY_SONG_VARIANT:YouBurgieBurgie,Dan</example>
     /// <example>&amp;PLAY_SONG_VARIANT:YouBurgieBurgie,EvilBurgie</example>
@@ -171,7 +171,7 @@ public class ActionDecoder : ActionDecoderBase
     /// <example>&amp;PLAY_SONG_VARIANT:YouBurgieBurgie,Burgie,2</example>
     /// <example>&amp;PLAY_SONG_VARIANT:YouBurgieBurgie,Burgie,2</example>
     /// <category>Audio</category>
-    protected override void PLAY_SONG_VARIANT(DynamicSongAssetName dynamicSongName, string variantName, float optional_transitionTime = 0)
+    protected override void PLAY_SONG_VARIANT(DynamicSongAssetName dynamicSongName, DynamicSongVariantAssetName variantName, float optional_transitionTime = 0)
     {
         NarrativeGameState.AudioController.PlayDynamicSong(NarrativeGameState.ObjectStorage.GetObject<DynamicMusicData>(dynamicSongName), variantName, optional_transitionTime);
         OnActionDone?.Invoke();

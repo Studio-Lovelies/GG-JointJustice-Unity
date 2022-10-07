@@ -167,7 +167,7 @@ public abstract class ActionDecoderBase : IActionDecoder
     {
         throw new NotImplementedException();
     }
-    protected virtual void PLAY_SONG_VARIANT(DynamicSongAssetName dynamicSongName, string variantName, float optional_transitionTime = 0)
+    protected virtual void PLAY_SONG_VARIANT(DynamicSongAssetName dynamicSongName, DynamicSongVariantAssetName variantName, float optional_transitionTime = 0)
     {
         throw new NotImplementedException();
     }
