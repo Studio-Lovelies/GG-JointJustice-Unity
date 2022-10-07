@@ -269,7 +269,7 @@ jobs:
           rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v2.0-alpha-6
+        uses: game-ci/unity-test-runner@v2.0.3
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
