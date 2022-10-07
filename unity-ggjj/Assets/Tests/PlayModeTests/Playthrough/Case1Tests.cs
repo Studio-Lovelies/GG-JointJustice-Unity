@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Tests.PlayModeTests.Scenes.NarrativeScripts
+namespace Tests.PlayModeTests.Playthrough
 {
     public class Case1Tests
     {
