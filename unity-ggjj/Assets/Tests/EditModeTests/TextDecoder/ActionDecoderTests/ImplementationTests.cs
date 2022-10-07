@@ -34,6 +34,7 @@ namespace TextDecoder.ActionDecoderTests
             {typeof(SceneAssetName), "ValidString"},
             {typeof(SfxAssetName), "ValidString"},
             {typeof(DynamicSongAssetName), "ValidString"},
+            {typeof(DynamicSongVariantAssetName), "ValidString"},
             {typeof(StaticSongAssetName), "ValidString"},
             {typeof(CourtRecordItemName), "ValidString"},
             {typeof(EvidenceAssetName), "ValidString"},

@@ -56,6 +56,11 @@ public class DynamicSongAssetName : AssetName
     public DynamicSongAssetName(string givenName) : base(givenName) { }
 }
 
+public class DynamicSongVariantAssetName : AssetName
+{
+    public DynamicSongVariantAssetName(string givenName) : base(givenName) { }
+}
+
 public abstract class CourtRecordItemName : AssetName
 {
     protected CourtRecordItemName(string givenName) : base(givenName) { }
