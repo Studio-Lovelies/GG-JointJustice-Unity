@@ -25,7 +25,7 @@ Examples:
 ## PLAY_SONG_VARIANT
 Values: 
   - [Filename of a dynamic song asset](../constants.md#DynamicSongAssetName)
-  - Name of the variant of the song
+  - [Name of the variant of the song](../constants.md#DynamicSongVariantAssetName)
   - (Optional) The time taken to transition between songs
 
 ⏲ Instant
