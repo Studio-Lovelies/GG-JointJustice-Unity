@@ -78,5 +78,5 @@ jobs:
           git config --global user.name github-actions
           git config --global user.email 'github-actions@github.com'
           git add docs/*
-          git commit -am "Update /docs"
+          git commit -am "chore(docs): Update auto-generated docs"
           git push
