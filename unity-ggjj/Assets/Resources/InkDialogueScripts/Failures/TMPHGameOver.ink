@@ -7,22 +7,19 @@ INCLUDE ../Templates/Macros.ink
 
 &SCENE:TMPHJudge
 &ACTOR:JudgeBrent
-
-&SCENE:TMPHAssistant
-&ACTOR:Dan
 &FADE_IN:3
-&SPEAK:Dan
-Bruh, wtf was that Arin?
 
-&SCENE:TMPHJudge
 &SPEAK:JudgeBrent
-Regarding the lack of evidence in the favor of the accused, Mr. Jory Griffis, I must find him{char(".")}{char(".")}{char(".")}
+I see no further reason to continue this trial. I declare the defendant, Mr Jory Griffis{ellipsis}
 
 &HIDE_TEXTBOX
 &PLAY_ANIMATION:BadBoy
-&FADE_OUT:3
+Take the defendant away and strip him of all his GoodBoy coins!
 
-The defense loses.
+&HIDE_TEXTBOX
+&PLAY_ANIMATION:GavelHit
+&PLAY_SFX:Gavel
+&FADE_OUT:3
 
 &RELOAD_SCENE
 -> END
