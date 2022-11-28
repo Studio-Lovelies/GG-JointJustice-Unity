@@ -8,7 +8,6 @@ INCLUDE StartingEvidence.ink
 <- COURT_TMPH
 <- Failures.TMPH
 
-
 &JUMP_TO_POSITION:Witness
 &FADE_IN:2
 &PLAY_SONG:fyiIWannaXYourExaminationModerato,{songFadeTime}

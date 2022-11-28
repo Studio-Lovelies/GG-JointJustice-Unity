@@ -17,8 +17,8 @@ I see no further reason to continue this trial. I declare the defendant, Mr Jory
 Take the defendant away and strip him of all his GoodBoy coins!
 
 &HIDE_TEXTBOX
-&PLAY_ANIMATION:GavelHit
 &PLAY_SFX:Gavel
+&PLAY_ANIMATION:GavelHit
 &FADE_OUT:3
 
 &RELOAD_SCENE

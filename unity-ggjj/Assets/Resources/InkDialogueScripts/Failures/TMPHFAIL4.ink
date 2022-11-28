@@ -22,8 +22,8 @@ Yes, accept his freebie. It won't help you in the long run, Mr{char(".")} {char(
 
 &HIDE_TEXTBOX
 &JUMP_TO_POSITION:Defense
-&PLAY_EMOTION:DeskSlamAnimation
 &PLAY_SFX:Damage1
+&PLAY_EMOTION:DeskSlamAnimation
 &SHAKE_SCREEN:0.2,0.2
 &SPEAK:Arin
 You shut your goddamn pie hole{ellipsis}
@@ -31,7 +31,7 @@ You shut your goddamn pie hole{ellipsis}
 &SCENE:Anime
 &ACTOR:Arin
 &SET_POSE:CloseUp
-{ellipsis}you FUCKING CLOD!!!
+{ellipsis}you FUCKING CLOD{char("!")}{char("!")}{char("!")}
 
 &SCENE:TMPHCourt
 &JUMP_TO_POSITION:Prosecution
