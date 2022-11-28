@@ -1,18 +1,31 @@
 INCLUDE ../Templates/Macros.ink
 
+&SCENE:TMPHJudge
+&ACTOR:JudgeBrent
+&SET_POSE:Thinking
+&SPEAK:JudgeBrent
+...
+You can't be serious with this, right?
+
 &SCENE:TMPHCourt
-&SET_ACTOR_POSITION:Prosecution,TutorialBoy
 &SET_ACTOR_POSITION:Defense,Arin
-&JUMP_TO_POSITION:Prosecution
-&SPEAK:TutorialBoy
-Wow, you're terrible at this.
-
 &JUMP_TO_POSITION:Defense
-
-&PLAY_EMOTION:ShockAnimation
-&WAIT:0.5
 &SET_POSE:Sweaty
-&THINK:Arin
-<color=\#0084ff>(God I hate this guy{char(".")})
+&SPEAK:Arin
+Uhhhh{ellipsis}
+
+&SET_POSE:Embarrassed
+Maybe?
+
+&SCENE:TMPHJudge
+&SPEAK:JudgeBrent
+You need to take this more seriously Arin. Hopefully this Penalty will help you focus.
+
 &ISSUE_PENALTY
-    -> END
+
+&SCENE:TMPHCourt
+&SET_POSE:Sweaty
+&SPEAK:Arin
+Y-yes, Your Honor. My bad.
+
+-> END
