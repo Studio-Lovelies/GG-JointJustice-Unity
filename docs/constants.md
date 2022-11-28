@@ -163,11 +163,15 @@
 ## GameOverScriptAssetName
   - TMPHFAIL1
   - TMPHFAIL2
+  - TMPHFAIL3
+  - TMPHFAIL4
   - TMPHGameOver
 
 ## FailureScriptAssetName
   - TMPHFAIL1
   - TMPHFAIL2
+  - TMPHFAIL3
+  - TMPHFAIL4
   - TMPHGameOver
 
 ## UnitySceneAssetName
