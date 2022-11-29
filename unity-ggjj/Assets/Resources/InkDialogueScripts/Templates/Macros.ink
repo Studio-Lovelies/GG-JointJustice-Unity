@@ -48,5 +48,5 @@ INCLUDE ../Colors.ink
 === function char(x)
     ~ return "<link=character>{x}</link>"
 
-VAR period = "<link=character>.<link>"
-VAR ellipsis = "<link=character>.<link><link=character>.<link>."
+VAR period = "<link=character>.</link>"
+VAR ellipsis = "<link=character>.</link><link=character>.</link><link=character>.</link>"
