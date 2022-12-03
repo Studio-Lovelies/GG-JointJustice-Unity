@@ -1,0 +1,71 @@
+name: Build Game
+
+on:
+  workflow_call:
+    inputs:
+      unityPlatform:
+        description: 'Target platform of the built artifact'
+        type: string
+        required: true
+      outputName:
+        description: 'Name of the artifact generated'
+        type: string
+        required: true
+
+jobs:
+  buildGame:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create Sentry Credentials from Secrets
+        run: |
+          mkdir -p unity-ggjj/Assets/Plugins/Sentry
+          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+        shell: bash
+        env:
+          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
+
+      - name: Create LFS file list
+        shell: bash
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v3
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        shell: bash
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Restore Library cache
+        uses: actions/cache@v3
+        with:
+          path: unity-ggjj/Library
+          key: Library-${{ hashFiles('unity-ggjj/Assets/**', 'unity-ggjj/Packages/**', 'unity-ggjj/ProjectSettings/**') }}
+          restore-keys: |
+            unity-ggjj/Library-
+
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: unity-ggjj/
+          targetPlatform: ${{ inputs.unityPlatform }}
+          buildName: 'Game Grumps - Joint Justice'
+
+      - name: Upload '${{ inputs.outputName }}' artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.outputName }}-v${{ github.run_number }}
+          path: build/${{ inputs.unityPlatform }}
