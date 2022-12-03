@@ -1,0 +1,92 @@
+name: Execute Tests
+
+on:
+  workflow_call:
+    inputs:
+      testMode:
+        description: 'Unity TestMode (https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/edit-mode-vs-play-mode-tests.html)'
+        type: string
+        required: true
+      subdirectory:
+        description: 'Relative path to the test suite following `unity-ggjj/Assets/Tests/`'
+        type: string
+        required: true
+
+jobs:
+  executeTests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create Sentry Credentials from Secrets
+        run: |
+          mkdir -p unity-ggjj/Assets/Plugins/Sentry
+          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+        shell: bash
+        env:
+          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
+
+      - name: Create LFS file list
+        shell: bash
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v3
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        shell: bash
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Back up and restore ${{ inputs.subdirectory }} after removing other test suites
+        shell: bash
+        run: | 
+          cp -r unity-ggjj/Assets/Tests/${{ inputs.subdirectory }} testsToRun
+          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Suites
+          rm -rf unity-ggjj/Assets/Tests/EditModeTests/Suites
+          mkdir -p unity-ggjj/Assets/Tests/${{ inputs.subdirectory }}
+          cp -r testsToRun/* unity-ggjj/Assets/Tests/${{ inputs.subdirectory }}
+
+      - name: Execute tests in ${{ inputs.subdirectory }}
+        uses: game-ci/unity-test-runner@v2.1.1
+        env:
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: unity-ggjj/
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          testMode: ${{inputs.testMode}}
+          checkName: Test Results - ${{inputs.testMode}} ${{ inputs.subdirectory }}
+          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
+
+      - name: Upload XML report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          name: ${{inputs.testMode}} ${{ inputs.subdirectory }}
+          flags: ${{inputs.testMode}}${{ inputs.subdirectory }}
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: unity-ggjj/coverage-results/**/*.xml
+        if: ${{ failure() || success() }}
+
+      - name: Replace directory separator with underscores
+        if: ${{ failure() || success() }}
+        shell: bash
+        run:
+          SLASH_DELIMITED_DIRECTORY="${{ inputs.subdirectory }}"
+          UNDERSCORE_DELIMITED_DIRECTORY=$(echo $SLASH_DELIMITED_DIRECTORY | sed 's:/:-:')
+          echo "UNDERSCORE_DELIMITED_DIRECTORY=$UNDERSCORE_DELIMITED_DIRECTORY" >> $GITHUB_ENV
+
+      - name: Store test artifacts
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || success() }}
+        with:
+          name: Test Results - ${{inputs.testMode}} env.UNDERSCORE_DELIMITED_DIRECTORY
+          path: artifacts

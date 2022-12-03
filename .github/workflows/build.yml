@@ -72,8 +72,8 @@ jobs:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
-  unityTestEditMode:
-    name: Run EditMode tests for Unity project
+  runUnityTests:
+    name: "Execute sharded tests"
     needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
     runs-on: ubuntu-latest
@@ -81,253 +81,21 @@ jobs:
       checks: write # allows dependabot PRs to set pull request checks
       contents: read
       pull-requests: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    strategy:
+      matrix:
+        testSuite: [ 
+          { testMode: "EditMode", subdirectory: "EditModeTests/Suites"                   }, 
+          { testMode: "PlayMode", subdirectory: "PlayModeTests/Suites/Scripts"           }, 
+          { testMode: "PlayMode", subdirectory: "PlayModeTests/Suites/Scenes"            }, 
+          { testMode: "PlayMode", subdirectory: "PlayModeTests/Suites/Playthrough/Case1" },
+          { testMode: "PlayMode", subdirectory: "PlayModeTests/Suites/Playthrough/Case2" } 
+        ]
 
-      - name: Create Sentry Credentials from Secrets
-        run: |
-          mkdir -p unity-ggjj/Assets/Plugins/Sentry
-          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
-        shell: bash
-        env:
-          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - name: Remove unity-ggjj/Assets/Tests/PlayModeTests/ folder
-        run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/
-
-      - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.1
-        env:
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          projectPath: unity-ggjj/
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          testMode: EditMode
-          checkName: Test Results - EditMode
-          coverageOptions: generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
-
-      - name: Upload XML report to Codecov
-        uses: codecov/codecov-action@v3
-        if: ${{ failure() || success() }}
-        with:
-          name: EditMode
-          flags: EditMode
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: CodeCoverage/**/*.xml
-
-      - name: Store test artifacts
-        uses: actions/upload-artifact@v3
-        if: ${{ failure() || success() }}
-        with:
-          name: Test Results - EditMode
-          path: artifacts
-
-  unityTestPlayModeScripts:
-    name: Run PlayMode Scripts tests for Unity project
-    needs: [checkLicense]
-    if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
-    runs-on: ubuntu-latest
-    permissions:
-      checks: write # allows dependabot PRs to set pull request checks
-      contents: read
-      pull-requests: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Create Sentry Credentials from Secrets
-        run: |
-          mkdir -p unity-ggjj/Assets/Plugins/Sentry
-          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
-        shell: bash
-        env:
-          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - name: Remove other test folders
-        run: |
-          rm -rf unity-ggjj/Assets/Tests/EditModeTests
-          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
-          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Playthrough
-
-      - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.1
-        env:
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          projectPath: unity-ggjj/
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          testMode: PlayMode
-          checkName: Test Results - PlayMode Scripts
-          coverageOptions: generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
-
-      - name: Upload XML report to Codecov
-        uses: codecov/codecov-action@v3
-        if: ${{ failure() || success() }}
-        with:
-          name: PlayMode Scripts
-          flags: PlayModeScripts
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: CodeCoverage/**/*.xml
-
-      - name: Store test artifacts
-        uses: actions/upload-artifact@v3
-        if: ${{ failure() || success() }}
-        with:
-          name: Test Results - PlayMode Scripts
-          path: artifacts
-
-  unityTestPlayModeScenes:
-    name: Run PlayMode Scenes tests for Unity project
-    needs: [checkLicense]
-    if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
-    runs-on: ubuntu-latest
-    permissions:
-      checks: write # allows dependabot PRs to set pull request checks
-      contents: read
-      pull-requests: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Create Sentry Credentials from Secrets
-        run: |
-          mkdir -p unity-ggjj/Assets/Plugins/Sentry
-          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
-        shell: bash
-        env:
-          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - name: Remove other test folders
-        run: |
-          rm -rf unity-ggjj/Assets/Tests/EditModeTests
-          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scripts
-          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Playthrough
-
-      - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.1
-        env:
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          projectPath: unity-ggjj/
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          testMode: PlayMode
-          checkName: Test Results - PlayMode Scenes
-          coverageOptions: generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
-
-      - name: Upload XML report to Codecov
-        uses: codecov/codecov-action@v3
-        if: ${{ failure() || success() }}
-        with:
-          name: PlayMode Scenes
-          flags: PlayModeScenes
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: CodeCoverage/**/*.xml
-
-      - name: Store test artifacts
-        uses: actions/upload-artifact@v3
-        if: ${{ failure() || success() }}
-        with:
-          name: Test Results - PlayMode Scenes
-          path: artifacts
-
-  unityTestPlayModePlaythrough:
-    name: Run PlayMode Playthrough tests for Unity project
-    needs: [checkLicense]
-    if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
-    runs-on: ubuntu-latest
-    permissions:
-      checks: write # allows dependabot PRs to set pull request checks
-      contents: read
-      pull-requests: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Create Sentry Credentials from Secrets
-        run: |
-          mkdir -p unity-ggjj/Assets/Plugins/Sentry
-          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
-        shell: bash
-        env:
-          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - name: Remove other test folders
-        run: |
-          rm -rf unity-ggjj/Assets/Tests/EditModeTests
-          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scripts
-          rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
-
-      - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.1
-        env:
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          projectPath: unity-ggjj/
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          testMode: PlayMode
-          checkName: Test Results - PlayMode Playthrough
-          coverageOptions: generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
-
-      - name: Upload XML report to Codecov
-        uses: codecov/codecov-action@v3
-        if: ${{ failure() || success() }}
-        with:
-          name: PlayMode Playthrough
-          flags: PlayModePlaythrough
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: CodeCoverage/**/*.xml
-
-      - name: Store test artifacts
-        uses: actions/upload-artifact@v3
-        if: ${{ failure() || success() }}
-        with:
-          name: Test Results - PlayMode Playthrough
-          path: artifacts
+    uses: ./.github/workflows/executeTests.yml
+    with:
+      subdirectory: ${{ matrix.testSuite.subdirectory }}
+      testMode: ${{ matrix.testSuite.testMode }}
+    secrets: inherit
 
   unityBuild:
     name: Build for ${{ matrix.targetPlatform.outputName }}
@@ -344,59 +112,12 @@ jobs:
           { unityPlatform: "StandaloneLinux64",   outputName: "Linux-x64"   },
           { unityPlatform: "WebGL",               outputName: "WebGL"       }
         ]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
-      - name: Create Sentry Credentials from Secrets
-        run: |
-          mkdir -p unity-ggjj/Assets/Plugins/Sentry
-          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
-        shell: bash
-        env:
-          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      - name: Restore LFS cache
-        uses: actions/cache@v3
-        id: lfs-cache
-        with:
-          path: .git/lfs
-          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
-
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - name: Restore Library cache
-        uses: actions/cache@v3
-        with:
-          path: unity-ggjj/Library
-          key: Library-${{ hashFiles('unity-ggjj/Assets/**', 'unity-ggjj/Packages/**', 'unity-ggjj/ProjectSettings/**') }}
-          restore-keys: |
-            unity-ggjj/Library-
-
-      - name: Build project
-        uses: game-ci/unity-builder@v2
-        env:
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          projectPath: unity-ggjj/
-          targetPlatform: ${{ matrix.targetPlatform.unityPlatform }}
-          buildName: 'Game Grumps - Joint Justice'
-          customParameters: "${{ (github.event.inputs.createRelease != 'true') && (matrix.targetPlatform.unityPlatform != 'WebGL') && '-Development -AllowDebugging' }}" # https://forum.unity.com/threads/unable-to-make-webgl-development-builds.1274915/#post-8097197
- 
-      - name: Upload '${{ matrix.targetPlatform.outputName }}' artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ matrix.targetPlatform.outputName }}-v${{ github.run_number }}
-          path: build/${{ matrix.targetPlatform.unityPlatform }}
+    uses: ./.github/workflows/buildGame.yml
+    with:
+      unityPlatform: ${{ matrix.targetPlatform.unityPlatform }}
+      outputName: ${{ matrix.targetPlatform.outputName }}
+    secrets: inherit
 
   # Releases
   checkIfTagExists:
