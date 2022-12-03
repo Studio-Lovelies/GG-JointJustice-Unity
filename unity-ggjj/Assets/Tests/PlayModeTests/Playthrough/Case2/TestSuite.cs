@@ -11,9 +11,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Tests.PlayModeTests.Playthrough
+namespace Tests.PlayModeTests.Playthrough.Case2
 {
-    public class Case1Tests
+    public class TestSuite
     {
         private static IEnumerable<TestCaseData> NarrativeScripts => Resources
             .LoadAll<TextAsset>("InkDialogueScripts/Case1").OrderBy(textAsset => textAsset.name.Split('-')[1].PadLeft(2, '0'))
