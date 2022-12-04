@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: d12329390849e8f41971dfe60b3fc7ff
+guid: 0aaa7a4d7c254f14ead8ce5b37b1945a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - audioControllerPrefab: {fileID: 4370212450457838585, guid: 751a83443b8904148b0fef90e6eb0327, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
