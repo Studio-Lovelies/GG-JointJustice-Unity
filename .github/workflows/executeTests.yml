@@ -67,15 +67,6 @@ jobs:
           checkName: Test Results - ${{inputs.testMode}} ${{ inputs.subdirectory }}
           customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
-      - name: Upload XML report to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          name: ${{inputs.testMode}} ${{ inputs.subdirectory }}
-          flags: ${{inputs.testMode}}${{ inputs.subdirectory }}
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: unity-ggjj/coverage-results/**/*.xml
-        if: ${{ failure() || success() }}
-
       - name: Replace directory separator with underscores
         if: ${{ failure() || success() }}
         shell: bash
@@ -84,9 +75,18 @@ jobs:
           UNDERSCORE_DELIMITED_DIRECTORY=$(echo $SLASH_DELIMITED_DIRECTORY | sed 's:/:-:')
           echo "UNDERSCORE_DELIMITED_DIRECTORY=$UNDERSCORE_DELIMITED_DIRECTORY" >> $GITHUB_ENV
 
+      - name: Upload XML report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          name: ${{inputs.testMode}} ${{ inputs.subdirectory }}
+          flags: ${{inputs.testMode}}_${{env.UNDERSCORE_DELIMITED_DIRECTORY}}
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: unity-ggjj/coverage-results/**/*.xml
+        if: ${{ failure() || success() }}
+
       - name: Store test artifacts
         uses: actions/upload-artifact@v3
         if: ${{ failure() || success() }}
         with:
-          name: Test Results - ${{inputs.testMode}} env.UNDERSCORE_DELIMITED_DIRECTORY
+          name: Test Results - ${{inputs.testMode}} ${{env.UNDERSCORE_DELIMITED_DIRECTORY}}
           path: artifacts
