@@ -4,9 +4,9 @@ using System.Linq;
 using NUnit.Framework;
 using TextDecoder.Parser;
 
-namespace Tests.EditModeTests.TextDecoder
+namespace Tests.EditModeTests.Suites.TextDecoderTests
 {
-    public class Parser
+    public class ParserTests
     {
         private static IEnumerable<Type> AllAssetNameParser => typeof(Parser<>).Assembly.GetTypes().Where(type => type.BaseType is { IsGenericType: true } && type.BaseType.GetGenericTypeDefinition() == typeof(Parser<>));
 

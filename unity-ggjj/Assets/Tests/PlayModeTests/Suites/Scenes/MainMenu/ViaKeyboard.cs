@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace Tests.PlayModeTests.Scenes.MainMenu
+namespace Tests.PlayModeTests.Suites.Scenes.MainMenu
 {
     public class ViaKeyboard
     {

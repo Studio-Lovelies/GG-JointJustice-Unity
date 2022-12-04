@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace Tests.PlayModeTests.Scripts
+namespace Tests.PlayModeTests.Suites.Scripts
 {
     public class LoadScriptTests
     {

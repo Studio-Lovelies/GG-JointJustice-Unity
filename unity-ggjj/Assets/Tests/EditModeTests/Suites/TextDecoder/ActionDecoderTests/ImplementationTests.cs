@@ -10,7 +10,7 @@ using TextDecoder.Parser;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace TextDecoder.ActionDecoderTests
+namespace Tests.EditModeTests.Suites.TextDecoderTests.ActionDecoderTests
 {
     public class ImplementationTests
     {

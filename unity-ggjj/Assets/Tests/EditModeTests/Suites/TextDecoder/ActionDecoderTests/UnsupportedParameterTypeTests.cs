@@ -2,7 +2,7 @@ using NUnit.Framework;
 using TextDecoder.Parser;
 using UnityEngine;
 
-namespace TextDecoder.ActionDecoderTests
+namespace Tests.EditModeTests.Suites.TextDecoderTests.ActionDecoderTests
 {
     public class UnsupportedParameterTypeTests
     {

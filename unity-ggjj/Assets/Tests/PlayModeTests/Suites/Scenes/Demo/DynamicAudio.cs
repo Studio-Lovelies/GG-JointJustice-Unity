@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Tests.PlayModeTests.Scenes.Demo
+namespace Tests.PlayModeTests.Suites.Scenes.Demo
 {
     public class DynamicAudio
     {

@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
+namespace Tests.PlayModeTests.Suites.Scripts.AppearingDialogueController
 {
     /// <summary>
     /// Tests for <see cref="GetDelay"/>

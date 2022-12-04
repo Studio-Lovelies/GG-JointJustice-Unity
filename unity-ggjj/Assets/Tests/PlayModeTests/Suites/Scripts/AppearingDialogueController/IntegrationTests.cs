@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Tests.PlayModeTests.Scripts.AppearingDialogueController
+namespace Tests.PlayModeTests.Suites.Scripts.AppearingDialogueController
 {
     /// <summary>
     /// Integration tests for <see cref="AppearingDialogueController"/>

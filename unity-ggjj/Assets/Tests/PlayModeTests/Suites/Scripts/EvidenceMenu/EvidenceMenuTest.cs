@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace Tests.PlayModeTests.Scripts.EvidenceMenu
+namespace Tests.PlayModeTests.Suites.Scripts.EvidenceMenu
 {
     public class EvidenceMenuTest
     {
