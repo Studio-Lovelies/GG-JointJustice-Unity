@@ -79,7 +79,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           name: ${{inputs.testMode}} ${{ inputs.subdirectory }}
-          flags: ${{inputs.testMode}}_${{env.UNDERSCORE_DELIMITED_DIRECTORY}}
+          flags: ${{env.UNDERSCORE_DELIMITED_DIRECTORY}}
           token: ${{ secrets.CODECOV_TOKEN }}
           files: unity-ggjj/coverage-results/**/*.xml
         if: ${{ failure() || success() }}
