@@ -1,5 +1,5 @@
-name: Generate game builds
-on:
+name: Builds + Test
+on: 
   push:
     branches:
       - develop
@@ -76,7 +76,6 @@ jobs:
     name: "Execute sharded tests"
     needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
-    runs-on: ubuntu-latest
     permissions:
       checks: write # allows dependabot PRs to set pull request checks
       contents: read
@@ -91,7 +90,7 @@ jobs:
           { testMode: "PlayMode", subdirectory: "PlayModeTests/Suites/Playthrough/Case2" } 
         ]
 
-    uses: ./.github/workflows/executeTests.yml
+    uses: ./.github/workflows/execute_tests.yml
     with:
       subdirectory: ${{ matrix.testSuite.subdirectory }}
       testMode: ${{ matrix.testSuite.testMode }}
@@ -101,7 +100,6 @@ jobs:
     name: Build for ${{ matrix.targetPlatform.outputName }}
     needs: [extractVersionNumber, checkLicense]
     if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -113,7 +111,7 @@ jobs:
           { unityPlatform: "WebGL",               outputName: "WebGL"       }
         ]
 
-    uses: ./.github/workflows/buildGame.yml
+    uses: ./.github/workflows/build_game.yml
     with:
       unityPlatform: ${{ matrix.targetPlatform.unityPlatform }}
       outputName: ${{ matrix.targetPlatform.outputName }}
