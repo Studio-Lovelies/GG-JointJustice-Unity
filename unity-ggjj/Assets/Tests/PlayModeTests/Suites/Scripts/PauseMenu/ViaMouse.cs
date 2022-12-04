@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
-namespace Tests.PlayModeTests.Scripts.PauseMenu
+namespace Tests.PlayModeTests.Suites.Scripts.PauseMenu
 {
     public class ViaMouse : PauseMenuTests
     {

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Tests.PlayModeTests.Scenes
+namespace Tests.PlayModeTests.Suites.Scenes
 {
     public class CreditsTests
     {

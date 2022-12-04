@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Tests.PlayModeTests.Scripts
+namespace Tests.PlayModeTests.Suites.Scripts
 {
     public class SceneLoaderTests
     {

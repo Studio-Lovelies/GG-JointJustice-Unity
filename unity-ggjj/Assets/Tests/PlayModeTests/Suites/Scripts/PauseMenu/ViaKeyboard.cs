@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine.TestTools;
 
-namespace Tests.PlayModeTests.Scripts.PauseMenu
+namespace Tests.PlayModeTests.Suites.Scripts.PauseMenu
 {
     public class ViaKeyboard : PauseMenuTests
     {

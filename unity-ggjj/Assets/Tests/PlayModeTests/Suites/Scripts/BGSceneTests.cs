@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Tests.PlayModeTests.Scripts
+namespace Tests.PlayModeTests.Suites.Scripts
 {
     public class BGSceneTests
     {

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Tests.PlayModeTests.Scenes.CrossExamination
+namespace Tests.PlayModeTests.Suites.Scenes.CrossExamination
 {
     public class ViaKeyboard
     {

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Assert = UnityEngine.Assertions.Assert;
 
-namespace Tests.PlayModeTests.Scenes.VisibilityTest
+namespace Tests.PlayModeTests.Suites.Scenes.VisibilityTest
 {
     public class ViaKeyboard
     {

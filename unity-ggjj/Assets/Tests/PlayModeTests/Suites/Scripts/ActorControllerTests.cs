@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace Tests.PlayModeTests.Scripts
+namespace Tests.PlayModeTests.Suites.Scripts
 {
     public class ActorControllerTests
     {

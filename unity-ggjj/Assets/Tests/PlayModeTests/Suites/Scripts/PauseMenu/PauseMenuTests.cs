@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
-namespace Tests.PlayModeTests.Scripts.PauseMenu
+namespace Tests.PlayModeTests.Suites.Scripts.PauseMenu
 {
     /// <summary>
     /// Contains methods and properties used in both the keyboard tests and the mouse tests.

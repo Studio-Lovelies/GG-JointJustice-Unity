@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace Tests.PlayModeTests.Scripts.AudioController
+namespace Tests.PlayModeTests.Suites.Scripts.AudioController
 {
     // NOTE: As there's no audio hardware present when running headless (i.e. inside automated build processes),
     //       things like ".isPlaying" or ".time"  of AudioSources cannot be asserted, as they will remain

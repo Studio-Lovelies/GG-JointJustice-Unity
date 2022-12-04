@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
-namespace Tests.PlayModeTests.Scripts.EvidenceMenu
+namespace Tests.PlayModeTests.Suites.Scripts.EvidenceMenu
 {
     public class EvidenceMenuMouseTests : EvidenceMenuTest
     {
