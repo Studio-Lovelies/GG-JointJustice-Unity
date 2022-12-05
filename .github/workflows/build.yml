@@ -98,7 +98,7 @@ jobs:
         run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.0
+        uses: game-ci/unity-test-runner@v2.1.1
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -155,7 +155,7 @@ jobs:
           rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Playthrough
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.0
+        uses: game-ci/unity-test-runner@v2.1.1
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -212,7 +212,7 @@ jobs:
           rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Playthrough
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.0
+        uses: game-ci/unity-test-runner@v2.1.1
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -269,7 +269,7 @@ jobs:
           rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.0
+        uses: game-ci/unity-test-runner@v2.1.1
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
