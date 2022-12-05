@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Ink.Runtime;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -55,6 +56,8 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         get => HasSubStory ? _subNarrativeScript.ActiveNarrativeScript : _activeNarrativeScript;
         set => _activeNarrativeScript = value;
     }
+
+    public INarrativeScriptPlayer ActiveNarrativeScriptPlayer => HasSubStory ? _subNarrativeScript : this;
     
     public GameMode GameMode
     {
@@ -72,12 +75,13 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         }
     }
 
+    public event Action OnNarrativeScriptComplete;
+
     public NarrativeScriptPlayer(INarrativeGameState narrativeGameState)
     {
         _narrativeGameState = narrativeGameState;
     }
 
-    
     /// <summary>
     /// Speeds up or restores the previous speed of delay between characters when called
     /// </summary>
@@ -153,6 +157,7 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         
         if (!IsAtChoice)
         {
+            OnNarrativeScriptComplete?.Invoke();
             _parent?.EndSubStory();
             return true;
         }
@@ -168,7 +173,7 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
             default:
                 throw new InvalidEnumArgumentException($"{GameMode} is an invalid GameMode");
         }
-
+        
         return true;
     }
 
