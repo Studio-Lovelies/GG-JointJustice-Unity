@@ -23,8 +23,8 @@ Yes, accept his freebie. It won't help you in the long run, Mr{char(".")} {char(
 &HIDE_TEXTBOX
 &JUMP_TO_POSITION:Defense
 &PLAY_SFX:Damage1
-&PLAY_EMOTION:DeskSlamAnimation
 &SHAKE_SCREEN:0.2,0.2
+&PLAY_EMOTION:DeskSlamAnimation
 &SPEAK:Arin
 You shut your goddamn pie hole{ellipsis}
 
