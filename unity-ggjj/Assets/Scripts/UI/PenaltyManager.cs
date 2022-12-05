@@ -74,5 +74,6 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
         var narrativeScriptPlayer = _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
         narrativeScriptPlayer.StartSubStory(_narrativeGameState.NarrativeScriptStorage.GameOverScript);
         narrativeScriptPlayer.OnNarrativeScriptComplete -= OnNoLivesLeft;
+        _narrativeGameState.ActorController.StopTalking();
     }
 }
