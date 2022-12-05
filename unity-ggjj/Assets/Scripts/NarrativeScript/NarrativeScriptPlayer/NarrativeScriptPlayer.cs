@@ -18,7 +18,8 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
     private NarrativeScriptPlayer _subNarrativeScript;
     private GameMode _gameMode = GameMode.Dialogue;
     private bool _waiting;
-
+    private NarrativeScript _playOnScriptEnd;
+    
     private Story Story => ActiveNarrativeScript.Story;
     private bool IsAtChoice => ActiveNarrativeScript.Story.currentChoices.Count > 0;
 
@@ -156,8 +157,8 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         
         if (!IsAtChoice)
         {
-            OnNarrativeScriptComplete?.Invoke();
             _parent?.EndSubStory();
+            OnNarrativeScriptComplete?.Invoke();
             return true;
         }
 
