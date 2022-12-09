@@ -59,17 +59,21 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
         Debug.Assert(PenaltiesLeft > 0, "Decrement must not be called with 0 or fewer penalty lifelines left");
         PenaltiesLeft--;
         _penaltyObjects.Dequeue().Play("Explosion");
-        CheckGameOver();
+        if (PenaltiesLeft == 0)
+        {
+            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScriptPlayer.OnNarrativeScriptComplete += OnNoLivesLeft;
+        }
     }
 
     /// <summary>
-    /// Checks if all penalties are depleted and calls the onPenaltiesDepleted event if so.
+    /// Tells the NarrativeScriptPlayer to play the game over script.
+    /// Is executed when no lives are left at the end of the currently playing narrative script.
     /// </summary>
-    private void CheckGameOver()
+    private void OnNoLivesLeft()
     {
-        if (_penaltyObjects.Count == 0)
-        {
-            _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.StartSubStory(_narrativeGameState.NarrativeScriptStorage.GameOverScript);
-        }
+        var narrativeScriptPlayer = _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
+        narrativeScriptPlayer.StartSubStory(_narrativeGameState.NarrativeScriptStorage.GameOverScript);
+        narrativeScriptPlayer.OnNarrativeScriptComplete -= OnNoLivesLeft;
+        _narrativeGameState.ActorController.StopTalking();
     }
 }

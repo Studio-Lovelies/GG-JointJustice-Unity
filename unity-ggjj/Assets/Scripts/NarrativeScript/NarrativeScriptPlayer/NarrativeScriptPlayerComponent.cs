@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,15 +12,10 @@ public class NarrativeScriptPlayerComponent : MonoBehaviour, INarrativeScriptPla
     {
         get
         {
-            if (_narrativeScriptPlayer == null)
+            return _narrativeScriptPlayer ??= new NarrativeScriptPlayer(_narrativeGameState)
             {
-                _narrativeScriptPlayer = new NarrativeScriptPlayer(_narrativeGameState)
-                {
-                    ActiveNarrativeScript = _narrativeGameState.NarrativeScriptStorage.NarrativeScript
-                };
-            }
-
-            return _narrativeScriptPlayer;
+                ActiveNarrativeScript = _narrativeGameState.NarrativeScriptStorage.NarrativeScript
+            };
         }
     }
 

@@ -18,7 +18,8 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
     private NarrativeScriptPlayer _subNarrativeScript;
     private GameMode _gameMode = GameMode.Dialogue;
     private bool _waiting;
-
+    private NarrativeScript _playOnScriptEnd;
+    
     private Story Story => ActiveNarrativeScript.Story;
     private bool IsAtChoice => ActiveNarrativeScript.Story.currentChoices.Count > 0;
 
@@ -55,6 +56,8 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         get => HasSubStory ? _subNarrativeScript.ActiveNarrativeScript : _activeNarrativeScript;
         set => _activeNarrativeScript = value;
     }
+
+    public INarrativeScriptPlayer ActiveNarrativeScriptPlayer => HasSubStory ? _subNarrativeScript : this;
     
     public GameMode GameMode
     {
@@ -72,12 +75,13 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         }
     }
 
+    public event Action OnNarrativeScriptComplete;
+
     public NarrativeScriptPlayer(INarrativeGameState narrativeGameState)
     {
         _narrativeGameState = narrativeGameState;
     }
 
-    
     /// <summary>
     /// Speeds up or restores the previous speed of delay between characters when called
     /// </summary>
@@ -154,6 +158,7 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
         if (!IsAtChoice)
         {
             _parent?.EndSubStory();
+            OnNarrativeScriptComplete?.Invoke();
             return true;
         }
 
@@ -168,7 +173,7 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
             default:
                 throw new InvalidEnumArgumentException($"{GameMode} is an invalid GameMode");
         }
-
+        
         return true;
     }
 
