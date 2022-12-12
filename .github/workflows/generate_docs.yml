@@ -29,7 +29,7 @@ jobs:
 
       - name: Generate current state of docs
         id: currentDocs
-        run: echo "::set-output name=hash::$(find docs/ -type f -exec md5sum {} \; | md5sum)"
+        run: echo "hash=$(find docs/ -type f -exec md5sum {} \; | md5sum)" >> $GITHUB_OUTPUT
         
       - name: Clear /docs folder
         working-directory: ./
@@ -41,7 +41,7 @@ jobs:
 
       - name: Generate new state of docs
         id: newDocs
-        run: echo "::set-output name=hash::$(find docs/ -type f -exec md5sum {} \; | md5sum)"
+        run: echo "hash=$(find docs/ -type f -exec md5sum {} \; | md5sum)" >> $GITHUB_OUTPUT
 
       - name: Check if current and new state of docs are different
         run: echo "Current '${{ steps.currentDocs.outputs.hash }}' - New '${{ steps.newDocs.outputs.hash }}'"
