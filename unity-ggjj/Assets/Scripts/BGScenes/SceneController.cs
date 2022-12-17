@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -36,6 +37,14 @@ public class SceneController : MonoBehaviour, ISceneController
 
     private Coroutine _panToPositionCoroutine;
     private BGScene _activeScene;
+
+    public void Awake()
+    {
+        if (_sceneLoader == null)
+        {
+            throw new NullReferenceException(nameof(_sceneLoader) + " mustn't be set to null");
+        }
+    }
 
     public bool WitnessTestimonyActive
     {
@@ -304,6 +313,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     public void ReloadScene()
     {
+        
         _sceneLoader.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

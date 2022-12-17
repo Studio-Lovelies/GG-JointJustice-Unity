@@ -3538,7 +3538,7 @@ MonoBehaviour:
   _fullscreenAnimationPlayer: {fileID: 5742514839461138707}
   _objectShaker: {fileID: 4590349130768267613}
   _shoutPlayer: {fileID: 2741667134342495778}
-  _sceneLoader: {fileID: 0}
+  _sceneLoader: {fileID: 606207932}
   _witnessTestimonySign: {fileID: 2114217580}
 --- !u!4 &2044061590
 Transform:
