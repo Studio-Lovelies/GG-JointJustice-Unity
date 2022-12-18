@@ -50,6 +50,8 @@ public class NarrativeScriptPlayer : INarrativeScriptPlayer
             return IsAtChoice && GameMode == GameMode.CrossExamination && !Waiting;
         }
     }
+
+    public INarrativeScript RootNarrativeScript => _activeNarrativeScript;
     
     public INarrativeScript ActiveNarrativeScript
     {

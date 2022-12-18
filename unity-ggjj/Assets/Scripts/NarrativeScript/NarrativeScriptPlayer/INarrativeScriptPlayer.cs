@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public interface INarrativeScriptPlayer
 {
+    INarrativeScript RootNarrativeScript { get; }
     INarrativeScript ActiveNarrativeScript { get; set; }
     INarrativeScriptPlayer ActiveNarrativeScriptPlayer { get; }
     GameMode GameMode { get; set; }

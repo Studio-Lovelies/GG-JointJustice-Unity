@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(NarrativeGameState))]
 public class DebugGameStarter : MonoBehaviour
 {
-    [SerializeField] private TextAsset _narrativeScript;
+    public TextAsset narrativeScript;
     
     private NarrativeGameState _narrativeGameState;
     
@@ -14,11 +14,11 @@ public class DebugGameStarter : MonoBehaviour
 
     private void Start()
     {
-        if (_narrativeScript == null) { return; }
-        
-        Debug.Log($"DebugGameStarter: Running script {_narrativeScript.name}");
+        if (narrativeScript == null) { return; }
 
-        _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_narrativeScript);
+        Debug.Log($"DebugGameStarter: Running script {narrativeScript.name}");
+
+        _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(narrativeScript);
         _narrativeGameState.StartGame();
     }
 }
