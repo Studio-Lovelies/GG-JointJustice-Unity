@@ -308,12 +308,12 @@ public class SceneController : MonoBehaviour, ISceneController
     }
 
     /// <summary>
-    /// Forces a scene reload.
+    /// Reloads the scene and starts it from the current root narrative script (thereby ignoring any sub-stories the main NarrativeScriptPlayer might be running)
     /// Called in narrative scripts when a scene needs to be restarted.
     /// </summary>
     public void ReloadScene()
     {
-        
+        _sceneLoader.NarrativeScript = _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.RootNarrativeScript.Script;
         _sceneLoader.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
