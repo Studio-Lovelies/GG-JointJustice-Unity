@@ -108,7 +108,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           testMode: EditMode
           checkName: Test Results - EditMode
-          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
+          coverageOptions: generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
         uses: codecov/codecov-action@v3
@@ -117,7 +117,7 @@ jobs:
           name: EditMode
           flags: EditMode
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: unity-ggjj/coverage-results/**/*.xml
+          files: CodeCoverage/**/*.xml
 
       - name: Store test artifacts
         uses: actions/upload-artifact@v3
@@ -165,7 +165,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           testMode: PlayMode
           checkName: Test Results - PlayMode Scripts
-          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
+          coverageOptions: generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
         uses: codecov/codecov-action@v3
@@ -174,7 +174,7 @@ jobs:
           name: PlayMode Scripts
           flags: PlayModeScripts
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: unity-ggjj/coverage-results/**/*.xml
+          files: CodeCoverage/**/*.xml
 
       - name: Store test artifacts
         uses: actions/upload-artifact@v3
@@ -222,7 +222,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           testMode: PlayMode
           checkName: Test Results - PlayMode Scenes
-          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
+          coverageOptions: generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
         uses: codecov/codecov-action@v3
@@ -231,7 +231,7 @@ jobs:
           name: PlayMode Scenes
           flags: PlayModeScenes
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: unity-ggjj/coverage-results/**/*.xml
+          files: CodeCoverage/**/*.xml
 
       - name: Store test artifacts
         uses: actions/upload-artifact@v3
@@ -279,7 +279,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           testMode: PlayMode
           checkName: Test Results - PlayMode Playthrough
-          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
+          coverageOptions: generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Upload XML report to Codecov
         uses: codecov/codecov-action@v3
@@ -288,7 +288,7 @@ jobs:
           name: PlayMode Playthrough
           flags: PlayModePlaythrough
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: unity-ggjj/coverage-results/**/*.xml
+          files: CodeCoverage/**/*.xml
 
       - name: Store test artifacts
         uses: actions/upload-artifact@v3
