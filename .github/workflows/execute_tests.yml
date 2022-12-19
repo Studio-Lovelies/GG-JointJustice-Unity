@@ -66,7 +66,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           testMode: ${{inputs.testMode}}
           checkName: Test Results - ${{inputs.testMode}} ${{ inputs.subdirectory }}
-          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage-results -coverageOptions generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
+          coverageOptions: generateAdditionalMetrics;assemblyFilters:+GG-JointJustice
 
       - name: Replace directory separator with underscores
         if: ${{ failure() || success() }}
@@ -82,7 +82,7 @@ jobs:
           name: ${{inputs.testMode}} ${{ inputs.subdirectory }}
           flags: ${{env.UNDERSCORE_DELIMITED_DIRECTORY}}
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: unity-ggjj/coverage-results/**/*.xml
+          files: CodeCoverage/**/*.xml
         if: ${{ failure() || success() }}
 
       - name: Store test artifacts
