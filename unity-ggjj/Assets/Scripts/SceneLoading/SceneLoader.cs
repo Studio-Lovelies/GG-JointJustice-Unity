@@ -24,12 +24,25 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
         _transition = GetComponent<ITransition>();
     }
 
+    public void OnDisable()
+    {
+        if (_sceneLoadOperation == null)
+        {
+            return;
+        }
+
+        SceneManager.sceneLoaded -= SetupNextNarrativeScript;
+    }
+
     /// <summary>
     /// Call this method when wanting to change the scene using a specific scene's name.
     /// </summary>
     public void LoadScene(string sceneName)
     {
-        if (Busy) { return; }
+        if (Busy)
+        {
+            return;
+        }
 
         _sceneLoadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
@@ -106,7 +119,16 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
         foreach (var rootGameObject in scene.GetRootGameObjects())
         {
             var debugGameStarter = rootGameObject.GetComponent<DebugGameStarter>();
-            if (debugGameStarter == null) continue;
+            if (debugGameStarter == null)
+            {
+                continue;
+            }
+
+            if (debugGameStarter.narrativeScript == null)
+            {
+                continue;
+            }
+            
             Debug.LogWarning($"The scene '{scene.name}' loaded by this {nameof(SceneLoader)} contained a '{nameof(DebugGameStarter)}'. As a {nameof(NarrativeScript)} was specified when loading this scene, this needs to be removed, otherwise '{debugGameStarter.narrativeScript.name}' (the {nameof(NarrativeScript)} specified inside the {nameof(DebugGameStarter)}) will incorrectly take precedence over '{NarrativeScript.name}' (the {nameof(NarrativeScript)} specified inside the {nameof(SceneLoader)})");
             Destroy(debugGameStarter);
         }
