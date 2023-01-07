@@ -770,6 +770,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - _inputActionReference: {fileID: -5681408003504861312, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+    _event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8054490722184616645}
+          m_TargetAssemblyTypeName: NarrativeScriptPlayerComponent, GG-JointJustice
+          m_MethodName: ToggleSpeedup
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &342284812
 Transform:
   m_ObjectHideFlags: 0

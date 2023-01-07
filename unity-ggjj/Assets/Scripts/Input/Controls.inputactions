@@ -6,6 +6,14 @@
             "id": "de1537fe-4eb2-4289-b2fb-a49589bc443e",
             "actions": [
                 {
+                    "name": "ToggleTextSpeedupHeld",
+                    "type": "Button",
+                    "id": "d11b3523-5e0b-4724-a4f8-073913306fe1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "ToggleTextSpeedup",
                     "type": "Button",
                     "id": "73cf0c6d-7a5f-4586-b850-5726b955b4f5",
@@ -233,6 +241,17 @@
                     "processors": "",
                     "groups": "Touch",
                     "action": "Cursor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e33c568f-033e-4c5b-b314-c8aec15ab0d6",
+                    "path": "<Keyboard>/x",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "ToggleTextSpeedupHeld",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
