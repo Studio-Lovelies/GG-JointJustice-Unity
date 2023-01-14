@@ -53,7 +53,7 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         }
         
         [UnityTest]
-        public IEnumerator CorrectEvidenceCanBePresented()
+        public IEnumerator CorrectEvidenceCanBePresentedAfterAllTextIsPrinted()
         {
             yield return SelectEvidence("Evidence/BentCoins");
             yield return storyProgresser.ProgressStory();
@@ -148,6 +148,41 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
             yield return PressZ();
             yield return CheckItems(evidence.Length);
+        }
+        
+        [UnityTest]
+        public IEnumerator CorrectEvidenceCanBePresentedWhileTextIsLeftToPrint()
+        {
+            //// Arrange...
+            // Load cross examination scene with long texts 
+            yield return SceneManager.LoadSceneAsync("Game");
+            var evidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
+            TestTools.StartGame("LongCrossExamination");
+
+            var appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            var speechPanel = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
+            
+            // Make sure text is still being printed
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.xKey);
+            yield return TestTools.WaitForState(() => appearingDialogueController.IsPrintingText && speechPanel.text.Length > 5);
+            
+            // Save current text
+            var textBeforePresentingEvidence = speechPanel.text;
+
+            //// Act...
+            // Proactively open evidence menu 
+            evidenceMenu.GetComponent<MenuOpener>().OpenMenu();
+            yield return TestTools.WaitForState(() => evidenceMenu.enabled);
+            // Select first evidence
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.enterKey);
+            // Wait for text printing to finish
+            yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
+            
+            //// Assert...
+            // ...that current text contains the text shown after presenting correct evidence
+            Assert.AreEqual("Correct", speechPanel.text);
+            // ...rather than text shown before evidence was presented
+            StringAssert.DoesNotContain(textBeforePresentingEvidence, speechPanel.text);
         }
 
         /// <summary>

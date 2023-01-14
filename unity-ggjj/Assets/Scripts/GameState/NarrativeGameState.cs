@@ -42,6 +42,6 @@ public class NarrativeGameState : MonoBehaviour, INarrativeGameState
     {
         BGSceneList.InstantiateBGScenes(_narrativeScriptStorage.NarrativeScript);
         _actionDecoderComponent.Decoder.NarrativeGameState = this;
-        _narrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue();
+        _narrativeScriptPlayerComponent.NarrativeScriptPlayer.Continue(true);
     }
 }
