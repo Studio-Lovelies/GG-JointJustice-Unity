@@ -151,6 +151,54 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
         }
 
         /// <summary>
+        /// Ensures that the evidence menu can be opened and closed and the first piece of evidence remains highlighted
+        /// </summary>
+        [UnityTest]
+        public IEnumerator FirstEvidenceRemainsHighlightedWithoutChangeOfSelection()
+        {
+            //// Arrange...
+            // Load cross examination scene where incorrect evidence can be presented 
+            yield return SceneManager.LoadSceneAsync("Game");
+            var evidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
+            TestTools.StartGame("EndlessCrossExamination");
+
+            var appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            var speechPanel = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
+
+            //// Act...
+            // Make sure text is no longer being printed
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.xKey);
+            yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
+            
+            // Proactively open evidence menu 
+            evidenceMenu.GetComponent<MenuOpener>().OpenMenu();
+            yield return TestTools.WaitForState(() => evidenceMenu.gameObject.activeInHierarchy);
+
+            //// Assert...
+            // Check that the first piece of evidence has an enabled Image component
+            {
+                var currentlyHighlightedEvidenceMenuItemIndex = evidenceMenu.GetComponentsInChildren<ImageHighlight>().FirstOrDefault(imageHighlight => imageHighlight.GetComponent<Image>().enabled)!.transform.parent.GetSiblingIndex();
+                Assert.AreEqual(0, currentlyHighlightedEvidenceMenuItemIndex);
+            }
+
+            //// Act...
+            // Proactively close evidence menu 
+            evidenceMenu.GetComponent<MenuOpener>().ForceCloseMenu();
+            yield return TestTools.WaitForState(() => !evidenceMenu.gameObject.activeInHierarchy);
+            
+            // Proactively open evidence menu 
+            evidenceMenu.GetComponent<MenuOpener>().OpenMenu();
+            yield return TestTools.WaitForState(() => evidenceMenu.gameObject.activeInHierarchy);
+            
+            //// Assert...
+            // Check that the first piece of evidence has an enabled Image component
+            {
+                var currentlyHighlightedEvidenceMenuItemIndex = evidenceMenu.GetComponentsInChildren<ImageHighlight>().FirstOrDefault(imageHighlight => imageHighlight.GetComponent<Image>().enabled)!.transform.parent.GetSiblingIndex();
+                Assert.AreEqual(0, currentlyHighlightedEvidenceMenuItemIndex);
+            }
+        }
+
+        /// <summary>
         /// Verifies first piece of evidence is highlighted when evidence menu is opened even if another piece of evidence was highlighted before
         /// </summary>
         [UnityTest]
