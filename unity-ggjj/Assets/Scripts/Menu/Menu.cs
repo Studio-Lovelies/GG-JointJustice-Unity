@@ -21,6 +21,14 @@ public class Menu : MonoBehaviour
     public Selectable SelectedButton { get; set; } // Set by child buttons when they are selected
     public bool Active => gameObject.activeInHierarchy && (SelectedButton == null || SelectedButton.enabled); // Returns true when no child menus are active ONLY if this menu is enabled
 
+    private void OnEnable()
+    {
+        // This is required, as the EventSystem is never cleared of the last selected object if this menu was opened before
+        // This means that if you open a menu, close it, and then open it again, the last selected button will
+        // >internally< remain selected, but no events are fired on reinitialized menu items, so the button will not be highlighted
+        EventSystem.current.SetSelectedGameObject(null);
+    }
+
     /// <summary>
     /// Enables and disables this section of menu.
     /// Used when opening sub menus.
