@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Linq;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
@@ -146,6 +148,59 @@ namespace Tests.PlayModeTests.Scripts.EvidenceMenu
 
             yield return PressZ();
             yield return CheckItems(evidence.Length);
+        }
+
+        /// <summary>
+        /// Verifies first piece of evidence is highlighted when evidence menu is opened even if another piece of evidence was highlighted before
+        /// </summary>
+        [UnityTest]
+        public IEnumerator FirstEvidenceRemainsHighlightedWithChangeOfSelection()
+        {
+            //// Arrange...
+            // Load cross examination scene where incorrect evidence can be presented 
+            yield return SceneManager.LoadSceneAsync("Game");
+            var evidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
+            TestTools.StartGame("EndlessCrossExamination");
+
+            var appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            var speechPanel = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
+
+            //// Act...
+            // Make sure text is no longer being printed
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.xKey);
+            yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
+            
+            // Proactively open evidence menu 
+            evidenceMenu.GetComponent<MenuOpener>().OpenMenu();
+            yield return TestTools.WaitForState(() => evidenceMenu.gameObject.activeInHierarchy);
+
+            //// Assert...
+            // Check that the first piece of evidence has an enabled Image component
+            {
+                var currentlyHighlightedEvidenceMenuItemIndex = evidenceMenu.GetComponentsInChildren<ImageHighlight>().FirstOrDefault(imageHighlight => imageHighlight.GetComponent<Image>().enabled)!.transform.parent.GetSiblingIndex();
+                Assert.AreEqual(0, currentlyHighlightedEvidenceMenuItemIndex);
+            }
+
+            //// Act...
+            // Select the second evidence item
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.rightArrowKey);
+            // Expect a log error
+            LogAssert.Expect(LogType.Exception, new Regex("This playlist contains no failure scripts"));
+            
+            yield return storyProgresser.PressForFrame(storyProgresser.keyboard.enterKey);
+            yield return TestTools.WaitForState(() => !evidenceMenu.gameObject.activeInHierarchy);
+
+            // Proactively open evidence menu 
+            evidenceMenu.GetComponent<MenuOpener>().OpenMenu();
+            yield return TestTools.WaitForState(() => evidenceMenu.gameObject.activeInHierarchy);
+
+            //// Assert...
+            // Check that the second piece of evidence (the selected one) has an enabled Image component
+            {
+                var item = evidenceMenu.GetComponentsInChildren<ImageHighlight>().FirstOrDefault(imageHighlight => imageHighlight.GetComponent<Image>().enabled);
+                var currentlyHighlightedEvidenceMenuItemIndex = evidenceMenu.GetComponentsInChildren<ImageHighlight>().FirstOrDefault(imageHighlight => imageHighlight.GetComponent<Image>().enabled)!.transform.parent.GetSiblingIndex();
+                Assert.AreEqual(0, currentlyHighlightedEvidenceMenuItemIndex);
+            }
         }
 
         private IEnumerator CheckItems(int count)
