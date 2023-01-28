@@ -2430,6 +2430,10 @@ PrefabInstance:
       value: -93
       objectReference: {fileID: 0}
     - target: {fileID: 8917197987844284527, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _shouldIgnoreFirstSelectEvent
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917197987844284527, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: <OnItemSelect>k__BackingField.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4628,7 +4632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456175c2b594046d3923a6d20445dd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _narrativeScript: {fileID: 0}
+  narrativeScript: {fileID: 0}
 --- !u!1 &8699442053336843567
 GameObject:
   m_ObjectHideFlags: 0
