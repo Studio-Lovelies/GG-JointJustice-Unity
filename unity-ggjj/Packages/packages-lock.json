@@ -202,6 +202,13 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "io.sentry.unity": {
+      "version": "https://github.com/getsentry/unity.git#0.28.1",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4753756275fdf54e74cc5f3cbf3ca10e869a7881"
+    },
     "nuget.castle-core": {
       "version": "2.0.0-pre.3",
       "depth": 1,

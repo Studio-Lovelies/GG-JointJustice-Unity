@@ -73,3 +73,6 @@ Assets/InitTestScene*
 Assets/ERP
 Assets/ERP.meta
 .erp
+
+# Sentry Integration
+Assets/Plugins/Sentry/SentryCliOptions.asset
