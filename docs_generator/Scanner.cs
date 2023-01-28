@@ -78,21 +78,29 @@ public class Scanner
         }
     }
 
-    public static Dictionary<string, string> GenerateRelativePathsByGUID(string pathToAssetsDirectory)
+    public static Dictionary<string, string> GenerateRelativePathsByGUID(string pathsToAssetsDirectorySplitByComma)
     {
         const string expectedSecondLineKey = "guid: ";
         Dictionary<string, string> relativePathByGUID = new Dictionary<string, string>();
-        foreach (string absoluteFilePath in Directory.EnumerateFiles(pathToAssetsDirectory, "*.meta", SearchOption.AllDirectories))
-        {
-            string relativeFilePath = absoluteFilePath[(pathToAssetsDirectory.Length+1)..][..^5];
-            string secondLine = File.ReadAllLines(absoluteFilePath)[1];
-            if (!secondLine.StartsWith(expectedSecondLineKey))
-            {
-                throw new NotSupportedException($"{relativeFilePath}.meta cannot be parsed, as second line doesn't start with '{expectedSecondLineKey}': '{secondLine}'");
-            }
+        var directories = pathsToAssetsDirectorySplitByComma
+                            .Split(',')
+                            .ToArray();
 
-            var guid = secondLine.Substring(expectedSecondLineKey.Length);
-            relativePathByGUID[guid] = relativeFilePath;
+        foreach(var directory in directories)
+        {
+            var files = Directory.EnumerateFiles(directory, "*.meta", SearchOption.AllDirectories);
+            foreach (string absoluteFilePath in files)
+            {
+                string relativeFilePath = absoluteFilePath[(directory.Length+1)..][..^5];
+                string secondLine = File.ReadAllLines(absoluteFilePath)[1];
+                if (!secondLine.StartsWith(expectedSecondLineKey))
+                {
+                    throw new NotSupportedException($"{relativeFilePath}.meta cannot be parsed, as second line doesn't start with '{expectedSecondLineKey}': '{secondLine}'");
+                }
+
+                var guid = secondLine.Substring(expectedSecondLineKey.Length);
+                relativePathByGUID[guid] = relativeFilePath;
+            }
         }
 
         return relativePathByGUID;
@@ -119,7 +127,7 @@ public class Scanner
         return string.Join("\n", methodName, values, description, "", example);
     }
 
-    private static string GenerateAssetDocument(Dictionary<string, IEnumerable<PathItem>> info)
+    private static string GenerateAssetDocument(Dictionary<string, List<PathItem>> info)
     {
         var nestedValues = info.Where(entry => entry.Value.First().Children != null).Select(store => {
             var (key, value) = store;

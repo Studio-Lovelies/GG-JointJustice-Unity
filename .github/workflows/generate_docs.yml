@@ -17,6 +17,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Create Sentry Credentials from Secrets
+        run: |
+          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
       
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
