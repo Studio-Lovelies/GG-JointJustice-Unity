@@ -85,6 +85,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Create Sentry Credentials from Secrets
+        run: |
+          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
@@ -138,6 +142,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Create Sentry Credentials from Secrets
+        run: |
+          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -196,6 +204,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Create Sentry Credentials from Secrets
+        run: |
+          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
@@ -252,6 +264,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Create Sentry Credentials from Secrets
+        run: |
+          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -315,6 +331,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Create Sentry Credentials from Secrets
+        run: |
+          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
