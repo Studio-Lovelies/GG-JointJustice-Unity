@@ -101,28 +101,33 @@ public class XMLDocParser
         MethodsByCategory[category.FirstChild.Value].Add(new(root, methodName, parameterList, isInstant, ref ParameterTypesToPath));
     }
 
-    public Dictionary<string, IEnumerable<PathItem>> ResolveAssets(string absolutePathToAssetDirectory, Dictionary<string, string> relativePathsByGUID)
+    public Dictionary<string, List<PathItem>> ResolveAssets(string absolutePathToAssetDirectory, Dictionary<string, string> relativePathsByGUID)
     {
         var dependentPaths = new List<(string, string)>();
-        var filesByType = new Dictionary<string, IEnumerable<PathItem>>();
-        foreach (var (parameterType, parameterValuesPath) in ParameterTypesToPath)
+        var filesByType = new Dictionary<string, List<PathItem>>();
+        foreach (var (parameterType, parameterValuesPaths) in ParameterTypesToPath)
         {
-            if (parameterValuesPath.Contains("{"))
+            var paths = parameterValuesPaths.Split(',');
+            filesByType[parameterType] = new List<PathItem>();
+            foreach(var parameterValuesPath in paths)
             {
-                dependentPaths.Add((parameterType, parameterValuesPath));
-                continue;
-            }
+                if (parameterValuesPath.Contains("{"))
+                {
+                    dependentPaths.Add((parameterType, parameterValuesPath));
+                    continue;
+                }
 
-            var folderPath = Path.GetDirectoryName(parameterValuesPath);
-            var fileMask = Path.GetFileName(parameterValuesPath);
-            SearchOption searchOption = SearchOption.TopDirectoryOnly;
-            if (fileMask.Contains("**")) {
-                searchOption = SearchOption.AllDirectories;
-                fileMask.Replace("**", "*");
+                var folderPath = Path.GetDirectoryName(parameterValuesPath);
+                var fileMask = Path.GetFileName(parameterValuesPath);
+                SearchOption searchOption = SearchOption.TopDirectoryOnly;
+                if (fileMask.Contains("**")) {
+                    searchOption = SearchOption.AllDirectories;
+                    fileMask.Replace("**", "*");
+                }
+                filesByType[parameterType].AddRange(Directory.EnumerateFiles(folderPath, fileMask, searchOption)
+                    .ToList()
+                    .Select(path=>new PathItem(absolutePathToAssetDirectory, relativePathsByGUID, path){}));
             }
-            filesByType[parameterType] = Directory.EnumerateFiles(folderPath, fileMask, searchOption)
-                .ToList()
-                .Select(path=>new PathItem(absolutePathToAssetDirectory, relativePathsByGUID, path){});
         }
 
         var subPathRegex = new Regex("\\{(.*)\\}");
@@ -140,7 +145,7 @@ public class XMLDocParser
                 var fileMask = Path.GetFileName(subFolder)!;
                 var folder = folderPath.Split(Path.DirectorySeparatorChar).Last();
 
-                List<PathItem> matchingFiles = new List<PathItem>();
+                var matchingFiles = new List<PathItem>();
                 SearchOption searchOption = SearchOption.TopDirectoryOnly;
                 if (fileMask.Contains("**")) {
                     searchOption = SearchOption.AllDirectories;
@@ -152,7 +157,7 @@ public class XMLDocParser
                     matchingFiles.Add(new PathItem(absolutePathToAssetDirectory, relativePathsByGUID, absoluteFilePath));
                 }
 
-                filesByType[dependentType] = filesByType[dependentType].Concat(new List<PathItem>(){new() { Children = matchingFiles, Item = folder } });
+                filesByType[dependentType] = filesByType[dependentType].Concat(new List<PathItem>(){new() { Children = matchingFiles, Item = folder } }).ToList();
             }
 
             filesByType[dependentType] = filesByType[dependentType].ToList();

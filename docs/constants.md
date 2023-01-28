@@ -144,8 +144,6 @@
 | StolenDinos |  | ![image for StolenDinos]() |
 | Switch |  | ![image for Switch]() |
 | TutorialBoy | The first prosecutor. Has an extremely predictable name. | ![image for TutorialBoy](../unity-ggjj/Assets/Images/Profiles/TutorialBoy.png) |
-| YouBurgieBurgie |  | ![image for YouBurgieBurgie]() |
-| YouBurgieBurgieTwo |  | ![image for YouBurgieBurgieTwo]() |
 
 ## FullscreenAnimationAssetName
   - BadBoy
