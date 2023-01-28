@@ -68,9 +68,15 @@ public class MenuItem : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
         });
     }
 
+    private bool _hasEverBeenEnabled = false;
     private void OnEnable()
     {
+        if (_hasEverBeenEnabled)
+        {
+            return;
+        }
         ShouldIgnoreNextSelectEvent = _shouldIgnoreFirstSelectEvent;
+        _hasEverBeenEnabled = true;
     }
 
     /// <summary>
