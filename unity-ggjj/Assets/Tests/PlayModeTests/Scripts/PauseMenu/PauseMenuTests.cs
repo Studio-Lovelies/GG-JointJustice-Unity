@@ -137,6 +137,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         {
             yield return inputTestTools.PressForFrame(Keyboard.escapeKey);
             Assert.IsTrue(PauseMenu.isActiveAndEnabled);
+            yield return ScreenshotDiff.TakeScreenshotOrCompare();
             yield return selectionMethod();
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "MainMenu");
         }
