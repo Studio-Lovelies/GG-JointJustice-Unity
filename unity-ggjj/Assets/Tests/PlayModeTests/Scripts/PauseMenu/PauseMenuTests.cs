@@ -29,8 +29,10 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         protected readonly InputTestTools inputTestTools = new InputTestTools();
 
         [SetUp]
-        public void Setup()
+        public IEnumerator Setup()
         {
+            Screen.SetResolution(1280, 720, false);
+            yield return new WaitForEndOfFrame();
             inputTestTools.Setup();
         }
 
