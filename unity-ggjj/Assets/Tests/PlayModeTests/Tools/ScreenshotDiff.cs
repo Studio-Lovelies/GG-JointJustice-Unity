@@ -77,9 +77,8 @@ public class ScreenshotDiff
     private static void ExportToArtifactDirectory(string actualFilePath, string expectedFilePath)
     {
         var fileNameOfFilePath = $"{Path.GetFileName(Path.GetDirectoryName(actualFilePath))}.{Path.GetFileNameWithoutExtension(actualFilePath)}";
-        var runDirectory = TestContext.CurrentTestExecutionContext.StartTime.ToString("s");
-        var runDirectoryWithOnlyValidCharacters = string.Join("-", runDirectory.Split(Path.GetInvalidFileNameChars()));
-        var targetDirectory = Path.GetFullPath(Path.Join(Application.dataPath, $"../TestRunArtifacts/{runDirectoryWithOnlyValidCharacters}/"));
+        var runDirectory = TestContext.CurrentTestExecutionContext.StartTime.ToString("s").Replace(":", "-");
+        var targetDirectory = Path.GetFullPath(Path.Join(Application.dataPath, $"../TestRunArtifacts/{runDirectory}/"));
         if (!Directory.Exists(targetDirectory))
         {
             Directory.CreateDirectory(targetDirectory);
