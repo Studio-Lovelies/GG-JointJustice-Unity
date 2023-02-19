@@ -28,7 +28,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
 
         protected readonly InputTestTools inputTestTools = new InputTestTools();
 
-        [SetUp]
+        [UnitySetUp]
         public IEnumerator Setup()
         {
             Screen.SetResolution(1280, 720, false);
