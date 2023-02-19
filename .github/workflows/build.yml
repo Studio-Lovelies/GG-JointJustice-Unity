@@ -183,6 +183,13 @@ jobs:
           name: Test Results - PlayMode Scripts
           path: artifacts
 
+      - name: Store Screenshots
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || success() }}
+        with:
+          name: Screenshots - PlayMode Scripts
+          path: TestRunArtifacts
+
   unityTestPlayModeScenes:
     name: Run PlayMode Scenes tests for Unity project
     needs: [checkLicense]
@@ -240,6 +247,13 @@ jobs:
           name: Test Results - PlayMode Scenes
           path: artifacts
 
+      - name: Store Screenshots
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || success() }}
+        with:
+          name: Screenshots - PlayMode Scenes
+          path: TestRunArtifacts
+
   unityTestPlayModePlaythrough:
     name: Run PlayMode Playthrough tests for Unity project
     needs: [checkLicense]
@@ -296,6 +310,13 @@ jobs:
         with:
           name: Test Results - PlayMode Playthrough
           path: artifacts
+
+      - name: Store Screenshots
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || success() }}
+        with:
+          name: Screenshots - PlayMode Playthrough
+          path: TestRunArtifacts
 
   unityBuild:
     name: Build for ${{ matrix.targetPlatform.outputName }}
