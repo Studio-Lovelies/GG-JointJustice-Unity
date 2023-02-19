@@ -188,7 +188,7 @@ jobs:
         if: ${{ failure() || success() }}
         with:
           name: Screenshots - PlayMode Scripts
-          path: TestRunArtifacts
+          path: unity-ggjj/TestRunArtifacts
 
   unityTestPlayModeScenes:
     name: Run PlayMode Scenes tests for Unity project
