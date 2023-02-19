@@ -51,27 +51,46 @@ public class ScreenshotDiff
 
     private static bool PNGIsIdentical(string actualFilePath, string expectedFilePath)
     {
-        var file = File.ReadAllBytes(actualFilePath);
-        var temp = File.ReadAllBytes(expectedFilePath);
-        if (file.Length != temp.Length)
+        var actualImage = new Texture2D(2, 2);
+        actualImage.LoadImage(File.ReadAllBytes(actualFilePath));
+        var expectedImage = new Texture2D(2, 2);
+        expectedImage.LoadImage(File.ReadAllBytes(expectedFilePath));
+        
+        if (actualImage.width != expectedImage.width || actualImage.height != expectedImage.height)
         {
-            Debug.LogWarning($"File {actualFilePath} ({file.Length}) and {expectedFilePath}({temp.Length}) are not the same length");
             ExportToArtifactDirectory(actualFilePath, expectedFilePath);
+            Assert.Fail($"Expected image {expectedFilePath}(w={expectedImage.width}, h={expectedImage.height}) is different from actual {actualFilePath}(w={actualImage.width}, h={actualImage.height})");
             return false;
         }
-        for (var i = 0; i < file.Length; i++)
+        
+        for (var x = 0; x < actualImage.width; x++)
         {
-            if (file[i] == temp[i])
+            for (var y = 0; y < actualImage.height; y++)
             {
-                continue;
+                var actualPixel = actualImage.GetPixel(x, y);
+                var expectedPixel = expectedImage.GetPixel(x, y);
+                if (RoughlyEquals(actualPixel, expectedPixel))
+                {
+                    continue;
+                }
+                ExportToArtifactDirectory(actualFilePath, expectedFilePath);
+                Assert.Fail($"Expected image pixel {expectedFilePath}(x={x}, y={y}, v={expectedPixel}) is different from actual {actualFilePath}(x={x}, y={y}, v={actualPixel})");
+                return false;
             }
-
-            Debug.LogWarning($"File {actualFilePath} and {expectedFilePath} are not the same at index {i}");
-            ExportToArtifactDirectory(actualFilePath, expectedFilePath);
-            return false;
         }
 
         return true;
+    }
+
+    private static bool RoughlyEquals(Color actualPixel, Color expectedPixel)
+    {
+        const float THRESHOLD = 10f / 255f;
+        return (
+                Mathf.Abs(actualPixel.r - expectedPixel.r) + 
+                Mathf.Abs(actualPixel.g - expectedPixel.g) + 
+                Mathf.Abs(actualPixel.b - expectedPixel.b) + 
+                Mathf.Abs(actualPixel.a - expectedPixel.a)
+            ) / 4f < THRESHOLD;
     }
 
     private static void ExportToArtifactDirectory(string actualFilePath, string expectedFilePath)
