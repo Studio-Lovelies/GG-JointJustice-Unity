@@ -87,7 +87,9 @@ jobs:
 
       - name: Create Sentry Credentials from Secrets
         run: |
-          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+          sentry="${{ secrets.SENTRY_CLI_OPTIONS }}"
+          echo "$sentry" > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+        shell: bash
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
