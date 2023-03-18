@@ -390,8 +390,8 @@ jobs:
           projectPath: unity-ggjj/
           targetPlatform: ${{ matrix.targetPlatform.unityPlatform }}
           buildName: 'Game Grumps - Joint Justice'
-          customParameters: "${{ (github.event.inputs.createRelease != 'true') && '-Development -AllowDebugging' }}"
-
+          customParameters: "${{ (github.event.inputs.createRelease != 'true') && (matrix.targetPlatform.unityPlatform != 'WebGL') && '-Development -AllowDebugging' }}" # https://forum.unity.com/threads/unable-to-make-webgl-development-builds.1274915/#post-8097197
+ 
       - name: Upload '${{ matrix.targetPlatform.outputName }}' artifact
         uses: actions/upload-artifact@v3
         with:
