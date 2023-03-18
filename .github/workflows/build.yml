@@ -390,6 +390,7 @@ jobs:
           projectPath: unity-ggjj/
           targetPlatform: ${{ matrix.targetPlatform.unityPlatform }}
           buildName: 'Game Grumps - Joint Justice'
+          customParameters: "${{ (github.event.inputs.createRelease != 'true') && '-Development -AllowDebugging' }}"
 
       - name: Upload '${{ matrix.targetPlatform.outputName }}' artifact
         uses: actions/upload-artifact@v3
