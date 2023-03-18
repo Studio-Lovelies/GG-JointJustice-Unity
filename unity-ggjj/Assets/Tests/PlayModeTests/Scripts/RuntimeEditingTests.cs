@@ -15,13 +15,11 @@ namespace Tests.PlayModeTests.Scripts
 {
     public class RuntimeEditingTests
     {
-        private readonly StoryProgresser _storyProgresser = new();
-
-        private Animator _witnessAnimator;
-
         private global::AppearingDialogueController _appearingDialogueController;
-        private NarrativeScriptWatcher _narrativeScriptWatcher;
+        private readonly StoryProgresser _storyProgresser = new();
         private Keyboard Keyboard => _storyProgresser.keyboard;
+        
+        private NarrativeScriptWatcher _narrativeScriptWatcher;
 
         [UnitySetUp]
         public IEnumerator UnitySetUp()

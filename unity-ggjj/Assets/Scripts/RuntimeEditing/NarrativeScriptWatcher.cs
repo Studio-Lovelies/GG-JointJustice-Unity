@@ -1,5 +1,4 @@
 using System.IO;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
@@ -87,7 +86,7 @@ namespace RuntimeEditing
             _fileSystemWatcher.Filter = Path.GetFileName(AbsolutePathToWatchedScript);
             _fileSystemWatcher.IncludeSubdirectories = false;
             _fileSystemWatcher.NotifyFilter = NotifyFilters.CreationTime | NotifyFilters.Size | NotifyFilters.LastWrite;
-            _fileSystemWatcher.Changed += (sender, args) =>
+            _fileSystemWatcher.Changed += (_, _) =>
             {
                 _fileHasChanged = true;
             };
