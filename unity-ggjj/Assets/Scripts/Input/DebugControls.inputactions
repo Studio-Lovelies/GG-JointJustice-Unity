@@ -1,0 +1,74 @@
+{
+    "name": "DebugControls",
+    "maps": [
+        {
+            "name": "Keyboard/Mouse",
+            "id": "40c3f060-180e-43d6-981b-b4ece39e00eb",
+            "actions": [
+                {
+                    "name": "ReloadScript",
+                    "type": "Button",
+                    "id": "948de251-4bce-431b-b749-fa13b7c4499b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "OpenEditor",
+                    "type": "Button",
+                    "id": "dce34266-8a6c-4591-a6e9-d2e1fa6dca54",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d75864a1-7b83-4223-bbda-c15887431023",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReloadScript",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "6989c641-2aa1-4c80-9640-99fc81755009",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenEditor",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "cd357d8f-24b0-477a-80bd-7bf1653f4940",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenEditor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "1560bb35-bd93-4f6d-93f6-283feb1179f8",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenEditor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
