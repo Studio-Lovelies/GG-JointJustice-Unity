@@ -46,7 +46,8 @@ namespace Tests.PlayModeTests.Scripts
         public IEnumerator SceneReloadCreatedScriptIfMissing()
         {
             Debug.Log($"Clearing {_narrativeScriptWatcher.AbsolutePathToWatchedScript}...");
-            File.Delete(_narrativeScriptWatcher.AbsolutePathToWatchedScript);
+            Directory.Delete(Path.GetDirectoryName(_narrativeScriptWatcher.AbsolutePathToWatchedScript)!, true);
+            
             Assert.IsFalse(File.Exists(_narrativeScriptWatcher.AbsolutePathToWatchedScript));
             
             SceneManager.LoadScene("Game");
