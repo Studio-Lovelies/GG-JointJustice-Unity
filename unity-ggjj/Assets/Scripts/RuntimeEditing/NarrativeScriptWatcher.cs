@@ -72,6 +72,11 @@ namespace RuntimeEditing
         
             if (!File.Exists(AbsolutePathToWatchedScript))
             {
+                if (!Directory.Exists(Path.GetDirectoryName(AbsolutePathToWatchedScript)!))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(AbsolutePathToWatchedScript)!);
+                }
+                        
                 using var stream = File.Open(AbsolutePathToWatchedScript, FileMode.Create, FileAccess.Write);
                 using var writer = new StreamWriter(stream);
                 writer.Write(_exampleScript);
