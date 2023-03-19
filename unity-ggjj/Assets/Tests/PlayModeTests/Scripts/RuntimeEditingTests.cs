@@ -20,18 +20,28 @@ namespace Tests.PlayModeTests.Scripts
         private Keyboard Keyboard => _storyProgresser.keyboard;
         
         private NarrativeScriptWatcher _narrativeScriptWatcher;
+        
+        [SetUp]
+        public void Setup()
+        {
+            _storyProgresser.Setup();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _storyProgresser.TearDown();
+        }
 
         [UnitySetUp]
         public IEnumerator UnitySetUp()
         {
-            _storyProgresser.Setup();
-            SceneManager.LoadScene("Game");
-            yield return null;
+            yield return SceneManager.LoadSceneAsync("Game");
+
+            TestTools.StartGame("ActorControllerTestScript");
             
             _appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
             _narrativeScriptWatcher = Object.FindObjectOfType<NarrativeScriptWatcher>();
-
-            TestTools.StartGame("ActorControllerTestScript");
         }
 
         [UnityTearDown]
