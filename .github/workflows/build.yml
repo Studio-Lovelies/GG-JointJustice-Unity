@@ -1,5 +1,5 @@
 name: Generate game builds
-on: 
+on:
   push:
     branches:
       - develop
@@ -17,7 +17,7 @@ on:
         required: true
         default: 'false'
 
-concurrency: 
+concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 
@@ -32,14 +32,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Attempt extraction  
+      - name: Attempt extraction
         id: extractVersionNumber_job
         working-directory: unity-ggjj/
         run: |
-            version_number=$(grep 'bundleVersion: ' ./ProjectSettings/ProjectSettings.asset)
-            version_number=${version_number:17}
-            echo "Version number: $version_number"
-            echo "::set-output name=version_number::$version_number"
+          version_number=$(grep 'bundleVersion: ' ./ProjectSettings/ProjectSettings.asset)
+          version_number=${version_number:17}
+          echo "Version number: $version_number"
+          echo "::set-output name=version_number::$version_number"
 
   # Unity build
   checkLicense:
@@ -51,8 +51,8 @@ jobs:
       - name: Check whether Unity activation requests should be done
         id: checkLicense_job
         run: |
-            echo "Skip activation job: ${{ secrets.UNITY_SERIAL != '' }}"
-            echo "::set-output name=is_unity_serial_set::${{ secrets.UNITY_SERIAL != '' }}"
+          echo "Skip activation job: ${{ secrets.UNITY_SERIAL != '' }}"
+          echo "::set-output name=is_unity_serial_set::${{ secrets.UNITY_SERIAL != '' }}"
   
   activation:
     name: Request activation file 🔑
@@ -72,7 +72,7 @@ jobs:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
-  unityTestEditMode: 
+  unityTestEditMode:
     name: Run EditMode tests for Unity project
     needs: [checkLicense]
     if: needs.checkLicense.outputs.is_unity_serial_set == 'true'
@@ -87,9 +87,11 @@ jobs:
 
       - name: Create Sentry Credentials from Secrets
         run: |
-          sentry="${{ secrets.SENTRY_CLI_OPTIONS }}"
-          echo "$sentry" > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+          mkdir -p unity-ggjj/Assets/Plugins/Sentry
+          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
         shell: bash
+        env:
+          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -147,7 +149,11 @@ jobs:
 
       - name: Create Sentry Credentials from Secrets
         run: |
-          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+          mkdir -p unity-ggjj/Assets/Plugins/Sentry
+          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+        shell: bash
+        env:
+          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -208,7 +214,11 @@ jobs:
 
       - name: Create Sentry Credentials from Secrets
         run: |
-          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+          mkdir -p unity-ggjj/Assets/Plugins/Sentry
+          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+        shell: bash
+        env:
+          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -269,7 +279,11 @@ jobs:
 
       - name: Create Sentry Credentials from Secrets
         run: |
-          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+          mkdir -p unity-ggjj/Assets/Plugins/Sentry
+          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+        shell: bash
+        env:
+          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -323,12 +337,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        targetPlatform: [ 
-          { unityPlatform: "StandaloneOSX",       outputName: "macOS"       }, 
-          { unityPlatform: "StandaloneWindows",   outputName: "Windows-x86" }, 
-          { unityPlatform: "StandaloneWindows64", outputName: "Windows-x64" }, 
+        targetPlatform: [
+          { unityPlatform: "StandaloneOSX",       outputName: "macOS"       },
+          { unityPlatform: "StandaloneWindows",   outputName: "Windows-x86" },
+          { unityPlatform: "StandaloneWindows64", outputName: "Windows-x64" },
           { unityPlatform: "StandaloneLinux64",   outputName: "Linux-x64"   },
-          { unityPlatform: "WebGL",               outputName: "WebGL"       } 
+          { unityPlatform: "WebGL",               outputName: "WebGL"       }
         ]
     steps:
       - name: Checkout repository
@@ -336,7 +350,11 @@ jobs:
 
       - name: Create Sentry Credentials from Secrets
         run: |
-          echo ${{ secrets.SENTRY_CLI_OPTIONS }} > unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+          mkdir -p unity-ggjj/Assets/Plugins/Sentry
+          echo "$SENTRY_CLI_OPTIONS" >> unity-ggjj/Assets/Plugins/Sentry/SentryCliOptions.asset
+        shell: bash
+        env:
+          SENTRY_CLI_OPTIONS: ${{secrets.SENTRY_CLI_OPTIONS}}
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -386,20 +404,20 @@ jobs:
     if: (github.event.inputs.createRelease == 'true' || (github.ref == 'refs/heads/master' && github.event_name == 'push'))
     runs-on: ubuntu-latest
     steps:
-    - name: Check if tag exists
-      uses: mukunku/tag-exists-action@v1.2.0
-      id: checkTag
-      with: 
-        tag: ${{ needs.extractVersionNumber.outputs.version_number }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Fail if tag already exists
-      run: | 
-        echo "Tag '${{ needs.extractVersionNumber.outputs.version_number }}' already exists: ${{ steps.checkTag.outputs.exists }}"
-        exit $([ "${{ steps.checkTag.outputs.exists }}" = 'true' ] && echo 1 || echo 0)
-
-
-# GitHub Releases
+      - name: Check if tag exists
+        uses: mukunku/tag-exists-action@v1.2.0
+        id: checkTag
+        with:
+          tag: ${{ needs.extractVersionNumber.outputs.version_number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Fail if tag already exists
+        run: |
+          echo "Tag '${{ needs.extractVersionNumber.outputs.version_number }}' already exists: ${{ steps.checkTag.outputs.exists }}"
+          exit $([ "${{ steps.checkTag.outputs.exists }}" = 'true' ] && echo 1 || echo 0)
+  
+  
+  # GitHub Releases
   createGitHubRelease:
     name: Create GitHub Release
     needs: [extractVersionNumber, checkIfTagExists, unityBuild]
@@ -431,7 +449,7 @@ jobs:
         with:
           name: WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}
           path: build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}
-          
+
       - name: Zip macOS
         run: zip -r "build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"       "build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}"
       - name: Zip Windows-x86
@@ -457,7 +475,7 @@ jobs:
           tag:  ${{ needs.extractVersionNumber.outputs.version_number }}
           name: "Release #${{ needs.extractVersionNumber.outputs.version_number }}"
           token: ${{ secrets.GITHUB_TOKEN }}
-            
+  
   # itch.io uploader
   checkItchIO:
     name: Check if ITCHIO_APIKEY is set in github secrets
@@ -468,9 +486,9 @@ jobs:
       - name: Check whether an itch.io build should be pushed
         id: checkItchIO_job
         run: |
-            echo "Push itch.io build: ${{ secrets.ITCHIO_APIKEY != '' && secrets.ITCHIO_USERNAME != '' && secrets.ITCHIO_PROJECTNAME != '' }}"
-            echo "::set-output name=is_ITCHIO_set::${{ secrets.ITCHIO_APIKEY != '' && secrets.ITCHIO_USERNAME != '' && secrets.ITCHIO_PROJECTNAME != '' }}"
-      
+          echo "Push itch.io build: ${{ secrets.ITCHIO_APIKEY != '' && secrets.ITCHIO_USERNAME != '' && secrets.ITCHIO_PROJECTNAME != '' }}"
+          echo "::set-output name=is_ITCHIO_set::${{ secrets.ITCHIO_APIKEY != '' && secrets.ITCHIO_USERNAME != '' && secrets.ITCHIO_PROJECTNAME != '' }}"
+  
   createItchIORelease:
     name: Create/update itch.io for ${{ matrix.platforms.outputName }}
     needs: [extractVersionNumber, checkIfTagExists, unityBuild, checkItchIO]
@@ -479,10 +497,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platforms: [ 
+        platforms: [
           { outputName: "macOS",       itchIOChannel: "mac"         },
-          { outputName: "Windows-x86", itchIOChannel: "windows-x86" }, 
-          { outputName: "Windows-x64", itchIOChannel: "windows-x64" }, 
+          { outputName: "Windows-x86", itchIOChannel: "windows-x86" },
+          { outputName: "Windows-x64", itchIOChannel: "windows-x64" },
           { outputName: "Linux-x64",   itchIOChannel: "linux"       },
           { outputName: "WebGL",       itchIOChannel: "webGL"       }
         ]
