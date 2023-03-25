@@ -1,3 +1,4 @@
+&SCENE:Anime
 &SCENE:TMPHCourt
 &SET_ACTOR_POSITION:Defense,Arin
 &SET_ACTOR_POSITION:Witness,Ross

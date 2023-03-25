@@ -161,6 +161,30 @@ namespace Tests.PlayModeTests.Scripts
             return AssertVisibility(expectedVisibility, "TutorialBoy", GameObject.Find("Prosecution_Actor").GetComponent<Renderer>());
         }
 
+        [UnityTest]
+        public IEnumerator SetPoseOnInactiveActor()
+        {
+            const string ACTOR_NAME = "Arin";
+            const string ANIMATION_NAME = "Point";
+            
+            var sceneController = Object.FindObjectOfType<SceneController>();
+            sceneController.SetScene("TMPHCourt");
+            _actorController.AssignActorToSlot("Defense", ACTOR_NAME);
+
+            _actorController.SetActiveSpeaker(ACTOR_NAME, SpeakingType.Speaking);
+            sceneController.SetScene("Anime");
+            _actorController.SetPose(ANIMATION_NAME, ACTOR_NAME);
+            sceneController.SetScene("TMPHCourt");
+
+            var defenseAnimator = GameObject.Find("Defense_Actor").GetComponent<Animator>();
+            
+            yield return _storyProgresser.ProgressStory();
+            AssertIsNotTalking(_witnessAnimator);
+            
+            Assert.AreEqual(ANIMATION_NAME, defenseAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+            LogAssert.NoUnexpectedReceived();
+        }
+
         private IEnumerator AssertVisibility(bool expectedVisibility, string actorName, Renderer renderer)
         {
             renderer.enabled = !expectedVisibility;
