@@ -26,7 +26,7 @@ public class Animatable : MonoBehaviour
     /// <param name="animationName">The name of the animation to play.</param>
     public void PlayAnimation(string animationName)
     {   
-        int animationHash = Animator.StringToHash(animationName);
+        var animationHash = Animator.StringToHash(animationName);
         
         if (Animator.runtimeAnimatorController == null)
         {
