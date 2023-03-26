@@ -116,7 +116,23 @@ public class ActorController : MonoBehaviour, IActorController
         if (!string.IsNullOrEmpty(actorName) && FindActorInInventory(actorName) != _activeActor)
         {
             var actor = FindActorInInventory(actorName);
+            
+            // if animator isn't active, find highest deactivated GameObject and enable it just to queue the animation
+            var highest = actor.gameObject;
+            while (highest.transform.parent != null && highest.activeSelf)
+            {
+                highest = highest.transform.parent.gameObject;
+            }
+            var wasDeactivatedBefore = highest != null;
+            if (wasDeactivatedBefore)
+            {
+                highest.SetActive(true);
+            }
             actor.PlayAnimation(pose);
+            if (wasDeactivatedBefore)
+            {
+                highest.SetActive(false);
+            }
             return;
         }
 
