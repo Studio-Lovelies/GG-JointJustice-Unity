@@ -13,6 +13,7 @@
 | Name | Description | Icon |
 | ---- | ----------- | ---- |
 | Arin | Half of the Game Grumps duo. Definitely the same height as Dan. | ![image for Arin](../unity-ggjj/Assets/Images/Profiles/Arin.png) |
+| Baby | Marge. | ![image for Baby](../unity-ggjj/Assets/Images/Profiles/Baby.png) |
 | Dan | The other half of the Game Grumps. Known aliases: 'Danny Sexbang', 'Mr. Business.' | ![image for Dan](../unity-ggjj/Assets/Images/Profiles/Dan.png) |
 | Jory | Game developer for Dream Daddy. Previous job: P.P.I.S.S machine. | ![image for Jory](../unity-ggjj/Assets/Images/Profiles/Jory.png) |
 | JudgeBrent | Manages the Grumps business. Also a Judge in the totally real Attitute City. | ![image for JudgeBrent](../unity-ggjj/Assets/Images/Profiles/JudgeBrent.png) |
@@ -132,6 +133,7 @@
 | ---- | ----------- | ---- |
 | Arin | Half of the Game Grumps duo. Definitely the same height as Dan. | ![image for Arin](../unity-ggjj/Assets/Images/Profiles/Arin.png) |
 | AttorneysBadge |  | ![image for AttorneysBadge]() |
+| Baby | Marge. | ![image for Baby](../unity-ggjj/Assets/Images/Profiles/Baby.png) |
 | BentCoins |  | ![image for BentCoins]() |
 | Dan | The other half of the Game Grumps. Known aliases: 'Danny Sexbang', 'Mr. Business.' | ![image for Dan](../unity-ggjj/Assets/Images/Profiles/Dan.png) |
 | Jory | Game developer for Dream Daddy. Previous job: P.P.I.S.S machine. | ![image for Jory](../unity-ggjj/Assets/Images/Profiles/Jory.png) |
@@ -224,6 +226,8 @@
   - Thinking
   - ThinkingBlinking
   - ThinkingTalking
+### Baby
+  - Normal
 ### Dan
   - AirGuitar
   - Angry
