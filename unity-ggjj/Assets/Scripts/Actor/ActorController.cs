@@ -113,36 +113,29 @@ public class ActorController : MonoBehaviour, IActorController
     /// <param name="actorName">Optional name of another actor to run this animation on (defaults to <see cref="_activeActor"/> if not set)</param>
     public void SetPose(string pose, string actorName = null)
     {
-        if (!string.IsNullOrEmpty(actorName) && FindActorInInventory(actorName) != _activeActor)
-        {
-            var actor = FindActorInInventory(actorName);
-            
-            // if animator isn't active, find highest deactivated GameObject and enable it just to queue the animation
-            var highest = actor.gameObject;
-            while (highest.transform.parent != null && highest.activeSelf)
-            {
-                highest = highest.transform.parent.gameObject;
-            }
-            var wasDeactivatedBefore = highest != null;
-            if (wasDeactivatedBefore)
-            {
-                highest.SetActive(true);
-            }
-            actor.PlayAnimation(pose);
-            if (wasDeactivatedBefore)
-            {
-                highest.SetActive(false);
-            }
-            return;
-        }
-
-        if (_activeActor == null)
+        var actor = string.IsNullOrEmpty(actorName) ? _activeActor : FindActorInInventory(actorName);
+        if (actor == null)
         {
             Debug.LogError("Actor has not been assigned");
             return;
         }
-
-        _activeActor.PlayAnimation(pose);
+        
+        // if animator isn't active, find highest deactivated GameObject and enable it just to queue the animation
+        var highest = actor.gameObject;
+        while (highest.transform.parent != null && highest.activeSelf)
+        {
+            highest = highest.transform.parent.gameObject;
+        }
+        var wasDeactivatedBefore = !highest.activeSelf;
+        if (wasDeactivatedBefore)
+        {
+            highest.SetActive(true);
+        }
+        actor.PlayAnimation(pose);
+        if (wasDeactivatedBefore)
+        {
+            highest.SetActive(false);
+        }
     }
 
     /// <summary>
