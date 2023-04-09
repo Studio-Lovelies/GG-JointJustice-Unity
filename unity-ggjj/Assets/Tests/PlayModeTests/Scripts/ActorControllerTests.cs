@@ -162,7 +162,7 @@ namespace Tests.PlayModeTests.Scripts
         }
 
         [UnityTest]
-        public IEnumerator SetPoseOnInactiveActor()
+        public IEnumerator SetPoseOnActorThatIsInactive()
         {
             const string ACTOR_NAME = "Arin";
             const string ANIMATION_NAME = "Point";
@@ -171,8 +171,33 @@ namespace Tests.PlayModeTests.Scripts
             sceneController.SetScene("TMPHCourt");
             _actorController.AssignActorToSlot("Defense", ACTOR_NAME);
             sceneController.SetScene("Anime");
-            _actorController.SetPose(ANIMATION_NAME, ACTOR_NAME);
+            _actorController.SetPose(ANIMATION_NAME, ACTOR_NAME); // explicitly select ACTOR_NAME
             sceneController.SetScene("TMPHCourt");
+            
+            var defenseAnimator = GameObject.Find("Defense_Actor").GetComponent<Animator>();
+            
+            yield return _storyProgresser.ProgressStory();
+            Assert.AreEqual(ANIMATION_NAME, defenseAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+            LogAssert.NoUnexpectedReceived();
+        }
+
+        // This is a regression test for #351:
+        // #351 fixed #233 by enabling GameObjects that contained the Animator and disabling them again, if they were inactive before
+        // However, after #351, containing GameObjects would accidentally be deactivated EVEN if they were active before
+        [UnityTest]
+        public IEnumerator SetPoseOnActorThatIsAlreadyActive()
+        {
+            const string ACTOR_NAME = "Arin";
+            const string ANIMATION_NAME = "Point";
+            
+            var bgSceneList = GameObject.Find("BGSceneList");
+
+            var sceneController = Object.FindObjectOfType<SceneController>();
+            sceneController.SetScene("TMPHCourt");
+            _actorController.AssignActorToSlot("Defense", ACTOR_NAME);
+            _actorController.SetPose(ANIMATION_NAME, ACTOR_NAME);
+            
+            Assert.IsTrue(bgSceneList.activeSelf);
             
             var defenseAnimator = GameObject.Find("Defense_Actor").GetComponent<Animator>();
             
