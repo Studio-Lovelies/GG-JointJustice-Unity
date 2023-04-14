@@ -127,10 +127,7 @@ public class ActorController : MonoBehaviour, IActorController
             highest = highest.transform.parent.gameObject;
         }
         var wasDeactivatedBefore = !highest.activeSelf;
-        if (wasDeactivatedBefore)
-        {
-            highest.SetActive(true);
-        }
+        highest.SetActive(true);
         actor.PlayAnimation(pose);
         if (wasDeactivatedBefore)
         {
