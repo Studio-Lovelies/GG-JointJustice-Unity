@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Input/Cheats.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Cheats/CheatControls.inputactions'
 
 using System;
 using System.Collections;
@@ -6,13 +6,15 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @Cheats : IInputActionCollection, IDisposable
+namespace Cheats
 {
-    public InputActionAsset asset { get; }
-    public @Cheats()
+    public class @Control : IInputActionCollection, IDisposable
     {
-        asset = InputActionAsset.FromJson(@"{
-    ""name"": ""Cheats"",
+        public InputActionAsset asset { get; }
+        public @Control()
+        {
+            asset = InputActionAsset.FromJson(@"{
+    ""name"": ""CheatControls"",
     ""maps"": [
         {
             ""name"": ""Keyboard"",
@@ -133,107 +135,108 @@ public class @Cheats : IInputActionCollection, IDisposable
         }
     ]
 }");
+            // Keyboard
+            m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
+            m_Keyboard_ValidKeys = m_Keyboard.FindAction("ValidKeys", throwIfNotFound: true);
+        }
+
+        public void Dispose()
+        {
+            UnityEngine.Object.Destroy(asset);
+        }
+
+        public InputBinding? bindingMask
+        {
+            get => asset.bindingMask;
+            set => asset.bindingMask = value;
+        }
+
+        public ReadOnlyArray<InputDevice>? devices
+        {
+            get => asset.devices;
+            set => asset.devices = value;
+        }
+
+        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+
+        public bool Contains(InputAction action)
+        {
+            return asset.Contains(action);
+        }
+
+        public IEnumerator<InputAction> GetEnumerator()
+        {
+            return asset.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public void Enable()
+        {
+            asset.Enable();
+        }
+
+        public void Disable()
+        {
+            asset.Disable();
+        }
+
         // Keyboard
-        m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
-        m_Keyboard_ValidKeys = m_Keyboard.FindAction("ValidKeys", throwIfNotFound: true);
-    }
-
-    public void Dispose()
-    {
-        UnityEngine.Object.Destroy(asset);
-    }
-
-    public InputBinding? bindingMask
-    {
-        get => asset.bindingMask;
-        set => asset.bindingMask = value;
-    }
-
-    public ReadOnlyArray<InputDevice>? devices
-    {
-        get => asset.devices;
-        set => asset.devices = value;
-    }
-
-    public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
-
-    public bool Contains(InputAction action)
-    {
-        return asset.Contains(action);
-    }
-
-    public IEnumerator<InputAction> GetEnumerator()
-    {
-        return asset.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public void Enable()
-    {
-        asset.Enable();
-    }
-
-    public void Disable()
-    {
-        asset.Disable();
-    }
-
-    // Keyboard
-    private readonly InputActionMap m_Keyboard;
-    private IKeyboardActions m_KeyboardActionsCallbackInterface;
-    private readonly InputAction m_Keyboard_ValidKeys;
-    public struct KeyboardActions
-    {
-        private @Cheats m_Wrapper;
-        public KeyboardActions(@Cheats wrapper) { m_Wrapper = wrapper; }
-        public InputAction @ValidKeys => m_Wrapper.m_Keyboard_ValidKeys;
-        public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(KeyboardActions set) { return set.Get(); }
-        public void SetCallbacks(IKeyboardActions instance)
+        private readonly InputActionMap m_Keyboard;
+        private IKeyboardActions m_KeyboardActionsCallbackInterface;
+        private readonly InputAction m_Keyboard_ValidKeys;
+        public struct KeyboardActions
         {
-            if (m_Wrapper.m_KeyboardActionsCallbackInterface != null)
+            private @Control m_Wrapper;
+            public KeyboardActions(@Control wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ValidKeys => m_Wrapper.m_Keyboard_ValidKeys;
+            public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(KeyboardActions set) { return set.Get(); }
+            public void SetCallbacks(IKeyboardActions instance)
             {
-                @ValidKeys.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnValidKeys;
-                @ValidKeys.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnValidKeys;
-                @ValidKeys.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnValidKeys;
-            }
-            m_Wrapper.m_KeyboardActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @ValidKeys.started += instance.OnValidKeys;
-                @ValidKeys.performed += instance.OnValidKeys;
-                @ValidKeys.canceled += instance.OnValidKeys;
+                if (m_Wrapper.m_KeyboardActionsCallbackInterface != null)
+                {
+                    @ValidKeys.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnValidKeys;
+                    @ValidKeys.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnValidKeys;
+                    @ValidKeys.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnValidKeys;
+                }
+                m_Wrapper.m_KeyboardActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @ValidKeys.started += instance.OnValidKeys;
+                    @ValidKeys.performed += instance.OnValidKeys;
+                    @ValidKeys.canceled += instance.OnValidKeys;
+                }
             }
         }
-    }
-    public KeyboardActions @Keyboard => new KeyboardActions(this);
-    private int m_KeyboardSchemeIndex = -1;
-    public InputControlScheme KeyboardScheme
-    {
-        get
+        public KeyboardActions @Keyboard => new KeyboardActions(this);
+        private int m_KeyboardSchemeIndex = -1;
+        public InputControlScheme KeyboardScheme
         {
-            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
-            return asset.controlSchemes[m_KeyboardSchemeIndex];
+            get
+            {
+                if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+                return asset.controlSchemes[m_KeyboardSchemeIndex];
+            }
         }
-    }
-    private int m_GamepadSchemeIndex = -1;
-    public InputControlScheme GamepadScheme
-    {
-        get
+        private int m_GamepadSchemeIndex = -1;
+        public InputControlScheme GamepadScheme
         {
-            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-            return asset.controlSchemes[m_GamepadSchemeIndex];
+            get
+            {
+                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+                return asset.controlSchemes[m_GamepadSchemeIndex];
+            }
         }
-    }
-    public interface IKeyboardActions
-    {
-        void OnValidKeys(InputAction.CallbackContext context);
+        public interface IKeyboardActions
+        {
+            void OnValidKeys(InputAction.CallbackContext context);
+        }
     }
 }
