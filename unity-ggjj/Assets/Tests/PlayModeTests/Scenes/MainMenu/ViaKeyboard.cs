@@ -2,6 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Tests.PlayModeTests.Tools;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -76,6 +77,49 @@ namespace Tests.PlayModeTests.Scenes.MainMenu
         {
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
+            
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            yield return TestTools.WaitForState(() => narrativeScriptPlayer.NarrativeScriptPlayer.ActiveNarrativeScript.Script.name != "Baby");
+        }
+
+        [UnityTest]
+        public IEnumerator CanHandleKonamiCode()
+        {
+            yield return _inputTestTools.PressForFrame(Keyboard.upArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.upArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.leftArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.leftArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.bKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.aKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
+            
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            yield return TestTools.WaitForState(() => narrativeScriptPlayer.NarrativeScriptPlayer.ActiveNarrativeScript.Script.name == "Baby");
+        }
+
+        [UnityTest]
+        public IEnumerator CanHandleIncorrectKonamiCode()
+        {
+            yield return _inputTestTools.PressForFrame(Keyboard.upArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.upArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.downArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.leftArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.leftArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.rightArrowKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.bKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.aKey);
+            yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
+            yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
+            
+            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            yield return TestTools.WaitForState(() => narrativeScriptPlayer.NarrativeScriptPlayer.ActiveNarrativeScript.Script.name != "Baby");
         }
     }
 }
