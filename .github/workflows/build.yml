@@ -98,7 +98,7 @@ jobs:
         run: rm -rf unity-ggjj/Assets/Tests/PlayModeTests/
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.1
+        uses: vimaster/unity-test-runner@v2.1.1
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -155,7 +155,7 @@ jobs:
           rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Playthrough
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.1
+        uses: vimaster/unity-test-runner@v2.1.1
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -182,6 +182,13 @@ jobs:
         with:
           name: Test Results - PlayMode Scripts
           path: artifacts
+
+      - name: Store Screenshots
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || success() }}
+        with:
+          name: Screenshots - PlayMode Scripts
+          path: unity-ggjj/TestRunArtifacts
 
   unityTestPlayModeScenes:
     name: Run PlayMode Scenes tests for Unity project
@@ -212,7 +219,7 @@ jobs:
           rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Playthrough
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.1
+        uses: vimaster/unity-test-runner@v2.1.1
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -239,6 +246,13 @@ jobs:
         with:
           name: Test Results - PlayMode Scenes
           path: artifacts
+
+      - name: Store Screenshots
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || success() }}
+        with:
+          name: Screenshots - PlayMode Scenes
+          path: TestRunArtifacts
 
   unityTestPlayModePlaythrough:
     name: Run PlayMode Playthrough tests for Unity project
@@ -269,7 +283,7 @@ jobs:
           rm -rf unity-ggjj/Assets/Tests/PlayModeTests/Scenes
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v2.1.1
+        uses: vimaster/unity-test-runner@v2.1.1
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -296,6 +310,13 @@ jobs:
         with:
           name: Test Results - PlayMode Playthrough
           path: artifacts
+
+      - name: Store Screenshots
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || success() }}
+        with:
+          name: Screenshots - PlayMode Playthrough
+          path: TestRunArtifacts
 
   unityBuild:
     name: Build for ${{ matrix.targetPlatform.outputName }}

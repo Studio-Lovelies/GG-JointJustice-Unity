@@ -73,3 +73,6 @@ Assets/InitTestScene*
 Assets/ERP
 Assets/ERP.meta
 .erp
+
+# Snapshot testing artifacts
+TestRunArtifacts/

@@ -28,9 +28,11 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
 
         protected readonly InputTestTools inputTestTools = new InputTestTools();
 
-        [SetUp]
-        public void Setup()
+        [UnitySetUp]
+        public IEnumerator Setup()
         {
+            Screen.SetResolution(1280, 720, false);
+            yield return new WaitForEndOfFrame();
             inputTestTools.Setup();
         }
 
@@ -137,6 +139,7 @@ namespace Tests.PlayModeTests.Scripts.PauseMenu
         {
             yield return inputTestTools.PressForFrame(Keyboard.escapeKey);
             Assert.IsTrue(PauseMenu.isActiveAndEnabled);
+            yield return ScreenshotDiff.TakeScreenshotOrCompare();
             yield return selectionMethod();
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "MainMenu");
         }
