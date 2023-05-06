@@ -14,7 +14,7 @@ on:
 
 jobs:
   executeTests:
-    name: "${{ inputs.subdirectory }}"
+    name: "${{ inputs.subdirectory }} ${{ inputs.testMode }} tests"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
