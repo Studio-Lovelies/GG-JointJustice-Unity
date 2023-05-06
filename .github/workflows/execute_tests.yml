@@ -46,6 +46,14 @@ jobs:
           git add .
           git reset --hard
 
+      - name: Restore Library cache
+        uses: actions/cache@v3
+        with:
+          path: unity-ggjj/Library
+          key: Library-${{ hashFiles('unity-ggjj/Assets/**', 'unity-ggjj/Packages/**', 'unity-ggjj/ProjectSettings/**') }}
+          restore-keys: |
+            unity-ggjj/Library-
+
       - name: Back up and restore ${{ inputs.subdirectory }} after removing other test suites
         shell: bash
         run: | 
