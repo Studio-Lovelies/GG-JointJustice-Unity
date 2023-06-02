@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class AudioSlider : MonoBehaviour
 {
     [SerializeField] private AudioClip _onValueChangedSound;
+    [SerializeField] private float _updateSoundDelay;
     
     private const int MIN_DECIBELS = -80;
     private const int MAX_DECIBELS = 20;
     private const int DECIBEL_LOG_BASE = 10;
-    
+
+    private float _lastUpdateSoundTime;
     private TextMeshProUGUI _label;
     private AudioMixerGroup _audioMixerGroup;
     private Slider _slider;
@@ -70,6 +72,18 @@ public class AudioSlider : MonoBehaviour
 
     public void ActivateOnValueChangedSound()
     {
-        _slider.onValueChanged.AddListener(_ => _audioSource.PlayOneShot(_onValueChangedSound));
+        _slider.onValueChanged.AddListener(_ => PlayUpdateSound());
+    }
+
+    private void PlayUpdateSound()
+    {
+        var unscaledTime = Time.unscaledTime;
+        if (unscaledTime - _lastUpdateSoundTime < _updateSoundDelay)
+        {
+            return;
+        }
+
+        _audioSource.PlayOneShot(_onValueChangedSound);
+        _lastUpdateSoundTime = unscaledTime;
     }
 }

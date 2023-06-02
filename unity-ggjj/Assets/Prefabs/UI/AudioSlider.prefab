@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onValueChangedSound: {fileID: 8300000, guid: 981c3c4dbcec8404687605befec8373d, type: 3}
+  _updateSoundDelay: 0.1
 --- !u!114 &2832676166955648514
 MonoBehaviour:
   m_ObjectHideFlags: 0
