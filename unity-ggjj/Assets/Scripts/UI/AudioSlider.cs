@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class AudioSlider : MonoBehaviour
 {
+    [SerializeField] private AudioClip _onValueChangedSound;
+    
     private const int MIN_DECIBELS = -80;
     private const int MAX_DECIBELS = 20;
     private const int DECIBEL_LOG_BASE = 10;
@@ -12,6 +14,7 @@ public class AudioSlider : MonoBehaviour
     private TextMeshProUGUI _label;
     private AudioMixerGroup _audioMixerGroup;
     private Slider _slider;
+    private AudioSource _audioSource;
 
     private string VolumeParameterName => $"{_audioMixerGroup.name}Volume";
 
@@ -35,6 +38,7 @@ public class AudioSlider : MonoBehaviour
     {
         _label = GetComponentInChildren<TextMeshProUGUI>();
         _slider = GetComponent<Slider>();
+        _audioSource = GetComponent<AudioSource>();
         _slider.onValueChanged.AddListener(SetValue);
     }
 
@@ -66,5 +70,10 @@ public class AudioSlider : MonoBehaviour
             return MIN_DECIBELS;
         }
         return MAX_DECIBELS * Mathf.Log(linearVolume, DECIBEL_LOG_BASE);
+    }
+
+    public void ActivateOnValueChangedSound()
+    {
+        _slider.onValueChanged.AddListener(_ => _audioSource.PlayOneShot(_onValueChangedSound));
     }
 }
