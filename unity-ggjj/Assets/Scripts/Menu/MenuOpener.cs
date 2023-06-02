@@ -21,7 +21,6 @@ public class MenuOpener : MonoBehaviour
     [Tooltip("This event is called when the menu is disabled")]
     [SerializeField]
     private UnityEvent _onMenuClosed;
-    
 
     private Button _button;
     private Selectable _cachedSelectedButtonAfterClose;
@@ -63,6 +62,7 @@ public class MenuOpener : MonoBehaviour
         if (_parentMenu != null)
         {
             _parentMenu.SetMenuInteractable(false);
+            _parentMenu.ChildMenuOpener = this;
         }
 
         if (MenuToOpen.DontResetSelectedOnClose && _cachedSelectedButtonAfterClose != null && _cachedSelectedButtonAfterClose.isActiveAndEnabled)
@@ -86,7 +86,18 @@ public class MenuOpener : MonoBehaviour
         {
             return;
         }
-        
+
+        if (MenuToOpen.ChildMenuOpened)
+        {
+            MenuToOpen.ChildMenuOpener.CloseMenu();
+            return;
+        }
+
+        if (_parentMenu != null)
+        {
+            _parentMenu.ChildMenuOpener = null;
+        }
+
         ForceCloseMenu();
     }
 
