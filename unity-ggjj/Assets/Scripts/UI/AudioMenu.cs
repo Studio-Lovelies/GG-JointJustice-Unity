@@ -19,6 +19,7 @@ public class AudioMenu : MonoBehaviour
             }
             audioSlider.Text = audioMixerGroup.name;
             audioSlider.AudioMixerGroup = audioMixerGroup;
+            audioSlider.UpdateSliderValue();
             audioSlider.ActivateOnValueChangedSound();
         }
     }

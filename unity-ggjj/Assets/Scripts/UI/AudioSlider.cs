@@ -21,11 +21,7 @@ public class AudioSlider : MonoBehaviour
     public AudioMixerGroup AudioMixerGroup
     {
         get => _audioMixerGroup;
-        set
-        {
-            _audioMixerGroup = value;
-            UpdateSliderValue();
-        }
+        set => _audioMixerGroup = value;
     }
     
     public string Text
@@ -42,10 +38,10 @@ public class AudioSlider : MonoBehaviour
         _slider.onValueChanged.AddListener(SetValue);
     }
 
-    private void UpdateSliderValue()
+    public void UpdateSliderValue()
     {
         _audioMixerGroup.audioMixer.GetFloat(VolumeParameterName, out var value);
-        _slider.value = Mathf.InverseLerp(MIN_DECIBELS, MAX_DECIBELS, CalculateLinearVolume(value));
+        _slider.value = CalculateLinearVolume(value);
     }
 
     private void SetValue(float value)
@@ -60,7 +56,7 @@ public class AudioSlider : MonoBehaviour
 
     private static float CalculateLinearVolume(float volumeInDecibels)
     {
-        return Mathf.Pow(volumeInDecibels / MAX_DECIBELS, DECIBEL_LOG_BASE);
+        return Mathf.Pow(10, volumeInDecibels / MAX_DECIBELS);
     }
 
     private static float CalculateVolumeInDecibels(float linearVolume)
