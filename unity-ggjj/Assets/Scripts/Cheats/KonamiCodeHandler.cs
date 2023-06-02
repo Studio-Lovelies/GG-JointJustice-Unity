@@ -22,8 +22,6 @@ namespace Cheats
             cheatInput.Keyboard.ValidKeys.performed += ctx =>
             {
                 var pressedKey = NormalizeInput(ctx.control.name);
-
-                Debug.Log($"[KONAMICODE] Pressed key: {pressedKey}, expected: {_cheat[_currentCheatIndex]}");
                 
                 if (_cheat[_currentCheatIndex] != pressedKey)
                 {
@@ -33,7 +31,6 @@ namespace Cheats
                     }
                     
                     _currentCheatIndex = 0;
-                    Debug.Log($"[KONAMICODE] Resetting!");
                     return;
                 }
 
