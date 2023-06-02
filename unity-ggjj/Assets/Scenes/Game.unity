@@ -1165,7 +1165,7 @@ PrefabInstance:
       objectReference: {fileID: 586186430}
     - target: {fileID: 1905737855016361055, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1905737855016361055, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -1190,7 +1190,7 @@ PrefabInstance:
     - target: {fileID: 1905737855016361055, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1525567537}
+      objectReference: {fileID: 0}
     - target: {fileID: 1905737855016361055, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: Input.InputModule, GG-JointJustice
@@ -2446,7 +2446,7 @@ PrefabInstance:
     - target: {fileID: 7646823483824665929, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _onMenuOpened.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1918110703}
+      objectReference: {fileID: 0}
     - target: {fileID: 7784601747797780530, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: <OnItemSelect>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3698,90 +3698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0504b6ef97eb4513a7e6dcaedf72aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1493481422 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1905737855016361055, guid: f4cda231489f65341910a0acac208946, type: 3}
-  m_PrefabInstance: {fileID: 586186429}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecf4af95c6daa400dbeb45ea791b65a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1525567535
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1525567536}
-  - component: {fileID: 1525567537}
-  m_Layer: 0
-  m_Name: SettingsMenuInput
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1525567536
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525567535}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 65740199812234296}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1525567537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525567535}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _controls:
-  - _inputActionReference: {fileID: 675183000856290462, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
-    _event:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1493481422}
-          m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-          m_MethodName: CloseMenu
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 4120714960866268583}
-          m_TargetAssemblyTypeName: InputManager, GG-JointJustice
-          m_MethodName: SetInput
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 4398871484667759689}
-            m_ObjectArgumentAssemblyTypeName: Input.InputModule, GG-JointJustice
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1836982804
 GameObject:
   m_ObjectHideFlags: 0
@@ -3965,79 +3881,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837632829}
   m_CullTransparentMesh: 1
---- !u!1 &1918110702
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1918110704}
-  - component: {fileID: 1918110703}
-  m_Layer: 0
-  m_Name: ControlsMenuInput
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1918110703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918110702}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2293db809ab614967941f455508a2329, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _controls:
-  - _inputActionReference: {fileID: 675183000856290462, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
-    _event:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-          m_MethodName: CloseMenu
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 4120714960866268583}
-          m_TargetAssemblyTypeName: InputManager, GG-JointJustice
-          m_MethodName: SetInput
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1525567537}
-            m_ObjectArgumentAssemblyTypeName: Input.InputModule, GG-JointJustice
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!4 &1918110704
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918110702}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 65740199812234296}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1918829164 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6762979532128977387, guid: f4cda231489f65341910a0acac208946, type: 3}
@@ -4134,8 +3977,6 @@ Transform:
   - {fileID: 342284812}
   - {fileID: 2582401826076157597}
   - {fileID: 3520061406422493022}
-  - {fileID: 1525567536}
-  - {fileID: 1918110704}
   - {fileID: 5280502166768834758}
   m_Father: {fileID: 0}
   m_RootOrder: 16
@@ -4517,7 +4358,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 586186431}
           m_TargetAssemblyTypeName: MenuOpener, GG-JointJustice
-          m_MethodName: ToggleMenu
+          m_MethodName: CloseMenu
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
