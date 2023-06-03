@@ -5059,7 +5059,7 @@ PrefabInstance:
       objectReference: {fileID: 163379932400809383}
     - target: {fileID: 3457572974353826701, guid: f92e1c57351e244b78ca759d0813b467, type: 3}
       propertyPath: m_Name
-      value: MainSettingsMenu
+      value: SettingsMenu
       objectReference: {fileID: 0}
     - target: {fileID: 3457572974353826701, guid: f92e1c57351e244b78ca759d0813b467, type: 3}
       propertyPath: m_IsActive

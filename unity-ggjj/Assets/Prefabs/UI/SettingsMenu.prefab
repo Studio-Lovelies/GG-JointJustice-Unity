@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 8007940861181105738}
   - component: {fileID: 5991634090158618576}
   m_Layer: 5
-  m_Name: MainSettingsMenu
+  m_Name: SettingsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1423,6 +1423,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2558898727782297772, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: m_Name
+      value: SettingsMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 2584854293506594726, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
