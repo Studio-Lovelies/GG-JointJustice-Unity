@@ -20,7 +20,9 @@ public class Menu : MonoBehaviour
     public UnityEvent<bool> OnSetInteractable { get; } = new UnityEvent<bool>();
     public Selectable SelectedButton { get; set; } // Set by child buttons when they are selected
     public bool Active => gameObject.activeInHierarchy && (SelectedButton == null || SelectedButton.enabled); // Returns true when no child menus are active ONLY if this menu is enabled
-
+    public MenuOpener ChildMenuOpener { get; set; }
+    public bool ChildMenuOpened => ChildMenuOpener != null;
+    
     private void OnEnable()
     {
         // This is required, as the EventSystem is never cleared of the last selected object if this menu was opened before

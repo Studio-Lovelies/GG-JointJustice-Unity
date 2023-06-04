@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace UI
@@ -8,6 +9,7 @@ namespace UI
     {
         [SerializeField] private InputActionReference _inputActionReference;
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private UnityEvent _onButtonRebind;
 
         private InputActionRebindingExtensions.RebindingOperation _rebindingOperation;
         
@@ -33,6 +35,7 @@ namespace UI
             _inputActionReference.action.Enable();
             rebindingOperation.Dispose();
             _rebindingOperation = null;
+            _onButtonRebind.Invoke();
             UpdateButton();
         }
 
