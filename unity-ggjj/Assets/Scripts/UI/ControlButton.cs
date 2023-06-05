@@ -12,10 +12,12 @@ namespace UI
         [SerializeField] private UnityEvent _onButtonRebind;
 
         private InputActionRebindingExtensions.RebindingOperation _rebindingOperation;
+        private Menu _menu;
         
         private void Awake()
         {
             UpdateButton();
+            _menu = GetComponentInParent<Menu>();
         }
 
         public void BeginRebind()
@@ -36,6 +38,7 @@ namespace UI
             rebindingOperation.Dispose();
             _rebindingOperation = null;
             _onButtonRebind.Invoke();
+            _menu.OnSetInteractable.Invoke(true);
             UpdateButton();
         }
 
