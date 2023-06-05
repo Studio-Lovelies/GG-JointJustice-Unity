@@ -4143,6 +4143,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 2694081737372205920, guid: c512ae8e9efc1421fad9d693b19695c6, type: 3}
+      propertyPath: m_text
+      value: Select
+      objectReference: {fileID: 0}
     - target: {fileID: 3207369515751304821, guid: c512ae8e9efc1421fad9d693b19695c6, type: 3}
       propertyPath: m_Name
       value: AudioMenu
@@ -4434,6 +4438,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 919536739}
     m_Modifications:
+    - target: {fileID: 57751957647744788, guid: b5398967ba96a4cda8241cc491234801, type: 3}
+      propertyPath: m_text
+      value: Select
+      objectReference: {fileID: 0}
     - target: {fileID: 80969206782599512, guid: b5398967ba96a4cda8241cc491234801, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -4530,6 +4538,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4028222327768021813, guid: b5398967ba96a4cda8241cc491234801, type: 3}
+      propertyPath: _inputActionReference
+      value: 
+      objectReference: {fileID: 675183000856290462, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
     - target: {fileID: 4174376406719597535, guid: b5398967ba96a4cda8241cc491234801, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5208,6 +5220,10 @@ PrefabInstance:
     - target: {fileID: 4766397268370440211, guid: f92e1c57351e244b78ca759d0813b467, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897419429831523935, guid: f92e1c57351e244b78ca759d0813b467, type: 3}
+      propertyPath: m_text
+      value: Select
       objectReference: {fileID: 0}
     - target: {fileID: 5421468330398858647, guid: f92e1c57351e244b78ca759d0813b467, type: 3}
       propertyPath: m_AnchorMax.y

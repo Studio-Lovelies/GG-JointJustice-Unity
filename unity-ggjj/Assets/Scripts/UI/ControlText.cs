@@ -9,9 +9,18 @@ namespace UI
         [SerializeField] private InputActionReference _inputActionReference;
         
         private TextMeshProUGUI _text;
+        private Menu _menu;
 
         private void Awake()
         {
+            _menu = GetComponentInParent<Menu>();
+            _menu.OnSetInteractable.AddListener(isInteractable =>
+            {
+                if (isInteractable)
+                {
+                    OnEnable();
+                }
+            });
             _text = GetComponent<TextMeshProUGUI>();
         }
 
