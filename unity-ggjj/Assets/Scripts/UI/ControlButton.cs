@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,6 +10,7 @@ namespace UI
     public class ControlButton : MonoBehaviour
     {
         [SerializeField] private InputActionReference _inputActionReference;
+        [SerializeField] private InputActionReference[] _alternativeInputActionReferences;
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private UnityEvent _onButtonRebind;
         [SerializeField] private Color _rebindColor;
@@ -29,20 +31,27 @@ namespace UI
         public void BeginRebind()
         {
             _image.color = _rebindColor;
-            _inputActionReference.action.Disable();
-            _rebindingOperation = _inputActionReference.action.PerformInteractiveRebinding(0)
-                .WithControlsExcluding("<Mouse>")
-                .OnPotentialMatch(OnPotentialMatch)
-                .OnComplete(OnRebindComplete)
-                .OnCancel(OnRebindComplete)
-                .OnMatchWaitForAnother(0.1f)
-                .Start();
+            var inputActionReferences = new List<InputActionReference>(_alternativeInputActionReferences)
+            {
+                _inputActionReference
+            };
+            foreach (var inputActionReference in inputActionReferences)
+            {
+                inputActionReference.action.Disable();
+                _rebindingOperation = inputActionReference.action.PerformInteractiveRebinding(0)
+                    .WithControlsExcluding("<Mouse>")
+                    .OnPotentialMatch(OnPotentialMatch)
+                    .OnComplete(rebindingOperation => OnRebindComplete(rebindingOperation, inputActionReference))
+                    .OnCancel(rebindingOperation => OnRebindComplete(rebindingOperation, inputActionReference))
+                    .OnMatchWaitForAnother(0.1f)
+                    .Start();
+            }
         }
 
-        private void OnRebindComplete(InputActionRebindingExtensions.RebindingOperation rebindingOperation)
+        private void OnRebindComplete(InputActionRebindingExtensions.RebindingOperation rebindingOperation, InputActionReference inputActionReference)
         {
             _image.color = _originalColor;
-            _inputActionReference.action.Enable();
+            inputActionReference.action.Enable();
             rebindingOperation.Dispose();
             _rebindingOperation = null;
             _onButtonRebind.Invoke();

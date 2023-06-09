@@ -658,6 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputActionReference: {fileID: 6692141995298261549, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+  _alternativeInputActionReferences: []
   _text: {fileID: 7661477697215550550}
   _onButtonRebind:
     m_PersistentCalls:
@@ -1289,6 +1290,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputActionReference: {fileID: 2662257130399901586, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+  _alternativeInputActionReferences:
+  - {fileID: 6117326585994252875, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+  - {fileID: -5681408003504861312, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
   _text: {fileID: 3280601622083777937}
   _onButtonRebind:
     m_PersistentCalls:
@@ -1549,6 +1553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputActionReference: {fileID: -525457200784595857, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
+  _alternativeInputActionReferences: []
   _text: {fileID: 500947805743993508}
   _onButtonRebind:
     m_PersistentCalls:
