@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -10,18 +11,24 @@ namespace UI
         [SerializeField] private InputActionReference _inputActionReference;
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private UnityEvent _onButtonRebind;
+        [SerializeField] private Color _rebindColor;
 
         private InputActionRebindingExtensions.RebindingOperation _rebindingOperation;
         private Menu _menu;
+        private Image _image;
+        private Color _originalColor;
         
         private void Awake()
         {
             UpdateButton();
             _menu = GetComponentInParent<Menu>();
+            _image = GetComponent<Image>();
+            _originalColor = _image.color;
         }
 
         public void BeginRebind()
         {
+            _image.color = _rebindColor;
             _inputActionReference.action.Disable();
             _rebindingOperation = _inputActionReference.action.PerformInteractiveRebinding(0)
                 .WithControlsExcluding("<Mouse>")
@@ -34,6 +41,7 @@ namespace UI
 
         private void OnRebindComplete(InputActionRebindingExtensions.RebindingOperation rebindingOperation)
         {
+            _image.color = _originalColor;
             _inputActionReference.action.Enable();
             rebindingOperation.Dispose();
             _rebindingOperation = null;

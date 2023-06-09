@@ -674,6 +674,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _rebindColor: {r: 0.6392157, g: 0, b: 0.24313726, a: 1}
 --- !u!114 &7661477697215550550 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7387902164633582519, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
@@ -1304,6 +1305,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _rebindColor: {r: 0.6392157, g: 0, b: 0.24313726, a: 1}
 --- !u!114 &3280601622083777937 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7387902164633582519, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
@@ -1563,6 +1565,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _rebindColor: {r: 0.6392157, g: 0, b: 0.24313726, a: 1}
 --- !u!114 &9079352854149157387
 MonoBehaviour:
   m_ObjectHideFlags: 0
