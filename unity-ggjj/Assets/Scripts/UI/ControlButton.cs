@@ -68,10 +68,5 @@ namespace UI
         {
             _text.text = _inputActionReference.action.GetBindingDisplayString().Split('|')[0].Trim();
         }
-
-        public void Cancel()
-        {
-            _rebindingOperation?.Cancel();
-        }
     }
 }
