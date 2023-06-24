@@ -1,0 +1,12 @@
+&SET_GAME_OVER_SCRIPT:SEDUCTIVEREASONING_GameOver
+
+&MODE:CrossExamination
+
+&SCENE:TMPH_Lobby
+&ACTOR:Dan
+&FADE_IN:2
+
+&SPEAK:Dan
+Seductive Reasoning?! ...okay, I'll bite.
+
+&LOAD_SCRIPT:SEDUCTIVEREASONINGLoop
