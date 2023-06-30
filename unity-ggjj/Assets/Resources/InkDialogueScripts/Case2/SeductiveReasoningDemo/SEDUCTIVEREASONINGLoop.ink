@@ -12,9 +12,10 @@ So what's this all about?
 === lost ===
 &SPEAK:Dan
 Uhhh... what're you talking about Arin?
-&ISSUE_PENALTY # this calls the failure script after lives ran out
+&ISSUE_PENALTY # this exits and calls the failure script after lives ran out or continues...
 &SPEAK:Arin
 Uhhhm... You see...
+# ...and goes back to line 5, prompting the user to try again
 
 === win ===
 &LOAD_SCRIPT:End
