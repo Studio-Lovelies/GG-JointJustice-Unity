@@ -1,0 +1,1 @@
+﻿{"inkVersion":21,"root":[["^&FILL_PHRASE:I'm %0% to see you; you look %1% - okay? Why %2%?, happy[+3]/sad[-1]/annoyed[-2], great[+2]/bored to be here[-1]/terrible[-2], is that weird[+1]/not[0]/are you like this[-3]","\n",["done",{"#f":5,"#n":"g-0"}],null],"done",{"win":["^Whey!","\n","end",{"#f":1}],"lost":["^O no","\n","end",{"#f":1}],"#f":1}],"listDefs":{}}
