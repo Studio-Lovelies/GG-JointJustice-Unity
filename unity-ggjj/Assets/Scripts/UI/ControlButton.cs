@@ -19,6 +19,7 @@ namespace UI
         private Menu _menu;
         private Image _image;
         private Color _originalColor;
+        private ControlsButtonContainer _controlsButtonContainer;
         
         private void Awake()
         {
@@ -26,11 +27,13 @@ namespace UI
             _menu = GetComponentInParent<Menu>();
             _image = GetComponent<Image>();
             _originalColor = _image.color;
+            _controlsButtonContainer = GetComponentInParent<ControlsButtonContainer>();
         }
 
         public void BeginRebind()
         {
             _image.color = _rebindColor;
+            _controlsButtonContainer.DeselectControlButtons(this);
             var inputActionReferences = new List<InputActionReference>(_alternativeInputActionReferences)
             {
                 _inputActionReference
@@ -46,6 +49,11 @@ namespace UI
                     .OnMatchWaitForAnother(0.1f)
                     .Start();
             }
+        }
+
+        public void CancelRebind()
+        {
+            _rebindingOperation?.Cancel();
         }
 
         private void OnRebindComplete(InputActionRebindingExtensions.RebindingOperation rebindingOperation, InputActionReference inputActionReference)
