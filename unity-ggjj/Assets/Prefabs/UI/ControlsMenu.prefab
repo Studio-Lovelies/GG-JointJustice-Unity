@@ -466,7 +466,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
+    serializedVersion: 2
     m_TransformParent: {fileID: 5419772625201572347}
     m_Modifications:
     - target: {fileID: 7387902164298400915, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
@@ -520,7 +520,7 @@ PrefabInstance:
     - target: {fileID: 7387902164298400916, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1459779796611308133}
+      objectReference: {fileID: 8710698086813572247}
     - target: {fileID: 7387902164298400916, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -646,12 +646,7 @@ PrefabInstance:
       value: MenuControlButton (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7387902164298400922, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3265009935526333124}
   m_SourcePrefab: {fileID: 100100000, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
 --- !u!224 &7661477696879602548 stripped
 RectTransform:
@@ -681,7 +676,7 @@ MonoBehaviour:
   _onButtonRebind:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1459779796611308133}
+      - m_Target: {fileID: 8710698086813572247}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: PlayOneShot
         m_Mode: 2
@@ -715,7 +710,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
+    serializedVersion: 2
     m_TransformParent: {fileID: 4174376406719597535}
     m_Modifications:
     - target: {fileID: 1149127649380073161, guid: 08f6cac45d1654c6d9b8ffff94635e0d, type: 3}
@@ -1091,9 +1086,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08f6cac45d1654c6d9b8ffff94635e0d, type: 3}
 --- !u!224 &6767899978165640591 stripped
 RectTransform:
@@ -1105,7 +1098,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
+    serializedVersion: 2
     m_TransformParent: {fileID: 5419772625201572347}
     m_Modifications:
     - target: {fileID: 7387902164298400915, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
@@ -1119,7 +1112,7 @@ PrefabInstance:
     - target: {fileID: 7387902164298400915, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
       propertyPath: <OnItemSelect>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8710698086813572247}
+      objectReference: {fileID: 4555001068289883472}
     - target: {fileID: 7387902164298400915, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
       propertyPath: <OnItemSelect>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1159,7 +1152,7 @@ PrefabInstance:
     - target: {fileID: 7387902164298400916, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1459779796611308133}
+      objectReference: {fileID: 4555001068289883472}
     - target: {fileID: 7387902164298400916, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1285,12 +1278,7 @@ PrefabInstance:
       value: MenuControlButton (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7387902164298400922, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6942294641220020944}
   m_SourcePrefab: {fileID: 100100000, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
 --- !u!224 &3280601621747583667 stripped
 RectTransform:
@@ -1322,7 +1310,7 @@ MonoBehaviour:
   _onButtonRebind:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1459779796611308133}
+      - m_Target: {fileID: 4555001068289883472}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: PlayOneShot
         m_Mode: 2
@@ -1346,12 +1334,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &4555001068289883472 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8374036127593280374, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
+  m_PrefabInstance: {fileID: 5404337329773825574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6950356597397989651
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
+    serializedVersion: 2
     m_TransformParent: {fileID: 5419772625201572347}
     m_Modifications:
     - target: {fileID: 7387902164298400915, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
@@ -1531,12 +1524,7 @@ PrefabInstance:
       value: MenuControlButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7387902164298400922, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6216144027463022284}
   m_SourcePrefab: {fileID: 100100000, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
 --- !u!114 &500947805743993508 stripped
 MonoBehaviour:
@@ -1611,7 +1599,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
+    serializedVersion: 2
     m_TransformParent: {fileID: 5419772625201572347}
     m_Modifications:
     - target: {fileID: 5544645551151462925, guid: b1aaefe67e8e849acbdf5056eb440662, type: 3}
@@ -1707,9 +1695,7 @@ PrefabInstance:
       value: 'Back:'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1aaefe67e8e849acbdf5056eb440662, type: 3}
 --- !u!224 &1494662864081053466 stripped
 RectTransform:

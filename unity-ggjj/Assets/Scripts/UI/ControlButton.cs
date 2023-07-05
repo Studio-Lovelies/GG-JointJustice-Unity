@@ -15,7 +15,7 @@ namespace UI
         [SerializeField] private UnityEvent _onButtonRebind;
         [SerializeField] private Color _rebindColor;
 
-        private InputActionRebindingExtensions.RebindingOperation _rebindingOperation;
+        private readonly List<InputActionRebindingExtensions.RebindingOperation> _rebindingOperations = new();
         private Menu _menu;
         private Image _image;
         private Color _originalColor;
@@ -41,19 +41,22 @@ namespace UI
             foreach (var inputActionReference in inputActionReferences)
             {
                 inputActionReference.action.Disable();
-                _rebindingOperation = inputActionReference.action.PerformInteractiveRebinding(0)
+                _rebindingOperations.Add(inputActionReference.action.PerformInteractiveRebinding(0)
                     .WithControlsExcluding("<Mouse>")
                     .OnPotentialMatch(OnPotentialMatch)
                     .OnComplete(rebindingOperation => OnRebindComplete(rebindingOperation, inputActionReference))
                     .OnCancel(rebindingOperation => OnRebindComplete(rebindingOperation, inputActionReference))
                     .OnMatchWaitForAnother(0.1f)
-                    .Start();
+                    .Start());
             }
         }
 
         public void CancelRebind()
         {
-            _rebindingOperation?.Cancel();
+            for (var i = _rebindingOperations.Count - 1; i >= 0; i--)
+            {
+                _rebindingOperations[i].Cancel();
+            }
         }
 
         private void OnRebindComplete(InputActionRebindingExtensions.RebindingOperation rebindingOperation, InputActionReference inputActionReference)
@@ -61,10 +64,13 @@ namespace UI
             _image.color = _originalColor;
             inputActionReference.action.Enable();
             rebindingOperation.Dispose();
-            _rebindingOperation = null;
-            _onButtonRebind.Invoke();
-            _menu.OnSetInteractable.Invoke(true);
-            UpdateButton();
+            _rebindingOperations.Remove(rebindingOperation);
+            if (inputActionReference == _inputActionReference)
+            {
+                _onButtonRebind.Invoke();
+                _menu.OnSetInteractable.Invoke(true);
+                UpdateButton();
+            }
         }
 
         private void OnPotentialMatch(InputActionRebindingExtensions.RebindingOperation rebindingOperation)
@@ -75,7 +81,7 @@ namespace UI
                 {
                     if (control == rebindingOperation.selectedControl)
                     {
-                        rebindingOperation.Cancel();
+                        CancelRebind();
                     }
                 }
             }
