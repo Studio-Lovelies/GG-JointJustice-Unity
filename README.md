@@ -26,8 +26,8 @@ To contribute to the project, you will need to have the following tools instead 
 - [Git Large File Storage (Git LFS)](https://git-lfs.github.com/)
 - [Unity Hub](https://unity3d.com/get-unity/download)
   - This will prompt you to create a Unity ID and select a Micrograme before it lets you launch Unity. This second step is expected to take some time.
-- [Unity Version 2020.3.15f2](https://unity3d.com/get-unity/download/archive)
-  - Click on the Unity 2020.x tab, scroll to Unity 2020.3.15f2 (LTS) and click on the green "Unity Hub" button to download
+- [Unity Version 2022.3.4f1](https://unity3d.com/get-unity/download/archive)
+  - Click on the Unity 2022.x tab, scroll to Unity 2022.3.4f1 (LTS) and click on the green "Unity Hub" button to download
 - [GitHub for Desktop](https://desktop.github.com/) (optional)
   - Helpful UI if you're not familiar with Git CLI
 - Some IDE (optional):
