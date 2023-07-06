@@ -25,7 +25,7 @@ public class Actor : Animatable
     {
         base.Awake();
         Renderer = GetComponent<Renderer>();
-        Animator.keepAnimatorControllerStateOnDisable = true;
+        Animator.keepAnimatorStateOnDisable = true;
     }
 
     /// <summary>
