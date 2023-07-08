@@ -49,7 +49,9 @@ namespace Tests.EditModeTests.Suites.TextDecoderTests.ActionDecoderTests
             {typeof(float), "1.0"},
             {typeof(ItemDisplayPosition), nameof(ItemDisplayPosition.Left)},
             {typeof(GameMode), nameof(GameMode.CrossExamination)},
-            {typeof(SaveData.Progression.Chapters), nameof(SaveData.Progression.Chapters.Chapter1)}
+            {typeof(SaveData.Progression.Chapters), nameof(SaveData.Progression.Chapters.Chapter1)},
+            {typeof(PhraseFormatOptions), "happy[+3]/sad[-1]/annoyed[-2]"},
+            {typeof(PhraseFormatString), "I'm {0} to see you; you look {1} - okay? Why {2}?"}
         };
         private static readonly Dictionary<Type, object> InvalidData = new Dictionary<Type, object> {
             {typeof(bool), "NotABool"},
@@ -57,7 +59,9 @@ namespace Tests.EditModeTests.Suites.TextDecoderTests.ActionDecoderTests
             {typeof(float), "NotAFloat"},
             {typeof(ItemDisplayPosition), "Invalid"},
             {typeof(GameMode), "Invalid"},
-            {typeof(SaveData.Progression.Chapters), "Invalid"}
+            {typeof(SaveData.Progression.Chapters), "Invalid"},
+            {typeof(PhraseFormatOptions), "must be a number inside square brakets [ab]"},
+            {typeof(PhraseFormatString), "No placeholder character (percentage sign) "}
         };
 
         private class RawActionDecoder : ActionDecoderBase

@@ -5010,7 +5010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456175c2b594046d3923a6d20445dd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  narrativeScript: {fileID: 0}
+  narrativeScript: {fileID: 4900000, guid: 4a9e0ab371d70477494492dcee245cea, type: 3}
 --- !u!1 &8699442053336843567
 GameObject:
   m_ObjectHideFlags: 0

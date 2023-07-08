@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using SaveFiles;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -606,6 +607,28 @@ public class ActionDecoder : ActionDecoderBase
     private void LOAD_SCENE(UnitySceneAssetName sceneName)
     {
         NarrativeGameState.SceneLoader.LoadScene(sceneName);
+    }
+    
+    /// <summary>
+    /// Makes the player respond by picking options for a predefined phrase with blank slots  
+    /// </summary>
+    /// <param name="phrase">The phrase with % used to define a slot</param>
+    /// <param name="option1">Available list of options for the first slot and score if that option is selected</param>
+    /// <param name="option2">Available list of options for the second slot and score if that option is selected</param>
+    /// <param name="option3">Available list of options for the third slot and score if that option is selected</param>
+    /// <example>// &amp;FILL_PHRASE:I'm %1 to see you; you look %2, okay? Why %3?, happy[+3]/sad[-1]/annoyed[-2], great[+2]/bored to be here[-1]/terrible[-2], is that weird[+1]/not[0]/are you like this[-3], + 4 -> win, + lost -> lost</example>
+    private void FILL_PHRASE(PhraseFormatString phrase, PhraseFormatOptions option1, PhraseFormatOptions option2, PhraseFormatOptions option3)
+    {
+        var option1Array = option1.ToArray(); 
+        var option2Array = option2.ToArray(); 
+        var option3Array = option3.ToArray(); 
+        for (var i = 0; i < 3; i++)
+        {
+            var optionA = option1Array[i];
+            var optionB = option2Array[i];
+            var optionC = option3Array[i];
+            Debug.Log($"[{optionA.Points+optionB.Points+optionC.Points}]: "+ phrase.Resolve(optionA.Text, optionB.Text, optionC.Text));
+        }
     }
     #endregion
 #pragma warning restore IDE0051 // Remove unused private members
