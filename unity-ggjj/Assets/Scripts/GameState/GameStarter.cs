@@ -19,16 +19,16 @@ namespace GameState
 
         private void Start()
         {
+            var narrativeScriptTextAsset = _gameStartSettings.NarrativeScriptTextAsset;
             if (_debugNarrativeScriptTextAsset != null)
             {
                 Debug.Log($"DebugGameStarter: Running script {_debugNarrativeScriptTextAsset.name}");
                 _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_debugNarrativeScriptTextAsset);
                 _narrativeGameState.StartGame();
             }
-            else if (_gameStartSettings.NarrativeScriptTextAsset != null)
+            else if (narrativeScriptTextAsset != null)
             {
-                _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_gameStartSettings.NarrativeScriptTextAsset);
-                _gameStartSettings.NarrativeScriptTextAsset = null;
+                _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(narrativeScriptTextAsset);
                 _narrativeGameState.StartGame();
             }
             else
