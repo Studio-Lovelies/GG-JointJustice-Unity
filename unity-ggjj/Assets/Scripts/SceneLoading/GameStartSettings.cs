@@ -6,7 +6,7 @@ namespace SceneLoading
     [CreateAssetMenu(menuName = "Game Start Settings", fileName = "New game start settings")]
     public class GameStartSettings : ScriptableObject
     {
-        private TextAsset _narrativeScriptTextAsset;
+        [SerializeField, HideInInspector] private TextAsset _narrativeScriptTextAsset;
         public TextAsset NarrativeScriptTextAsset
         {
             get
