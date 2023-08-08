@@ -28,8 +28,8 @@ namespace GameState
             else if (_gameStartSettings.NarrativeScriptTextAsset != null)
             {
                 _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_gameStartSettings.NarrativeScriptTextAsset);
+                _gameStartSettings.NarrativeScriptTextAsset = null;
                 _narrativeGameState.StartGame();
-
             }
             else
             {

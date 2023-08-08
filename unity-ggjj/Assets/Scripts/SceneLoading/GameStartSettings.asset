@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c38b09cae01522dbb550ba1a24a947, type: 3}
   m_Name: GameStartSettings
   m_EditorClassIdentifier: 
-  <NarrativeScriptTextAsset>k__BackingField: {fileID: 0}
+  <NarrativeScriptTextAsset>k__BackingField: {fileID: 4900000, guid: c2d26570bbb424d3598fa05e0d7adbaf, type: 3}
