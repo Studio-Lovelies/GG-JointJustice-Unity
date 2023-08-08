@@ -293,8 +293,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb0db52c6e6a4b25a5a279e7c4e03dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneLoaderToChange: {fileID: 1316906784}
-  newScene: {fileID: 4900000, guid: a09560c4d037a435eb56645fbd6c0902, type: 3}
+  _gameLoader: {fileID: 1316906787}
+  _newScene: {fileID: 4900000, guid: a09560c4d037a435eb56645fbd6c0902, type: 3}
 --- !u!4 &221309751
 Transform:
   m_ObjectHideFlags: 0
@@ -303,7 +303,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221309749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25236657, y: 0.21586548, z: 0.0250898}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1687,7 +1687,7 @@ MonoBehaviour:
   _chapterSelectMenu: {fileID: 1946344353}
   _audioController: {fileID: 718748590}
   _buttonSelectAudioClip: {fileID: 8300000, guid: f7b1651d91b510149a9af1e8d61223e1, type: 3}
-  _sceneLoader: {fileID: 1316906784}
+  _gameLoader: {fileID: 1316906787}
   _startGameSound: {fileID: 8300000, guid: e132ba488be9972449d8a112e3c4c38a, type: 3}
   _cases:
   - <Name>k__BackingField: Jory's Trial
@@ -3702,7 +3702,7 @@ MonoBehaviour:
   _backButton: {fileID: 1261533795}
   _audioController: {fileID: 718748590}
   _buttonSelectAudioClip: {fileID: 8300000, guid: f7b1651d91b510149a9af1e8d61223e1, type: 3}
-  _sceneLoader: {fileID: 1316906784}
+  _gameLoader: {fileID: 1316906787}
   _startGameSound: {fileID: 8300000, guid: e132ba488be9972449d8a112e3c4c38a, type: 3}
 --- !u!114 &1946344354
 MonoBehaviour:

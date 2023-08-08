@@ -2797,6 +2797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 606207933}
   - component: {fileID: 606207932}
+  - component: {fileID: 606207934}
   m_Layer: 0
   m_Name: SceneLoader
   m_TagString: Untagged
@@ -2831,6 +2832,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &606207934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606207931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bbd0709d561026f6b6319d141061736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <NarrativeScriptTextAsset>k__BackingField: {fileID: 0}
+  _gameStartSettings: {fileID: 11400000, guid: cd99fbc599aa449fb855f6a61725a529, type: 2}
 --- !u!114 &654918159 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4454197773906763391, guid: f4cda231489f65341910a0acac208946, type: 3}
@@ -3946,7 +3961,7 @@ MonoBehaviour:
   _fullscreenAnimationPlayer: {fileID: 5742514839461138707}
   _objectShaker: {fileID: 4590349130768267613}
   _shoutPlayer: {fileID: 2741667134342495778}
-  _sceneLoader: {fileID: 606207932}
+  _gameLoader: {fileID: 606207934}
   _witnessTestimonySign: {fileID: 2114217580}
 --- !u!4 &2044061590
 Transform:

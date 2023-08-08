@@ -8,7 +8,7 @@ namespace GameState
     public class GameStarter : MonoBehaviour
     {
         [SerializeField] private GameStartSettings _gameStartSettings;
-        [FormerlySerializedAs("_debugNarrativeScript")] [Tooltip("Assign a narrative script text asset here to have it play on scene start"), SerializeField] private TextAsset _debugNarrativeScriptTextAsset;
+        [Tooltip("Assign a narrative script text asset here to have it play on scene start"), SerializeField] private TextAsset _debugNarrativeScriptTextAsset;
     
         private NarrativeGameState _narrativeGameState;
     
@@ -23,13 +23,16 @@ namespace GameState
             {
                 Debug.Log($"DebugGameStarter: Running script {_debugNarrativeScriptTextAsset.name}");
                 _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_debugNarrativeScriptTextAsset);
+                _narrativeGameState.StartGame();
             }
-            else
+            else if (_gameStartSettings.NarrativeScriptTextAsset != null)
             {
                 _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_gameStartSettings.NarrativeScriptTextAsset);
+                _narrativeGameState.StartGame();
+
             }
             
-            _narrativeGameState.StartGame();
+            Debug.LogWarning("No narrative script text asset assigned. Game will not start.");
         }
     }
 }

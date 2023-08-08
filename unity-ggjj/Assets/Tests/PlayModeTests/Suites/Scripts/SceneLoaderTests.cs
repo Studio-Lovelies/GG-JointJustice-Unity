@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using GameState;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using SceneLoading;
 using Tests.PlayModeTests.Tools;
 using UnityEditor;
@@ -17,10 +20,33 @@ namespace Tests.PlayModeTests.Suites.Scripts
 {
     public class SceneLoaderTests
     {
+        private const string GAME_START_SETTINGS_PATH = "Assets/Scripts/SceneLoading/GameStartSettings.asset";
         private const string BLANK_SCENE = "Assets/Tests/PlayModeTests/TestScenes/BlankScene.unity";
         private const string ROSS_COOL_X = "Assets/Tests/PlayModeTests/TestScripts/RossCoolX.json";
         private const string GAME_SCENE_NAME = "Game";
         private const string MAIN_MENU_SCENE_NAME = "MainMenu";
+
+        private SceneLoader _sceneLoader;
+        private GameLoader _gameLoader;
+        private GameStartSettings _gameStartSettings;
+
+        [UnitySetUp]
+        public IEnumerator Setup()
+        {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(BLANK_SCENE, new LoadSceneParameters());
+            _sceneLoader = new GameObject().AddComponent<SceneLoader>();
+            _gameLoader = _sceneLoader.gameObject.AddComponent<GameLoader>();
+            _gameStartSettings = AssetDatabase.LoadAssetAtPath<GameStartSettings>(GAME_START_SETTINGS_PATH);
+            Assert.IsNotNull(_gameStartSettings, "Could not load game start settings.");
+            TestTools.SetField(_gameLoader, "_gameStartSettings", _gameStartSettings);
+            _gameLoader.NarrativeScriptTextAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(ROSS_COOL_X);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _gameStartSettings.NarrativeScriptTextAsset = null;
+        }
         
         [UnityTest]
         public IEnumerator AttemptingToLoadTwoScenesWhileBusyOnlyLoadsScene1()
@@ -28,9 +54,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
             const string SCENE1 = GAME_SCENE_NAME;
             const string SCENE2 = MAIN_MENU_SCENE_NAME;
             
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(BLANK_SCENE, new LoadSceneParameters());
             var sceneLoader = new GameObject().AddComponent<SceneLoader>();
-            // sceneLoader.NarrativeScript = AssetDatabase.LoadAssetAtPath<TextAsset>(ROSS_COOL_X);TODO replace with game starter
             
             sceneLoader.LoadScene(SCENE1);
             sceneLoader.LoadScene(SCENE2);
@@ -48,102 +72,26 @@ namespace Tests.PlayModeTests.Suites.Scripts
         [UnityTest]
         public IEnumerator GameSceneCanBeLoadedWithNarrativeScriptWhenNarrativeGameStateIsPresent()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(BLANK_SCENE, new LoadSceneParameters());
-            var sceneLoader = new GameObject().AddComponent<SceneLoader>();
-            // sceneLoader.NarrativeScript = AssetDatabase.LoadAssetAtPath<TextAsset>(ROSS_COOL_X);TODO replace with game starter
-            
-            sceneLoader.LoadScene(GAME_SCENE_NAME);
-            
+            _gameLoader.StartGame();
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == GAME_SCENE_NAME);
             var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
             Assert.AreEqual("RossCoolX", narrativeGameState.NarrativeScriptStorage.NarrativeScript.Script.name);
         }
-        
+
         [UnityTest]
-        public IEnumerator ThrowsExceptionWithoutNarrativeGameStateComponentWhenNeedingToSetNarrativeScript()
+        public IEnumerator DebugGameStarterGetsSkipped()
         {
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(BLANK_SCENE, new LoadSceneParameters());
-            var sceneLoader = new GameObject().AddComponent<SceneLoader>();
-            // sceneLoader.NarrativeScript = AssetDatabase.LoadAssetAtPath<TextAsset>(ROSS_COOL_X);TODO replace with game starter
-
-            sceneLoader.LoadScene(MAIN_MENU_SCENE_NAME);
+            const string TEST_DEBUG_STRING_PATH = "Assets/Tests/PlayModeTests/TestScripts/DynamicAudio.json";
             
-            yield return TestTools.WaitForState(() =>
-            {
-                for (var i = 0; i < SceneManager.sceneCount; i++)
-                {
-                    var scene = SceneManager.GetSceneAt(i);
-                    if (scene.name != MAIN_MENU_SCENE_NAME)
-                    {
-                        continue;
-                    }
-
-                    if (!scene.isLoaded)
-                    {
-                        continue;
-                    }
-
-                    return true;
-                }
-
-                return false;
-            });
-            LogAssert.Expect(LogType.Exception, new Regex($"{nameof(NullReferenceException)}: "));
+            _gameLoader.StartGame();
+            yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == GAME_SCENE_NAME);
+            var gameStarter = Object.FindObjectOfType<GameStarter>();
+            Assert.IsNotNull(gameStarter, "The Game scene requires a GameStarter; if this should not be used, unset the narrative script inside it instead");
+            var testDebugScript = AssetDatabase.LoadAssetAtPath<TextAsset>(TEST_DEBUG_STRING_PATH);
+            Assert.NotNull(testDebugScript, "Specified test debug script could not be loaded.");
+            TestTools.SetField(gameStarter, "_debugNarrativeScriptTextAsset", testDebugScript);
+            var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            Assert.AreEqual("RossCoolX", narrativeGameState.NarrativeScriptStorage.NarrativeScript.Script.name);
         }
-        
-        // [UnityTest]
-        // public IEnumerator SucceedsWithoutNarrativeGameStateIfNoNarrativeScriptIsSet()
-        // {
-        //     yield return EditorSceneManager.LoadSceneAsyncInPlayMode(BLANK_SCENE, new LoadSceneParameters());
-        //     var sceneLoader = new GameObject().AddComponent<SceneLoader>();
-        //     sceneLoader.NarrativeScript = null;
-        //     
-        //     sceneLoader.LoadScene(MAIN_MENU_SCENE_NAME);
-        //     
-        //     yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == MAIN_MENU_SCENE_NAME);
-        // } TODO replace test
-        //
-        // [UnityTest]
-        // public IEnumerator DebugGameStarterGetsSkipped()
-        // {
-        //     yield return EditorSceneManager.LoadSceneAsyncInPlayMode(BLANK_SCENE, new LoadSceneParameters());
-        //     var sceneLoader = new GameObject().AddComponent<SceneLoader>();
-        //     sceneLoader.NarrativeScript = AssetDatabase.LoadAssetAtPath<TextAsset>(ROSS_COOL_X);
-        //
-        //     var debugGameStarterWasSetUp = false;
-        //
-        //     void OnSceneManagerOnsceneLoaded(Scene scene, LoadSceneMode mode)
-        //     {
-        //         SceneManager.sceneLoaded -= OnSceneManagerOnsceneLoaded;
-        //         if (scene.name != GAME_SCENE_NAME)
-        //         {
-        //             return;
-        //         }
-        //
-        //         DebugGameStarter debugGameStarter = null;
-        //         foreach (var rootGameObject in scene.GetRootGameObjects())
-        //         {
-        //             debugGameStarter = rootGameObject.GetComponent<DebugGameStarter>();
-        //             if (debugGameStarter != null)
-        //             {
-        //                 break;
-        //             }
-        //         }
-        //
-        //         Assert.IsNotNull(debugGameStarter, "The Game scene requires a DebugGameStarter; if this should not be used, unset the narrative script inside it instead");
-        //         debugGameStarter.GetComponent<DebugGameStarter>().narrativeScript = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Tests/PlayModeTests/TestScripts/DynamicAudio.json");
-        //
-        //         debugGameStarterWasSetUp = true;
-        //     }
-        //
-        //     SceneManager.sceneLoaded += OnSceneManagerOnsceneLoaded;
-        //         
-        //     sceneLoader.LoadScene(GAME_SCENE_NAME);
-        //     
-        //     yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == GAME_SCENE_NAME);
-        //     Assert.IsTrue(debugGameStarterWasSetUp);
-        //     var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
-        //     Assert.AreEqual("RossCoolX", narrativeGameState.NarrativeScriptStorage.NarrativeScript.Script.name);
-        // } TODO replace test
     }
 }
