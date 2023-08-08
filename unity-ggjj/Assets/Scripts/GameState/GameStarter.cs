@@ -31,8 +31,10 @@ namespace GameState
                 _narrativeGameState.StartGame();
 
             }
-            
-            Debug.LogWarning("No narrative script text asset assigned. Game will not start.");
+            else
+            {
+                Debug.LogWarning("No narrative script text asset assigned. Game will not start.");
+            }
         }
     }
 }
