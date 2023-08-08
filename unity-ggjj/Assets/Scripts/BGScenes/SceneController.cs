@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using SceneLoading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -313,7 +314,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     public void ReloadScene()
     {
-        _sceneLoader.NarrativeScript = _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.RootNarrativeScript.Script;
+        // _sceneLoader.NarrativeScript = _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.RootNarrativeScript.Script;TODO replace with game starter
         _sceneLoader.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

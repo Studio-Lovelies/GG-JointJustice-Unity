@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using SceneLoading;
 using UnityEngine.UI;
 
 public class CaseSelectMenu : MonoBehaviour
@@ -53,7 +54,7 @@ public class CaseSelectMenu : MonoBehaviour
         if (narrativeCase.Chapters.Length == 1)
         {
             _audioController.PlaySfx(_startGameSound);
-            _sceneLoader.NarrativeScript = narrativeCase.Chapters[0];
+            // _sceneLoader.NarrativeScript = narrativeCase.Chapters[0]; // TODO Replace with game starter
             _sceneLoader.LoadScene("Game");
             return;
         }

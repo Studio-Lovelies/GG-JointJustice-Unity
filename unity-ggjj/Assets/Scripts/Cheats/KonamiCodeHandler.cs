@@ -1,3 +1,5 @@
+using SceneLoading;
+
 namespace Cheats
 {
     using UnityEngine;
@@ -41,7 +43,7 @@ namespace Cheats
                 }
                 
                 Debug.Log("[KONAMICODE] Cheat Activated!");
-                sceneLoaderToChange.NarrativeScript = newScene;
+                // sceneLoaderToChange.NarrativeScript = newScene; TODO replace with game starter
             };
         }
     }

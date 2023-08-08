@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SceneLoading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,7 +51,7 @@ public class ChapterSelectMenu : MonoBehaviour
     private void StartGame(TextAsset story)
     {
         _audioController.PlaySfx(_startGameSound);
-        _sceneLoader.NarrativeScript = story;
+        // _sceneLoader.NarrativeScript = story; TODO replace with game starter
         _sceneLoader.LoadScene("Game");
     }
 }

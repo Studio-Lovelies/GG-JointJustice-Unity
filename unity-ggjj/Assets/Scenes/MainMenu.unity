@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -623,21 +623,6 @@ MonoBehaviour:
   _imageFader: {fileID: 1961069503}
   _shouldFadeInOnAwake: 0
   _fadeTime: 1
-  _onTransitionOutComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 348271463}
-        m_TargetAssemblyTypeName: QuitGame, GG-JointJustice
-        m_MethodName: ExecuteQuit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   _onTransitionInComplete:
     m_PersistentCalls:
       m_Calls: []
@@ -1095,7 +1080,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 1638858259}
     m_Modifications:
     - target: {fileID: 7387902164298400915, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
@@ -1299,7 +1284,9 @@ PrefabInstance:
       value: 55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
 --- !u!224 &794544587 stripped
 RectTransform:
@@ -1612,6 +1599,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1988,9 +1976,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -2394,6 +2390,7 @@ GameObject:
   - component: {fileID: 1316906785}
   - component: {fileID: 1316906783}
   - component: {fileID: 1316906786}
+  - component: {fileID: 1316906787}
   m_Layer: 5
   m_Name: NewGameButton
   m_TagString: Untagged
@@ -2466,10 +2463,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1316906784}
-        m_TargetAssemblyTypeName: SceneLoader, GG-JointJustice
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 1316906787}
+        m_TargetAssemblyTypeName: SceneLoading.GameStarter, GG-JointJustice
+        m_MethodName: StartGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2587,7 +2584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33de4f31ae9f94bf6a3ef7e8c1b64085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <NarrativeScript>k__BackingField: {fileID: 4900000, guid: c2d26570bbb424d3598fa05e0d7adbaf, type: 3}
 --- !u!114 &1316906785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2615,24 +2611,23 @@ MonoBehaviour:
   _imageFader: {fileID: 1961069503}
   _shouldFadeInOnAwake: 0
   _fadeTime: 1
-  _onTransitionOutComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1316906784}
-        m_TargetAssemblyTypeName: SceneLoader, GG-JointJustice
-        m_MethodName: LoadSceneCallback
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   _onTransitionInComplete:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1316906787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316906777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bbd0709d561026f6b6319d141061736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <NarrativeScriptTextAsset>k__BackingField: {fileID: 4900000, guid: c2d26570bbb424d3598fa05e0d7adbaf, type: 3}
+  _gameStartSettings: {fileID: 11400000, guid: cd99fbc599aa449fb855f6a61725a529, type: 2}
 --- !u!1 &1336736342
 GameObject:
   m_ObjectHideFlags: 0
@@ -3890,6 +3885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_ActionsAsset: {fileID: -944628639613478452, guid: 3b3ca44a1d04d4c5c847c1b48fb83536, type: 3}
@@ -3977,7 +3973,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 1293895579}
     m_Modifications:
     - target: {fileID: 7387902164298400915, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
@@ -4093,14 +4089,16 @@ PrefabInstance:
       value: 32
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3197a9c4f3ab4f33a55801f7e7d9d24, type: 3}
 --- !u!1001 &163379932400809381
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 919536739}
     m_Modifications:
     - target: {fileID: 84513421286721744, guid: c512ae8e9efc1421fad9d693b19695c6, type: 3}
@@ -4412,7 +4410,9 @@ PrefabInstance:
       value: -25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c512ae8e9efc1421fad9d693b19695c6, type: 3}
 --- !u!224 &163379932400809382 stripped
 RectTransform:
@@ -4435,7 +4435,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 919536739}
     m_Modifications:
     - target: {fileID: 57751957647744788, guid: b5398967ba96a4cda8241cc491234801, type: 3}
@@ -4867,7 +4867,9 @@ PrefabInstance:
       value: -481
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5398967ba96a4cda8241cc491234801, type: 3}
 --- !u!224 &2851324220263733086 stripped
 RectTransform:
@@ -4890,7 +4892,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 919536739}
     m_Modifications:
     - target: {fileID: 956895972949039202, guid: f92e1c57351e244b78ca759d0813b467, type: 3}
@@ -5302,7 +5304,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f92e1c57351e244b78ca759d0813b467, type: 3}
 --- !u!224 &4356799947104378610 stripped
 RectTransform:

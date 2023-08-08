@@ -19,9 +19,6 @@ public class FadeToImageTransition : MonoBehaviour, ITransition
 
     [SerializeField, Tooltip("The time in seconds to fade.")]
     private float _fadeTime;
-    
-    [SerializeField, Tooltip("This event is called when transition at the end of a scene is complete. Should be subscribed to to load the next scene.")]
-    private UnityEvent _onTransitionOutComplete;
 
     [SerializeField, Tooltip("This event is called when a transition at the start of a scene is complete. Should be subscribed to in order to start scene once faded in.")]
     private UnityEvent _onTransitionInComplete;
@@ -42,8 +39,8 @@ public class FadeToImageTransition : MonoBehaviour, ITransition
     /// Call this method to begin the transition at the end of a scene.
     /// Used by SceneLoader which does not necessarily know how a scene transition is being handled.
     /// </summary>
-    public void Transition()
+    public void Transition(Action callback)
     {
-        _imageFader.StartFade(0, 1, _fadeTime, _onTransitionOutComplete.Invoke);
+        _imageFader.StartFade(0, 1, _fadeTime, callback);
     }
 }

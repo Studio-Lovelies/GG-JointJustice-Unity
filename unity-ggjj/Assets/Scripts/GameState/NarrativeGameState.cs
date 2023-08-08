@@ -1,3 +1,4 @@
+using SceneLoading;
 using UnityEngine;
 
 public class NarrativeGameState : MonoBehaviour, INarrativeGameState
