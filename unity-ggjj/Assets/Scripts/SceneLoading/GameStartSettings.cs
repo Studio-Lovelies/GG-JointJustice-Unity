@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace SceneLoading
 {
+    /// <summary>
+    /// Used to transfer a narrative script text asset between scenes
+    /// NarrativeScriptTextAsset can only be accessed once. It sets itself to null as changes can persist in the UnityEditor, causing unexpected behaviour
+    /// When calling NarrativeScriptTextAsset, store its value in a local variable in order to access it multiple times
+    /// </summary>
     [CreateAssetMenu(menuName = "Game Start Settings", fileName = "New game start settings")]
     public class GameStartSettings : ScriptableObject
     {
