@@ -1,6 +1,5 @@
 using SceneLoading;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GameState
 {
@@ -22,27 +21,25 @@ namespace GameState
             if (_debugNarrativeScriptTextAsset != null)
             {
                 Debug.Log($"DebugGameStarter: Running script {_debugNarrativeScriptTextAsset.name}");
-                _narrativeGameState.NarrativeScriptStorage.NarrativeScript =
-                    new NarrativeScript(_debugNarrativeScriptTextAsset);
+                _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_debugNarrativeScriptTextAsset);
                 _narrativeGameState.StartGame();
+                return;
             }
-            else
+
+            if (_gameStartSettings == null)
             {
-                if (_gameStartSettings == null)
-                {
-                    Debug.LogWarning("No debug narrative script text asset or GameStartSettings instance assigned. Game will not start.");
-                }
-                
-                if (_gameStartSettings.IsNarrativeScriptTextAssetAssigned)
-                {
-                    _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_gameStartSettings.GetAndClearNarrativeScriptTextAsset());
-                    _narrativeGameState.StartGame();
-                }
-                else
-                {
-                    Debug.LogWarning("No narrative script text asset assigned to GameStartSettings instance. Game will not start.");
-                }
+                Debug.LogWarning("No debug narrative script text asset or GameStartSettings instance assigned. Game will not start.");
+                return;
             }
+                
+            if (_gameStartSettings.IsNarrativeScriptTextAssetAssigned)
+            {
+                _narrativeGameState.NarrativeScriptStorage.NarrativeScript = new NarrativeScript(_gameStartSettings.GetAndClearNarrativeScriptTextAsset());
+                _narrativeGameState.StartGame();
+                return;
+            }
+            
+            Debug.LogWarning("No narrative script text asset assigned to GameStartSettings instance. Game will not start.");
         }
     }
 }
