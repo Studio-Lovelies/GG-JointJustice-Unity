@@ -1,12 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using GameState;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using SceneLoading;
 using Tests.PlayModeTests.Tools;
 using UnityEditor;
@@ -45,7 +41,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
         [TearDown]
         public void TearDown()
         {
-            _gameStartSettings.NarrativeScriptTextAsset = null;
+            _gameStartSettings.SetNarrativeScriptTextAsset(null);
         }
         
         [UnityTest]

@@ -33,7 +33,7 @@ namespace GameState
                     Debug.LogWarning("No debug narrative script text asset or GameStartSettings instance assigned. Game will not start.");
                 }
 
-                var narrativeScriptTextAsset = _gameStartSettings.NarrativeScriptTextAsset;
+                var narrativeScriptTextAsset = _gameStartSettings.GetAndClearNarrativeScriptTextAsset();
                 if (narrativeScriptTextAsset != null)
                 {
                     _narrativeGameState.NarrativeScriptStorage.NarrativeScript =

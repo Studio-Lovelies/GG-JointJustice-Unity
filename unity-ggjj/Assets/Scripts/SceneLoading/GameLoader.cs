@@ -18,7 +18,7 @@ namespace SceneLoading
 
         public void StartGame()
         {
-            _gameStartSettings.NarrativeScriptTextAsset = NarrativeScriptTextAsset;
+            _gameStartSettings.SetNarrativeScriptTextAsset(NarrativeScriptTextAsset);
             _sceneLoader.LoadScene(GAME_SCENE_NAME);
         }
     }

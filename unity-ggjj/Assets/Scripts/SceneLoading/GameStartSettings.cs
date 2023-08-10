@@ -1,4 +1,4 @@
-using Ink.Parsed;
+using System;
 using UnityEngine;
 
 namespace SceneLoading
@@ -12,15 +12,22 @@ namespace SceneLoading
     public class GameStartSettings : ScriptableObject
     {
         private TextAsset _narrativeScriptTextAsset;
-        public TextAsset NarrativeScriptTextAsset
+
+        public TextAsset GetAndClearNarrativeScriptTextAsset()
         {
-            get
+            if (_narrativeScriptTextAsset == null)
             {
-                var narrativeScriptTextAsset = _narrativeScriptTextAsset;
-                _narrativeScriptTextAsset = null;
-                return narrativeScriptTextAsset;
+                throw new InvalidOperationException("Stored narrative script text asset can only be accessed once. If you wish to access the narrative script text asset multiple times a reference must be stored locally.");
             }
-            set => _narrativeScriptTextAsset = value;
+            
+            var narrativeScriptTextAsset = _narrativeScriptTextAsset;
+            _narrativeScriptTextAsset = null;
+            return narrativeScriptTextAsset;
+        }
+
+        public void SetNarrativeScriptTextAsset(TextAsset narrativeScriptTextAsset)
+        {
+            _narrativeScriptTextAsset = narrativeScriptTextAsset;
         }
     }
 }
