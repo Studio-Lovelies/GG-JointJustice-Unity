@@ -1,4 +1,6 @@
+using System;
+
 public interface ITransition
 {
-    public void Transition();
+    public void Transition(Action callback);
 }

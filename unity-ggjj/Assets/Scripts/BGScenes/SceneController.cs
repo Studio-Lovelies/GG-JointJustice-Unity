@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using SceneLoading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -29,8 +30,8 @@ public class SceneController : MonoBehaviour, ISceneController
     [Tooltip("Drag a Shout component here.")]
     [SerializeField] private ShoutPlayer _shoutPlayer;
 
-    [Tooltip("Drag a SceneLoader object here.")]
-    [SerializeField] private SceneLoader _sceneLoader;
+    [Tooltip("Drag a GameLoader object here.")]
+    [SerializeField] private GameLoader _gameLoader;
 
     [Tooltip("Drag the witness testimony sign here.")]
     [SerializeField] private GameObject _witnessTestimonySign;
@@ -40,9 +41,9 @@ public class SceneController : MonoBehaviour, ISceneController
 
     public void Awake()
     {
-        if (_sceneLoader == null)
+        if (_gameLoader == null)
         {
-            throw new NullReferenceException(nameof(_sceneLoader) + " mustn't be set to null");
+            throw new NullReferenceException(nameof(_gameLoader) + " mustn't be set to null");
         }
     }
 
@@ -313,7 +314,7 @@ public class SceneController : MonoBehaviour, ISceneController
     /// </summary>
     public void ReloadScene()
     {
-        _sceneLoader.NarrativeScript = _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.RootNarrativeScript.Script;
-        _sceneLoader.LoadScene(SceneManager.GetActiveScene().name);
+        _gameLoader.NarrativeScriptTextAsset = _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.RootNarrativeScript.Script;
+        _gameLoader.StartGame();
     }
 }

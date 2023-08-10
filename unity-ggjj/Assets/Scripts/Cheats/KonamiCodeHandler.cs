@@ -1,3 +1,6 @@
+using SceneLoading;
+using UnityEngine.Serialization;
+
 namespace Cheats
 {
     using UnityEngine;
@@ -10,9 +13,9 @@ namespace Cheats
                                                                         .Replace("ENTER", "START");
         
         private readonly string[] _cheat = { "UP", "UP", "DOWN", "DOWN", "LEFT", "RIGHT", "LEFT", "RIGHT", "B", "A", "START" };
-        
-        [SerializeField] private SceneLoader sceneLoaderToChange;
-        [SerializeField] private TextAsset newScene;
+
+        [SerializeField] private GameLoader _gameLoader;
+        [SerializeField] private TextAsset _newScene;
         
         private int _currentCheatIndex;
         private void Awake()
@@ -41,7 +44,7 @@ namespace Cheats
                 }
                 
                 Debug.Log("[KONAMICODE] Cheat Activated!");
-                sceneLoaderToChange.NarrativeScript = newScene;
+                _gameLoader.NarrativeScriptTextAsset = _newScene;
             };
         }
     }

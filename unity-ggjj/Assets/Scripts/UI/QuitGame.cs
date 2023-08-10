@@ -17,7 +17,7 @@ public class QuitGame : MonoBehaviour
     {
         if (_transition != null)
         {
-            _transition.Transition();
+            _transition.Transition(null);
         }
         else
         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SceneLoading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ public class ChapterSelectMenu : MonoBehaviour
     [SerializeField] private Button _backButton;
     [SerializeField] private AudioController _audioController;
     [SerializeField] private AudioClip _buttonSelectAudioClip;
-    [SerializeField] private SceneLoader _sceneLoader;
+    [SerializeField] private GameLoader _gameLoader;
     [SerializeField] private AudioClip _startGameSound;
 
     private readonly List<MenuItem> _menuItems = new List<MenuItem>();
@@ -50,7 +51,7 @@ public class ChapterSelectMenu : MonoBehaviour
     private void StartGame(TextAsset story)
     {
         _audioController.PlaySfx(_startGameSound);
-        _sceneLoader.NarrativeScript = story;
-        _sceneLoader.LoadScene("Game");
+        _gameLoader.NarrativeScriptTextAsset = story;
+        _gameLoader.StartGame();
     }
 }
