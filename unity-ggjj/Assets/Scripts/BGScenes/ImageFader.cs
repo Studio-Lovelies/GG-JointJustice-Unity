@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using Ink.Runtime;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
