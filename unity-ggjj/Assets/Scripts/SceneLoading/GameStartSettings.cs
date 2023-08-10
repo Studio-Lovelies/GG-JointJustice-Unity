@@ -13,6 +13,8 @@ namespace SceneLoading
     {
         private TextAsset _narrativeScriptTextAsset;
 
+        public bool IsNarrativeScriptTextAssetAssigned => _narrativeScriptTextAsset != null;
+
         public TextAsset GetAndClearNarrativeScriptTextAsset()
         {
             if (_narrativeScriptTextAsset == null)

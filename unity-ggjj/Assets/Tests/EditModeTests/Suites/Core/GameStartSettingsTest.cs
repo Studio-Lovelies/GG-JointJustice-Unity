@@ -22,9 +22,13 @@ namespace Tests.EditModeTests.Suites
             Assert.NotNull(gameStartSettings);
             Assert.NotNull(testNarrativeScriptTextAsset);
             
+            Assert.IsFalse(gameStartSettings.IsNarrativeScriptTextAssetAssigned);
             gameStartSettings.SetNarrativeScriptTextAsset(testNarrativeScriptTextAsset);
+            Assert.IsTrue(gameStartSettings.IsNarrativeScriptTextAssetAssigned);
+            
             var narrativeScriptTextAsset = gameStartSettings.GetAndClearNarrativeScriptTextAsset();
             Assert.AreEqual(testNarrativeScriptTextAsset, narrativeScriptTextAsset);
+            Assert.IsFalse(gameStartSettings.IsNarrativeScriptTextAssetAssigned);
 
             Assert.Throws<InvalidOperationException>(() => gameStartSettings.GetAndClearNarrativeScriptTextAsset());
         }
