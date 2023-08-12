@@ -236,6 +236,7 @@
   - Lean
   - Normal
   - NormalTalking
+  - SideNormal
 ### Jory
   - Nervous
   - NervousTalking
