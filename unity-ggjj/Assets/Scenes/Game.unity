@@ -5038,7 +5038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameStartSettings: {fileID: 11400000, guid: cd99fbc599aa449fb855f6a61725a529, type: 2}
-  _debugNarrativeScriptTextAsset: {fileID: 0}
+  _debugNarrativeScriptTextAsset: {fileID: 4900000, guid: 8f9a85b8095344c73aab5d77be6bfb93, type: 3}
 --- !u!1 &8699442053336843567
 GameObject:
   m_ObjectHideFlags: 0
