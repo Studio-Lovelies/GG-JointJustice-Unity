@@ -1,6 +1,4 @@
-using System;
 using SceneLoading;
-using UnityEngine.Serialization;
 
 namespace Cheats
 {
