@@ -32,3 +32,8 @@ I thought... I thought you...
 &THINK:Baby
 Yes, father, it is me.
 Although my mother died before giving birth, Doctor Doodle was able to rescue me before it was too late.
+
+&HIDE_TEXTBOX
+&FADE_OUT:2
+&LOAD_SCENE:MainMenu
+-> END
