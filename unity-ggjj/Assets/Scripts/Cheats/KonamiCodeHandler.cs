@@ -1,3 +1,4 @@
+using System;
 using SceneLoading;
 using UnityEngine.Serialization;
 
@@ -18,11 +19,13 @@ namespace Cheats
         [SerializeField] private TextAsset _newScene;
         
         private int _currentCheatIndex;
-        private void Awake()
+        private Controls _cheatInput;
+
+        private void OnEnable()
         {
-            var cheatInput = new Controls();
-            cheatInput.Enable();
-            cheatInput.Keyboard.ValidKeys.performed += ctx =>
+            _cheatInput = new Controls();
+            _cheatInput.Enable();
+            _cheatInput.Keyboard.ValidKeys.performed += ctx =>
             {
                 var pressedKey = NormalizeInput(ctx.control.name);
                 
@@ -46,6 +49,11 @@ namespace Cheats
                 Debug.Log("[KONAMICODE] Cheat Activated!");
                 _gameLoader.NarrativeScriptTextAsset = _newScene;
             };
+        }
+
+        private void OnDisable()
+        {
+            _cheatInput.Disable();
         }
     }
 
