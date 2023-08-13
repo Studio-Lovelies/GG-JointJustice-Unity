@@ -232,10 +232,10 @@
   - AirGuitar
   - Angry
   - AngryTalking
-  - DanNormal
   - Lean
   - Normal
   - NormalTalking
+  - SideNormal
 ### Jory
   - Nervous
   - NervousTalking
