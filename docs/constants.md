@@ -232,7 +232,6 @@
   - AirGuitar
   - Angry
   - AngryTalking
-  - DanNormal
   - Lean
   - Normal
   - NormalTalking
