@@ -5,7 +5,7 @@ INCLUDE StartingEvidence.ink
 <- Part1StartingEvidence
 
 &PLAY_SONG:turnaboutGrumpsters,{songFadeTime}
-&DIALOGUE_SPEED:0.06
+&DIALOGUE_SPEED:0.05
 &SPEAK:Arin
 <color={blue}>(It started out just like every time after our livestream.)
 <color={blue}>(We had just finished a session playing Penix Wright: Facial Attorney<sup>(tm)</sup>.)
