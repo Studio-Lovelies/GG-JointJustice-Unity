@@ -10,6 +10,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
     [SerializeField]private Animator _penaltyObject;
 
     [SerializeField] private int _penaltyCount = 5;
+    [SerializeField] private AudioClip _penaltyAudioClip;
 
     private readonly Queue<Animator> _penaltyObjects = new Queue<Animator>();
 
@@ -59,6 +60,7 @@ public class PenaltyManager : MonoBehaviour, IPenaltyManager
         Debug.Assert(PenaltiesLeft > 0, "Decrement must not be called with 0 or fewer penalty lifelines left");
         PenaltiesLeft--;
         _penaltyObjects.Dequeue().Play("Explosion");
+        _narrativeGameState.AudioController.PlaySfx(_penaltyAudioClip);
         if (PenaltiesLeft == 0)
         {
             _narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScriptPlayer.OnNarrativeScriptComplete += OnNoLivesLeft;

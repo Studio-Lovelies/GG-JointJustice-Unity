@@ -142,12 +142,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         IsPrintingText = true;
         for (int i = startingIndex; i < _textInfo.characterCount; i++)
         {
-            if (SpeedupText)
-            {
-                _textBox.maxVisibleCharacters = _textInfo.characterCount;
-                EndLine();
-                yield break;
-            }
             _textBox.maxVisibleCharacters++;
             var currentCharacterInfo = _textInfo.characterInfo[_textBox.maxVisibleCharacters - 1];
             TryPlayDialogueChirp(_namebox.CurrentActorDialogueChirp, currentCharacterInfo);
@@ -182,7 +176,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             resultChirp = _defaultDialogueChirpSfx;
         }
-        
+
         if (_chirpIndex % _chirpEveryNthLetter == 0)
         {
             _narrativeGameState.AudioController.PlayDialogueChirp(resultChirp);
