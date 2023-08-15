@@ -2480,6 +2480,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7962780514542778033, guid: f4cda231489f65341910a0acac208946, type: 3}
+      propertyPath: _penaltyAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16967893638c5084fa08e7519deff9b6, type: 3}
+    - target: {fileID: 7962780514542778033, guid: f4cda231489f65341910a0acac208946, type: 3}
       propertyPath: _narrativeGameState
       value: 
       objectReference: {fileID: 7963640705624872190}

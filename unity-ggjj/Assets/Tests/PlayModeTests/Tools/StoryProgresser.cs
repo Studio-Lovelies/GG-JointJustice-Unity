@@ -64,7 +64,7 @@ namespace Tests.PlayModeTests.Tools
                 yield break;
             }
             
-            // Check if the item being presented in an actor
+            // Check if the item being presented is an actor
             if (courtRecordObjects.Any(courtRecordObject => courtRecordObject is ActorData && courtRecordObject.InstanceName == evidenceName))
             {
                 yield return PressForFrame(keyboard.cKey);

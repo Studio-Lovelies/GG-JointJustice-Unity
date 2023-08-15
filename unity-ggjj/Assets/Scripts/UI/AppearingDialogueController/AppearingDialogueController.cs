@@ -176,7 +176,7 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
         {
             resultChirp = _defaultDialogueChirpSfx;
         }
-        
+
         if (_chirpIndex % _chirpEveryNthLetter == 0)
         {
             _narrativeGameState.AudioController.PlayDialogueChirp(resultChirp);
