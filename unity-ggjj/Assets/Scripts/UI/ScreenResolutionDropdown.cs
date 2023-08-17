@@ -18,11 +18,6 @@ public class ScreenResolutionDropdown : MonoBehaviour
         _dropdown.ClearOptions();
         _dropdown.AddOptions(options);
         
-        Debug.Log(Screen.width + "x" + Screen.height);
-        
-        Debug.Log(string.Join("\n", Screen.resolutions.Select((res, index) => new {res, index})
-            .Select(x => $"{x.res.width}x{x.res.height} -> {Mathf.Abs(x.res.width - Screen.width) + Mathf.Abs(x.res.height - Screen.height)}")));
-
         _dropdown.value = Screen.resolutions.Select((res, index) => new {res, index})
             .OrderBy(x => Mathf.Abs(x.res.width - Screen.width) + Mathf.Abs(x.res.height - Screen.height))
             .First().index;
