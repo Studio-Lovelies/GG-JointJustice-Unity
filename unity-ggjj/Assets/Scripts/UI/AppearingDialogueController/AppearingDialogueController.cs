@@ -44,7 +44,6 @@ public class AppearingDialogueController : MonoBehaviour, IAppearingDialogueCont
     [Range(0, 1)]
     [Tooltip("Relative volume (0=0% to 1=100%) of the chirp sound when the text-box is sped up")]
     [SerializeField] private float _chirpVolumeDuringSpeedup = 0.18f;
-    private float _currentChirpVolume = 1.0f;
 
     [SerializeField] private GameObject _continueArrow;
 
