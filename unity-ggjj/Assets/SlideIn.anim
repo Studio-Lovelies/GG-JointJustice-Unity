@@ -217,7 +217,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Pivot.x
-    path: Text
+    path: Indicator
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -247,7 +247,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Pivot.y
-    path: Text
+    path: Indicator
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -347,7 +347,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2612594937
+      path: 1405427472
       attribute: 3640387206
       script: {fileID: 0}
       typeID: 224
@@ -383,7 +383,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2612594937
+      path: 1405427472
       attribute: 2952582672
       script: {fileID: 0}
       typeID: 224
@@ -622,7 +622,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Pivot.x
-    path: Text
+    path: Indicator
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -652,7 +652,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Pivot.y
-    path: Text
+    path: Indicator
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -729,6 +729,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: ShowTrack
+    data: "Dragon Slayer (NSP) \xD7 Objection (Ace Attorney) by SavestateCorrupted"
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1
     functionName: StartScrolling
     data: 

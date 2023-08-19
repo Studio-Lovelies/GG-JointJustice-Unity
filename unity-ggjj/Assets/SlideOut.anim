@@ -136,7 +136,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Pivot.x
-    path: Text
+    path: Indicator
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -157,7 +157,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Pivot.y
-    path: Text
+    path: Indicator
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -433,7 +433,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Pivot.x
-    path: Text
+    path: Indicator
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -454,7 +454,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Pivot.y
-    path: Text
+    path: Indicator
     classID: 224
     script: {fileID: 0}
     flags: 0

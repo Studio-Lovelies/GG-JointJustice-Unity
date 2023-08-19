@@ -76,6 +76,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "TriggerMusicHint",
+                    "type": "Button",
+                    "id": "e9c8b128-c148-45bf-a4fa-f98b83669707",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -252,6 +260,17 @@
                     "processors": "",
                     "groups": "Mouse and Keyboard",
                     "action": "ToggleTextSpeedupHeld",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "87bcafc7-4edd-41c6-85ff-7c227eb02083",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "TriggerMusicHint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
