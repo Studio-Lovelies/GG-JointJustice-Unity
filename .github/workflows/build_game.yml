@@ -55,7 +55,7 @@ jobs:
             unity-ggjj/Library-
 
       - name: Build project
-        uses: game-ci/unity-builder@v2
+        uses: game-ci/unity-builder@v3
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
