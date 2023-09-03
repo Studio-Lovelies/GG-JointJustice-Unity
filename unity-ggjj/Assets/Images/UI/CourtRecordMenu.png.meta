@@ -155,10 +155,10 @@ TextureImporter:
       name: CourtRecordMenu_0
       rect:
         serializedVersion: 2
-        x: 137
-        y: 451
-        width: 1404
-        height: 452
+        x: 23
+        y: 75
+        width: 23
+        height: 75
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +176,10 @@ TextureImporter:
       name: CourtRecordMenu_1
       rect:
         serializedVersion: 2
-        x: 162
-        y: 77
-        width: 140
-        height: 140
+        x: 27
+        y: 13
+        width: 23
+        height: 23
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: CourtRecordMenu_2
       rect:
         serializedVersion: 2
-        x: 351
-        y: 79
-        width: 140
-        height: 140
+        x: 59
+        y: 13
+        width: 23
+        height: 23
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: CourtRecordMenu_3
       rect:
         serializedVersion: 2
-        x: 562
-        y: 91
-        width: 36
-        height: 73
+        x: 94
+        y: 15
+        width: 6
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,10 +239,10 @@ TextureImporter:
       name: CourtRecordMenu_4
       rect:
         serializedVersion: 2
-        x: 720
-        y: 79
-        width: 92
-        height: 111
+        x: 120
+        y: 13
+        width: 15
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,10 +260,10 @@ TextureImporter:
       name: CourtRecordMenu_5
       rect:
         serializedVersion: 2
-        x: 137
-        y: 277
-        width: 1404
-        height: 174
+        x: 23
+        y: 46
+        width: 234
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,10 +281,10 @@ TextureImporter:
       name: CourtRecordMenu_6
       rect:
         serializedVersion: 2
-        x: 137
-        y: 903
-        width: 1404
-        height: 34
+        x: 23
+        y: 150
+        width: 234
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,10 +302,10 @@ TextureImporter:
       name: CourtRecordMenu_7
       rect:
         serializedVersion: 2
-        x: 1541
-        y: 385
-        width: 110
-        height: 131
+        x: 257
+        y: 64
+        width: 18
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,10 +323,10 @@ TextureImporter:
       name: CourtRecordMenu_8
       rect:
         serializedVersion: 2
-        x: 27
-        y: 385
-        width: 110
-        height: 131
+        x: 5
+        y: 64
+        width: 18
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
