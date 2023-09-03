@@ -1,28 +1,7 @@
 fileFormatVersion: 2
-guid: 9598cd5c1fe904ece9525f7f72378bff
+guid: 2df219ef86412284cb3002ae7dbb2c34
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 3754167101509139008
-    second: CourtRecordMenu_0
-  - first:
-      213: -1852996125914382182
-    second: CourtRecordMenu_1
-  - first:
-      213: -2381924820161701302
-    second: CourtRecordMenu_2
-  - first:
-      213: 5149837370543474106
-    second: CourtRecordMenu_3
-  - first:
-      213: -7533126629001607108
-    second: CourtRecordMenu_4
-  - first:
-      213: -5747449629671599477
-    second: CourtRecordMenu_7
-  - first:
-      213: -2681213138340860894
-    second: CourtRecordMenu_8
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -86,14 +65,14 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,10 +82,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,36 +95,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Server
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 16384
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 16384
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -157,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CourtRecordMenu_0
+      name: CourtRecordMenu.pngTrue_0
       rect:
         serializedVersion: 2
-        x: 137
-        y: 453
-        width: 1404
-        height: 452
+        x: 45
+        y: 149
+        width: 463
+        height: 150
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04af8e0a61b791430800000000000000
-      internalID: 3754167101509139008
+      spriteID: 5fe67243017797a45837e3b53e87bea2
+      internalID: 1246412459
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CourtRecordMenu_1
+      name: CourtRecordMenu.pngTrue_1
       rect:
         serializedVersion: 2
-        x: 162
-        y: 77
-        width: 140
-        height: 140
+        x: 53
+        y: 26
+        width: 47
+        height: 46
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a90c2b057d5d846e0800000000000000
-      internalID: -1852996125914382182
+      spriteID: c724e7db86b432f4f91f6f2ec01452a2
+      internalID: -1258318781
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CourtRecordMenu_2
+      name: CourtRecordMenu.pngTrue_2
       rect:
         serializedVersion: 2
-        x: 351
-        y: 79
-        width: 140
-        height: 140
+        x: 116
+        y: 26
+        width: 46
+        height: 46
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,20 +166,125 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4a539cfef3b1fed0800000000000000
-      internalID: -2381924820161701302
+      spriteID: a01ecaa3ee2a1e24cac4254e2d023b2f
+      internalID: -1209643198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CourtRecordMenu_3
+      name: CourtRecordMenu.pngTrue_3
       rect:
         serializedVersion: 2
-        x: 562
+        x: 186
+        y: 30
+        width: 11
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bf583410df6dc044a62809909495cf8
+      internalID: 1664600474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CourtRecordMenu.pngTrue_4
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 26
+        width: 31
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28c27249473a8b04fa0b6e413f48ba78
+      internalID: -304954090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CourtRecordMenu.pngTrue_5
+      rect:
+        serializedVersion: 2
+        x: 45
         y: 91
+        width: 463
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a673909c6cb3f754d82af4f1637f0116
+      internalID: 433571763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CourtRecordMenu.pngTrue_6
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 299
+        width: 463
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53d0f3fb9e5faba4faa34a0c2c5c0785
+      internalID: 492955945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CourtRecordMenu.pngTrue_7
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 127
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d345da7121ddd843851173f38e464e3
+      internalID: -1372832481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CourtRecordMenu.pngTrue_8
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 128
         width: 36
-        height: 73
+        height: 42
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,113 +292,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab58642bdc5e77740800000000000000
-      internalID: 5149837370543474106
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CourtRecordMenu_4
-      rect:
-        serializedVersion: 2
-        x: 720
-        y: 79
-        width: 92
-        height: 111
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c38c25e3e35f47790800000000000000
-      internalID: -7533126629001607108
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CourtRecordMenu_5
-      rect:
-        serializedVersion: 2
-        x: 137
-        y: 277
-        width: 1404
-        height: 174
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a51eacf47056a50d0800000000000000
-      internalID: -3433320683838709414
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CourtRecordMenu_6
-      rect:
-        serializedVersion: 2
-        x: 137
-        y: 903
-        width: 1404
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e72a9537539fb6260800000000000000
-      internalID: 7092036046188814974
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CourtRecordMenu_7
-      rect:
-        serializedVersion: 2
-        x: 1541
-        y: 385
-        width: 110
-        height: 131
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b8259fa5305fc30b0800000000000000
-      internalID: -5747449629671599477
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CourtRecordMenu_8
-      rect:
-        serializedVersion: 2
-        x: 27
-        y: 385
-        width: 110
-        height: 131
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 22c251a3bda6acad0800000000000000
-      internalID: -2681213138340860894
+      spriteID: 6fc20048968ca9842a4f6190ebeecb46
+      internalID: -1378517173
       vertices: []
       indices: 
       edges: []
@@ -356,15 +309,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CourtRecordMenu_0: 3754167101509139008
-      CourtRecordMenu_1: -1852996125914382182
-      CourtRecordMenu_2: -2381924820161701302
-      CourtRecordMenu_3: 5149837370543474106
-      CourtRecordMenu_4: -7533126629001607108
-      CourtRecordMenu_5: -3433320683838709414
-      CourtRecordMenu_6: 7092036046188814974
-      CourtRecordMenu_7: -5747449629671599477
-      CourtRecordMenu_8: -2681213138340860894
+      CourtRecordMenu.pngTrue_0: 1246412459
+      CourtRecordMenu.pngTrue_1: -1258318781
+      CourtRecordMenu.pngTrue_2: -1209643198
+      CourtRecordMenu.pngTrue_3: 1664600474
+      CourtRecordMenu.pngTrue_4: -304954090
+      CourtRecordMenu.pngTrue_5: 433571763
+      CourtRecordMenu.pngTrue_6: 492955945
+      CourtRecordMenu.pngTrue_7: -1372832481
+      CourtRecordMenu.pngTrue_8: -1378517173
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
