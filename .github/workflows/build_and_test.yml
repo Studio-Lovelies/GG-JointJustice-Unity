@@ -30,7 +30,7 @@ jobs:
       version_number: ${{ steps.extractVersionNumber_job.outputs.version_number }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Attempt extraction
         id: extractVersionNumber_job
@@ -103,7 +103,7 @@ jobs:
       testDirectories: ${{ steps.bashScript.outputs.testDirectories }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: Run script file
         id: bashScript
