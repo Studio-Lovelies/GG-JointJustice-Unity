@@ -64,7 +64,7 @@ jobs:
           cp -r testsToRun/* unity-ggjj/Assets/Tests/${{ inputs.subdirectory }}
 
       - name: Execute tests in ${{ inputs.subdirectory }}
-        uses: game-ci/unity-test-runner@v3.0.0
+        uses: game-ci/unity-test-runner@v3.1.0
         env:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
