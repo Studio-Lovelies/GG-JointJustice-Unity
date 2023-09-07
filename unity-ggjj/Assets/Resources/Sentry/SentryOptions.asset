@@ -16,8 +16,13 @@ MonoBehaviour:
   <Dsn>k__BackingField: https://4e1b311a9eec4bd5bd8afcbdb98377a6@o4504584190558208.ingest.sentry.io/4504584198881280
   <CaptureInEditor>k__BackingField: 0
   <EnableLogDebouncing>k__BackingField: 0
+  <DebounceTimeLog>k__BackingField: 1000
+  <DebounceTimeWarning>k__BackingField: 1000
+  <DebounceTimeError>k__BackingField: 1000
   <TracesSampleRate>k__BackingField: 1
-  <PerformanceAutoInstrumentationEnabled>k__BackingField: 1
+  <AutoStartupTraces>k__BackingField: 1
+  <AutoSceneLoadTraces>k__BackingField: 1
+  <AutoAwakeTraces>k__BackingField: 0
   <AutoSessionTracking>k__BackingField: 1
   <AutoSessionTrackingInterval>k__BackingField: 30000
   <ReleaseOverride>k__BackingField: 
@@ -26,6 +31,10 @@ MonoBehaviour:
   <AttachScreenshot>k__BackingField: 1
   <ScreenshotQuality>k__BackingField: 0
   <ScreenshotCompression>k__BackingField: 100
+  <AttachViewHierarchy>k__BackingField: 1
+  <MaxViewHierarchyRootObjects>k__BackingField: 100
+  <MaxViewHierarchyObjectChildCount>k__BackingField: 20
+  <MaxViewHierarchyDepth>k__BackingField: 10
   <BreadcrumbsForLogs>k__BackingField: 1
   <BreadcrumbsForWarnings>k__BackingField: 1
   <BreadcrumbsForAsserts>k__BackingField: 1
@@ -41,14 +50,19 @@ MonoBehaviour:
   <SampleRate>k__BackingField: 1
   <ShutdownTimeout>k__BackingField: 2000
   <MaxQueueItems>k__BackingField: 30
+  <AnrDetectionEnabled>k__BackingField: 1
+  <AnrTimeout>k__BackingField: 5000
+  <FilterBadGatewayExceptions>k__BackingField: 1
+  <FilterWebExceptions>k__BackingField: 1
+  <FilterSocketExceptions>k__BackingField: 1
   <IosNativeSupportEnabled>k__BackingField: 1
   <AndroidNativeSupportEnabled>k__BackingField: 1
   <WindowsNativeSupportEnabled>k__BackingField: 1
   <MacosNativeSupportEnabled>k__BackingField: 1
   <LinuxNativeSupportEnabled>k__BackingField: 1
   <Il2CppLineNumberSupportEnabled>k__BackingField: 1
-  <OptionsConfiguration>k__BackingField: {fileID: 0}
-  <BuildtimeOptionsConfiguration>k__BackingField: {fileID: 0}
+  <RuntimeOptionsConfiguration>k__BackingField: {fileID: 0}
+  <BuildTimeOptionsConfiguration>k__BackingField: {fileID: 0}
   <Debug>k__BackingField: 1
   <DebugOnlyInEditor>k__BackingField: 1
   <DiagnosticLevel>k__BackingField: 2

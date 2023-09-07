@@ -213,11 +213,11 @@
       }
     },
     "io.sentry.unity": {
-      "version": "https://github.com/getsentry/unity.git#0.28.1",
+      "version": "https://github.com/getsentry/unity.git#1.5.2",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "4753756275fdf54e74cc5f3cbf3ca10e869a7881"
+      "hash": "594e4d54233de5ffd26ff791e2606480c39d3ce8"
     },
     "nuget.castle-core": {
       "version": "2.0.0-pre.3",
