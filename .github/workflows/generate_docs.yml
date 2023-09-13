@@ -20,7 +20,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0.x'
       
       - name: Build docs generator
         working-directory: ./docs_generator
@@ -36,7 +36,7 @@ jobs:
        
       - name: Execute docs runner 
         working-directory: ./unity-ggjj
-        run: ../docs_generator/bin/Debug/net7.0/Scanner
+        run: ../docs_generator/bin/Debug/net8.0/Scanner
 
       - name: Generate new state of docs
         id: newDocs
