@@ -85,7 +85,7 @@ jobs:
           echo "UNDERSCORE_DELIMITED_DIRECTORY=$UNDERSCORE_DELIMITED_DIRECTORY" >> $GITHUB_ENV
 
       - name: Upload XML report to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           name: ${{inputs.testMode}} ${{ inputs.subdirectory }}
           flags: ${{env.UNDERSCORE_DELIMITED_DIRECTORY}}
