@@ -501,7 +501,7 @@ public class ActionDecoder : ActionDecoderBase
         }
     }
 
-    /// <summary>Places an actor in the specified slot in the scene</summary>
+    /// <summary>Places an actor in a slot in the currently active scene</summary>
     /// <param name="slotName">Name of an actor slot in the currently active scene</param>
     /// <param name="actorName" validFiles="Assets/Resources/Actors/*.asset">Name of an actor</param>
     /// <example>&amp;SET_ACTOR_POSITION:Defense,Arin</example>
