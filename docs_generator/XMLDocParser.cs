@@ -49,7 +49,7 @@ public class PathItem
         string type = Path.GetFileNameWithoutExtension(pathsByGUID[asset["m_Script"]["guid"]]);
         switch (type)
         {
-            case "Evidence":
+            case "EvidenceData":
                 Description = asset["<Description>k__BackingField"];
                 var iconField = asset["<Icon>k__BackingField"];
                 if (iconField["fileID"] == "0")
