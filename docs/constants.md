@@ -1,13 +1,15 @@
 # Available constants
 ## EvidenceAssetName
-  - AttorneysBadge
-  - BentCoins
-  - JorysBackpack
-  - JorySrsLetter
-  - LivestreamRecording
-  - PlumberInvoice
-  - StolenDinos
-  - Switch
+| Name | Description | Icon |
+| ---- | ----------- | ---- |
+| AttorneysBadge | My most valued possession. | ![image for AttorneysBadge](../unity-ggjj/Assets/Images/Evidence/AttorneyBadge.png) |
+| BentCoins | Jory's Good Boy Coins. They're scuffed and bent out of shape. | ![image for BentCoins](../unity-ggjj/Assets/Images/Evidence/BentCoins.png) |
+| JorysBackpack | The backpack that Jory keeps his Good Boy coins in. Seems unusually full of... something. | ![image for JorysBackpack](../unity-ggjj/Assets/Images/Evidence/JoryBackpack.png) |
+| JorySrsLetter | Letter from the real Jory Sr. | ![image for JorySrsLetter](../unity-ggjj/Assets/Images/Evidence/JorySrLetter.png) |
+| LivestreamRecording | A record of major events during the livestream on the day of the crime. | ![image for LivestreamRecording](../unity-ggjj/Assets/Images/Evidence/LivestreamRecording.png) |
+| PlumberInvoice | The invoice from the plumber for repairing the toilets in the north end of the building, dated '2:30PM' today. | ![image for PlumberInvoice](../unity-ggjj/Assets/Images/Evidence/PlumberInvoice.png) |
+| StolenDinos | The classic 10 Minute Power Hour dinos. They have a mysterious white stain covering them. | ![image for StolenDinos](../unity-ggjj/Assets/Images/Evidence/StolenDinos.png) |
+| Switch | A borrowed Switch. It has a sticker of some kind of slime-girl on it.  | ![image for Switch](../unity-ggjj/Assets/Images/Evidence/NintendoSwitch.png) |
 
 ## ActorAssetName
 | Name | Description | Icon |
@@ -132,19 +134,19 @@
 | Name | Description | Icon |
 | ---- | ----------- | ---- |
 | Arin | Half of the Game Grumps duo. Definitely the same height as Dan. | ![image for Arin](../unity-ggjj/Assets/Images/Profiles/Arin.png) |
-| AttorneysBadge |  | ![image for AttorneysBadge]() |
+| AttorneysBadge | My most valued possession. | ![image for AttorneysBadge](../unity-ggjj/Assets/Images/Evidence/AttorneyBadge.png) |
 | Baby | Marge. | ![image for Baby](../unity-ggjj/Assets/Images/Profiles/Baby.png) |
-| BentCoins |  | ![image for BentCoins]() |
+| BentCoins | Jory's Good Boy Coins. They're scuffed and bent out of shape. | ![image for BentCoins](../unity-ggjj/Assets/Images/Evidence/BentCoins.png) |
 | Dan | The other half of the Game Grumps. Known aliases: 'Danny Sexbang', 'Mr. Business.' | ![image for Dan](../unity-ggjj/Assets/Images/Profiles/Dan.png) |
 | Jory | Game developer for Dream Daddy. Previous job: P.P.I.S.S machine. | ![image for Jory](../unity-ggjj/Assets/Images/Profiles/Jory.png) |
-| JorysBackpack |  | ![image for JorysBackpack]() |
-| JorySrsLetter |  | ![image for JorySrsLetter]() |
+| JorysBackpack | The backpack that Jory keeps his Good Boy coins in. Seems unusually full of... something. | ![image for JorysBackpack](../unity-ggjj/Assets/Images/Evidence/JoryBackpack.png) |
+| JorySrsLetter | Letter from the real Jory Sr. | ![image for JorySrsLetter](../unity-ggjj/Assets/Images/Evidence/JorySrLetter.png) |
 | JudgeBrent | Manages the Grumps business. Also a Judge in the totally real Attitute City. | ![image for JudgeBrent](../unity-ggjj/Assets/Images/Profiles/JudgeBrent.png) |
-| LivestreamRecording |  | ![image for LivestreamRecording]() |
-| PlumberInvoice |  | ![image for PlumberInvoice]() |
+| LivestreamRecording | A record of major events during the livestream on the day of the crime. | ![image for LivestreamRecording](../unity-ggjj/Assets/Images/Evidence/LivestreamRecording.png) |
+| PlumberInvoice | The invoice from the plumber for repairing the toilets in the north end of the building, dated '2:30PM' today. | ![image for PlumberInvoice](../unity-ggjj/Assets/Images/Evidence/PlumberInvoice.png) |
 | Ross | Animator and self-described sadist. Also really loves milk for some reason. | ![image for Ross](../unity-ggjj/Assets/Images/Profiles/Ross.png) |
-| StolenDinos |  | ![image for StolenDinos]() |
-| Switch |  | ![image for Switch]() |
+| StolenDinos | The classic 10 Minute Power Hour dinos. They have a mysterious white stain covering them. | ![image for StolenDinos](../unity-ggjj/Assets/Images/Evidence/StolenDinos.png) |
+| Switch | A borrowed Switch. It has a sticker of some kind of slime-girl on it.  | ![image for Switch](../unity-ggjj/Assets/Images/Evidence/NintendoSwitch.png) |
 | TutorialBoy | The first prosecutor. Has an extremely predictable name. | ![image for TutorialBoy](../unity-ggjj/Assets/Images/Profiles/TutorialBoy.png) |
 
 ## FullscreenAnimationAssetName
