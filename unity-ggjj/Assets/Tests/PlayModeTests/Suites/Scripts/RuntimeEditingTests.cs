@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using FileSystemWatcher = RuntimeEditing.FileSystemWatcher;
 using Object = UnityEngine.Object;
 
 namespace Tests.PlayModeTests.Scripts
@@ -19,7 +20,7 @@ namespace Tests.PlayModeTests.Scripts
         private readonly StoryProgresser _storyProgresser = new();
         private Keyboard Keyboard => _storyProgresser.keyboard;
         
-        private NarrativeScriptWatcher _narrativeScriptWatcher;
+        private FileSystemWatcher _fileSystemWatcher;
         
         [SetUp]
         public void Setup()
@@ -41,7 +42,7 @@ namespace Tests.PlayModeTests.Scripts
             TestTools.StartGame("ActorControllerTestScript");
             
             _appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
-            _narrativeScriptWatcher = Object.FindObjectOfType<NarrativeScriptWatcher>();
+            _fileSystemWatcher = Object.FindObjectOfType<FileSystemWatcher>();
         }
 
         [UnityTearDown]
@@ -53,19 +54,19 @@ namespace Tests.PlayModeTests.Scripts
         [UnityTest]
         public IEnumerator SceneReloadCreatedScriptIfMissing()
         {
-            Debug.Log($"Clearing {_narrativeScriptWatcher.AbsolutePathToWatchedScript}...");
-            Directory.Delete(Path.GetDirectoryName(_narrativeScriptWatcher.AbsolutePathToWatchedScript)!, true);
+            Debug.Log($"Clearing {_fileSystemWatcher.AbsolutePathToWatchedScript}...");
+            Directory.Delete(Path.GetDirectoryName(_fileSystemWatcher.AbsolutePathToWatchedScript)!, true);
             
-            Assert.IsFalse(File.Exists(_narrativeScriptWatcher.AbsolutePathToWatchedScript));
+            Assert.IsFalse(File.Exists(_fileSystemWatcher.AbsolutePathToWatchedScript));
             
             SceneManager.LoadScene("Game");
             yield return null;
             
             _appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
-            _narrativeScriptWatcher = Object.FindObjectOfType<NarrativeScriptWatcher>();
+            _fileSystemWatcher = Object.FindObjectOfType<FileSystemWatcher>();
 
             TestTools.StartGame("ActorControllerTestScript");
-            Assert.IsTrue(File.Exists(_narrativeScriptWatcher.AbsolutePathToWatchedScript));
+            Assert.IsTrue(File.Exists(_fileSystemWatcher.AbsolutePathToWatchedScript));
         }
 
         [UnityTest]
@@ -87,7 +88,7 @@ namespace Tests.PlayModeTests.Scripts
             yield return _storyProgresser.ProgressStory();
             Assert.AreNotEqual(normalizedTextContent.Split(Environment.NewLine).Last(), _appearingDialogueController.Text);
             
-            File.WriteAllText(_narrativeScriptWatcher.AbsolutePathToWatchedScript, normalizedTextContent);
+            File.WriteAllText(_fileSystemWatcher.AbsolutePathToWatchedScript, normalizedTextContent);
             yield return TestTools.WaitForState(() => normalizedTextContent.Split(Environment.NewLine).Last().Trim() == Object.FindObjectOfType<global::AppearingDialogueController>().Text);
         }
 
