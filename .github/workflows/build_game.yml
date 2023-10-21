@@ -64,6 +64,7 @@ jobs:
           projectPath: unity-ggjj/
           targetPlatform: ${{ inputs.unityPlatform }}
           buildName: 'Game Grumps - Joint Justice'
+          customParameters: "${{ (github.event.inputs.createRelease != 'true') && '-Development -AllowDebugging' }}"
 
       - name: Upload '${{ inputs.outputName }}' artifact
         uses: actions/upload-artifact@v3
