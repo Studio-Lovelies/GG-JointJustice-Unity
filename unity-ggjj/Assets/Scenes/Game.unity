@@ -3198,6 +3198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665a068ae74cc6944822fe633c5fab62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultBackgroundTexture: {fileID: 2800000, guid: 85a6bd325f9df4000bd45b781f5300ad, type: 3}
+  DefaultForegroundTexture: {fileID: 2800000, guid: 29242d3e3399efd45857892ebdb02f99, type: 3}
+  SpriteEditorPrefab: {fileID: 7497109962289728323, guid: b5358712fd34225478b8a65f38fbdd2e, type: 3}
   narrativeGameState: {fileID: 7963640705624872190}
 --- !u!4 &1075336304
 Transform:
