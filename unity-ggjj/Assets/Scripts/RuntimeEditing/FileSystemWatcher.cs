@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
@@ -11,6 +10,10 @@ namespace RuntimeEditing
     // Creates and watches a .ink file and restarts the game 
     public class FileSystemWatcher : MonoBehaviour
     {
+        [SerializeField] private Texture2D DefaultBackgroundTexture;
+        [SerializeField] private Texture2D DefaultForegroundTexture;
+        [SerializeField] private GameObject SpriteEditorPrefab;
+        
         [SerializeField]
         private NarrativeGameState narrativeGameState;
         private DebugControls _debugControls;
@@ -27,6 +30,10 @@ namespace RuntimeEditing
         private readonly List<System.IO.FileSystemWatcher> _filesystemWatchers = new();
         
         private readonly string _exampleScript = @"
+                &SCENE:SpriteEditor
+                &ACTOR:Arin
+                Right, let's get this over with.
+
                 &SCENE:TMPH_Court
                 &SET_ACTOR_POSITION:Defense,Arin
                 &SET_ACTOR_POSITION:Witness,Ross
@@ -79,13 +86,13 @@ namespace RuntimeEditing
             {
                 using var stream = File.Open(_absolutePathToWatchedBackground, FileMode.Create, FileAccess.Write);
                 using var writer = new BinaryWriter(stream);
-                writer.Write(((Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Images/BackgroundsAndForegrounds/WhiteScreen.png", typeof(Texture2D))).EncodeToPNG());
+                writer.Write(DefaultBackgroundTexture.EncodeToPNG());
             }));
             _filesystemWatchers.Add(ListenForFileChange(_absolutePathToWatchedForeground, () =>
             {
                 using var stream = File.Open(_absolutePathToWatchedForeground, FileMode.Create, FileAccess.Write);
                 using var writer = new BinaryWriter(stream);
-                writer.Write(((Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Images/BackgroundsAndForegrounds/HalfWhiteScreen.png", typeof(Texture2D))).EncodeToPNG());
+                writer.Write(DefaultForegroundTexture.EncodeToPNG());
             }));
             
             // listen for shortcut
@@ -172,9 +179,8 @@ namespace RuntimeEditing
             narrativeGameState.BGSceneList.ClearBGScenes();
             narrativeGameState.BGSceneList.InstantiateBGScenes(narrativeScript);
 
-            var textureEditorScene = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Resources/BGScenes/SpriteEditor.prefab", typeof(GameObject));
-            textureEditorScene.transform.Find("Background").GetComponent<SpriteRenderer>().sprite = GetSpriteFromLocalFile(_absolutePathToWatchedBackground);
-            textureEditorScene.transform.Find("Foreground").GetComponent<SpriteRenderer>().sprite = GetSpriteFromLocalFile(_absolutePathToWatchedForeground);
+            SpriteEditorPrefab.transform.Find("Background").GetComponent<SpriteRenderer>().sprite = GetSpriteFromLocalFile(_absolutePathToWatchedBackground);
+            SpriteEditorPrefab.transform.Find("Foreground").GetComponent<SpriteRenderer>().sprite = GetSpriteFromLocalFile(_absolutePathToWatchedForeground);
             narrativeGameState.SceneController.ReloadScene();
         }
 
