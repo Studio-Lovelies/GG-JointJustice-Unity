@@ -33,14 +33,6 @@ public class @DebugControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""OpenSpriteTest"",
-                    ""type"": ""Button"",
-                    ""id"": ""788f5ea6-0f3d-4bab-ab76-55feb6c69bb8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -87,39 +79,6 @@ public class @DebugControls : IInputActionCollection, IDisposable
                     ""action"": ""OpenEditor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Button With One Modifier"",
-                    ""id"": ""a3992a7e-8335-431a-b032-c05a151c67cf"",
-                    ""path"": ""ButtonWithOneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenSpriteTest"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""6bb1e7a2-e1d1-4ac4-afbe-759282c1995a"",
-                    ""path"": ""<Keyboard>/ctrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenSpriteTest"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""button"",
-                    ""id"": ""2e82cbf3-1407-4d36-90a6-0b85ab97517b"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenSpriteTest"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -130,7 +89,6 @@ public class @DebugControls : IInputActionCollection, IDisposable
         m_KeyboardMouse = asset.FindActionMap("Keyboard/Mouse", throwIfNotFound: true);
         m_KeyboardMouse_ReloadScript = m_KeyboardMouse.FindAction("ReloadScript", throwIfNotFound: true);
         m_KeyboardMouse_OpenEditor = m_KeyboardMouse.FindAction("OpenEditor", throwIfNotFound: true);
-        m_KeyboardMouse_OpenSpriteTest = m_KeyboardMouse.FindAction("OpenSpriteTest", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,14 +140,12 @@ public class @DebugControls : IInputActionCollection, IDisposable
     private IKeyboardMouseActions m_KeyboardMouseActionsCallbackInterface;
     private readonly InputAction m_KeyboardMouse_ReloadScript;
     private readonly InputAction m_KeyboardMouse_OpenEditor;
-    private readonly InputAction m_KeyboardMouse_OpenSpriteTest;
     public struct KeyboardMouseActions
     {
         private @DebugControls m_Wrapper;
         public KeyboardMouseActions(@DebugControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @ReloadScript => m_Wrapper.m_KeyboardMouse_ReloadScript;
         public InputAction @OpenEditor => m_Wrapper.m_KeyboardMouse_OpenEditor;
-        public InputAction @OpenSpriteTest => m_Wrapper.m_KeyboardMouse_OpenSpriteTest;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -205,9 +161,6 @@ public class @DebugControls : IInputActionCollection, IDisposable
                 @OpenEditor.started -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnOpenEditor;
                 @OpenEditor.performed -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnOpenEditor;
                 @OpenEditor.canceled -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnOpenEditor;
-                @OpenSpriteTest.started -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnOpenSpriteTest;
-                @OpenSpriteTest.performed -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnOpenSpriteTest;
-                @OpenSpriteTest.canceled -= m_Wrapper.m_KeyboardMouseActionsCallbackInterface.OnOpenSpriteTest;
             }
             m_Wrapper.m_KeyboardMouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -218,9 +171,6 @@ public class @DebugControls : IInputActionCollection, IDisposable
                 @OpenEditor.started += instance.OnOpenEditor;
                 @OpenEditor.performed += instance.OnOpenEditor;
                 @OpenEditor.canceled += instance.OnOpenEditor;
-                @OpenSpriteTest.started += instance.OnOpenSpriteTest;
-                @OpenSpriteTest.performed += instance.OnOpenSpriteTest;
-                @OpenSpriteTest.canceled += instance.OnOpenSpriteTest;
             }
         }
     }
@@ -229,6 +179,5 @@ public class @DebugControls : IInputActionCollection, IDisposable
     {
         void OnReloadScript(InputAction.CallbackContext context);
         void OnOpenEditor(InputAction.CallbackContext context);
-        void OnOpenSpriteTest(InputAction.CallbackContext context);
     }
 }
