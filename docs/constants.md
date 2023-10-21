@@ -115,6 +115,7 @@
 
 ## SceneAssetName
   - Anime
+  - SpriteEditor
   - TMPHAssistant
   - TMPHCourt
   - TMPHDefense
