@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.TestTools;
 
 namespace RuntimeEditing
@@ -22,10 +23,10 @@ namespace RuntimeEditing
         private bool _hasChanges;
 
         // public to allow testing
-        public readonly string AbsolutePathToWatchedScript = Path.GetFullPath(Application.dataPath + "/../DevKit/Script.ink");
+        public string AbsolutePathToWatchedScript { get; private set; }
 
-        private readonly string _absolutePathToWatchedBackground = Path.GetFullPath(Application.dataPath + "/../DevKit/Background.png");
-        private readonly string _absolutePathToWatchedForeground = Path.GetFullPath(Application.dataPath + "/../DevKit/Foreground.png");
+        private string _absolutePathToWatchedBackground;
+        private string _absolutePathToWatchedForeground;
 
         private readonly List<System.IO.FileSystemWatcher> _filesystemWatchers = new();
         
@@ -70,6 +71,10 @@ namespace RuntimeEditing
                 Destroy(this.gameObject);
                 return;
             }
+            
+            AbsolutePathToWatchedScript = Path.GetFullPath(Application.persistentDataPath + "/../DevKit/Script.ink");
+            _absolutePathToWatchedBackground = Path.GetFullPath(Application.persistentDataPath + "/../DevKit/Background.png");
+            _absolutePathToWatchedForeground = Path.GetFullPath(Application.persistentDataPath + "/../DevKit/Foreground.png");
 
             // Initialize and watch for changes in devkit folder and files
             if (!Directory.Exists(Path.GetDirectoryName(AbsolutePathToWatchedScript)!))
@@ -163,16 +168,15 @@ namespace RuntimeEditing
         {
             Debug.Log($"{nameof(FileSystemWatcher)}: Restarting game...");
 
-            if (!Directory.Exists(Application.dataPath + "/../Temp"))
+            if (!Directory.Exists(Directory.GetParent(AbsolutePathToWatchedScript)!.FullName))
             {
-                Directory.CreateDirectory(Application.dataPath + "/../Temp");
+                Directory.CreateDirectory(Directory.GetParent(AbsolutePathToWatchedScript)!.FullName);
             }
             _filesystemWatchers.ForEach(watcher => watcher.EnableRaisingEvents = false);
 
             var narrativeScript = GetNarrativeScriptFromLocalFile();
 
             narrativeGameState.ActorController.SetActiveSpeakerToNarrator();
-            narrativeGameState.SceneController.FadeIn(0);
             narrativeGameState.NarrativeScriptStorage.NarrativeScript = narrativeScript;
             narrativeGameState.EvidenceController.ClearCourtRecord();
             narrativeGameState.NarrativeScriptPlayerComponent.NarrativeScriptPlayer.ActiveNarrativeScript = narrativeScript;
