@@ -166,6 +166,7 @@ namespace RuntimeEditing
 
         private void ReloadGame()
         {
+            Debug.ClearDeveloperConsole();
             Debug.Log($"{nameof(FileSystemWatcher)}: Restarting game...");
 
             if (!Directory.Exists(Directory.GetParent(AbsolutePathToWatchedScript)!.FullName))
