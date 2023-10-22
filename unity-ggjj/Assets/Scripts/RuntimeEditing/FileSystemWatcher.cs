@@ -200,8 +200,12 @@ namespace RuntimeEditing
 
         private static Sprite GetSpriteFromLocalFile(string absolutePath)
         {
-            var texture2dFrom = new Texture2D(320, 180, TextureFormat.RGBA32, false);
-            
+            var texture2dFrom = new Texture2D(320, 180, TextureFormat.RGBA32, false)
+            {
+                filterMode = FilterMode.Point,
+                wrapMode = TextureWrapMode.Clamp
+            };
+
             using var stream = File.Open(absolutePath, FileMode.Open, FileAccess.Read);
             using var reader = new BinaryReader(stream);
             texture2dFrom.LoadImage(reader.ReadBytes((int)stream.Length));
