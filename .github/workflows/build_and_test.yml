@@ -244,6 +244,52 @@ jobs:
           tag:  ${{ needs.extractVersionNumber.outputs.version_number }}
           name: "Release #${{ needs.extractVersionNumber.outputs.version_number }}"
           token: ${{ secrets.GITHUB_TOKEN }}
+  
+  createGooglePlayInternalRelease:
+    name: Create Google Play Internal Release
+    needs: [extractVersionNumber, unityBuild]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download Android AAB
+      uses: actions/download-artifact@v3
+      with:
+        name: AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}
+        path: build/AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}
+    - uses: ViMaSter/sign-android-release@latest
+      with:
+        releaseDirectory: ./aab
+        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+        alias: ${{ secrets.ALIAS }}
+        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
+    - uses: r0adkll/upload-google-play@v1.1.2
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.SERVICEACCOUNTJSON }}
+        packageName: com.StudioLovelies.GameGrumpsJointJustice
+        track: internal
+        status: completed
+        releaseFiles: ./aab/app-release.aab
+    
+  createGooglePlayProductionRelease:
+    name: Create Google Play Production Release
+    needs: [extractVersionNumber, unityBuild]
+    runs-on: ubuntu-latest
+    if: (github.event.inputs.createRelease == 'true' || (github.ref == 'refs/heads/master' && github.event_name == 'push'))
+    steps:
+    - uses: ViMaSter/sign-android-release@latest
+      with:
+        releaseDirectory: ./aab
+        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+        alias: ${{ secrets.ALIAS }}
+        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
+    - uses: r0adkll/upload-google-play@v1.1.2
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.SERVICEACCOUNTJSON }}
+        packageName: com.StudioLovelies.GameGrumpsJointJustice
+        track: production
+        status: completed
+        releaseFiles: ./aab/app-release.aab
             
   # itch.io uploader
   checkItchIO:
