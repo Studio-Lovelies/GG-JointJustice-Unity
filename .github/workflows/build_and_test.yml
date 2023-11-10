@@ -180,66 +180,66 @@ jobs:
       - name: Download macOS
         uses: actions/download-artifact@v3
         with:
-          name: macOS-v${{ needs.extractVersionNumber.outputs.version_number }}
-          path: build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}
+          name: macOS-v${{ github.run_number }}
+          path: build/macOS-v${{ github.run_number }}
       - name: Download Windows-x86
         uses: actions/download-artifact@v3
         with:
-          name: Windows-x86-v${{ needs.extractVersionNumber.outputs.version_number }}
-          path: build/Windows-x86-v${{ needs.extractVersionNumber.outputs.version_number }}
+          name: Windows-x86-v${{ github.run_number }}
+          path: build/Windows-x86-v${{ github.run_number }}
       - name: Download Windows-x64
         uses: actions/download-artifact@v3
         with:
-          name: Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}
-          path: build/Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}
+          name: Windows-x64-v${{ github.run_number }}
+          path: build/Windows-x64-v${{ github.run_number }}
       - name: Download Linux-x64
         uses: actions/download-artifact@v3
         with:
-          name: Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}
-          path: build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}
+          name: Linux-x64-v${{ github.run_number }}
+          path: build/Linux-x64-v${{ github.run_number }}
       - name: Download WebGL
         uses: actions/download-artifact@v3
         with:
-          name: WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}
-          path: build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}
+          name: WebGL-v${{ github.run_number }}
+          path: build/WebGL-v${{ github.run_number }}
       - name: Download Android APK
         uses: actions/download-artifact@v3
         with:
-          name: AndroidAPK-v${{ needs.extractVersionNumber.outputs.version_number }}
-          path: build/AndroidAPK-v${{ needs.extractVersionNumber.outputs.version_number }}
+          name: AndroidAPK-v${{ github.run_number }}
+          path: build/AndroidAPK-v${{ github.run_number }}
       - name: Download Android AAB
         uses: actions/download-artifact@v3
         with:
-          name: AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}
-          path: build/AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}
+          name: AndroidAAB-v${{ github.run_number }}
+          path: build/AndroidAAB-v${{ github.run_number }}
           
       - name: Zip macOS
-        run: zip -r "build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"       "build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}"
+        run: zip -r "build/macOS-v${{ github.run_number }}.zip"       "build/macOS-v${{ github.run_number }}"
       - name: Zip Windows-x86
-        run: zip -r "build/Windows-x86-v${{ needs.extractVersionNumber.outputs.version_number }}.zip" "build/Windows-x86-v${{ needs.extractVersionNumber.outputs.version_number }}"
+        run: zip -r "build/Windows-x86-v${{ github.run_number }}.zip" "build/Windows-x86-v${{ github.run_number }}"
       - name: Zip Windows-x64
-        run: zip -r "build/Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip" "build/Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}"
+        run: zip -r "build/Windows-x64-v${{ github.run_number }}.zip" "build/Windows-x64-v${{ github.run_number }}"
       - name: Zip Linux-x64
-        run: zip -r "build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"   "build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}"
+        run: zip -r "build/Linux-x64-v${{ github.run_number }}.zip"   "build/Linux-x64-v${{ github.run_number }}"
       - name: Zip WebGL
-        run: zip -r "build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"       "build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}"
+        run: zip -r "build/WebGL-v${{ github.run_number }}.zip"       "build/WebGL-v${{ github.run_number }}"
       - name: Zip Android APK
-        run: zip -r "build/AndroidAPK-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"  "build/AndroidAPK-v${{ needs.extractVersionNumber.outputs.version_number }}"
+        run: zip -r "build/AndroidAPK-v${{ github.run_number }}.zip"  "build/AndroidAPK-v${{ github.run_number }}"
       - name: Zip Android AAB
-        run: zip -r "build/AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"  "build/AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}"
+        run: zip -r "build/AndroidAAB-v${{ github.run_number }}.zip"  "build/AndroidAAB-v${{ github.run_number }}"
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1.13.0
         with:
           # glob-files need to be escaped
           artifacts: |
-            build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
-            build/Windows-x86-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
-            build/Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
-            build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
-            build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
-            build/AndroidAPK-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
-            build/AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}.zip
+            build/macOS-v${{ github.run_number }}.zip,
+            build/Windows-x86-v${{ github.run_number }}.zip,
+            build/Windows-x64-v${{ github.run_number }}.zip,
+            build/Linux-x64-v${{ github.run_number }}.zip,
+            build/WebGL-v${{ github.run_number }}.zip,
+            build/AndroidAPK-v${{ github.run_number }}.zip,
+            build/AndroidAAB-v${{ github.run_number }}.zip
           artifactErrorsFailBuild: true
           tag:  ${{ needs.extractVersionNumber.outputs.version_number }}
           name: "Release #${{ needs.extractVersionNumber.outputs.version_number }}"
@@ -253,8 +253,8 @@ jobs:
     - name: Download Android AAB
       uses: actions/download-artifact@v3
       with:
-        name: AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}
-        path: build/AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}
+        name: AndroidAAB-v${{ github.run_number }}
+        path: build/AndroidAAB-v${{ github.run_number }}
     - uses: ViMaSter/sign-android-release@latest
       with:
         releaseDirectory: ./aab
@@ -325,8 +325,8 @@ jobs:
       - name: Download ${{ matrix.platforms.outputName }}
         uses: actions/download-artifact@v3
         with:
-          name: ${{ matrix.platforms.outputName }}-v${{ needs.extractVersionNumber.outputs.version_number }}
-          path: build/${{ matrix.platforms.outputName }}-v${{ needs.extractVersionNumber.outputs.version_number }}
+          name: ${{ matrix.platforms.outputName }}-v${{ github.run_number }}
+          path: build/${{ matrix.platforms.outputName }}-v${{ github.run_number }}
       - name: Create itch.io '${{ matrix.platforms.itchIOChannel }}' Release
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
@@ -334,5 +334,5 @@ jobs:
           CHANNEL: ${{ matrix.platforms.itchIOChannel }}
           ITCH_GAME: ${{ secrets.ITCHIO_PROJECTNAME }}
           ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
-          PACKAGE: build/${{ matrix.platforms.outputName }}-v${{ needs.extractVersionNumber.outputs.version_number }}
+          PACKAGE: build/${{ matrix.platforms.outputName }}-v${{ github.run_number }}
           VERSION: ${{ needs.extractVersionNumber.outputs.version_number }}
