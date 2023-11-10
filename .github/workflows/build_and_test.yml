@@ -84,7 +84,8 @@ jobs:
           { unityPlatform: "StandaloneWindows",   outputName: "Windows-x86" }, 
           { unityPlatform: "StandaloneWindows64", outputName: "Windows-x64" }, 
           { unityPlatform: "StandaloneLinux64",   outputName: "Linux-x64"   },
-          { unityPlatform: "WebGL",               outputName: "WebGL"       } 
+          { unityPlatform: "WebGL",               outputName: "WebGL"       },
+          { unityPlatform: "Android",             outputName: "Android"       } 
         ]
 
     uses: ./.github/workflows/build_game.yml
