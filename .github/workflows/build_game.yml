@@ -74,7 +74,12 @@ jobs:
           projectPath: unity-ggjj/
           targetPlatform: ${{ inputs.unityPlatform }}
           buildName: 'Game Grumps - Joint Justice'
+          androidKeystoreName: user.keystore
           androidExportType: ${{ inputs.androidExportType }}
+          androidKeystoreBase64: ${{ secrets.SIGNING_KEY }}
+          androidKeystorePass: ${{ secrets.KEY_STORE_PASSWORD }}
+          androidKeyaliasName: ${{ secrets.ALIAS }}
+          androidKeyaliasPass: ${{ secrets.KEY_PASSWORD }}
 
       - name: Upload '${{ inputs.outputName }}' artifact
         uses: actions/upload-artifact@v3

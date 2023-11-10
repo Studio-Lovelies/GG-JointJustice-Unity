@@ -255,13 +255,6 @@ jobs:
       with:
         name: AndroidAAB-v${{ github.run_number }}
         path: aab
-    - uses: ViMaSter/sign-android-release@latest
-      with:
-        releaseDirectory: ./aab
-        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-        alias: ${{ secrets.ALIAS }}
-        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.KEY_PASSWORD }}
     - uses: r0adkll/upload-google-play@v1.1.2
       with:
         serviceAccountJsonPlainText: ${{ secrets.SERVICEACCOUNTJSON }}
@@ -281,13 +274,6 @@ jobs:
       with:
         name: AndroidAAB-v${{ github.run_number }}
         path: aab
-    - uses: ViMaSter/sign-android-release@latest
-      with:
-        releaseDirectory: ./aab
-        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-        alias: ${{ secrets.ALIAS }}
-        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.KEY_PASSWORD }}
     - uses: r0adkll/upload-google-play@v1.1.2
       with:
         serviceAccountJsonPlainText: ${{ secrets.SERVICEACCOUNTJSON }}
