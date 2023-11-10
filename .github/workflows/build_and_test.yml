@@ -254,7 +254,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: AndroidAAB-v${{ github.run_number }}
-        path: build/AndroidAAB-v${{ github.run_number }}
+        path: aab
     - uses: ViMaSter/sign-android-release@latest
       with:
         releaseDirectory: ./aab
@@ -268,7 +268,7 @@ jobs:
         packageName: com.StudioLovelies.GameGrumpsJointJustice
         track: internal
         status: completed
-        releaseFiles: ./aab/app-release.aab
+        releaseFiles: ./aab/Game Grumps - Joint Justice.aab
     
   createGooglePlayProductionRelease:
     name: Create Google Play Production Release
@@ -276,6 +276,11 @@ jobs:
     runs-on: ubuntu-latest
     if: (github.event.inputs.createRelease == 'true' || (github.ref == 'refs/heads/master' && github.event_name == 'push'))
     steps:
+    - name: Download Android AAB
+      uses: actions/download-artifact@v3
+      with:
+        name: AndroidAAB-v${{ github.run_number }}
+        path: aab
     - uses: ViMaSter/sign-android-release@latest
       with:
         releaseDirectory: ./aab
@@ -289,7 +294,7 @@ jobs:
         packageName: com.StudioLovelies.GameGrumpsJointJustice
         track: production
         status: completed
-        releaseFiles: ./aab/app-release.aab
+        releaseFiles: ./aab/Game Grumps - Joint Justice.aab
             
   # itch.io uploader
   checkItchIO:
