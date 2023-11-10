@@ -11,6 +11,10 @@ on:
         description: 'Name of the artifact generated'
         type: string
         required: true
+      androidExportType:
+        description: 'Specifies whether .aab or .apk is build'
+        type: string
+        required: true
 
 jobs:
   buildGame:
@@ -54,6 +58,12 @@ jobs:
           restore-keys: |
             unity-ggjj/Library-
 
+      - name: Set `androidBundleVersionCode` to run number
+        shell: bash
+        run: |
+          sed -i "s/AndroidBundleVersionCode: [0-9]*/AndroidBundleVersionCode: ${{ github.run_number }}/g" unity-ggjj/ProjectSettings/ProjectSettings.asset
+          git update-index --assume-unchanged unity-ggjj/ProjectSettings/ProjectSettings.asset
+
       - name: Build project
         uses: game-ci/unity-builder@v3
         env:
@@ -64,6 +74,7 @@ jobs:
           projectPath: unity-ggjj/
           targetPlatform: ${{ inputs.unityPlatform }}
           buildName: 'Game Grumps - Joint Justice'
+          androidExportType: ${{ inputs.androidExportType }}
 
       - name: Upload '${{ inputs.outputName }}' artifact
         uses: actions/upload-artifact@v3
