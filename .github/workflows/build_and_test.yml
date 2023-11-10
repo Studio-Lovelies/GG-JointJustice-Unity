@@ -80,18 +80,20 @@ jobs:
       fail-fast: false
       matrix:
         targetPlatform: [ 
-          { unityPlatform: "StandaloneOSX",       outputName: "macOS"       }, 
-          { unityPlatform: "StandaloneWindows",   outputName: "Windows-x86" }, 
-          { unityPlatform: "StandaloneWindows64", outputName: "Windows-x64" }, 
-          { unityPlatform: "StandaloneLinux64",   outputName: "Linux-x64"   },
-          { unityPlatform: "WebGL",               outputName: "WebGL"       },
-          { unityPlatform: "Android",             outputName: "Android"       } 
+          { unityPlatform: "StandaloneOSX",       outputName: "macOS",       androidExportType: '' },
+          { unityPlatform: "StandaloneWindows",   outputName: "Windows-x86", androidExportType: '' },
+          { unityPlatform: "StandaloneWindows64", outputName: "Windows-x64", androidExportType: '' },
+          { unityPlatform: "StandaloneLinux64",   outputName: "Linux-x64",   androidExportType: '' },
+          { unityPlatform: "WebGL",               outputName: "WebGL",       androidExportType: '' },
+          { unityPlatform: "Android",             outputName: "AndroidAPK",  androidExportType: 'androidPackage' },
+          { unityPlatform: "Android",             outputName: "AndroidAAB",  androidExportType: 'androidAppBundle' }
         ]
 
     uses: ./.github/workflows/build_game.yml
     with:
       unityPlatform: ${{ matrix.targetPlatform.unityPlatform }}
       outputName: ${{ matrix.targetPlatform.outputName }}
+      androidExportType: ${{ matrix.targetPlatform.androidExportType }}
     secrets: inherit
 
   # Unity tests
@@ -200,6 +202,16 @@ jobs:
         with:
           name: WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}
           path: build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}
+      - name: Download Android APK
+        uses: actions/download-artifact@v3
+        with:
+          name: AndroidAPK-v${{ needs.extractVersionNumber.outputs.version_number }}
+          path: build/AndroidAPK-v${{ needs.extractVersionNumber.outputs.version_number }}
+      - name: Download Android AAB
+        uses: actions/download-artifact@v3
+        with:
+          name: AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}
+          path: build/AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}
           
       - name: Zip macOS
         run: zip -r "build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"       "build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}"
@@ -211,6 +223,10 @@ jobs:
         run: zip -r "build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"   "build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}"
       - name: Zip WebGL
         run: zip -r "build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"       "build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}"
+      - name: Zip Android APK
+        run: zip -r "build/AndroidAPK-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"  "build/AndroidAPK-v${{ needs.extractVersionNumber.outputs.version_number }}"
+      - name: Zip Android AAB
+        run: zip -r "build/AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}.zip"  "build/AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}"
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1.13.0
@@ -221,7 +237,9 @@ jobs:
             build/Windows-x86-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
             build/Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
             build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
-            build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}.zip
+            build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
+            build/AndroidAPK-v${{ needs.extractVersionNumber.outputs.version_number }}.zip,
+            build/AndroidAAB-v${{ needs.extractVersionNumber.outputs.version_number }}.zip
           artifactErrorsFailBuild: true
           tag:  ${{ needs.extractVersionNumber.outputs.version_number }}
           name: "Release #${{ needs.extractVersionNumber.outputs.version_number }}"
@@ -253,7 +271,9 @@ jobs:
           { outputName: "Windows-x86", itchIOChannel: "windows-x86" }, 
           { outputName: "Windows-x64", itchIOChannel: "windows-x64" }, 
           { outputName: "Linux-x64",   itchIOChannel: "linux"       },
-          { outputName: "WebGL",       itchIOChannel: "webGL"       }
+          { outputName: "WebGL",       itchIOChannel: "webGL"       },
+          { outputName: "AndroidAPK",  itchIOChannel: "androidapk"  },
+          { outputName: "AndroidAAB",  itchIOChannel: "androidaab"  }
         ]
     steps:
       - name: Download ${{ matrix.platforms.outputName }}
