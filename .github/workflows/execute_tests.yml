@@ -79,9 +79,9 @@ jobs:
       - name: Replace directory separator with underscores
         if: ${{ failure() || success() }}
         shell: bash
-        run:
+        run: |
           SLASH_DELIMITED_DIRECTORY="${{ inputs.subdirectory }}"
-          UNDERSCORE_DELIMITED_DIRECTORY=$(echo $SLASH_DELIMITED_DIRECTORY | sed 's:/:-:')
+          UNDERSCORE_DELIMITED_DIRECTORY=${SLASH_DELIMITED_DIRECTORY//\//_}
           echo "UNDERSCORE_DELIMITED_DIRECTORY=$UNDERSCORE_DELIMITED_DIRECTORY" >> $GITHUB_ENV
 
       - name: Upload XML report to Codecov
@@ -97,5 +97,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ failure() || success() }}
         with:
-          name: Test Results - ${{inputs.testMode}} ${{env.UNDERSCORE_DELIMITED_DIRECTORY}}
+          name: Test Results - ${{env.UNDERSCORE_DELIMITED_DIRECTORY}}
           path: artifacts
