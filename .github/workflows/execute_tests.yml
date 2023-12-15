@@ -94,7 +94,7 @@ jobs:
         if: ${{ failure() || success() }}
 
       - name: Store test artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ failure() || success() }}
         with:
           name: Test Results - ${{inputs.testMode}} ${{env.UNDERSCORE_DELIMITED_DIRECTORY}}

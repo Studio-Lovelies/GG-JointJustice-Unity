@@ -66,7 +66,7 @@ jobs:
           buildName: 'Game Grumps - Joint Justice'
 
       - name: Upload '${{ inputs.outputName }}' artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.outputName }}-v${{ github.run_number }}
           path: build/${{ inputs.unityPlatform }}
