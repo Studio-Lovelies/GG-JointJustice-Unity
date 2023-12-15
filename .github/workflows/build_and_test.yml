@@ -175,27 +175,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download macOS
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: macOS-v${{ needs.extractVersionNumber.outputs.version_number }}
           path: build/macOS-v${{ needs.extractVersionNumber.outputs.version_number }}
       - name: Download Windows-x86
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: Windows-x86-v${{ needs.extractVersionNumber.outputs.version_number }}
           path: build/Windows-x86-v${{ needs.extractVersionNumber.outputs.version_number }}
       - name: Download Windows-x64
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}
           path: build/Windows-x64-v${{ needs.extractVersionNumber.outputs.version_number }}
       - name: Download Linux-x64
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}
           path: build/Linux-x64-v${{ needs.extractVersionNumber.outputs.version_number }}
       - name: Download WebGL
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}
           path: build/WebGL-v${{ needs.extractVersionNumber.outputs.version_number }}
@@ -256,7 +256,7 @@ jobs:
         ]
     steps:
       - name: Download ${{ matrix.platforms.outputName }}
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ matrix.platforms.outputName }}-v${{ needs.extractVersionNumber.outputs.version_number }}
           path: build/${{ matrix.platforms.outputName }}-v${{ needs.extractVersionNumber.outputs.version_number }}
