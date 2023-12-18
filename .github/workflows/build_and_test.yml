@@ -156,7 +156,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check if tag exists
-      uses: mukunku/tag-exists-action@v1.4.0
+      uses: mukunku/tag-exists-action@v1.5.0
       id: checkTag
       with: 
         tag: ${{ needs.extractVersionNumber.outputs.version_number }}
