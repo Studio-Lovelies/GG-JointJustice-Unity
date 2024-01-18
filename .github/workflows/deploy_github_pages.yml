@@ -1,0 +1,66 @@
+name: Deploy WebGL artifact to GitHub Pages
+on:
+  workflow_run:
+    workflows: ["Builds + Test"]
+    types: [completed]
+    branches: [develop]
+  workflow_dispatch:
+    inputs:
+      workflow_run_id:
+        description: "ID of run from Builds + Test workflow"
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Github Pages branch
+        uses: actions/checkout@v2
+        with:
+          path: repo
+          ref: gh-pages
+          token: ${{ secrets.GHTOKEN }}
+          repository: "Studio-Lovelies/GG-JointJustice-Web-Dev"
+          
+      - name: Delete old deployment
+        run: |
+          mkdir git
+          cd repo
+          mv .git/* ../git
+          rm -rf *
+          mv ../git/* .git
+          cd ..
+
+      - name: Download new deployment via workflow_run
+        uses: dawidd6/action-download-artifact@v2
+        if: github.event.workflow_run.conclusion == 'success'
+        with:
+          github_token: ${{ secrets.GHTOKEN }}
+          run_id: ${{ github.event.workflow_run.id }}
+          name: WebGL
+          name_is_regexp: true
+          repo: Studio-Lovelies/GG-JointJustice-Unity
+          path: repo
+
+      - name: Download new deployment via workflow_dispatch
+        uses: dawidd6/action-download-artifact@v2
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          github_token: ${{ secrets.GHTOKEN }}
+          run_id: ${{ github.event.inputs.workflow_run_id }}
+          name: WebGL
+          name_is_regexp: true
+          repo: Studio-Lovelies/GG-JointJustice-Unity
+          path: repo
+
+      - name: Commit and push files
+        run: |
+          mv repo/WebGL*/* repo/
+          mv repo/Game*/* repo/
+
+          cd repo
+          git config --local user.email "gh-pages@example.org"
+          git config --local user.name "GitHub Pages"
+          git add .
+          git commit -m "Deploy to GitHub Pages" || echo "No changes to commit"
+          git push || echo "No changes to push"
