@@ -33,7 +33,7 @@ jobs:
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: lfs-cache
         with:
           path: .git/lfs
@@ -47,7 +47,7 @@ jobs:
           git reset --hard
 
       - name: Restore Library cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: unity-ggjj/Library
           key: Library-${{ hashFiles('unity-ggjj/Assets/**', 'unity-ggjj/Packages/**', 'unity-ggjj/ProjectSettings/**') }}
