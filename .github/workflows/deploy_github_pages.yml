@@ -32,7 +32,7 @@ jobs:
           cd ..
 
       - name: Download new deployment via workflow_run
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         if: github.event.workflow_run.conclusion == 'success'
         with:
           github_token: ${{ secrets.GHTOKEN }}
@@ -43,7 +43,7 @@ jobs:
           path: repo
 
       - name: Download new deployment via workflow_dispatch
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         if: github.event_name == 'workflow_dispatch'
         with:
           github_token: ${{ secrets.GHTOKEN }}
