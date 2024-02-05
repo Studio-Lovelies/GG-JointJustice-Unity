@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Splash.unity
-    guid: 1959a19be84d14112b3a7d5d3710de22
+    path: Assets/audiotest.unity
+    guid: 52e74c2db29781942808775e8c7ee124
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: e284f312d553e436bb12847cc8ad82ee
@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 3497ab32eed99544bbc089c700ca3f88
+  - enabled: 1
+    path: Assets/Scenes/Splash.unity
+    guid: 1959a19be84d14112b3a7d5d3710de22
   m_configObjects: {}
