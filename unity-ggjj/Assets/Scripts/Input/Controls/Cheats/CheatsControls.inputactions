@@ -1,5 +1,5 @@
 {
-    "name": "CheatControls",
+    "name": "CheatsControls",
     "maps": [
         {
             "name": "Keyboard",
@@ -11,7 +11,8 @@
                     "id": "e94147e3-0e83-456c-8080-106a99c27701",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

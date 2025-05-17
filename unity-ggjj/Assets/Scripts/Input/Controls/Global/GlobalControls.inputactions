@@ -1,5 +1,5 @@
 {
-    "name": "Controls",
+    "name": "GlobalControls",
     "maps": [
         {
             "name": "UI",
@@ -11,7 +11,8 @@
                     "id": "d11b3523-5e0b-4724-a4f8-073913306fe1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ToggleTextSpeedup",
@@ -19,7 +20,8 @@
                     "id": "73cf0c6d-7a5f-4586-b850-5726b955b4f5",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Left Mouse Button",
@@ -27,7 +29,8 @@
                     "id": "39ed1286-0cce-4d62-b445-81e4f9eb7e5f",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "DirectionalButtons",
@@ -35,7 +38,8 @@
                     "id": "51fc77bb-0044-49e6-b0aa-81378f1f9dd9",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Select",
@@ -43,7 +47,8 @@
                     "id": "03060c75-97bb-4857-aa4b-29d29a4a5468",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Press",
@@ -51,7 +56,8 @@
                     "id": "a619f33d-34d5-4ff0-aafc-7b44b079fd16",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Menu",
@@ -59,7 +65,8 @@
                     "id": "4604dfdc-1231-4c48-90e6-179e07ce8c7b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Pause",
@@ -67,7 +74,8 @@
                     "id": "e246d8c6-4dd4-4e4f-ba34-9888a9114e4a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Cursor",
@@ -75,7 +83,8 @@
                     "id": "af67e4f3-2837-4590-ad59-91a7e5b12fd7",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
