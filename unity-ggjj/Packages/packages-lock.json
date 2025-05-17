@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "com.inklestudios.ink-unity-integration": {
-      "version": "1.1.1",
+    "com.inkle.ink-unity-integration": {
+      "version": "1.2.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
