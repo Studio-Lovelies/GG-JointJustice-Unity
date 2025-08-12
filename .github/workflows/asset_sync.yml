@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.PATDOCSGEN }}
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Generate current hash of 2-1-FullScene.ink
         run: echo "currentHash=$(find unity-ggjj/Assets/Resources/InkDialogueScripts/CaseDemo/2-1-FullScene.ink -type f -exec md5sum {} \; | md5sum)" >> $GITHUB_ENV
