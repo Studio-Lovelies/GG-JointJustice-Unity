@@ -97,7 +97,7 @@ jobs:
       testDirectories: ${{ steps.bashScript.outputs.testDirectories }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         
       - name: Run script file
         id: bashScript
@@ -171,7 +171,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Download macOS
         uses: actions/download-artifact@v5
