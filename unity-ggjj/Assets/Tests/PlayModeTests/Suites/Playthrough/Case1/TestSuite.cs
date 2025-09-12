@@ -31,8 +31,13 @@ namespace Tests.PlayModeTests.Suites.Playthrough.Case1
             yield return SceneManager.LoadSceneAsync("Game");
             _appearingDialogueController = Object.FindAnyObjectByType<AppearingDialogueController>();
             _narrativeGameState = Object.FindAnyObjectByType<NarrativeGameState>();
+            var inputModules = Object.FindObjectsByType<InputModule>(FindObjectsSortMode.None);
+            foreach (var module in inputModules)
+                module.OnDisable();
             _storyProgresser = new StoryProgresser();
             _storyProgresser.Setup();
+            foreach (var module in inputModules)
+                module.OnEnable();
         }
 
         [UnityTest]

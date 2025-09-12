@@ -14,6 +14,7 @@ namespace Tests.PlayModeTests.Tools
     {
         public Keyboard keyboard;
         public Mouse mouse;
+        public Pen pen;
 
         private EditorWindow _gameViewWindow;
 
@@ -23,10 +24,12 @@ namespace Tests.PlayModeTests.Tools
 
             keyboard = InputSystem.AddDevice<Keyboard>("keyboardMock");
             mouse = InputSystem.AddDevice<Mouse>("mouseMock");
+            pen = InputSystem.AddDevice<Pen>("penMock");
         }
 
         public override void TearDown()
         {
+            InputSystem.RemoveDevice(pen);
             InputSystem.RemoveDevice(mouse);
             InputSystem.RemoveDevice(keyboard);
 
