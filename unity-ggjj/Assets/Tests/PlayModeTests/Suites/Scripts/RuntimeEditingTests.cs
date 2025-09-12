@@ -40,8 +40,8 @@ namespace Tests.PlayModeTests.Suites.Scripts
 
             TestTools.StartGame("ActorControllerTestScript");
             
-            _appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
-            _fileSystemWatcher = Object.FindObjectOfType<FileSystemWatcher>();
+            _appearingDialogueController = Object.FindAnyObjectByType<global::AppearingDialogueController>();
+            _fileSystemWatcher = Object.FindAnyObjectByType<FileSystemWatcher>();
         }
 
         [UnityTearDown]
@@ -61,8 +61,8 @@ namespace Tests.PlayModeTests.Suites.Scripts
             SceneManager.LoadScene("Game");
             yield return null;
             
-            _appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
-            _fileSystemWatcher = Object.FindObjectOfType<FileSystemWatcher>();
+            _appearingDialogueController = Object.FindAnyObjectByType<global::AppearingDialogueController>();
+            _fileSystemWatcher = Object.FindAnyObjectByType<FileSystemWatcher>();
 
             TestTools.StartGame("ActorControllerTestScript");
             Assert.IsTrue(File.Exists(_fileSystemWatcher.AbsolutePathToWatchedScript));
@@ -88,7 +88,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
             Assert.AreNotEqual(normalizedTextContent.Split(Environment.NewLine).Last(), _appearingDialogueController.Text);
             
             File.WriteAllText(_fileSystemWatcher.AbsolutePathToWatchedScript, normalizedTextContent);
-            yield return TestTools.WaitForState(() => normalizedTextContent.Split(Environment.NewLine).Last().Trim() == Object.FindObjectOfType<global::AppearingDialogueController>().Text);
+            yield return TestTools.WaitForState(() => normalizedTextContent.Split(Environment.NewLine).Last().Trim() == Object.FindAnyObjectByType<global::AppearingDialogueController>().Text);
         }
 
         [UnityTest]
@@ -122,7 +122,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
             _storyProgresser.Press(Keyboard.leftCommandKey);
             yield return _storyProgresser.PressForFrame(Keyboard.rKey);
             _storyProgresser.Release(Keyboard.leftCommandKey);
-            yield return TestTools.WaitForState(() => textBeforeReload != Object.FindObjectOfType<global::AppearingDialogueController>().Text);
+            yield return TestTools.WaitForState(() => textBeforeReload != Object.FindAnyObjectByType<global::AppearingDialogueController>().Text);
         }
     }
 }

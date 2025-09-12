@@ -24,7 +24,7 @@ namespace Tests.PlayModeTests.Suites.Scripts.AppearingDialogueController
         {
             SceneManager.LoadScene("Game");
             yield return null;
-            _appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            _appearingDialogueController = Object.FindAnyObjectByType<global::AppearingDialogueController>();
             _appearingDialogueController.AutoSkip = false;
             yield return new WaitForEndOfFrame();
         }
@@ -112,7 +112,7 @@ namespace Tests.PlayModeTests.Suites.Scripts.AppearingDialogueController
             var storyProgresser = new StoryProgresser();
             storyProgresser.Setup();
             TestTools.StartGame("AutoSkipTest");
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeGameState>().NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
+            var narrativeScriptPlayer = Object.FindAnyObjectByType<NarrativeGameState>().NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
 
             yield return TestTools.WaitForState(() => !_appearingDialogueController.IsPrintingText);
             var dialogueText = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
@@ -128,7 +128,7 @@ namespace Tests.PlayModeTests.Suites.Scripts.AppearingDialogueController
             var storyProgresser = new StoryProgresser();
             storyProgresser.Setup();
             TestTools.StartGame("AutoSkipTest");
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeGameState>().NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
+            var narrativeScriptPlayer = Object.FindAnyObjectByType<NarrativeGameState>().NarrativeScriptPlayerComponent.NarrativeScriptPlayer;
             var continueArrow = GameObject.Find("ContinueArrow");
 
             Assert.IsFalse(_appearingDialogueController.IsPrintingText);

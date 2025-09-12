@@ -29,7 +29,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
         {
             yield return SceneManager.LoadSceneAsync("Game");
             TestTools.StartGame("PenaltyTest");
-            _penaltyManager = Object.FindObjectOfType<PenaltyManager>();
+            _penaltyManager = Object.FindAnyObjectByType<PenaltyManager>();
         }
 
         [UnityTest]
@@ -52,7 +52,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
         [UnityTest]
         public IEnumerator NumberOfPenaltiesCanBeReset()
         {
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            var narrativeScriptPlayer = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>();
             for (int i = 0; i < 3; i++)
             {
                 yield return _storyProgresser.ProgressStory();

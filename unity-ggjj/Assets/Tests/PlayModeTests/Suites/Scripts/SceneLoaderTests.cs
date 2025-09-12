@@ -70,7 +70,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
         {
             _gameLoader.StartGame();
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == GAME_SCENE_NAME);
-            var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            var narrativeGameState = Object.FindAnyObjectByType<NarrativeGameState>();
             Assert.AreEqual("RossCoolX", narrativeGameState.NarrativeScriptStorage.NarrativeScript.Script.name);
         }
 
@@ -81,12 +81,12 @@ namespace Tests.PlayModeTests.Suites.Scripts
             
             _gameLoader.StartGame();
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == GAME_SCENE_NAME);
-            var gameStarter = Object.FindObjectOfType<GameStarter>();
+            var gameStarter = Object.FindAnyObjectByType<GameStarter>();
             Assert.IsNotNull(gameStarter, "The Game scene requires a GameStarter; if this should not be used, unset the narrative script inside it instead");
             var testDebugScript = AssetDatabase.LoadAssetAtPath<TextAsset>(TEST_DEBUG_STRING_PATH);
             Assert.NotNull(testDebugScript, "Specified test debug script could not be loaded.");
             TestTools.SetField(gameStarter, "_debugNarrativeScriptTextAsset", testDebugScript);
-            var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            var narrativeGameState = Object.FindAnyObjectByType<NarrativeGameState>();
             Assert.AreEqual("RossCoolX", narrativeGameState.NarrativeScriptStorage.NarrativeScript.Script.name);
         }
     }

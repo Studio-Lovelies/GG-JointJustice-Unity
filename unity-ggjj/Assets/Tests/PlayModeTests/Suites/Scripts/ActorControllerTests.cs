@@ -26,7 +26,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
             yield return null;
             TestTools.StartGame("ActorControllerTestScript");
 
-            _actorController = Object.FindObjectOfType<ActorController>();
+            _actorController = Object.FindAnyObjectByType<ActorController>();
 
             yield return _storyProgresser.ProgressStory();
             GetActors();
@@ -101,7 +101,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
         {
             _actorController.SetActiveActor("TutorialBoy");
             var witnessActor = GameObject.Find("Witness_Actor").GetComponent<Actor>();
-            var objectStorage = Object.FindObjectOfType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
+            var objectStorage = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer.ActiveNarrativeScript.ObjectStorage;
             Assert.IsTrue(witnessActor.MatchesActorData(objectStorage.GetObject<ActorData>("TutorialBoy")));
         }
 
@@ -117,7 +117,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
         [UnityTest]
         public IEnumerator SpeakerCanBeSetToNarrator()
         {
-            var nameBox = Object.FindObjectOfType<NameBox>().gameObject;
+            var nameBox = Object.FindAnyObjectByType<NameBox>().gameObject;
 
             _actorController.SetActiveSpeakerToNarrator();
             yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.xKey);
@@ -150,7 +150,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
             const string ACTOR_NAME = "Ross";
             _actorController.AssignActorToSlot("Defense", ACTOR_NAME);
             _actorController.AssignActorToSlot("Prosecution", ACTOR_NAME);
-            var actors = Object.FindObjectOfType<BGSceneList>().GetComponentsInChildren<Actor>();
+            var actors = Object.FindAnyObjectByType<BGSceneList>().GetComponentsInChildren<Actor>();
             foreach (var actor in actors)
             {
                 Assert.AreEqual(ACTOR_NAME, actor.ActorData.InstanceName);
@@ -188,7 +188,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
             const string ACTOR_NAME = "Arin";
             const string ANIMATION_NAME = "Point";
             
-            var sceneController = Object.FindObjectOfType<SceneController>();
+            var sceneController = Object.FindAnyObjectByType<SceneController>();
             sceneController.SetScene("TMPHCourt");
             _actorController.AssignActorToSlot("Defense", ACTOR_NAME);
             sceneController.SetScene("Anime");
@@ -213,7 +213,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
             
             var bgSceneList = GameObject.Find("BGSceneList");
 
-            var sceneController = Object.FindObjectOfType<SceneController>();
+            var sceneController = Object.FindAnyObjectByType<SceneController>();
             sceneController.SetScene("TMPHCourt");
             _actorController.AssignActorToSlot("Defense", ACTOR_NAME);
             _actorController.SetPose(ANIMATION_NAME, ACTOR_NAME);
@@ -254,7 +254,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
         private void AssertNameBoxCorrect()
         {
             var actorData = _actorController.CurrentSpeakingActorData;
-            var nameBoxImage = Object.FindObjectOfType<NameBox>().GetComponent<Image>();
+            var nameBoxImage = Object.FindAnyObjectByType<NameBox>().GetComponent<Image>();
             var nameBoxText = nameBoxImage.GetComponentInChildren<TextMeshProUGUI>();
             Assert.AreEqual(actorData.DisplayColor, nameBoxImage.color);
             Assert.AreEqual(actorData.DisplayName, nameBoxText.text);

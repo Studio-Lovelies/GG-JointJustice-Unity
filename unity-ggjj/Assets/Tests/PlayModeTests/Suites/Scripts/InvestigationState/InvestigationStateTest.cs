@@ -34,15 +34,15 @@ namespace Tests.PlayModeTests.Suites.Scripts.InvestigationState
             yield return SceneManager.LoadSceneAsync("Game");
             TestTools.StartGame("InvestigationUI");
 
-            NarrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            NarrativeScriptPlayerComponent = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>();
             InvestigationMainMenu = TestTools.FindInactiveInSceneByName<Menu>("InvestigateMainMenu");
             InvestigationTalkMenu = TestTools.FindInactiveInSceneByName<Menu>("InvestigateTalkMenu");
             InvestigationMoveMenu = TestTools.FindInactiveInSceneByName<Menu>("InvestigateMoveMenu");
             EvidenceMenu = TestTools.FindInactiveInSceneByName<Menu>("EvidenceMenu");
             InvestigateMoveContainer = TestTools.FindInactiveInSceneByName<GameObject>("InvestigateMoveContainer");
             SpeechPanel = GameObject.Find("SpeechPanel");
-            CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
-            var dialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            CanvasTransform = Object.FindAnyObjectByType<Canvas>().transform;
+            var dialogueController = Object.FindAnyObjectByType<global::AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !dialogueController.IsPrintingText);
             
             Assert.False(InvestigationMainMenu.isActiveAndEnabled);

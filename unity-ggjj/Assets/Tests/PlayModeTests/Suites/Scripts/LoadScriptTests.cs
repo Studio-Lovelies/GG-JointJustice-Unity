@@ -34,7 +34,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
         [UnityTest]
         public IEnumerator NarrativeScriptsCanBeLoaded()
         {
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer;
+            var narrativeScriptPlayer = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer;
             Assert.AreEqual("LoadScriptTest", narrativeScriptPlayer.ActiveNarrativeScript.Script.name);
             yield return _storyProgresser.ProgressStory();
             Assert.AreEqual("TMPHFAIL1", narrativeScriptPlayer.ActiveNarrativeScript.Script.name);
@@ -43,7 +43,7 @@ namespace Tests.PlayModeTests.Suites.Scripts
         [UnityTest]
         public IEnumerator BGScenesAreDestroyedAndCreatedOnScriptLoad()
         {
-            var bgSceneListTransform = Object.FindObjectOfType<BGSceneList>().transform;
+            var bgSceneListTransform = Object.FindAnyObjectByType<BGSceneList>().transform;
             Assert.AreEqual(1, bgSceneListTransform.childCount);
             Assert.AreEqual("TMPHLobby", bgSceneListTransform.GetChild(0).name);
             yield return _storyProgresser.ProgressStory();

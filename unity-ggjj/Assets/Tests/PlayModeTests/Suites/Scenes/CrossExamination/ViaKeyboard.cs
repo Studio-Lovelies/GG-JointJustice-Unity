@@ -31,14 +31,14 @@ namespace Tests.PlayModeTests.Suites.Scenes.CrossExamination
         {
             yield return SceneManager.LoadSceneAsync("Game");
             TestTools.StartGame("RossCoolX");
-            _narrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            _narrativeScriptPlayerComponent = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>();
         }
 
         [UnityTest]
         public IEnumerator CanPresentEvidenceDuringExamination()
         {
             yield return _storyProgresser.ProgressStory();
-            var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>(true);
+            var evidenceMenu = Object.FindAnyObjectByType<EvidenceMenu>(FindObjectsInactive.Include);
             yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.zKey);
             Assert.True(evidenceMenu.isActiveAndEnabled);
             yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.enterKey);
@@ -66,7 +66,7 @@ namespace Tests.PlayModeTests.Suites.Scenes.CrossExamination
         [UnityTest]
         public IEnumerator CantPresentEvidenceDuringPressingDialogue()
         { 
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            var narrativeScriptPlayer = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>();
             
             yield return _storyProgresser.ProgressStory();
             yield return _storyProgresser.PressForFrame(_storyProgresser.keyboard.cKey);
@@ -82,7 +82,7 @@ namespace Tests.PlayModeTests.Suites.Scenes.CrossExamination
         [UnityTest]
         public IEnumerator GameOverPlaysOnNoLivesLeft()
         {
-            var penaltyManager = Object.FindObjectOfType<PenaltyManager>();
+            var penaltyManager = Object.FindAnyObjectByType<PenaltyManager>();
             
             for (var i = penaltyManager.PenaltiesLeft; i > 0; i--)
             {

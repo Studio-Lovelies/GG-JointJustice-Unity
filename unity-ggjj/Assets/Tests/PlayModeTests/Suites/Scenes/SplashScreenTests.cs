@@ -31,7 +31,7 @@ namespace Tests.PlayModeTests.Suites.Scenes
         {
             yield return SceneManager.LoadSceneAsync("Splash");
 
-            var fadeToImageTransition = Object.FindObjectOfType<FadeToImageTransition>();
+            var fadeToImageTransition = Object.FindAnyObjectByType<FadeToImageTransition>();
             var fadeTime = fadeToImageTransition.FadeTime;
             var blackScreen = fadeToImageTransition.GetComponent<Image>();
             
@@ -54,12 +54,12 @@ namespace Tests.PlayModeTests.Suites.Scenes
         public IEnumerator SplashScreenLoadsMainMenuWithBothImages()
         {
             yield return SceneManager.LoadSceneAsync("Splash");
-            SplashScreen splashScreen = Object.FindObjectOfType<SplashScreen>();
+            SplashScreen splashScreen = Object.FindAnyObjectByType<SplashScreen>();
             var imageName = splashScreen.GetComponent<Image>().sprite.texture.name;
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "MainMenu");
             
             yield return SceneManager.LoadSceneAsync("Splash");
-            splashScreen = Object.FindObjectOfType<SplashScreen>();
+            splashScreen = Object.FindAnyObjectByType<SplashScreen>();
             
             // override randomness and force the splash image to be different on the second run based on the first image
             if (imageName.Contains("1"))

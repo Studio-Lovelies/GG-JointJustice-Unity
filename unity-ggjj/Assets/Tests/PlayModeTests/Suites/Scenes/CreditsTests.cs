@@ -29,8 +29,8 @@ namespace Tests.PlayModeTests.Suites.Scenes
         public IEnumerator CreditsCanBeLoadedViaAction()
         {
             yield return SceneManager.LoadSceneAsync("Game");
-            var gameState = Object.FindObjectOfType<NarrativeGameState>();
-            var actionDecoder = Object.FindObjectOfType<ActionDecoderComponent>();
+            var gameState = Object.FindAnyObjectByType<NarrativeGameState>();
+            var actionDecoder = Object.FindAnyObjectByType<ActionDecoderComponent>();
             actionDecoder.Decoder.NarrativeGameState = gameState;
             Assert.AreNotEqual(SceneManager.GetActiveScene().name, "Credits");
             actionDecoder.OnNewActionLine("&LOAD_SCENE:Credits\n");

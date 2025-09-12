@@ -35,7 +35,7 @@ namespace Tests.PlayModeTests.Suites.Scripts.AudioController
             _musicSecondaryAAudioSource = musicSecondaryAGameObject.GetComponent<AudioSource>();
             _musicSecondaryAVolumeManager = musicSecondaryAGameObject.GetComponent<VolumeManager>();
 
-            _audioController = Object.FindObjectOfType<global::AudioController>();
+            _audioController = Object.FindAnyObjectByType<global::AudioController>();
         }
         
         [UnityTest]

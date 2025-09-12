@@ -107,7 +107,7 @@ namespace Tests.PlayModeTests.Suites.Scenes.MainMenu
             
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
-            var firstNarrativeScript = Object.FindObjectOfType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer.ActiveNarrativeScript.Script.name;
+            var firstNarrativeScript = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer.ActiveNarrativeScript.Script.name;
             
             SceneManager.LoadScene("MainMenu");
 
@@ -122,7 +122,7 @@ namespace Tests.PlayModeTests.Suites.Scenes.MainMenu
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
-            var secondNarrativeScript = Object.FindObjectOfType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer.ActiveNarrativeScript.Script.name;
+            var secondNarrativeScript = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>().NarrativeScriptPlayer.ActiveNarrativeScript.Script.name;
             
             Assert.AreNotEqual(firstNarrativeScript, secondNarrativeScript);
         }
@@ -133,7 +133,7 @@ namespace Tests.PlayModeTests.Suites.Scenes.MainMenu
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
             
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            var narrativeScriptPlayer = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>();
             yield return TestTools.WaitForState(() => narrativeScriptPlayer.NarrativeScriptPlayer.ActiveNarrativeScript.Script.name != "Baby");
         }
 
@@ -153,7 +153,7 @@ namespace Tests.PlayModeTests.Suites.Scenes.MainMenu
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
             
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            var narrativeScriptPlayer = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>();
             yield return TestTools.WaitForState(() => narrativeScriptPlayer.NarrativeScriptPlayer.ActiveNarrativeScript.Script.name == "Baby");
         }
 
@@ -173,7 +173,7 @@ namespace Tests.PlayModeTests.Suites.Scenes.MainMenu
             yield return _inputTestTools.PressForFrame(Keyboard.enterKey);
             yield return TestTools.WaitForState(() => SceneManager.GetActiveScene().name == "Game");
             
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            var narrativeScriptPlayer = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>();
             yield return TestTools.WaitForState(() => narrativeScriptPlayer.NarrativeScriptPlayer.ActiveNarrativeScript.Script.name != "Baby");
         }
     }

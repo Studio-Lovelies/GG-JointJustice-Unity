@@ -21,7 +21,7 @@ namespace Tests.PlayModeTests.Suites.Scripts.ChoiceMenu
             TestTools.StartGame("ChoiceMenu");
             
             ChoiceMenu = TestTools.FindInactiveInSceneByName<Menu>("ChoiceMenu");
-            _narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            _narrativeGameState = Object.FindAnyObjectByType<NarrativeGameState>();
         }
 
         [UnityTest]

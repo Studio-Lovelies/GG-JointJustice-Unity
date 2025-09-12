@@ -48,7 +48,7 @@ namespace Tests.PlayModeTests.Suites.Scripts.EvidenceMenu
             yield return storyProgresser.ProgressStory();
             yield return storyProgresser.PressForFrame(storyProgresser.keyboard.rightArrowKey);
             yield return storyProgresser.PressForFrame(storyProgresser.keyboard.enterKey);
-            var narrativeScriptPlayer = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            var narrativeScriptPlayer = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>();
             Assert.IsTrue(narrativeScriptPlayer.NarrativeScriptPlayer.HasSubStory);
         }
         
@@ -159,7 +159,7 @@ namespace Tests.PlayModeTests.Suites.Scripts.EvidenceMenu
             var evidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             TestTools.StartGame("LongCrossExamination");
 
-            var appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            var appearingDialogueController = Object.FindAnyObjectByType<global::AppearingDialogueController>();
             var speechPanel = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
             
             // Make sure text is still being printed
@@ -197,7 +197,7 @@ namespace Tests.PlayModeTests.Suites.Scripts.EvidenceMenu
             var evidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             TestTools.StartGame("EndlessCrossExamination");
 
-            var appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            var appearingDialogueController = Object.FindAnyObjectByType<global::AppearingDialogueController>();
             var speechPanel = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
 
             //// Act...
@@ -245,7 +245,7 @@ namespace Tests.PlayModeTests.Suites.Scripts.EvidenceMenu
             var evidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             TestTools.StartGame("EndlessCrossExamination");
 
-            var appearingDialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            var appearingDialogueController = Object.FindAnyObjectByType<global::AppearingDialogueController>();
             var speechPanel = GameObject.Find("Dialogue").GetComponent<TextMeshProUGUI>();
 
             //// Act...

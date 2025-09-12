@@ -15,7 +15,7 @@ namespace Tests.PlayModeTests.Tools
         public IEnumerator ProgressStory()
         {
             Press(keyboard.xKey);
-            var appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
+            var appearingDialogueController = Object.FindAnyObjectByType<AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !appearingDialogueController.IsPrintingText);
             Release(keyboard.xKey);
         }
@@ -26,7 +26,7 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="choiceIndex">The index of the choice to press</param>
         public IEnumerator SelectDialogueChoice(int choiceIndex)
         {
-            var choice = Object.FindObjectOfType<ChoiceMenu>().transform.GetChild(choiceIndex).GetComponent<Selectable>();
+            var choice = Object.FindAnyObjectByType<ChoiceMenu>().transform.GetChild(choiceIndex).GetComponent<Selectable>();
             choice.Select();
             yield return PressForFrame(keyboard.xKey);
         }
@@ -55,7 +55,7 @@ namespace Tests.PlayModeTests.Tools
         /// <param name="evidenceName">The name of the evidence to present</param>
         public IEnumerator PresentEvidence(EvidenceAssetName evidenceName)
         {
-            var narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            var narrativeGameState = Object.FindAnyObjectByType<NarrativeGameState>();
             var courtRecordObjects = narrativeGameState.ObjectStorage.GetObjectsOfType<ICourtRecordObject>().ToList();
 
             // Check if the choice is the name of a piece of evidence (excludes incorrect options such as "wrong")
@@ -71,7 +71,7 @@ namespace Tests.PlayModeTests.Tools
             }
             
             yield return PressForFrame(keyboard.zKey);
-            var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
+            var evidenceMenu = Object.FindAnyObjectByType<EvidenceMenu>();
             var evidenceMenuItems = evidenceMenu.transform.GetComponentsInChildren<EvidenceMenuItem>();
             var incrementButton = evidenceMenu.transform.GetComponentsInChildren<Selectable>().First(menuItem => menuItem.name == "IncrementButton");
 

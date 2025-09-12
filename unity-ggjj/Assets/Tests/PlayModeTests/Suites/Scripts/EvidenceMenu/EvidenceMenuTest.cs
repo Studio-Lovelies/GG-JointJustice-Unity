@@ -35,12 +35,12 @@ namespace Tests.PlayModeTests.Suites.Scripts.EvidenceMenu
             yield return SceneManager.LoadSceneAsync("Game");
             TestTools.StartGame("AddRecordTest");
 
-            EvidenceController = Object.FindObjectOfType<EvidenceController>();
-            NarrativeScriptPlayerComponent = Object.FindObjectOfType<NarrativeScriptPlayerComponent>();
+            EvidenceController = Object.FindAnyObjectByType<EvidenceController>();
+            NarrativeScriptPlayerComponent = Object.FindAnyObjectByType<NarrativeScriptPlayerComponent>();
             EvidenceMenu = TestTools.FindInactiveInScene<global::EvidenceMenu>()[0];
             Menu = EvidenceMenu.GetComponent<Menu>();
-            CanvasTransform = Object.FindObjectOfType<Canvas>().transform;
-            var dialogueController = Object.FindObjectOfType<global::AppearingDialogueController>();
+            CanvasTransform = Object.FindAnyObjectByType<Canvas>().transform;
+            var dialogueController = Object.FindAnyObjectByType<global::AppearingDialogueController>();
             yield return TestTools.WaitForState(() => !dialogueController.IsPrintingText);
         }
 

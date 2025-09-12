@@ -29,8 +29,8 @@ namespace Tests.PlayModeTests.Suites.Playthrough.Case1
         public IEnumerator SetUp()
         {
             yield return SceneManager.LoadSceneAsync("Game");
-            _appearingDialogueController = Object.FindObjectOfType<AppearingDialogueController>();
-            _narrativeGameState = Object.FindObjectOfType<NarrativeGameState>();
+            _appearingDialogueController = Object.FindAnyObjectByType<AppearingDialogueController>();
+            _narrativeGameState = Object.FindAnyObjectByType<NarrativeGameState>();
             _storyProgresser = new StoryProgresser();
             _storyProgresser.Setup();
         }
@@ -91,7 +91,7 @@ namespace Tests.PlayModeTests.Suites.Playthrough.Case1
                 
                 var choices = _narrativeScript.Story.currentChoices;
                 var currentText = _narrativeScript.Story.currentText;
-                var evidenceMenu = Object.FindObjectOfType<EvidenceMenu>();
+                var evidenceMenu = Object.FindAnyObjectByType<EvidenceMenu>();
 
                 // If the evidence menu is open we need to present evidence
                 if (evidenceMenu != null && evidenceMenu.CanPresentEvidence)
