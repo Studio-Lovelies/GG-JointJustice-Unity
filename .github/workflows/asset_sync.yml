@@ -22,7 +22,7 @@ jobs:
         run: echo "currentHash=$(find unity-ggjj/Assets/Resources/InkDialogueScripts/CaseDemo/2-1-FullScene.ink -type f -exec md5sum {} \; | md5sum)" >> $GITHUB_ENV
 
       - name: Setup node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version-file: 'asset_sync/.nvmrc'
 
