@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Github Pages branch
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           path: repo
           ref: gh-pages
