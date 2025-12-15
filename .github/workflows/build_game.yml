@@ -71,7 +71,7 @@ jobs:
           customParameters: "${{ (github.event.inputs.createRelease != 'true') && '-Development -AllowDebugging' }}"
 
       - name: Upload '${{ inputs.outputName }}' artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ inputs.outputName }}-v${{ inputs.versionNumber }}
           path: build/${{ inputs.unityPlatform }}
